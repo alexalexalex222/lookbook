@@ -279,7 +279,7 @@ def _vertical_rule(resolution: RouteResolution, rules: RoutingRules):
 
 
 def _visual_quality_enabled(request: DesignContextRequest) -> bool:
-    return request.visual_quality_profile == "strict_gpt55_mcp_v1"
+    return request.visual_quality_profile == "strict_design_router_gpt55_mcp_v1"
 
 
 def _hard_ui_rules() -> str:

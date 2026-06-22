@@ -1,6 +1,6 @@
 {
-  "name": "gpt-5.5-mcp",
-  "display_name": "GPT-5.5 MCP",
+  "name": "design-router-gpt-5.5-mcp",
+  "display_name": "Design Router GPT-5.5 MCP",
   "description": "MCP server that resolves frontend design-context requests into anchor-first markdown packets and sanitized source excerpts for coding agents.",
   "status": "mcp-server-implemented",
   "canonical_source": "src/design_router_mcp",
@@ -30,7 +30,7 @@
     "get_preview_images"
   ],
   "cli": {
-    "packet_cli": "gpt-5.5-packet",
-    "mcp_cli": "gpt-5.5-mcp"
+    "packet_cli": "design-router-gpt-5.5-packet",
+    "mcp_cli": "design-router-gpt-5.5-mcp"
   }
 }

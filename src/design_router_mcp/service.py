@@ -87,7 +87,7 @@ def resolve_design_context(
     host_browser_review: bool = False,
     token_mode: TokenMode | str = "compact",
     local_model_profile: str | None = None,
-    visual_quality_profile: str = "strict_gpt55_mcp_v1",
+    visual_quality_profile: str = "strict_design_router_gpt55_mcp_v1",
     code_profile: str = "balanced",
     packet_intent: str = "balanced",
     rules_path: Path | str | None = None,

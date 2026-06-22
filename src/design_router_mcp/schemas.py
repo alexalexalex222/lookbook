@@ -10,7 +10,7 @@ LocalModelProfile = Literal["tiny_16k", "balanced_32k", "strong_64k", "moe_128k"
 DonorSelectionMode = Literal["default", "support_examples_v1", "site_donor_first_v1", "auto_lane_promotion_v1"]
 RouteProfile = Literal["hybrid_survivor_v1", "legacy_exploration", "specialty_hardened", "data_driven_v2"]
 PacketProfile = Literal["current_source_first_v1", "march12_exploratory", "march15_foldfit", "compact_v2"]
-VisualQualityProfile = Literal["strict_gpt55_mcp_v1", "legacy_relaxed"]
+VisualQualityProfile = Literal["strict_design_router_gpt55_mcp_v1", "legacy_relaxed"]
 CodeProfile = Literal["balanced", "code_first"]
 PacketIntent = Literal["balanced", "code_first", "design_director", "visual_system", "implementation_blueprint"]
 UxRole = Literal[
@@ -62,7 +62,7 @@ class DesignContextRequest(BaseModel):
     host_browser_review: bool = Field(default=False)
     token_mode: TokenMode = Field(default="compact")
     local_model_profile: LocalModelProfile | None = Field(default=None)
-    visual_quality_profile: VisualQualityProfile = Field(default="strict_gpt55_mcp_v1")
+    visual_quality_profile: VisualQualityProfile = Field(default="strict_design_router_gpt55_mcp_v1")
     code_profile: CodeProfile = Field(
         default="balanced",
         description="Use 'code_first' when local models need more implementation code and less prose before building.",

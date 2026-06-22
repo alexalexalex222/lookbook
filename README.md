@@ -1,89 +1,126 @@
-# gpt-5.5-mcp
+# Design Router GPT-5.5 MCP
 
-`gpt-5.5-mcp` gives coding agents a better starting point for UI work.
+Design Router GPT-5.5 MCP is an open-source MCP server and packet compiler for
+frontend generation. It takes a product brief, routes it through a curated design
+library, and returns a compact build packet with layout direction, source-backed
+patterns, implementation constraints, and anti-copy rules.
 
-Most models can write HTML and CSS, but many of them drift into generic layouts:
-big hero, three cards, vague copy, fake stats, and weak mobile states. Design
-Router fixes the starting context. It turns a frontend brief into a compact
-design packet with a relevant anchor, hard UI rules, proof-safety rules, source
-snippets, and layout checks.
+It is built for coding agents that can write code but need sharper design
+context before they start. The output is not a theme, template, or screenshot
+clone. It is a structured brief that tells the model what pattern family to use,
+what details to adapt, and what it must not copy.
 
-This repo is the open-source GPT-5.5 MCP version. It keeps the full canonical MCP
-runtime, routing engine, packet renderer, source excerpt loader, validation
-checks, shared UI atoms, and the routed goldenset library used by the server.
-Non-public handoffs, local caches, old benchmark dumps, scratch scripts, and raw
-transcript material are intentionally not included.
+## What Ships
 
-## What It Does
+- MCP stdio server for LM Studio, OpenCode, Codex-compatible clients, and other
+  agent runtimes.
+- CLI packet compiler for offline or scripted use.
+- Routing engine that scores frontend briefs against anchor packs and support
+  banks.
+- Packet renderer with token modes from `micro` through larger source excerpts.
+- Full public golden-set library in `goldensets/` plus packaged copies under
+  `src/design_router_mcp/goldensets/`.
+- Validation, donor hygiene, source excerpt, route alternative, and density
+  tools.
 
-- Routes a frontend brief to the best available design anchor.
-- Produces a markdown packet for a coding agent or local model.
-- Pushes hard rules early so weak UI models see them before they start coding.
-- Keeps image, proof, and claim rules explicit.
-- Supports small-context models with `micro` and `compact` modes.
-- Exposes the full local MCP server for LM Studio, OpenCode, and other local
-  agents.
+## Why It Exists
 
-## Included Library
+General-purpose models tend to flatten frontend work into the same few moves:
+soft gradients, oversized heroes, equal card grids, invented social proof, weak
+forms, and mobile layouts nobody checked. Design Router GPT-5.5 MCP fixes the
+starting context. It gives the model a stronger design system before code is
+written.
 
-The public repo includes 22 routed packs:
+The server is especially useful when you want generated UI to inherit real
+structure from strong examples without stealing a donor site's identity, copy,
+assets, testimonials, or claims.
 
-- anchor packs for SaaS dashboards, combat sports, water service, live commerce,
-  developer docs, luxury/editorial pages, product/spec pages, interactive
-  instruments, finance terminals, garden care, legal/business pages, cabinetry,
-  flooring, and related local-service surfaces;
-- support banks for GA SMB page structures and the localhost full-site pattern
-  bank captured on 2026-06-22;
-- shared atoms for navigation, heroes, cards, forms, tabs, FAQs, pricing,
-  stats, galleries, footers, and interaction states.
+## Golden Sets, Not Copy Sets
 
-The server uses the same library from `goldensets/` during local development and
-from `src/design_router_mcp/goldensets/` when packaged.
+The golden sets are pattern sources. They are not pages to clone.
 
-## Quick Start
+A packet can include source excerpts, component structure, density cues, section
+ordering, typography patterns, interaction states, and visual rules. The packet
+also carries guardrails that tell the model to write new page copy for the target
+brief and to avoid copying donor identity.
+
+The anti-copy layer exists for this exact reason:
+
+- donor business names, phone numbers, emails, domains, reviews, awards, and
+  claims are treated as unsafe target-page material;
+- source copy is used for tone, hierarchy, and density, not as raw text to paste;
+- raster images and external asset URLs are blocked unless the user supplies
+  assets for the target build;
+- generated pages should use fresh target-specific copy, neutral placeholders
+  for missing proof, and their own visual composition;
+- support-bank examples are used to triangulate layout patterns, not to recreate
+  one donor page.
+
+## Install
 
 ```bash
+git clone https://github.com/alexalexalex222/design-router-gpt-5.5-mcp.git
+cd design-router-gpt-5.5-mcp
 python -m venv .venv
 . .venv/bin/activate
-pip install -e ".[dev]"
+pip install -e ".[dev,mcp]"
 PYTHONPATH=src python -m design_router_mcp.cli --repo-root . validate
 ```
 
-Create a packet:
+## CLI Usage
+
+Export a packet:
 
 ```bash
 PYTHONPATH=src python -m design_router_mcp.cli --repo-root . export \
   --surface website.local_service \
   --task "Build a serious martial arts gym homepage" \
-  --output-dir /tmp/gpt-5.5-mcp-packet \
+  --output-dir /tmp/design-router-gpt-5.5-mcp-packet \
   --token-mode compact \
-  --stack html_css
+  --stack html_css \
+  --code-profile code_first
 ```
 
-Then give `/tmp/gpt-5.5-mcp-packet/PACKET.md` to your coding agent.
+The export writes:
 
-## LM Studio
+```text
+/tmp/design-router-gpt-5.5-mcp-packet/PACKET.md
+/tmp/design-router-gpt-5.5-mcp-packet/SOURCES.json
+```
 
-Point LM Studio's MCP config at the local server:
+Give `PACKET.md` to the coding agent that will build the page.
+
+Useful CLI commands:
+
+```bash
+PYTHONPATH=src python -m design_router_mcp.cli --repo-root . list
+PYTHONPATH=src python -m design_router_mcp.cli --repo-root . validate
+PYTHONPATH=src python -m design_router_mcp.cli --repo-root . hygiene --pack-id localhost_fullsite_pattern_bank_20260622_v1
+```
+
+## MCP Usage
+
+Install the package in a virtual environment, then point your MCP client at the
+stdio entry point:
 
 ```json
 {
   "mcpServers": {
-    "gpt-5.5-mcp": {
-      "command": "/absolute/path/to/.venv/bin/gpt-5.5-mcp",
-      "args": ["--repo-root", "/absolute/path/to/gpt-5.5-mcp"]
+    "design-router-gpt-5.5-mcp": {
+      "command": "/absolute/path/to/.venv/bin/design-router-gpt-5.5-mcp",
+      "args": ["--repo-root", "/absolute/path/to/design-router-gpt-5.5-mcp"]
     }
   }
 }
 ```
 
-The main tool is:
+Main tool:
 
 ```text
 resolve_design_context
 ```
 
-The full MCP server also exposes:
+Additional tools:
 
 ```text
 inspect_design_library
@@ -96,36 +133,64 @@ audit_source_hygiene
 validate_design_router
 ```
 
-For local models, start with `token_mode: "micro"` or `token_mode: "compact"`.
-Use `code_profile: "code_first"` when the model needs more concrete HTML/CSS
-patterns and less explanation.
+Recommended request shape:
 
-## What To Watch Out For
+```json
+{
+  "surface": "website.local_service",
+  "task": "Build a premium homepage for a speaker company",
+  "stack": "html_css",
+  "token_mode": "compact",
+  "code_profile": "code_first",
+  "packet_intent": "implementation_blueprint"
+}
+```
 
-Design Router is not a magic UI generator. It is a context router. The model
-still has to build the page, and you still have to verify the result.
+## Library Contents
 
-Before shipping generated UI, check:
+The public library currently includes 22 routed packs:
 
-- no fake reviews, fake stats, fake awards, or fake credentials;
-- no copied business identity from an anchor pack;
-- no external images unless the user supplied them;
-- no emoji-as-icons;
-- no horizontal overflow on mobile;
-- no hidden focus rings;
-- no console errors;
-- loading, empty, error, hover, focus, and disabled states exist when relevant.
+- anchor packs for SaaS dashboards, combat sports, water service, live commerce,
+  developer docs, luxury/editorial pages, product/spec pages, interactive
+  instruments, finance terminals, garden care, legal/business pages, cabinetry,
+  flooring, and other local-service surfaces;
+- support banks for GA SMB page structures and the localhost full-site pattern
+  bank captured on 2026-06-22;
+- shared atoms for navigation, heroes, cards, forms, tabs, FAQs, pricing,
+  stats, galleries, footers, and interaction states.
 
-The shortest responsible loop is:
+## Verification
 
-1. Resolve a packet.
-2. Generate the page from that packet.
-3. Open the page in a real browser.
-4. Check desktop and mobile.
-5. Fix what is actually broken.
+Run the public smoke tests:
 
-## Why This Exists
+```bash
+PYTHONPATH=src python -m pytest tests -q
+```
 
-This is for people running local or smaller models that are useful at code but
-need stronger design rails. The packet gives them taste, constraints, source
-shape, and stop signs before they start writing files.
+Validate the design library:
+
+```bash
+PYTHONPATH=src python -m design_router_mcp.cli --repo-root . validate
+```
+
+Build a wheel when changing package metadata or entry points:
+
+```bash
+python -m pip wheel . --no-deps -w /tmp/design-router-gpt-5.5-mcp-wheel
+```
+
+## Project Layout
+
+```text
+src/design_router_mcp/        canonical Python package
+goldensets/                   public routed design library
+tests/                        public smoke tests
+docs/eval-quality.md          quality and evaluation notes
+server.json                   MCP/server manifest
+CANONICAL_SOURCE.md           source-tree boundary notes
+MIGRATION.md                  cleanup and migration notes
+```
+
+## License
+
+MIT. See `LICENSE`.

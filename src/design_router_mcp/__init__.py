@@ -1,4 +1,4 @@
-"""GPT-5.5 MCP packet compiler for frontend design routing."""
+"""Design Router GPT-5.5 MCP packet compiler for frontend design routing."""
 
 from .schemas import DesignContextRequest, RenderedPacket, RouteResolution
 from .router import DesignRouter
