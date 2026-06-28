@@ -1,11 +1,13 @@
-# Design Router GPT-5.5 MCP
+# Lookbook
+
+> **Design taste for any LLM** — turn any model (even a small local one) into a senior frontend designer.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-111111.svg)](LICENSE)
 ![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-1f6feb.svg)
 ![MCP Server](https://img.shields.io/badge/MCP-server-111111.svg)
 ![Local-first](https://img.shields.io/badge/local--first-coding_agents-0f766e.svg)
 
-Design Router GPT-5.5 MCP is an open-source MCP server and packet compiler for
+Lookbook is an open-source MCP server and packet compiler for
 frontend generation. It takes a product brief, routes it through a curated design
 library, and returns a compact build packet with layout direction, source-backed
 patterns, implementation constraints, and anti-copy rules.
@@ -32,7 +34,7 @@ what details to adapt, and what it must not copy.
 
 ## Model Targets
 
-Design Router GPT-5.5 MCP does not depend on one proprietary model. It is a
+Lookbook does not depend on one proprietary model. It is a
 front-end context layer for any model that can follow a build packet and write
 usable code.
 
@@ -48,7 +50,7 @@ Good fits include:
 
 General-purpose models tend to flatten frontend work into the same few moves:
 soft gradients, oversized heroes, equal card grids, invented social proof, weak
-forms, and mobile layouts nobody checked. Design Router GPT-5.5 MCP fixes the
+forms, and mobile layouts nobody checked. Lookbook fixes the
 starting context. It gives the model a stronger design system before code is
 written.
 
@@ -81,12 +83,12 @@ The anti-copy layer exists for this exact reason:
 
 These frames come from local screen recordings of the same speaker-company
 prompt run zero-shot. The two comparison clips are the first and second attempts
-without the Design Router packet. The selected run uses the packet-guided MCP
+without the Lookbook packet. The selected run uses the packet-guided MCP
 flow. This is visual evidence for first-pass direction, not a formal benchmark.
 
 | First try, no packet | Second try, no packet | Packet-guided run |
 |---|---|---|
-| <img src="docs/assets/zero-shot-proofs/baseline-try-1.jpg" alt="First zero-shot speaker-company attempt without the Design Router packet" width="260"> | <img src="docs/assets/zero-shot-proofs/baseline-try-2.jpg" alt="Second zero-shot speaker-company attempt without the Design Router packet" width="260"> | <img src="docs/assets/zero-shot-proofs/mcp-good-01.jpg" alt="Packet-guided zero-shot speaker-company homepage generated with Design Router GPT-5.5 MCP" width="260"> |
+| <img src="docs/assets/zero-shot-proofs/baseline-try-1.jpg" alt="First zero-shot speaker-company attempt without the Lookbook packet" width="260"> | <img src="docs/assets/zero-shot-proofs/baseline-try-2.jpg" alt="Second zero-shot speaker-company attempt without the Lookbook packet" width="260"> | <img src="docs/assets/zero-shot-proofs/mcp-good-01.jpg" alt="Packet-guided zero-shot speaker-company homepage generated with Lookbook" width="260"> |
 
 The packet-guided run carried the speaker-company direction past the hero into
 deeper product sections and inquiry flow:
@@ -96,8 +98,8 @@ deeper product sections and inquiry flow:
 ## Install
 
 ```bash
-git clone https://github.com/alexalexalex222/design-router-gpt-5.5-mcp.git
-cd design-router-gpt-5.5-mcp
+git clone https://github.com/alexalexalex222/lookbook.git
+cd lookbook
 python -m venv .venv
 . .venv/bin/activate
 pip install -e ".[dev,mcp]"
@@ -185,12 +187,16 @@ Recommended request shape:
 
 ## Library Contents
 
-The public library currently includes 22 routed packs:
+The public library currently includes 23 routed packs:
 
 - anchor packs for SaaS dashboards, combat sports, water service, live commerce,
   developer docs, luxury/editorial pages, product/spec pages, interactive
   instruments, finance terminals, garden care, legal/business pages, cabinetry,
   flooring, and other local-service surfaces;
+- the **frontier pattern bank** (`frontier_pattern_bank_20260628_v1`): 72
+  browser-verified, non-landing-page UI patterns — dashboards, data-viz, editors,
+  app shells, games, and real-time 3D/canvas scenes — so Lookbook routes for *all*
+  design work, not just marketing pages;
 - support banks for GA SMB page structures and the localhost full-site pattern
   bank captured on 2026-06-22;
 - shared atoms for navigation, heroes, cards, forms, tabs, FAQs, pricing,
