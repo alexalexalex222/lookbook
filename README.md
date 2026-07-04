@@ -90,9 +90,12 @@ The library is a swatchbook, not a clipboard.
 
 Nothing enters the library — or a packet — on vibes.
 
-- **Every pattern is browser-verified.** The 72 interactive patterns were rendered in
-  a real headless browser (Playwright) across desktop and mobile widths and pass with
-  **zero console errors and zero horizontal overflow** before being banked.
+- **Every pattern was browser-verified during curation.** Each was rendered in a real
+  headless browser (Playwright) across desktop and mobile widths and checked for
+  **zero console errors and zero horizontal overflow** before being banked. The harness
+  and most proof artifacts aren't included in this public snapshot yet — 3 packs ship
+  their `qa/browser-proof.json` as worked examples. See `docs/eval-quality.md` for the
+  full picture.
 - **`validate_design_router`** checks the whole library on demand: every manifest
   loads against a Pydantic schema, every source path and example directory resolves
   (no silent gaps), no path is absolute, and support banks have UX-role coverage.
