@@ -2063,7 +2063,7 @@
       ]
     },
     "aerospace_launch": {
-      "priority": 9,
+      "priority": 109,
       "aliases": [
         "aerospace launch",
         "orbital launch",
@@ -2140,7 +2140,7 @@
       ]
     },
     "fintech_terminal": {
-      "priority": 8,
+      "priority": 108,
       "aliases": [
         "markets terminal",
         "trading terminal",
@@ -2220,7 +2220,7 @@
       ]
     },
     "developer_docs": {
-      "priority": 7,
+      "priority": 107,
       "aliases": [
         "developer docs",
         "quickstart docs",
@@ -2297,7 +2297,7 @@
       ]
     },
     "luxury_maison": {
-      "priority": 6,
+      "priority": 106,
       "aliases": [
         "luxury maison",
         "quiet luxury",
@@ -2371,7 +2371,7 @@
       ]
     },
     "reference_product": {
-      "priority": 5,
+      "priority": 105,
       "aliases": [
         "reference product",
         "premium hardware",
@@ -2449,7 +2449,7 @@
       ]
     },
     "interactive_instrument": {
-      "priority": 4,
+      "priority": 104,
       "aliases": [
         "interactive instrument",
         "browser instrument",
@@ -2523,6 +2523,98 @@
       "ux_role_fallback": [
         "service_lane_set",
         "process_steps"
+      ]
+    },
+    "auto_detailing": {
+      "priority": 15,
+      "aliases": [
+        "auto detailing",
+        "car detailing",
+        "mobile detailing",
+        "mobile auto detailing",
+        "paint correction",
+        "ceramic coating",
+        "auto detail",
+        "car care",
+        "vehicle detailing",
+        "detail shop",
+        "detailing service",
+        "clay bar",
+        "showroom finish",
+        "paint polish",
+        "swirl removal",
+        "engine bay",
+        "interior detail"
+      ],
+      "keywords": [
+        "detailing",
+        "detailer",
+        "automotive",
+        "driveway",
+        "sealant"
+      ],
+      "motif_tags": [
+        "dark_texture",
+        "cta_treatment",
+        "phone_pill",
+        "hero_shell",
+        "high_contrast_blocking",
+        "trust_rail"
+      ],
+      "strength_tags": [
+        "service_clarity",
+        "cta_placement",
+        "phone_visibility",
+        "headline_hierarchy",
+        "trust_rail"
+      ],
+      "prefer_tones": [
+        "dark",
+        "industrial",
+        "premium",
+        "high-contrast",
+        "technical"
+      ],
+      "preferred_anchor_pack_ids": {
+        "emberforge_fight_gym_black_red_v1": 12,
+        "iron_circuit_fight_academy_black_copper_v1": 10,
+        "clear_ridge_water_works_field_blue_v1": 8
+      },
+      "penalized_anchor_pack_ids": {
+        "velvet_fig_beauty_editorial_v1": -25,
+        "aurelia_medspa_editorial_v1": -20,
+        "copperbeam_flooring_light_residential_v1": -10
+      },
+      "hero_reference_pack_ids": [
+        "emberforge_fight_gym_black_red_v1"
+      ],
+      "prefer_example_tokens": [
+        "garage",
+        "paint",
+        "body",
+        "industrial",
+        "dark",
+        "service"
+      ],
+      "blocked_example_tokens": [
+        "wax",
+        "sugaring",
+        "medspa",
+        "spa",
+        "beauty",
+        "lash",
+        "brow",
+        "dental",
+        "law"
+      ],
+      "auto_donor_first": true,
+      "support_role": "Use support donors for service grids, phone-priority CTAs, process steps, and local proof — never beauty or medspa donors.",
+      "ux_role_fallback": [
+        "phone_priority_layout",
+        "service_lane_set",
+        "form_intake",
+        "process_steps",
+        "proof_rail"
       ]
     }
   },
@@ -3994,6 +4086,107 @@
         "no fake functional controls",
         "no marketing padding",
         "no crowded onboarding prose"
+      ]
+    },
+    "auto_detailing": {
+      "section_count_target": 7,
+      "rhythm_breaks": [
+        "section 2 must change layout shape from the hero and introduce either editorial type or a proof surface",
+        "one mid-page section must interrupt repeated cards with an asymmetric proof, process, or intake composition"
+      ],
+      "surface_palette_distribution": "70 percent dark showroom canvas, 20 percent elevated charcoal panels, 10 percent sky-blue accent as CTA punctuation only",
+      "density_curve": "dense first fold to clear service body to focused conversion close",
+      "forbidden_repetitions": [
+        "no two consecutive `row_of_N_equal_cards` sections",
+        "no repeated SVG vocabulary across adjacent sections",
+        "no footer atom copied one-to-one",
+        "no beauty editorial light fields",
+        "no soft spa glass stacks",
+        "no waxing or medspa treatment-menu cards"
+      ],
+      "artifact_briefs": [
+        {
+          "slot": "hero_dispatch_board",
+          "vocabulary": "dashboard_panel",
+          "layout_shape": "split",
+          "must_carry": [
+            "phone path",
+            "service type",
+            "mobile coverage"
+          ],
+          "forbidden_motifs": [
+            "fake emergency stats"
+          ],
+          "viewbox": "0 0 900 600"
+        },
+        {
+          "slot": "system_scope",
+          "vocabulary": "grid_line_diagram",
+          "layout_shape": "grid",
+          "must_carry": [
+            "wash",
+            "correction",
+            "coating categories"
+          ],
+          "forbidden_motifs": [
+            "generic car stock photo",
+            "beauty spa icons"
+          ],
+          "viewbox": "0 0 900 600"
+        },
+        {
+          "slot": "process_steps",
+          "vocabulary": "wireframe_step",
+          "layout_shape": "asymmetric",
+          "must_carry": [
+            "inspect",
+            "correct",
+            "protect"
+          ],
+          "forbidden_motifs": [
+            "guaranteed outcome"
+          ],
+          "viewbox": "0 0 900 600"
+        },
+        {
+          "slot": "coverage_map",
+          "vocabulary": "spatial_map",
+          "layout_shape": "inset",
+          "must_carry": [
+            "service area logic",
+            "contact path"
+          ],
+          "forbidden_motifs": [
+            "fake locations"
+          ],
+          "viewbox": "0 0 900 600"
+        }
+      ],
+      "local_model_failure_patterns": [
+        {
+          "if": "the detailing page becomes a beauty or spa editorial",
+          "then": "rebuild as dark showroom/garage with industrial service hierarchy"
+        },
+        {
+          "if": "the page uses soft light glass spa stacks",
+          "then": "switch to hard-edged charcoal panels and one sky-blue accent"
+        },
+        {
+          "if": "the mechanical page becomes a row of equal cards",
+          "then": "replace one card row with an asymmetric method, proof, or intake module"
+        },
+        {
+          "if": "two SVG blocks use the same rectangles and thin strokes",
+          "then": "rebuild the later block with a different vocabulary from Visual Artifact Specs"
+        },
+        {
+          "if": "the hero repeats a decorative motif from the anchor excerpt",
+          "then": "swap it for a route-specific proof surface or editorial device"
+        },
+        {
+          "if": "the footer mirrors the atom shape verbatim",
+          "then": "keep the contact mechanics but rebuild the grid and labels for the brief"
+        }
       ]
     }
   }
