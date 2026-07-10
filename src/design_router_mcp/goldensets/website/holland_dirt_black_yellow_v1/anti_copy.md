@@ -1,0 +1,5 @@
+- Do not reuse Holland Grading wording, service labels, or dirt-specific imagery unless the target business is actually grading or excavation.
+- Do not preserve the exact headline cadence from the source.
+- Do not clone the exact yellow-on-black palette values.
+- Do not reproduce the same badge rhythm, texture treatment, or comparison framing one-to-one.
+- Borrow the structural confidence and contrast logic only.

@@ -18,7 +18,7 @@ Seven reusable atoms are implemented in `source_snapshot/` (HTML + CSS, plus van
 - **JS isolation**: the two interactive atoms degrade gracefully — without JS the tabs show the first panel and the form is still a valid, labelled, submittable HTML form. Safe to adopt independently; the `script.js` IIFE guards each block with element-presence checks.
 - **Proof policy travels with the atom**: `service_area_map_shell_v1`, `proof_safe_service_record_v1`, and `maintenance_plan_comparison_v1` carry labeled placeholders and proof-safe copy. Do not strip them when reusing.
 
-## Candidate atom-dir layout (if promoted, matching `iron_circuit_fight_academy_black_copper_v1/atoms/` convention)
+## Candidate atom-dir layout (if promoted, matching `holland_dirt_*/atoms/` convention)
 ```
 atoms/
   diagnostic_issue_selector/   { markup.html, styles.css, behavior.js, notes.md }

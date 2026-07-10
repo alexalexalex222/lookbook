@@ -77,9 +77,10 @@
   "ood_fallback_value": 0.18,
   "conflicts_to_avoid": [
     "emberforge_fight_gym_black_red_v1",
+    "holland_dirt_black_yellow_v1",
     "aurelia_medspa_editorial_v1",
     "velvet_fig_beauty_editorial_v1",
     "sterling_rowe_legal_business_v1"
   ],
-  "recommended_weight_notes": "Strong anchor for rural/trade field-service verticals where the user describes a symptom or diagnostic-first journey (well pump, water filtration, pressure, treatment) and wants a premium, trustworthy, technical-but-not-corporate light layout with dark instrument panels. Weight up when prompt mentions diagnose/symptom/issue selector, quote request flow, service area without fake locations, equipment/system diagram, or emergency-vs-planned framing. Weight down for dark high-contrast industrial gyms/excavation (use emberforge), editorial beauty/medspa, or formal corporate/legal brochures. Prefer this pack over generic three-card service templates when real plan hierarchy is wanted. Always carry the proof-safe policy forward; never let routing introduce fake licenses, response times, towns, reviews, or guarantees."
+  "recommended_weight_notes": "Strong anchor for rural/trade field-service verticals where the user describes a symptom or diagnostic-first journey (well pump, water filtration, pressure, treatment) and wants a premium, trustworthy, technical-but-not-corporate light layout with dark instrument panels. Weight up when prompt mentions diagnose/symptom/issue selector, quote request flow, service area without fake locations, equipment/system diagram, or emergency-vs-planned framing. Weight down for dark high-contrast industrial gyms/excavation (use emberforge/holland), editorial beauty/medspa, or formal corporate/legal brochures. Prefer this pack over generic three-card service templates when real plan hierarchy is wanted. Always carry the proof-safe policy forward; never let routing introduce fake licenses, response times, towns, reviews, or guarantees."
 }

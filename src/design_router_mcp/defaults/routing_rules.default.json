@@ -701,7 +701,9 @@
       "preferred_anchor_pack_ids": {
         "copperbeam_flooring_light_residential_v1": 8
       },
-      "penalized_anchor_pack_ids": {},
+      "penalized_anchor_pack_ids": {
+        "holland_dirt_black_yellow_v1": -8
+      },
       "prefer_example_tokens": [
         "dental",
         "doctor",
@@ -794,7 +796,9 @@
         "velvet_fig_beauty_editorial_v1": 10,
         "aurelia_medspa_editorial_v1": 10
       },
-      "penalized_anchor_pack_ids": {},
+      "penalized_anchor_pack_ids": {
+        "holland_dirt_black_yellow_v1": -8
+      },
       "hero_reference_pack_ids": [
         "velvet_fig_beauty_editorial_v1"
       ],
@@ -894,6 +898,7 @@
         "ashgrove_landscape_editorial_v1": 4
       },
       "penalized_anchor_pack_ids": {
+        "holland_dirt_black_yellow_v1": -10,
         "emberforge_fight_gym_black_red_v1": -10
       },
       "prefer_example_tokens": [
@@ -1025,6 +1030,7 @@
         "restrained"
       ],
       "preferred_anchor_pack_ids": {
+        "holland_dirt_black_yellow_v1": 18,
         "oakline_cabinetry_craftsmanship_v1": 4,
         "copperbeam_flooring_light_residential_v1": 2,
         "emberforge_fight_gym_black_red_v1": -14
@@ -1137,7 +1143,9 @@
         "ashgrove_landscape_editorial_v1": 14,
         "verdant_line_garden_seasonal_v1": 6
       },
-      "penalized_anchor_pack_ids": {},
+      "penalized_anchor_pack_ids": {
+        "holland_dirt_black_yellow_v1": -8
+      },
       "prefer_example_tokens": [
         "landscape",
         "landscaping",
@@ -1221,6 +1229,7 @@
         "sterling_rowe_legal_business_v1": 18
       },
       "penalized_anchor_pack_ids": {
+        "holland_dirt_black_yellow_v1": -10,
         "emberforge_fight_gym_black_red_v1": -10,
         "velvet_fig_beauty_editorial_v1": -8,
         "aurelia_medspa_editorial_v1": -8
@@ -1304,6 +1313,7 @@
         "trustworthy"
       ],
       "preferred_anchor_pack_ids": {
+        "holland_dirt_black_yellow_v1": 4,
         "copperbeam_flooring_light_residential_v1": 3
       },
       "prefer_example_tokens": [
@@ -1386,6 +1396,7 @@
       ],
       "preferred_anchor_pack_ids": {
         "clear_ridge_water_works_field_blue_v1": 28,
+        "holland_dirt_black_yellow_v1": -10,
         "emberforge_fight_gym_black_red_v1": -12
       },
       "penalized_anchor_pack_ids": {
@@ -1496,6 +1507,7 @@
       "preferred_anchor_pack_ids": {
         "freezebreeze_live_lab_ice_blue_v1": 30,
         "copperbeam_flooring_light_residential_v1": -8,
+        "holland_dirt_black_yellow_v1": -12,
         "emberforge_fight_gym_black_red_v1": -12
       },
       "penalized_anchor_pack_ids": {
@@ -1570,7 +1582,9 @@
         "professional",
         "high-contrast"
       ],
-      "preferred_anchor_pack_ids": {},
+      "preferred_anchor_pack_ids": {
+        "holland_dirt_black_yellow_v1": 8
+      },
       "prefer_example_tokens": [
         "roofing",
         "roof"
@@ -1624,7 +1638,9 @@
         "oakline_cabinetry_craftsmanship_v1": 8,
         "copperbeam_flooring_light_residential_v1": 4
       },
-      "hero_reference_pack_ids": [],
+      "hero_reference_pack_ids": [
+        "holland_dirt_black_yellow_v1"
+      ],
       "prefer_example_tokens": [
         "storage",
         "construction",
@@ -1819,6 +1835,7 @@
       "preferred_anchor_pack_ids": {
         "iron_circuit_fight_academy_black_copper_v1": 36,
         "emberforge_fight_gym_black_red_v1": 10,
+        "holland_dirt_black_yellow_v1": 6,
         "copperbeam_flooring_light_residential_v1": -8
       },
       "penalized_anchor_pack_ids": {
@@ -1955,7 +1972,8 @@
         "sterling_rowe_legal_business_v1": 8,
         "oakline_cabinetry_craftsmanship_v1": 8,
         "emberforge_fight_gym_black_red_v1": -40,
-        "iron_circuit_fight_academy_black_copper_v1": -40
+        "iron_circuit_fight_academy_black_copper_v1": -40,
+        "holland_dirt_black_yellow_v1": -30
       },
       "penalized_anchor_pack_ids": {
         "aurelia_medspa_editorial_v1": -14,
@@ -2109,6 +2127,7 @@
       ],
       "preferred_anchor_pack_ids": {
         "orbital_launch_manifest_dark_editorial_v1": 46,
+        "holland_dirt_black_yellow_v1": -18,
         "emberforge_fight_gym_black_red_v1": -22,
         "iron_circuit_fight_academy_black_copper_v1": -22
       },
@@ -2274,7 +2293,8 @@
       },
       "penalized_anchor_pack_ids": {
         "velvet_fig_beauty_editorial_v1": -18,
-        "emberforge_fight_gym_black_red_v1": -18
+        "emberforge_fight_gym_black_red_v1": -18,
+        "holland_dirt_black_yellow_v1": -18
       },
       "prefer_example_tokens": [
         "docs",
@@ -2347,6 +2367,7 @@
         "aurelia_medspa_editorial_v1": -10
       },
       "penalized_anchor_pack_ids": {
+        "holland_dirt_black_yellow_v1": -18,
         "emberforge_fight_gym_black_red_v1": -18,
         "freezebreeze_live_lab_ice_blue_v1": -18
       },
@@ -2425,6 +2446,7 @@
       "penalized_anchor_pack_ids": {
         "aurelia_medspa_editorial_v1": -14,
         "velvet_fig_beauty_editorial_v1": -14,
+        "holland_dirt_black_yellow_v1": -14,
         "emberforge_fight_gym_black_red_v1": -14
       },
       "prefer_example_tokens": [
@@ -2503,6 +2525,7 @@
       },
       "penalized_anchor_pack_ids": {
         "emberforge_fight_gym_black_red_v1": -16,
+        "holland_dirt_black_yellow_v1": -16,
         "freezebreeze_live_lab_ice_blue_v1": -14
       },
       "prefer_example_tokens": [
@@ -2576,6 +2599,7 @@
         "technical"
       ],
       "preferred_anchor_pack_ids": {
+        "holland_dirt_black_yellow_v1": 22,
         "emberforge_fight_gym_black_red_v1": 12,
         "iron_circuit_fight_academy_black_copper_v1": 10,
         "clear_ridge_water_works_field_blue_v1": 8
@@ -2586,6 +2610,7 @@
         "copperbeam_flooring_light_residential_v1": -10
       },
       "hero_reference_pack_ids": [
+        "holland_dirt_black_yellow_v1",
         "emberforge_fight_gym_black_red_v1"
       ],
       "prefer_example_tokens": [
