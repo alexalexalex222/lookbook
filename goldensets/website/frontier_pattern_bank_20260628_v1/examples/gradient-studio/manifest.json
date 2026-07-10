@@ -1,0 +1,51 @@
+{
+  "pack_id": "meld_gradient_studio_dark_v1",
+  "role": "anchor",
+  "family": "website.interactive_experience",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "gradient-studio"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "premium",
+    "technical",
+    "precise",
+    "studio",
+    "interactive"
+  ],
+  "surfaces": [
+    "dashboard",
+    "full_site"
+  ],
+  "motif_tags": [
+    "interactive_stage",
+    "instrument_control",
+    "tabs_panel",
+    "glass_panel",
+    "microcopy",
+    "minimal_centerpiece"
+  ],
+  "supports_tasks": [
+    "gradient_design_tool_app",
+    "webgl_creative_studio_interface",
+    "css_asset_export_tool",
+    "single_screen_creative_tool"
+  ],
+  "anti_patterns": [
+    "marketing landing page for a design tool",
+    "flat CSS-only gradient picker (this is a true WebGL2 mesh-gradient engine with OKLab controls)",
+    "light warm editorial tool (this is dark and premium, not warm paper)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1100,
+  "confidence_score": 4,
+  "example_ids": []
+}

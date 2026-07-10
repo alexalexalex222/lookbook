@@ -1,0 +1,55 @@
+{
+  "pack_id": "gatewood_fence_brass_atelier_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "gatewood-fence-marietta"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "editorial",
+    "warm",
+    "restrained",
+    "craftsmanship",
+    "warm-metal"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "cta_treatment",
+    "material_showcase",
+    "process_timeline",
+    "proof_cards",
+    "trust_rail",
+    "headline_hierarchy",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "fence_company_homepage",
+    "property_perimeter_landing",
+    "gate_and_entry_service_page",
+    "craftsmanship_service_layout"
+  ],
+  "anti_patterns": [
+    "chain-link discount fence template",
+    "industrial security-fence framing",
+    "dashboard SaaS shell"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 800,
+  "confidence_score": 4,
+  "example_ids": []
+}

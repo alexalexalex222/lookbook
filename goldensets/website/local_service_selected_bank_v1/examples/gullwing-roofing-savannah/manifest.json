@@ -1,0 +1,17 @@
+{
+  "pack_id": "gullwing_roofing_coastal_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["gullwing-roofing-savannah"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["premium", "editorial", "trustworthy", "craftsmanship", "warm", "restrained"],
+  "surfaces": ["homepage", "hero", "landing", "section"],
+  "motif_tags": ["hero_shell", "split_hero", "proof_cards", "process_timeline", "trust_rail", "material_showcase", "headline_hierarchy", "cta_treatment"],
+  "supports_tasks": ["roofing_company_homepage", "coastal_service_landing", "storm_defense_roofing_website", "craftsmanship_service_layout", "hero_redesign"],
+  "anti_patterns": ["template feel", "generic SaaS gradients", "irrelevant stock imagery"],
+  "screenshot_paths": [],
+  "token_budget_hint": 1400,
+  "confidence_score": 4,
+  "example_ids": []
+}

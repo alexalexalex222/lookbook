@@ -1,0 +1,33 @@
+{
+  "pack_id": "regex_lab_devtool_dark_v1",
+  "role": "anchor",
+  "family": "website.developer_tool",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["regex-tester"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["dark", "developer", "technical", "precise", "data-dense", "restrained"],
+  "surfaces": ["dashboard", "section", "full_site"],
+  "motif_tags": [
+    "code_block",
+    "command_surface",
+    "tabs_panel",
+    "live_match_explain_rail",
+    "stats_footer_bar",
+    "headline_hierarchy"
+  ],
+  "supports_tasks": [
+    "regex_tester_tool",
+    "developer_utility_workspace",
+    "code_debugging_tool",
+    "in_browser_devtool_page"
+  ],
+  "anti_patterns": [
+    "marketing SaaS homepage framing",
+    "light consumer-friendly theme (this is a dark technical workspace)",
+    "non-functional decorative pattern highlighting"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1700,
+  "confidence_score": 4,
+  "example_ids": []
+}

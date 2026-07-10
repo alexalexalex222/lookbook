@@ -202,6 +202,7 @@ class NormalizedRequest(BaseModel):
     prefers_warm_mode: bool
     prefers_residential_mode: bool
     prefers_editorial_mode: bool
+    prefers_dark_mode: bool = False
     avoids_dark_mode: bool
     avoids_industrial_mode: bool
     prefers_real_imagery: bool

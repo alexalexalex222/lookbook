@@ -1,11 +1,5 @@
+<!doctype html>
 <html lang="en" class="dark"><head>
-    <script type="module">import { injectIntoGlobalHook } from "/@react-refresh";
-injectIntoGlobalHook(window);
-window.$RefreshReg$ = () => {};
-window.$RefreshSig$ = () => (type) => type;</script>
-
-    <script type="module" src="/@vite/client"></script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="color-scheme" content="dark">
@@ -14,14 +8,16 @@ window.$RefreshSig$ = () => (type) => type;</script>
     <title>Quickstart — Epoch</title>
     <meta name="description" content="Epoch is a real-time database for engineers. Serializable transactions, live queries that push the instant your data changes, and end-to-end type safety from schema to UI.">
 
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='8' stroke='%234fefa6' stroke-width='1.75' fill='none'/%3E%3Ccircle cx='16.3' cy='5.3' r='2.6' fill='%234fefa6'/%3E%3C/svg%3E">
     <meta name="robots" content="index,follow">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Epoch — The real-time database">
     <meta property="og:description" content="Serializable transactions, live queries, and end-to-end type safety. The database that's always now.">
     <meta name="twitter:card" content="summary_large_image">
-  <style type="text/css" data-vite-dev-id="epoch/src/components/Logo.css">.logo {
+  <style>
+/* inline style block 1 */
+.logo {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -60,7 +56,9 @@ a:hover > .logo .logo-node,
 .logo-link:hover .logo-node {
   fill: var(--live-hi);
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/components/primitives/Button.css">.btn {
+
+/* inline style block 2 */
+.btn {
   --btn-h: 2.5rem;
   display: inline-flex;
   align-items: center;
@@ -150,7 +148,9 @@ a:hover > .logo .logo-node,
   opacity: 0.5;
   pointer-events: none;
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/components/primitives/Kbd.css">.kbd {
+
+/* inline style block 3 */
+.kbd {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -167,7 +167,9 @@ a:hover > .logo .logo-node,
   border-bottom-width: 2px;
   border-radius: var(--radius-sm);
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/components/SiteHeader.css">.site-header {
+
+/* inline style block 4 */
+.site-header {
   position: sticky;
   top: 0;
   z-index: 50;
@@ -340,7 +342,9 @@ a:hover > .logo .logo-node,
     display: none;
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/components/primitives/Pill.css">.pill {
+
+/* inline style block 5 */
+.pill {
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
@@ -363,7 +367,9 @@ a:hover > .logo .logo-node,
   background: rgb(var(--live-rgb) / 0.07);
   border-color: rgb(var(--live-rgb) / 0.25);
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/components/SiteFooter.css">.site-footer {
+
+/* inline style block 6 */
+.site-footer {
   border-top: 1px solid var(--border);
   padding-block: var(--space-10) var(--space-8);
   margin-top: var(--space-12);
@@ -460,7 +466,9 @@ a:hover > .logo .logo-node,
     gap: var(--space-10);
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/components/CommandMenu.css">.cmdk-overlay {
+
+/* inline style block 7 */
+.cmdk-overlay {
   position: fixed;
   inset: 0;
   z-index: 100;
@@ -641,7 +649,9 @@ a:hover > .logo .logo-node,
     display: none;
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/components/primitives/LiveDot.css">.live-dot {
+
+/* inline style block 8 */
+.live-dot {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
@@ -703,7 +713,9 @@ a:hover > .logo .logo-node,
     opacity: 0;
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/pages/Home/LiveDemo.css">.live-demo {
+
+/* inline style block 9 */
+.live-demo {
   display: flex;
   flex-direction: column;
   background: linear-gradient(180deg, var(--gray-4), var(--gray-2) 60%);
@@ -882,7 +894,9 @@ a:hover > .logo .logo-node,
     background: rgb(var(--live-rgb) / 0.08);
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/pages/Home/Hero.css">.hero {
+
+/* inline style block 10 */
+.hero {
   position: relative;
   overflow: hidden;
   padding-top: clamp(var(--space-10), 9vw, var(--space-14));
@@ -1045,7 +1059,9 @@ a:hover > .logo .logo-node,
     margin-top: var(--space-6);
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/components/CodeBlock.css">.code-block {
+
+/* inline style block 11 */
+.code-block {
   position: relative;
   background: var(--gray-2);
   border: 1px solid var(--border-strong);
@@ -1187,7 +1203,9 @@ a:hover > .logo .logo-node,
     padding: var(--space-3) var(--space-4);
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/pages/Home/Model.css">.model__steps {
+
+/* inline style block 12 */
+.model__steps {
   display: flex;
   flex-direction: column;
   gap: clamp(var(--space-8), 5vw, var(--space-10));
@@ -1238,7 +1256,9 @@ a:hover > .logo .logo-node,
     padding-top: var(--space-2);
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/pages/Home/Guarantees.css">.guarantees__grid {
+
+/* inline style block 13 */
+.guarantees__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1px;
@@ -1322,7 +1342,9 @@ a:hover > .logo .logo-node,
     grid-template-columns: repeat(3, 1fr);
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/pages/Home/TypeSafety.css">.type-safety__code {
+
+/* inline style block 14 */
+.type-safety__code {
   max-width: 48rem;
   margin-inline: auto;
 }
@@ -1349,7 +1371,9 @@ a:hover > .logo .logo-node,
   background: var(--live);
   box-shadow: 0 0 6px rgb(var(--live-rgb) / 0.45);
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/pages/Home/Architecture.css">.architecture__grid {
+
+/* inline style block 15 */
+.architecture__grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(var(--space-8), 6vw, var(--space-12));
@@ -1475,7 +1499,9 @@ a:hover > .logo .logo-node,
     grid-template-columns: 1.05fr 0.95fr;
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/pages/Home/Benchmark.css">.bench-term {
+
+/* inline style block 16 */
+.bench-term {
   max-width: 44rem;
   margin-inline: auto;
   background: linear-gradient(180deg, var(--gray-3), var(--gray-2) 50%);
@@ -1612,7 +1638,9 @@ a:hover > .logo .logo-node,
     gap: 0.5rem;
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/pages/Home/CallToAction.css">.cta__panel {
+
+/* inline style block 17 */
+.cta__panel {
   position: relative;
   overflow: hidden;
   border: 1px solid var(--border-strong);
@@ -1675,7 +1703,9 @@ a:hover > .logo .logo-node,
   color: var(--text-faint);
   letter-spacing: -0.005em;
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/pages/Pricing/Pricing.css">.pricing__head {
+
+/* inline style block 18 */
+.pricing__head {
   padding-top: clamp(var(--space-9), 7vw, var(--space-12));
 }
 .pricing__title {
@@ -1858,7 +1888,9 @@ a:hover > .logo .logo-node,
     gap: var(--space-5);
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/pages/NotFound.css">.notfound {
+
+/* inline style block 19 */
+.notfound {
   display: flex;
   align-items: center;
   min-height: calc(100svh - var(--header-h) - 8rem);
@@ -1922,7 +1954,9 @@ a:hover > .logo .logo-node,
   gap: var(--space-3);
   margin-top: var(--space-8);
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/pages/docs/Docs.css">.docs {
+
+/* inline style block 20 */
+.docs {
   padding-top: var(--space-8);
   padding-bottom: var(--space-10);
 }
@@ -2303,124 +2337,8 @@ a:hover > .logo .logo-node,
     display: block;
   }
 }
-</style><style type="text/css" data-vite-dev-id="epoch/src/styles/global.css">/* Variable fonts — self-hosted, subset to the weights we actually use. */
-/* inter-cyrillic-ext-wght-normal */
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/@fontsource-variable/inter/files/inter-cyrillic-ext-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
-}
-/* inter-cyrillic-wght-normal */
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/@fontsource-variable/inter/files/inter-cyrillic-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
-}
-/* inter-greek-ext-wght-normal */
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/@fontsource-variable/inter/files/inter-greek-ext-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+1F00-1FFF;
-}
-/* inter-greek-wght-normal */
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/@fontsource-variable/inter/files/inter-greek-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
-}
-/* inter-vietnamese-wght-normal */
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/@fontsource-variable/inter/files/inter-vietnamese-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
-}
-/* inter-latin-ext-wght-normal */
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-/* inter-latin-wght-normal */
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-/* jetbrains-mono-cyrillic-ext-wght-normal */
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-cyrillic-ext-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
-}
-/* jetbrains-mono-cyrillic-wght-normal */
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-cyrillic-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
-}
-/* jetbrains-mono-greek-wght-normal */
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-greek-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
-}
-/* jetbrains-mono-vietnamese-wght-normal */
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-vietnamese-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
-}
-/* jetbrains-mono-latin-ext-wght-normal */
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-ext-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-/* jetbrains-mono-latin-wght-normal */
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
+
+/* inline style block 21 */
 /*
  * Epoch design tokens.
  *
@@ -2899,7 +2817,51 @@ body::after {
 .raise {
   box-shadow: inset 0 1px 0 0 rgb(var(--white-rgb) / 0.05);
 }
-</style></head>
+
+/* Restored-interactivity guard: .cmdk-overlay, .mobile-menu and .cmdk__item
+   each set their own `display` unconditionally, which otherwise beats the
+   native [hidden] behavior and leaves "hidden" elements visible/clickable. */
+.cmdk-overlay[hidden],
+.mobile-menu[hidden],
+.cmdk__item[hidden],
+.cmdk__group[hidden] {
+  display: none !important;
+}
+
+/* ---- Mobile polish (surgical, mobile-scoped only; see build STEP 3) ---- */
+@media (max-width: 767px) {
+  /* >=44px tap targets via an invisible expanded hit-area so the visible
+     control keeps its original pixel size/position — no design change. */
+  .site-header__burger,
+  .logo-link,
+  .docs-nav__pill,
+  .code-block__copy {
+    position: relative;
+  }
+  /* Give the pill row equal top/bottom breathing room so the expanded
+     hit-area below isn't clipped by the scroll container's top edge. */
+  .docs-nav--bar {
+    padding-top: var(--space-2);
+  }
+  .site-header__burger::after,
+  .logo-link::after,
+  .docs-nav__pill::after,
+  .code-block__copy::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Progressive-enhancement safety net: if [data-reveal] is ever used and JS
+   fails to load, never leave content stuck at opacity:0. */
+</style>
+<noscript><style>[data-reveal]{opacity:1 !important;transform:none !important;}</style></noscript>
+</head>
   <body>
     <div id="root"><div class="app-shell"><a href="#main" class="skip-link">Skip to content</a><header class="site-header"><div class="container container--wide site-header__inner"><a class="logo-link" aria-label="Epoch home" href="/"><span class="logo"><svg viewBox="0 0 24 24" class="logo-mark" role="img" aria-label="Epoch" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.75" class="logo-ring"></circle><circle cx="16.3" cy="5.3" r="2.6" class="logo-node"></circle></svg><span class="logo-word">epoch</span></span></a><nav class="site-header__nav" aria-label="Primary"><a aria-current="page" class="site-header__link is-active" href="/docs">Docs</a><a class="site-header__link" href="/pricing">Pricing</a></nav><div class="site-header__actions"><button type="button" class="cmdk-trigger" aria-label="Search and commands"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="cmdk-trigger__search"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.2-3.2"></path></svg><span class="cmdk-trigger__hint">Search</span><span class="cmdk-trigger__keys"><kbd class="kbd">⌘</kbd><kbd class="kbd">K</kbd></span></button><a href="https://github.com" target="_blank" rel="noreferrer noopener" class="site-header__icon-link" aria-label="Epoch on GitHub"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.4-4-2.5-5.5-3M14.5 21v-3.4a3 3 0 0 0-.8-2.3c2.7-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.5 1.3a12 12 0 0 0-6.4 0C5.1 1.4 4 1.7 4 1.7a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 2.6 8.1c0 4.6 2.8 5.7 5.5 6a3 3 0 0 0-.8 2.3V21"></path></svg></a><span class="site-header__cta"><a class="btn btn--primary btn--sm" href="/docs"><span class="btn__label">Start building</span></a></span><button type="button" class="site-header__burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"></path><path d="M3 12h18"></path><path d="M3 18h18"></path></svg></button></div></div><div id="mobile-menu" class="mobile-menu" hidden=""><nav class="mobile-menu__nav" aria-label="Mobile"><a aria-current="page" class="mobile-menu__link is-active" href="/docs">Docs</a><a class="mobile-menu__link" href="/pricing">Pricing</a><a href="https://github.com" target="_blank" rel="noreferrer noopener" class="mobile-menu__link">GitHub</a></nav><div class="mobile-menu__cta"><a class="btn btn--primary btn--md btn--block" href="/docs"><span class="btn__label">Start building</span></a></div></div></header><main id="main" class="app-main"><div class="docs"><div class="container container--wide docs__grid"><aside class="docs__sidebar" aria-label="Documentation"><nav class="docs-nav docs-nav--rail"><div class="docs-nav__group"><span class="docs-nav__heading">Getting started</span><ul role="list"><li><a aria-current="page" class="docs-nav__link is-active" href="/docs/quickstart">Quickstart</a></li></ul></div><div class="docs-nav__group"><span class="docs-nav__heading">Core concepts</span><ul role="list"><li><a class="docs-nav__link" href="/docs/live-queries">Live queries</a></li><li><a class="docs-nav__link" href="/docs/schema">Schema &amp; types</a></li></ul></div></nav></aside><nav class="docs-nav docs-nav--bar" aria-label="Documentation"><a aria-current="page" class="docs-nav__pill is-active" href="/docs/quickstart">Quickstart</a><a class="docs-nav__pill" href="/docs/live-queries">Live queries</a><a class="docs-nav__pill" href="/docs/schema">Schema &amp; types</a></nav><main class="docs__content"><article class="doc-article"><header class="doc-header"><span class="eyebrow eyebrow--plain">Getting started</span><h1 class="doc-title">Quickstart</h1><p class="doc-lead">Install the CLI, describe your data, and get a typed, reactive database running on your machine. About five minutes from here to a query that updates itself.</p></header><div class="prose"><h2 id="install" class="prose-h2" data-toc="h2" data-title="Install"><a href="#install" class="prose-anchor" aria-label="Link to this section">#</a>Install</h2><p>Epoch is one package and one CLI. Add it to an existing project, or scaffold a new one with the starter — either way you'll have a local database, schema push, and type generation wired up.</p><figure class="code-block"><figcaption class="code-block__bar"><span class="code-block__file"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="code-block__file-icon"><path d="m5 8 4 4-4 4"></path><path d="M13 16h6"></path></svg><span class="code-block__name">terminal</span></span><button type="button" class="code-block__copy" aria-label="Copy code"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="code-block__copy-text">Copy</span></button></figcaption><div class="code-block__body"><div class="code-block__shiki"><pre class="shiki epoch-dark" style="background-color:#00000000;color:#c9cdd3" tabindex="0"><code><span class="line"><span style="color:#EDEFF2">npm</span><span style="color:#54E2A0"> install</span><span style="color:#54E2A0"> epoch</span></span></code></pre></div></div></figure><p>Starting fresh? The <code class="prose-code">init</code> command sets up the project structure and an example schema for you.</p><figure class="code-block"><figcaption class="code-block__bar"><span class="code-block__file"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="code-block__file-icon"><path d="m5 8 4 4-4 4"></path><path d="M13 16h6"></path></svg><span class="code-block__name">terminal</span></span><button type="button" class="code-block__copy" aria-label="Copy code"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="code-block__copy-text">Copy</span></button></figcaption><div class="code-block__body"><div class="code-block__shiki"><pre class="shiki epoch-dark" style="background-color:#00000000;color:#c9cdd3" tabindex="0"><code><span class="line"><span style="color:#EDEFF2">npx</span><span style="color:#54E2A0"> epoch@latest</span><span style="color:#54E2A0"> init</span></span></code></pre></div></div></figure><h2 id="schema" class="prose-h2" data-toc="h2" data-title="Describe your data"><a href="#schema" class="prose-anchor" aria-label="Link to this section">#</a>Describe your data</h2><p>A schema is plain TypeScript. Define your tables, their columns, and the indexes you'll query by. This file is the source of truth for the whole stack — your client types are generated from it.</p><figure class="code-block"><figcaption class="code-block__bar"><span class="code-block__file"><span class="code-block__dot" aria-hidden="true"></span><span class="code-block__name">epoch/schema.ts</span></span><button type="button" class="code-block__copy" aria-label="Copy code"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="code-block__copy-text">Copy</span></button></figcaption><div class="code-block__body"><div class="code-block__shiki"><pre class="shiki epoch-dark" style="background-color:#00000000;color:#c9cdd3" tabindex="0"><code><span class="line"><span style="color:#9BB2DA">import</span><span style="color:#888F98"> {</span><span style="color:#C9CDD3"> defineSchema</span><span style="color:#888F98">,</span><span style="color:#C9CDD3"> defineTable</span><span style="color:#888F98">,</span><span style="color:#C9CDD3"> t </span><span style="color:#888F98">}</span><span style="color:#9BB2DA"> from</span><span style="color:#54E2A0"> "epoch/schema"</span><span style="color:#888F98">;</span></span>
 <span class="line"></span>
@@ -2965,8 +2927,258 @@ body::after {
 <span class="line"><span style="color:#888F98">      ))}</span></span>
 <span class="line"><span style="color:#9BB2DA">    &lt;/</span><span style="color:#8AD9C4">Thread</span><span style="color:#9BB2DA">&gt;</span></span>
 <span class="line"><span style="color:#888F98">  );</span></span>
-<span class="line"><span style="color:#888F98">}</span></span></code></pre></div></div></figure><p>That's the whole loop. Call <code class="prose-code">send</code> from anywhere — another tab, another user, a background job — and every mounted <code class="prose-code">Channel</code> updates in the same instant.</p><h2 id="self-host" class="prose-h2" data-toc="h2" data-title="Deploy or self-host"><a href="#self-host" class="prose-anchor" aria-label="Link to this section">#</a>Deploy or self-host</h2><p>When you're ready, ship to Epoch Cloud with one command, or run the same build yourself. Epoch is a single binary with no external dependencies — your database, the function runtime, and the changefeed in one process.</p><figure class="code-block"><figcaption class="code-block__bar"><span class="code-block__file"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="code-block__file-icon"><path d="m5 8 4 4-4 4"></path><path d="M13 16h6"></path></svg><span class="code-block__name">terminal</span></span><button type="button" class="code-block__copy" aria-label="Copy code"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="code-block__copy-text">Copy</span></button></figcaption><div class="code-block__body"><div class="code-block__shiki"><pre class="shiki epoch-dark" style="background-color:#00000000;color:#c9cdd3" tabindex="0"><code><span class="line"><span style="color:#EDEFF2">epoch</span><span style="color:#54E2A0"> deploy</span></span></code></pre></div></div></figure><aside class="callout callout--note"><span class="callout__label">No lock-in</span><div class="callout__body">The wire protocol and the server are open source under the MIT license. Self-hosting is a first-class path, not a downgrade — the cloud just runs the same binary for you.</div></aside></div><nav class="doc-pager" aria-label="Page navigation"><span></span><a class="doc-pager__link doc-pager__link--next" href="/docs/live-queries"><span class="doc-pager__dir">Next <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span><span class="doc-pager__title">Live queries</span></a></nav></article></main><aside class="docs__toc" aria-label="On this page"><div class="toc"><span class="toc__heading">On this page</span><ul role="list"><li class=""><a href="#install" class="toc__link is-active">Install</a></li><li class=""><a href="#schema" class="toc__link">Describe your data</a></li><li class=""><a href="#dev" class="toc__link">Run the dev server</a></li><li class=""><a href="#functions" class="toc__link">Write a query and a mutation</a></li><li class=""><a href="#subscribe" class="toc__link">Subscribe from your app</a></li><li class=""><a href="#self-host" class="toc__link">Deploy or self-host</a></li></ul></div></aside></div></div></main><footer class="site-footer"><div class="container container--wide"><div class="site-footer__top"><div class="site-footer__brand"><span class="logo"><svg viewBox="0 0 24 24" class="logo-mark" role="img" aria-label="Epoch" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.75" class="logo-ring"></circle><circle cx="16.3" cy="5.3" r="2.6" class="logo-node"></circle></svg><span class="logo-word">epoch</span></span><p class="site-footer__tagline measure">A real-time database with serializable transactions, live queries, and end-to-end type safety. Open source, self-hostable, built for production.</p><div class="site-footer__meta"><span class="pill pill--neutral">v0.1.0</span><a href="https://github.com" target="_blank" rel="noreferrer noopener" class="site-footer__ghlink"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.4-4-2.5-5.5-3M14.5 21v-3.4a3 3 0 0 0-.8-2.3c2.7-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.5 1.3a12 12 0 0 0-6.4 0C5.1 1.4 4 1.7 4 1.7a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 2.6 8.1c0 4.6 2.8 5.7 5.5 6a3 3 0 0 0-.8 2.3V21"></path></svg> Star on GitHub<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="site-footer__ghlink-arrow"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></a></div></div><nav class="site-footer__cols" aria-label="Footer"><div class="site-footer__col"><h2 class="site-footer__heading">Product</h2><ul role="list"><li><a class="site-footer__link" href="/">Overview</a></li><li><a class="site-footer__link" href="/docs">Documentation</a></li><li><a class="site-footer__link" href="/pricing">Pricing</a></li></ul></div><div class="site-footer__col"><h2 class="site-footer__heading">Developers</h2><ul role="list"><li><a class="site-footer__link" href="/docs/quickstart">Quickstart</a></li><li><a class="site-footer__link" href="/docs/live-queries">Live queries</a></li><li><a class="site-footer__link" href="/docs/schema">Schema &amp; types</a></li></ul></div><div class="site-footer__col"><h2 class="site-footer__heading">Resources</h2><ul role="list"><li><a href="https://github.com" target="_blank" rel="noreferrer noopener" class="site-footer__link">GitHub</a></li><li><a class="site-footer__link" href="/docs/live-queries#delivery">Consistency model</a></li><li><a class="site-footer__link" href="/docs/quickstart#self-host">Self-host</a></li></ul></div></nav></div><div class="site-footer__bottom"><span class="text-faint">© 2026 Epoch Labs</span><span class="mono site-footer__sign">The database that's always now</span></div></div></footer></div></div>
-    <script type="module" src="/src/main.tsx?t=1782148600802"></script>
-  
+<span class="line"><span style="color:#888F98">}</span></span></code></pre></div></div></figure><p>That's the whole loop. Call <code class="prose-code">send</code> from anywhere — another tab, another user, a background job — and every mounted <code class="prose-code">Channel</code> updates in the same instant.</p><h2 id="self-host" class="prose-h2" data-toc="h2" data-title="Deploy or self-host"><a href="#self-host" class="prose-anchor" aria-label="Link to this section">#</a>Deploy or self-host</h2><p>When you're ready, ship to Epoch Cloud with one command, or run the same build yourself. Epoch is a single binary with no external dependencies — your database, the function runtime, and the changefeed in one process.</p><figure class="code-block"><figcaption class="code-block__bar"><span class="code-block__file"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="code-block__file-icon"><path d="m5 8 4 4-4 4"></path><path d="M13 16h6"></path></svg><span class="code-block__name">terminal</span></span><button type="button" class="code-block__copy" aria-label="Copy code"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2.2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg><span class="code-block__copy-text">Copy</span></button></figcaption><div class="code-block__body"><div class="code-block__shiki"><pre class="shiki epoch-dark" style="background-color:#00000000;color:#c9cdd3" tabindex="0"><code><span class="line"><span style="color:#EDEFF2">epoch</span><span style="color:#54E2A0"> deploy</span></span></code></pre></div></div></figure><aside class="callout callout--note"><span class="callout__label">No lock-in</span><div class="callout__body">The wire protocol and the server are open source under the MIT license. Self-hosting is a first-class path, not a downgrade — the cloud just runs the same binary for you.</div></aside></div><nav class="doc-pager" aria-label="Page navigation"><span></span><a class="doc-pager__link doc-pager__link--next" href="/docs/live-queries"><span class="doc-pager__dir">Next <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15"></path><path d="M13 6l6 6-6 6"></path></svg></span><span class="doc-pager__title">Live queries</span></a></nav></article></main><aside class="docs__toc" aria-label="On this page"><div class="toc"><span class="toc__heading">On this page</span><ul role="list"><li class=""><a href="#install" class="toc__link is-active">Install</a></li><li class=""><a href="#schema" class="toc__link">Describe your data</a></li><li class=""><a href="#dev" class="toc__link">Run the dev server</a></li><li class=""><a href="#functions" class="toc__link">Write a query and a mutation</a></li><li class=""><a href="#subscribe" class="toc__link">Subscribe from your app</a></li><li class=""><a href="#self-host" class="toc__link">Deploy or self-host</a></li></ul></div></aside></div></div></main><footer class="site-footer"><div class="container container--wide"><div class="site-footer__top"><div class="site-footer__brand"><span class="logo"><svg viewBox="0 0 24 24" class="logo-mark" role="img" aria-label="Epoch" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.75" class="logo-ring"></circle><circle cx="16.3" cy="5.3" r="2.6" class="logo-node"></circle></svg><span class="logo-word">epoch</span></span><p class="site-footer__tagline measure">A real-time database with serializable transactions, live queries, and end-to-end type safety. Open source, self-hostable, built for production.</p><div class="site-footer__meta"><span class="pill pill--neutral">v0.1.0</span><a href="https://github.com" target="_blank" rel="noreferrer noopener" class="site-footer__ghlink"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.4-4-2.5-5.5-3M14.5 21v-3.4a3 3 0 0 0-.8-2.3c2.7-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.5 1.3a12 12 0 0 0-6.4 0C5.1 1.4 4 1.7 4 1.7a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 2.6 8.1c0 4.6 2.8 5.7 5.5 6a3 3 0 0 0-.8 2.3V21"></path></svg> Star on GitHub<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="site-footer__ghlink-arrow"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg></a></div></div><nav class="site-footer__cols" aria-label="Footer"><div class="site-footer__col"><h2 class="site-footer__heading">Product</h2><ul role="list"><li><a class="site-footer__link" href="/">Overview</a></li><li><a class="site-footer__link" href="/docs">Documentation</a></li><li><a class="site-footer__link" href="/pricing">Pricing</a></li></ul></div><div class="site-footer__col"><h2 class="site-footer__heading">Developers</h2><ul role="list"><li><a class="site-footer__link" href="/docs/quickstart">Quickstart</a></li><li><a class="site-footer__link" href="/docs/live-queries">Live queries</a></li><li><a class="site-footer__link" href="/docs/schema">Schema &amp; types</a></li></ul></div><div class="site-footer__col"><h2 class="site-footer__heading">Resources</h2><ul role="list"><li><a href="https://github.com" target="_blank" rel="noreferrer noopener" class="site-footer__link">GitHub</a></li><li><a class="site-footer__link" href="/docs/live-queries#delivery">Consistency model</a></li><li><a class="site-footer__link" href="/docs/quickstart#self-host">Self-host</a></li></ul></div></nav></div><div class="site-footer__bottom"><span class="text-faint">© 2026 Epoch Labs</span><span class="mono site-footer__sign">The database that's always now</span></div></div></footer></div><div class="cmdk-overlay" id="cmdk-overlay" hidden><div class="cmdk" role="dialog" aria-modal="true" aria-label="Search and commands"><div class="cmdk__search"><span class="cmdk__search-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.2-3.2"></path></svg></span><input class="cmdk__input" id="cmdk-input" type="text" placeholder="Search docs&#8230;" autocomplete="off" spellcheck="false" aria-label="Search docs"></div><div class="cmdk__list" id="cmdk-list" role="listbox" aria-label="Search results"><div class="cmdk__group"><span class="cmdk__group-label">Getting started</span><a class="cmdk__item is-active" href="/docs/quickstart" role="option"><span class="cmdk__item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 4 4-4 4"></path><path d="M13 16h6"></path></svg></span><span class="cmdk__item-label">Quickstart</span><span class="cmdk__item-hint">/docs/quickstart</span><span class="cmdk__item-go" aria-hidden="true">&#8626;</span></a></div><div class="cmdk__group"><span class="cmdk__group-label">Core concepts</span><a class="cmdk__item" href="/docs/live-queries" role="option"><span class="cmdk__item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 4 4-4 4"></path><path d="M13 16h6"></path></svg></span><span class="cmdk__item-label">Live queries</span><span class="cmdk__item-hint">/docs/live-queries</span><span class="cmdk__item-go" aria-hidden="true">&#8626;</span></a><a class="cmdk__item" href="/docs/schema" role="option"><span class="cmdk__item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 4 4-4 4"></path><path d="M13 16h6"></path></svg></span><span class="cmdk__item-label">Schema &amp; types</span><span class="cmdk__item-hint">/docs/schema</span><span class="cmdk__item-go" aria-hidden="true">&#8626;</span></a></div><div class="cmdk__group"><span class="cmdk__group-label">Site</span><a class="cmdk__item" href="/docs" role="option"><span class="cmdk__item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 4 4-4 4"></path><path d="M13 16h6"></path></svg></span><span class="cmdk__item-label">Docs</span><span class="cmdk__item-hint">/docs</span><span class="cmdk__item-go" aria-hidden="true">&#8626;</span></a><a class="cmdk__item" href="/pricing" role="option"><span class="cmdk__item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 8 4 4-4 4"></path><path d="M13 16h6"></path></svg></span><span class="cmdk__item-label">Pricing</span><span class="cmdk__item-hint">/pricing</span><span class="cmdk__item-go" aria-hidden="true">&#8626;</span></a><a class="cmdk__item" href="https://github.com" target="_blank" rel="noreferrer noopener" role="option"><span class="cmdk__item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 19c-4 1.4-4-2.5-5.5-3M14.5 21v-3.4a3 3 0 0 0-.8-2.3c2.7-.3 5.5-1.3 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.3 4.3 0 0 0-.1-3.2s-1-.3-3.5 1.3a12 12 0 0 0-6.4 0C5.1 1.4 4 1.7 4 1.7a4.3 4.3 0 0 0-.1 3.2A4.6 4.6 0 0 0 2.6 8.1c0 4.6 2.8 5.7 5.5 6a3 3 0 0 0-.8 2.3V21"></path></svg></span><span class="cmdk__item-label">GitHub</span><span class="cmdk__item-hint">github.com</span><span class="cmdk__item-go" aria-hidden="true">&#8626;</span></a></div><p class="cmdk__empty" id="cmdk-empty" hidden>No results found.</p></div><div class="cmdk__footer"><span class="cmdk__footer-group"><kbd class="kbd">&#8593;</kbd><kbd class="kbd">&#8595;</kbd> Navigate</span><span class="cmdk__footer-group"><kbd class="kbd">&#8626;</kbd> Select</span><span class="cmdk__footer-group"><kbd class="kbd">esc</kbd> Close</span><span class="cmdk__footer-brand"><svg viewBox="0 0 24 24" class="logo-mark" role="img" aria-label="Epoch" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="1.75" class="logo-ring"></circle><circle cx="16.3" cy="5.3" r="2.6" class="logo-node"></circle></svg>epoch</span></div></div></div></div>
+  <script>
+  (function () {
+    'use strict';
 
-</body></html>
+    /* ---------- Header scroll shadow ---------- */
+    var header = document.querySelector('.site-header');
+    function onScroll() {
+      if (!header) return;
+      header.classList.toggle('site-header--scrolled', window.scrollY > 4);
+    }
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* ---------- Mobile menu ---------- */
+    var burger = document.querySelector('.site-header__burger');
+    var mobileMenu = document.getElementById('mobile-menu');
+    var menuOpen = false;
+
+    function setMenu(open) {
+      if (!burger || !mobileMenu) return;
+      menuOpen = open;
+      burger.setAttribute('aria-expanded', String(open));
+      if (open) {
+        mobileMenu.hidden = false;
+        void mobileMenu.offsetWidth; /* force reflow so the transition runs */
+        mobileMenu.classList.add('mobile-menu--open');
+        document.body.style.overflow = 'hidden';
+        var firstLink = mobileMenu.querySelector('a');
+        if (firstLink) firstLink.focus();
+      } else {
+        mobileMenu.classList.remove('mobile-menu--open');
+        document.body.style.overflow = '';
+        var hideNow = function () { if (!menuOpen) mobileMenu.hidden = true; };
+        mobileMenu.addEventListener('transitionend', hideNow, { once: true });
+        setTimeout(hideNow, 260); /* fallback if reduced-motion skips the transition */
+      }
+    }
+
+    if (burger) {
+      burger.addEventListener('click', function () { setMenu(!menuOpen); });
+    }
+    if (mobileMenu) {
+      Array.prototype.forEach.call(mobileMenu.querySelectorAll('a'), function (a) {
+        a.addEventListener('click', function () { setMenu(false); });
+      });
+    }
+
+    /* ---------- Command palette ---------- */
+    var cmdkTrigger = document.querySelector('.cmdk-trigger');
+    var overlay = document.getElementById('cmdk-overlay');
+    var input = document.getElementById('cmdk-input');
+    var list = document.getElementById('cmdk-list');
+    var emptyEl = document.getElementById('cmdk-empty');
+    var items = [];
+    var activeIndex = 0;
+    var cmdkOpen = false;
+
+    if (cmdkTrigger) {
+      cmdkTrigger.setAttribute('aria-haspopup', 'dialog');
+      cmdkTrigger.setAttribute('aria-expanded', 'false');
+      cmdkTrigger.setAttribute('aria-controls', 'cmdk-overlay');
+    }
+
+    function visibleItems() {
+      return list ? Array.prototype.filter.call(list.querySelectorAll('.cmdk__item'), function (it) { return !it.hidden; }) : [];
+    }
+
+    function setActive(index) {
+      items = visibleItems();
+      if (!items.length) return;
+      activeIndex = ((index % items.length) + items.length) % items.length;
+      items.forEach(function (it, i) { it.classList.toggle('is-active', i === activeIndex); });
+      items[activeIndex].scrollIntoView({ block: 'nearest' });
+    }
+
+    function filterItems(query) {
+      if (!list) return;
+      var q = query.trim().toLowerCase();
+      var visibleCount = 0;
+      Array.prototype.forEach.call(list.querySelectorAll('.cmdk__group'), function (group) {
+        var groupHasVisible = false;
+        Array.prototype.forEach.call(group.querySelectorAll('.cmdk__item'), function (item) {
+          var label = item.querySelector('.cmdk__item-label');
+          var text = label ? label.textContent.toLowerCase() : '';
+          var match = !q || text.indexOf(q) !== -1;
+          item.hidden = !match;
+          if (match) { groupHasVisible = true; visibleCount++; }
+        });
+        group.hidden = !groupHasVisible;
+      });
+      if (emptyEl) emptyEl.hidden = visibleCount !== 0;
+      setActive(0);
+    }
+
+    function openCmdk() {
+      if (!overlay) return;
+      cmdkOpen = true;
+      overlay.hidden = false;
+      if (cmdkTrigger) cmdkTrigger.setAttribute('aria-expanded', 'true');
+      if (input) input.value = '';
+      filterItems('');
+      document.body.style.overflow = 'hidden';
+      if (input) setTimeout(function () { input.focus(); }, 0);
+    }
+    function closeCmdk() {
+      if (!overlay) return;
+      cmdkOpen = false;
+      overlay.hidden = true;
+      if (cmdkTrigger) cmdkTrigger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      if (cmdkTrigger) cmdkTrigger.focus();
+    }
+
+    if (cmdkTrigger) cmdkTrigger.addEventListener('click', function () { cmdkOpen ? closeCmdk() : openCmdk(); });
+    if (overlay) {
+      overlay.addEventListener('mousedown', function (e) { if (e.target === overlay) closeCmdk(); });
+    }
+    if (input) input.addEventListener('input', function () { filterItems(input.value); });
+    if (list) {
+      list.addEventListener('mousemove', function (e) {
+        var item = e.target.closest ? e.target.closest('.cmdk__item') : null;
+        if (item) {
+          var vis = visibleItems();
+          var idx = vis.indexOf(item);
+          if (idx !== -1) setActive(idx);
+        }
+      });
+      list.addEventListener('click', function (e) {
+        var item = e.target.closest ? e.target.closest('.cmdk__item') : null;
+        if (item) closeCmdk();
+      });
+    }
+
+    document.addEventListener('keydown', function (e) {
+      var mod = e.metaKey || e.ctrlKey;
+      if (mod && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        cmdkOpen ? closeCmdk() : openCmdk();
+        return;
+      }
+      if (e.key === 'Escape') {
+        if (cmdkOpen) { closeCmdk(); return; }
+        if (menuOpen) { setMenu(false); burger && burger.focus(); return; }
+      }
+      if (cmdkOpen && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+        e.preventDefault();
+        setActive(activeIndex + (e.key === 'ArrowDown' ? 1 : -1));
+      } else if (cmdkOpen && e.key === 'Enter') {
+        var current = visibleItems()[activeIndex];
+        if (current) { current.click(); }
+      }
+    });
+
+    /* ---------- Copy buttons ---------- */
+    function copyText(text) {
+      if (navigator.clipboard && window.isSecureContext) {
+        return navigator.clipboard.writeText(text);
+      }
+      return new Promise(function (resolve, reject) {
+        try {
+          var ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.top = '-1000px';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          resolve();
+        } catch (err) {
+          reject(err);
+        }
+      });
+    }
+    Array.prototype.forEach.call(document.querySelectorAll('.code-block__copy'), function (btn) {
+      btn.addEventListener('click', function () {
+        var figure = btn.closest('.code-block');
+        if (!figure) return;
+        var codeEl = figure.querySelector('.code-block__body code');
+        var text = codeEl ? codeEl.textContent.replace(/\n+$/, '') : '';
+        var label = btn.querySelector('.code-block__copy-text');
+        var original = label ? label.textContent : '';
+        copyText(text).then(function () {
+          if (label) label.textContent = 'Copied';
+          btn.setAttribute('aria-label', 'Copied to clipboard');
+          clearTimeout(btn._copyTimer);
+          btn._copyTimer = setTimeout(function () {
+            if (label) label.textContent = original;
+            btn.setAttribute('aria-label', 'Copy code');
+          }, 1600);
+        }).catch(function () {
+          if (label) label.textContent = 'Failed';
+          clearTimeout(btn._copyTimer);
+          btn._copyTimer = setTimeout(function () { if (label) label.textContent = original; }, 1600);
+        });
+      });
+    });
+
+    /* ---------- TOC + docs-nav scroll-spy ---------- */
+    var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc__link'));
+    var sectionEntries = tocLinks.map(function (a) {
+      var id = (a.getAttribute('href') || '').replace('#', '');
+      return { link: a, section: id ? document.getElementById(id) : null };
+    }).filter(function (e) { return e.section; });
+
+    if (sectionEntries.length) {
+      var headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 60;
+      var refLine = headerH + 24;
+      var spyTicking = false;
+      function updateActiveSection() {
+        var active = sectionEntries[0];
+        for (var i = 0; i < sectionEntries.length; i++) {
+          if (sectionEntries[i].section.getBoundingClientRect().top - refLine <= 0) {
+            active = sectionEntries[i];
+          } else {
+            break;
+          }
+        }
+        tocLinks.forEach(function (a) { a.classList.toggle('is-active', a === active.link); });
+      }
+      updateActiveSection();
+      window.addEventListener('scroll', function () {
+        if (spyTicking) return;
+        spyTicking = true;
+        window.requestAnimationFrame(function () { updateActiveSection(); spyTicking = false; });
+      }, { passive: true });
+      window.addEventListener('resize', updateActiveSection, { passive: true });
+    }
+
+    /* ---------- Reveal on scroll (progressive enhancement; safe no-op if unused) ---------- */
+    var revealEls = document.querySelectorAll('[data-reveal]');
+    if (revealEls.length) {
+      if ('IntersectionObserver' in window) {
+        var ro = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+        Array.prototype.forEach.call(revealEls, function (el) { ro.observe(el); });
+      } else {
+        Array.prototype.forEach.call(revealEls, function (el) { el.classList.add('is-revealed'); });
+      }
+    }
+  })();
+  </script>
+
+  </body>
+</html>

@@ -1,0 +1,51 @@
+{
+  "pack_id": "loom_git_graph_dark_v1",
+  "role": "anchor",
+  "family": "website.productivity_app",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "git-graph"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "technical",
+    "developer",
+    "data-dense",
+    "precise",
+    "high-contrast"
+  ],
+  "surfaces": [
+    "dashboard",
+    "full_site"
+  ],
+  "motif_tags": [
+    "three_pane_shell",
+    "detail_inspector_panel",
+    "data_terminal",
+    "command_surface",
+    "sidebar_nav",
+    "empty_state_illustration"
+  ],
+  "supports_tasks": [
+    "git_history_explorer",
+    "developer_tool_app_shell",
+    "commit_graph_visualization_tool",
+    "devtools_product_interface"
+  ],
+  "anti_patterns": [
+    "marketing landing page for a git-hosting product",
+    "a real repository or commit history (labeled SAMPLE DATA throughout)",
+    "light editorial docs page (this is a dark developer surface, not light)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1000,
+  "confidence_score": 4,
+  "example_ids": []
+}

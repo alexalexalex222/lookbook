@@ -1,0 +1,51 @@
+{
+  "pack_id": "meridian_gantt_timeline_v1",
+  "role": "anchor",
+  "family": "website.productivity_app",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "gantt"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "light",
+    "precise",
+    "professional",
+    "data-dense",
+    "restrained",
+    "trustworthy"
+  ],
+  "surfaces": [
+    "dashboard",
+    "full_site"
+  ],
+  "motif_tags": [
+    "schedule_matrix",
+    "detail_inspector_panel",
+    "command_surface",
+    "process_timeline",
+    "empty_state_illustration",
+    "three_pane_shell"
+  ],
+  "supports_tasks": [
+    "project_timeline_app",
+    "gantt_chart_interface",
+    "project_management_saas_shell",
+    "resource_planning_dashboard"
+  ],
+  "anti_patterns": [
+    "marketing landing page for project-management software",
+    "real project names, staff, or client deadlines (all sample data, owner fields marked synthetic)",
+    "kanban board (this is a date-axis timeline, not a card-column layout)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1600,
+  "confidence_score": 4,
+  "example_ids": []
+}

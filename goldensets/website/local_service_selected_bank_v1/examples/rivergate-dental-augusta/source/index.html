@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rivergate Dental Associates</title>
+    <title>Rivergate Dental &mdash; Augusta, GA</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
@@ -16,6 +16,10 @@
             --charcoal: #2C3531;
             --gold: #C6A87C;
             --gold-hover: #b39569;
+            /* AA-safe deep variants for text on light surfaces */
+            --sage-deep: #59695F;
+            --sage-ink: #74857A;
+            --gold-deep: #85693B;
         }
 
         * {
@@ -63,7 +67,7 @@
             font-family: 'Outfit', sans-serif;
             font-size: 0.65rem;
             letter-spacing: 0.15em;
-            color: var(--soft-sage);
+            color: var(--sage-deep);
             margin-top: 0.2rem;
             font-weight: 500;
             text-transform: uppercase;
@@ -83,7 +87,7 @@
         }
 
         .nav-links a:hover {
-            color: var(--gold);
+            color: var(--gold-deep);
         }
 
         .contact-group {
@@ -101,7 +105,7 @@
         }
 
         .phone-link:hover {
-            color: var(--gold);
+            color: var(--gold-deep);
         }
 
         .btn-outline {
@@ -147,7 +151,7 @@
             font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 0.2em;
-            color: var(--soft-sage);
+            color: var(--sage-deep);
             margin-bottom: 2.5rem;
             font-weight: 500;
         }
@@ -172,7 +176,7 @@
         h1 i {
             font-style: italic;
             font-weight: 300;
-            color: var(--soft-sage);
+            color: var(--sage-ink);
         }
 
         p.subtitle {
@@ -193,7 +197,11 @@
 
         .btn-primary {
             background-color: var(--gold);
-            color: var(--pearl);
+            color: var(--charcoal);
+            border: 0;
+            cursor: pointer;
+            display: inline-block;
+            font-family: 'Outfit', sans-serif;
             padding: 1.2rem 3rem;
             border-radius: 2px;
             font-size: 0.9rem;
@@ -240,7 +248,7 @@
         }
 
         .btn-secondary:hover {
-            color: var(--gold);
+            color: var(--gold-deep);
         }
 
         .btn-secondary svg {
@@ -280,7 +288,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
-            color: var(--soft-sage);
+            color: var(--sage-deep);
             line-height: 1.4;
         }
 
@@ -379,7 +387,7 @@
 
         .card-text {
             font-size: 0.9rem;
-            color: #777;
+            color: #6B6B6B;
             line-height: 1.6;
             font-weight: 300;
         }
@@ -468,21 +476,103 @@
             }
             .image-wrapper { width: 100%; }
         }
+
+        /* Smooth anchor travel, motion-safe only */
+        @media (prefers-reduced-motion: no-preference) {
+            html { scroll-behavior: smooth; }
+        }
+
+        /* Skip link */
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: 1rem;
+            z-index: 100;
+            background-color: var(--charcoal);
+            color: var(--pearl);
+            padding: 0.8rem 1.4rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            border-radius: 2px;
+        }
+
+        .skip-link:focus {
+            top: 1rem;
+        }
+
+        /* Visible keyboard focus everywhere */
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible,
+        summary:focus-visible {
+            outline: 2px solid var(--charcoal);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        .experience-section a:focus-visible,
+        footer.main-footer a:focus-visible {
+            outline-color: var(--gold);
+        }
+
+        /* Header pins itself once the hero is scrolled (class set by JS) */
+        header.is-scrolled {
+            position: fixed;
+            background-color: rgba(248, 247, 243, 0.96);
+            box-shadow: 0 10px 30px rgba(44, 53, 49, 0.06);
+            padding-top: 1.1rem;
+            padding-bottom: 1.1rem;
+            backdrop-filter: blur(8px);
+        }
+
+        /* Bespoke SVG scenes size like the images they replaced */
+        svg.main-image {
+            display: block;
+        }
+
+        .philosophy-image-wrap svg {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        @media (max-width: 420px) {
+            header { padding: 1.2rem 1.25rem; }
+            .logo { font-size: 1.35rem; }
+            .btn-outline { padding: 0.7rem 1.1rem; font-size: 0.75rem; }
+            h1 { font-size: 2.75rem; }
+            .hero-content { padding-left: 1.5rem; padding-right: 1.5rem; }
+        }
+
+        /* Calm by preference */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+        }
     </style>
 </head>
 <body>
 
-    <header>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header id="site-header">
         <a href="#" class="logo">
-            West Augusta
-            <span>Dental Associates</span>
+            Rivergate
+            <span>Dental &middot; Augusta, GA</span>
         </a>
-        
-        <nav class="nav-links">
-            <a href="#expertise">Our Expertise</a>
+
+        <nav class="nav-links" aria-label="Primary">
+            <a href="#about">The Practice</a>
             <a href="#services">Clinical Services</a>
             <a href="#patients">New Patients</a>
-            <a href="#about">The Practice</a>
+            <a href="#faq">FAQ</a>
         </nav>
 
         <div class="contact-group">
@@ -491,11 +581,11 @@
         </div>
     </header>
 
-    <main>
+    <main id="main">
         <section class="hero">
             
             <div class="hero-content">
-                <div class="eyebrow">Welcoming New Patients on Wheeler Road</div>
+                <div class="eyebrow">Welcoming New Patients on Riverline Road</div>
                 
                 <h1>Quiet hospitality.<br><i>Clinical</i> excellence.</h1>
                 
@@ -504,10 +594,10 @@
                 </p>
 
                 <div class="cta-group">
-                    <a href="#schedule" class="btn-primary">Schedule Your Visit</a>
+                    <a href="#appointment" class="btn-primary">Schedule Your Visit</a>
                     <a href="#sedation" class="btn-secondary">
                         Explore Sedation Dentistry
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                     </a>
@@ -534,17 +624,55 @@
                 <div class="visual-bg-shape-2"></div>
                 
                 <div class="image-wrapper">
-                    <!-- High-quality, tasteful image indicating clinical precision and warmth -->
-                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1470&auto=format&fit=crop" alt="Pristine and calming dental treatment environment" class="main-image">
+                    <!-- Bespoke scene: the river gate at first light — calm, precise, in-palette -->
+                    <svg class="main-image" viewBox="0 0 780 940" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a golden dawn over a calm river flowing through a stone gate" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="rg-sky" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#FDFDFD"/>
+                                <stop offset="0.55" stop-color="#F3F4EE"/>
+                                <stop offset="1" stop-color="#E4EBE6"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="780" height="940" fill="url(#rg-sky)"/>
+                        <circle cx="512" cy="208" r="70" fill="#C6A87C" opacity="0.92"/>
+                        <circle cx="512" cy="208" r="94" fill="none" stroke="#C6A87C" stroke-width="1.5" opacity="0.4"/>
+                        <path d="M196 168 q10 -9 20 0 M216 168 q10 -9 20 0" fill="none" stroke="#2C3531" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+                        <path d="M258 204 q8 -7 16 0 M274 204 q8 -7 16 0" fill="none" stroke="#2C3531" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+                        <path d="M0 486 q160 -36 320 -16 t460 4 v80 H0 Z" fill="#D2DED5" opacity="0.85"/>
+                        <path d="M0 512 q220 -28 420 -6 t360 10 v60 H0 Z" fill="#C4D3C9" opacity="0.9"/>
+                        <path d="M390 210 l11 13 -11 13 -11 -13 Z" fill="#C6A87C"/>
+                        <path d="M262 560 V 356 A 128 128 0 0 1 518 356 V 560" fill="none" stroke="#2C3531" stroke-width="9" stroke-linecap="round"/>
+                        <path d="M282 560 V 362 A 108 108 0 0 1 498 362 V 560" fill="none" stroke="#C6A87C" stroke-width="2.5" opacity="0.85"/>
+                        <rect x="246" y="546" width="34" height="18" rx="2" fill="#2C3531"/>
+                        <rect x="500" y="546" width="34" height="18" rx="2" fill="#2C3531"/>
+                        <path d="M0 588 q130 -22 260 0 t260 0 t260 0 v352 H0 Z" fill="#CBDACF"/>
+                        <path d="M0 656 q130 -26 260 0 t260 0 t260 0 v284 H0 Z" fill="#BCCEC2"/>
+                        <path d="M0 738 q130 -30 260 0 t260 0 t260 0 v202 H0 Z" fill="#A9BFB1"/>
+                        <path d="M0 836 q130 -32 260 0 t260 0 t260 0 v104 H0 Z" fill="#9FACA3"/>
+                        <path d="M40 620 q90 -14 180 0 M340 700 q110 -16 220 0 M90 792 q100 -14 200 0 M430 872 q90 -12 180 0" fill="none" stroke="#FDFDFD" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+                        <path d="M492 592 q20 -8 40 0 M500 640 q16 -7 32 0 M494 692 q20 -8 40 0 M504 748 q14 -6 28 0" fill="none" stroke="#C6A87C" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+                        <g fill="none" stroke="#2C3531" stroke-width="2.5" stroke-linecap="round" opacity="0.7">
+                            <path d="M84 940 C 80 850 86 800 78 756"/>
+                            <path d="M108 940 C 108 860 116 820 112 776"/>
+                            <path d="M132 940 C 136 870 128 830 138 796"/>
+                        </g>
+                        <path d="M78 780 q-26 -18 -34 -44 q30 6 34 44 Z" fill="#74857A"/>
+                        <path d="M112 800 q26 -16 32 -42 q-28 5 -32 42 Z" fill="#9FACA3"/>
+                        <g fill="none" stroke="#2C3531" stroke-width="2.5" stroke-linecap="round" opacity="0.7">
+                            <path d="M676 940 C 680 860 672 812 682 768"/>
+                            <path d="M652 940 C 650 866 658 824 650 788"/>
+                        </g>
+                        <path d="M682 792 q26 -18 32 -44 q-28 6 -32 44 Z" fill="#74857A"/>
+                    </svg>
                 </div>
 
                 <div class="floating-card">
                     <div class="card-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                     </div>
-                    <h3 class="card-title">Comprehensive Restorations</h3>
+                    <p class="card-title">Comprehensive Restorations</p>
                     <p class="card-text">From custom veneers to precision implants and crowns, our in-house expertise means fewer referrals and seamless care.</p>
                 </div>
             </div>
@@ -582,7 +710,7 @@ section.below-fold-section {
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.2em;
-    color: var(--soft-sage);
+    color: var(--sage-deep);
     margin-bottom: 1.5rem;
     font-weight: 500;
 }
@@ -618,8 +746,12 @@ section.below-fold-section {
 
 .section-title i {
     font-style: italic;
-    color: var(--soft-sage);
+    color: var(--sage-ink);
     font-weight: 300;
+}
+
+.experience-section .section-title i {
+    color: var(--soft-sage);
 }
 
 /* Philosophy Section */
@@ -721,7 +853,7 @@ section.below-fold-section {
 }
 
 .service-link:hover {
-    color: var(--gold);
+    color: var(--gold-deep);
 }
 
 .service-link svg {
@@ -771,7 +903,7 @@ section.below-fold-section {
     font-family: 'Cormorant Garamond', serif;
     font-size: 4.5rem;
     color: var(--gold);
-    opacity: 0.4;
+    opacity: 0.65;
     line-height: 1;
     margin-bottom: 1.5rem;
     font-weight: 300;
@@ -834,7 +966,7 @@ section.below-fold-section {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: var(--soft-sage);
+    color: var(--sage-deep);
     font-weight: 500;
 }
 
@@ -937,7 +1069,7 @@ footer.main-footer {
     max-width: 1400px;
     margin: 0 auto;
     font-size: 0.85rem;
-    color: rgba(253, 253, 253, 0.4);
+    color: rgba(253, 253, 253, 0.6);
     font-weight: 300;
 }
 
@@ -971,6 +1103,373 @@ footer.main-footer {
     .testimonial-text { font-size: 2rem; }
     .testimonial-section, .cta-section { padding: 6rem 2rem; }
 }
+
+/* Why Rivergate */
+.why-section {
+    background-color: var(--pearl);
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+}
+
+.why-items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem 2.5rem;
+}
+
+.why-item {
+    border-top: 1px solid rgba(159, 172, 163, 0.35);
+    padding-top: 1.6rem;
+}
+
+.why-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.9rem;
+    font-weight: 400;
+    color: var(--gold-deep);
+    line-height: 1;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.why-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 0.7rem;
+    letter-spacing: 0.02em;
+}
+
+.why-text {
+    font-size: 0.98rem;
+    color: #5A625D;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* Testimonial supporting quotes */
+.testimonial-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    max-width: 900px;
+    margin: 4.5rem auto 0;
+    text-align: left;
+}
+
+.mini-quote {
+    margin: 0;
+    background-color: var(--pearl);
+    border-left: 3px solid var(--gold);
+    border-radius: 2px;
+    padding: 2.2rem;
+    box-shadow: 0 15px 35px rgba(44, 53, 49, 0.05);
+}
+
+.mini-quote blockquote {
+    margin: 0 0 1.2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--charcoal);
+}
+
+.mini-quote figcaption {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--sage-deep);
+    font-weight: 500;
+}
+
+/* Service area */
+.area-section {
+    background-color: var(--sage-light);
+}
+
+.area-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+}
+
+.area-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 2rem;
+    margin-top: 2.5rem;
+}
+
+.area-list li {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1rem;
+    color: var(--charcoal);
+    font-weight: 300;
+}
+
+.area-list li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background-color: var(--gold);
+    border-radius: 50%;
+    flex: none;
+}
+
+.area-card {
+    background-color: var(--pearl);
+    border-radius: 2px;
+    box-shadow: 0 25px 50px rgba(44, 53, 49, 0.08);
+    overflow: hidden;
+}
+
+.area-card svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.area-card-body {
+    padding: 2.4rem 2.6rem 2.8rem;
+}
+
+.area-card-body h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 0.6rem;
+}
+
+.area-card-body p {
+    font-size: 0.98rem;
+    color: #5A625D;
+    font-weight: 300;
+    margin-bottom: 0.35rem;
+}
+
+.area-card-body a {
+    color: var(--gold-deep);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.area-card-body a:hover {
+    color: var(--charcoal);
+}
+
+/* FAQ */
+.faq-section {
+    background-color: var(--warm-white);
+}
+
+.faq-list {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background-color: var(--pearl);
+    border: 1px solid rgba(159, 172, 163, 0.25);
+    border-radius: 2px;
+    margin-bottom: 1rem;
+}
+
+.faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.6rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--charcoal);
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-marker {
+    flex: none;
+    width: 14px;
+    height: 14px;
+    position: relative;
+}
+
+.faq-marker::before,
+.faq-marker::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background-color: var(--gold-deep);
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+}
+
+.faq-marker::after {
+    transform: translateY(-50%) rotate(90deg);
+}
+
+.faq-item[open] .faq-marker::after {
+    transform: translateY(-50%) rotate(0deg);
+}
+
+.faq-answer {
+    padding: 0 2rem 1.8rem;
+    font-size: 1rem;
+    color: #5A625D;
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 92%;
+}
+
+/* Appointment request */
+.appointment-section {
+    background-color: var(--pearl);
+}
+
+.appointment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 5rem;
+    align-items: start;
+}
+
+.appointment-direct {
+    margin-top: 2.5rem;
+    border-top: 1px solid rgba(159, 172, 163, 0.3);
+    padding-top: 2rem;
+}
+
+.appointment-direct p {
+    font-size: 1rem;
+    color: #5A625D;
+    font-weight: 300;
+    margin-bottom: 0.6rem;
+}
+
+.appointment-direct a {
+    color: var(--charcoal);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.appointment-direct a:hover {
+    color: var(--gold-deep);
+}
+
+.booking-form {
+    background-color: var(--warm-white);
+    border: 1px solid rgba(159, 172, 163, 0.25);
+    border-radius: 2px;
+    padding: 3rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.6rem;
+}
+
+.form-field label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--sage-deep);
+    font-weight: 500;
+    margin-bottom: 0.55rem;
+}
+
+.form-field .req {
+    color: var(--gold-deep);
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--charcoal);
+    background-color: var(--pearl);
+    border: 1px solid rgba(159, 172, 163, 0.45);
+    border-radius: 2px;
+    padding: 0.9rem 1rem;
+    width: 100%;
+    transition: border-color 0.3s ease;
+}
+
+.form-field textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus {
+    border-color: var(--gold-deep);
+}
+
+.field-hint {
+    font-size: 0.8rem;
+    color: var(--sage-deep);
+    font-weight: 300;
+    margin-top: 0.45rem;
+}
+
+.form-note {
+    margin-top: 1.4rem;
+    font-size: 0.85rem;
+    color: #5A625D;
+    font-weight: 300;
+}
+
+/* Responsive scaling for the added sections */
+@media (max-width: 1200px) {
+    .why-grid,
+    .area-grid,
+    .appointment-grid {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .why-items { grid-template-columns: 1fr; gap: 2rem; }
+    .testimonial-row { grid-template-columns: 1fr; gap: 1.5rem; }
+    .area-list { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .booking-form { padding: 2rem 1.5rem; }
+    .faq-item summary { padding: 1.3rem 1.4rem; }
+    .faq-answer { padding: 0 1.4rem 1.5rem; max-width: 100%; }
+    .area-card-body { padding: 1.8rem 1.5rem 2rem; }
+}
 </style>
 
 <section id="about" class="below-fold-section philosophy-section">
@@ -979,16 +1478,55 @@ footer.main-footer {
             <div class="section-eyebrow">The Practice</div>
             <h2 class="section-title">A different kind of <br><i>clinical</i> care.</h2>
             <p class="philosophy-text">
-                Rivergate Dental Associates is built on a foundation of unhurried precision. We believe that exceptional dentistry requires time, focus, and a serene environment. From the moment you walk through our doors, you will notice the difference—a quiet, hospitable atmosphere where your comfort is our primary metric for success.
+                Rivergate Dental is built on a foundation of unhurried precision. We believe that exceptional dentistry requires time, focus, and a serene environment. From the moment you walk through our doors, you will notice the difference—a quiet, hospitable atmosphere where your comfort is our primary metric for success.
             </p>
             <p class="philosophy-text">
                 Our team combines over 60 years of clinical experience with advanced restorative techniques, allowing us to handle complex cases in-house with meticulous attention to detail.
             </p>
-            <a href="#team" class="btn-outline" style="margin-top: 1.5rem; display: inline-block;">Meet the Doctors</a>
+            <a href="#why" class="btn-outline" style="margin-top: 1.5rem; display: inline-block;">Why Patients Choose Us</a>
         </div>
         <div class="philosophy-visual">
             <div class="philosophy-image-wrap">
-                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=1470&auto=format&fit=crop" alt="Calm, premium dental clinic interior">
+                <!-- Bespoke scene: the quiet consultation room — arched window, morning light -->
+                <svg viewBox="0 0 800 620" role="img" aria-label="Illustration of a calm consultation room with an arched window, pendant lamp, and potted plant" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="rg-wall" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#FDFDFD"/>
+                            <stop offset="1" stop-color="#F3F2EC"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="800" height="620" fill="url(#rg-wall)"/>
+                    <rect y="472" width="800" height="148" fill="#ECEDE5"/>
+                    <line x1="0" y1="472" x2="800" y2="472" stroke="#D9DFD9" stroke-width="2"/>
+                    <path d="M500 472 V 240 A 100 100 0 0 1 700 240 V 472 Z" fill="#F6F7F2" stroke="#9FACA3" stroke-width="6"/>
+                    <path d="M508 464 V 242 A 92 92 0 0 1 692 242 V 464 Z" fill="#E4EBE6"/>
+                    <circle cx="562" cy="230" r="26" fill="#C6A87C" opacity="0.9"/>
+                    <path d="M508 400 q60 -24 110 -8 t74 -6 v78 h-184 Z" fill="#C4D3C9"/>
+                    <path d="M508 430 q70 -18 184 -4 v38 h-184 Z" fill="#AFC2B5"/>
+                    <line x1="600" y1="148" x2="600" y2="464" stroke="#9FACA3" stroke-width="4"/>
+                    <line x1="508" y1="330" x2="692" y2="330" stroke="#9FACA3" stroke-width="4"/>
+                    <path d="M520 472 L 700 472 L 780 620 L 430 620 Z" fill="#C6A87C" opacity="0.1"/>
+                    <line x1="240" y1="0" x2="240" y2="128" stroke="#2C3531" stroke-width="2"/>
+                    <path d="M212 130 a 28 28 0 0 1 56 0 Z" fill="#C6A87C"/>
+                    <circle cx="240" cy="138" r="4" fill="#2C3531"/>
+                    <rect x="316" y="212" width="112" height="132" fill="#F6F7F2" stroke="#C6A87C" stroke-width="3"/>
+                    <path d="M330 322 q26 -58 84 -44" fill="none" stroke="#74857A" stroke-width="3" stroke-linecap="round"/>
+                    <circle cx="352" cy="252" r="9" fill="#9FACA3"/>
+                    <rect x="300" y="398" width="152" height="9" rx="2" fill="#74857A"/>
+                    <line x1="312" y1="407" x2="312" y2="472" stroke="#2C3531" stroke-width="4"/>
+                    <line x1="440" y1="407" x2="440" y2="472" stroke="#2C3531" stroke-width="4"/>
+                    <path d="M362 398 v-26 a 14 14 0 0 1 28 0 v26 Z" fill="#E4EBE6" stroke="#9FACA3" stroke-width="2.5"/>
+                    <path d="M376 372 q-4 -22 12 -34 M376 372 q2 -18 -10 -28" fill="none" stroke="#74857A" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M100 408 h 84 l -10 64 h -64 Z" fill="#2C3531"/>
+                    <g fill="none" stroke="#74857A" stroke-width="3" stroke-linecap="round">
+                        <path d="M142 408 C 138 340 148 300 132 258"/>
+                        <path d="M142 408 C 150 352 138 320 158 282"/>
+                        <path d="M142 408 C 140 368 152 344 144 316"/>
+                    </g>
+                    <path d="M132 262 q-30 -20 -38 -50 q34 8 38 50 Z" fill="#9FACA3"/>
+                    <path d="M158 286 q30 -18 36 -48 q-32 7 -36 48 Z" fill="#74857A"/>
+                    <path d="M144 318 q-26 -16 -32 -42 q28 6 32 42 Z" fill="#9FACA3"/>
+                </svg>
             </div>
         </div>
     </div>
@@ -1002,40 +1540,111 @@ footer.main-footer {
         </div>
         
         <div class="services-grid">
-            <div class="service-card">
-                <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="service-card" id="implants">
+                <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
                 <h3 class="service-title">Dental Implants</h3>
                 <p class="service-desc">Permanent, natural-looking replacements for missing teeth, expertly placed and restored in our clinic for a seamless fit.</p>
-                <a href="#implants" class="service-link">
+                <a href="#appointment" class="service-link">
                     Explore Implants
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </a>
             </div>
-            
-            <div class="service-card">
-                <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+            <div class="service-card" id="veneers">
+                <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                 </svg>
                 <h3 class="service-title">Custom Veneers</h3>
                 <p class="service-desc">Hand-crafted porcelain restorations designed to enhance your smile's symmetry, color, and overall aesthetic with premium materials.</p>
-                <a href="#veneers" class="service-link">
+                <a href="#appointment" class="service-link">
                     Explore Veneers
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </a>
             </div>
-            
-            <div class="service-card">
-                <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+
+            <div class="service-card" id="sedation">
+                <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                 </svg>
                 <h3 class="service-title">IV Sedation</h3>
                 <p class="service-desc">For patients with dental anxiety or those undergoing complex procedures, our certified sedation ensures a completely relaxed experience.</p>
-                <a href="#sedation" class="service-link">
+                <a href="#appointment" class="service-link">
                     Explore Sedation
-                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </a>
+            </div>
+
+            <div class="service-card" id="preventative">
+                <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6.75 3v2.25M17.25 3v2.25M3.75 8.25h16.5M4.5 5.25h15A.75.75 0 0120.25 6v13.5a.75.75 0 01-.75.75h-15a.75.75 0 01-.75-.75V6a.75.75 0 01.75-.75zM9 12.75l2 2 4-4" />
+                </svg>
+                <h3 class="service-title">Preventative Care</h3>
+                <p class="service-desc">Unhurried cleanings, low-dose digital imaging, and gum-health monitoring on a schedule built around your calendar, not ours.</p>
+                <a href="#appointment" class="service-link">
+                    Explore Prevention
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
+            </div>
+
+            <div class="service-card" id="crowns">
+                <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 17h14M4.5 17L3 8.5l4.5 3L12 5l4.5 6.5 4.5-3L19.5 17M9.5 13.5h5" />
+                </svg>
+                <h3 class="service-title">Crowns &amp; Bridges</h3>
+                <p class="service-desc">Porcelain crowns and fixed bridges designed, shade-matched, and fitted in-house to restore strength and a natural silhouette.</p>
+                <a href="#appointment" class="service-link">
+                    Explore Crowns
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
+            </div>
+
+            <div class="service-card" id="emergency">
+                <svg class="service-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                </svg>
+                <h3 class="service-title">Emergency Visits</h3>
+                <p class="service-desc">Tooth pain rarely keeps office hours. Call early in the day &mdash; we reserve time on most schedules for urgent concerns.</p>
+                <a href="tel:+17065550167" class="service-link">
+                    Call (706) 555-0167
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="why" class="below-fold-section why-section">
+    <div class="container why-grid">
+        <div class="why-intro">
+            <div class="section-eyebrow">Why Rivergate</div>
+            <h2 class="section-title">Dentistry, <br><i>unhurried</i>.</h2>
+            <p class="philosophy-text">
+                Most practices measure the day in patients per hour. We schedule fewer visits and longer appointments, so your doctor is never watching the clock while caring for you.
+            </p>
+            <a href="#appointment" class="btn-outline" style="margin-top: 1rem; display: inline-block;">Request Appointment</a>
+        </div>
+        <div class="why-items">
+            <div class="why-item">
+                <span class="why-num" aria-hidden="true">I</span>
+                <h3 class="why-title">Longer Appointments</h3>
+                <p class="why-text">Sixty to ninety minutes is our standard visit &mdash; time to examine carefully, explain clearly, and answer every question.</p>
+            </div>
+            <div class="why-item">
+                <span class="why-num" aria-hidden="true">II</span>
+                <h3 class="why-title">In-House Restorations</h3>
+                <p class="why-text">Implants, crowns, and veneers are planned and completed under one roof, which means fewer referrals and fewer handoffs.</p>
+            </div>
+            <div class="why-item">
+                <span class="why-num" aria-hidden="true">III</span>
+                <h3 class="why-title">Sedation, Considered</h3>
+                <p class="why-text">IV and oral sedation for anxious patients &mdash; always preceded by a careful review of your health history and medications.</p>
+            </div>
+            <div class="why-item">
+                <span class="why-num" aria-hidden="true">IV</span>
+                <h3 class="why-title">Written Estimates First</h3>
+                <p class="why-text">Costs are discussed before treatment begins, in writing, never after. No surprises at the front desk.</p>
             </div>
         </div>
     </div>
@@ -1051,35 +1660,194 @@ footer.main-footer {
         <div class="steps-grid">
             <div class="step-item">
                 <div class="step-number">01</div>
-                <h4 class="step-title">Consultation</h4>
+                <h3 class="step-title">Consultation</h3>
                 <p class="step-desc">We begin by listening. Your goals and concerns dictate our clinical approach.</p>
             </div>
             <div class="step-item">
                 <div class="step-number">02</div>
-                <h4 class="step-title">Diagnostics</h4>
+                <h3 class="step-title">Diagnostics</h3>
                 <p class="step-desc">Advanced 3D imaging allows us to see the full clinical picture with absolute clarity.</p>
             </div>
             <div class="step-item">
                 <div class="step-number">03</div>
-                <h4 class="step-title">The Plan</h4>
+                <h3 class="step-title">The Plan</h3>
                 <p class="step-desc">A transparent, pressure-free discussion of your clinical options and timeline.</p>
             </div>
             <div class="step-item">
                 <div class="step-number">04</div>
-                <h4 class="step-title">Restoration</h4>
+                <h3 class="step-title">Restoration</h3>
                 <p class="step-desc">Executing your treatment with precision, advanced sedation, and quiet hospitality.</p>
             </div>
         </div>
     </div>
 </section>
 
-<section class="testimonial-section">
+<section id="testimonials" class="testimonial-section">
     <div class="container">
+        <div class="section-header text-center">
+            <div class="section-eyebrow center">Kind Words</div>
+            <h2 class="section-title">From our <i>patients</i>.</h2>
+        </div>
         <div class="testimonial-content">
-            <div class="quote-mark">&ldquo;</div>
+            <div class="quote-mark" aria-hidden="true">&ldquo;</div>
             <p class="testimonial-text">The level of care and precision here is unmatched. After avoiding the dentist for years, the IV sedation and their gentle approach completely changed my perspective on dental health.</p>
             <div class="testimonial-author">Sarah M. &mdash; Augusta, GA</div>
         </div>
+        <div class="testimonial-row">
+            <figure class="mini-quote">
+                <blockquote>Twelve years of putting it off, and not one lecture. They explained IV sedation, spaced the work over three visits, and gave me a written plan I actually understood.</blockquote>
+                <figcaption>James R. &mdash; Evans, GA</figcaption>
+            </figure>
+            <figure class="mini-quote">
+                <blockquote>Both of my crowns were made and fitted right here &mdash; no referral across town. They even scheduled my kids&rsquo; cleanings back-to-back around school pickup.</blockquote>
+                <figcaption>Denise K. &mdash; Martinez, GA</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<section id="service-area" class="below-fold-section area-section">
+    <div class="container area-grid">
+        <div class="area-intro">
+            <div class="section-eyebrow">Where We Are</div>
+            <h2 class="section-title">Rooted in <br><i>Augusta</i>.</h2>
+            <p class="philosophy-text">
+                Our practice sits on Riverline Road in West Augusta, minutes from Interstate 20 and an easy drive from most of the CSRA. Families visit us from:
+            </p>
+            <ul class="area-list">
+                <li>West Augusta &amp; Summerville</li>
+                <li>Downtown Augusta</li>
+                <li>Evans</li>
+                <li>Martinez</li>
+                <li>Grovetown</li>
+                <li>North Augusta, SC</li>
+            </ul>
+        </div>
+        <div class="area-visual">
+            <div class="area-card">
+                <!-- Bespoke ornament: the river winding past our marked corner of Augusta -->
+                <svg viewBox="0 0 640 240" role="img" aria-label="Stylized map ornament of the river winding past a marked location in West Augusta" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="640" height="240" fill="#E9EFEA"/>
+                    <g stroke="#D5DED7" stroke-width="1.5">
+                        <line x1="0" y1="64" x2="640" y2="64"/>
+                        <line x1="0" y1="128" x2="640" y2="128"/>
+                        <line x1="0" y1="192" x2="640" y2="192"/>
+                        <line x1="128" y1="0" x2="128" y2="240"/>
+                        <line x1="288" y1="0" x2="288" y2="240"/>
+                        <line x1="448" y1="0" x2="448" y2="240"/>
+                    </g>
+                    <path d="M-10 196 C 90 152 150 214 250 172 S 430 92 520 122 S 616 104 650 72" fill="none" stroke="#9FACA3" stroke-width="26" stroke-linecap="round" opacity="0.55"/>
+                    <path d="M-10 196 C 90 152 150 214 250 172 S 430 92 520 122 S 616 104 650 72" fill="none" stroke="#FDFDFD" stroke-width="3" stroke-dasharray="1 10" stroke-linecap="round"/>
+                    <path d="M40 40 L 300 96 L 560 210" fill="none" stroke="#2C3531" stroke-width="2" opacity="0.18"/>
+                    <path d="M540 24 L 330 150 L 60 226" fill="none" stroke="#2C3531" stroke-width="2" opacity="0.18"/>
+                    <circle cx="330" cy="126" r="30" fill="#C6A87C" opacity="0.15"/>
+                    <circle cx="330" cy="126" r="19" fill="#C6A87C" opacity="0.35"/>
+                    <circle cx="330" cy="126" r="9" fill="#C6A87C"/>
+                    <g transform="translate(576 42)">
+                        <circle r="21" fill="#FDFDFD" stroke="#2C3531" stroke-width="1.5" opacity="0.9"/>
+                        <path d="M0 -13 L 5 6 L 0 2 L -5 6 Z" fill="#2C3531"/>
+                        <text y="17" text-anchor="middle" font-family="Outfit, sans-serif" font-size="9" fill="#2C3531">N</text>
+                    </g>
+                </svg>
+                <div class="area-card-body">
+                    <h3>Rivergate Dental</h3>
+                    <p>Riverline Road, Augusta, GA 30909</p>
+                    <p>Mon&ndash;Thu 8:00&ndash;5:00 &middot; Fri 8:00&ndash;1:00</p>
+                    <p style="margin-top: 1.2rem;"><a href="tel:+17065550167">(706) 555-0167</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="faq" class="below-fold-section faq-section">
+    <div class="container">
+        <div class="section-header text-center">
+            <div class="section-eyebrow center">Common Questions</div>
+            <h2 class="section-title">Before your <br><i>first visit</i>.</h2>
+        </div>
+        <div class="faq-list">
+            <details class="faq-item">
+                <summary>I haven&rsquo;t seen a dentist in years. Will I be lectured?<span class="faq-marker" aria-hidden="true"></span></summary>
+                <p class="faq-answer">No. Most weeks we welcome someone who has been away a decade or more. Your first visit is an unhurried exam and a conversation about where you would like to be &mdash; nothing happens without your say-so.</p>
+            </details>
+            <details class="faq-item">
+                <summary>What happens at a first appointment?<span class="faq-marker" aria-hidden="true"></span></summary>
+                <p class="faq-answer">Plan on about ninety minutes: a comprehensive exam, 3D imaging, a gum-health check, and time with your doctor to review findings and options. Cleanings are usually scheduled once we know what your mouth needs.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Do you file dental insurance?<span class="faq-marker" aria-hidden="true"></span></summary>
+                <p class="faq-answer">We file claims with most major PPO plans on your behalf and provide written estimates before treatment begins. For patients without insurance, we offer a simple in-house membership that covers routine care.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Is sedation right for me?<span class="faq-marker" aria-hidden="true"></span></summary>
+                <p class="faq-answer">IV and oral sedation are options for anxious patients and longer procedures. Your doctor reviews your health history and current medications first, then walks you through exactly what to expect. Sedation is only recommended when it is appropriate for you.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How long does implant treatment take?<span class="faq-marker" aria-hidden="true"></span></summary>
+                <p class="faq-answer">Every case differs, but implant treatment typically spans a few months: placement, a healing period while the implant integrates, then the final crown. You receive a written timeline at your consultation.</p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<section id="appointment" class="below-fold-section appointment-section">
+    <div class="container appointment-grid">
+        <div class="appointment-intro">
+            <div class="section-eyebrow">Request Appointment</div>
+            <h2 class="section-title">Reserve a <br><i>quiet hour</i>.</h2>
+            <p class="philosophy-text">
+                Tell us a little about yourself and we will call to find a time that suits you &mdash; we respond within one business day. Prefer to talk now? We answer our own phone.
+            </p>
+            <div class="appointment-direct">
+                <p><a href="tel:+17065550167">(706) 555-0167</a></p>
+                <p><a href="mailto:care@rivergatedental.example">care@rivergatedental.example</a></p>
+                <p>Mon&ndash;Thu 8:00&ndash;5:00 &middot; Fri 8:00&ndash;1:00</p>
+                <p>Riverline Road, Augusta, GA 30909</p>
+            </div>
+        </div>
+        <form class="booking-form" action="#" method="post">
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="rg-name">Full name <span class="req" aria-hidden="true">*</span></label>
+                    <input type="text" id="rg-name" name="name" autocomplete="name" required>
+                </div>
+                <div class="form-field">
+                    <label for="rg-phone">Phone <span class="req" aria-hidden="true">*</span></label>
+                    <input type="tel" id="rg-phone" name="phone" autocomplete="tel" required aria-describedby="rg-phone-hint">
+                    <p class="field-hint" id="rg-phone-hint">We only call about your appointment.</p>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-field">
+                    <label for="rg-email">Email</label>
+                    <input type="email" id="rg-email" name="email" autocomplete="email">
+                </div>
+                <div class="form-field">
+                    <label for="rg-visit">Type of visit</label>
+                    <select id="rg-visit" name="visit">
+                        <option>New patient exam</option>
+                        <option>Cleaning &amp; check-up</option>
+                        <option>Implant consultation</option>
+                        <option>Veneers consultation</option>
+                        <option>Sedation questions</option>
+                        <option>Urgent concern</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-field">
+                <label for="rg-times">Preferred days &amp; times</label>
+                <input type="text" id="rg-times" name="times" aria-describedby="rg-times-hint">
+                <p class="field-hint" id="rg-times-hint">For example: weekday mornings, or Fridays before noon.</p>
+            </div>
+            <div class="form-field">
+                <label for="rg-notes">Anything we should know?</label>
+                <textarea id="rg-notes" name="notes" aria-describedby="rg-notes-hint"></textarea>
+                <p class="field-hint" id="rg-notes-hint">Optional &mdash; dental history, anxiety, insurance questions.</p>
+            </div>
+            <button type="submit" class="btn-primary">Send Request</button>
+            <p class="form-note">This form goes straight to our front desk &mdash; no call centers, no waiting on hold.</p>
+        </form>
     </div>
 </section>
 
@@ -1090,18 +1858,20 @@ footer.main-footer {
             Whether you need routine care, advanced restorative implants, or gentle sedation after years away, we are ready to welcome you.
         </p>
         <div style="display: flex; gap: 2rem; justify-content: center; align-items: center; flex-wrap: wrap;">
-            <a href="#schedule" class="btn-primary">Schedule Your Visit</a>
+            <a href="#appointment" class="btn-primary">Schedule Your Visit</a>
             <a href="tel:+17065550167" class="btn-outline" style="background: transparent;">Call (706) 555-0167</a>
         </div>
     </div>
 </section>
 
+</main>
+
 <footer class="main-footer">
     <div class="footer-grid">
         <div class="footer-brand">
             <a href="#" class="footer-logo">
-                West Augusta
-                <span>Dental Associates</span>
+                Rivergate
+                <span>Dental &middot; Augusta, GA</span>
             </a>
             <p class="footer-text">
                 Providing Augusta families with a different kind of dentistry. Quiet hospitality meets clinical excellence.
@@ -1109,59 +1879,71 @@ footer.main-footer {
         </div>
         
         <div class="footer-nav">
-            <h4 class="footer-title">Navigation</h4>
+            <h3 class="footer-title">Navigation</h3>
             <ul class="footer-links">
-                <li><a href="#expertise">Our Expertise</a></li>
+                <li><a href="#about">The Practice</a></li>
                 <li><a href="#services">Clinical Services</a></li>
                 <li><a href="#patients">New Patients</a></li>
-                <li><a href="#about">The Practice</a></li>
+                <li><a href="#testimonials">Kind Words</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#appointment">Request Appointment</a></li>
             </ul>
         </div>
-        
+
         <div class="footer-nav">
-            <h4 class="footer-title">Services</h4>
+            <h3 class="footer-title">Services</h3>
             <ul class="footer-links">
                 <li><a href="#implants">Dental Implants</a></li>
                 <li><a href="#veneers">Custom Veneers</a></li>
                 <li><a href="#sedation">IV Sedation</a></li>
-                <li><a href="#general">Preventative Care</a></li>
+                <li><a href="#preventative">Preventative Care</a></li>
+                <li><a href="#crowns">Crowns &amp; Bridges</a></li>
+                <li><a href="#emergency">Emergency Visits</a></li>
             </ul>
         </div>
-        
+
         <div class="footer-contact">
-            <h4 class="footer-title">Contact</h4>
-            <p>Wheeler Road</p>
+            <h3 class="footer-title">Contact &amp; Hours</h3>
+            <p>Riverline Road</p>
             <p>Augusta, GA 30909</p>
+            <p>Mon&ndash;Thu 8:00&ndash;5:00</p>
+            <p>Fri 8:00&ndash;1:00</p>
             <p style="margin-top: 1.5rem;"><a href="tel:+17065550167" style="color: var(--gold); text-decoration: none; font-size: 1.1rem;">(706) 555-0167</a></p>
             <p><a href="mailto:care@rivergatedental.example" style="color: rgba(253,253,253,0.7); text-decoration: none;">care@rivergatedental.example</a></p>
         </div>
     </div>
-    
+
     <div class="footer-bottom">
-        <p>&copy; 2026 Rivergate Dental Associates. All rights reserved.</p>
+        <p>&copy; 2026 Rivergate Dental. All rights reserved.</p>
         <p>Premium Clinical Care.</p>
     </div>
 </footer>
 
-</main>
-
-    <!-- Inline Script for subtle interaction if needed -->
+    <!-- Considered interaction: pinned header on scroll, motion-safe magnetic buttons -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const primaryBtn = document.querySelector('.btn-primary');
-            
-            // Subtle magnetic pull effect on primary button
-            primaryBtn.addEventListener('mousemove', (e) => {
-                const rect = primaryBtn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                
-                primaryBtn.style.transform = `translate(${x * 0.1}px, ${y * 0.1 - 2}px)`;
-            });
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const header = document.getElementById('site-header');
 
-            primaryBtn.addEventListener('mouseleave', () => {
-                primaryBtn.style.transform = 'translate(0, 0)';
-            });
+            // Pin the header once the hero is scrolled past
+            const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 60);
+            onScroll();
+            window.addEventListener('scroll', onScroll, { passive: true });
+
+            // Subtle magnetic pull on primary buttons (fine pointers, motion-safe only)
+            if (!reduceMotion.matches && window.matchMedia('(pointer: fine)').matches) {
+                document.querySelectorAll('.btn-primary').forEach((btn) => {
+                    btn.addEventListener('mousemove', (e) => {
+                        const rect = btn.getBoundingClientRect();
+                        const x = e.clientX - rect.left - rect.width / 2;
+                        const y = e.clientY - rect.top - rect.height / 2;
+                        btn.style.transform = `translate(${x * 0.1}px, ${y * 0.1 - 2}px)`;
+                    });
+                    btn.addEventListener('mouseleave', () => {
+                        btn.style.transform = 'translate(0, 0)';
+                    });
+                });
+            }
         });
     </script>
 </body>

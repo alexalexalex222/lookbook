@@ -1,6 +1,5 @@
 # 11 Cresthaul Moving Augusta
 
-- preview: `screenshots/11-cresthaul-moving-augusta_desktop_preview.png`
 - strength_tags: `hero_treatment`, `cta_placement`, `phone_visibility`, `service_clarity`, `card_rhythm`, `service_grid`, `process_section`
 - motif_tags: `hero_shell`, `cta_treatment`, `phone_pill`, `stats_strip`
 - good when the task needs a phone-forward hero with obvious service framing and dense above-fold action.

@@ -1,0 +1,55 @@
+{
+  "pack_id": "quayside_dental_marine_arch_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "quayside-dental-savannah"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "editorial",
+    "light",
+    "calm",
+    "refined",
+    "blue"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "sticky_nav",
+    "cta_treatment",
+    "split_hero",
+    "trust_rail",
+    "arch_frame_imagery",
+    "headline_hierarchy",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "dental_practice_homepage",
+    "coastal_editorial_dental_website",
+    "family_dentistry_landing",
+    "doctor_bio_section_page"
+  ],
+  "anti_patterns": [
+    "warm champagne split-hero dental template",
+    "dark clinical dashboard",
+    "generic stock-photo dental template"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 800,
+  "confidence_score": 4,
+  "example_ids": []
+}

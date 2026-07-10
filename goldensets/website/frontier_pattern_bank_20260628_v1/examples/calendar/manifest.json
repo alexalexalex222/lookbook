@@ -1,0 +1,54 @@
+{
+  "pack_id": "daylight_calendar_app_v1",
+  "role": "anchor",
+  "family": "website.productivity_app",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "calendar"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "light",
+    "professional",
+    "precise",
+    "practical",
+    "restrained",
+    "minimal"
+  ],
+  "surfaces": [
+    "dashboard",
+    "schedule",
+    "full_site",
+    "section"
+  ],
+  "motif_tags": [
+    "month_grid_calendar",
+    "sidebar_nav",
+    "mini_calendar_widget",
+    "event_chip_list",
+    "command_surface",
+    "headline_hierarchy",
+    "tabs_panel"
+  ],
+  "supports_tasks": [
+    "saas_calendar_app_ui",
+    "team_scheduling_dashboard",
+    "booking_calendar_admin_screen",
+    "event_management_app_ui"
+  ],
+  "anti_patterns": [
+    "marketing landing page hero copy",
+    "analytics or charting dashboard content",
+    "dark technical terminal styling"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1600,
+  "confidence_score": 4,
+  "example_ids": []
+}

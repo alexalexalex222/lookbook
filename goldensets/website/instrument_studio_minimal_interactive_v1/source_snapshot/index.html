@@ -1,14 +1,17 @@
-<html lang="en"><head>
-    <script type="module" src="/@vite/client"></script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="color-scheme" content="dark">
-    <meta name="theme-color" content="#0a0b0e">
-    <title>PHOSPHOR — browser-native synthesizer</title>
-    <meta name="description" content="PHOSPHOR is a playable browser-native polyphonic synthesizer and sound-and-motion studio. Real Web Audio, low-latency response, visuals locked to what you hear.">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <style type="text/css" data-vite-dev-id="phosphor-instrument/styles/index.css">/* PHOSPHOR — stylesheet entry. Order matters: tokens first. */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#07080b">
+  <title>PHOSPHOR — browser-native synthesizer</title>
+  <meta name="description" content="PHOSPHOR is a playable browser-native polyphonic synthesizer and sound-and-motion studio. Real Web Audio, low-latency response, visuals locked to what you hear.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 24'%3E%3Cpath d='M3 20 Q3 5 15 5 Q25 5 25 13' fill='none' stroke='%23ffb13b' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='25' cy='18' r='2.8' fill='%233fd9cb'/%3E%3C/svg%3E" type="image/svg+xml">
+  <style>
+/* ============================================================================
+   PHOSPHOR — stylesheet entry. Order matters: tokens first.
+   ========================================================================== */
 /* ============================================================================
    PHOSPHOR — design tokens
    Warm near-black hardware. One signal accent (amber = audio), one modulation
@@ -31,7 +34,7 @@
   --text-0: #f3f0ea; /* primary, warm white */
   --text-1: #c2c6cf; /* secondary */
   --text-2: #868c98; /* labels */
-  --text-3: #565c68; /* faint / units */
+  --text-3: #737b8c; /* faint / units — lifted from #565c68 for 4.5:1 AA (was 2.98:1) */
 
   /* — Signal accent (audio): tungsten amber — */
   --signal: #ffb13b;
@@ -180,6 +183,19 @@ kbd {
   background: var(--signal);
   color: #1a1205;
 }
+noscript {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-5);
+  text-align: center;
+  background: var(--bg-0);
+  color: var(--text-1);
+  font-size: var(--fs-meta);
+}
 /* — custom scrollbars (thin, on-brand) — */
 * {
   scrollbar-width: thin;
@@ -245,6 +261,22 @@ kbd {
 .gate__hint kbd {
   font-size: 0.78em;
 }
+.gate__error {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-2);
+  background: var(--danger-dim);
+  border: 1px solid rgba(255, 91, 77, 0.35);
+  color: var(--danger);
+  font-size: var(--fs-label);
+  max-width: 34ch;
+}
+.gate__error[hidden] {
+  display: none;
+}
 .power {
   position: relative;
   margin-top: var(--sp-3);
@@ -258,16 +290,13 @@ kbd {
   box-shadow: var(--elev-2);
   border: 1px solid var(--line-2);
   transition: transform var(--dur-1) var(--ease-out),
-    box-shadow var(--dur-2) var(--ease-out);
+    box-shadow var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
 }
 .power__ring {
   position: absolute;
   inset: 14px;
   border-radius: var(--r-pill);
   border: 2px solid var(--line-3);
-  /* the broken ring + bar = universal power glyph, drawn in CSS */
-  -webkit-mask:
-    radial-gradient(circle, transparent 0, transparent 0) ;
   transition: border-color var(--dur-2) var(--ease-out),
     box-shadow var(--dur-2) var(--ease-out);
 }
@@ -301,6 +330,7 @@ kbd {
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--text-2);
+  white-space: nowrap;
 }
 .power:hover {
   transform: translateY(-1px);
@@ -316,6 +346,40 @@ kbd {
 .power:active {
   transform: translateY(0) scale(0.98);
 }
+.power[aria-busy="true"] {
+  cursor: wait;
+}
+.power[aria-busy="true"] .power__ring::after {
+  background: var(--signal);
+  box-shadow: var(--glow-signal);
+  animation: power-boot 700ms var(--ease-in-out) infinite alternate;
+}
+.power:disabled,
+.power[disabled] {
+  opacity: 0.42;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: var(--elev-1);
+}
+.power:disabled:hover {
+  transform: none;
+  box-shadow: var(--elev-1);
+}
+.power:disabled:hover .power__ring {
+  border-color: var(--line-3);
+}
+.power:disabled:hover .power__ring::after {
+  background: var(--text-2);
+  box-shadow: none;
+}
+@keyframes power-boot {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
+}
 /* ── Footer ────────────────────────────────────────────────────────────── */
 .footer {
   display: flex;
@@ -327,12 +391,37 @@ kbd {
   font-size: var(--fs-label);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
+  flex-wrap: wrap;
+}
+.footer__left {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.footer__link {
+  color: var(--text-3);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--line-3);
+  transition: color var(--dur-1) var(--ease-out);
+}
+.footer__link:hover {
+  color: var(--text-1);
 }
 .footer__status {
   font-family: var(--font-mono);
   letter-spacing: 0.04em;
   text-transform: none;
   color: var(--text-2);
+  transition: color var(--dur-2) var(--ease-out);
+}
+.footer__status.is-ok {
+  color: var(--good);
+}
+.footer__status.is-error {
+  color: var(--danger);
+}
+.footer__status.is-live {
+  color: var(--signal);
 }
 /* ── Reduced motion ────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
@@ -407,7 +496,7 @@ kbd {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: var(--sp-4);
+  gap: var(--sp-3);
 }
 /* ── Stage / visualizer ────────────────────────────────────────────────── */
 .stage {
@@ -422,6 +511,28 @@ kbd {
   position: relative;
   width: 100%;
   height: clamp(190px, 26vh, 300px);
+}
+.stage__readout {
+  position: absolute;
+  top: var(--sp-3);
+  left: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  color: var(--text-2);
+  pointer-events: none;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+.stage__readout b {
+  color: var(--text-0);
+  font-weight: 600;
+}
+.stage__source {
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-4);
 }
 /* ── Rack / controls ───────────────────────────────────────────────────── */
 .rack__grid {
@@ -465,7 +576,9 @@ kbd {
     justify-content: flex-start;
   }
   .topbar__right {
-    justify-content: space-between;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    row-gap: var(--sp-2);
   }
 }
 @media (max-width: 560px) {
@@ -545,6 +658,10 @@ kbd {
   gap: var(--sp-3);
   flex-wrap: wrap;
 }
+.panel__row--tight {
+  gap: var(--sp-2);
+  align-items: center;
+}
 /* ── Knob ──────────────────────────────────────────────────────────────── */
 .knob {
   --knob-accent: var(--signal);
@@ -596,7 +713,6 @@ kbd {
   stroke: var(--knob-accent);
   stroke-width: 6;
   stroke-linecap: round;
-  transition: stroke-dasharray var(--dur-1) linear;
   filter: drop-shadow(0 0 4px rgba(255, 177, 59, 0.45));
 }
 .knob.is-mod .knob__arc {
@@ -611,8 +727,11 @@ kbd {
   stroke: var(--text-0);
   stroke-width: 3;
   stroke-linecap: round;
-  transition: transform var(--dur-1) var(--ease-out);
-  transform-origin: 50px 50px;
+  /* endpoint is computed in JS (polar coordinates), not CSS-rotated: SVG
+     circle/path elements combined with a CSS transform + transform-origin
+     resolve inconsistently across engines when the element's rendered box
+     size differs from its viewBox unit size — computed coordinates sidestep
+     that entirely and work identically everywhere. */
 }
 .knob__dial:hover .knob__pointer,
 .knob__dial:focus-visible .knob__pointer {
@@ -634,14 +753,29 @@ kbd {
   font-size: 0.82em;
   margin-left: 2px;
 }
+.knob.is-disabled .knob__dial {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+.knob.is-disabled .knob__dial:hover {
+  transform: none;
+}
+.knob__dial.is-dragging {
+  cursor: grabbing;
+}
 /* ── Segmented / wave selector ─────────────────────────────────────────── */
 .seg {
   display: inline-flex;
+  flex-wrap: wrap;
   padding: 3px;
   gap: 2px;
   border-radius: var(--r-2);
   background: rgba(0, 0, 0, 0.28);
   border: 1px solid var(--line);
+  /* wrapping (not overflowing) is what keeps a verbose control like the
+     5-option scale selector from forcing horizontal scroll on narrow
+     phones — every option stays reachable, it just gets a second row */
+  max-width: 100%;
 }
 .seg__btn {
   --seg-accent: var(--signal);
@@ -664,16 +798,28 @@ kbd {
   background: var(--surface-2);
 }
 .seg__btn[aria-pressed="true"],
+.seg__btn[aria-checked="true"],
 .seg__btn.is-active {
   color: #15110a;
   background: var(--seg-accent);
   box-shadow: 0 0 10px rgba(255, 177, 59, 0.35);
 }
 .seg.is-mod .seg__btn[aria-pressed="true"],
+.seg.is-mod .seg__btn[aria-checked="true"],
 .seg.is-mod .seg__btn.is-active {
   color: #052422;
   background: var(--mod);
   box-shadow: 0 0 10px rgba(63, 217, 203, 0.35);
+}
+.seg__btn:disabled,
+.seg__btn[aria-disabled="true"] {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.seg__btn:disabled:hover,
+.seg__btn[aria-disabled="true"]:hover {
+  color: var(--text-2);
+  background: none;
 }
 /* wider segmented for text options (LFO dest, scale) */
 .seg--text .seg__btn {
@@ -697,6 +843,7 @@ kbd {
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   transition: all var(--dur-1) var(--ease-out);
+  min-height: 30px;
 }
 .toggle__dot {
   width: 6px;
@@ -716,6 +863,16 @@ kbd {
 .toggle:hover {
   border-color: var(--line-3);
   color: var(--text-1);
+}
+.toggle:disabled,
+.toggle[aria-disabled="true"] {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.toggle:disabled:hover,
+.toggle[aria-disabled="true"]:hover {
+  border-color: var(--line-2);
+  color: var(--text-2);
 }
 /* ── Transport ─────────────────────────────────────────────────────────── */
 .transport {
@@ -740,6 +897,7 @@ kbd {
   color: var(--text-0);
   transition: transform var(--dur-1) var(--ease-out),
     box-shadow var(--dur-2) var(--ease-out);
+  flex: none;
 }
 .play:hover {
   transform: translateY(-1px);
@@ -764,6 +922,7 @@ kbd {
   touch-action: none;
   user-select: none;
   -webkit-user-select: none;
+  border-radius: var(--r-2);
 }
 .tempo__value {
   font-family: var(--font-mono);
@@ -862,11 +1021,17 @@ kbd {
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
   color: var(--text-3);
+  min-width: 2.4em;
 }
 .meter__bars {
   display: flex;
   flex-direction: column;
   gap: 3px;
+}
+.meter__row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
 }
 .meter__channel {
   position: relative;
@@ -946,13 +1111,24 @@ kbd {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   transition: all var(--dur-1) var(--ease-out);
+  min-height: 30px;
 }
 .seq__btn:hover {
   color: var(--text-0);
   border-color: var(--line-3);
   background: var(--surface-3);
 }
+.seq__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.seq__btn:disabled:hover {
+  color: var(--text-2);
+  border-color: var(--line-2);
+  background: var(--surface-2);
+}
 .seq__grid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(var(--steps, 16), minmax(0, 1fr));
   gap: clamp(3px, 0.5vw, 6px);
@@ -970,6 +1146,9 @@ kbd {
 }
 .cell:nth-child(4n + 1) {
   border-left: 1px solid var(--line-2);
+}
+.cell:focus-visible {
+  z-index: 2;
 }
 .cell__bar {
   position: absolute;
@@ -1025,14 +1204,39 @@ kbd {
   color: var(--text-3);
   pointer-events: none;
 }
+.seq__empty {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--sp-3);
+  font-size: var(--fs-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-3);
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(7, 8, 11, 0.55), rgba(7, 8, 11, 0.75));
+  border-radius: var(--r-2);
+  opacity: 0;
+  transition: opacity var(--dur-2) var(--ease-out);
+}
+.seq__empty.is-visible {
+  opacity: 1;
+}
 /* ── Visualizer canvas ─────────────────────────────────────────────────── */
 .viz-canvas {
   position: absolute;
   inset: 0;
+  /* canvas is a replaced element: inset:0 alone positions it but does not
+     override its intrinsic size (from the width/height content attributes,
+     which JS sets to the DPR-scaled bitmap resolution) the way it would for
+     a plain div — explicit 100% is required or the canvas renders at full
+     bitmap size and overflows its container. */
+  width: 100%;
+  height: 100%;
   display: block;
-}
-.knob__dial.is-dragging {
-  cursor: grabbing;
 }
 /* ── Keyboard ──────────────────────────────────────────────────────────── */
 .keyboard {
@@ -1074,6 +1278,14 @@ kbd {
 .octave__btn:hover {
   background: var(--surface-3);
   color: var(--text-0);
+}
+.octave__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.octave__btn:disabled:hover {
+  background: var(--surface-2);
+  color: var(--text-1);
 }
 .octave__val {
   font-family: var(--font-mono);
@@ -1145,83 +1357,2333 @@ kbd {
   background: linear-gradient(180deg, #6a4a15, #b9791f 70%, #f7b347);
   box-shadow: inset 0 0 14px rgba(255, 150, 30, 0.55);
 }
-</style></head>
-  <body>
-    <a class="skip-link" href="#keys">Skip to keyboard</a>
+/* ============================================================================
+   PHOSPHOR — extensions
+   Icon buttons · source toggle · preview badge · shortcuts popover ·
+   envelope preview graph · disabled-state sweep · small-screen key scrolling
+   ========================================================================== */
+/* ── Icon button (topbar utilities: help, panic) ───────────────────────── */
+.iconbtn {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--r-2);
+  border: 1px solid var(--line-2);
+  background: var(--surface-2);
+  color: var(--text-2);
+  flex: none;
+  transition: all var(--dur-1) var(--ease-out);
+}
+.iconbtn svg {
+  width: 15px;
+  height: 15px;
+}
+.iconbtn:hover {
+  color: var(--text-0);
+  border-color: var(--line-3);
+  background: var(--surface-3);
+}
+.iconbtn[aria-pressed="true"],
+.iconbtn.is-active {
+  color: var(--signal);
+  border-color: var(--signal-line);
+  background: var(--signal-dim);
+}
+.iconbtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.iconbtn:disabled:hover {
+  color: var(--text-2);
+  border-color: var(--line-2);
+  background: var(--surface-2);
+}
+/* ── Preview / not-implemented badge ───────────────────────────────────── */
+.badge--preview {
+  display: inline-block;
+  padding: 1px 5px;
+  margin-left: var(--sp-2);
+  border-radius: var(--r-1);
+  background: var(--surface-3);
+  border: 1px solid var(--line-2);
+  color: var(--text-3);
+  font-size: 8.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  vertical-align: 1px;
+}
+/* ── Generic disabled sweep (belt + suspenders beyond per-component rules) */
+[disabled],
+[aria-disabled="true"] {
+  pointer-events: auto; /* keep title/tooltip + focus reachable */
+}
+/* ── Shortcuts / help popover ──────────────────────────────────────────── */
+.popover-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(4, 5, 7, 0.6);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-2) var(--ease-out), visibility var(--dur-2);
+}
+.popover-backdrop.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+.popover {
+  position: fixed;
+  z-index: 61;
+  top: 50%;
+  left: 50%;
+  width: min(420px, calc(100vw - 2 * var(--sp-5)));
+  max-height: min(560px, calc(100vh - 2 * var(--sp-5)));
+  overflow-y: auto;
+  transform: translate(-50%, -48%) scale(0.98);
+  padding: var(--sp-5);
+  border-radius: var(--r-4);
+  background: linear-gradient(180deg, var(--surface-1), #0e1017);
+  border: 1px solid var(--line-2);
+  box-shadow: var(--elev-3);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-2) var(--ease-out), visibility var(--dur-2),
+    transform var(--dur-2) var(--ease-out);
+}
+.popover.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+.popover__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-4);
+}
+.popover__title {
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  color: var(--text-0);
+  letter-spacing: 0.04em;
+}
+.popover__close {
+  margin-left: auto;
+}
+.popover__section-title {
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-3);
+  margin: var(--sp-4) 0 var(--sp-2);
+}
+.popover__section-title:first-of-type {
+  margin-top: 0;
+}
+.kbd-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-1) 0;
+  font-size: var(--fs-meta);
+  color: var(--text-1);
+  border-bottom: 1px solid var(--line);
+}
+.kbd-row:last-child {
+  border-bottom: none;
+}
+.kbd-row__keys {
+  display: flex;
+  gap: 4px;
+  flex: none;
+}
+/* ── Envelope preview graph (ENV panel) ────────────────────────────────── */
+.env-graph {
+  display: block;
+  width: 100%;
+  height: 46px;
+  overflow: visible;
+}
+.env-graph__fill {
+  fill: var(--signal-dim);
+}
+.env-graph__line {
+  fill: none;
+  stroke: var(--signal);
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 3px rgba(255, 177, 59, 0.4));
+}
+.env-graph__axis {
+  stroke: var(--line-2);
+  stroke-width: 1;
+}
+/* ── Status pill (source: synth / line-in) ─────────────────────────────── */
+.srcflag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px var(--sp-2);
+  border-radius: var(--r-pill);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--line-2);
+  font-size: var(--fs-micro);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+.srcflag__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: var(--signal);
+  box-shadow: var(--glow-signal);
+}
+.srcflag.is-linein .srcflag__dot {
+  background: var(--mod);
+  box-shadow: var(--glow-mod);
+}
+.srcflag.is-error .srcflag__dot {
+  background: var(--danger);
+  box-shadow: 0 0 8px rgba(255, 91, 77, 0.5);
+}
+.srcflag.is-loading .srcflag__dot {
+  background: var(--text-2);
+  animation: srcflag-pulse 900ms ease-in-out infinite;
+}
+@keyframes srcflag-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+/* ── Responsive: small-screen keyboard becomes horizontally scrollable ──── */
+@media (max-width: 560px) {
+  .keys {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+  .key {
+    flex: 0 0 auto;
+    width: 46px;
+    scroll-snap-align: start;
+  }
+  .key--black {
+    width: 30px;
+  }
+  .stage__readout {
+    font-size: var(--fs-micro);
+  }
+  .footer {
+    justify-content: center;
+    text-align: center;
+  }
+}
+@media (max-width: 400px) {
+  .transport {
+    gap: var(--sp-2);
+    padding: var(--sp-2);
+  }
+  .tempo {
+    min-width: 58px;
+  }
+  /* the topbar's right-hand cluster (preset · meter · mic · help) is the
+     widest fixed-size row in the shell; without this it's the one thing
+     that can force horizontal scroll on narrow phones */
+  .topbar__right {
+    gap: var(--sp-2);
+  }
+  .preset__current {
+    min-width: 84px;
+    font-size: var(--fs-micro);
+  }
+  .meter__channel {
+    width: 52px;
+  }
+  .meter__label {
+    min-width: 1.8em;
+  }
+}
+/* ============================================================================
+   PHOSPHOR — mobile polish addendum (390 / 360 pass)
+   Additive only, scoped under 560px. Two problems the sections above didn't
+   cover: (1) several tappable controls sat well under a 44px touch target
+   (knobs at 48px and the play button were already close — these were the
+   real outliers); (2) the 16/32-step sequencer squeezed every step into an
+   equal fraction of the phone width (~18px slivers, unreadable and
+   untappable) instead of getting the same fixed-width horizontal-scroll
+   treatment the keyboard already uses below it. Desktop is untouched.
+   ========================================================================== */
+@media (max-width: 560px) {
+  /* — touch targets — */
+  .iconbtn {
+    width: 44px;
+    height: 44px;
+  }
+  .iconbtn svg {
+    width: 16px;
+    height: 16px;
+  }
+  .play {
+    width: 44px;
+    height: 44px;
+  }
+  .octave__btn {
+    width: 40px;
+    height: 40px;
+  }
+  .preset__nav {
+    width: 34px;
+    height: 40px;
+  }
+  .toggle,
+  .seq__btn {
+    min-height: 40px;
+  }
+  .seg__btn {
+    width: 36px;
+    height: 34px;
+  }
 
-    <!-- Power-on gate. Audio cannot legally start before a user gesture, so we
-         make that gesture the deliberate "power on" moment instead of hiding it. -->
-    <div id="gate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
-      <div class="gate__inner">
-        <div class="gate__mark" aria-hidden="true">
-          <svg viewBox="0 0 64 44" width="78">
-            <path d="M5 36 Q5 9 29 9 Q49 9 49 25" fill="none" stroke="#ffb13b" stroke-width="3.4" stroke-linecap="round"></path>
-            <circle cx="49" cy="35" r="4.4" fill="#3fd9cb"></circle>
-          </svg>
-        </div>
-        <h1 id="gate-title" class="gate__title">PHOSPHOR</h1>
-        <p class="gate__sub">A browser-native synthesizer &amp; sound-and-motion studio.</p>
-        <button id="power" class="power" type="button">
-          <span class="power__ring" aria-hidden="true"></span>
-          <span class="power__label">Power on</span>
-        </button>
-        <p class="gate__hint">
-          Use your mouse or the <kbd>A</kbd>–<kbd>K</kbd> rows to play. Headphones recommended.
-        </p>
+  /* — sequencer: fixed-width, horizontally-scrollable steps instead of a
+     16/32-way squeeze; mirrors the .keys pattern above. A trailing mask
+     fade hints there's more to scroll (native scrollbars stay hidden at
+     rest on iOS, so the row otherwise gives no clue it scrolls). — */
+  .seq__grid {
+    grid-auto-flow: column;
+    grid-auto-columns: 44px;
+    grid-template-columns: none;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
+  }
+  .cell {
+    scroll-snap-align: start;
+  }
+}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#keys">Skip to keyboard</a>
+  <noscript>PHOSPHOR needs JavaScript to run its audio engine — this is a playable instrument, not a static page. Enable JavaScript to continue.</noscript>
+
+  <!-- Power-on gate. Audio cannot legally start before a user gesture, so we
+       make that gesture the deliberate "power on" moment instead of hiding it. -->
+  <div id="gate" class="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+    <div class="gate__inner">
+      <div class="gate__mark" aria-hidden="true">
+        <svg viewBox="0 0 64 44" width="78">
+          <path d="M5 36 Q5 9 29 9 Q49 9 49 25" fill="none" stroke="#ffb13b" stroke-width="3.4" stroke-linecap="round"></path>
+          <circle cx="49" cy="35" r="4.4" fill="#3fd9cb"></circle>
+        </svg>
       </div>
+      <h1 id="gate-title" class="gate__title">PHOSPHOR</h1>
+      <p class="gate__sub">A browser-native synthesizer &amp; sound-and-motion studio.</p>
+      <button id="power" class="power" type="button" aria-describedby="gate-hint">
+        <span class="power__ring" aria-hidden="true"></span>
+        <span class="power__label" id="power-label">Power on</span>
+      </button>
+      <p class="gate__hint" id="gate-hint">
+        Use your mouse or the <kbd>A</kbd>–<kbd>K</kbd> rows to play. Headphones recommended.
+      </p>
+      <p class="gate__error" id="gate-error" role="alert" hidden>
+        <span aria-hidden="true">⚠</span>
+        <span id="gate-error-text">Web Audio isn't available in this browser. Try a current Chrome, Firefox, Safari or Edge.</span>
+      </p>
     </div>
+  </div>
 
-    <main id="app" class="app" hidden="">
-      <header class="topbar">
-        <div class="brand">
-          <svg class="brand__mark" viewBox="0 0 32 24" width="26" aria-hidden="true">
-            <path d="M3 20 Q3 5 15 5 Q25 5 25 13" fill="none" stroke="#ffb13b" stroke-width="2.6" stroke-linecap="round"></path>
-            <circle cx="25" cy="18" r="2.8" fill="#3fd9cb"></circle>
-          </svg>
-          <span class="brand__word">PHOSPHOR</span>
-          <span class="brand__tag">synth · studio</span>
-        </div>
-        <div id="transport-mount" class="topbar__transport"></div>
-        <div class="topbar__right">
-          <div id="preset-mount"></div>
-          <div id="meter-mount" class="meter-mount"></div>
-        </div>
-      </header>
+  <main id="app" class="app" hidden>
+    <header class="topbar">
+      <div class="brand">
+        <svg class="brand__mark" viewBox="0 0 32 24" width="26" aria-hidden="true">
+          <path d="M3 20 Q3 5 15 5 Q25 5 25 13" fill="none" stroke="#ffb13b" stroke-width="2.6" stroke-linecap="round"></path>
+          <circle cx="25" cy="18" r="2.8" fill="#3fd9cb"></circle>
+        </svg>
+        <span class="brand__word">PHOSPHOR</span>
+        <span class="brand__tag">synth · studio</span>
+      </div>
+      <div id="transport-mount" class="topbar__transport"></div>
+      <div class="topbar__right">
+        <div id="preset-mount"></div>
+        <div id="meter-mount" class="meter-mount"></div>
+        <button id="help-btn" class="iconbtn" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="help-popover" title="Keyboard shortcuts &amp; guide">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.9.4-1.5 1-1.5 2.2"></path><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"></circle></svg>
+        </button>
+      </div>
+    </header>
 
-      <section class="stage" aria-label="Live visualizer">
-        <div id="visualizer-mount" class="visualizer"></div>
-      </section>
+    <section class="stage" aria-label="Live visualizer">
+      <div id="visualizer-mount" class="visualizer"></div>
+    </section>
 
-      <section class="rack" aria-label="Synthesizer controls">
-        <div id="rack-mount" class="rack__grid"></div>
-      </section>
+    <section class="rack" aria-label="Synthesizer controls">
+      <div id="rack-mount" class="rack__grid"></div>
+    </section>
 
-      <section class="motion" aria-label="Step sequencer">
-        <div id="sequencer-mount"></div>
-      </section>
+    <section class="motion" aria-label="Step sequencer">
+      <div id="sequencer-mount"></div>
+    </section>
 
-      <section class="board" aria-label="Keyboard" id="keys">
-        <div id="keyboard-mount"></div>
-      </section>
+    <section class="board" aria-label="Keyboard" id="keys">
+      <div id="keyboard-mount"></div>
+    </section>
 
-      <footer class="footer">
+    <footer class="footer">
+      <span class="footer__left">
         <span class="footer__sig">PHOSPHOR</span>
-        <span id="status" class="footer__status" role="status" aria-live="polite"></span>
-      </footer>
-    </main>
+        <button id="shortcuts-link" class="footer__link" type="button">shortcuts</button>
+      </span>
+      <span id="status" class="footer__status" role="status" aria-live="polite">—</span>
+    </footer>
+  </main>
 
-    <!-- Shared SVG defs: the wordmark glyph, reused at every size. -->
-    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
-      <defs>
-        <radialGradient id="knobcap" cx="50%" cy="34%" r="68%">
-          <stop offset="0%" stop-color="#2f3542"></stop>
-          <stop offset="68%" stop-color="#222732"></stop>
-          <stop offset="100%" stop-color="#191d26"></stop>
-        </radialGradient>
-      </defs>
-    </svg>
+  <!-- Keyboard shortcuts / guide popover — reachable from the footer + topbar "?", closes on Escape or backdrop click. Kept out of the default view per brand principle: hints stay compact, this is opt-in depth. -->
+  <div id="help-backdrop" class="popover-backdrop"></div>
+  <div id="help-popover" class="popover" role="dialog" aria-modal="true" aria-labelledby="help-title">
+    <div class="popover__head">
+      <span id="help-title" class="popover__title">Guide</span>
+      <button id="help-close" class="iconbtn popover__close" type="button" aria-label="Close guide">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </div>
+    <p class="popover__section-title">Playing</p>
+    <div class="kbd-row"><span>Play a note</span><span class="kbd-row__keys"><kbd>A</kbd>…<kbd>K</kbd></span></div>
+    <div class="kbd-row"><span>Shift octave</span><span class="kbd-row__keys"><kbd>Z</kbd><kbd>X</kbd></span></div>
+    <div class="kbd-row"><span>Start / stop sequencer</span><span class="kbd-row__keys"><kbd>Space</kbd></span></div>
+    <p class="popover__section-title">Controls</p>
+    <div class="kbd-row"><span>Adjust a focused knob</span><span class="kbd-row__keys"><kbd>↑</kbd><kbd>↓</kbd></span></div>
+    <div class="kbd-row"><span>Large step / jump to end</span><span class="kbd-row__keys"><kbd>Shift</kbd><kbd>Home</kbd><kbd>End</kbd></span></div>
+    <div class="kbd-row"><span>Move between segmented options</span><span class="kbd-row__keys"><kbd>←</kbd><kbd>→</kbd></span></div>
+    <div class="kbd-row"><span>Toggle a step / drag pitch</span><span class="kbd-row__keys"><kbd>Click</kbd><kbd>Drag</kbd></span></div>
+    <p class="popover__section-title">About this build</p>
+    <div class="kbd-row"><span>Signal path</span><span>OSC → FILTER → AMP</span></div>
+    <div class="kbd-row"><span>Modulation</span><span>1× LFO, routable</span></div>
+    <div class="kbd-row"><span>Voices</span><span>8-voice polyphony</span></div>
+  </div>
 
-    <script type="module" src="/src/main.ts?t=1782146233539"></script>
-  
+  <!-- Shared SVG defs: the wordmark glyph, reused at every size. -->
+  <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+    <defs>
+      <radialGradient id="knobcap" cx="50%" cy="34%" r="68%">
+        <stop offset="0%" stop-color="#2f3542"></stop>
+        <stop offset="68%" stop-color="#222732"></stop>
+        <stop offset="100%" stop-color="#191d26"></stop>
+      </radialGradient>
+    </defs>
+  </svg>
 
-</body></html>
+  <script>
+  "use strict";
+  /* ==========================================================================
+     PHOSPHOR — engine + UI
+     One file, seven parts:
+       1. constants, utilities, state
+       2. audio engine (graph, voices, LFO routing, FX, mic input)
+       3. widget factories (knob, seg, toggle) — reused across every panel
+       4. transport / preset bar / meter / visualizer
+       5. rack panels (OSC, FILTER, ENV, LFO, FX·MASTER)
+       6. sequencer (lookahead clock + grid) + keyboard (mouse/touch/physical)
+       7. gate, popover, status, bootstrap
+     ========================================================================== */
+
+  /* ── 1. Constants ────────────────────────────────────────────────────── */
+  const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+  const MAX_VOICES = 8;
+  const VOICE_PANS = [-0.6, 0.6, -0.32, 0.32, -0.14, 0.14, 0, 0];
+
+  const SCALES = {
+    chromatic: { label: "Chromatic", steps: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] },
+    major: { label: "Major", steps: [0, 2, 4, 5, 7, 9, 11] },
+    minor: { label: "Minor", steps: [0, 2, 3, 5, 7, 8, 10] },
+    pentatonic: { label: "Pentatonic", steps: [0, 2, 4, 7, 9] },
+    dorian: { label: "Dorian", steps: [0, 2, 3, 5, 7, 9, 10] },
+  };
+  const SEQ_ROOT = 48; // C3
+  const SEQ_SPAN_OCTAVES = 2;
+
+  // Physical-keyboard "musical typing" row: A..K spans one octave from the
+  // current base octave; the gate hint promises exactly this range.
+  const KEY_MAP = {
+    KeyA: 0, KeyW: 1, KeyS: 2, KeyE: 3, KeyD: 4, KeyF: 5,
+    KeyT: 6, KeyG: 7, KeyY: 8, KeyH: 9, KeyU: 10, KeyJ: 11, KeyK: 12,
+  };
+
+  const WAVE_ICONS = {
+    sine: "M1 7 C4 1 7 1 10 7 C13 13 16 13 19 7",
+    triangle: "M1 11 L5.5 3 L14.5 11 L19 3",
+    square: "M1 11 L1 3 L7 3 L7 11 L13 11 L13 3 L19 3",
+    sawtooth: "M1 11 L9 3 L9 11 L18 3 L18 11",
+    random: "M1 9 L4 9 L4 4 L7 4 L7 11 L10 11 L10 3 L13 3 L13 8 L16 8 L16 5 L19 5",
+  };
+  const OSC_WAVES = ["sawtooth", "square", "triangle", "sine"];
+  const LFO_WAVES = ["sine", "triangle", "square", "random"];
+
+  /* ── Utilities ───────────────────────────────────────────────────────── */
+  function clamp(v, min, max) {
+    return Math.min(max, Math.max(min, v));
+  }
+  function noteToFreq(midi) {
+    return 440 * Math.pow(2, (midi - 69) / 12);
+  }
+  function noteName(midi) {
+    const n = Math.round(midi);
+    const name = NOTE_NAMES[((n % 12) + 12) % 12];
+    const oct = Math.floor(n / 12) - 1;
+    return name + oct;
+  }
+  // fraction (0..1) <-> value, with an optional exponential ("log") curve for
+  // controls that feel more natural non-linear (cutoff, LFO rate, delay time).
+  function fracToValue(frac, min, max, curve) {
+    frac = clamp(frac, 0, 1);
+    if (curve === "log") {
+      const lo = Math.log(Math.max(min, 0.0001));
+      const hi = Math.log(max);
+      return Math.exp(lo + (hi - lo) * frac);
+    }
+    return min + (max - min) * frac;
+  }
+  function valueToFrac(value, min, max, curve) {
+    if (curve === "log") {
+      const lo = Math.log(Math.max(min, 0.0001));
+      const hi = Math.log(max);
+      const v = Math.log(Math.max(value, 0.0001));
+      return clamp((v - lo) / (hi - lo), 0, 1);
+    }
+    return clamp((value - min) / (max - min), 0, 1);
+  }
+  function fmtHz(v) {
+    return v >= 1000 ? (v / 1000).toFixed(2) + "k" : Math.round(v).toString();
+  }
+  function fmtMs(v) {
+    return v >= 1 ? v.toFixed(2) : Math.round(v * 1000).toString();
+  }
+  function fmtPct(v) {
+    return Math.round(v * 100).toString();
+  }
+  function fmtSemi(v) {
+    return (v >= 0 ? "+" : "") + Math.round(v).toString();
+  }
+  function uid(prefix) {
+    return prefix + "-" + Math.random().toString(36).slice(2, 9);
+  }
+  function svgEl(tag, attrs) {
+    const el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (const k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+  function el(tag, attrs, children) {
+    const node = document.createElement(tag);
+    if (attrs) {
+      for (const k in attrs) {
+        if (k === "class") node.className = attrs[k];
+        else if (k === "text") node.textContent = attrs[k];
+        else if (k === "html") node.innerHTML = attrs[k];
+        else if (k.startsWith("on") && typeof attrs[k] === "function") node.addEventListener(k.slice(2), attrs[k]);
+        else if (attrs[k] === true) node.setAttribute(k, "");
+        else if (attrs[k] === false || attrs[k] == null) {
+          /* omit */
+        } else node.setAttribute(k, attrs[k]);
+      }
+    }
+    (children || []).forEach((c) => {
+      if (c == null) return;
+      node.appendChild(typeof c === "string" ? document.createTextNode(c) : c);
+    });
+    return node;
+  }
+  function buildScaleNotes(scaleId) {
+    const scale = SCALES[scaleId] || SCALES.pentatonic;
+    const out = [];
+    for (let oct = 0; oct <= SEQ_SPAN_OCTAVES; oct++) {
+      scale.steps.forEach((s) => out.push(SEQ_ROOT + oct * 12 + s));
+    }
+    return out.sort((a, b) => a - b);
+  }
+  function makePattern(len, activeMap) {
+    const arr = [];
+    for (let i = 0; i < len; i++) {
+      arr.push({ active: Object.prototype.hasOwnProperty.call(activeMap, i), pitchIndex: activeMap[i] ?? 7 });
+    }
+    return arr;
+  }
+
+  /* ── State ───────────────────────────────────────────────────────────── */
+  function defaultState() {
+    return {
+      // oscillators
+      osc1Wave: "sawtooth",
+      osc2Wave: "square",
+      osc2Detune: -8, // cents
+      osc2Mix: 0.38,
+      subLevel: 0.22,
+      glide: 0.015,
+      // filter
+      filterType: "lowpass",
+      cutoff: 2200,
+      resonance: 3.2,
+      filterEnv: 2600,
+      keyTrack: true,
+      // envelope
+      attack: 0.012,
+      decay: 0.22,
+      sustain: 0.62,
+      release: 0.28,
+      // lfo
+      lfoRate: 3.4,
+      lfoDepth: 0.32,
+      lfoWave: "sine",
+      lfoDest: "filter",
+      lfoSync: false,
+      // fx / master
+      drive: 0.16,
+      delayMix: 0.2,
+      delayTime: 0.375,
+      space: 0.22,
+      masterVol: 0.78,
+      limiter: true,
+      // sequencer
+      tempo: 112,
+      swing: 0,
+      seqLength: 16,
+      scaleId: "pentatonic",
+      pattern: makePattern(32, { 0: 7, 3: 9, 6: 5, 8: 11, 11: 7, 14: 9 }),
+      // keyboard
+      octave: 4,
+      // meta
+      presetName: "INIT",
+      sourceMode: "synth", // "synth" | "linein"
+    };
+  }
+  const PRESETS = [
+    { name: "INIT", patch: {} },
+    {
+      name: "GLASS KEYS",
+      patch: {
+        osc1Wave: "triangle", osc2Wave: "sine", osc2Detune: 5, osc2Mix: 0.5, subLevel: 0.08,
+        cutoff: 5200, resonance: 1.4, filterEnv: 1200, attack: 0.004, decay: 0.5, sustain: 0.3, release: 0.9,
+        lfoRate: 5.2, lfoDepth: 0.12, lfoDest: "amp", drive: 0.04, delayMix: 0.32, delayTime: 0.28, space: 0.4,
+      },
+      pattern: makePattern(16, { 0: 9, 2: 11, 4: 13, 6: 9, 8: 11, 10: 13, 12: 15, 14: 11 }),
+    },
+    {
+      name: "SUB PULSE",
+      patch: {
+        osc1Wave: "square", osc2Wave: "square", osc2Detune: -12, osc2Mix: 0.2, subLevel: 0.55,
+        cutoff: 900, resonance: 5.5, filterEnv: 3200, attack: 0.001, decay: 0.14, sustain: 0.15, release: 0.08,
+        lfoRate: 0.3, lfoDepth: 0.4, lfoDest: "filter", drive: 0.3, delayMix: 0.08, space: 0.05, tempo: 128,
+      },
+      pattern: makePattern(16, { 0: 3, 2: 3, 4: 3, 6: 6, 8: 3, 10: 3, 12: 1, 14: 3 }),
+    },
+    {
+      name: "WARM PAD",
+      patch: {
+        osc1Wave: "sawtooth", osc2Wave: "triangle", osc2Detune: 9, osc2Mix: 0.6, subLevel: 0.3,
+        cutoff: 1600, resonance: 0.8, filterEnv: 900, attack: 0.6, decay: 0.8, sustain: 0.8, release: 1.8,
+        lfoRate: 1.1, lfoDepth: 0.5, lfoDest: "filter", drive: 0.02, delayMix: 0.28, space: 0.55, tempo: 92,
+      },
+      pattern: makePattern(16, { 0: 7, 8: 11 }),
+    },
+    {
+      name: "ACID LINE",
+      patch: {
+        osc1Wave: "sawtooth", osc2Wave: "sawtooth", osc2Detune: -6, osc2Mix: 0.25, subLevel: 0.1,
+        cutoff: 700, resonance: 14, filterEnv: 4200, attack: 0.001, decay: 0.18, sustain: 0.05, release: 0.05,
+        lfoRate: 0.2, lfoDepth: 0.15, lfoDest: "filter", drive: 0.4, delayMix: 0.15, space: 0.1, tempo: 124, swing: 0.18,
+      },
+      pattern: makePattern(16, { 0: 3, 1: 3, 2: 6, 4: 3, 6: 8, 7: 3, 8: 3, 10: 6, 12: 3, 13: 3, 14: 10 }),
+    },
+    {
+      name: "AFTERGLOW",
+      patch: {
+        osc1Wave: "sine", osc2Wave: "triangle", osc2Detune: 3, osc2Mix: 0.4, subLevel: 0.4,
+        cutoff: 2400, resonance: 2, filterEnv: 1800, attack: 0.25, decay: 0.9, sustain: 0.5, release: 2.4,
+        lfoRate: 0.12, lfoDepth: 0.6, lfoDest: "amp", drive: 0.06, delayMix: 0.4, delayTime: 0.5, space: 0.65, tempo: 84,
+      },
+      pattern: makePattern(16, { 0: 7, 5: 11, 10: 9 }),
+    },
+  ];
+
+  let state = defaultState();
+  let els = {}; // cache of live DOM refs keyed by id, filled as panels build
+  let widgets = {}; // registered updatable widgets keyed by state path, for applyPreset() to refresh UI
+
+  /* ── 2. Audio engine ─────────────────────────────────────────────────── */
+  const engine = {
+    ctx: null,
+    nodes: {},
+    voiceBus: null,
+    activeByNote: new Map(),
+    voiceOrder: [],
+    micStream: null,
+    micSource: null,
+    lfoConnectedTo: null, // 'amp' | 'filter-live' | 'pitch-live' | null — tracks the live wire
+    ready: false,
+  };
+
+  function makeDriveCurve(amount) {
+    const k = amount * 45 + 0.15;
+    const n = 512;
+    const curve = new Float32Array(n);
+    const norm = Math.tanh(k) || 1;
+    for (let i = 0; i < n; i++) {
+      const x = (i / (n - 1)) * 2 - 1;
+      curve[i] = Math.tanh(k * x) / norm;
+    }
+    return curve;
+  }
+  function makeIdentityCurve() {
+    const n = 512;
+    const curve = new Float32Array(n);
+    for (let i = 0; i < n; i++) curve[i] = (i / (n - 1)) * 2 - 1;
+    return curve;
+  }
+  function makeImpulse(ctx, seconds, decay) {
+    const rate = ctx.sampleRate;
+    const length = Math.max(1, Math.floor(rate * seconds));
+    const buf = ctx.createBuffer(2, length, rate);
+    for (let ch = 0; ch < 2; ch++) {
+      const data = buf.getChannelData(ch);
+      for (let i = 0; i < length; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+      }
+    }
+    return buf;
+  }
+
+  function engineInit() {
+    if (engine.ctx) return Promise.resolve(engine.ctx);
+    const Ctor = window.AudioContext || window.webkitAudioContext;
+    if (!Ctor) return Promise.reject(new Error("no-web-audio"));
+    const ctx = new Ctor();
+    engine.ctx = ctx;
+
+    const voiceBus = ctx.createGain();
+    voiceBus.gain.value = 0.9;
+    const tremolo = ctx.createGain();
+    tremolo.gain.value = 1;
+    const lfo = ctx.createOscillator();
+    lfo.type = state.lfoWave === "random" ? "square" : state.lfoWave;
+    lfo.frequency.value = state.lfoRate;
+    const lfoDepthGain = ctx.createGain();
+    lfoDepthGain.gain.value = 0;
+    lfo.connect(lfoDepthGain);
+    lfo.start();
+
+    const drive = ctx.createWaveShaper();
+    drive.curve = makeDriveCurve(state.drive);
+    drive.oversample = "2x";
+
+    const fx1Dry = ctx.createGain();
+    const fx1Wet = ctx.createGain();
+    const fx1Sum = ctx.createGain();
+    const delay = ctx.createDelay(2.0);
+    delay.delayTime.value = state.delayTime;
+    const delayFeedback = ctx.createGain();
+    delayFeedback.gain.value = 0.32;
+
+    const fx2Dry = ctx.createGain();
+    const fx2Wet = ctx.createGain();
+    const fx2Sum = ctx.createGain();
+    const convolver = ctx.createConvolver();
+    convolver.normalize = true;
+    convolver.buffer = makeImpulse(ctx, 2.6, 2.2);
+
+    const limiter = ctx.createWaveShaper();
+    limiter.curve = makeIdentityCurve();
+    limiter.oversample = "2x";
+
+    const masterGain = ctx.createGain();
+    masterGain.gain.value = state.masterVol;
+
+    const monitorInput = ctx.createGain();
+    monitorInput.gain.value = 1;
+    const splitter = ctx.createChannelSplitter(2);
+    const analyserL = ctx.createAnalyser();
+    analyserL.fftSize = 512;
+    analyserL.smoothingTimeConstant = 0.75;
+    const analyserR = ctx.createAnalyser();
+    analyserR.fftSize = 512;
+    analyserR.smoothingTimeConstant = 0.75;
+    const analyserMain = ctx.createAnalyser();
+    analyserMain.fftSize = 1024;
+    analyserMain.smoothingTimeConstant = 0.55;
+
+    // wire the static chain
+    voiceBus.connect(tremolo);
+    tremolo.connect(drive);
+    drive.connect(fx1Dry);
+    drive.connect(delay);
+    delay.connect(delayFeedback);
+    delayFeedback.connect(delay);
+    delay.connect(fx1Wet);
+    fx1Dry.connect(fx1Sum);
+    fx1Wet.connect(fx1Sum);
+    fx1Sum.connect(fx2Dry);
+    fx1Sum.connect(convolver);
+    convolver.connect(fx2Wet);
+    fx2Dry.connect(fx2Sum);
+    fx2Wet.connect(fx2Sum);
+    fx2Sum.connect(limiter);
+    limiter.connect(masterGain);
+    masterGain.connect(ctx.destination);
+    // metering / visualizer tap — fed from monitorInput so LINE-IN mode can
+    // swap what the meter + visualizer are looking at without touching the
+    // audible synth path.
+    masterGain.connect(monitorInput);
+    monitorInput.connect(splitter);
+    splitter.connect(analyserL, 0);
+    splitter.connect(analyserR, 1);
+    monitorInput.connect(analyserMain);
+
+    Object.assign(engine.nodes, {
+      voiceBus, tremolo, lfo, lfoDepthGain, drive, fx1Dry, fx1Wet, fx1Sum, delay, delayFeedback,
+      fx2Dry, fx2Wet, fx2Sum, convolver, limiter, masterGain, monitorInput, splitter,
+      analyserL, analyserR, analyserMain,
+    });
+    engine.voiceBus = voiceBus;
+    engineApplyLfoDest(state.lfoDest);
+    engine.ready = true;
+    return ctx.resume().then(() => ctx);
+  }
+
+  function engineApplyLfoDest(dest) {
+    const { lfo, lfoDepthGain, tremolo } = engine.nodes;
+    if (!lfo) return;
+    try {
+      lfoDepthGain.disconnect();
+    } catch (e) {
+      /* not connected yet — fine */
+    }
+    if (dest === "amp") {
+      lfoDepthGain.connect(tremolo.gain);
+    }
+    // "filter" and "pitch" destinations are patched per-voice at note-on
+    // time (see engineNoteOn) since each voice owns its own filter/osc
+    // nodes; amp modulation is the one shared bus every voice already
+    // passes through, so it alone can be wired once, globally, here.
+    engineUpdateLfoDepth();
+  }
+  function engineUpdateLfoDepth() {
+    const { lfoDepthGain } = engine.nodes;
+    if (!lfoDepthGain || !engine.ctx) return;
+    let amt = 0;
+    if (state.lfoDest === "pitch") amt = state.lfoDepth * 45; // cents
+    else if (state.lfoDest === "filter") amt = state.lfoDepth * 3600; // Hz
+    else amt = state.lfoDepth * 0.85; // amp: unitless gain swing
+    lfoDepthGain.gain.setTargetAtTime(amt, engine.ctx.currentTime, 0.02);
+  }
+  function engineUpdateLfoRate() {
+    const { lfo } = engine.nodes;
+    if (!lfo || !engine.ctx) return;
+    lfo.frequency.setTargetAtTime(state.lfoRate, engine.ctx.currentTime, 0.01);
+  }
+  function engineUpdateLfoWave() {
+    const { lfo } = engine.nodes;
+    if (!lfo) return;
+    lfo.type = state.lfoWave === "random" ? "square" : state.lfoWave;
+  }
+
+  function engineUpdateDrive() {
+    if (!engine.nodes.drive) return;
+    engine.nodes.drive.curve = makeDriveCurve(state.drive);
+  }
+  function engineUpdateDelay() {
+    const { delay, delayFeedback, fx1Dry, fx1Wet } = engine.nodes;
+    if (!delay || !engine.ctx) return;
+    delay.delayTime.setTargetAtTime(clamp(state.delayTime, 0.03, 1.9), engine.ctx.currentTime, 0.01);
+    fx1Wet.gain.setTargetAtTime(state.delayMix, engine.ctx.currentTime, 0.01);
+    fx1Dry.gain.setTargetAtTime(1, engine.ctx.currentTime, 0.01);
+    delayFeedback.gain.setTargetAtTime(0.22 + state.delayMix * 0.28, engine.ctx.currentTime, 0.01);
+  }
+  function engineUpdateSpace() {
+    const { fx2Dry, fx2Wet } = engine.nodes;
+    if (!fx2Dry || !engine.ctx) return;
+    fx2Wet.gain.setTargetAtTime(state.space, engine.ctx.currentTime, 0.02);
+    fx2Dry.gain.setTargetAtTime(1, engine.ctx.currentTime, 0.02);
+  }
+  function engineUpdateMaster() {
+    if (!engine.nodes.masterGain || !engine.ctx) return;
+    engine.nodes.masterGain.gain.setTargetAtTime(state.masterVol, engine.ctx.currentTime, 0.015);
+  }
+  function engineUpdateLimiter() {
+    if (!engine.nodes.limiter) return;
+    engine.nodes.limiter.curve = state.limiter ? makeDriveCurve(0.55) : makeIdentityCurve();
+  }
+
+  function engineNoteOn(note, velocity, atTime) {
+    const ctx = engine.ctx;
+    if (!ctx) return;
+    const time = atTime ?? ctx.currentTime;
+    if (engine.activeByNote.has(note)) engineNoteOff(note, time);
+    if (engine.activeByNote.size >= MAX_VOICES) {
+      const oldest = engine.voiceOrder.shift();
+      if (oldest !== undefined && engine.activeByNote.has(oldest)) engineNoteOff(oldest, time, true);
+    }
+    const slot = engine.voiceOrder.length % MAX_VOICES;
+    const freq = noteToFreq(note);
+    // portamento: glide from the last-triggered pitch rather than jumping —
+    // applied per new voice, so chords still fire in tune, only the melodic
+    // "lead" line of consecutively played notes audibly slides.
+    const glideFrom = state.glide > 0.002 && engine.lastFreq ? engine.lastFreq : freq;
+    engine.lastFreq = freq;
+
+    const osc1 = ctx.createOscillator();
+    osc1.type = state.osc1Wave;
+    osc1.frequency.setValueAtTime(Math.max(0.01, glideFrom), time);
+    osc1.frequency.exponentialRampToValueAtTime(Math.max(0.01, freq), time + Math.max(0.001, state.glide));
+    const osc2 = ctx.createOscillator();
+    osc2.type = state.osc2Wave;
+    osc2.frequency.setValueAtTime(Math.max(0.01, glideFrom), time);
+    osc2.frequency.exponentialRampToValueAtTime(Math.max(0.01, freq), time + Math.max(0.001, state.glide));
+    osc2.detune.setValueAtTime(state.osc2Detune, time);
+    const sub = ctx.createOscillator();
+    sub.type = "sine";
+    sub.frequency.setValueAtTime(Math.max(0.01, glideFrom / 2), time);
+    sub.frequency.exponentialRampToValueAtTime(Math.max(0.01, freq / 2), time + Math.max(0.001, state.glide));
+
+    const g1 = ctx.createGain();
+    g1.gain.value = 0.55;
+    const g2 = ctx.createGain();
+    g2.gain.value = state.osc2Mix;
+    const gs = ctx.createGain();
+    gs.gain.value = state.subLevel;
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = state.filterType;
+    // key tracking: higher notes open the filter a little, like hardware
+    const keyTrackOffset = state.keyTrack ? (note - 60) * 9 : 0;
+    const baseCutoff = clamp(state.cutoff + keyTrackOffset, 40, 18000);
+    filter.frequency.setValueAtTime(baseCutoff, time);
+    filter.Q.setValueAtTime(state.resonance, time);
+
+    const ampEnv = ctx.createGain();
+    ampEnv.gain.setValueAtTime(0, time);
+    const pan = ctx.createStereoPanner();
+    pan.pan.value = VOICE_PANS[slot];
+
+    osc1.connect(g1).connect(filter);
+    osc2.connect(g2).connect(filter);
+    sub.connect(gs).connect(filter);
+    filter.connect(ampEnv);
+    ampEnv.connect(pan);
+    pan.connect(engine.voiceBus);
+
+    // filter envelope: base -> base+amount over attack, settle toward
+    // base+amount*sustain over decay (mirrors the amplitude envelope shape)
+    const envTop = clamp(baseCutoff + state.filterEnv, 40, 19000);
+    const envSustainLevel = clamp(baseCutoff + state.filterEnv * state.sustain, 40, 19000);
+    filter.frequency.cancelScheduledValues(time);
+    filter.frequency.setValueAtTime(baseCutoff, time);
+    filter.frequency.linearRampToValueAtTime(envTop, time + Math.max(0.001, state.attack));
+    filter.frequency.linearRampToValueAtTime(envSustainLevel, time + state.attack + Math.max(0.001, state.decay));
+
+    // amplitude ADSR
+    const peak = clamp(velocity, 0.05, 1);
+    ampEnv.gain.cancelScheduledValues(time);
+    ampEnv.gain.setValueAtTime(0, time);
+    ampEnv.gain.linearRampToValueAtTime(peak, time + Math.max(0.001, state.attack));
+    ampEnv.gain.linearRampToValueAtTime(peak * state.sustain, time + state.attack + Math.max(0.001, state.decay));
+
+    // LFO routed to pitch/filter is patched per-voice, live, at creation —
+    // amp routing is shared and already wired once in engineApplyLfoDest().
+    if (state.lfoDest === "pitch") {
+      engine.nodes.lfoDepthGain.connect(osc1.detune);
+      engine.nodes.lfoDepthGain.connect(osc2.detune);
+    } else if (state.lfoDest === "filter") {
+      engine.nodes.lfoDepthGain.connect(filter.frequency);
+    }
+
+    osc1.start(time);
+    osc2.start(time);
+    sub.start(time);
+
+    const voice = { osc1, osc2, sub, g1, g2, gs, filter, ampEnv, pan, slot, note, baseCutoff, envTop, envSustainLevel };
+    engine.activeByNote.set(note, voice);
+    engine.voiceOrder.push(note);
+  }
+
+  function engineNoteOff(note, atTime, immediate) {
+    const ctx = engine.ctx;
+    const voice = engine.activeByNote.get(note);
+    if (!voice || !ctx) return;
+    const time = atTime ?? ctx.currentTime;
+    const rel = immediate ? 0.03 : Math.max(0.008, state.release);
+    voice.ampEnv.gain.cancelScheduledValues(time);
+    voice.ampEnv.gain.setValueAtTime(voice.ampEnv.gain.value, time);
+    voice.ampEnv.gain.linearRampToValueAtTime(0, time + rel);
+    const stopAt = time + rel + 0.03;
+    [voice.osc1, voice.osc2, voice.sub].forEach((o) => {
+      try {
+        o.stop(stopAt);
+      } catch (e) {
+        /* already stopped */
+      }
+    });
+    engine.activeByNote.delete(note);
+    const idx = engine.voiceOrder.indexOf(note);
+    if (idx !== -1) engine.voiceOrder.splice(idx, 1);
+  }
+
+  function engineAllNotesOff() {
+    if (!engine.ctx) return;
+    Array.from(engine.activeByNote.keys()).forEach((n) => engineNoteOff(n, engine.ctx.currentTime, true));
+  }
+
+  // live-touch the parameters of every currently-held voice so turning a
+  // knob while a note rings is audible immediately, not just on the next
+  // note-on — this is what makes it feel like an instrument, not a form.
+  function engineTouchLiveVoices() {
+    if (!engine.ctx) return;
+    const t = engine.ctx.currentTime;
+    engine.activeByNote.forEach((voice) => {
+      voice.osc1.type = state.osc1Wave;
+      voice.osc2.type = state.osc2Wave;
+      voice.osc2.detune.setTargetAtTime(state.osc2Detune, t, 0.02);
+      voice.g2.gain.setTargetAtTime(state.osc2Mix, t, 0.02);
+      voice.gs.gain.setTargetAtTime(state.subLevel, t, 0.02);
+      voice.filter.type = state.filterType;
+      voice.filter.Q.setTargetAtTime(state.resonance, t, 0.02);
+      const keyTrackOffset = state.keyTrack ? (voice.note - 60) * 9 : 0;
+      const base = clamp(state.cutoff + keyTrackOffset, 40, 18000);
+      voice.filter.frequency.setTargetAtTime(base, t, 0.03);
+    });
+  }
+
+  function engineSetSourceMode(mode) {
+    const { monitorInput, masterGain } = engine.nodes;
+    if (!monitorInput) return;
+    try {
+      masterGain.disconnect(monitorInput);
+    } catch (e) {}
+    try {
+      if (engine.micSource) engine.micSource.disconnect(monitorInput);
+    } catch (e) {}
+    if (mode === "linein" && engine.micSource) {
+      engine.micSource.connect(monitorInput);
+    } else {
+      masterGain.connect(monitorInput);
+    }
+    state.sourceMode = mode;
+  }
+
+  async function engineEnableMic() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      throw new Error("unsupported");
+    }
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
+    engine.micStream = stream;
+    engine.micSource = engine.ctx.createMediaStreamSource(stream);
+    return stream;
+  }
+  function engineDisableMic() {
+    if (engine.micSource) {
+      try {
+        engine.micSource.disconnect();
+      } catch (e) {}
+      engine.micSource = null;
+    }
+    if (engine.micStream) {
+      engine.micStream.getTracks().forEach((t) => t.stop());
+      engine.micStream = null;
+    }
+  }
+
+  function engineGetLevels() {
+    const { analyserL, analyserR } = engine.nodes;
+    if (!analyserL) return { l: 0, r: 0, peak: 0 };
+    const bufL = new Uint8Array(analyserL.fftSize);
+    const bufR = new Uint8Array(analyserR.fftSize);
+    analyserL.getByteTimeDomainData(bufL);
+    analyserR.getByteTimeDomainData(bufR);
+    const rms = (buf) => {
+      let sum = 0;
+      for (let i = 0; i < buf.length; i++) {
+        const v = (buf[i] - 128) / 128;
+        sum += v * v;
+      }
+      return Math.sqrt(sum / buf.length);
+    };
+    const peakOf = (buf) => {
+      let m = 0;
+      for (let i = 0; i < buf.length; i++) m = Math.max(m, Math.abs(buf[i] - 128) / 128);
+      return m;
+    };
+    return { l: rms(bufL), r: rms(bufR), peakL: peakOf(bufL), peakR: peakOf(bufR) };
+  }
+  function engineGetWaveform() {
+    const { analyserMain } = engine.nodes;
+    if (!analyserMain) return null;
+    const buf = new Uint8Array(analyserMain.fftSize);
+    analyserMain.getByteTimeDomainData(buf);
+    return buf;
+  }
+
+  /* ── 3. Widget factories ────────────────────────────────────────────────
+     Every knob / segmented control / toggle in the rack is built from one
+     of these three factories, so state → UI stays consistent and a preset
+     swap can silently re-render every control from one loop (syncAllWidgets).
+     ------------------------------------------------------------------- */
+  function registerWidget(key, widget) {
+    if (key) widgets[key] = widget;
+    return widget;
+  }
+  function syncWidget(key) {
+    const w = widgets[key];
+    if (!w || !(key in state)) return;
+    const v = state[key];
+    if (typeof w.setValue === "function") w.setValue(v, false);
+    else if (typeof w.select === "function") w.select(v, false);
+    else if (typeof w.setPressed === "function") w.setPressed(v, false);
+  }
+  function syncAllWidgets() {
+    Object.keys(widgets).forEach(syncWidget);
+  }
+
+  // Knob geometry: angles measured clockwise from 12 o'clock (0deg = up).
+  // The 270deg sweep runs from 225deg (bottom-left) to 495deg=135deg
+  // (bottom-right), leaving a 90deg gap centered on the bottom. Drawn as
+  // explicit arc paths (not a rotated dashed circle) — a rotate() transform
+  // combined with stroke-dasharray on an SVG circle renders inconsistently
+  // once the element's box is scaled down from its viewBox (verified live:
+  // the two alone are fine, combined they paint off-position), so the path
+  // is computed directly in user-space instead, which every engine agrees on.
+  const KNOB_START_ANGLE = 225;
+  const KNOB_SWEEP = 270;
+  function knobPolarPoint(r, angleDeg) {
+    const rad = (angleDeg * Math.PI) / 180;
+    return { x: 50 + r * Math.sin(rad), y: 50 - r * Math.cos(rad) };
+  }
+  function knobArcPath(r, startAngle, endAngle) {
+    if (Math.abs(endAngle - startAngle) < 0.001) return "";
+    const s = knobPolarPoint(r, startAngle);
+    const e = knobPolarPoint(r, endAngle);
+    const largeArc = endAngle - startAngle > 180 ? 1 : 0;
+    return "M " + s.x.toFixed(2) + " " + s.y.toFixed(2) + " A " + r + " " + r + " 0 " + largeArc + " 1 " + e.x.toFixed(2) + " " + e.y.toFixed(2);
+  }
+
+  function createKnob(opts) {
+    const { label, min, max, unit = "", decimals = 0, curve, accent = "signal", format, key, ariaLabel } = opts;
+    let value = clamp(opts.value, min, max);
+    let disabled = false;
+
+    const wrap = el("div", { class: "knob" + (accent === "mod" ? " is-mod" : "") });
+    const labelEl = el("span", { class: "knob__label", text: label });
+    const dial = el("div", {
+      class: "knob__dial",
+      tabindex: "0",
+      role: "slider",
+      "aria-label": ariaLabel || label,
+      "aria-valuemin": String(min),
+      "aria-valuemax": String(max),
+      "aria-orientation": "vertical",
+    });
+    const svg = svgEl("svg", { viewBox: "0 0 100 100" });
+    const track = svgEl("path", { class: "knob__track", d: knobArcPath(40, KNOB_START_ANGLE, KNOB_START_ANGLE + KNOB_SWEEP) });
+    const arc = svgEl("path", { class: "knob__arc", d: "" });
+    const cap = svgEl("circle", { class: "knob__cap", cx: 50, cy: 50, r: 32 });
+    const pointer = svgEl("line", { class: "knob__pointer", x1: 50, y1: 50, x2: 50, y2: 22 });
+    svg.append(track, arc, cap, pointer);
+    dial.appendChild(svg);
+    const valueText = document.createTextNode("");
+    const valueEl = el("span", { class: "knob__value" });
+    valueEl.appendChild(valueText);
+    if (unit) valueEl.appendChild(el("span", { class: "knob__unit", text: unit }));
+    wrap.append(labelEl, dial, valueEl);
+
+    function render() {
+      const frac = valueToFrac(value, min, max, curve);
+      const endAngle = KNOB_START_ANGLE + KNOB_SWEEP * frac;
+      arc.setAttribute("d", knobArcPath(40, KNOB_START_ANGLE, endAngle));
+      const tip = knobPolarPoint(28, endAngle);
+      pointer.setAttribute("x2", tip.x.toFixed(2));
+      pointer.setAttribute("y2", tip.y.toFixed(2));
+      const text = format ? format(value) : value.toFixed(decimals);
+      valueText.nodeValue = text;
+      dial.setAttribute("aria-valuenow", value.toFixed(4));
+      dial.setAttribute("aria-valuetext", text + (unit ? " " + unit : ""));
+    }
+    function setValue(v, fromUser) {
+      value = clamp(v, min, max);
+      render();
+      if (fromUser && opts.onChange) opts.onChange(value);
+    }
+    function setDisabled(d) {
+      disabled = d;
+      wrap.classList.toggle("is-disabled", d);
+      if (d) {
+        dial.setAttribute("aria-disabled", "true");
+        dial.tabIndex = -1;
+      } else {
+        dial.removeAttribute("aria-disabled");
+        dial.tabIndex = 0;
+      }
+    }
+    let dragging = false, startY = 0, startFrac = 0;
+    function pointerDown(e) {
+      if (disabled) return;
+      dragging = true;
+      dial.classList.add("is-dragging");
+      startY = e.clientY;
+      startFrac = valueToFrac(value, min, max, curve);
+      window.addEventListener("pointermove", pointerMove);
+      window.addEventListener("pointerup", pointerUp);
+      e.preventDefault();
+    }
+    function pointerMove(e) {
+      if (!dragging) return;
+      const dy = startY - e.clientY;
+      const sensitivity = e.shiftKey ? 640 : 180;
+      setValue(fracToValue(clamp(startFrac + dy / sensitivity, 0, 1), min, max, curve), true);
+    }
+    function pointerUp() {
+      dragging = false;
+      dial.classList.remove("is-dragging");
+      window.removeEventListener("pointermove", pointerMove);
+      window.removeEventListener("pointerup", pointerUp);
+    }
+    dial.addEventListener("pointerdown", pointerDown);
+    dial.addEventListener(
+      "wheel",
+      (e) => {
+        if (disabled) return;
+        e.preventDefault();
+        const dir = e.deltaY > 0 ? -1 : 1;
+        const step = e.shiftKey ? 0.002 : 0.014;
+        setValue(fracToValue(clamp(valueToFrac(value, min, max, curve) + dir * step, 0, 1), min, max, curve), true);
+      },
+      { passive: false }
+    );
+    dial.addEventListener("keydown", (e) => {
+      if (disabled) return;
+      let frac = valueToFrac(value, min, max, curve);
+      const small = 0.02, large = 0.12;
+      if (e.key === "ArrowUp" || e.key === "ArrowRight") frac = clamp(frac + (e.shiftKey ? large : small), 0, 1);
+      else if (e.key === "ArrowDown" || e.key === "ArrowLeft") frac = clamp(frac - (e.shiftKey ? large : small), 0, 1);
+      else if (e.key === "PageUp") frac = clamp(frac + large, 0, 1);
+      else if (e.key === "PageDown") frac = clamp(frac - large, 0, 1);
+      else if (e.key === "Home") frac = 0;
+      else if (e.key === "End") frac = 1;
+      else return;
+      e.preventDefault();
+      setValue(fracToValue(frac, min, max, curve), true);
+    });
+
+    render();
+    const widget = { el: wrap, get value() { return value; }, setValue, setDisabled };
+    return registerWidget(key, widget);
+  }
+
+  function createSeg(opts) {
+    const { options, textMode, accent, onChange, ariaLabel, key } = opts;
+    let value = opts.value;
+    const wrap = el("div", {
+      class: "seg" + (textMode ? " seg--text" : "") + (accent === "mod" ? " is-mod" : ""),
+      role: "radiogroup",
+      "aria-label": ariaLabel || "",
+    });
+    const btns = [];
+    options.forEach((o) => {
+      const btn = el("button", {
+        type: "button",
+        class: "seg__btn",
+        role: "radio",
+        "aria-checked": String(o.value === value),
+        tabindex: o.value === value ? "0" : "-1",
+      });
+      if (textMode) {
+        btn.textContent = o.label || o.value;
+      } else {
+        const svg = svgEl("svg", { viewBox: "0 0 20 14" });
+        const path = svgEl("path", { d: o.icon || WAVE_ICONS.sine, fill: "none", stroke: "currentColor", "stroke-width": "1.6", "stroke-linecap": "round", "stroke-linejoin": "round" });
+        svg.appendChild(path);
+        btn.appendChild(svg);
+        btn.title = o.label || o.value;
+        btn.setAttribute("aria-label", o.label || o.value);
+      }
+      btn.addEventListener("click", () => {
+        select(o.value, true);
+        btn.focus();
+      });
+      btn.addEventListener("keydown", (e) => {
+        const idx = options.findIndex((x) => x.value === value);
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          e.preventDefault();
+          const next = (idx + 1) % options.length;
+          select(options[next].value, true);
+          btns[next].focus();
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          e.preventDefault();
+          const prev = (idx - 1 + options.length) % options.length;
+          select(options[prev].value, true);
+          btns[prev].focus();
+        }
+      });
+      btns.push(btn);
+      wrap.appendChild(btn);
+    });
+    function select(v, fromUser) {
+      value = v;
+      options.forEach((o, i) => {
+        btns[i].setAttribute("aria-checked", String(o.value === v));
+        btns[i].tabIndex = o.value === v ? 0 : -1;
+      });
+      if (fromUser && onChange) onChange(v);
+    }
+    function setDisabled(d) {
+      btns.forEach((b) => (b.disabled = d));
+    }
+    const widget = { el: wrap, get value() { return value; }, select, setDisabled };
+    return registerWidget(key, widget);
+  }
+
+  function createToggle(opts) {
+    const { label, onChange, key } = opts;
+    let pressed = !!opts.pressed;
+    const btn = el("button", { type: "button", class: "toggle", "aria-pressed": String(pressed) });
+    btn.append(el("span", { class: "toggle__dot" }), el("span", { text: label }));
+    btn.addEventListener("click", () => {
+      if (btn.disabled) return;
+      setPressed(!pressed, true);
+    });
+    function setPressed(p, fromUser) {
+      pressed = p;
+      btn.setAttribute("aria-pressed", String(p));
+      if (fromUser && onChange) onChange(p);
+    }
+    function setDisabled(d) {
+      btn.disabled = d;
+    }
+    const widget = { el: btn, get pressed() { return pressed; }, setPressed, setDisabled };
+    return registerWidget(key, widget);
+  }
+
+  /* ── Status line (footer, aria-live) ────────────────────────────────── */
+  function setStatus(text, kind) {
+    const node = document.getElementById("status");
+    if (!node) return;
+    node.textContent = text;
+    node.classList.remove("is-ok", "is-error", "is-live");
+    if (kind) node.classList.add("is-" + kind);
+  }
+
+  /* ── 4. Transport / preset bar / meter / visualizer ─────────────────── */
+  const PLAY_PATH = "M7 4.5v15l13-7.5-13-7.5z";
+  const PAUSE_PATH = "M6 4.5h4.4v15H6zM13.6 4.5H18v15h-4.4z";
+
+  function buildTransport(mount) {
+    const wrap = el("div", { class: "transport" });
+    const playBtn = el("button", { type: "button", class: "play", id: "play-btn", "aria-pressed": "false", "aria-label": "Play sequencer" });
+    const playSvg = svgEl("svg", { viewBox: "0 0 24 24" });
+    const playPath = svgEl("path", { d: PLAY_PATH, fill: "currentColor" });
+    playSvg.appendChild(playPath);
+    playBtn.appendChild(playSvg);
+
+    const tempoEl = el("div", {
+      class: "tempo", tabindex: "0", role: "slider", "aria-label": "Tempo",
+      "aria-valuemin": "40", "aria-valuemax": "220", "aria-valuenow": String(state.tempo),
+    });
+    const tempoVal = el("span", { class: "tempo__value", text: String(state.tempo) });
+    const tempoLabel = el("span", { class: "tempo__label", text: "BPM" });
+    tempoEl.append(tempoVal, tempoLabel);
+
+    const beatWrap = el("div", { class: "beat", "aria-hidden": "true" });
+    const dots = [0, 1, 2, 3].map(() => el("span", { class: "beat__dot" }));
+    dots.forEach((d) => beatWrap.appendChild(d));
+
+    wrap.append(playBtn, tempoEl, beatWrap);
+    mount.appendChild(wrap);
+
+    playBtn.addEventListener("click", () => toggleSequencerPlay());
+    playBtn.addEventListener("keydown", (e) => {
+      if (e.code === "Space" || e.code === "Enter") {
+        e.preventDefault();
+        toggleSequencerPlay();
+      }
+    });
+
+    let tDragging = false, tStartY = 0, tStartVal = state.tempo;
+    tempoEl.addEventListener("pointerdown", (e) => {
+      tDragging = true;
+      tStartY = e.clientY;
+      tStartVal = state.tempo;
+      window.addEventListener("pointermove", tMove);
+      window.addEventListener("pointerup", tUp);
+      e.preventDefault();
+    });
+    function tMove(e) {
+      if (!tDragging) return;
+      const dy = tStartY - e.clientY;
+      const sens = e.shiftKey ? 6 : 1.6;
+      setTempo(Math.round(tStartVal + dy / sens));
+    }
+    function tUp() {
+      tDragging = false;
+      window.removeEventListener("pointermove", tMove);
+      window.removeEventListener("pointerup", tUp);
+    }
+    tempoEl.addEventListener(
+      "wheel",
+      (e) => {
+        e.preventDefault();
+        setTempo(state.tempo + (e.deltaY > 0 ? -1 : 1) * (e.shiftKey ? 5 : 1));
+      },
+      { passive: false }
+    );
+    tempoEl.addEventListener("keydown", (e) => {
+      const big = e.shiftKey ? 5 : 1;
+      if (e.key === "ArrowUp" || e.key === "ArrowRight") { setTempo(state.tempo + big); e.preventDefault(); }
+      else if (e.key === "ArrowDown" || e.key === "ArrowLeft") { setTempo(state.tempo - big); e.preventDefault(); }
+      else if (e.key === "Home") { setTempo(40); e.preventDefault(); }
+      else if (e.key === "End") { setTempo(220); e.preventDefault(); }
+    });
+    function setTempo(v) {
+      state.tempo = clamp(Math.round(v), 40, 220);
+      tempoVal.textContent = String(state.tempo);
+      tempoEl.setAttribute("aria-valuenow", String(state.tempo));
+    }
+
+    els.playBtn = playBtn;
+    els.playPath = playPath;
+    els.tempoVal = tempoVal;
+    els.tempoEl = tempoEl;
+    els.beatDots = dots;
+  }
+
+  function buildPresetBar(mount) {
+    const wrap = el("div", { class: "preset" });
+    const prev = el("button", { type: "button", class: "preset__nav", "aria-label": "Previous preset" });
+    prev.appendChild(iconChevron("left"));
+    const selWrap = el("div", { class: "preset__select" });
+    const select = el("select", { class: "preset__current", "aria-label": "Preset" });
+    PRESETS.forEach((p, i) => select.appendChild(el("option", { value: String(i), text: p.name })));
+    selWrap.appendChild(select);
+    const next = el("button", { type: "button", class: "preset__nav", "aria-label": "Next preset" });
+    next.appendChild(iconChevron("right"));
+    wrap.append(prev, selWrap, next);
+    mount.appendChild(wrap);
+
+    let idx = 0;
+    prev.addEventListener("click", () => setPresetIndex((idx - 1 + PRESETS.length) % PRESETS.length));
+    next.addEventListener("click", () => setPresetIndex((idx + 1) % PRESETS.length));
+    select.addEventListener("change", () => setPresetIndex(Number(select.value)));
+    function setPresetIndex(i) {
+      idx = i;
+      select.value = String(i);
+      applyPreset(PRESETS[i]);
+    }
+    els.presetSelect = select;
+  }
+  function iconChevron(dir) {
+    const svg = svgEl("svg", { viewBox: "0 0 24 24", width: "14", height: "14", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" });
+    const d = dir === "left" ? "M15 6l-6 6 6 6" : "M9 6l6 6-6 6";
+    svg.appendChild(svgEl("path", { d }));
+    return svg;
+  }
+
+  function buildMeter(mount) {
+    const wrap = el("div", { class: "meter" });
+    const bars = el("div", { class: "meter__bars" });
+    const rowRMS = buildMeterRow("RMS");
+    const rowPK = buildMeterRow("PK");
+    bars.append(rowRMS.row, rowPK.row);
+    wrap.appendChild(bars);
+    mount.appendChild(wrap);
+    els.meterRMS = rowRMS;
+    els.meterPK = rowPK;
+  }
+  function buildMeterRow(labelText) {
+    const row = el("div", { class: "meter__row" });
+    const label = el("span", { class: "meter__label", text: labelText });
+    const channel = el("div", { class: "meter__channel" });
+    const fill = el("div", { class: "meter__fill" });
+    const peak = el("div", { class: "meter__peak" });
+    peak.style.left = "0%";
+    channel.append(fill, peak);
+    row.append(label, channel);
+    return { row, fill, peak, peakHold: 0 };
+  }
+
+  function buildStageChrome(mount) {
+    const canvas = el("canvas", { class: "viz-canvas" });
+    mount.appendChild(canvas);
+
+    const readout = el("div", { class: "stage__readout" });
+    const sigB = el("b", { text: "—" });
+    readout.append(el("span", {}, ["SIG ", sigB]));
+    mount.appendChild(readout);
+
+    const srcWrap = el("div", { class: "stage__source" });
+    const srcFlag = el("span", { class: "srcflag" });
+    const srcDot = el("span", { class: "srcflag__dot", "aria-hidden": "true" });
+    const srcText = el("span", { text: "SYNTH" });
+    srcFlag.append(srcDot, srcText);
+    srcWrap.appendChild(srcFlag);
+    mount.appendChild(srcWrap);
+
+    els.canvas = canvas;
+    els.sigB = sigB;
+    els.srcFlag = srcFlag;
+    els.srcDot = srcDot;
+    els.srcText = srcText;
+
+    const ctx2d = canvas.getContext("2d");
+    let dpr = Math.min(2, window.devicePixelRatio || 1);
+    function resize() {
+      const rect = canvas.parentElement.getBoundingClientRect();
+      dpr = Math.min(2, window.devicePixelRatio || 1);
+      canvas.width = Math.max(1, Math.round(rect.width * dpr));
+      canvas.height = Math.max(1, Math.round(rect.height * dpr));
+    }
+    resize();
+    window.addEventListener("resize", resize);
+    els.vizResize = resize;
+    els.vizCtx = ctx2d;
+  }
+
+  /* ── 5. Rack panels: OSC · FILTER · ENV · LFO · FX/MASTER ────────────── */
+  function buildPanel(opts) {
+    const panel = el("div", { class: "panel" });
+    panel.style.setProperty("--span", String(opts.span || 4));
+    const head = el("div", { class: "panel__head" });
+    const led = el("span", { class: "panel__led", "aria-hidden": "true" });
+    if (opts.accent === "mod") led.style.setProperty("--accent", "var(--mod)");
+    const titleEl = el("span", { class: "panel__title", text: opts.title });
+    head.append(led, titleEl);
+    let subEl = null;
+    if (opts.sub) {
+      subEl = el("span", { class: "panel__sub", text: opts.sub });
+      head.appendChild(subEl);
+    }
+    const body = el("div", { class: "panel__body" });
+    panel.append(head, body);
+    return { panel, body, subEl };
+  }
+  function buildGroup(labelText, children) {
+    const g = el("div", { class: "panel__group" });
+    if (labelText) g.appendChild(el("span", { class: "panel__group-label", text: labelText }));
+    const row = el("div", { class: "panel__row panel__row--tight" });
+    children.forEach((c) => row.appendChild(c.el || c));
+    g.appendChild(row);
+    return g;
+  }
+
+  function buildOscPanel() {
+    const { panel, body } = buildPanel({ title: "Oscillator", sub: "OSC · SUB", span: 4 });
+    const waveOpts = OSC_WAVES.map((w) => ({ value: w, icon: WAVE_ICONS[w], label: w }));
+    const waveA = createSeg({ key: "osc1Wave", value: state.osc1Wave, options: waveOpts, ariaLabel: "Oscillator A waveform", onChange: (v) => { state.osc1Wave = v; engineTouchLiveVoices(); } });
+    const waveB = createSeg({ key: "osc2Wave", value: state.osc2Wave, options: waveOpts, ariaLabel: "Oscillator B waveform", onChange: (v) => { state.osc2Wave = v; engineTouchLiveVoices(); } });
+    const detune = createKnob({ key: "osc2Detune", label: "DETUNE B", min: -50, max: 50, value: state.osc2Detune, unit: "ct", format: fmtSemi, onChange: (v) => { state.osc2Detune = v; engineTouchLiveVoices(); } });
+    const mix = createKnob({ key: "osc2Mix", label: "MIX B", min: 0, max: 1, value: state.osc2Mix, unit: "%", format: fmtPct, onChange: (v) => { state.osc2Mix = v; engineTouchLiveVoices(); } });
+    const sub = createKnob({ key: "subLevel", label: "SUB", min: 0, max: 1, value: state.subLevel, unit: "%", format: fmtPct, onChange: (v) => { state.subLevel = v; engineTouchLiveVoices(); } });
+    const glide = createKnob({ key: "glide", label: "GLIDE", min: 0, max: 0.3, value: state.glide, unit: "ms", format: (v) => Math.round(v * 1000).toString(), onChange: (v) => { state.glide = v; } });
+    body.append(buildGroup("WAVE A", [waveA]), buildGroup("WAVE B", [waveB]), buildGroup(null, [detune, mix, sub, glide]));
+    return panel;
+  }
+
+  function buildFilterPanel() {
+    const { panel, body, subEl } = buildPanel({ title: "Filter", sub: state.filterType.toUpperCase(), span: 4 });
+    els.filterSubEl = subEl;
+    const type = createSeg({
+      key: "filterType", value: state.filterType, textMode: true, ariaLabel: "Filter type",
+      options: [{ value: "lowpass", label: "LP" }, { value: "bandpass", label: "BP" }, { value: "highpass", label: "HP" }],
+      onChange: (v) => { state.filterType = v; engineTouchLiveVoices(); refreshFilterSub(); },
+    });
+    const cutoff = createKnob({ key: "cutoff", label: "CUTOFF", min: 40, max: 14000, value: state.cutoff, curve: "log", unit: "Hz", format: fmtHz, onChange: (v) => { state.cutoff = v; engineTouchLiveVoices(); } });
+    const res = createKnob({ key: "resonance", label: "RESONANCE", min: 0.1, max: 18, value: state.resonance, decimals: 1, onChange: (v) => { state.resonance = v; engineTouchLiveVoices(); } });
+    const envAmt = createKnob({ key: "filterEnv", label: "ENV AMT", min: -6000, max: 6000, value: state.filterEnv, unit: "Hz", format: (v) => (v >= 0 ? "+" : "-") + fmtHz(Math.abs(v)), onChange: (v) => { state.filterEnv = v; } });
+    const kt = createToggle({ key: "keyTrack", label: "KEY TRK", pressed: state.keyTrack, onChange: (v) => { state.keyTrack = v; engineTouchLiveVoices(); } });
+    body.append(buildGroup("TYPE", [type]), buildGroup(null, [cutoff, res, envAmt]), buildGroup(null, [kt]));
+    return panel;
+  }
+  function refreshFilterSub() {
+    if (els.filterSubEl) els.filterSubEl.textContent = state.filterType.toUpperCase();
+  }
+
+  function envGraphPoints(a, d, s, r) {
+    const wA = 8 + Math.sqrt(a) * 70;
+    const wD = 8 + Math.sqrt(d) * 70;
+    const wS = 26;
+    const wR = 8 + Math.sqrt(r) * 70;
+    const total = wA + wD + wS + wR;
+    const scale = 186 / total;
+    const x0 = 6, yBase = 40, yPeak = 5;
+    const ySus = yBase - (yBase - yPeak) * s;
+    const x1 = x0 + wA * scale, x2 = x1 + wD * scale, x3 = x2 + wS * scale, x4 = x3 + wR * scale;
+    return [[x0, yBase], [x1, yPeak], [x2, ySus], [x3, ySus], [x4, yBase]];
+  }
+  function buildEnvGraph() {
+    const svg = svgEl("svg", { class: "env-graph", viewBox: "0 0 200 46", preserveAspectRatio: "none", "aria-hidden": "true" });
+    const axis = svgEl("line", { class: "env-graph__axis", x1: 6, y1: 41, x2: 194, y2: 41 });
+    const fill = svgEl("polygon", { class: "env-graph__fill" });
+    const line = svgEl("polyline", { class: "env-graph__line" });
+    svg.append(axis, fill, line);
+    function render() {
+      const pts = envGraphPoints(state.attack, state.decay, state.sustain, state.release);
+      const ptStr = pts.map((p) => p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ");
+      line.setAttribute("points", ptStr);
+      const last = pts[pts.length - 1], first = pts[0];
+      fill.setAttribute("points", ptStr + " " + last[0].toFixed(1) + ",41 " + first[0].toFixed(1) + ",41");
+    }
+    render();
+    return { el: svg, render };
+  }
+  function buildEnvPanel() {
+    const { panel, body } = buildPanel({ title: "Envelope", sub: "AMP · FILTER", span: 4 });
+    const graph = buildEnvGraph();
+    const timeFmt = (v) => (v < 1 ? Math.round(v * 1000) + "m" : v.toFixed(2));
+    const a = createKnob({ key: "attack", label: "ATTACK", min: 0.001, max: 2, value: state.attack, curve: "log", format: timeFmt, unit: "s", onChange: (v) => { state.attack = v; graph.render(); } });
+    const d = createKnob({ key: "decay", label: "DECAY", min: 0.001, max: 2, value: state.decay, curve: "log", format: timeFmt, unit: "s", onChange: (v) => { state.decay = v; graph.render(); } });
+    const s = createKnob({ key: "sustain", label: "SUSTAIN", min: 0, max: 1, value: state.sustain, format: fmtPct, unit: "%", onChange: (v) => { state.sustain = v; graph.render(); } });
+    const r = createKnob({ key: "release", label: "RELEASE", min: 0.001, max: 3, value: state.release, curve: "log", format: timeFmt, unit: "s", onChange: (v) => { state.release = v; graph.render(); } });
+    body.append(el("div", { class: "panel__group" }, [graph.el]), buildGroup(null, [a, d, s, r]));
+    els.envGraph = graph;
+    return panel;
+  }
+
+  function buildLfoPanel() {
+    const { panel, body } = buildPanel({ title: "LFO", sub: "MODULATION", span: 6, accent: "mod" });
+    const waveOpts = LFO_WAVES.map((w) => ({ value: w, icon: WAVE_ICONS[w], label: w }));
+    const wave = createSeg({ key: "lfoWave", value: state.lfoWave, accent: "mod", options: waveOpts, ariaLabel: "LFO waveform", onChange: (v) => { state.lfoWave = v; engineUpdateLfoWave(); } });
+    const rate = createKnob({ key: "lfoRate", label: "RATE", min: 0.05, max: 20, value: state.lfoRate, curve: "log", unit: "Hz", accent: "mod", decimals: 2, onChange: (v) => { state.lfoRate = v; engineUpdateLfoRate(); } });
+    const depth = createKnob({ key: "lfoDepth", label: "DEPTH", min: 0, max: 1, value: state.lfoDepth, accent: "mod", unit: "%", format: fmtPct, onChange: (v) => { state.lfoDepth = v; engineUpdateLfoDepth(); } });
+    const dest = createSeg({
+      key: "lfoDest", value: state.lfoDest, textMode: true, accent: "mod", ariaLabel: "LFO destination",
+      options: [{ value: "pitch", label: "PITCH" }, { value: "filter", label: "FILTER" }, { value: "amp", label: "AMP" }],
+      onChange: (v) => { state.lfoDest = v; engineApplyLfoDest(v); },
+    });
+    const sync = createToggle({
+      key: "lfoSync", label: "TEMPO SYNC", pressed: state.lfoSync,
+      onChange: (v) => {
+        state.lfoSync = v;
+        if (v) {
+          state.lfoRate = clamp(state.tempo / 60, 0.05, 20);
+          syncWidget("lfoRate");
+          engineUpdateLfoRate();
+        }
+      },
+    });
+    body.append(buildGroup("WAVE", [wave]), buildGroup(null, [rate, depth]), buildGroup("ROUTE", [dest]), buildGroup(null, [sync]));
+    return panel;
+  }
+
+  function buildFxPanel() {
+    const { panel, body } = buildPanel({ title: "FX · Master", sub: "OUTPUT", span: 6 });
+    const drive = createKnob({ key: "drive", label: "DRIVE", min: 0, max: 1, value: state.drive, unit: "%", format: fmtPct, onChange: (v) => { state.drive = v; engineUpdateDrive(); } });
+    const delayMix = createKnob({ key: "delayMix", label: "DELAY", min: 0, max: 0.85, value: state.delayMix, unit: "%", format: fmtPct, onChange: (v) => { state.delayMix = v; engineUpdateDelay(); } });
+    const delayTime = createKnob({ key: "delayTime", label: "D-TIME", min: 0.04, max: 1.2, value: state.delayTime, curve: "log", unit: "s", decimals: 2, onChange: (v) => { state.delayTime = v; engineUpdateDelay(); } });
+    const space = createKnob({ key: "space", label: "SPACE", min: 0, max: 0.9, value: state.space, accent: "mod", unit: "%", format: fmtPct, onChange: (v) => { state.space = v; engineUpdateSpace(); } });
+    const vol = createKnob({ key: "masterVol", label: "VOLUME", min: 0, max: 1, value: state.masterVol, unit: "%", format: fmtPct, onChange: (v) => { state.masterVol = v; engineUpdateMaster(); } });
+    const lim = createToggle({ key: "limiter", label: "LIMIT", pressed: state.limiter, onChange: (v) => { state.limiter = v; engineUpdateLimiter(); } });
+    const midi = createToggle({ label: "MIDI OUT", pressed: false });
+    midi.setDisabled(true);
+    midi.el.setAttribute("aria-disabled", "true");
+    midi.el.title = "MIDI output — preview, not available in this build";
+    body.append(buildGroup(null, [drive, delayMix, delayTime]), buildGroup(null, [space, vol]), buildGroup(null, [lim]));
+    const midiGroup = buildGroup(null, [midi]);
+    midiGroup.querySelector(".panel__row").appendChild(el("span", { class: "badge--preview", text: "Preview" }));
+    body.appendChild(midiGroup);
+    return panel;
+  }
+
+  function buildRack(mount) {
+    mount.append(buildOscPanel(), buildFilterPanel(), buildEnvPanel(), buildLfoPanel(), buildFxPanel());
+  }
+
+  /* ── 6a. Sequencer: lookahead clock + step grid ───────────────────────
+     Scheduling uses the standard "two clocks" pattern — a setTimeout poll
+     schedules audio events on the AudioContext's own clock a little ahead
+     of real time, and a separate requestAnimationFrame loop only ever
+     reads that same clock to decide what the eye should see right now.
+     Never trust setTimeout's own timing for the sound; only for polling.
+     --------------------------------------------------------------------*/
+  const clock = { playing: false, timer: null, nextStepTime: 0, currentStep: 0, lookahead: 25, scheduleAhead: 0.12, queue: [] };
+  let lastPlayedStep = -1;
+
+  function stepDuration(i) {
+    const base = 60 / state.tempo / 4;
+    return i % 2 === 1 ? base * (1 + state.swing) : base * (1 - state.swing);
+  }
+  function toggleSequencerPlay() {
+    if (!engine.ctx) return;
+    if (clock.playing) stopSequencer();
+    else startSequencer();
+  }
+  function startSequencer() {
+    if (!engine.ctx || clock.playing) return;
+    clock.playing = true;
+    clock.currentStep = 0;
+    clock.nextStepTime = engine.ctx.currentTime + 0.06;
+    clock.queue = [];
+    lastPlayedStep = -1;
+    els.playBtn.classList.add("is-playing");
+    els.playBtn.setAttribute("aria-pressed", "true");
+    els.playPath.setAttribute("d", PAUSE_PATH);
+    schedulerTick();
+    requestAnimationFrame(playheadLoop);
+    setStatus("Playing — " + state.tempo + " BPM", "live");
+  }
+  function stopSequencer() {
+    clock.playing = false;
+    if (clock.timer) clearTimeout(clock.timer);
+    els.playBtn.classList.remove("is-playing");
+    els.playBtn.setAttribute("aria-pressed", "false");
+    els.playPath.setAttribute("d", PLAY_PATH);
+    clearPlayheadCells();
+    els.beatDots.forEach((d) => d.classList.remove("is-on"));
+    setStatus("Ready", null);
+  }
+  function schedulerTick() {
+    if (!clock.playing) return;
+    while (clock.nextStepTime < engine.ctx.currentTime + clock.scheduleAhead) {
+      scheduleStep(clock.currentStep, clock.nextStepTime);
+      clock.nextStepTime += stepDuration(clock.currentStep);
+      clock.currentStep = (clock.currentStep + 1) % state.seqLength;
+    }
+    clock.timer = setTimeout(schedulerTick, clock.lookahead);
+  }
+  function scheduleStep(stepIndex, time) {
+    const cellStep = state.pattern[stepIndex];
+    const notes = buildScaleNotes(state.scaleId);
+    const dur = stepDuration(stepIndex);
+    if (cellStep && cellStep.active) {
+      const midi = notes[clamp(cellStep.pitchIndex, 0, notes.length - 1)];
+      engineNoteOn(midi, 0.85, time);
+      engineNoteOff(midi, time + dur * 0.82);
+      clock.queue.push({ step: stepIndex, time, note: midi });
+    } else {
+      clock.queue.push({ step: stepIndex, time, note: null });
+    }
+  }
+  function playheadLoop() {
+    if (!clock.playing) return;
+    const now = engine.ctx.currentTime;
+    let current = null;
+    while (clock.queue.length && clock.queue[0].time <= now) current = clock.queue.shift();
+    if (current && current.step !== lastPlayedStep) {
+      lastPlayedStep = current.step;
+      clearPlayheadCells();
+      const cellEl = els.seqGrid.children[current.step];
+      if (cellEl) cellEl.classList.add("is-playing");
+      const perBeat = Math.max(1, state.seqLength / 4);
+      const beatIdx = Math.floor(current.step / perBeat) % 4;
+      els.beatDots.forEach((d, i) => d.classList.toggle("is-on", i === beatIdx));
+      if (current.note != null) els.sigB.textContent = noteName(current.note);
+    }
+    requestAnimationFrame(playheadLoop);
+  }
+  function clearPlayheadCells() {
+    if (!els.seqGrid) return;
+    Array.from(els.seqGrid.children).forEach((c) => c.classList && c.classList.remove("is-playing"));
+  }
+
+  function applyCellVisual(bar, step, maxPitchIdx) {
+    const frac = maxPitchIdx > 0 ? step.pitchIndex / maxPitchIdx : 0.5;
+    bar.style.height = 18 + frac * 74 + "%";
+  }
+  function updateSeqEmptyState() {
+    const anyActive = state.pattern.slice(0, state.seqLength).some((s) => s.active);
+    if (els.seqEmpty) els.seqEmpty.classList.toggle("is-visible", !anyActive);
+  }
+  function buildCell(i, notes, maxPitchIdx) {
+    const step = state.pattern[i];
+    const midi = notes[clamp(step.pitchIndex, 0, maxPitchIdx)];
+    const cell = el("button", { type: "button", class: "cell" + (step.active ? " is-active" : "") });
+    const bar = el("div", { class: "cell__bar" });
+    const noteLabel = el("div", { class: "cell__note", text: noteName(midi) });
+    const idxLabel = el("div", { class: "cell__idx", text: String(i + 1) });
+    cell.append(bar, noteLabel, idxLabel);
+    applyCellVisual(bar, step, maxPitchIdx);
+    function describeCell() {
+      cell.setAttribute("aria-label", "Step " + (i + 1) + (step.active ? ", " + noteName(notes[step.pitchIndex]) + ", on" : ", off"));
+    }
+    describeCell();
+
+    cell.addEventListener("click", () => {
+      if (cell.dataset.dragged === "1") {
+        cell.dataset.dragged = "";
+        return;
+      }
+      step.active = !step.active;
+      cell.classList.toggle("is-active", step.active);
+      applyCellVisual(bar, step, maxPitchIdx);
+      describeCell();
+      updateSeqEmptyState();
+    });
+
+    let dragging = false, startY = 0, startIdx = step.pitchIndex;
+    cell.addEventListener("pointerdown", (e) => {
+      dragging = true;
+      startY = e.clientY;
+      startIdx = step.pitchIndex;
+      cell.dataset.dragged = "";
+      window.addEventListener("pointermove", onMove);
+      window.addEventListener("pointerup", onUp);
+    });
+    function onMove(e) {
+      if (!dragging) return;
+      const dy = startY - e.clientY;
+      if (Math.abs(dy) > 4) cell.dataset.dragged = "1";
+      const steps = Math.round(dy / 10);
+      const newIdx = clamp(startIdx + steps, 0, maxPitchIdx);
+      if (newIdx !== step.pitchIndex || (steps !== 0 && !step.active)) {
+        step.pitchIndex = newIdx;
+        if (!step.active) {
+          step.active = true;
+          cell.classList.add("is-active");
+          updateSeqEmptyState();
+        }
+        noteLabel.textContent = noteName(notes[step.pitchIndex]);
+        applyCellVisual(bar, step, maxPitchIdx);
+        describeCell();
+      }
+    }
+    function onUp() {
+      dragging = false;
+      window.removeEventListener("pointermove", onMove);
+      window.removeEventListener("pointerup", onUp);
+    }
+    cell.addEventListener("keydown", (e) => {
+      if (e.key !== "ArrowUp" && e.key !== "ArrowDown") return;
+      e.preventDefault();
+      step.pitchIndex = clamp(step.pitchIndex + (e.key === "ArrowUp" ? 1 : -1), 0, maxPitchIdx);
+      step.active = true;
+      cell.classList.add("is-active");
+      noteLabel.textContent = noteName(notes[step.pitchIndex]);
+      applyCellVisual(bar, step, maxPitchIdx);
+      describeCell();
+      updateSeqEmptyState();
+    });
+    return cell;
+  }
+  function rebuildSequencerGrid() {
+    const grid = els.seqGrid;
+    if (!grid) return;
+    grid.textContent = "";
+    grid.style.setProperty("--steps", String(state.seqLength));
+    const notes = buildScaleNotes(state.scaleId);
+    const maxPitchIdx = Math.min(15, notes.length) - 1;
+    for (let i = 0; i < state.seqLength; i++) {
+      if (!state.pattern[i]) state.pattern[i] = { active: false, pitchIndex: 7 };
+      state.pattern[i].pitchIndex = clamp(state.pattern[i].pitchIndex, 0, maxPitchIdx);
+      grid.appendChild(buildCell(i, notes, maxPitchIdx));
+    }
+    grid.appendChild(els.seqEmpty);
+    updateSeqEmptyState();
+  }
+  function exportPattern() {
+    try {
+      const payload = {
+        brand: "PHOSPHOR", exportedAt: new Date().toISOString(), preset: state.presetName,
+        tempo: state.tempo, swing: state.swing, scale: state.scaleId, length: state.seqLength,
+        pattern: state.pattern.slice(0, state.seqLength),
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "phosphor-pattern.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      setStatus("Pattern exported", "ok");
+    } catch (err) {
+      setStatus("Export failed — " + err.message, "error");
+    }
+  }
+
+  function buildSequencer(mount) {
+    const seq = el("div", { class: "seq" });
+    const head = el("div", { class: "seq__head" });
+    const title = el("div", { class: "seq__title" }, [el("span", { class: "panel__led" }), "Sequencer"]);
+    const tools = el("div", { class: "seq__tools" });
+
+    const lengthSeg = createSeg({
+      key: "seqLength", value: state.seqLength, textMode: true, accent: "mod", ariaLabel: "Pattern length",
+      options: [{ value: 8, label: "8" }, { value: 16, label: "16" }, { value: 32, label: "32" }],
+      onChange: (v) => { state.seqLength = Number(v); rebuildSequencerGrid(); },
+    });
+    const scaleSeg = createSeg({
+      key: "scaleId", value: state.scaleId, textMode: true, accent: "mod", ariaLabel: "Scale",
+      options: Object.keys(SCALES).map((id) => ({ value: id, label: SCALES[id].label })),
+      onChange: (v) => { state.scaleId = v; rebuildSequencerGrid(); },
+    });
+    const swing = createKnob({ key: "swing", label: "SWING", min: 0, max: 0.6, value: state.swing, unit: "%", format: fmtPct, accent: "mod", onChange: (v) => { state.swing = v; } });
+    const clearBtn = el("button", { type: "button", class: "seq__btn", text: "Clear" });
+    const randomBtn = el("button", { type: "button", class: "seq__btn", text: "Random" });
+    const exportBtn = el("button", { type: "button", class: "seq__btn", text: "Export" });
+    tools.append(lengthSeg.el, scaleSeg.el, swing.el, clearBtn, randomBtn, exportBtn);
+    head.append(title, tools);
+
+    const gridWrap = el("div", { class: "seq__grid" });
+    gridWrap.style.setProperty("--steps", String(state.seqLength));
+    const emptyHint = el("div", { class: "seq__empty", text: "No steps programmed — click a cell to begin" });
+    seq.append(head, gridWrap);
+    mount.appendChild(seq);
+
+    els.seqGrid = gridWrap;
+    els.seqEmpty = emptyHint;
+
+    clearBtn.addEventListener("click", () => {
+      state.pattern = state.pattern.map((s) => ({ active: false, pitchIndex: s.pitchIndex }));
+      rebuildSequencerGrid();
+      setStatus("Pattern cleared", null);
+    });
+    randomBtn.addEventListener("click", () => {
+      const notes = buildScaleNotes(state.scaleId);
+      const maxIdx = Math.min(15, notes.length) - 1;
+      for (let i = 0; i < state.seqLength; i++) {
+        state.pattern[i] = { active: Math.random() < 0.34, pitchIndex: Math.floor(Math.random() * (maxIdx + 1)) };
+      }
+      rebuildSequencerGrid();
+      setStatus("Pattern randomized", "ok");
+    });
+    exportBtn.addEventListener("click", exportPattern);
+
+    rebuildSequencerGrid();
+  }
+
+  /* ── 6b. Keyboard: mouse / touch / physical ───────────────────────── */
+  const heldNotes = new Map(); // midi -> Set of source tokens holding it down
+  function onNoteOn(midi, velocity, source) {
+    if (!engine.ctx) return;
+    let set = heldNotes.get(midi);
+    if (!set) {
+      set = new Set();
+      heldNotes.set(midi, set);
+    }
+    const wasEmpty = set.size === 0;
+    set.add(source);
+    if (wasEmpty) {
+      engineNoteOn(midi, velocity);
+      if (els.sigB) els.sigB.textContent = noteName(midi);
+    }
+  }
+  function onNoteOff(midi, source) {
+    const set = heldNotes.get(midi);
+    if (!set) return;
+    set.delete(source);
+    if (set.size === 0) {
+      engineNoteOff(midi);
+      heldNotes.delete(midi);
+    }
+  }
+
+  let mouseDownMidi = null;
+  function wireKeyPointer(keyEl, midi) {
+    keyEl.addEventListener("pointerdown", (e) => {
+      mouseDownMidi = midi;
+      keyEl.classList.add("is-down");
+      onNoteOn(midi, 0.9, "mouse");
+      e.preventDefault();
+    });
+    keyEl.addEventListener("pointerenter", (e) => {
+      if (mouseDownMidi != null && e.buttons === 1 && mouseDownMidi !== midi) {
+        onNoteOff(mouseDownMidi, "mouse");
+        clearAllKeyVisuals();
+        mouseDownMidi = midi;
+        keyEl.classList.add("is-down");
+        onNoteOn(midi, 0.9, "mouse");
+      }
+    });
+    keyEl.addEventListener("contextmenu", (e) => e.preventDefault());
+  }
+  function clearAllKeyVisuals() {
+    if (els.keysWrap) els.keysWrap.querySelectorAll(".key.is-down").forEach((k) => k.classList.remove("is-down"));
+  }
+  // Release on pointerup ANYWHERE in the window, not just on the key itself —
+  // a drag that ends off the keyboard (or even off the browser tab) must not
+  // leave a note stuck ringing forever.
+  window.addEventListener("pointerup", () => {
+    if (mouseDownMidi != null) {
+      onNoteOff(mouseDownMidi, "mouse");
+      mouseDownMidi = null;
+    }
+    clearAllKeyVisuals();
+  });
+  window.addEventListener("pointercancel", () => {
+    if (mouseDownMidi != null) {
+      onNoteOff(mouseDownMidi, "mouse");
+      mouseDownMidi = null;
+    }
+    clearAllKeyVisuals();
+  });
+
+  function renderKeys() {
+    const container = els.keysWrap;
+    container.textContent = "";
+    const base = (state.octave + 1) * 12;
+    const blackSteps = [1, 3, 6, 8, 10];
+    const keymapReverse = {};
+    Object.keys(KEY_MAP).forEach((code) => (keymapReverse[KEY_MAP[code]] = code.replace("Key", "")));
+
+    const layout = [];
+    let whiteCount = 0;
+    for (let off = 0; off <= 24; off++) {
+      const pc = ((off % 12) + 12) % 12;
+      if (!blackSteps.includes(pc)) {
+        layout.push({ midi: base + off, isBlack: false, whiteIndex: whiteCount });
+        whiteCount++;
+      } else {
+        layout.push({ midi: base + off, isBlack: true, whiteIndex: whiteCount - 1 });
+      }
+    }
+    const totalWhite = whiteCount;
+    layout.forEach((item) => {
+      const keyEl = el("button", {
+        type: "button",
+        class: "key" + (item.isBlack ? " key--black" : ""),
+        "data-midi": String(item.midi),
+        "aria-label": "Play " + noteName(item.midi),
+      });
+      const relOffset = item.midi - base;
+      const hintLabel = relOffset >= 0 && relOffset <= 12 ? keymapReverse[relOffset] : null;
+      if (hintLabel) keyEl.appendChild(el("span", { class: "key__hint", text: hintLabel }));
+      if (item.isBlack) keyEl.style.left = (item.whiteIndex + 1) * (100 / totalWhite) - 2.6 + "%";
+      wireKeyPointer(keyEl, item.midi);
+      container.appendChild(keyEl);
+    });
+  }
+
+  function shiftOctave(delta) {
+    state.octave = clamp(state.octave + delta, 1, 7);
+    if (els.octaveVal) els.octaveVal.textContent = "OCT " + state.octave;
+    if (els.octDown) els.octDown.disabled = state.octave <= 1;
+    if (els.octUp) els.octUp.disabled = state.octave >= 7;
+    renderKeys();
+    setStatus("Octave " + state.octave, null);
+  }
+
+  function buildKeyboard(mount) {
+    const wrap = el("div", { class: "keyboard" });
+    const head = el("div", { class: "keyboard__head" });
+    head.appendChild(el("span", { class: "keyboard__title", text: "Keyboard" }));
+    const oct = el("div", { class: "octave" });
+    const down = el("button", { type: "button", class: "octave__btn", "aria-label": "Octave down", text: "−" });
+    const val = el("span", { class: "octave__val", text: "OCT " + state.octave });
+    const up = el("button", { type: "button", class: "octave__btn", "aria-label": "Octave up", text: "+" });
+    oct.append(down, val, up);
+    head.appendChild(oct);
+    wrap.appendChild(head);
+
+    const keysWrap = el("div", { class: "keys" });
+    wrap.appendChild(keysWrap);
+    mount.appendChild(wrap);
+
+    els.octaveVal = val;
+    els.octDown = down;
+    els.octUp = up;
+    els.keysWrap = keysWrap;
+    down.disabled = state.octave <= 1;
+    up.disabled = state.octave >= 7;
+    down.addEventListener("click", () => shiftOctave(-1));
+    up.addEventListener("click", () => shiftOctave(1));
+
+    renderKeys();
+  }
+
+  function onPhysicalKeyDown(e) {
+    if (e.repeat || isTypingTarget(e.target)) return;
+    if (e.code === "Space" && engine.ctx) {
+      e.preventDefault();
+      toggleSequencerPlay();
+      return;
+    }
+    if (e.code === "KeyZ") { shiftOctave(-1); return; }
+    if (e.code === "KeyX") { shiftOctave(1); return; }
+    if (e.key === "Escape") { closeHelp(); return; }
+    if (e.key === "?") { openHelp(); return; }
+    if (Object.prototype.hasOwnProperty.call(KEY_MAP, e.code) && engine.ctx) {
+      const midi = (state.octave + 1) * 12 + KEY_MAP[e.code];
+      onNoteOn(midi, 1, "kbd-" + e.code);
+      highlightPhysicalKey(midi, true);
+    }
+  }
+  function onPhysicalKeyUp(e) {
+    if (Object.prototype.hasOwnProperty.call(KEY_MAP, e.code)) {
+      const midi = (state.octave + 1) * 12 + KEY_MAP[e.code];
+      onNoteOff(midi, "kbd-" + e.code);
+      highlightPhysicalKey(midi, false);
+    }
+  }
+  function highlightPhysicalKey(midi, on) {
+    if (!els.keysWrap) return;
+    const keyEl = els.keysWrap.querySelector('[data-midi="' + midi + '"]');
+    if (keyEl) keyEl.classList.toggle("is-down", on);
+  }
+  function isTypingTarget(target) {
+    const tag = (target && target.tagName ? target.tagName : "").toLowerCase();
+    return tag === "input" || tag === "textarea" || tag === "select" || (target && target.isContentEditable);
+  }
+
+  /* ── 7a. Source toggle (SYNTH / LINE-IN mic) ──────────────────────────
+     The one genuinely async surface in this build — getUserMedia has real
+     loading / error / success states, so it stands in honestly for what a
+     network request would exercise elsewhere. Mic audio is only ever fed
+     to the analyser (meter + visualizer); it is never connected to the
+     output, so there is no feedback-loop risk.
+     --------------------------------------------------------------------*/
+  function iconMic() {
+    const svg = svgEl("svg", { viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" });
+    svg.append(
+      svgEl("rect", { x: 9, y: 2, width: 6, height: 11, rx: 3 }),
+      svgEl("path", { d: "M5 10v1a7 7 0 0 0 14 0v-1" }),
+      svgEl("line", { x1: 12, y1: 18, x2: 12, y2: 22 }),
+      svgEl("line", { x1: 8, y1: 22, x2: 16, y2: 22 })
+    );
+    return svg;
+  }
+  function buildSourceToggle() {
+    const right = document.querySelector(".topbar__right");
+    const helpBtn = document.getElementById("help-btn");
+    const btn = el("button", { type: "button", class: "iconbtn", id: "mic-btn", "aria-pressed": "false", title: "Switch visualizer to microphone input" });
+    btn.appendChild(iconMic());
+    right.insertBefore(btn, helpBtn);
+    btn.addEventListener("click", onSourceToggleClick);
+    els.micBtn = btn;
+  }
+  function setSourceUI(mode) {
+    const flag = els.srcFlag;
+    if (!flag) return;
+    flag.classList.remove("is-linein", "is-error", "is-loading");
+    if (mode === "linein") { flag.classList.add("is-linein"); els.srcText.textContent = "LINE-IN"; }
+    else if (mode === "loading") { flag.classList.add("is-loading"); els.srcText.textContent = "REQUESTING"; }
+    else if (mode === "error") { flag.classList.add("is-error"); els.srcText.textContent = "MIC ERROR"; }
+    else { els.srcText.textContent = "SYNTH"; }
+    if (els.micBtn) els.micBtn.setAttribute("aria-pressed", String(mode === "linein"));
+  }
+  async function onSourceToggleClick() {
+    if (state.sourceMode === "linein") {
+      engineDisableMic();
+      engineSetSourceMode("synth");
+      setSourceUI("synth");
+      setStatus("Source: Synth", "ok");
+      return;
+    }
+    setSourceUI("loading");
+    setStatus("Requesting microphone…", null);
+    try {
+      await engineEnableMic();
+      engineSetSourceMode("linein");
+      setSourceUI("linein");
+      setStatus("Line-in connected — visualizer reacting to microphone", "ok");
+    } catch (err) {
+      setSourceUI("error");
+      const msg =
+        err && err.name === "NotAllowedError" ? "Microphone permission denied" :
+        err && err.message === "unsupported" ? "Microphone input isn't supported in this browser" :
+        "Microphone unavailable";
+      setStatus(msg, "error");
+      setTimeout(() => setSourceUI(state.sourceMode), 2200);
+    }
+  }
+
+  /* ── 7b. Guide popover ─────────────────────────────────────────────── */
+  function openHelp() {
+    if (!els.helpPopover) return;
+    els.helpBackdrop.classList.add("is-open");
+    els.helpPopover.classList.add("is-open");
+    if (els.helpBtn) els.helpBtn.setAttribute("aria-expanded", "true");
+    const closeBtn = document.getElementById("help-close");
+    if (closeBtn) closeBtn.focus();
+  }
+  function closeHelp() {
+    if (!els.helpPopover) return;
+    els.helpBackdrop.classList.remove("is-open");
+    els.helpPopover.classList.remove("is-open");
+    if (els.helpBtn) els.helpBtn.setAttribute("aria-expanded", "false");
+  }
+  function wireHelpPopover() {
+    els.helpBackdrop = document.getElementById("help-backdrop");
+    els.helpPopover = document.getElementById("help-popover");
+    els.helpBtn = document.getElementById("help-btn");
+    const closeBtn = document.getElementById("help-close");
+    const shortcutsLink = document.getElementById("shortcuts-link");
+    els.helpBtn.addEventListener("click", () => (els.helpPopover.classList.contains("is-open") ? closeHelp() : openHelp()));
+    if (shortcutsLink) shortcutsLink.addEventListener("click", openHelp);
+    if (closeBtn) closeBtn.addEventListener("click", closeHelp);
+    els.helpBackdrop.addEventListener("click", closeHelp);
+  }
+
+  /* ── 7c. Visualizer + meter render loop ───────────────────────────── */
+  const reduceMotionMQ = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let lastVizDraw = 0;
+  function updateMeter() {
+    if (!engine.ctx || !els.meterRMS) return;
+    const levels = engineGetLevels();
+    const rms = clamp(((levels.l || 0) + (levels.r || 0)) / 2 * 1.6, 0, 1);
+    const instPeak = clamp(Math.max(levels.peakL || 0, levels.peakR || 0), 0, 1);
+    els.meterRMS.fill.style.width = rms * 100 + "%";
+    els.meterRMS.peak.style.left = rms * 100 + "%";
+    els.meterPK.peakHold = Math.max(instPeak, els.meterPK.peakHold - 0.018);
+    els.meterPK.fill.style.width = els.meterPK.peakHold * 100 + "%";
+    els.meterPK.peak.style.left = instPeak * 100 + "%";
+  }
+  function drawVisualizer() {
+    const ctx2d = els.vizCtx, canvas = els.canvas;
+    if (!ctx2d || !canvas || !canvas.width) return;
+    const w = canvas.width, h = canvas.height;
+    ctx2d.clearRect(0, 0, w, h);
+    ctx2d.strokeStyle = "rgba(233,238,248,0.05)";
+    ctx2d.lineWidth = 1;
+    ctx2d.beginPath();
+    ctx2d.moveTo(0, h / 2);
+    ctx2d.lineTo(w, h / 2);
+    ctx2d.stroke();
+
+    const data = engine.ctx ? engineGetWaveform() : null;
+    const isLine = state.sourceMode === "linein";
+    const color = isLine ? "#3fd9cb" : "#ffb13b";
+    if (data) {
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      ctx2d.lineWidth = Math.max(1.5, 2 * dpr);
+      ctx2d.strokeStyle = color;
+      ctx2d.shadowColor = color;
+      ctx2d.shadowBlur = 10;
+      ctx2d.beginPath();
+      const slice = w / data.length;
+      for (let i = 0; i < data.length; i++) {
+        const v = (data[i] - 128) / 128;
+        const x = i * slice;
+        const y = h / 2 + v * (h * 0.36);
+        if (i === 0) ctx2d.moveTo(x, y);
+        else ctx2d.lineTo(x, y);
+      }
+      ctx2d.stroke();
+      ctx2d.shadowBlur = 0;
+    }
+    // decorative orbiting phosphor dot — the "motion" in sound-and-motion,
+    // paced by the LFO rate so it reads as part of the instrument, not chrome
+    if (!reduceMotionMQ.matches && engine.ctx) {
+      const dpr = Math.min(2, window.devicePixelRatio || 1);
+      const t = engine.ctx.currentTime;
+      const ang = t * state.lfoRate * Math.PI * 2;
+      const cx = w * 0.5, cy = h * 0.42, rx = w * 0.34, ry = h * 0.22;
+      const x = cx + Math.cos(ang) * rx;
+      const y = cy + Math.sin(ang) * ry;
+      ctx2d.beginPath();
+      ctx2d.fillStyle = "#3fd9cb";
+      ctx2d.shadowColor = "#3fd9cb";
+      ctx2d.shadowBlur = 12;
+      ctx2d.arc(x, y, 3.2 * dpr, 0, Math.PI * 2);
+      ctx2d.fill();
+      ctx2d.shadowBlur = 0;
+    }
+  }
+  function monitorLoop(ts) {
+    updateMeter();
+    const reduce = reduceMotionMQ.matches;
+    if (!reduce || !lastVizDraw || ts - lastVizDraw > 450) {
+      drawVisualizer();
+      lastVizDraw = ts;
+    }
+    requestAnimationFrame(monitorLoop);
+  }
+
+  /* ── 7d. Presets ───────────────────────────────────────────────────── */
+  function applyPreset(preset) {
+    const merged = Object.assign(defaultState(), preset.patch || {});
+    merged.octave = state.octave;
+    merged.sourceMode = state.sourceMode;
+    merged.pattern = (preset.pattern || defaultState().pattern).map((s) => ({ active: s.active, pitchIndex: s.pitchIndex }));
+    merged.presetName = preset.name;
+    state = merged;
+    syncAllWidgets();
+    refreshFilterSub();
+    if (els.envGraph) els.envGraph.render();
+    if (els.tempoVal) {
+      els.tempoVal.textContent = String(state.tempo);
+      els.tempoEl.setAttribute("aria-valuenow", String(state.tempo));
+    }
+    engineUpdateDrive();
+    engineUpdateDelay();
+    engineUpdateSpace();
+    engineUpdateMaster();
+    engineUpdateLimiter();
+    engineApplyLfoDest(state.lfoDest);
+    engineUpdateLfoRate();
+    engineUpdateLfoWave();
+    engineTouchLiveVoices();
+    rebuildSequencerGrid();
+    setStatus("Preset: " + state.presetName, "ok");
+  }
+
+  /* ── 7e. Gate / bootstrap ──────────────────────────────────────────── */
+  function checkAudioSupport() {
+    return !!(window.AudioContext || window.webkitAudioContext);
+  }
+  function buildApp() {
+    buildTransport(document.getElementById("transport-mount"));
+    buildPresetBar(document.getElementById("preset-mount"));
+    buildMeter(document.getElementById("meter-mount"));
+    buildStageChrome(document.getElementById("visualizer-mount"));
+    buildRack(document.getElementById("rack-mount"));
+    buildSequencer(document.getElementById("sequencer-mount"));
+    buildKeyboard(document.getElementById("keyboard-mount"));
+    buildSourceToggle();
+    wireHelpPopover();
+    document.addEventListener("keydown", onPhysicalKeyDown);
+    document.addEventListener("keyup", onPhysicalKeyUp);
+    window.addEventListener("blur", () => {
+      // releasing focus (alt-tab, devtools, etc.) shouldn't leave stuck notes
+      Array.from(heldNotes.keys()).forEach((midi) => engineNoteOff(midi));
+      heldNotes.clear();
+      clearAllKeyVisuals();
+    });
+  }
+  function initGate() {
+    const gate = document.getElementById("gate");
+    const powerBtn = document.getElementById("power");
+    const powerLabel = document.getElementById("power-label");
+    const errorBox = document.getElementById("gate-error");
+    const errorText = document.getElementById("gate-error-text");
+    if (!checkAudioSupport()) {
+      powerBtn.disabled = true;
+      errorBox.hidden = false;
+      return;
+    }
+    powerBtn.addEventListener("click", async () => {
+      powerBtn.setAttribute("aria-busy", "true");
+      powerBtn.disabled = true;
+      powerLabel.textContent = "Booting…";
+      try {
+        await engineInit();
+        // reveal the app shell BEFORE building panels into it: the canvas
+        // sizing in buildStageChrome() reads its container's layout box,
+        // and an ancestor with `hidden` (display:none) reports a zero-size
+        // rect — build against real layout, not a collapsed one.
+        gate.hidden = true;
+        document.getElementById("app").hidden = false;
+        buildApp();
+        setStatus("Ready", "ok");
+        requestAnimationFrame(monitorLoop);
+      } catch (err) {
+        errorBox.hidden = false;
+        errorText.textContent = "Couldn't start audio — " + (err && err.message ? err.message : "unknown error") + ". Try reloading.";
+        powerBtn.disabled = false;
+        powerBtn.removeAttribute("aria-busy");
+        powerLabel.textContent = "Power on";
+      }
+    });
+  }
+  function bootstrap() {
+    initGate();
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", bootstrap);
+  } else {
+    bootstrap();
+  }
+  </script>
+</body>
+</html>

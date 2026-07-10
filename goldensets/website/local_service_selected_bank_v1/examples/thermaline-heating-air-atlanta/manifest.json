@@ -1,0 +1,55 @@
+{
+  "pack_id": "thermaline_heating_air_navy_brass_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "thermaline-heating-air-atlanta"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "dark",
+    "technical",
+    "precise",
+    "industrial",
+    "traditional"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "technical_manifest",
+    "equipment_diagram",
+    "diagnostic_panel",
+    "stats_strip",
+    "process_timeline",
+    "material_showcase",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "hvac_homepage",
+    "mechanical_contractor_landing",
+    "local_service_homepage_polish",
+    "emergency_dispatch_landing"
+  ],
+  "anti_patterns": [
+    "soft SaaS gradient hero",
+    "dashboard SaaS shell",
+    "budget HVAC coupon-flyer page"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1200,
+  "confidence_score": 4,
+  "example_ids": []
+}

@@ -1,10 +1,10 @@
 # 11 Cresthaul Moving Augusta
 
-- preview: `screenshots/11-cresthaul-moving-augusta_desktop_preview.png`
 - strength_tags: `hero_treatment`, `cta_placement`, `phone_visibility`, `service_clarity`, `card_rhythm`, `service_grid`, `process_section`
 - motif_tags: `hero_shell`, `cta_treatment`, `phone_pill`, `stats_strip`
 - good when the task needs a phone-forward hero with obvious service framing and dense above-fold action.
 - do not copy the moving-company language or exact panel/card layout.
+- hero backdrop, trust icons, and rating stars are bespoke inline SVG — the page carries zero raster/image dependencies.
 
 ## Below-Fold Direction
 

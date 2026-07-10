@@ -210,7 +210,7 @@ def donor_starvation_audit(repo_root: Path | str, request_payload: str | dict[st
     starved = meta.get("native_count") == 0
     recommendations = []
     if starved:
-        recommendations.append(f"Add native support examples for vertical `{resolution.normalized_request.specialty_service_class or 'general_local_service'}`.")
+        recommendations.append(f"Add native support examples for vertical `{resolution.normalized_request.specialty_service_class or 'none (unrouted)'}`.")
         recommendations.append("Keep using mechanical donors only for UX roles until native examples exist.")
     if total_examples and examples_with_roles < total_examples:
         recommendations.append("Populate example_ux_roles for every support-bank example.")

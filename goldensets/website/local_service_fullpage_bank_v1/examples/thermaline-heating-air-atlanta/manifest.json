@@ -1,0 +1,55 @@
+{
+  "pack_id": "thermaline_hvac_blueprint_grid_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "thermaline-heating-air-atlanta"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "premium",
+    "technical",
+    "precise",
+    "architectural",
+    "warm-metal"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "blueprint_grid_frame",
+    "cta_treatment",
+    "stats_strip",
+    "trust_rail",
+    "headline_hierarchy",
+    "proof_cards",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "hvac_homepage",
+    "mechanical_trade_blueprint_hero",
+    "dark_architectural_trade_website",
+    "emergency_hvac_dispatch_page"
+  ],
+  "anti_patterns": [
+    "light diagnostic HUD plumbing site",
+    "dark truss-diagram roofing atelier",
+    "generic thermostat SaaS dashboard"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1200,
+  "confidence_score": 4,
+  "example_ids": []
+}

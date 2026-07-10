@@ -1,0 +1,56 @@
+{
+  "pack_id": "summitline_roofing_blueprint_atelier_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "summitline-roofing-atlanta"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "technical",
+    "architectural",
+    "premium",
+    "industrial",
+    "precise"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "sticky_nav",
+    "cta_treatment",
+    "stats_strip",
+    "specification_table",
+    "technical_manifest",
+    "blueprint_diagram",
+    "process_timeline",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "roofing_homepage",
+    "architectural_technical_diagram_hero",
+    "dark_industrial_trade_service_website",
+    "roofing_homepage_polish"
+  ],
+  "anti_patterns": [
+    "light coastal weathered-slate roofing site",
+    "generic shingle-sales landing page",
+    "soft SaaS gradient hero"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 900,
+  "confidence_score": 3,
+  "example_ids": []
+}

@@ -1,0 +1,56 @@
+{
+  "pack_id": "mosswood_estate_landscape_folio_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "mosswood-landscaping-savannah"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "architectural",
+    "dark",
+    "editorial",
+    "restrained",
+    "studio"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "split_hero",
+    "contour_map",
+    "process_timeline",
+    "material_showcase",
+    "stats_strip",
+    "headline_hierarchy",
+    "cta_treatment",
+    "drafting_board_panel"
+  ],
+  "supports_tasks": [
+    "landscape_architecture_homepage",
+    "estate_grounds_design_landing",
+    "hardscaping_studio_website",
+    "coastal_landscape_design_page"
+  ],
+  "anti_patterns": [
+    "generic lawn care template",
+    "residential mow-and-blow service page",
+    "dashboard SaaS shell"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1100,
+  "confidence_score": 4,
+  "example_ids": []
+}

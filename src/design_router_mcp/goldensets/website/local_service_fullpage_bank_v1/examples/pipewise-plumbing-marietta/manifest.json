@@ -1,0 +1,57 @@
+{
+  "pack_id": "pipewise_plumbing_diagnostic_cobalt_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "pipewise-plumbing-marietta"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "technical",
+    "precise",
+    "trustworthy",
+    "field-service",
+    "light-with-dark-panels",
+    "data-dense"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section",
+    "diagnostic-panel"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "sticky_nav",
+    "cta_treatment",
+    "trust_rail",
+    "diagnostic_panel",
+    "stats_strip",
+    "process_timeline",
+    "proof_cards",
+    "headline_hierarchy"
+  ],
+  "supports_tasks": [
+    "plumbing_homepage",
+    "field_service_diagnostic_page",
+    "emergency_dispatch_homepage",
+    "trade_service_homepage_polish"
+  ],
+  "anti_patterns": [
+    "rural well/water-pump service page",
+    "dark-only editorial magazine plumbing site",
+    "soft SaaS gradient hero"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1400,
+  "confidence_score": 4,
+  "example_ids": []
+}

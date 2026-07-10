@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silverwave Medical Spa - Augusta, GA</title>
+    <title>Silverwave MedSpa &mdash; Augusta, GA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +21,9 @@
                         navy: '#0F172A',
                         seaglass: '#8FB8B6',
                         champagne: '#D3B888',
+                        /* AA-safe deep variants for text on light surfaces */
+                        seaglassdeep: '#55807E',
+                        champagnedeep: '#7E6335',
                     }
                 }
             }
@@ -29,116 +32,316 @@
 </head>
 <body class="bg-ivory antialiased text-navy selection:bg-seaglass selection:text-navy">
 
+<a class="skip-link" href="#main">Skip to content</a>
+
 <!-- Header -->
-<header class="absolute top-0 w-full z-50 px-8 py-10 lg:px-16 flex justify-between items-center mix-blend-difference text-ivory">
+<header id="site-header" class="absolute top-0 w-full z-50 px-8 py-10 lg:px-16 flex justify-between items-center mix-blend-difference text-ivory">
     <div class="flex flex-col">
-        <span class="font-serif text-3xl tracking-widest uppercase leading-none">VII Seas</span>
+        <span class="font-serif text-2xl md:text-3xl tracking-[0.2em] md:tracking-widest uppercase leading-none">Silverwave</span>
         <span class="font-sans text-[0.55rem] tracking-[0.3em] uppercase font-medium opacity-80 mt-2">Concierge Medspa</span>
     </div>
-    
-    <nav class="hidden md:flex space-x-12">
-        <a href="#" class="text-xs uppercase tracking-widest font-medium hover:text-champagne transition-colors">Treatments</a>
-        <a href="#" class="text-xs uppercase tracking-widest font-medium hover:text-champagne transition-colors">The Experience</a>
-        <a href="#" class="text-xs uppercase tracking-widest font-medium hover:text-champagne transition-colors">Pricing</a>
+
+    <nav class="hidden md:flex space-x-12" aria-label="Primary">
+        <a href="#treatments" class="text-xs uppercase tracking-widest font-medium hover:text-champagne transition-colors">Treatments</a>
+        <a href="#experience" class="text-xs uppercase tracking-widest font-medium hover:text-champagne transition-colors">The Experience</a>
+        <a href="#faq" class="text-xs uppercase tracking-widest font-medium hover:text-champagne transition-colors">FAQ</a>
     </nav>
-    
+
     <div class="hidden md:block">
         <a href="#" class="border-b border-ivory pb-1 text-xs uppercase tracking-widest font-medium hover:text-champagne hover:border-champagne transition-all">Member Login</a>
     </div>
 
-    <button class="md:hidden opacity-90 hover:opacity-100">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+    <button id="menu-toggle" class="md:hidden opacity-90 hover:opacity-100" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8" aria-hidden="true" focusable="false">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
     </button>
 </header>
 
+<!-- Mobile menu overlay -->
+<div id="mobile-menu" hidden class="fixed inset-0 z-[60] bg-navy text-ivory">
+    <div class="flex h-full flex-col justify-center px-10">
+        <button id="menu-close" class="absolute top-9 right-8 opacity-90 hover:opacity-100" aria-label="Close menu">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8" aria-hidden="true" focusable="false">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        <nav class="flex flex-col space-y-8" aria-label="Mobile">
+            <a href="#treatments" class="font-serif text-3xl italic hover:text-champagne transition-colors">Treatments</a>
+            <a href="#experience" class="font-serif text-3xl italic hover:text-champagne transition-colors">The Experience</a>
+            <a href="#voices" class="font-serif text-3xl italic hover:text-champagne transition-colors">Client Notes</a>
+            <a href="#faq" class="font-serif text-3xl italic hover:text-champagne transition-colors">FAQ</a>
+            <a href="#book" class="font-serif text-3xl italic text-champagne hover:text-ivory transition-colors">Reserve a Visit</a>
+        </nav>
+        <p class="mt-14 font-sans text-xs uppercase tracking-[0.25em] text-ivory/60">
+            <a href="tel:+17065550107" class="hover:text-champagne transition-colors">(706) 555-0107</a>
+        </p>
+    </div>
+</div>
+
+<main id="main">
+
 <!-- Hero Section -->
-<main class="relative w-full min-h-screen flex flex-col lg:flex-row overflow-hidden">
-    
+<section id="hero" class="relative w-full min-h-screen flex flex-col lg:flex-row overflow-hidden">
+
     <!-- Left Content -->
-    <div class="w-full lg:w-5/12 min-h-[60vh] lg:min-h-screen flex flex-col justify-center px-8 lg:px-16 xl:px-24 pt-40 lg:pt-0 relative z-20">
-        
+    <div class="w-full lg:w-5/12 min-h-[60vh] lg:min-h-screen flex flex-col justify-center px-8 lg:px-16 xl:px-24 pt-40 lg:py-36 relative z-20">
+
         <div class="flex items-center space-x-4 mb-8">
             <div class="h-px w-12 bg-champagne"></div>
             <span class="text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-navy/60">Augusta, Georgia</span>
         </div>
-        
+
         <h1 class="font-serif text-5xl md:text-6xl xl:text-7xl leading-[1.1] text-navy mb-8">
-            <span class="block italic text-seaglass mb-2 font-light">Elevated</span>
+            <span class="block italic text-seaglassdeep mb-2 font-light">Elevated</span>
             Aesthetics,<br>
             Arriving at<br>
             Your Door.
         </h1>
-        
+
         <p class="font-sans font-light text-navy/75 text-lg xl:text-xl leading-relaxed max-w-md mb-12">
             Augusta's exclusive mobile medical spa. Bespoke injectables, advanced skincare, and wellness therapies delivered in the absolute privacy of your home or office.
         </p>
-        
+
         <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6 mb-16">
-            <a href="#" class="group relative bg-navy text-ivory text-xs uppercase tracking-widest font-medium py-5 px-10 flex items-center justify-center overflow-hidden">
+            <a href="#book" class="group relative bg-navy text-ivory text-xs uppercase tracking-widest font-medium py-5 px-10 flex items-center justify-center overflow-hidden">
                 <span class="relative z-10 transition-colors duration-500 group-hover:text-navy">Reserve Consultation</span>
                 <div class="absolute inset-0 w-0 bg-champagne transition-all duration-500 ease-out group-hover:w-full"></div>
             </a>
-            
-            <a href="#" class="flex items-center justify-center text-xs uppercase tracking-widest font-medium text-navy py-5 px-8 hover:text-champagne transition-colors">
+
+            <a href="#treatments" class="flex items-center justify-center text-xs uppercase tracking-widest font-medium text-navy py-5 px-8 hover:text-champagnedeep transition-colors">
                 View Treatment Menu
             </a>
         </div>
-        
+
         <!-- Integrated Assurance -->
         <div class="flex flex-col space-y-4">
             <div class="flex items-center space-x-3 text-navy/60">
-                <svg class="w-4 h-4 text-champagne" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-4 h-4 text-champagnedeep" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span class="text-xs uppercase tracking-widest font-medium">Board-Certified Providers</span>
             </div>
             <div class="flex items-center space-x-3 text-navy/60">
-                <svg class="w-4 h-4 text-champagne" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-4 h-4 text-champagnedeep" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                 </svg>
                 <span class="text-xs uppercase tracking-widest font-medium">Absolute Privacy Guaranteed</span>
             </div>
         </div>
-        
+
     </div>
-    
-    <!-- Right Image Section -->
+
+    <!-- Right Visual Section -->
     <div class="w-full lg:w-7/12 relative min-h-[50vh] lg:min-h-screen p-4 lg:p-8 xl:p-12 flex items-center justify-center">
-        <!-- The Image Wrapper -->
+        <!-- The Artwork Wrapper -->
         <div class="relative w-full h-[500px] lg:h-[calc(100vh-6rem)] bg-navy overflow-hidden group">
-            
+
             <!-- Fine Offset Border -->
             <div class="absolute inset-4 lg:inset-6 border border-champagne/40 z-20 pointer-events-none transition-transform duration-700 group-hover:scale-[0.98]"></div>
-            
-            <img 
-                src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?q=80&w=2070&auto=format&fit=crop" 
-                alt="Luxury Medspa Treatment" 
-                class="absolute inset-0 w-full h-full object-cover object-center opacity-90 transition-transform duration-[2s] group-hover:scale-105"
-            >
-            
+
+            <!-- Bespoke scene: silver waves under a champagne moon -->
+            <svg class="absolute inset-0 w-full h-full opacity-90 transition-transform duration-[2s] group-hover:scale-105" viewBox="0 0 900 1140" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of layered silver waves under a champagne moon on a deep navy night" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="sw-sky" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#182339"/>
+                        <stop offset="0.6" stop-color="#0F172A"/>
+                        <stop offset="1" stop-color="#0B1120"/>
+                    </linearGradient>
+                </defs>
+                <rect width="900" height="1140" fill="url(#sw-sky)"/>
+                <g fill="#F9F8F4">
+                    <circle cx="120" cy="140" r="1.6" opacity="0.6"/>
+                    <circle cx="230" cy="90" r="1.2" opacity="0.4"/>
+                    <circle cx="340" cy="200" r="1.8" opacity="0.5"/>
+                    <circle cx="180" cy="320" r="1.3" opacity="0.35"/>
+                    <circle cx="450" cy="120" r="1.5" opacity="0.55"/>
+                    <circle cx="80" cy="470" r="1.4" opacity="0.3"/>
+                    <circle cx="790" cy="120" r="1.5" opacity="0.5"/>
+                    <circle cx="840" cy="330" r="1.2" opacity="0.4"/>
+                    <circle cx="720" cy="60" r="1.6" opacity="0.45"/>
+                    <circle cx="300" cy="420" r="1.2" opacity="0.3"/>
+                    <circle cx="530" cy="330" r="1.3" opacity="0.35"/>
+                    <circle cx="660" cy="480" r="1.4" opacity="0.3"/>
+                </g>
+                <path d="M150 250 l3 9 9 3 -9 3 -3 9 -3 -9 -9 -3 9 -3 Z" fill="#D3B888" opacity="0.8"/>
+                <path d="M770 420 l2.5 7.5 7.5 2.5 -7.5 2.5 -2.5 7.5 -2.5 -7.5 -7.5 -2.5 7.5 -2.5 Z" fill="#D3B888" opacity="0.6"/>
+                <path d="M420 500 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2 Z" fill="#D3B888" opacity="0.5"/>
+                <circle cx="610" cy="260" r="122" fill="none" stroke="#D3B888" stroke-width="1.2" opacity="0.35"/>
+                <circle cx="610" cy="260" r="150" fill="none" stroke="#8FB8B6" stroke-width="1" opacity="0.18"/>
+                <circle cx="610" cy="260" r="92" fill="#D3B888"/>
+                <circle cx="642" cy="238" r="80" fill="#0F172A" opacity="0.12"/>
+                <path d="M0 700 C 150 660 300 738 450 700 S 750 656 900 706 V 1140 H 0 Z" fill="#8FB8B6" opacity="0.16"/>
+                <path d="M0 700 C 150 660 300 738 450 700 S 750 656 900 706" fill="none" stroke="#F9F8F4" stroke-width="1.5" opacity="0.4"/>
+                <path d="M0 790 C 160 752 320 826 470 788 S 760 748 900 796 V 1140 H 0 Z" fill="#8FB8B6" opacity="0.28"/>
+                <path d="M0 790 C 160 752 320 826 470 788 S 760 748 900 796" fill="none" stroke="#F9F8F4" stroke-width="1.5" opacity="0.45"/>
+                <path d="M0 880 C 140 844 300 912 460 876 S 770 840 900 886 V 1140 H 0 Z" fill="#55807E" opacity="0.55"/>
+                <path d="M0 880 C 140 844 300 912 460 876 S 770 840 900 886" fill="none" stroke="#F9F8F4" stroke-width="1.5" opacity="0.5"/>
+                <path d="M0 972 C 170 936 330 1002 480 968 S 780 934 900 976 V 1140 H 0 Z" fill="#8FB8B6" opacity="0.5"/>
+                <path d="M0 972 C 170 936 330 1002 480 968 S 780 934 900 976" fill="none" stroke="#F9F8F4" stroke-width="1.5" opacity="0.55"/>
+                <path d="M0 1064 C 150 1032 320 1094 470 1062 S 770 1030 900 1068 V 1140 H 0 Z" fill="#55807E" opacity="0.85"/>
+                <path d="M0 1064 C 150 1032 320 1094 470 1062 S 770 1030 900 1068" fill="none" stroke="#F9F8F4" stroke-width="1.5" opacity="0.6"/>
+                <g stroke="#D3B888" stroke-width="3" stroke-linecap="round" opacity="0.7" fill="none">
+                    <path d="M588 726 q 22 -8 44 0"/>
+                    <path d="M596 812 q 18 -7 36 0"/>
+                    <path d="M590 902 q 22 -8 44 0"/>
+                    <path d="M600 994 q 16 -6 32 0"/>
+                </g>
+            </svg>
+
             <!-- Subtle Gradient Overlays -->
             <div class="absolute inset-0 bg-gradient-to-t from-navy/40 via-transparent to-transparent z-10 mix-blend-multiply"></div>
             <div class="absolute inset-0 bg-navy/10 z-10"></div>
-            
+
         </div>
     </div>
-</main>
+</section>
 
 <style id="below-fold-patch">
-    /* Subtle hover scaling for service cards */
-    .service-card-hover:hover img {
+    /* Subtle hover scaling for service artwork */
+    .service-card-hover:hover .card-art {
         transform: scale(1.05);
+    }
+
+    /* Smooth anchor travel, motion-safe only */
+    @media (prefers-reduced-motion: no-preference) {
+        html { scroll-behavior: smooth; }
+    }
+
+    /* Skip link */
+    .skip-link {
+        position: absolute;
+        top: -100%;
+        left: 1rem;
+        z-index: 100;
+        background: #0F172A;
+        color: #F9F8F4;
+        padding: 0.8rem 1.4rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        text-decoration: none;
+    }
+
+    .skip-link:focus {
+        top: 1rem;
+    }
+
+    /* Visible keyboard focus everywhere */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    summary:focus-visible {
+        outline: 2px solid #0F172A;
+        outline-offset: 3px;
+    }
+
+    .bg-navy :focus-visible,
+    header :focus-visible,
+    footer :focus-visible,
+    #mobile-menu :focus-visible {
+        outline-color: #D3B888;
+    }
+
+    /* Header pins itself once the hero is scrolled (class set by JS) */
+    header.is-scrolled {
+        position: fixed;
+        mix-blend-mode: normal;
+        background: rgba(15, 23, 42, 0.94);
+        backdrop-filter: blur(10px);
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+    }
+
+    /* FAQ details */
+    .faq-item summary {
+        list-style: none;
+        cursor: pointer;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .faq-plus {
+        position: relative;
+        flex: none;
+        width: 14px;
+        height: 14px;
+    }
+
+    .faq-plus::before,
+    .faq-plus::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1.5px;
+        background: #7E6335;
+        transform: translateY(-50%);
+        transition: transform 0.3s ease;
+    }
+
+    .faq-plus::after {
+        transform: translateY(-50%) rotate(90deg);
+    }
+
+    .faq-item[open] .faq-plus::after {
+        transform: translateY(-50%) rotate(0deg);
+    }
+
+    /* Calm by preference */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+        html { scroll-behavior: auto; }
     }
 </style>
 
 <!-- Philosophy / Intro Section -->
-<section class="w-full bg-ivory py-24 lg:py-32 px-8 lg:px-16 xl:px-24 border-t border-champagne/20">
+<section id="philosophy" class="w-full bg-ivory py-24 lg:py-32 px-8 lg:px-16 xl:px-24 border-t border-champagne/20">
     <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
         <div class="w-full md:w-1/2 relative">
             <div class="aspect-[4/5] overflow-hidden bg-navy">
-                <img src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?q=80&w=1000&auto=format&fit=crop" alt="Spa Philosophy" class="w-full h-full object-cover opacity-90 transition-transform duration-1000 hover:scale-105">
+                <!-- Bespoke scene: still life of vessel, sprig, and arch -->
+                <svg class="w-full h-full transition-transform duration-1000 hover:scale-105" viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Illustration of a seaglass vessel with a champagne sprig beneath an arch on deep navy" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="sw-vessel" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#8FB8B6"/>
+                            <stop offset="1" stop-color="#55807E"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="800" height="1000" fill="#0F172A"/>
+                    <path d="M160 880 V 400 A 240 240 0 0 1 640 400 V 880" fill="none" stroke="#F9F8F4" stroke-width="3" opacity="0.5"/>
+                    <path d="M190 880 V 404 A 210 210 0 0 1 610 404 V 880" fill="none" stroke="#8FB8B6" stroke-width="1.5" opacity="0.3"/>
+                    <circle cx="400" cy="320" r="38" fill="#D3B888" opacity="0.9"/>
+                    <circle cx="400" cy="320" r="54" fill="none" stroke="#D3B888" stroke-width="1" opacity="0.35"/>
+                    <g fill="none" stroke="#D3B888" stroke-width="2.5" stroke-linecap="round">
+                        <path d="M400 560 C 396 500 420 460 452 428"/>
+                        <path d="M400 560 C 402 512 384 478 360 452"/>
+                    </g>
+                    <g fill="#D3B888" opacity="0.85">
+                        <path d="M452 428 q 26 -20 30 -46 q -30 10 -30 46 Z"/>
+                        <path d="M432 470 q 24 -14 30 -38 q -28 8 -30 38 Z"/>
+                        <path d="M360 452 q -24 -16 -28 -42 q 28 9 28 42 Z"/>
+                    </g>
+                    <g fill="#8FB8B6" opacity="0.8">
+                        <path d="M414 508 q 20 -12 24 -34 q -24 8 -24 34 Z"/>
+                        <path d="M388 496 q -18 -12 -22 -34 q 22 8 22 34 Z"/>
+                    </g>
+                    <rect x="386" y="556" width="28" height="40" fill="#55807E"/>
+                    <ellipse cx="400" cy="556" rx="20" ry="6" fill="#8FB8B6"/>
+                    <path d="M400 596 C 322 616 300 700 322 776 C 338 838 368 872 400 882 C 432 872 462 838 478 776 C 500 700 478 616 400 596 Z" fill="url(#sw-vessel)"/>
+                    <path d="M352 640 C 332 692 334 760 356 812" fill="none" stroke="#F9F8F4" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+                    <line x1="230" y1="896" x2="570" y2="896" stroke="#F9F8F4" stroke-width="2" opacity="0.4"/>
+                    <ellipse cx="400" cy="902" rx="140" ry="10" fill="#0B1120" opacity="0.7"/>
+                </svg>
             </div>
             <div class="absolute -bottom-8 -right-8 w-48 h-48 bg-navy p-8 hidden lg:flex items-center justify-center border border-champagne/30">
                 <p class="font-serif text-ivory text-xl text-center italic">"The art of subtle refinement."</p>
@@ -150,17 +353,17 @@
                 <span class="text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-navy/60">Our Philosophy</span>
             </div>
             <h2 class="font-serif text-4xl lg:text-5xl leading-tight text-navy mb-8">
-                Beauty, <span class="italic text-seaglass">Redefined</span><br>On Your Terms.
+                Beauty, <span class="italic text-seaglassdeep">Redefined</span><br>On Your Terms.
             </h2>
             <p class="font-sans font-light text-navy/80 text-lg leading-relaxed mb-6">
-                We believe aesthetic enhancement should be an intimate, unhurried experience. VII Seas removes the clinical environment, bringing elite, board-certified cosmetic care directly to your sanctuary.
+                We believe aesthetic enhancement should be an intimate, unhurried experience. Silverwave removes the clinical environment, bringing elite, board-certified cosmetic care directly to your sanctuary.
             </p>
             <p class="font-sans font-light text-navy/80 text-lg leading-relaxed mb-10">
                 Discretion is our hallmark; natural, undetectable results are our signature. Whether in your home, hotel, or private office, we provide a sterile, luxurious medspa experience tailored entirely to your schedule.
             </p>
-            <a href="#" class="inline-flex items-center space-x-3 text-xs uppercase tracking-widest font-medium text-navy hover:text-champagne transition-colors w-max group">
+            <a href="#standard" class="inline-flex items-center space-x-3 text-xs uppercase tracking-widest font-medium text-navy hover:text-champagnedeep transition-colors w-max group">
                 <span>Meet Our Providers</span>
-                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3" />
                 </svg>
             </a>
@@ -169,7 +372,7 @@
 </section>
 
 <!-- Services Grid Section -->
-<section class="w-full bg-navy py-24 lg:py-32 px-8 lg:px-16 xl:px-24 text-ivory">
+<section id="treatments" class="w-full bg-navy py-24 lg:py-32 px-8 lg:px-16 xl:px-24 text-ivory">
     <div class="max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row justify-between items-end mb-16 lg:mb-24 gap-8">
             <div>
@@ -181,30 +384,69 @@
                     Signature <span class="italic text-seaglass">Treatments</span>
                 </h2>
             </div>
-            <a href="#" class="border-b border-champagne pb-1 text-xs uppercase tracking-widest font-medium hover:text-white transition-colors">
+            <a href="#menu" class="border-b border-champagne pb-1 text-xs uppercase tracking-widest font-medium hover:text-white transition-colors">
                 View Full Menu
             </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Service 1 -->
-            <div class="group cursor-pointer service-card-hover">
+            <div class="group service-card-hover">
                 <div class="aspect-[3/4] overflow-hidden bg-black relative mb-6">
                     <div class="absolute inset-0 bg-navy/20 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
-                    <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=800&auto=format&fit=crop" alt="Neurotoxins" class="w-full h-full object-cover opacity-80 transition-transform duration-700">
+                    <!-- Bespoke art: continuous-line profile with placement points -->
+                    <svg class="card-art absolute inset-0 w-full h-full transition-transform duration-700" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="600" height="800" fill="#0D1526"/>
+                        <circle cx="300" cy="370" r="250" fill="none" stroke="#F9F8F4" stroke-width="1" opacity="0.08"/>
+                        <circle cx="300" cy="370" r="200" fill="none" stroke="#F9F8F4" stroke-width="1" opacity="0.1"/>
+                        <line x1="440" y1="170" x2="440" y2="640" stroke="#F9F8F4" stroke-width="1.5" stroke-dasharray="2 10" opacity="0.3"/>
+                        <path d="M348 150 C 296 166 282 220 286 268 C 288 302 280 324 272 350 C 266 374 258 388 272 396 C 282 402 286 408 282 418 C 294 422 296 430 288 438 C 298 444 300 454 292 464 C 294 482 306 496 324 504 C 348 514 360 536 366 562 C 372 590 376 610 390 632" fill="none" stroke="#8FB8B6" stroke-width="3" stroke-linecap="round"/>
+                        <path d="M292 306 q 24 -14 48 -6" fill="none" stroke="#8FB8B6" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M302 338 q 18 8 36 4" fill="none" stroke="#8FB8B6" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+                        <g fill="#D3B888">
+                            <circle cx="330" cy="240" r="4"/>
+                            <circle cx="358" cy="228" r="4"/>
+                            <circle cx="386" cy="246" r="4"/>
+                            <circle cx="352" cy="330" r="4"/>
+                            <circle cx="366" cy="346" r="4"/>
+                            <circle cx="348" cy="474" r="4"/>
+                        </g>
+                        <circle cx="358" cy="228" r="10" fill="none" stroke="#D3B888" stroke-width="1" opacity="0.6"/>
+                        <path d="M170 660 l2.5 7.5 7.5 2.5 -7.5 2.5 -2.5 7.5 -2.5 -7.5 -7.5 -2.5 7.5 -2.5 Z" fill="#D3B888" opacity="0.55"/>
+                    </svg>
                 </div>
                 <h3 class="font-serif text-2xl mb-3 group-hover:text-champagne transition-colors">Neuromodulators</h3>
                 <p class="font-sans font-light text-ivory/70 text-sm leading-relaxed mb-4">
-                    Precise, conservative application of Botox® and Dysport® to smooth dynamic lines while preserving natural facial expression.
+                    Precise, conservative neuromodulator dosing to smooth dynamic lines while preserving natural facial expression.
                 </p>
                 <span class="text-[0.65rem] uppercase tracking-[0.2em] font-medium text-champagne">From $14/Unit</span>
             </div>
 
             <!-- Service 2 -->
-            <div class="group cursor-pointer service-card-hover mt-0 lg:mt-16">
+            <div class="group service-card-hover mt-0 lg:mt-16">
                 <div class="aspect-[3/4] overflow-hidden bg-black relative mb-6">
                     <div class="absolute inset-0 bg-navy/20 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
-                    <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=800&auto=format&fit=crop" alt="Dermal Fillers" class="w-full h-full object-cover opacity-80 transition-transform duration-700">
+                    <!-- Bespoke art: contour arcs and a single drop of volume -->
+                    <svg class="card-art absolute inset-0 w-full h-full transition-transform duration-700" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="sw-drop" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#8FB8B6"/>
+                                <stop offset="1" stop-color="#55807E"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="600" height="800" fill="#0D1526"/>
+                        <g fill="none" stroke-linecap="round">
+                            <path d="M60 700 Q 300 520 560 590" stroke="#D3B888" stroke-width="2.5" opacity="0.8"/>
+                            <path d="M40 640 Q 290 460 560 520" stroke="#8FB8B6" stroke-width="2" opacity="0.6"/>
+                            <path d="M30 580 Q 280 410 560 460" stroke="#D3B888" stroke-width="1.5" opacity="0.45"/>
+                            <path d="M40 520 Q 280 360 560 404" stroke="#8FB8B6" stroke-width="1.5" opacity="0.3"/>
+                        </g>
+                        <circle cx="300" cy="360" r="160" fill="none" stroke="#F9F8F4" stroke-width="1" opacity="0.1"/>
+                        <path d="M300 200 C 300 200 380 306 380 366 A 80 80 0 1 1 220 366 C 220 306 300 200 300 200 Z" fill="url(#sw-drop)"/>
+                        <circle cx="266" cy="384" r="12" fill="#F9F8F4" opacity="0.5"/>
+                        <path d="M470 200 l3 9 9 3 -9 3 -3 9 -3 -9 -9 -3 9 -3 Z" fill="#D3B888" opacity="0.6"/>
+                        <path d="M120 260 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2 Z" fill="#D3B888" opacity="0.45"/>
+                    </svg>
                 </div>
                 <h3 class="font-serif text-2xl mb-3 group-hover:text-champagne transition-colors">Dermal Architecture</h3>
                 <p class="font-sans font-light text-ivory/70 text-sm leading-relaxed mb-4">
@@ -214,10 +456,28 @@
             </div>
 
             <!-- Service 3 -->
-            <div class="group cursor-pointer service-card-hover mt-0 md:mt-16 lg:mt-0">
+            <div class="group service-card-hover mt-0 md:mt-16 lg:mt-0">
                 <div class="aspect-[3/4] overflow-hidden bg-black relative mb-6">
                     <div class="absolute inset-0 bg-navy/20 z-10 group-hover:bg-transparent transition-colors duration-500"></div>
-                    <img src="https://images.unsplash.com/photo-1532453288672-3a27e9be9efd?q=80&w=800&auto=format&fit=crop" alt="IV Therapy" class="w-full h-full object-cover opacity-80 transition-transform duration-700">
+                    <!-- Bespoke art: drip chamber, falling drops, still water -->
+                    <svg class="card-art absolute inset-0 w-full h-full transition-transform duration-700" viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="600" height="800" fill="#0D1526"/>
+                        <line x1="190" y1="110" x2="410" y2="110" stroke="#F9F8F4" stroke-width="2" opacity="0.5"/>
+                        <line x1="300" y1="110" x2="300" y2="180" stroke="#F9F8F4" stroke-width="2" opacity="0.5"/>
+                        <rect x="270" y="180" width="60" height="104" rx="28" fill="none" stroke="#8FB8B6" stroke-width="2.5"/>
+                        <path d="M300 208 C 300 208 314 226 314 236 A 14 14 0 1 1 286 236 C 286 226 300 208 300 208 Z" fill="#D3B888"/>
+                        <line x1="300" y1="284" x2="300" y2="420" stroke="#8FB8B6" stroke-width="2.5"/>
+                        <path d="M300 452 C 300 452 312 468 312 477 A 12 12 0 1 1 288 477 C 288 468 300 452 300 452 Z" fill="#8FB8B6"/>
+                        <path d="M300 528 C 300 528 310 542 310 549 A 10 10 0 1 1 290 549 C 290 542 300 528 300 528 Z" fill="#D3B888"/>
+                        <path d="M300 596 C 300 596 308 607 308 613 A 8 8 0 1 1 292 613 C 292 607 300 596 300 596 Z" fill="#8FB8B6"/>
+                        <g fill="none" stroke="#F9F8F4">
+                            <ellipse cx="300" cy="690" rx="44" ry="10" stroke-width="1.5" opacity="0.4"/>
+                            <ellipse cx="300" cy="690" rx="78" ry="17" stroke-width="1.2" opacity="0.25"/>
+                            <ellipse cx="300" cy="690" rx="115" ry="24" stroke-width="1" opacity="0.12"/>
+                        </g>
+                        <path d="M440 300 l2.5 7.5 7.5 2.5 -7.5 2.5 -2.5 7.5 -2.5 -7.5 -7.5 -2.5 7.5 -2.5 Z" fill="#D3B888" opacity="0.6"/>
+                        <path d="M160 480 l2 6 6 2 -6 2 -2 6 -2 -6 -6 -2 6 -2 Z" fill="#D3B888" opacity="0.45"/>
+                    </svg>
                 </div>
                 <h3 class="font-serif text-2xl mb-3 group-hover:text-champagne transition-colors">Intravenous Wellness</h3>
                 <p class="font-sans font-light text-ivory/70 text-sm leading-relaxed mb-4">
@@ -226,11 +486,60 @@
                 <span class="text-[0.65rem] uppercase tracking-[0.2em] font-medium text-champagne">From $250/Session</span>
             </div>
         </div>
+
+        <!-- The Wider Menu -->
+        <div id="menu" class="mt-20 lg:mt-28 border-t border-ivory/10 pt-14">
+            <h3 class="font-serif text-2xl lg:text-3xl mb-10">The Wider <span class="italic text-seaglass">Menu</span></h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-8">
+                <div class="border-b border-ivory/10 pb-6">
+                    <div class="flex justify-between items-baseline gap-6 mb-2">
+                        <h4 class="font-serif text-lg">Chemical Peels</h4>
+                        <span class="text-[0.65rem] uppercase tracking-[0.2em] font-medium text-champagne whitespace-nowrap">From $180</span>
+                    </div>
+                    <p class="font-sans font-light text-ivory/70 text-sm leading-relaxed">Layered medical-grade peels selected for your skin's tolerance and your calendar.</p>
+                </div>
+                <div class="border-b border-ivory/10 pb-6">
+                    <div class="flex justify-between items-baseline gap-6 mb-2">
+                        <h4 class="font-serif text-lg">Microneedling</h4>
+                        <span class="text-[0.65rem] uppercase tracking-[0.2em] font-medium text-champagne whitespace-nowrap">From $325</span>
+                    </div>
+                    <p class="font-sans font-light text-ivory/70 text-sm leading-relaxed">Collagen-induction therapy addressing texture, tone, and fine lines over a planned series.</p>
+                </div>
+                <div class="border-b border-ivory/10 pb-6">
+                    <div class="flex justify-between items-baseline gap-6 mb-2">
+                        <h4 class="font-serif text-lg">Hydrating Facial</h4>
+                        <span class="text-[0.65rem] uppercase tracking-[0.2em] font-medium text-champagne whitespace-nowrap">From $150</span>
+                    </div>
+                    <p class="font-sans font-light text-ivory/70 text-sm leading-relaxed">A clinical facial tailored on arrival to what your skin needs that day.</p>
+                </div>
+                <div class="border-b border-ivory/10 pb-6">
+                    <div class="flex justify-between items-baseline gap-6 mb-2">
+                        <h4 class="font-serif text-lg">LED Light Therapy</h4>
+                        <span class="text-[0.65rem] uppercase tracking-[0.2em] font-medium text-champagne whitespace-nowrap">Add-On $95</span>
+                    </div>
+                    <p class="font-sans font-light text-ivory/70 text-sm leading-relaxed">A calming red-light session appended to any facial or microneedling visit.</p>
+                </div>
+                <div class="border-b border-ivory/10 pb-6">
+                    <div class="flex justify-between items-baseline gap-6 mb-2">
+                        <h4 class="font-serif text-lg">Vitamin B12 Injections</h4>
+                        <span class="text-[0.65rem] uppercase tracking-[0.2em] font-medium text-champagne whitespace-nowrap">$35</span>
+                    </div>
+                    <p class="font-sans font-light text-ivory/70 text-sm leading-relaxed">A quick intramuscular addition to any scheduled visit.</p>
+                </div>
+                <div class="border-b border-ivory/10 pb-6">
+                    <div class="flex justify-between items-baseline gap-6 mb-2">
+                        <h4 class="font-serif text-lg">Post-Treatment Follow-Up</h4>
+                        <span class="text-[0.65rem] uppercase tracking-[0.2em] font-medium text-champagne whitespace-nowrap">Included</span>
+                    </div>
+                    <p class="font-sans font-light text-ivory/70 text-sm leading-relaxed">A provider check-in within 48 hours of every appointment, every time.</p>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
 <!-- The Process Section -->
-<section class="w-full bg-ivory py-24 lg:py-32 px-8 lg:px-16 xl:px-24">
+<section id="experience" class="w-full bg-ivory py-24 lg:py-32 px-8 lg:px-16 xl:px-24">
     <div class="max-w-5xl mx-auto text-center mb-16 lg:mb-24">
         <div class="flex items-center justify-center space-x-4 mb-6">
             <div class="h-px w-8 bg-champagne"></div>
@@ -238,7 +547,7 @@
             <div class="h-px w-8 bg-champagne"></div>
         </div>
         <h2 class="font-serif text-4xl lg:text-5xl leading-tight text-navy mb-6">
-            Effortless <span class="italic text-seaglass">Elegance</span>
+            Effortless <span class="italic text-seaglassdeep">Elegance</span>
         </h2>
         <p class="font-sans font-light text-navy/70 text-lg max-w-2xl mx-auto">
             Our protocol is designed for total convenience without compromising the clinical excellence of a traditional high-end medical facility.
@@ -278,97 +587,368 @@
             </div>
             <h3 class="font-serif text-xl text-navy mb-4">The Refinement</h3>
             <p class="font-sans font-light text-navy/70 text-sm leading-relaxed">
-                Expert administration of your chosen treatments. No waiting rooms, no clinical lighting—just pristine results in absolute comfort.
+                Expert administration of your chosen treatments. No waiting rooms, no clinical lighting&mdash;just pristine results in absolute comfort.
             </p>
         </div>
     </div>
 </section>
 
-<!-- Final CTA & Footer -->
-<section class="w-full bg-navy text-ivory relative overflow-hidden">
-    <!-- Background Texture/Image -->
-    <div class="absolute inset-0 opacity-10 mix-blend-overlay">
-        <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=2000&auto=format&fit=crop" alt="Texture Background" class="w-full h-full object-cover">
+<!-- The Silverwave Standard -->
+<section id="standard" class="w-full bg-seaglass/10 py-24 lg:py-32 px-8 lg:px-16 xl:px-24">
+    <div class="max-w-7xl mx-auto">
+        <div class="max-w-2xl mb-16 lg:mb-20">
+            <div class="flex items-center space-x-4 mb-6">
+                <div class="h-px w-12 bg-champagne"></div>
+                <span class="text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-navy/60">Why Silverwave</span>
+            </div>
+            <h2 class="font-serif text-4xl lg:text-5xl leading-tight text-navy mb-6">
+                The Silverwave <span class="italic text-seaglassdeep">Standard</span>
+            </h2>
+            <p class="font-sans font-light text-navy/75 text-lg leading-relaxed">
+                Concierge should never mean casual. Every visit is held to the same protocol, whether we are setting up in a marble foyer or a home office.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8">
+            <div class="border-t border-navy/15 pt-8">
+                <span class="font-serif italic text-2xl text-champagnedeep block mb-4" aria-hidden="true">No.1</span>
+                <h3 class="font-serif text-xl text-navy mb-3">Medical Direction</h3>
+                <p class="font-sans font-light text-navy/75 text-sm leading-relaxed">Every treatment plan is reviewed under physician oversight, and administered by board-certified providers.</p>
+            </div>
+            <div class="border-t border-navy/15 pt-8">
+                <span class="font-serif italic text-2xl text-champagnedeep block mb-4" aria-hidden="true">No.2</span>
+                <h3 class="font-serif text-xl text-navy mb-3">Single-Patient Supplies</h3>
+                <p class="font-sans font-light text-navy/75 text-sm leading-relaxed">Sealed, single-use instruments and pharmaceutical-grade products, opened in front of you at every visit.</p>
+            </div>
+            <div class="border-t border-navy/15 pt-8">
+                <span class="font-serif italic text-2xl text-champagnedeep block mb-4" aria-hidden="true">No.3</span>
+                <h3 class="font-serif text-xl text-navy mb-3">No Waiting Rooms</h3>
+                <p class="font-sans font-light text-navy/75 text-sm leading-relaxed">By appointment only. Your provider's time is yours alone, from arrival through aftercare guidance.</p>
+            </div>
+            <div class="border-t border-navy/15 pt-8">
+                <span class="font-serif italic text-2xl text-champagnedeep block mb-4" aria-hidden="true">No.4</span>
+                <h3 class="font-serif text-xl text-navy mb-3">Discreet by Design</h3>
+                <p class="font-sans font-light text-navy/75 text-sm leading-relaxed">Unmarked arrival, private records, and results that never announce themselves.</p>
+            </div>
+        </div>
     </div>
-    
+</section>
+
+<!-- Client Notes -->
+<section id="voices" class="w-full bg-navy py-24 lg:py-32 px-8 lg:px-16 xl:px-24 text-ivory">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex items-center justify-center space-x-4 mb-6">
+            <div class="h-px w-8 bg-champagne"></div>
+            <span class="text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-ivory/60">Client Notes</span>
+            <div class="h-px w-8 bg-champagne"></div>
+        </div>
+        <h2 class="font-serif text-4xl lg:text-5xl leading-tight text-center mb-16 lg:mb-20">
+            In Their <span class="italic text-seaglass">Words</span>
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+            <figure class="border border-champagne/25 p-8 lg:p-10 flex flex-col justify-between">
+                <blockquote class="font-serif italic text-lg leading-relaxed text-ivory/85 mb-8">
+                    &ldquo;My provider arrived early, set up in the guest room, and was packed away within the hour. The results read as rested, not done.&rdquo;
+                </blockquote>
+                <figcaption class="text-[0.65rem] uppercase tracking-[0.25em] font-medium text-champagne">Camille R. &middot; Augusta</figcaption>
+            </figure>
+            <figure class="border border-champagne/25 p-8 lg:p-10 flex flex-col justify-between">
+                <blockquote class="font-serif italic text-lg leading-relaxed text-ivory/85 mb-8">
+                    &ldquo;Between hospital shifts, a clinic visit never fit. Having the consultation and the follow-up come to my office finally made it possible.&rdquo;
+                </blockquote>
+                <figcaption class="text-[0.65rem] uppercase tracking-[0.25em] font-medium text-champagne">Whitney P. &middot; Evans</figcaption>
+            </figure>
+            <figure class="border border-champagne/25 p-8 lg:p-10 flex flex-col justify-between">
+                <blockquote class="font-serif italic text-lg leading-relaxed text-ivory/85 mb-8">
+                    &ldquo;I worried a home visit might feel less professional. It was the opposite &mdash; sealed instruments, gloves, every step explained.&rdquo;
+                </blockquote>
+                <figcaption class="text-[0.65rem] uppercase tracking-[0.25em] font-medium text-champagne">Elise T. &middot; Martinez</figcaption>
+            </figure>
+        </div>
+    </div>
+</section>
+
+<!-- Where We Travel -->
+<section id="where" class="w-full bg-ivory py-24 lg:py-32 px-8 lg:px-16 xl:px-24">
+    <div class="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+        <div class="w-full lg:w-1/2">
+            <div class="flex items-center space-x-4 mb-6">
+                <div class="h-px w-12 bg-champagne"></div>
+                <span class="text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-navy/60">Service Area</span>
+            </div>
+            <h2 class="font-serif text-4xl lg:text-5xl leading-tight text-navy mb-8">
+                Where We <span class="italic text-seaglassdeep">Travel</span>
+            </h2>
+            <p class="font-sans font-light text-navy/80 text-lg leading-relaxed mb-8">
+                Silverwave is based in Augusta and travels throughout the CSRA. Visits within twenty miles are included in every booking; beyond that, a travel fee is quoted before you confirm.
+            </p>
+            <ul class="grid grid-cols-2 gap-y-4 gap-x-8 font-sans font-light text-navy">
+                <li class="flex items-center space-x-3"><span class="h-px w-6 bg-champagnedeep" aria-hidden="true"></span><span>Augusta, GA</span></li>
+                <li class="flex items-center space-x-3"><span class="h-px w-6 bg-champagnedeep" aria-hidden="true"></span><span>Evans, GA</span></li>
+                <li class="flex items-center space-x-3"><span class="h-px w-6 bg-champagnedeep" aria-hidden="true"></span><span>Martinez, GA</span></li>
+                <li class="flex items-center space-x-3"><span class="h-px w-6 bg-champagnedeep" aria-hidden="true"></span><span>Grovetown, GA</span></li>
+                <li class="flex items-center space-x-3"><span class="h-px w-6 bg-champagnedeep" aria-hidden="true"></span><span>North Augusta, SC</span></li>
+                <li class="flex items-center space-x-3"><span class="h-px w-6 bg-champagnedeep" aria-hidden="true"></span><span>Aiken, SC</span></li>
+            </ul>
+        </div>
+        <div class="w-full lg:w-1/2">
+            <div class="bg-navy text-ivory p-10 lg:p-14 relative overflow-hidden">
+                <!-- Bespoke ornament: concierge radius rings -->
+                <svg class="w-40 h-40 mx-auto mb-8" viewBox="0 0 220 220" role="img" aria-label="Ornament of concentric travel-radius rings centered on Augusta" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="110" cy="110" r="96" fill="none" stroke="#8FB8B6" stroke-width="1" opacity="0.25"/>
+                    <circle cx="110" cy="110" r="66" fill="none" stroke="#8FB8B6" stroke-width="1.2" opacity="0.4"/>
+                    <circle cx="110" cy="110" r="36" fill="none" stroke="#8FB8B6" stroke-width="1.5" opacity="0.6"/>
+                    <line x1="110" y1="110" x2="176" y2="62" stroke="#D3B888" stroke-width="1.5" opacity="0.8"/>
+                    <circle cx="176" cy="62" r="4" fill="#D3B888"/>
+                    <circle cx="110" cy="110" r="7" fill="#D3B888"/>
+                    <path d="M110 8 l4 10 -4 -3 -4 3 Z" fill="#F9F8F4" opacity="0.7"/>
+                    <path d="M40 176 q 35 -14 70 0 t 70 0" fill="none" stroke="#F9F8F4" stroke-width="1.5" opacity="0.4"/>
+                </svg>
+                <p class="font-serif italic text-2xl text-center mb-4">Twenty miles, included.</p>
+                <p class="font-sans font-light text-ivory/70 text-sm leading-relaxed text-center max-w-sm mx-auto">
+                    Homes, offices, and hotels across the Augusta area. Travel fees apply outside twenty miles and are always quoted in advance &mdash; never on arrival.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="w-full bg-ivory pb-24 lg:pb-32 px-8 lg:px-16 xl:px-24 border-t border-champagne/20 pt-24 lg:pt-32">
+    <div class="max-w-3xl mx-auto">
+        <div class="flex items-center justify-center space-x-4 mb-6">
+            <div class="h-px w-8 bg-champagne"></div>
+            <span class="text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-navy/60">Considered Questions</span>
+            <div class="h-px w-8 bg-champagne"></div>
+        </div>
+        <h2 class="font-serif text-4xl lg:text-5xl leading-tight text-navy text-center mb-14 lg:mb-16">
+            Before You <span class="italic text-seaglassdeep">Reserve</span>
+        </h2>
+
+        <details class="faq-item border-b border-navy/15">
+            <summary class="flex justify-between items-center gap-6 py-6 font-serif text-lg text-navy">Is an in-home visit as clean as a clinic?<span class="faq-plus" aria-hidden="true"></span></summary>
+            <p class="pb-6 font-sans font-light text-navy/75 leading-relaxed">Yes. Your provider establishes a sterile field on arrival: sealed single-use instruments, medical-grade disinfection, gloves, and proper sharps disposal &mdash; the same standard as a licensed facility.</p>
+        </details>
+        <details class="faq-item border-b border-navy/15">
+            <summary class="flex justify-between items-center gap-6 py-6 font-serif text-lg text-navy">Who performs my treatment?<span class="faq-plus" aria-hidden="true"></span></summary>
+            <p class="pb-6 font-sans font-light text-navy/75 leading-relaxed">A licensed, board-certified provider working under physician medical direction. You will know your provider's name and credentials before we arrive.</p>
+        </details>
+        <details class="faq-item border-b border-navy/15">
+            <summary class="flex justify-between items-center gap-6 py-6 font-serif text-lg text-navy">Do I need a consultation first?<span class="faq-plus" aria-hidden="true"></span></summary>
+            <p class="pb-6 font-sans font-light text-navy/75 leading-relaxed">For injectables, yes &mdash; a brief virtual or in-person consultation lets us review your history, medications, and goals before treatment is booked. Skincare and IV visits include an on-arrival assessment.</p>
+        </details>
+        <details class="faq-item border-b border-navy/15">
+            <summary class="flex justify-between items-center gap-6 py-6 font-serif text-lg text-navy">Is there downtime?<span class="faq-plus" aria-hidden="true"></span></summary>
+            <p class="pb-6 font-sans font-light text-navy/75 leading-relaxed">It varies by treatment and by person. Many clients return to their day immediately; some experience temporary redness or swelling. Your provider walks you through aftercare before leaving.</p>
+        </details>
+        <details class="faq-item border-b border-navy/15">
+            <summary class="flex justify-between items-center gap-6 py-6 font-serif text-lg text-navy">How far will you travel?<span class="faq-plus" aria-hidden="true"></span></summary>
+            <p class="pb-6 font-sans font-light text-navy/75 leading-relaxed">Visits within twenty miles of Augusta are included &mdash; we regularly serve Evans, Martinez, Grovetown, and North Augusta. Beyond twenty miles, a travel fee applies and is quoted before you book.</p>
+        </details>
+        <details class="faq-item border-b border-navy/15">
+            <summary class="flex justify-between items-center gap-6 py-6 font-serif text-lg text-navy">What is your cancellation policy?<span class="faq-plus" aria-hidden="true"></span></summary>
+            <p class="pb-6 font-sans font-light text-navy/75 leading-relaxed">Appointments may be rescheduled with 24 hours' notice at no charge. Because each visit reserves a dedicated provider, later changes may carry a booking fee.</p>
+        </details>
+    </div>
+</section>
+
+<!-- Reserve Your Visit -->
+<section id="book" class="w-full bg-seaglass/10 py-24 lg:py-32 px-8 lg:px-16 xl:px-24">
+    <div class="max-w-6xl mx-auto flex flex-col lg:flex-row gap-16 items-start">
+        <div class="w-full lg:w-5/12">
+            <div class="flex items-center space-x-4 mb-6">
+                <div class="h-px w-12 bg-champagne"></div>
+                <span class="text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-navy/60">Reservations</span>
+            </div>
+            <h2 class="font-serif text-4xl lg:text-5xl leading-tight text-navy mb-8">
+                Reserve Your <span class="italic text-seaglassdeep">Visit</span>
+            </h2>
+            <p class="font-sans font-light text-navy/80 text-lg leading-relaxed mb-10">
+                Share a few details and our coordinator will reach out within one business day to confirm your consultation. Availability is intentionally limited.
+            </p>
+            <ul class="space-y-4 font-sans font-light text-navy/80">
+                <li><a href="tel:+17065550107" class="hover:text-champagnedeep transition-colors">(706) 555-0107</a></li>
+                <li><a href="mailto:hello@silverwavemedspa.example" class="hover:text-champagnedeep transition-colors">hello@silverwavemedspa.example</a></li>
+                <li class="text-navy/60 text-sm uppercase tracking-[0.2em] pt-2">By appointment &middot; Tue&ndash;Sat, 9:00&ndash;6:00</li>
+            </ul>
+        </div>
+
+        <form class="w-full lg:w-7/12 bg-navy text-ivory p-8 lg:p-14" action="#" method="post">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8 mb-8">
+                <div>
+                    <label for="sw-name" class="block text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-ivory/70 mb-2">Full Name <span class="text-champagne" aria-hidden="true">*</span></label>
+                    <input type="text" id="sw-name" name="name" autocomplete="name" required class="w-full bg-transparent border-0 border-b border-ivory/30 focus:border-champagne focus:outline-none py-3 font-light text-ivory">
+                </div>
+                <div>
+                    <label for="sw-phone" class="block text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-ivory/70 mb-2">Phone <span class="text-champagne" aria-hidden="true">*</span></label>
+                    <input type="tel" id="sw-phone" name="phone" autocomplete="tel" required aria-describedby="sw-phone-hint" class="w-full bg-transparent border-0 border-b border-ivory/30 focus:border-champagne focus:outline-none py-3 font-light text-ivory">
+                    <p id="sw-phone-hint" class="mt-2 text-xs font-light text-ivory/60">Discreet contact only &mdash; no marketing calls.</p>
+                </div>
+                <div>
+                    <label for="sw-email" class="block text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-ivory/70 mb-2">Email</label>
+                    <input type="email" id="sw-email" name="email" autocomplete="email" class="w-full bg-transparent border-0 border-b border-ivory/30 focus:border-champagne focus:outline-none py-3 font-light text-ivory">
+                </div>
+                <div>
+                    <label for="sw-treatment" class="block text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-ivory/70 mb-2">Treatment Interest</label>
+                    <select id="sw-treatment" name="treatment" class="w-full bg-transparent border-0 border-b border-ivory/30 focus:border-champagne focus:outline-none py-3 font-light text-ivory [&>option]:text-navy">
+                        <option>Neuromodulators</option>
+                        <option>Dermal Fillers</option>
+                        <option>IV Wellness</option>
+                        <option>Skincare &amp; Facials</option>
+                        <option>Not sure yet</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="sw-location" class="block text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-ivory/70 mb-2">Where Should We Come?</label>
+                    <select id="sw-location" name="location" class="w-full bg-transparent border-0 border-b border-ivory/30 focus:border-champagne focus:outline-none py-3 font-light text-ivory [&>option]:text-navy">
+                        <option>My home</option>
+                        <option>My office</option>
+                        <option>Hotel</option>
+                        <option>Undecided</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="sw-timing" class="block text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-ivory/70 mb-2">Preferred Timing</label>
+                    <input type="text" id="sw-timing" name="timing" aria-describedby="sw-timing-hint" class="w-full bg-transparent border-0 border-b border-ivory/30 focus:border-champagne focus:outline-none py-3 font-light text-ivory">
+                    <p id="sw-timing-hint" class="mt-2 text-xs font-light text-ivory/60">For example: weekday evenings, or Saturday mornings.</p>
+                </div>
+            </div>
+            <div class="mb-10">
+                <label for="sw-notes" class="block text-[0.65rem] uppercase tracking-[0.25em] font-semibold text-ivory/70 mb-2">Notes</label>
+                <textarea id="sw-notes" name="notes" rows="3" aria-describedby="sw-notes-hint" class="w-full bg-transparent border-0 border-b border-ivory/30 focus:border-champagne focus:outline-none py-3 font-light text-ivory resize-y"></textarea>
+                <p id="sw-notes-hint" class="mt-2 text-xs font-light text-ivory/60">Optional &mdash; goals, prior treatments, or questions for your provider.</p>
+            </div>
+            <button type="submit" class="w-full md:w-auto bg-champagne text-navy text-xs uppercase tracking-widest font-medium py-5 px-12 hover:bg-ivory transition-colors cursor-pointer">
+                Request Reservation
+            </button>
+            <p class="mt-6 text-xs font-light text-ivory/60">Your details stay with our coordinator &mdash; never shared, never sold.</p>
+        </form>
+    </div>
+</section>
+
+<!-- Final CTA -->
+<section id="cta" class="w-full bg-navy text-ivory relative overflow-hidden">
+    <!-- Background Texture: bespoke wave-line pattern -->
+    <div class="absolute inset-0 opacity-10 mix-blend-overlay" aria-hidden="true">
+        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg" focusable="false">
+            <defs>
+                <pattern id="sw-wavepat" width="140" height="48" patternUnits="userSpaceOnUse">
+                    <path d="M0 24 Q 35 4 70 24 T 140 24" fill="none" stroke="#F9F8F4" stroke-width="1.5"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#sw-wavepat)"/>
+        </svg>
+    </div>
+
     <div class="relative z-10 py-32 px-8 lg:px-16 text-center">
         <h2 class="font-serif text-5xl lg:text-6xl mb-8">Ready to <span class="italic text-seaglass">Transform?</span></h2>
         <p class="font-sans font-light text-ivory/80 text-lg max-w-xl mx-auto mb-12">
             Secure your private appointment in Augusta, Evans, or Martinez. Availability is strictly limited to ensure uncompromising care.
         </p>
-        <a href="#" class="inline-block bg-champagne text-navy text-xs uppercase tracking-widest font-medium py-5 px-12 hover:bg-ivory transition-colors">
+        <a href="#book" class="inline-block bg-champagne text-navy text-xs uppercase tracking-widest font-medium py-5 px-12 hover:bg-ivory transition-colors">
             Request an Appointment
         </a>
     </div>
-
-    <!-- Footer -->
-    <footer class="relative z-10 border-t border-ivory/10 pt-16 pb-8 px-8 lg:px-16 xl:px-24">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-            
-            <!-- Brand -->
-            <div class="col-span-1 md:col-span-2 lg:col-span-1">
-                <span class="font-serif text-2xl tracking-widest uppercase leading-none block mb-2">VII Seas</span>
-                <span class="font-sans text-[0.55rem] tracking-[0.3em] uppercase font-medium opacity-60 block mb-6">Concierge Medspa</span>
-                <p class="font-sans font-light text-ivory/50 text-xs leading-relaxed max-w-xs">
-                    Augusta's premier mobile medical aesthetic practice. Redefining luxury through convenience, privacy, and unparalleled clinical expertise.
-                </p>
-            </div>
-
-            <!-- Links -->
-            <div>
-                <h4 class="font-serif text-lg italic text-seaglass mb-6">Treatments</h4>
-                <ul class="space-y-3 font-sans font-light text-sm text-ivory/70">
-                    <li><a href="#" class="hover:text-champagne transition-colors">Neuromodulators</a></li>
-                    <li><a href="#" class="hover:text-champagne transition-colors">Dermal Fillers</a></li>
-                    <li><a href="#" class="hover:text-champagne transition-colors">IV Hydration</a></li>
-                    <li><a href="#" class="hover:text-champagne transition-colors">Chemical Peels</a></li>
-                    <li><a href="#" class="hover:text-champagne transition-colors">Microneedling</a></li>
-                </ul>
-            </div>
-
-            <!-- Service Area -->
-            <div>
-                <h4 class="font-serif text-lg italic text-seaglass mb-6">Service Area</h4>
-                <ul class="space-y-3 font-sans font-light text-sm text-ivory/70">
-                    <li>Augusta, GA</li>
-                    <li>Evans, GA</li>
-                    <li>Martinez, GA</li>
-                    <li>North Augusta, SC</li>
-                    <li><span class="text-[0.65rem] italic text-champagne uppercase tracking-wider">Travel fees apply outside 20mi</span></li>
-                </ul>
-            </div>
-
-            <!-- Contact -->
-            <div>
-                <h4 class="font-serif text-lg italic text-seaglass mb-6">Connect</h4>
-                <ul class="space-y-3 font-sans font-light text-sm text-ivory/70">
-                    <li><a href="tel:+17065550107" class="hover:text-champagne transition-colors">(706) 555-0107</a></li>
-                    <li><a href="mailto:hello@silverwavemedspa.example" class="hover:text-champagne transition-colors">hello@silverwavemedspa.example</a></li>
-                    <li class="pt-4 flex space-x-4">
-                        <a href="#" class="text-ivory/50 hover:text-champagne transition-colors">
-                            <span class="sr-only">Instagram</span>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
-                        </a>
-                        <a href="#" class="text-ivory/50 hover:text-champagne transition-colors">
-                            <span class="sr-only">Facebook</span>
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="flex flex-col md:flex-row justify-between items-center border-t border-ivory/10 pt-8">
-            <p class="font-sans text-[0.65rem] text-ivory/40 tracking-wider uppercase mb-4 md:mb-0">
-                &copy; 2026 VII Seas Medspa. All rights reserved.
-            </p>
-            <div class="flex space-x-6">
-                <a href="#" class="font-sans text-[0.65rem] text-ivory/40 tracking-wider uppercase hover:text-ivory transition-colors">Privacy Policy</a>
-                <a href="#" class="font-sans text-[0.65rem] text-ivory/40 tracking-wider uppercase hover:text-ivory transition-colors">Terms of Service</a>
-            </div>
-        </div>
-    </footer>
 </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-navy text-ivory border-t border-ivory/10 pt-16 pb-8 px-8 lg:px-16 xl:px-24">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+
+        <!-- Brand -->
+        <div class="col-span-1 md:col-span-2 lg:col-span-1">
+            <span class="font-serif text-2xl tracking-widest uppercase leading-none block mb-2">Silverwave</span>
+            <span class="font-sans text-[0.55rem] tracking-[0.3em] uppercase font-medium opacity-60 block mb-6">Concierge Medspa</span>
+            <p class="font-sans font-light text-ivory/60 text-xs leading-relaxed max-w-xs">
+                Augusta's premier mobile medical aesthetic practice. Redefining luxury through convenience, privacy, and unparalleled clinical expertise.
+            </p>
+        </div>
+
+        <!-- Links -->
+        <div>
+            <h3 class="font-serif text-lg italic text-seaglass mb-6">Treatments</h3>
+            <ul class="space-y-3 font-sans font-light text-sm text-ivory/70">
+                <li><a href="#treatments" class="hover:text-champagne transition-colors">Neuromodulators</a></li>
+                <li><a href="#treatments" class="hover:text-champagne transition-colors">Dermal Fillers</a></li>
+                <li><a href="#treatments" class="hover:text-champagne transition-colors">IV Hydration</a></li>
+                <li><a href="#menu" class="hover:text-champagne transition-colors">Chemical Peels</a></li>
+                <li><a href="#menu" class="hover:text-champagne transition-colors">Microneedling</a></li>
+            </ul>
+        </div>
+
+        <!-- Service Area -->
+        <div>
+            <h3 class="font-serif text-lg italic text-seaglass mb-6">Service Area</h3>
+            <ul class="space-y-3 font-sans font-light text-sm text-ivory/70">
+                <li>Augusta, GA</li>
+                <li>Evans, GA</li>
+                <li>Martinez, GA</li>
+                <li>North Augusta, SC</li>
+                <li><span class="text-[0.65rem] italic text-champagne uppercase tracking-wider">Travel fees apply outside 20mi</span></li>
+            </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+            <h3 class="font-serif text-lg italic text-seaglass mb-6">Connect</h3>
+            <ul class="space-y-3 font-sans font-light text-sm text-ivory/70">
+                <li><a href="tel:+17065550107" class="hover:text-champagne transition-colors">(706) 555-0107</a></li>
+                <li><a href="mailto:hello@silverwavemedspa.example" class="hover:text-champagne transition-colors">hello@silverwavemedspa.example</a></li>
+                <li>By appointment &middot; Tue&ndash;Sat, 9:00&ndash;6:00</li>
+                <li>Augusta, Georgia</li>
+                <li class="pt-4 flex space-x-4">
+                    <a href="#" class="text-ivory/50 hover:text-champagne transition-colors">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="#" class="text-ivory/50 hover:text-champagne transition-colors">
+                        <span class="sr-only">Facebook</span>
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center border-t border-ivory/10 pt-8">
+        <p class="font-sans text-[0.65rem] text-ivory/60 tracking-wider uppercase mb-4 md:mb-0">
+            &copy; 2026 Silverwave MedSpa. All rights reserved.
+        </p>
+        <div class="flex space-x-6">
+            <a href="#" class="font-sans text-[0.65rem] text-ivory/60 tracking-wider uppercase hover:text-ivory transition-colors">Privacy Policy</a>
+            <a href="#" class="font-sans text-[0.65rem] text-ivory/60 tracking-wider uppercase hover:text-ivory transition-colors">Terms of Service</a>
+        </div>
+    </div>
+</footer>
+
+<!-- Considered interaction: pinned header on scroll, accessible mobile menu -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const header = document.getElementById('site-header');
+        const onScroll = () => header.classList.toggle('is-scrolled', window.scrollY > 80);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        const toggle = document.getElementById('menu-toggle');
+        const menu = document.getElementById('mobile-menu');
+        const closeBtn = document.getElementById('menu-close');
+        const setMenu = (open) => {
+            menu.hidden = !open;
+            toggle.setAttribute('aria-expanded', String(open));
+            document.body.style.overflow = open ? 'hidden' : '';
+            if (open) { closeBtn.focus(); } else { toggle.focus(); }
+        };
+        toggle.addEventListener('click', () => setMenu(menu.hidden));
+        closeBtn.addEventListener('click', () => setMenu(false));
+        menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !menu.hidden) setMenu(false);
+        });
+    });
+</script>
 
 </body>
 </html>

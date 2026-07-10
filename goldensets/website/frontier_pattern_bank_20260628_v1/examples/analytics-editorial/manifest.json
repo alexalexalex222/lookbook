@@ -1,0 +1,54 @@
+{
+  "pack_id": "meridian_editorial_analytics_v1",
+  "role": "anchor",
+  "family": "website.editorial_analytics",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "analytics-editorial"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "editorial",
+    "warm",
+    "serif",
+    "refined",
+    "calm",
+    "almanac"
+  ],
+  "surfaces": [
+    "dashboard",
+    "hero",
+    "landing",
+    "full_site"
+  ],
+  "motif_tags": [
+    "editorial_serif",
+    "cream_contrast_band",
+    "narrative_data_chart",
+    "stats_strip",
+    "headline_hierarchy",
+    "command_surface",
+    "linked_chart_grid"
+  ],
+  "supports_tasks": [
+    "editorial_analytics_report",
+    "annual_readership_report",
+    "data_journalism_page",
+    "newsletter_analytics_almanac"
+  ],
+  "anti_patterns": [
+    "dark SaaS product dashboard chrome",
+    "dark green monospace terminal styling",
+    "fabricated readership statistics presented as real data"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1700,
+  "confidence_score": 4,
+  "example_ids": []
+}

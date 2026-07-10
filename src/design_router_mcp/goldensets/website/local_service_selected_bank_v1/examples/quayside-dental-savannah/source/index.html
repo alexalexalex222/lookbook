@@ -20,6 +20,7 @@
                         chalk: '#F4F3EF',
                         marine: '#0C233C',
                         seaglass: '#85AAA5',
+                        seaglassInk: '#47706A',
                     }
                 }
             }
@@ -47,6 +48,30 @@
             padding-top: 1rem !important;
             padding-bottom: 1rem !important;
         }
+
+        /* Visible keyboard focus in the page's own ink */
+        a:focus-visible, button:focus-visible, input:focus-visible,
+        select:focus-visible, textarea:focus-visible, summary:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 3px;
+        }
+        /* Anchored sections clear the fixed header */
+        section[id] { scroll-margin-top: 7rem; }
+
+        /* FAQ disclosure styling */
+        details.qd-faq summary { list-style: none; cursor: pointer; }
+        details.qd-faq summary::-webkit-details-marker { display: none; }
+        .qd-faq-icon { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        details.qd-faq[open] .qd-faq-icon { transform: rotate(45deg); }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 <body class="bg-chalk text-marine font-sans antialiased selection:bg-seaglass selection:text-marine overflow-x-hidden">
@@ -63,22 +88,36 @@
             </div>
         </div>
         
-        <nav class="hidden md:flex items-center gap-10 text-xs tracking-[0.15em] font-medium uppercase text-marine/80">
-            <a href="#expertise" class="hover:text-seaglass transition-colors duration-300">Expertise</a>
-            <a href="#environment" class="hover:text-seaglass transition-colors duration-300">Environment</a>
-            <a href="#team" class="hover:text-seaglass transition-colors duration-300">Patient Care</a>
+        <nav class="hidden md:flex items-center gap-8 lg:gap-10 text-xs tracking-[0.15em] font-medium uppercase text-marine/80" aria-label="Primary">
+            <a href="#expertise" class="hover:text-seaglassInk transition-colors duration-300">Expertise</a>
+            <a href="#environment" class="hover:text-seaglassInk transition-colors duration-300">Environment</a>
+            <a href="#team" class="hover:text-seaglassInk transition-colors duration-300">Patient Care</a>
+            <a href="#process" class="hover:text-seaglassInk transition-colors duration-300">Your Visit</a>
+            <a href="#faq" class="hover:text-seaglassInk transition-colors duration-300">FAQ</a>
         </nav>
-        
+
         <div>
             <a href="#contact" class="hidden md:inline-flex items-center justify-center px-6 py-3 border border-marine/20 text-marine text-[0.65rem] font-medium tracking-[0.2em] uppercase hover:bg-marine hover:text-chalk transition-all duration-500">
-                Patient Login
+                Reserve a Visit
             </a>
             <!-- Mobile Menu Button -->
-            <button class="md:hidden text-marine focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button id="menu-toggle" class="md:hidden text-marine p-2 -m-2" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
             </button>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-chalk border-b border-marine/10 shadow-xl shadow-marine/5 px-6 py-8">
+            <nav class="flex flex-col gap-6 text-xs tracking-[0.2em] font-medium uppercase text-marine" aria-label="Mobile">
+                <a href="#expertise" class="hover:text-seaglassInk transition-colors duration-300">Expertise</a>
+                <a href="#environment" class="hover:text-seaglassInk transition-colors duration-300">Environment</a>
+                <a href="#team" class="hover:text-seaglassInk transition-colors duration-300">Patient Care</a>
+                <a href="#process" class="hover:text-seaglassInk transition-colors duration-300">Your Visit</a>
+                <a href="#faq" class="hover:text-seaglassInk transition-colors duration-300">FAQ</a>
+                <a href="#contact" class="inline-flex items-center justify-center px-6 py-4 bg-marine text-chalk text-[0.65rem] tracking-[0.2em] uppercase mt-2">Reserve a Visit</a>
+            </nav>
         </div>
     </header>
 
@@ -91,12 +130,12 @@
                     
                     <div class="flex items-center gap-4 mb-8 delay-1">
                         <div class="w-12 h-[1px] bg-seaglass"></div>
-                        <span class="text-seaglass font-sans text-xs tracking-[0.25em] uppercase font-medium">Savannah, Georgia</span>
+                        <span class="text-seaglassInk font-sans text-xs tracking-[0.25em] uppercase font-medium">Savannah, Georgia</span>
                     </div>
                     
                     <h1 class="font-serif text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] leading-[1.05] mb-8 text-marine delay-2">
                         The new standard of <br class="hidden md:block">
-                        <span class="italic text-seaglass">dental excellence.</span>
+                        <span class="italic text-seaglassInk">dental excellence.</span>
                     </h1>
                     
                     <p class="font-sans text-lg lg:text-xl font-light text-marine/70 leading-relaxed mb-12 max-w-md delay-3">
@@ -114,13 +153,19 @@
                     
                     <!-- Integrated Assurance -->
                     <div class="flex items-center gap-4 pt-8 border-t border-marine/10 delay-3">
-                        <div class="flex -space-x-3">
-                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&h=100&q=80" alt="Patient" class="w-10 h-10 rounded-full border-2 border-chalk object-cover grayscale opacity-80">
-                            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&h=100&q=80" alt="Patient" class="w-10 h-10 rounded-full border-2 border-chalk object-cover grayscale opacity-80">
-                            <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=100&h=100&q=80" alt="Patient" class="w-10 h-10 rounded-full border-2 border-chalk object-cover grayscale opacity-80">
+                        <div class="flex -space-x-3" aria-hidden="true">
+                            <span class="w-10 h-10 rounded-full border-2 border-chalk overflow-hidden inline-block">
+                                <svg viewBox="0 0 40 40" class="w-full h-full"><rect width="40" height="40" fill="#85AAA5"/><g fill="none" stroke="#F4F3EF" stroke-width="2" stroke-linecap="round"><path d="M6 26q7-5 14 0t14 0"/><path d="M6 32q7-5 14 0t14 0"/><path d="M6 20q7-5 14 0t14 0"/></g></svg>
+                            </span>
+                            <span class="w-10 h-10 rounded-full border-2 border-chalk overflow-hidden inline-block">
+                                <svg viewBox="0 0 40 40" class="w-full h-full"><rect width="40" height="40" fill="#0C233C"/><path d="M20 8l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" fill="#85AAA5"/></svg>
+                            </span>
+                            <span class="w-10 h-10 rounded-full border-2 border-chalk overflow-hidden inline-block">
+                                <svg viewBox="0 0 40 40" class="w-full h-full"><rect width="40" height="40" fill="#DCE6E3"/><g fill="none" stroke="#0C233C" stroke-width="2" stroke-linecap="round"><path d="M20 34V14"/><path d="M20 22c-6 0-10-4-10-10 6 0 10 4 10 10z"/><path d="M20 28c6 0 10-4 10-10-6 0-10 4-10 10z"/></g></svg>
+                            </span>
                         </div>
                         <div class="flex flex-col justify-center">
-                            <div class="flex items-center text-seaglass mb-1 gap-0.5">
+                            <div class="flex items-center text-seaglassInk mb-1 gap-0.5" aria-hidden="true">
                                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -137,10 +182,79 @@
             <!-- Right Image Showcase -->
             <div class="w-full lg:w-[45%] flex items-center justify-center p-4 lg:p-8 h-[50vh] sm:h-[60vh] lg:h-screen lg:min-h-[800px] reveal active delay-2">
                 <div class="relative w-full h-full lg:h-[85%] overflow-hidden rounded-[2rem] lg:rounded-tr-[10rem] lg:rounded-bl-[10rem] shadow-2xl shadow-marine/10 group">
-                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=2070&auto=format&fit=crop" 
-                         alt="Refined dental clinic interior" 
-                         class="absolute inset-0 w-full h-full object-cover object-center transform scale-105 group-hover:scale-100 transition-transform duration-[3s] ease-out">
-                    <div class="absolute inset-0 bg-gradient-to-t from-marine/40 via-transparent to-marine/10 mix-blend-multiply"></div>
+                    <svg class="absolute inset-0 w-full h-full transform scale-105 group-hover:scale-100 transition-transform duration-[3s] ease-out" viewBox="0 0 900 1100" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="qdh-title">
+                        <title id="qdh-title">Illustration of the Quayside treatment lounge: a calm chair before an arched window overlooking the Savannah waterfront</title>
+                        <defs>
+                            <linearGradient id="qdh-sky" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#E7EEEC"/><stop offset="1" stop-color="#F4F3EF"/>
+                            </linearGradient>
+                            <linearGradient id="qdh-water" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#A9C4BF"/><stop offset="1" stop-color="#85AAA5"/>
+                            </linearGradient>
+                            <linearGradient id="qdh-chair" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#1A3A57"/><stop offset="1" stop-color="#0C233C"/>
+                            </linearGradient>
+                            <clipPath id="qdh-arch"><path d="M240 900 L240 430 A210 210 0 0 1 660 430 L660 900 Z"/></clipPath>
+                        </defs>
+                        <rect width="900" height="1100" fill="url(#qdh-sky)"/>
+                        <rect y="940" width="900" height="160" fill="#EAE8E0"/>
+                        <line x1="0" y1="940" x2="900" y2="940" stroke="#0C233C" stroke-opacity="0.2"/>
+                        <!-- arched window scene -->
+                        <g clip-path="url(#qdh-arch)">
+                            <rect x="240" y="220" width="420" height="470" fill="#F9F8F4"/>
+                            <circle cx="556" cy="472" r="66" fill="#CBDAD6"/>
+                            <circle cx="556" cy="472" r="80" fill="none" stroke="#F4F3EF" stroke-width="3"/>
+                            <rect x="240" y="620" width="420" height="280" fill="url(#qdh-water)" opacity="0.8"/>
+                            <path d="M240 662 Q300 654 360 662 T480 662 T600 662 T720 662" fill="none" stroke="#F4F3EF" stroke-width="2.5" opacity="0.7"/>
+                            <path d="M240 704 Q310 696 380 704 T520 704 T660 704" fill="none" stroke="#F4F3EF" stroke-width="2.5" opacity="0.5"/>
+                            <path d="M240 748 Q320 740 400 748 T560 748 T700 748" fill="none" stroke="#F4F3EF" stroke-width="2.5" opacity="0.35"/>
+                            <g stroke="#0C233C" stroke-opacity="0.5" stroke-width="8" stroke-linecap="round">
+                                <line x1="302" y1="608" x2="302" y2="700"/>
+                                <line x1="334" y1="616" x2="334" y2="692"/>
+                            </g>
+                            <g stroke="#47706A" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.85">
+                                <path d="M600 640q4-26-6-44"/><path d="M613 642q2-30 10-46"/><path d="M626 640q8-22 2-40"/>
+                            </g>
+                        </g>
+                        <path d="M240 900 L240 430 A210 210 0 0 1 660 430 L660 900" fill="none" stroke="#0C233C" stroke-width="3.5"/>
+                        <line x1="450" y1="222" x2="450" y2="616" stroke="#0C233C" stroke-opacity="0.3" stroke-width="2"/>
+                        <line x1="242" y1="620" x2="658" y2="620" stroke="#0C233C" stroke-opacity="0.3" stroke-width="2"/>
+                        <!-- pendant lamp -->
+                        <line x1="168" y1="0" x2="168" y2="298" stroke="#0C233C" stroke-width="2.5"/>
+                        <path d="M138 298h60l-12 42h-36Z" fill="#0C233C"/>
+                        <circle cx="168" cy="352" r="7" fill="#85AAA5"/>
+                        <!-- potted plant -->
+                        <g>
+                            <ellipse cx="168" cy="1040" rx="86" ry="10" fill="#0C233C" opacity="0.08"/>
+                            <path d="M120 938h96l-14 96h-68Z" fill="#0C233C"/>
+                            <g fill="none" stroke="#47706A" stroke-width="3.5" stroke-linecap="round">
+                                <path d="M168 936C168 850 148 812 112 782"/>
+                                <path d="M168 936C172 844 198 802 236 778"/>
+                                <path d="M168 936C166 862 176 818 168 760"/>
+                            </g>
+                            <g fill="#85AAA5">
+                                <ellipse cx="108" cy="780" rx="27" ry="12" transform="rotate(-38 108 780)"/>
+                                <ellipse cx="240" cy="776" rx="27" ry="12" transform="rotate(32 240 776)"/>
+                                <ellipse cx="168" cy="752" rx="24" ry="11"/>
+                                <ellipse cx="130" cy="828" rx="22" ry="10" transform="rotate(-30 130 828)"/>
+                                <ellipse cx="212" cy="824" rx="22" ry="10" transform="rotate(26 212 824)"/>
+                            </g>
+                        </g>
+                        <!-- treatment chair -->
+                        <g>
+                            <ellipse cx="540" cy="1022" rx="210" ry="16" fill="#0C233C" opacity="0.08"/>
+                            <line x1="540" y1="928" x2="540" y2="988" stroke="#0C233C" stroke-width="26"/>
+                            <line x1="472" y1="996" x2="608" y2="996" stroke="#0C233C" stroke-width="13" stroke-linecap="round"/>
+                            <line x1="404" y1="906" x2="664" y2="906" stroke="url(#qdh-chair)" stroke-width="56" stroke-linecap="round"/>
+                            <line x1="652" y1="888" x2="714" y2="762" stroke="url(#qdh-chair)" stroke-width="52" stroke-linecap="round"/>
+                            <line x1="412" y1="914" x2="324" y2="956" stroke="url(#qdh-chair)" stroke-width="44" stroke-linecap="round"/>
+                            <circle cx="726" cy="728" r="25" fill="#0C233C"/>
+                            <line x1="424" y1="894" x2="600" y2="894" stroke="#85AAA5" stroke-width="7" stroke-linecap="round"/>
+                        </g>
+                        <!-- brand star mark -->
+                        <path d="M96 132l7 21 21 7-21 7-7 21-7-21-21-7 21-7z" fill="none" stroke="#47706A" stroke-width="2.5" stroke-linejoin="round"/>
+                    </svg>
+                    <div class="absolute inset-0 bg-gradient-to-t from-marine/40 via-transparent to-marine/10 mix-blend-multiply pointer-events-none"></div>
                     <div class="absolute inset-0 border-[1px] border-white/20 rounded-[2rem] lg:rounded-tr-[10rem] lg:rounded-bl-[10rem] m-4 pointer-events-none"></div>
                 </div>
             </div>
@@ -153,9 +267,9 @@
     <!-- Ethos / Philosophy -->
     <section class="py-24 lg:py-32 px-6 lg:px-16 xl:px-24 bg-chalk relative">
         <div class="max-w-4xl mx-auto text-center reveal">
-            <span class="text-seaglass font-sans text-xs tracking-[0.25em] uppercase font-medium block mb-8">The Quayside Ethos</span>
+            <span class="text-seaglassInk font-sans text-xs tracking-[0.25em] uppercase font-medium block mb-8">The Quayside Ethos</span>
             <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-marine leading-[1.1] mb-8">
-                We believe exceptional clinical outcomes should be paired with an atmosphere of absolute <span class="italic text-seaglass">tranquility.</span>
+                We believe exceptional clinical outcomes should be paired with an atmosphere of absolute <span class="italic text-seaglassInk">tranquility.</span>
             </h2>
             <p class="font-sans text-lg font-light text-marine/70 max-w-2xl mx-auto leading-relaxed">
                 Dentistry is no longer just about procedures; it is about the patient experience. Every detail of our practice has been meticulously curated to alleviate anxiety, build enduring trust, and elevate your standard of care.
@@ -185,7 +299,44 @@
             <!-- Card 1 -->
             <div class="group cursor-pointer reveal delay-1">
                 <div class="overflow-hidden aspect-[4/5] mb-8 rounded-tr-[4rem] rounded-bl-[4rem]">
-                    <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800" alt="Preventative Care" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 opacity-90 group-hover:opacity-100">
+                    <svg class="w-full h-full group-hover:scale-105 transition-transform duration-1000 opacity-90 group-hover:opacity-100" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="qds1-title">
+                        <title id="qds1-title">Line illustration of a healthy tooth sheltered by a protective arc, with leaf sprigs for wellness</title>
+                        <defs>
+                            <linearGradient id="qds1-bg" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#16344F"/><stop offset="1" stop-color="#0A1E33"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="400" height="500" fill="url(#qds1-bg)"/>
+                        <circle cx="200" cy="240" r="152" fill="none" stroke="#85AAA5" stroke-opacity="0.3"/>
+                        <circle cx="200" cy="240" r="116" fill="none" stroke="#F4F3EF" stroke-opacity="0.3" stroke-dasharray="2 11" stroke-linecap="round"/>
+                        <path d="M84 300 A130 130 0 1 1 316 300" fill="none" stroke="#85AAA5" stroke-width="3.5" stroke-linecap="round"/>
+                        <!-- leaf sprig -->
+                        <g>
+                            <path d="M112 386C150 344 168 310 182 268" fill="none" stroke="#47706A" stroke-width="3" stroke-linecap="round"/>
+                            <g fill="#85AAA5" opacity="0.9">
+                                <ellipse cx="126" cy="352" rx="17" ry="7" transform="rotate(-52 126 352)"/>
+                                <ellipse cx="158" cy="336" rx="17" ry="7" transform="rotate(28 158 336)"/>
+                                <ellipse cx="152" cy="304" rx="16" ry="7" transform="rotate(-58 152 304)"/>
+                                <ellipse cx="184" cy="292" rx="15" ry="6" transform="rotate(24 184 292)"/>
+                            </g>
+                        </g>
+                        <!-- tooth -->
+                        <path d="M200 168c-14-15-35-21-53-11-22 12-30 41-22 67 8 25 19 43 23 75 3 24 8 46 20 46 14 0 14-27 18-45 3-14 11-14 14 0 4 18 4 45 18 45 12 0 17-22 20-46 4-32 15-50 23-75 8-26 0-55-22-67-18-10-39-4-53 11z" fill="#F4F3EF"/>
+                        <path d="M166 196c-8 8-11 20-9 32" fill="none" stroke="#85AAA5" stroke-width="4" stroke-linecap="round"/>
+                        <!-- glints -->
+                        <g stroke="#F4F3EF" stroke-width="2.5" stroke-linecap="round" opacity="0.85">
+                            <path d="M296 148v20M286 158h20"/>
+                            <path d="M112 180v14M105 187h14"/>
+                        </g>
+                        <!-- baseline ticks -->
+                        <g stroke="#85AAA5" stroke-opacity="0.5" stroke-width="2">
+                            <line x1="60" y1="446" x2="60" y2="434"/><line x1="100" y1="446" x2="100" y2="438"/>
+                            <line x1="140" y1="446" x2="140" y2="438"/><line x1="180" y1="446" x2="180" y2="434"/>
+                            <line x1="220" y1="446" x2="220" y2="438"/><line x1="260" y1="446" x2="260" y2="438"/>
+                            <line x1="300" y1="446" x2="300" y2="434"/><line x1="340" y1="446" x2="340" y2="438"/>
+                        </g>
+                        <line x1="48" y1="446" x2="352" y2="446" stroke="#85AAA5" stroke-opacity="0.5" stroke-width="2"/>
+                    </svg>
                 </div>
                 <div class="flex items-center gap-4 mb-4">
                     <span class="text-seaglass font-sans text-[0.65rem] tracking-[0.2em] uppercase">01</span>
@@ -200,7 +351,40 @@
             <!-- Card 2 -->
             <div class="group cursor-pointer reveal delay-2">
                 <div class="overflow-hidden aspect-[4/5] mb-8 rounded-tl-[4rem] rounded-br-[4rem]">
-                    <img src="https://images.unsplash.com/photo-1590664095641-7fa05f689813?auto=format&fit=crop&q=80&w=800" alt="Cosmetic Artistry" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 opacity-90 group-hover:opacity-100">
+                    <svg class="w-full h-full group-hover:scale-105 transition-transform duration-1000 opacity-90 group-hover:opacity-100" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="qds2-title">
+                        <title id="qds2-title">Drafting-style illustration of a designed smile: a sweeping arc with sculpted veneer facets and star glints</title>
+                        <defs>
+                            <linearGradient id="qds2-bg" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#122C46"/><stop offset="1" stop-color="#0A1E33"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="400" height="500" fill="url(#qds2-bg)"/>
+                        <circle cx="200" cy="256" r="160" fill="none" stroke="#85AAA5" stroke-opacity="0.28"/>
+                        <path d="M40 132C130 80 270 80 360 132" fill="none" stroke="#F4F3EF" stroke-opacity="0.3" stroke-dasharray="3 10" stroke-linecap="round"/>
+                        <!-- smile arc -->
+                        <path d="M90 258Q200 360 310 258" fill="none" stroke="#F4F3EF" stroke-width="3.5" stroke-linecap="round"/>
+                        <!-- veneer facets -->
+                        <g fill="#F4F3EF">
+                            <rect x="117" y="290" width="34" height="46" rx="11" transform="rotate(-22 134 313)"/>
+                            <rect x="150" y="305" width="34" height="48" rx="11" transform="rotate(-11 167 329)"/>
+                            <rect x="183" y="311" width="34" height="50" rx="11"/>
+                            <rect x="216" y="305" width="34" height="48" rx="11" transform="rotate(11 233 329)"/>
+                            <rect x="249" y="290" width="34" height="46" rx="11" transform="rotate(22 266 313)"/>
+                        </g>
+                        <g stroke="#85AAA5" stroke-width="3" stroke-linecap="round">
+                            <line x1="194" y1="322" x2="194" y2="340"/>
+                            <line x1="160" y1="318" x2="157" y2="334"/>
+                        </g>
+                        <!-- guide measurements -->
+                        <g stroke="#85AAA5" stroke-opacity="0.6" stroke-width="2">
+                            <line x1="90" y1="380" x2="90" y2="396"/><line x1="310" y1="380" x2="310" y2="396"/>
+                            <line x1="90" y1="388" x2="310" y2="388"/>
+                        </g>
+                        <!-- star glints -->
+                        <path d="M312 168l3.2 10.8L326 182l-10.8 3.2L312 196l-3.2-10.8L298 182l10.8-3.2z" fill="#85AAA5"/>
+                        <path d="M96 208l2.4 8.4 8.4 2.4-8.4 2.4-2.4 8.4-2.4-8.4-8.4-2.4 8.4-2.4z" fill="#F4F3EF" opacity="0.8"/>
+                        <path d="M226 118l2 7 7 2-7 2-2 7-2-7-7-2 7-2z" fill="#85AAA5" opacity="0.7"/>
+                    </svg>
                 </div>
                 <div class="flex items-center gap-4 mb-4">
                     <span class="text-seaglass font-sans text-[0.65rem] tracking-[0.2em] uppercase">02</span>
@@ -215,7 +399,45 @@
             <!-- Card 3 -->
             <div class="group cursor-pointer reveal delay-3">
                 <div class="overflow-hidden aspect-[4/5] mb-8 rounded-tr-[4rem] rounded-bl-[4rem]">
-                    <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800" alt="Restorative Solutions" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 opacity-90 group-hover:opacity-100">
+                    <svg class="w-full h-full group-hover:scale-105 transition-transform duration-1000 opacity-90 group-hover:opacity-100" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="qds3-title">
+                        <title id="qds3-title">Blueprint-style illustration of a dental implant: crown, abutment and threaded post with dimension guides</title>
+                        <defs>
+                            <linearGradient id="qds3-bg" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#143050"/><stop offset="1" stop-color="#0A1E33"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="400" height="500" fill="url(#qds3-bg)"/>
+                        <circle cx="200" cy="270" r="150" fill="none" stroke="#85AAA5" stroke-opacity="0.28"/>
+                        <!-- gum line -->
+                        <path d="M56 250Q120 236 168 250T280 250T344 250" fill="none" stroke="#85AAA5" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+                        <!-- dotted bone field -->
+                        <g fill="#85AAA5" opacity="0.35">
+                            <circle cx="92" cy="300" r="2.5"/><circle cx="128" cy="330" r="2.5"/><circle cx="96" cy="368" r="2.5"/>
+                            <circle cx="140" cy="398" r="2.5"/><circle cx="304" cy="308" r="2.5"/><circle cx="272" cy="342" r="2.5"/>
+                            <circle cx="308" cy="380" r="2.5"/><circle cx="266" cy="410" r="2.5"/>
+                        </g>
+                        <!-- crown -->
+                        <path d="M156 214c0-32 18-50 44-50s44 18 44 50c0 16-8 22-8 34h-72c0-12-8-18-8-34z" fill="#F4F3EF"/>
+                        <path d="M178 178c8-6 18-8 26-4" fill="none" stroke="#85AAA5" stroke-width="3.5" stroke-linecap="round"/>
+                        <!-- abutment -->
+                        <rect x="184" y="248" width="32" height="16" fill="#85AAA5"/>
+                        <!-- threaded post -->
+                        <rect x="180" y="264" width="40" height="140" rx="19" fill="none" stroke="#F4F3EF" stroke-width="3"/>
+                        <g stroke="#85AAA5" stroke-width="3" stroke-linecap="round">
+                            <line x1="182" y1="286" x2="218" y2="280"/>
+                            <line x1="182" y1="308" x2="218" y2="302"/>
+                            <line x1="182" y1="330" x2="218" y2="324"/>
+                            <line x1="182" y1="352" x2="218" y2="346"/>
+                            <line x1="182" y1="374" x2="218" y2="368"/>
+                        </g>
+                        <line x1="200" y1="140" x2="200" y2="428" stroke="#F4F3EF" stroke-opacity="0.25" stroke-dasharray="3 9"/>
+                        <!-- dimension guide -->
+                        <g stroke="#85AAA5" stroke-opacity="0.7" stroke-width="2">
+                            <line x1="292" y1="264" x2="292" y2="404"/>
+                            <line x1="284" y1="264" x2="300" y2="264"/>
+                            <line x1="284" y1="404" x2="300" y2="404"/>
+                        </g>
+                    </svg>
                 </div>
                 <div class="flex items-center gap-4 mb-4">
                     <span class="text-seaglass font-sans text-[0.65rem] tracking-[0.2em] uppercase">03</span>
@@ -239,8 +461,64 @@
         <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
             <div class="w-full lg:w-1/2 reveal">
                 <div class="relative aspect-square lg:aspect-[4/5] overflow-hidden rounded-[2rem] lg:rounded-tl-[10rem] lg:rounded-br-[10rem] shadow-xl shadow-marine/5 group">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200" alt="Calming Clinic Environment" class="absolute inset-0 w-full h-full object-cover transform scale-105 group-hover:scale-100 transition-transform duration-[2s]">
-                    <div class="absolute inset-0 bg-marine/10 mix-blend-multiply"></div>
+                    <svg class="absolute inset-0 w-full h-full transform scale-105 group-hover:scale-100 transition-transform duration-[2s]" viewBox="0 0 900 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="qde-title">
+                        <title id="qde-title">Illustration of the Quayside lounge: an arched niche, a quiet reading chair, pendant light and greenery</title>
+                        <defs>
+                            <linearGradient id="qde-wall" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#F7F6F1"/><stop offset="1" stop-color="#EFEDE6"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="900" height="1000" fill="url(#qde-wall)"/>
+                        <rect y="770" width="900" height="230" fill="#E8E5DC"/>
+                        <line x1="0" y1="770" x2="900" y2="770" stroke="#0C233C" stroke-opacity="0.2"/>
+                        <!-- light shafts -->
+                        <polygon points="900,0 760,0 380,1000 560,1000" fill="#85AAA5" opacity="0.08"/>
+                        <polygon points="900,120 860,60 540,1000 640,1000" fill="#85AAA5" opacity="0.06"/>
+                        <!-- arched shelf niche -->
+                        <g>
+                            <path d="M96 770 L96 380 A116 116 0 0 1 328 380 L328 770" fill="#EFEDE6" stroke="#0C233C" stroke-width="3"/>
+                            <line x1="106" y1="520" x2="318" y2="520" stroke="#0C233C" stroke-width="2.5"/>
+                            <line x1="106" y1="644" x2="318" y2="644" stroke="#0C233C" stroke-width="2.5"/>
+                            <path d="M170 470c0-28 16-44 16-62 0-10 16-10 16 0 0 18 16 34 16 62z" fill="#85AAA5"/>
+                            <g stroke="#0C233C" stroke-width="3" stroke-linecap="round">
+                                <line x1="150" y1="644" x2="150" y2="586"/>
+                                <line x1="166" y1="644" x2="166" y2="592"/>
+                                <line x1="182" y1="644" x2="182" y2="582"/>
+                            </g>
+                            <circle cx="256" cy="612" r="26" fill="none" stroke="#47706A" stroke-width="3"/>
+                            <path d="M120 770v-70a44 44 0 0 1 88 0v70" fill="none" stroke="#47706A" stroke-width="3"/>
+                        </g>
+                        <!-- pendant -->
+                        <line x1="600" y1="0" x2="600" y2="252" stroke="#0C233C" stroke-width="2.5"/>
+                        <path d="M566 252h68l-13 46h-42Z" fill="#0C233C"/>
+                        <circle cx="600" cy="312" r="8" fill="#85AAA5"/>
+                        <!-- reading chair -->
+                        <g>
+                            <ellipse cx="600" cy="864" rx="190" ry="14" fill="#0C233C" opacity="0.08"/>
+                            <line x1="512" y1="742" x2="688" y2="742" stroke="#0C233C" stroke-width="60" stroke-linecap="round"/>
+                            <line x1="694" y1="726" x2="694" y2="600" stroke="#0C233C" stroke-width="54" stroke-linecap="round"/>
+                            <line x1="530" y1="734" x2="656" y2="734" stroke="#85AAA5" stroke-width="9" stroke-linecap="round"/>
+                            <g stroke="#0C233C" stroke-width="7" stroke-linecap="round">
+                                <line x1="530" y1="772" x2="522" y2="842"/>
+                                <line x1="670" y1="772" x2="678" y2="842"/>
+                            </g>
+                        </g>
+                        <!-- side table -->
+                        <g>
+                            <ellipse cx="806" cy="700" rx="58" ry="12" fill="none" stroke="#0C233C" stroke-width="3.5"/>
+                            <line x1="806" y1="712" x2="806" y2="838" stroke="#0C233C" stroke-width="5"/>
+                            <line x1="770" y1="842" x2="842" y2="842" stroke="#0C233C" stroke-width="5" stroke-linecap="round"/>
+                            <path d="M790 688v-16h24v16" fill="none" stroke="#47706A" stroke-width="3.5"/>
+                        </g>
+                        <!-- rug -->
+                        <rect x="430" y="880" width="360" height="76" rx="14" fill="none" stroke="#0C233C" stroke-opacity="0.35" stroke-width="2.5" stroke-dasharray="8 8"/>
+                        <!-- wall frames -->
+                        <rect x="480" y="120" width="76" height="96" fill="none" stroke="#0C233C" stroke-width="2.5"/>
+                        <path d="M492 196c14-22 28-22 42-38" fill="none" stroke="#85AAA5" stroke-width="3" stroke-linecap="round"/>
+                        <rect x="380" y="150" width="60" height="66" fill="none" stroke="#0C233C" stroke-width="2.5"/>
+                        <circle cx="410" cy="183" r="14" fill="none" stroke="#47706A" stroke-width="3"/>
+                    </svg>
+                    <div class="absolute inset-0 bg-marine/10 mix-blend-multiply pointer-events-none"></div>
                     <div class="absolute inset-0 border border-chalk/30 rounded-[2rem] lg:rounded-tl-[10rem] lg:rounded-br-[10rem] m-4 pointer-events-none"></div>
                 </div>
             </div>
@@ -248,9 +526,9 @@
             <div class="w-full lg:w-1/2 reveal delay-2">
                 <div class="flex items-center gap-4 mb-6">
                     <div class="w-8 h-[1px] bg-seaglass"></div>
-                    <span class="text-seaglass font-sans text-xs tracking-[0.25em] uppercase font-medium">The Experience</span>
+                    <span class="text-seaglassInk font-sans text-xs tracking-[0.25em] uppercase font-medium">The Experience</span>
                 </div>
-                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-marine leading-[1.1] mb-8">Designed for your <span class="italic text-seaglass">peace of mind.</span></h2>
+                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-marine leading-[1.1] mb-8">Designed for your <span class="italic text-seaglassInk">peace of mind.</span></h2>
                 
                 <div class="space-y-6 font-sans text-lg font-light text-marine/80 leading-relaxed mb-10">
                     <p>From the moment you step into our Savannah clinic, the clinical feel of traditional dentistry fades away. You are welcomed into a space that feels more like a boutique wellness retreat.</p>
@@ -259,19 +537,19 @@
                 
                 <ul class="space-y-5">
                     <li class="flex items-center gap-4 text-marine font-sans text-sm tracking-wide font-medium">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full border border-seaglass/30 bg-seaglass/10 text-seaglass">
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full border border-seaglass/40 bg-seaglass/15 text-seaglassInk" aria-hidden="true">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
                         Aromatherapy & Warm Towel Service
                     </li>
                     <li class="flex items-center gap-4 text-marine font-sans text-sm tracking-wide font-medium">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full border border-seaglass/30 bg-seaglass/10 text-seaglass">
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full border border-seaglass/40 bg-seaglass/15 text-seaglassInk" aria-hidden="true">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
                         Noise-Canceling Audio Menus
                     </li>
                     <li class="flex items-center gap-4 text-marine font-sans text-sm tracking-wide font-medium">
-                        <div class="flex items-center justify-center w-8 h-8 rounded-full border border-seaglass/30 bg-seaglass/10 text-seaglass">
+                        <div class="flex items-center justify-center w-8 h-8 rounded-full border border-seaglass/40 bg-seaglass/15 text-seaglassInk" aria-hidden="true">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </div>
                         Private Consultation Suites
@@ -286,7 +564,46 @@
         <div class="flex flex-col lg:flex-row-reverse items-center gap-16 lg:gap-24">
             <div class="w-full lg:w-5/12 reveal">
                 <div class="relative aspect-[3/4] overflow-hidden rounded-[1rem] shadow-2xl shadow-marine/10">
-                    <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&q=80&w=800" alt="Lead Dentist" class="absolute inset-0 w-full h-full object-cover">
+                    <svg class="absolute inset-0 w-full h-full" viewBox="0 0 700 900" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="qdt-title">
+                        <title id="qdt-title">Stylized portrait illustration of the clinical director in a white coat before an arched seaglass backdrop</title>
+                        <rect width="700" height="900" fill="#D7E2DF"/>
+                        <path d="M110 900 L110 400 A240 240 0 0 1 590 400 L590 900 Z" fill="#C6D6D2"/>
+                        <circle cx="350" cy="392" r="176" fill="none" stroke="#F4F3EF" stroke-width="3"/>
+                        <!-- sprig -->
+                        <g opacity="0.9">
+                            <path d="M92 856C120 812 136 780 148 742" fill="none" stroke="#47706A" stroke-width="3" stroke-linecap="round"/>
+                            <g fill="#85AAA5">
+                                <ellipse cx="104" cy="820" rx="16" ry="7" transform="rotate(-50 104 820)"/>
+                                <ellipse cx="134" cy="800" rx="16" ry="7" transform="rotate(30 134 800)"/>
+                                <ellipse cx="130" cy="766" rx="15" ry="6" transform="rotate(-55 130 766)"/>
+                            </g>
+                        </g>
+                        <!-- figure -->
+                        <g>
+                            <!-- neck -->
+                            <rect x="322" y="440" width="56" height="52" fill="#2A4A68"/>
+                            <!-- head -->
+                            <ellipse cx="350" cy="392" rx="62" ry="70" fill="#2A4A68"/>
+                            <!-- hair -->
+                            <path d="M288 392c-4-56 24-96 62-96s66 40 62 96c-8-40-18-58-34-64-8 18-56 22-72 8-10 12-14 32-18 56z" fill="#0C233C"/>
+                            <circle cx="424" cy="348" r="27" fill="#0C233C"/>
+                            <!-- coat -->
+                            <path d="M350 486c-92 0-152 62-162 152l-15 262h354l-15-262c-10-90-70-152-162-152z" fill="#F4F3EF" stroke="#0C233C" stroke-width="3"/>
+                            <!-- scrub top -->
+                            <path d="M314 490l36 84 36-84c-10-6-24-9-36-9s-26 3-36 9z" fill="#47706A"/>
+                            <!-- lapels -->
+                            <path d="M314 490l-30 118 42-56" fill="none" stroke="#0C233C" stroke-width="2.5" stroke-linejoin="round"/>
+                            <path d="M386 490l30 118-42-56" fill="none" stroke="#0C233C" stroke-width="2.5" stroke-linejoin="round"/>
+                            <!-- pocket + pen -->
+                            <path d="M232 700h72v58h-72z" fill="none" stroke="#0C233C" stroke-width="2.5"/>
+                            <line x1="252" y1="700" x2="252" y2="688" stroke="#47706A" stroke-width="5" stroke-linecap="round"/>
+                            <!-- star pin -->
+                            <path d="M436 560l5 15 15 5-15 5-5 15-5-15-15-5 15-5z" fill="#85AAA5"/>
+                            <!-- buttons -->
+                            <circle cx="350" cy="640" r="5" fill="#0C233C"/>
+                            <circle cx="350" cy="700" r="5" fill="#0C233C"/>
+                        </g>
+                    </svg>
                     <div class="absolute inset-0 bg-gradient-to-t from-marine/60 via-transparent to-transparent"></div>
                     <div class="absolute bottom-6 left-6 text-chalk">
                         <h3 class="font-serif text-2xl mb-1">Dr. Eleanor Hayes, DMD</h3>
@@ -298,9 +615,9 @@
             <div class="w-full lg:w-7/12 reveal delay-2">
                 <div class="flex items-center gap-4 mb-6">
                     <div class="w-8 h-[1px] bg-seaglass"></div>
-                    <span class="text-seaglass font-sans text-xs tracking-[0.25em] uppercase font-medium">Clinical Leadership</span>
+                    <span class="text-seaglassInk font-sans text-xs tracking-[0.25em] uppercase font-medium">Clinical Leadership</span>
                 </div>
-                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-marine leading-[1.1] mb-8">Guided by <span class="italic text-seaglass">expertise.</span></h2>
+                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-marine leading-[1.1] mb-8">Guided by <span class="italic text-seaglassInk">expertise.</span></h2>
                 
                 <p class="font-sans text-lg font-light text-marine/80 leading-relaxed mb-8">
                     "My philosophy is rooted in the belief that the finest dental work goes entirely unnoticed. We do not just fix teeth; we engineer smiles that harmonize perfectly with your natural facial aesthetics, all while preserving the maximum amount of healthy structure."
@@ -310,9 +627,9 @@
                     <div>
                         <h4 class="font-sans text-xs font-medium tracking-[0.2em] uppercase text-marine mb-3">Credentials</h4>
                         <ul class="space-y-2 font-sans text-sm font-light text-marine/70">
-                            <li>Doctor of Dental Medicine, MCG</li>
-                            <li>American Academy of Cosmetic Dentistry</li>
-                            <li>Kois Center Graduate</li>
+                            <li>Doctor of Dental Medicine</li>
+                            <li>Fellowship-trained, restorative dentistry</li>
+                            <li>Continuing education, implant prosthetics</li>
                         </ul>
                     </div>
                     <div>
@@ -328,8 +645,289 @@
         </div>
     </section>
 
+    <!-- Process / What to Expect -->
+    <section id="process" class="py-24 lg:py-32 px-6 lg:px-16 xl:px-24 bg-chalk relative">
+        <div class="max-w-3xl mx-auto text-center mb-16 lg:mb-20 reveal">
+            <div class="flex items-center justify-center gap-4 mb-6">
+                <div class="w-8 h-[1px] bg-seaglass"></div>
+                <span class="text-seaglassInk font-sans text-xs tracking-[0.25em] uppercase font-medium">Your First Visit</span>
+                <div class="w-8 h-[1px] bg-seaglass"></div>
+            </div>
+            <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-marine leading-[1.1] mb-6">An hour that feels <span class="italic text-seaglassInk">considered.</span></h2>
+            <p class="font-sans text-lg font-light text-marine/70 leading-relaxed max-w-xl mx-auto">Every new patient visit follows the same unhurried rhythm. Plan for around seventy-five minutes with us.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-16 max-w-6xl mx-auto">
+            <div class="reveal delay-1">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="font-serif italic text-4xl text-seaglassInk">01</span>
+                    <div class="h-px bg-marine/15 flex-grow"></div>
+                </div>
+                <h3 class="font-serif text-2xl lg:text-3xl text-marine mb-4">Welcome &amp; Listening</h3>
+                <p class="font-sans font-light text-marine/70 text-sm leading-relaxed">You arrive to a warm greeting and a calm lounge, not a clipboard. We begin with a conversation about your history, your concerns, and how you would like dentistry to feel.</p>
+            </div>
+            <div class="reveal delay-2">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="font-serif italic text-4xl text-seaglassInk">02</span>
+                    <div class="h-px bg-marine/15 flex-grow"></div>
+                </div>
+                <h3 class="font-serif text-2xl lg:text-3xl text-marine mb-4">Gentle Diagnostics</h3>
+                <p class="font-sans font-light text-marine/70 text-sm leading-relaxed">Low-dose digital imaging, gum health mapping, and a careful bite assessment — narrated as we go, so nothing about your own health feels like a mystery.</p>
+            </div>
+            <div class="reveal delay-3">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="font-serif italic text-4xl text-seaglassInk">03</span>
+                    <div class="h-px bg-marine/15 flex-grow"></div>
+                </div>
+                <h3 class="font-serif text-2xl lg:text-3xl text-marine mb-4">A Considered Plan</h3>
+                <p class="font-sans font-light text-marine/70 text-sm leading-relaxed">You leave with a clear, phased care plan and transparent fees. Where treatment can wait, we say so; where it matters, we explain precisely why.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patient Stories -->
+    <section id="stories" class="py-24 lg:py-32 px-6 lg:px-16 xl:px-24 bg-marine text-chalk relative">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-seaglass/50 to-transparent"></div>
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 lg:mb-20 reveal">
+            <div class="max-w-xl">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-8 h-[1px] bg-seaglass"></div>
+                    <span class="text-seaglass font-sans text-xs tracking-[0.25em] uppercase font-medium">Kind Words</span>
+                </div>
+                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.1]">In our patients' <span class="italic text-seaglass">own words.</span></h2>
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
+            <blockquote class="border border-chalk/10 p-8 lg:p-10 flex flex-col reveal delay-1">
+                <span class="font-serif text-6xl text-seaglass/40 leading-none block mb-6" aria-hidden="true">&ldquo;</span>
+                <p class="font-serif text-xl lg:text-2xl italic leading-relaxed text-chalk/90 mb-8 flex-grow">I had avoided dentists for years. The team walked me through every step of a crown replacement before starting, and the quiet handpieces made a real difference. Two visits, zero dread.</p>
+                <footer class="pt-6 border-t border-chalk/10">
+                    <p class="font-sans text-xs font-medium tracking-[0.2em] uppercase text-chalk">Elena R.</p>
+                    <p class="font-sans text-[0.65rem] tracking-[0.15em] uppercase text-seaglass mt-1.5">Savannah, GA</p>
+                </footer>
+            </blockquote>
+            <blockquote class="border border-chalk/10 p-8 lg:p-10 flex flex-col reveal delay-2 md:mt-10">
+                <span class="font-serif text-6xl text-seaglass/40 leading-none block mb-6" aria-hidden="true">&ldquo;</span>
+                <p class="font-serif text-xl lg:text-2xl italic leading-relaxed text-chalk/90 mb-8 flex-grow">My consultation lasted forty minutes, and I was recommended less treatment than I walked in expecting. The two veneers they did place match my natural teeth exactly.</p>
+                <footer class="pt-6 border-t border-chalk/10">
+                    <p class="font-sans text-xs font-medium tracking-[0.2em] uppercase text-chalk">James W.</p>
+                    <p class="font-sans text-[0.65rem] tracking-[0.15em] uppercase text-seaglass mt-1.5">Pooler, GA</p>
+                </footer>
+            </blockquote>
+            <blockquote class="border border-chalk/10 p-8 lg:p-10 flex flex-col reveal delay-3">
+                <span class="font-serif text-6xl text-seaglass/40 leading-none block mb-6" aria-hidden="true">&ldquo;</span>
+                <p class="font-serif text-xl lg:text-2xl italic leading-relaxed text-chalk/90 mb-8 flex-grow">Booking for our family of four is effortless, and the hygienists are unhurried and gentle. Our kids genuinely do not mind cleaning day anymore.</p>
+                <footer class="pt-6 border-t border-chalk/10">
+                    <p class="font-sans text-xs font-medium tracking-[0.2em] uppercase text-chalk">Priya S.</p>
+                    <p class="font-sans text-[0.65rem] tracking-[0.15em] uppercase text-seaglass mt-1.5">Richmond Hill, GA</p>
+                </footer>
+            </blockquote>
+        </div>
+    </section>
+
+    <!-- Service Area -->
+    <section id="area" class="py-24 lg:py-32 px-6 lg:px-16 xl:px-24 bg-chalk relative">
+        <div class="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+            <div class="w-full lg:w-1/2 reveal">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-8 h-[1px] bg-seaglass"></div>
+                    <span class="text-seaglassInk font-sans text-xs tracking-[0.25em] uppercase font-medium">Where We Serve</span>
+                </div>
+                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-marine leading-[1.1] mb-8">Rooted on the <span class="italic text-seaglassInk">waterfront.</span></h2>
+                <p class="font-sans text-lg font-light text-marine/80 leading-relaxed mb-10">Our studio sits minutes from Savannah's Historic District, and we welcome patients from the islands and communities that surround the city. On-site parking is complimentary.</p>
+                <ul class="flex flex-wrap gap-3">
+                    <li class="px-4 py-2 bg-marine text-chalk font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase">Savannah &middot; Home</li>
+                    <li class="px-4 py-2 border border-marine/20 text-marine font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase">Pooler</li>
+                    <li class="px-4 py-2 border border-marine/20 text-marine font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase">Richmond Hill</li>
+                    <li class="px-4 py-2 border border-marine/20 text-marine font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase">Wilmington Island</li>
+                    <li class="px-4 py-2 border border-marine/20 text-marine font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase">Isle of Hope</li>
+                    <li class="px-4 py-2 border border-marine/20 text-marine font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase">Skidaway Island</li>
+                    <li class="px-4 py-2 border border-marine/20 text-marine font-sans text-[0.65rem] font-medium tracking-[0.2em] uppercase">Thunderbolt</li>
+                </ul>
+            </div>
+            <div class="w-full lg:w-1/2 reveal delay-2">
+                <div class="relative overflow-hidden rounded-[2rem] lg:rounded-tr-[8rem] lg:rounded-bl-[8rem] bg-[#EBE9E2] border border-marine/10">
+                    <svg class="w-full h-auto" viewBox="0 0 700 480" role="img" aria-labelledby="qda-title">
+                        <title id="qda-title">Abstract coastline map: the Quayside studio marked on the waterfront with nearby communities ringed around it</title>
+                        <defs>
+                            <linearGradient id="qda-water" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#A9C4BF"/><stop offset="1" stop-color="#85AAA5"/>
+                            </linearGradient>
+                            <clipPath id="qda-coast"><path d="M320 0C260 120 300 220 260 320S300 460 280 480H700V0Z"/></clipPath>
+                        </defs>
+                        <!-- water -->
+                        <g clip-path="url(#qda-coast)">
+                            <rect width="700" height="480" fill="url(#qda-water)" opacity="0.5"/>
+                            <path d="M340 80q50-8 100 0t100 0 100 0" fill="none" stroke="#F4F3EF" stroke-width="2.5" opacity="0.8"/>
+                            <path d="M360 170q50-8 100 0t100 0 100 0" fill="none" stroke="#F4F3EF" stroke-width="2.5" opacity="0.6"/>
+                            <path d="M330 270q50-8 100 0t100 0 100 0" fill="none" stroke="#F4F3EF" stroke-width="2.5" opacity="0.6"/>
+                            <path d="M340 370q50-8 100 0t100 0 100 0" fill="none" stroke="#F4F3EF" stroke-width="2.5" opacity="0.4"/>
+                        </g>
+                        <path d="M320 0C260 120 300 220 260 320S300 460 280 480" fill="none" stroke="#0C233C" stroke-width="3"/>
+                        <!-- land texture -->
+                        <g fill="#0C233C" opacity="0.15">
+                            <circle cx="80" cy="90" r="2.5"/><circle cx="150" cy="140" r="2.5"/><circle cx="70" cy="210" r="2.5"/>
+                            <circle cx="170" cy="260" r="2.5"/><circle cx="90" cy="330" r="2.5"/><circle cx="180" cy="390" r="2.5"/>
+                            <circle cx="120" cy="430" r="2.5"/><circle cx="220" cy="120" r="2.5"/><circle cx="230" cy="420" r="2.5"/>
+                        </g>
+                        <!-- connection arcs -->
+                        <g fill="none" stroke="#47706A" stroke-width="2" stroke-dasharray="2 8" stroke-linecap="round">
+                            <path d="M258 236C220 180 170 150 122 146"/>
+                            <path d="M258 236C210 260 160 290 118 340"/>
+                            <path d="M258 236C240 300 240 360 258 404"/>
+                            <path d="M258 236C300 180 330 150 356 128"/>
+                            <path d="M258 236C320 270 350 310 368 356"/>
+                        </g>
+                        <!-- satellite markers -->
+                        <g fill="#0C233C">
+                            <circle cx="122" cy="146" r="7"/><circle cx="118" cy="340" r="7"/><circle cx="258" cy="404" r="7"/>
+                            <circle cx="356" cy="128" r="7"/><circle cx="368" cy="356" r="7"/>
+                        </g>
+                        <!-- home marker -->
+                        <circle cx="258" cy="236" r="34" fill="none" stroke="#47706A" stroke-width="2.5"/>
+                        <circle cx="258" cy="236" r="22" fill="#F4F3EF" stroke="#0C233C" stroke-width="3"/>
+                        <path d="M258 224l4 8 8 4-8 4-4 8-4-8-8-4 8-4z" fill="#47706A"/>
+                        <!-- compass -->
+                        <g transform="translate(636 64)">
+                            <circle r="24" fill="none" stroke="#0C233C" stroke-width="2.5"/>
+                            <path d="M0-14L5 6 0 2-5 6Z" fill="#0C233C"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-24 lg:py-32 px-6 lg:px-16 xl:px-24 bg-[#EBE9E2] relative">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-14 lg:mb-16 reveal">
+                <div class="flex items-center justify-center gap-4 mb-6">
+                    <div class="w-8 h-[1px] bg-seaglass"></div>
+                    <span class="text-seaglassInk font-sans text-xs tracking-[0.25em] uppercase font-medium">Before You Ask</span>
+                    <div class="w-8 h-[1px] bg-seaglass"></div>
+                </div>
+                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-marine leading-[1.1]">Questions, <span class="italic text-seaglassInk">answered.</span></h2>
+            </div>
+            <div class="border-t border-marine/15 reveal delay-1">
+                <details class="qd-faq border-b border-marine/15 group">
+                    <summary class="flex items-center justify-between gap-6 py-7">
+                        <h3 class="font-serif text-xl md:text-2xl text-marine">Do you accept dental insurance?</h3>
+                        <span class="qd-faq-icon flex-shrink-0 w-9 h-9 rounded-full border border-marine/20 flex items-center justify-center text-marine" aria-hidden="true">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M12 5v14M5 12h14"/></svg>
+                        </span>
+                    </summary>
+                    <p class="font-sans font-light text-marine/70 leading-relaxed pb-7 pr-2 max-w-2xl">We are insurance-friendly: we file claims on your behalf and give you a written pre-treatment estimate before any work begins. For patients without coverage, our concierge team can walk you through an in-house membership option.</p>
+                </details>
+                <details class="qd-faq border-b border-marine/15 group">
+                    <summary class="flex items-center justify-between gap-6 py-7">
+                        <h3 class="font-serif text-xl md:text-2xl text-marine">I'm anxious about dental visits. How do you help?</h3>
+                        <span class="qd-faq-icon flex-shrink-0 w-9 h-9 rounded-full border border-marine/20 flex items-center justify-center text-marine" aria-hidden="true">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M12 5v14M5 12h14"/></svg>
+                        </span>
+                    </summary>
+                    <p class="font-sans font-light text-marine/70 leading-relaxed pb-7 pr-2 max-w-2xl">Comfort is engineered into every visit: ultra-quiet handpieces, a comfort menu with aromatherapy and audio, pauses whenever you raise a hand, and sedation options we discuss openly at your consultation. Many of our most loyal patients arrived nervous.</p>
+                </details>
+                <details class="qd-faq border-b border-marine/15 group">
+                    <summary class="flex items-center justify-between gap-6 py-7">
+                        <h3 class="font-serif text-xl md:text-2xl text-marine">How long is a first appointment?</h3>
+                        <span class="qd-faq-icon flex-shrink-0 w-9 h-9 rounded-full border border-marine/20 flex items-center justify-center text-marine" aria-hidden="true">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M12 5v14M5 12h14"/></svg>
+                        </span>
+                    </summary>
+                    <p class="font-sans font-light text-marine/70 leading-relaxed pb-7 pr-2 max-w-2xl">Reserve about seventy-five minutes. That covers an unhurried conversation, low-dose digital imaging, a gum health assessment, a cleaning when appropriate, and time to review your care plan without feeling rushed.</p>
+                </details>
+                <details class="qd-faq border-b border-marine/15 group">
+                    <summary class="flex items-center justify-between gap-6 py-7">
+                        <h3 class="font-serif text-xl md:text-2xl text-marine">Do you see children?</h3>
+                        <span class="qd-faq-icon flex-shrink-0 w-9 h-9 rounded-full border border-marine/20 flex items-center justify-center text-marine" aria-hidden="true">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M12 5v14M5 12h14"/></svg>
+                        </span>
+                    </summary>
+                    <p class="font-sans font-light text-marine/70 leading-relaxed pb-7 pr-2 max-w-2xl">Yes — we welcome families and see children from around age three. Early visits are kept short and gentle, and when a specialist is the right call, we coordinate that referral for you.</p>
+                </details>
+                <details class="qd-faq border-b border-marine/15 group">
+                    <summary class="flex items-center justify-between gap-6 py-7">
+                        <h3 class="font-serif text-xl md:text-2xl text-marine">What if I have a dental emergency?</h3>
+                        <span class="qd-faq-icon flex-shrink-0 w-9 h-9 rounded-full border border-marine/20 flex items-center justify-center text-marine" aria-hidden="true">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M12 5v14M5 12h14"/></svg>
+                        </span>
+                    </summary>
+                    <p class="font-sans font-light text-marine/70 leading-relaxed pb-7 pr-2 max-w-2xl">Call <a href="tel:+19125550151" class="text-marine underline decoration-seaglass underline-offset-4 hover:text-seaglassInk transition-colors">(912) 555-0151</a> as early in the day as you can. We hold same-day reserve slots for patients of record with pain, swelling, or a broken tooth, and we will always talk you through immediate next steps.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Consultation -->
+    <section id="contact" class="py-24 lg:py-32 px-6 lg:px-16 xl:px-24 bg-chalk relative">
+        <div class="flex flex-col lg:flex-row gap-16 lg:gap-24">
+            <div class="w-full lg:w-5/12 reveal">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-8 h-[1px] bg-seaglass"></div>
+                    <span class="text-seaglassInk font-sans text-xs tracking-[0.25em] uppercase font-medium">Begin</span>
+                </div>
+                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-marine leading-[1.1] mb-8">Reserve your <span class="italic text-seaglassInk">consultation.</span></h2>
+                <p class="font-sans text-lg font-light text-marine/80 leading-relaxed mb-10 max-w-md">Share a few details and our concierge team will reach out within one business day to find a time that suits you.</p>
+                <div class="space-y-6 pt-8 border-t border-marine/10">
+                    <div>
+                        <h3 class="font-sans text-xs font-medium tracking-[0.2em] uppercase text-marine mb-2">Concierge Line</h3>
+                        <a href="tel:+19125550151" class="font-serif text-3xl text-marine hover:text-seaglassInk transition-colors">(912) 555-0151</a>
+                    </div>
+                    <div>
+                        <h3 class="font-sans text-xs font-medium tracking-[0.2em] uppercase text-marine mb-2">Email</h3>
+                        <a href="mailto:concierge@quaysidedental.example" class="font-sans text-sm font-light text-marine/80 hover:text-seaglassInk transition-colors break-all">concierge@quaysidedental.example</a>
+                    </div>
+                    <div>
+                        <h3 class="font-sans text-xs font-medium tracking-[0.2em] uppercase text-marine mb-2">Hours</h3>
+                        <p class="font-sans text-sm font-light text-marine/70 leading-relaxed">Monday &ndash; Thursday, 8:00am &ndash; 5:00pm<br>Friday, 8:00am &ndash; 1:00pm</p>
+                    </div>
+                </div>
+            </div>
+            <div class="w-full lg:w-7/12 reveal delay-2">
+                <form action="#" class="bg-white/70 border border-marine/10 p-8 lg:p-12 shadow-xl shadow-marine/5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="qc-name" class="block font-sans text-xs font-medium tracking-[0.2em] uppercase text-marine mb-2.5">Full Name</label>
+                            <input type="text" id="qc-name" name="name" required autocomplete="name" class="w-full bg-chalk border border-marine/20 px-4 py-3.5 font-sans text-sm text-marine placeholder:text-marine/40 focus:border-seaglassInk focus:outline-none transition-colors" placeholder="Your name">
+                        </div>
+                        <div>
+                            <label for="qc-phone" class="block font-sans text-xs font-medium tracking-[0.2em] uppercase text-marine mb-2.5">Phone</label>
+                            <input type="tel" id="qc-phone" name="phone" required autocomplete="tel" aria-describedby="qc-phone-hint" class="w-full bg-chalk border border-marine/20 px-4 py-3.5 font-sans text-sm text-marine placeholder:text-marine/40 focus:border-seaglassInk focus:outline-none transition-colors" placeholder="(___) ___-____">
+                            <p id="qc-phone-hint" class="font-sans text-[0.7rem] font-light text-marine/60 mt-2">We only call about your appointment &mdash; never marketing.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="qc-email" class="block font-sans text-xs font-medium tracking-[0.2em] uppercase text-marine mb-2.5">Email</label>
+                            <input type="email" id="qc-email" name="email" autocomplete="email" class="w-full bg-chalk border border-marine/20 px-4 py-3.5 font-sans text-sm text-marine placeholder:text-marine/40 focus:border-seaglassInk focus:outline-none transition-colors" placeholder="Your email address">
+                        </div>
+                        <div>
+                            <label for="qc-service" class="block font-sans text-xs font-medium tracking-[0.2em] uppercase text-marine mb-2.5">I'm Interested In</label>
+                            <select id="qc-service" name="service" class="w-full bg-chalk border border-marine/20 px-4 py-3.5 font-sans text-sm text-marine focus:border-seaglassInk focus:outline-none transition-colors">
+                                <option>New patient exam &amp; cleaning</option>
+                                <option>Cosmetic consultation</option>
+                                <option>Restorative care</option>
+                                <option>Second opinion</option>
+                                <option>Something else</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-8">
+                        <label for="qc-message" class="block font-sans text-xs font-medium tracking-[0.2em] uppercase text-marine mb-2.5">Anything We Should Know? <span class="normal-case font-light text-marine/50 tracking-normal">(optional)</span></label>
+                        <textarea id="qc-message" name="message" rows="4" aria-describedby="qc-message-hint" class="w-full bg-chalk border border-marine/20 px-4 py-3.5 font-sans text-sm text-marine placeholder:text-marine/40 focus:border-seaglassInk focus:outline-none transition-colors resize-y" placeholder="Tell us about your smile goals or concerns&hellip;"></textarea>
+                        <p id="qc-message-hint" class="font-sans text-[0.7rem] font-light text-marine/60 mt-2">A sentence or two is plenty &mdash; we will cover the rest by phone.</p>
+                    </div>
+                    <button type="submit" class="w-full sm:w-auto inline-flex items-center justify-center px-12 py-5 bg-marine text-chalk font-sans text-xs font-medium tracking-[0.2em] uppercase hover:bg-seaglassInk transition-all duration-500">
+                        Request Consultation
+                    </button>
+                    <p class="font-sans text-[0.7rem] font-light text-marine/60 mt-5">Your details stay between you and our concierge team.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer / CTA -->
-    <footer id="contact" class="bg-marine text-chalk pt-24 pb-12 px-6 lg:px-16 xl:px-24 border-t border-chalk/10 relative overflow-hidden">
+    <footer class="bg-marine text-chalk pt-24 pb-12 px-6 lg:px-16 xl:px-24 border-t border-chalk/10 relative overflow-hidden">
         <!-- Subtle background texture -->
         <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
         
@@ -378,7 +976,7 @@
             </div>
         </div>
         
-        <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-chalk/10 font-sans text-[0.65rem] font-light tracking-[0.1em] uppercase text-chalk/40 reveal delay-3">
+        <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-chalk/10 font-sans text-[0.65rem] font-light tracking-[0.1em] uppercase text-chalk/60 reveal delay-3">
             <p>&copy; 2026 Quayside Dental Savannah. All rights reserved.</p>
             <div class="flex gap-8 mt-4 md:mt-0">
                 <a href="#" class="hover:text-chalk transition-colors">Privacy Policy</a>
@@ -413,6 +1011,21 @@
                     header.classList.remove('nav-scrolled');
                 }
             });
+
+            // Mobile Menu Toggle
+            const menuBtn = document.getElementById('menu-toggle');
+            const menuPanel = document.getElementById('mobile-menu');
+            const closeMenu = () => {
+                menuPanel.classList.add('hidden');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                menuBtn.setAttribute('aria-label', 'Open menu');
+            };
+            menuBtn.addEventListener('click', () => {
+                const isOpen = !menuPanel.classList.toggle('hidden');
+                menuBtn.setAttribute('aria-expanded', String(isOpen));
+                menuBtn.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+            });
+            menuPanel.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
         });
     </script>
 </body>

@@ -1,494 +1,3411 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurelia Med Spa | Macon, GA</title>
-    <style>
-        :root {
-            --pearl: #FDFDFB;
-            --obsidian: #0A0B0E;
-            --obsidian-light: #15171C;
-            --muted-rose: #BFA5A4;
-            --muted-rose-light: #E8D6D5;
-            --surgical-gold: #C5A059;
-            --font-heading: 'Playfair Display', serif;
-            --font-body: 'Inter', sans-serif;
-            --font-accent: 'Cinzel', serif;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurelia Med Spa | Physician-Led Aesthetic Medicine, Macon GA</title>
+<meta name="description" content="Aurelia Med Spa is physician-led aesthetic medicine in Macon, Georgia — bespoke injectables, RF microneedling, laser therapeutics and consult-led skin renewal delivered with clinical precision and couture finish.">
+<meta name="theme-color" content="#0A0B0E">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aurelia Med Spa | Macon, Georgia">
+<meta property="og:description" content="Medical precision. Couture results. Physician-led cosmetic medicine in an intimately luxurious Macon suite.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230A0B0E'/%3E%3Ccircle cx='16' cy='16' r='9.4' fill='none' stroke='%23C5A059' stroke-width='1.3'/%3E%3Ccircle cx='16' cy='16' r='2' fill='%23C5A059'/%3E%3Cpath d='M16 3.6 L16 8.4 M16 23.6 L16 28.4 M3.6 16 L8.4 16 M23.6 16 L28.4 16' stroke='%23BFA5A4' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+/* ==========================================================================
+   AURELIA MED SPA — design tokens
+   Physician-led aesthetic medicine, Macon, Georgia. Fictional demonstration
+   brand. Clinical precision + couture editorial restraint, not soft wellness.
+   ========================================================================== */
+:root{
+  color-scheme: dark;
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  /* -- primitive palette (anchor-canonical Aurelia hues) -- */
+  --aur-obsidian-950:#06070a;
+  --aur-obsidian-900:#0A0B0E;
+  --aur-obsidian-800:#15171C;
+  --aur-obsidian-700:#1E2126;
+  --aur-obsidian-600:#292D34;
+  --aur-pearl-050:#FDFDFB;
+  --aur-rose-200:#E8D6D5;
+  --aur-rose-400:#BFA5A4;
+  --aur-rose-600:#8F7574;
+  --aur-gold-200:#E4CFA0;
+  --aur-gold-400:#C5A059;
+  --aur-gold-600:#A17F3D;
+  --aur-sage-300:#A9D2B4;
+  --aur-sage-600:#3E6B4C;
+  --aur-clinical-red-300:#E2917E;
+  --aur-clinical-red-600:#8C3524;
 
-        body {
-            font-family: var(--font-body);
-            background-color: var(--obsidian);
-            color: var(--pearl);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-        }
+  /* -- semantic tokens -- */
+  --color-bg:var(--aur-obsidian-900);
+  --color-bg-alt:var(--aur-obsidian-950);
+  --color-surface:var(--aur-obsidian-800);
+  --color-surface-raised:var(--aur-obsidian-700);
+  --color-surface-raised-2:var(--aur-obsidian-600);
+  --color-border:rgba(197,160,89,0.16);
+  --color-border-strong:rgba(197,160,89,0.4);
+  --color-border-hairline:rgba(253,253,251,0.08);
+  --color-text:var(--aur-pearl-050);
+  --color-text-muted:rgba(253,253,251,0.72);
+  --color-text-faint:rgba(253,253,251,0.5);
+  --color-text-ghost:rgba(253,253,251,0.26);
+  --color-accent:var(--aur-gold-400);
+  --color-accent-hover:var(--aur-gold-200);
+  --color-accent-pressed:var(--aur-gold-600);
+  --color-accent-contrast:var(--aur-obsidian-900);
+  --color-rose:var(--aur-rose-400);
+  --color-rose-light:var(--aur-rose-200);
+  --color-focus:var(--aur-gold-200);
+  --color-success:var(--aur-sage-300);
+  --color-success-bg:var(--aur-sage-600);
+  --color-error:var(--aur-clinical-red-300);
+  --color-error-bg:var(--aur-clinical-red-600);
 
-        /* Nav */
-        header {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 2.5rem 6%;
-            z-index: 100;
-        }
+  /* -- type -- */
+  --font-heading:'Playfair Display','Iowan Old Style',Georgia,'Times New Roman',serif;
+  --font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --font-accent:'Cinzel',Georgia,'Times New Roman',serif;
 
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 1.4rem;
-            font-weight: 400;
-            letter-spacing: 0.08em;
-            color: var(--pearl);
-            text-transform: uppercase;
-        }
+  --text-xs:clamp(.74rem,.71rem + .15vw,.8rem);
+  --text-sm:clamp(.86rem,.83rem + .15vw,.92rem);
+  --text-base:clamp(1rem,.97rem + .15vw,1.06rem);
+  --text-md:clamp(1.12rem,1.05rem + .3vw,1.28rem);
+  --text-lg:clamp(1.36rem,1.2rem + .6vw,1.68rem);
+  --text-xl:clamp(1.7rem,1.42rem + 1.1vw,2.3rem);
+  --text-2xl:clamp(2.1rem,1.68rem + 1.8vw,3.05rem);
+  --text-3xl:clamp(2.6rem,1.85rem + 3.2vw,4.9rem);
 
-        .logo span {
-            color: var(--surgical-gold);
-            font-style: italic;
-            text-transform: lowercase;
-            letter-spacing: 0.02em;
-        }
+  /* -- 4px spacing scale -- */
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:20px; --space-6:24px; --space-7:28px; --space-8:32px;
+  --space-10:40px; --space-12:48px; --space-14:56px; --space-16:64px;
+  --space-20:80px; --space-24:96px; --space-28:112px; --space-32:128px;
 
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 3rem;
-        }
+  /* -- surgical, near-sharp radii (never soft wellness rounded-mush) -- */
+  --radius-sm:1px; --radius-md:2px; --radius-lg:3px; --radius-pill:999px;
 
-        nav a {
-            text-decoration: none;
-            color: rgba(253, 253, 251, 0.7);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            transition: color 0.3s ease;
-        }
+  /* -- elevation, 3 levels only -- */
+  --elevation-1:0 1px 2px rgba(4,5,7,.5), 0 2px 10px rgba(4,5,7,.32);
+  --elevation-2:0 12px 32px rgba(4,5,7,.5), 0 3px 10px rgba(4,5,7,.4);
+  --elevation-3:0 30px 70px rgba(4,5,7,.62), 0 10px 24px rgba(4,5,7,.46);
 
-        nav a:hover {
-            color: var(--surgical-gold);
-        }
+  --ease-standard:cubic-bezier(.4,0,.2,1);
+  --ease-out:cubic-bezier(.165,.84,.44,1);
+  --duration-fast:150ms;
+  --duration-base:280ms;
+  --duration-slow:480ms;
 
-        .nav-cta {
-            border: 1px solid rgba(197, 160, 89, 0.4);
-            padding: 0.75rem 2rem;
-            color: var(--surgical-gold);
-            border-radius: 1px;
-            transition: all 0.4s ease;
-            background: transparent;
-        }
+  --container-max:1280px;
+  --header-h:104px;
+  --header-h-scrolled:76px;
+}
 
-        .nav-cta:hover {
-            background-color: var(--surgical-gold);
-            color: var(--obsidian);
-        }
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
 
-        /* Hero Container */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background-color: var(--obsidian);
-            padding-top: 6rem;
-        }
+/* ==========================================================================
+   Reset + base
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box;}
+*{margin:0;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+body{
+  font-family:var(--font-body);
+  font-size:var(--text-base);
+  font-weight:400;
+  background:var(--color-bg);
+  color:var(--color-text);
+  line-height:1.65;
+  min-height:100vh;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+body.no-scroll{overflow:hidden;}
+img,svg{display:block;max-width:100%;}
+ul,ol{list-style:none;padding:0;}
+a{color:inherit;}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
+input,select,textarea{font:inherit;color:inherit;}
+h1,h2,h3,h4{font-family:var(--font-heading);font-weight:400;line-height:1.15;}
+p{max-width:70ch;}
 
-        /* Editorial Split */
-        .hero-split {
-            display: flex;
-            width: 100%;
-            height: 80vh;
-            margin: 0 6%;
-            position: relative;
-        }
+.visually-hidden{
+  position:absolute !important;
+  width:1px;height:1px;
+  padding:0;margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
 
-        .content-left {
-            flex: 1.1;
-            padding-right: 6rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            z-index: 10;
-        }
+.skip-link{
+  position:fixed;
+  top:-100%;
+  left:var(--space-4);
+  z-index:1000;
+  background:var(--color-accent);
+  color:var(--color-accent-contrast);
+  padding:var(--space-3) var(--space-6);
+  font-size:var(--text-sm);
+  font-weight:600;
+  letter-spacing:.04em;
+  border-radius:var(--radius-sm);
+  transition:top var(--duration-fast) var(--ease-standard);
+}
+.skip-link:focus{ top:var(--space-4); }
 
-        .visual-right {
-            flex: 0.9;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-        }
+:focus{ outline:none; }
+:focus-visible{
+  outline:2px solid var(--color-focus);
+  outline-offset:3px;
+  border-radius:var(--radius-sm);
+}
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{
+  outline:2px solid var(--color-focus);
+  outline-offset:3px;
+}
 
-        .image-wrapper {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            overflow: hidden;
-            border-radius: 2px;
-        }
+.container{
+  width:100%;
+  max-width:var(--container-max);
+  margin-inline:auto;
+  padding-inline:6vw;
+}
+@media (min-width:900px){ .container{ padding-inline:clamp(2rem,5vw,4.5rem); } }
+@media (min-width:1400px){ .container{ padding-inline:4.5rem; } }
 
-        .image-wrapper::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(10, 11, 14, 0.6) 0%, rgba(197, 160, 89, 0.15) 100%);
-            mix-blend-mode: overlay;
-            z-index: 2;
-        }
+.section-pad{ padding-block:var(--space-24); position:relative; }
+@media (max-width:640px){ .section-pad{ padding-block:var(--space-16); } }
 
-        .visual-still {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background:
-                radial-gradient(circle at 30% 28%, rgba(232, 214, 213, 0.95) 0%, rgba(232, 214, 213, 0.22) 18%, transparent 42%),
-                radial-gradient(circle at 68% 68%, rgba(197, 160, 89, 0.55) 0%, rgba(197, 160, 89, 0.12) 20%, transparent 46%),
-                linear-gradient(145deg, #f4dcdc 0%, #d9b1ab 24%, #57384a 52%, #1b1c24 78%, #0a0b0e 100%);
-            overflow: hidden;
-        }
+.surface-band{ background:var(--color-surface); }
 
-        .visual-still::before,
-        .visual-still::after {
-            content: '';
-            position: absolute;
-            border-radius: 999px;
-            border: 1px solid rgba(253, 253, 251, 0.16);
-            backdrop-filter: blur(2px);
-        }
+/* shared eyebrow / label typography */
+.eyebrow{
+  font-family:var(--font-accent);
+  font-size:var(--text-xs);
+  color:var(--color-accent);
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  display:inline-flex;
+  align-items:center;
+  gap:var(--space-4);
+}
+.eyebrow::before{
+  content:'';
+  width:42px;
+  height:1px;
+  background:var(--color-accent);
+  flex:none;
+}
+.eyebrow--center{ justify-content:center; }
+.eyebrow--rose{ color:var(--color-rose); }
+.eyebrow--rose::before{ background:var(--color-rose); }
 
-        .visual-still::before {
-            width: 220px;
-            height: 220px;
-            right: 12%;
-            top: 18%;
-            background: linear-gradient(180deg, rgba(253,253,251,0.3), rgba(253,253,251,0.04));
-            box-shadow: inset 0 0 28px rgba(255,255,255,0.18);
-        }
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:var(--space-6);
+  margin-bottom:var(--space-16);
+}
+.section-header h2{
+  font-size:var(--text-2xl);
+  color:var(--color-text);
+  margin-top:var(--space-5);
+}
+.section-header h2 i{ color:var(--color-rose); font-style:italic; }
+.section-header p{
+  color:var(--color-text-muted);
+  font-size:var(--text-md);
+  margin-top:var(--space-4);
+  max-width:52ch;
+}
+.section-link{
+  font-family:var(--font-accent);
+  font-size:var(--text-xs);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--color-accent);
+  text-decoration:none;
+  white-space:nowrap;
+  padding-bottom:2px;
+  border-bottom:1px solid rgba(197,160,89,.4);
+  transition:color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+}
+.section-link:hover{ color:var(--color-accent-hover); border-color:var(--color-accent-hover); }
+@media (max-width:760px){
+  .section-header{ flex-direction:column; align-items:flex-start; gap:var(--space-3); }
+}
 
-        .visual-still::after {
-            width: 340px;
-            height: 340px;
-            right: 3%;
-            bottom: 6%;
-            background: radial-gradient(circle at 35% 35%, rgba(255,255,255,0.32), rgba(255,255,255,0.02) 58%, transparent 72%);
-            box-shadow: inset 0 0 40px rgba(255,255,255,0.12);
-        }
+/* -- buttons -- */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--space-3);
+  padding:1.05rem 2.1rem;
+  font-size:var(--text-xs);
+  font-weight:600;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  text-decoration:none;
+  border-radius:var(--radius-sm);
+  border:1px solid transparent;
+  transition:all var(--duration-base) var(--ease-out);
+  min-height:44px;
+  white-space:nowrap;
+}
+.btn:disabled, .btn[aria-disabled="true"]{
+  opacity:.5;
+  cursor:not-allowed;
+  transform:none !important;
+}
+.btn--primary{
+  background:var(--color-text);
+  color:var(--color-accent-contrast);
+  position:relative;
+  overflow:hidden;
+}
+.btn--primary::after{
+  content:'';
+  position:absolute;
+  bottom:0; left:0;
+  width:100%; height:3px;
+  background:var(--color-rose);
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform var(--duration-base) var(--ease-out);
+}
+.btn--primary:hover::after{ transform:scaleX(1); transform-origin:left; }
+.btn--primary:hover{ box-shadow:var(--elevation-2); transform:translateY(-2px); }
+.btn--primary:active{ transform:translateY(0); box-shadow:var(--elevation-1); }
+.btn--ghost{
+  background:transparent;
+  color:var(--color-accent);
+  border-color:var(--color-border-strong);
+}
+.btn--ghost:hover{ background:var(--color-accent); color:var(--color-accent-contrast); }
+.btn--ghost:active{ background:var(--color-accent-pressed); }
+.btn--outline{
+  background:transparent;
+  color:var(--color-text);
+  border-color:rgba(253,253,251,.28);
+}
+.btn--outline:hover{ border-color:var(--color-text); background:rgba(253,253,251,.06); }
+.btn--full{ width:100%; }
+.btn-arrow{ display:inline-block; font-weight:300; font-size:1.15em; transition:transform var(--duration-fast) var(--ease-standard); }
+.btn:hover .btn-arrow{ transform:translateX(5px); }
+.btn.is-loading{ color:transparent !important; pointer-events:none; }
+.btn.is-loading::before{
+  content:'';
+  position:absolute;
+  width:18px;height:18px;
+  top:50%;left:50%;
+  margin:-9px 0 0 -9px;
+  border-radius:50%;
+  border:2px solid rgba(10,11,14,.28);
+  border-top-color:var(--aur-obsidian-900);
+  animation:spin .7s linear infinite;
+}
+.btn--ghost.is-loading::before, .btn--outline.is-loading::before{
+  border:2px solid rgba(253,253,251,.28);
+  border-top-color:var(--color-text);
+}
+@keyframes spin{ to{ transform:rotate(360deg); } }
 
-        .visual-grid {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(253,253,251,0.06) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(253,253,251,0.06) 1px, transparent 1px);
-            background-size: 64px 64px;
-            opacity: 0.22;
-            mix-blend-mode: screen;
-        }
+/* -- reveal-on-scroll -- */
+[data-reveal]{
+  opacity:0;
+  transform:translateY(28px);
+  transition:opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out);
+}
+[data-reveal].is-revealed{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){
+  [data-reveal]{ opacity:1 !important; transform:none !important; transition:none !important; }
+}
 
-        .visual-pill {
-            position: absolute;
-            left: 16%;
-            bottom: 14%;
-            padding: 1rem 1.1rem;
-            border: 1px solid rgba(253,253,251,0.18);
-            background: rgba(10, 11, 14, 0.34);
-            color: rgba(253,253,251,0.78);
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            font-size: 0.7rem;
-        }
+/* ==========================================================================
+   Header / primary nav
+   ========================================================================== */
+.site-header{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  z-index:200;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 6vw;
+  height:var(--header-h);
+  transition:height var(--duration-base) var(--ease-standard), background var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);
+}
+.site-header.is-scrolled{
+  height:var(--header-h-scrolled);
+  background:rgba(10,11,14,.86);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:0 1px 0 var(--color-border-hairline), var(--elevation-1);
+}
+@media (min-width:900px){ .site-header{ padding-inline:clamp(2rem,5vw,4.5rem); } }
 
-        /* Typography */
-        .accent-text {
-            font-family: var(--font-accent);
-            font-size: 0.8rem;
-            color: var(--surgical-gold);
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            margin-bottom: 2.5rem;
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-        }
+.logo{
+  font-family:var(--font-heading);
+  font-size:1.4rem;
+  font-weight:400;
+  letter-spacing:.08em;
+  color:var(--color-text);
+  text-transform:uppercase;
+  text-decoration:none;
+  display:inline-flex;
+  align-items:baseline;
+  gap:.35em;
+  flex:none;
+}
+.logo span{
+  color:var(--color-accent);
+  font-style:italic;
+  text-transform:lowercase;
+  letter-spacing:.02em;
+  font-size:.85em;
+}
+.logo-mark{ display:none; }
 
-        .accent-text::before {
-            content: '';
-            width: 50px;
-            height: 1px;
-            background-color: var(--surgical-gold);
-        }
+.primary-nav{
+  display:none;
+  align-items:center;
+  gap:var(--space-10);
+}
+.primary-nav__links{
+  display:flex;
+  align-items:center;
+  gap:var(--space-10);
+}
+.primary-nav a{
+  text-decoration:none;
+  color:rgba(253,253,251,.74);
+  font-size:var(--text-xs);
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  padding-block:var(--space-2);
+  position:relative;
+  transition:color var(--duration-fast) var(--ease-standard);
+}
+.primary-nav a::after{
+  content:'';
+  position:absolute;
+  left:0; bottom:-2px;
+  width:100%; height:1px;
+  background:var(--color-accent);
+  transform:scaleX(0);
+  transform-origin:right;
+  transition:transform var(--duration-base) var(--ease-out);
+}
+.primary-nav a:hover,
+.primary-nav a.is-active{ color:var(--color-accent); }
+.primary-nav a:hover::after,
+.primary-nav a.is-active::after{ transform:scaleX(1); transform-origin:left; }
 
-        h1 {
-            font-family: var(--font-heading);
-            font-size: 5.5rem;
-            line-height: 1.05;
-            color: var(--pearl);
-            font-weight: 400;
-            margin-bottom: 2.5rem;
-            letter-spacing: -0.02em;
-        }
+.nav-cta{
+  border:1px solid rgba(197,160,89,.4);
+  padding:.85rem 1.9rem;
+  color:var(--color-accent);
+  border-radius:var(--radius-sm);
+  font-size:var(--text-xs);
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  text-decoration:none;
+  transition:all var(--duration-base) var(--ease-standard);
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+}
+.nav-cta:hover{ background:var(--color-accent); color:var(--color-accent-contrast); }
+.nav-cta:active{ background:var(--color-accent-pressed); border-color:var(--color-accent-pressed); }
 
-        h1 i {
-            color: var(--muted-rose);
-            font-weight: 300;
-            display: block;
-            margin-left: 10%;
-        }
+@media (min-width:960px){
+  .primary-nav{ display:flex; }
+  .nav-toggle{ display:none; }
+}
 
-        .hero-desc {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: rgba(253, 253, 251, 0.65);
-            max-width: 480px;
-            margin-bottom: 3.5rem;
-            font-weight: 300;
-        }
+/* -- mobile nav toggle + drawer -- */
+.nav-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:44px; height:44px;
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-sm);
+  background:rgba(10,11,14,.4);
+  flex:none;
+}
+.nav-toggle__bars{ position:relative; width:18px; height:12px; }
+.nav-toggle__bars span{
+  position:absolute; left:0;
+  width:100%; height:1.4px;
+  background:var(--color-text);
+  transition:transform var(--duration-base) var(--ease-standard), opacity var(--duration-fast) var(--ease-standard), top var(--duration-base) var(--ease-standard);
+}
+.nav-toggle__bars span:nth-child(1){ top:0; }
+.nav-toggle__bars span:nth-child(2){ top:5.3px; }
+.nav-toggle__bars span:nth-child(3){ top:10.6px; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars span:nth-child(1){ top:5.3px; transform:rotate(45deg); }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars span:nth-child(2){ opacity:0; }
+.nav-toggle[aria-expanded="true"] .nav-toggle__bars span:nth-child(3){ top:5.3px; transform:rotate(-45deg); }
 
-        /* CTA */
-        .primary-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 1.5rem;
-            background-color: var(--pearl);
-            color: var(--obsidian);
-            padding: 1.3rem 3rem;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
-            align-self: flex-start;
-        }
+.nav-overlay{
+  position:fixed; inset:0;
+  background:rgba(6,7,10,.7);
+  backdrop-filter:blur(2px);
+  z-index:210;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity var(--duration-base) var(--ease-standard);
+}
+.nav-overlay.is-open{ opacity:1; pointer-events:auto; }
 
-        .primary-cta::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background-color: var(--muted-rose);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
+.nav-panel{
+  position:fixed;
+  top:0; right:0;
+  height:100%;
+  width:min(86vw,380px);
+  background:var(--color-bg-alt);
+  border-left:1px solid var(--color-border);
+  z-index:220;
+  padding:var(--space-8) var(--space-8) var(--space-10);
+  transform:translateX(100%);
+  transition:transform var(--duration-base) var(--ease-out);
+  display:flex;
+  flex-direction:column;
+  overflow-y:auto;
+}
+.nav-panel.is-open{ transform:translateX(0); }
+.nav-panel__top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:var(--space-12);
+}
+.nav-panel__close{
+  width:44px; height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-sm);
+}
+.nav-panel__links{
+  display:flex;
+  flex-direction:column;
+  gap:var(--space-2);
+}
+.nav-panel__links a{
+  text-decoration:none;
+  color:var(--color-text);
+  font-family:var(--font-heading);
+  font-size:var(--text-lg);
+  padding:var(--space-3) 0;
+  border-bottom:1px solid var(--color-border-hairline);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.nav-panel__links a:hover, .nav-panel__links a:focus-visible{ color:var(--color-accent); }
+.nav-panel__meta{
+  margin-top:auto;
+  padding-top:var(--space-10);
+  display:flex;
+  flex-direction:column;
+  gap:var(--space-5);
+}
+.nav-panel__meta p{
+  font-size:var(--text-xs);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--color-text-faint);
+}
+.nav-panel__meta a{
+  color:var(--color-text-muted);
+  text-decoration:none;
+  font-size:var(--text-sm);
+}
+.nav-panel__meta a:hover{ color:var(--color-accent); }
 
-        .primary-cta:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
+/* ==========================================================================
+   Hero — editorial split, treatment proof right rail
+   ========================================================================== */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  background:var(--color-bg);
+  padding-top:var(--header-h);
+  overflow:hidden;
+}
+.hero-split{
+  display:flex;
+  flex-direction:column;
+  width:100%;
+  position:relative;
+  gap:var(--space-24);
+  padding-block:var(--space-16) var(--space-24);
+}
+.content-left{
+  flex:1.1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+  z-index:10;
+}
+h1{
+  font-size:var(--text-3xl);
+  color:var(--color-text);
+  font-weight:400;
+  margin-block:var(--space-6) var(--space-8);
+  letter-spacing:-.02em;
+}
+h1 i{
+  color:var(--color-rose);
+  font-weight:300;
+  font-style:italic;
+  display:block;
+}
+.hero-desc{
+  font-size:var(--text-md);
+  line-height:1.8;
+  color:var(--color-text-muted);
+  max-width:52ch;
+  margin-bottom:var(--space-10);
+  font-weight:300;
+}
+.hero-actions{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:var(--space-8);
+}
+.hero-actions .btn--primary{ position:relative; }
+.hero-secondary-link{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--space-2);
+  color:var(--color-text-muted);
+  text-decoration:none;
+  font-size:var(--text-sm);
+  letter-spacing:.04em;
+  border-bottom:1px solid transparent;
+  transition:color var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+  min-height:44px;
+}
+.hero-secondary-link:hover{ color:var(--color-text); border-color:rgba(253,253,251,.4); }
 
-        .primary-cta:hover {
-            background-color: var(--pearl);
-            box-shadow: 0 15px 35px rgba(191, 165, 164, 0.1);
-            transform: translateY(-2px);
-        }
+.visual-right{
+  flex:1;
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:56vh;
+}
+.image-wrapper{
+  width:100%;
+  height:100%;
+  min-height:56vh;
+  position:relative;
+  overflow:hidden;
+  border-radius:var(--radius-md);
+  border:1px solid var(--color-border-hairline);
+}
+.image-wrapper::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg, rgba(10,11,14,.6) 0%, rgba(197,160,89,.15) 100%);
+  mix-blend-mode:overlay;
+  z-index:2;
+  pointer-events:none;
+}
+.visual-still{
+  position:relative;
+  width:100%; height:100%;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(232,214,213,.95) 0%, rgba(232,214,213,.22) 18%, transparent 42%),
+    radial-gradient(circle at 68% 68%, rgba(197,160,89,.55) 0%, rgba(197,160,89,.12) 20%, transparent 46%),
+    linear-gradient(145deg, #f4dcdc 0%, #d9b1ab 24%, #57384a 52%, #1b1c24 78%, #0a0b0e 100%);
+  overflow:hidden;
+}
+.visual-still::before,
+.visual-still::after{
+  content:'';
+  position:absolute;
+  border-radius:999px;
+  border:1px solid rgba(253,253,251,.16);
+  backdrop-filter:blur(2px);
+}
+.visual-still::before{
+  width:200px; height:200px;
+  right:10%; top:14%;
+  background:linear-gradient(180deg, rgba(253,253,251,.3), rgba(253,253,251,.04));
+  box-shadow:inset 0 0 28px rgba(255,255,255,.18);
+}
+.visual-still::after{
+  width:300px; height:300px;
+  right:1%; bottom:4%;
+  background:radial-gradient(circle at 35% 35%, rgba(255,255,255,.32), rgba(255,255,255,.02) 58%, transparent 72%);
+  box-shadow:inset 0 0 40px rgba(255,255,255,.12);
+}
+.visual-grid{
+  position:absolute;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(253,253,251,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(253,253,251,.06) 1px, transparent 1px);
+  background-size:56px 56px;
+  opacity:.22;
+  mix-blend-mode:screen;
+}
+.precision-map{
+  position:absolute;
+  inset:0;
+  width:100%; height:100%;
+  z-index:3;
+  opacity:.85;
+}
+.precision-map .map-line{ fill:none; stroke:rgba(253,253,251,.5); stroke-width:.6; }
+.precision-map .map-node{ fill:var(--color-accent); }
+.precision-map .map-node-ring{ fill:none; stroke:var(--color-accent); stroke-width:.6; opacity:.6; }
+.precision-map .map-label{
+  font-family:var(--font-accent);
+  font-size:2.6px;
+  letter-spacing:.14em;
+  fill:rgba(253,253,251,.72);
+  text-transform:uppercase;
+}
+.visual-pill{
+  position:absolute;
+  left:8%;
+  bottom:9%;
+  z-index:4;
+  padding:.9rem 1.05rem;
+  border:1px solid rgba(253,253,251,.18);
+  background:rgba(10,11,14,.42);
+  backdrop-filter:blur(6px);
+  color:rgba(253,253,251,.82);
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:var(--text-xs);
+  display:inline-flex;
+  align-items:center;
+  gap:var(--space-2);
+}
+.visual-pill svg{ color:var(--color-accent); flex:none; }
 
-        .cta-arrow {
-            display: inline-block;
-            transition: transform 0.3s ease;
-            font-weight: 300;
-            font-size: 1.2rem;
-        }
+.proof-module{
+  position:relative;
+  margin-top:calc(-1 * var(--space-16));
+  margin-inline:auto;
+  background:rgba(18,20,24,.92);
+  backdrop-filter:blur(10px);
+  padding:var(--space-8);
+  border:1px solid var(--color-border);
+  box-shadow:var(--elevation-3);
+  width:min(100%, 380px);
+  z-index:20;
+}
+.proof-header{
+  font-family:var(--font-accent);
+  color:var(--color-text-faint);
+  font-size:var(--text-xs);
+  letter-spacing:.2em;
+  margin-bottom:var(--space-6);
+  text-transform:uppercase;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.proof-header::after{
+  content:'';
+  width:9px; height:9px;
+  border-radius:50%;
+  background:var(--color-rose);
+  flex:none;
+}
+.treatment-list{ display:grid; gap:var(--space-4); }
+.treatment-list li{
+  color:var(--color-text);
+  font-size:var(--text-sm);
+  letter-spacing:.03em;
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:var(--space-3);
+  border-bottom:1px solid var(--color-border-hairline);
+  padding-bottom:var(--space-3);
+}
+.treatment-list li:last-child{ border-bottom:none; padding-bottom:0; }
+.treatment-list li span{
+  font-family:var(--font-heading);
+  font-style:italic;
+  color:var(--color-accent);
+  font-size:1.05rem;
+  letter-spacing:0;
+  white-space:nowrap;
+}
 
-        .primary-cta:hover .cta-arrow {
-            transform: translateX(6px);
-        }
+.deco-line{
+  position:absolute;
+  bottom:0; left:6%;
+  width:1px; height:10vh;
+  background:rgba(197,160,89,.3);
+  display:none;
+}
+.deco-text{
+  position:absolute;
+  left:6%; bottom:12vh;
+  transform:rotate(-90deg) translateX(-50%);
+  transform-origin:left bottom;
+  font-size:.64rem;
+  letter-spacing:.4em;
+  color:var(--color-text-ghost);
+  text-transform:uppercase;
+  white-space:nowrap;
+  display:none;
+}
+.scroll-cue{
+  position:absolute;
+  bottom:var(--space-6);
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:var(--space-2);
+  color:var(--color-text-faint);
+  text-decoration:none;
+}
+.scroll-cue span{
+  font-size:.64rem;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+}
+.scroll-cue__line{
+  width:1px; height:34px;
+  background:linear-gradient(var(--color-accent), transparent);
+  animation:scrollcue 2.2s var(--ease-standard) infinite;
+}
+@keyframes scrollcue{
+  0%{ transform:scaleY(0); transform-origin:top; }
+  50%{ transform:scaleY(1); transform-origin:top; }
+  51%{ transform-origin:bottom; }
+  100%{ transform:scaleY(0); transform-origin:bottom; }
+}
+@media (prefers-reduced-motion: reduce){ .scroll-cue__line{ animation:none; } }
 
-        /* Proof Module */
-        .proof-module {
-            position: absolute;
-            bottom: 8%;
-            left: -15%;
-            background-color: var(--obsidian-light);
-            padding: 3rem;
-            border: 1px solid rgba(197, 160, 89, 0.15);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-            width: 360px;
-            z-index: 20;
-            backdrop-filter: blur(10px);
-        }
+@media (min-width:960px){
+  .hero-split{
+    flex-direction:row;
+    align-items:center;
+    min-height:80vh;
+    gap:var(--space-16);
+  }
+  .content-left{ padding-right:var(--space-10); }
+  .visual-right{ min-height:74vh; justify-content:flex-end; }
+  .image-wrapper{ min-height:74vh; }
+  .proof-module{
+    position:absolute;
+    left:-11%;
+    bottom:8%;
+    margin-top:0;
+  }
+  .deco-line, .deco-text{ display:block; }
+  h1 i{ margin-left:9%; }
+}
+@media (min-width:1240px){
+  .proof-module{ left:-15%; }
+}
 
-        .proof-header {
-            font-family: var(--font-accent);
-            color: rgba(253, 253, 251, 0.5);
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
-            margin-bottom: 2rem;
-            text-transform: uppercase;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+/* ==========================================================================
+   Trust rail — credential strip
+   ========================================================================== */
+.trust-rail{
+  background:var(--color-bg-alt);
+  border-top:1px solid var(--color-border-hairline);
+  border-bottom:1px solid var(--color-border-hairline);
+  padding-block:var(--space-10);
+}
+.trust-rail__grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--space-8);
+}
+.trust-item{
+  display:flex;
+  align-items:center;
+  gap:var(--space-4);
+  padding-block:var(--space-3);
+  border-bottom:1px solid var(--color-border-hairline);
+}
+.trust-item:last-child{ border-bottom:none; }
+.trust-item__icon{
+  flex:none;
+  width:40px; height:40px;
+  border-radius:50%;
+  border:1px solid var(--color-border-strong);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--color-accent);
+}
+.trust-item__text{ display:flex; flex-direction:column; gap:2px; }
+.trust-item__value{
+  font-family:var(--font-heading);
+  font-size:var(--text-lg);
+  color:var(--color-text);
+}
+.trust-item__label{
+  font-size:var(--text-xs);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--color-text-faint);
+}
+@media (min-width:700px){
+  .trust-rail__grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media (min-width:1080px){
+  .trust-rail__grid{ grid-template-columns:repeat(4,1fr); }
+  .trust-item{ border-bottom:none; border-right:1px solid var(--color-border-hairline); padding-right:var(--space-6); }
+  .trust-item:last-child{ border-right:none; }
+}
 
-        .proof-header::after {
-            content: '';
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: var(--muted-rose);
-        }
+/* ==========================================================================
+   Philosophy — "The Aurelia Standard"
+   ========================================================================== */
+.philosophy{
+  background:var(--color-bg);
+  text-align:center;
+  overflow:hidden;
+}
+.philosophy-content{
+  max-width:800px;
+  margin-inline:auto;
+  position:relative;
+  z-index:2;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.philosophy h2{
+  font-size:var(--text-2xl);
+  color:var(--color-text);
+  font-weight:300;
+  line-height:1.2;
+  margin-block:var(--space-6) var(--space-8);
+}
+.philosophy h2 i{ color:var(--color-accent); font-style:italic; }
+.philosophy p{
+  font-size:var(--text-md);
+  line-height:1.85;
+  color:var(--color-text-muted);
+  font-weight:300;
+  max-width:64ch;
+}
+.philosophy__pillars{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--space-8);
+  margin-top:var(--space-14);
+  text-align:left;
+  width:100%;
+}
+.pillar{
+  border-top:1px solid var(--color-border);
+  padding-top:var(--space-5);
+}
+.pillar__icon{ color:var(--color-accent); margin-bottom:var(--space-4); }
+.pillar h3{
+  font-size:var(--text-md);
+  color:var(--color-text);
+  margin-bottom:var(--space-3);
+  font-weight:400;
+}
+.pillar p{
+  font-size:var(--text-sm);
+  color:var(--color-text-muted);
+  line-height:1.75;
+}
+.ambient-glow{
+  position:absolute;
+  width:600px; height:600px;
+  background:radial-gradient(circle, rgba(197,160,89,.06) 0%, transparent 70%);
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+  z-index:1;
+}
+@media (min-width:700px){
+  .philosophy__pillars{ grid-template-columns:repeat(3,1fr); }
+}
 
-        .treatment-list {
-            list-style: none;
-        }
+/* ==========================================================================
+   Clinical Interventions — filterable modality grid
+   ========================================================================== */
+.modalities{ background:var(--color-surface); border-top:1px solid var(--color-border-hairline); }
 
-        .treatment-list li {
-            color: var(--pearl);
-            font-size: 0.95rem;
-            letter-spacing: 0.05em;
-            margin-bottom: 1.2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            border-bottom: 1px solid rgba(253, 253, 251, 0.05);
-            padding-bottom: 0.8rem;
-        }
+.modalities__filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-3);
+  margin-bottom:var(--space-10);
+}
+.filter-chip{
+  padding:.65rem 1.2rem;
+  min-height:44px;
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-pill);
+  background:transparent;
+  color:var(--color-text-muted);
+  font-size:var(--text-xs);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  transition:all var(--duration-fast) var(--ease-standard);
+}
+.filter-chip:hover{ border-color:var(--color-border-strong); color:var(--color-text); }
+.filter-chip.is-active{ background:var(--color-accent); border-color:var(--color-accent); color:var(--color-accent-contrast); }
 
-        .treatment-list li:last-child {
-            margin-bottom: 0;
-            border-bottom: none;
-            padding-bottom: 0;
-        }
+.modalities__grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--space-6);
+}
+@media (min-width:640px){ .modalities__grid, .modalities__skeleton-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:1180px){ .modalities__grid, .modalities__skeleton-grid{ grid-template-columns:repeat(3,1fr); } }
 
-        .treatment-list li span {
-            font-family: var(--font-heading);
-            font-style: italic;
-            color: var(--surgical-gold);
-            font-size: 1.1rem;
-            letter-spacing: 0;
-        }
+.modality-card{
+  border:1px solid var(--color-border);
+  padding:var(--space-10) var(--space-8);
+  background:rgba(10,11,14,.4);
+  transition:all var(--duration-base) var(--ease-standard);
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+}
+@media (max-width:640px){ .modality-card{ padding:var(--space-8) var(--space-6); } }
+.modality-card::before{
+  content:'';
+  position:absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:linear-gradient(180deg, rgba(197,160,89,.06) 0%, transparent 100%);
+  opacity:0;
+  transition:opacity var(--duration-base) var(--ease-standard);
+  pointer-events:none;
+}
+.modality-card:hover{ transform:translateY(-5px); border-color:var(--color-border-strong); box-shadow:var(--elevation-2); }
+.modality-card:hover::before{ opacity:1; }
+.modality-card__top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  margin-bottom:var(--space-8);
+  position:relative;
+  z-index:2;
+}
+.modality-card__number{
+  font-family:var(--font-accent);
+  font-size:var(--text-xs);
+  color:rgba(197,160,89,.55);
+}
+.modality-card__category{
+  font-size:.66rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--color-rose);
+  border:1px solid rgba(191,165,164,.35);
+  padding:.3rem .6rem;
+  border-radius:var(--radius-pill);
+}
+.modality-card__title{
+  font-size:var(--text-lg);
+  color:var(--color-text);
+  margin-bottom:var(--space-3);
+  font-weight:400;
+  position:relative;
+  z-index:2;
+}
+.modality-card__desc{
+  font-size:var(--text-sm);
+  line-height:1.75;
+  color:var(--color-text-muted);
+  position:relative;
+  z-index:2;
+  flex:1;
+}
+.modality-card__specs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--space-2);
+  margin-top:var(--space-6);
+  position:relative;
+  z-index:2;
+}
+.spec-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:.35em;
+  font-size:.7rem;
+  letter-spacing:.04em;
+  color:var(--color-text-faint);
+  background:rgba(253,253,251,.04);
+  border:1px solid var(--color-border-hairline);
+  padding:.32rem .6rem;
+  border-radius:var(--radius-sm);
+}
+.modality-card__link{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--space-2);
+  margin-top:var(--space-6);
+  font-family:var(--font-accent);
+  font-size:.72rem;
+  color:var(--color-accent);
+  text-decoration:none;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  position:relative;
+  z-index:2;
+  transition:color var(--duration-fast) var(--ease-standard);
+  min-height:44px;
+}
+.modality-card__link:hover{ color:var(--color-text); }
+.modality-card__link svg{ transition:transform var(--duration-fast) var(--ease-standard); }
+.modality-card__link:hover svg{ transform:translateX(4px); }
 
-        /* Decorative Elements */
-        .deco-line {
-            position: absolute;
-            bottom: 0;
-            left: 6%;
-            width: 1px;
-            height: 12vh;
-            background-color: rgba(197, 160, 89, 0.3);
-        }
+/* -- loading skeleton -- */
+.modalities__skeleton-grid{ display:grid; grid-template-columns:1fr; gap:var(--space-6); }
+.skeleton-card{
+  border:1px solid var(--color-border-hairline);
+  padding:var(--space-10) var(--space-8);
+  background:rgba(253,253,251,.02);
+}
+.skeleton-line{
+  height:12px;
+  border-radius:var(--radius-sm);
+  background:linear-gradient(90deg, rgba(253,253,251,.05) 25%, rgba(253,253,251,.12) 37%, rgba(253,253,251,.05) 63%);
+  background-size:400% 100%;
+  animation:shimmer 1.6s ease-in-out infinite;
+  margin-bottom:var(--space-4);
+}
+.skeleton-line.w-40{ width:40%; height:9px; }
+.skeleton-line.w-70{ width:70%; height:20px; }
+.skeleton-line.w-100{ width:100%; }
+.skeleton-line.w-90{ width:90%; }
+.skeleton-line.w-50{ width:50%; margin-bottom:0; }
+@keyframes shimmer{ 0%{ background-position:100% 0; } 100%{ background-position:-100% 0; } }
+@media (prefers-reduced-motion: reduce){ .skeleton-line{ animation:none; opacity:.5; } }
 
-        .deco-text {
-            position: absolute;
-            left: 6%;
-            bottom: 15vh;
-            transform: rotate(-90deg) translateX(-50%);
-            transform-origin: left bottom;
-            font-family: var(--font-body);
-            font-size: 0.65rem;
-            letter-spacing: 0.4em;
-            color: rgba(253, 253, 251, 0.2);
-            text-transform: uppercase;
-            white-space: nowrap;
-        }
+/* -- empty / error states (shared shape, reused by gallery) -- */
+.state-panel{
+  grid-column:1 / -1;
+  text-align:center;
+  padding:var(--space-16) var(--space-8);
+  border:1px dashed var(--color-border);
+  color:var(--color-text-muted);
+}
+.state-panel svg{ margin-inline:auto; color:var(--color-accent); margin-bottom:var(--space-5); }
+.state-panel h3{ color:var(--color-text); font-size:var(--text-md); margin-bottom:var(--space-3); font-weight:400; }
+.state-panel p{ max-width:48ch; margin-inline:auto; margin-bottom:var(--space-6); font-size:var(--text-sm); line-height:1.7; }
+.state-panel--error svg{ color:var(--color-error); }
 
-        /* Mobile Optimization */
-        @media (max-width: 1200px) {
-            h1 { font-size: 4.5rem; }
-            .content-left { padding-right: 3rem; }
-            .proof-module { left: -5%; width: 320px; }
-        }
+/* ==========================================================================
+   Process — the consultation journey (process_timeline)
+   ========================================================================== */
+.process{ background:var(--color-bg); }
+.process__list{ display:grid; grid-template-columns:1fr; }
+.process-step{
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:var(--space-6);
+  padding-block:var(--space-2);
+}
+.process-step__marker{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.process-step__number{
+  width:52px; height:52px;
+  border-radius:50%;
+  border:1px solid var(--color-border-strong);
+  background:var(--color-bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:var(--font-heading);
+  font-size:1.15rem;
+  color:var(--color-accent);
+  flex:none;
+  position:relative;
+  z-index:2;
+}
+.process-step__line{
+  width:1px;
+  flex:1;
+  min-height:var(--space-8);
+  background:linear-gradient(var(--color-border-strong), var(--color-border-hairline));
+  margin-top:var(--space-2);
+}
+.process-step:last-child .process-step__line{ display:none; }
+.process-step__body{ padding-bottom:var(--space-10); }
+.process-step__meta{ display:flex; gap:var(--space-2); margin-bottom:var(--space-4); flex-wrap:wrap; }
+.process-step__title{ font-size:var(--text-lg); color:var(--color-text); margin-bottom:var(--space-3); font-weight:400; }
+.process-step__desc{ color:var(--color-text-muted); font-size:var(--text-sm); line-height:1.75; max-width:56ch; }
 
-        @media (max-width: 992px) {
-            header {
-                padding: 1.5rem 5%;
-            }
-            nav {
-                display: none; /* Mobile menu hidden for hero concept */
-            }
-            .hero-split {
-                flex-direction: column;
-                height: auto;
-                margin: 0 5%;
-                padding-bottom: 6rem;
-            }
-            .content-left {
-                padding-right: 0;
-                margin-bottom: 4rem;
-                padding-top: 4rem;
-            }
-            .visual-right {
-                width: 100%;
-            }
-            .image-wrapper {
-                height: 60vh;
-            }
-            .proof-module {
-                left: 5%;
-                bottom: -3rem;
-                width: 90%;
-            }
-            .deco-line, .deco-text {
-                display: none;
-            }
-            h1 i {
-                margin-left: 0;
-            }
-        }
-    </style>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+@media (min-width:1080px){
+  .process__list{ display:flex; align-items:flex-start; gap:var(--space-6); }
+  .process-step{ display:flex; flex-direction:column; flex:1; gap:var(--space-6); padding-block:0; }
+  .process-step__marker{ flex-direction:row; align-items:center; width:100%; }
+  .process-step__line{ width:auto; height:1px; flex:1; min-height:0; margin-top:0; margin-left:var(--space-2); background:linear-gradient(90deg, var(--color-border-strong), var(--color-border-hairline)); }
+  .process-step__body{ padding-bottom:0; }
+  .process-step__desc{ max-width:none; }
+}
+
+/* ==========================================================================
+   Efficacy / testimonial carousel
+   ========================================================================== */
+.efficacy{ background:var(--color-surface); position:relative; }
+.efficacy__layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:var(--space-14);
+  align-items:center;
+}
+.efficacy__panel{
+  border:1px solid var(--color-border);
+  background:linear-gradient(150deg, rgba(197,160,89,.1) 0%, rgba(10,11,14,.85) 100%);
+  padding:var(--space-10);
+  position:relative;
+}
+@media (max-width:640px){ .efficacy__panel{ padding:var(--space-8); } }
+.efficacy__panel::after{ content:''; position:absolute; inset:16px; border:1px solid rgba(197,160,89,.2); pointer-events:none; }
+.efficacy__stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:var(--space-8); position:relative; z-index:2; }
+.efficacy__stat dt{ font-family:var(--font-heading); font-size:var(--text-xl); color:var(--color-text); }
+.efficacy__stat dd{ font-size:var(--text-xs); letter-spacing:.06em; text-transform:uppercase; color:var(--color-text-faint); margin-top:var(--space-2); }
+.efficacy__stat-note{ grid-column:1 / -1; font-size:.72rem; color:var(--color-text-ghost); margin-top:var(--space-4); line-height:1.6; }
+
+.testimonial-carousel{ position:relative; }
+.quote-mark{
+  font-family:var(--font-heading);
+  font-size:5rem;
+  color:rgba(197,160,89,.18);
+  line-height:0;
+  margin-bottom:var(--space-6);
+  display:block;
+}
+.testimonial-carousel__viewport{ overflow:hidden; }
+.testimonial-carousel__track{
+  display:flex;
+  transition:transform var(--duration-slow) var(--ease-out);
+}
+.testimonial-card{
+  flex:0 0 100%;
+  min-width:100%;
+}
+.testimonial-card__text{
+  font-family:var(--font-heading);
+  font-size:var(--text-xl);
+  line-height:1.4;
+  color:var(--color-text);
+  font-style:italic;
+  margin-bottom:var(--space-6);
+}
+.testimonial-card__author{
+  font-family:var(--font-accent);
+  font-size:var(--text-xs);
+  color:var(--color-accent);
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  display:block;
+}
+.testimonial-card__modality{
+  font-size:var(--text-xs);
+  color:var(--color-text-faint);
+  margin-top:var(--space-2);
+  display:block;
+}
+.testimonial-carousel__controls{
+  display:flex;
+  align-items:center;
+  gap:var(--space-6);
+  margin-top:var(--space-10);
+}
+.carousel-btn{
+  width:44px; height:44px;
+  border-radius:50%;
+  border:1px solid var(--color-border-strong);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--color-text);
+  flex:none;
+  transition:all var(--duration-fast) var(--ease-standard);
+}
+.carousel-btn:hover:not(:disabled){ background:var(--color-accent); border-color:var(--color-accent); color:var(--color-accent-contrast); }
+.carousel-btn:disabled{ opacity:.3; cursor:not-allowed; }
+.carousel-btn--prev svg{ transform:rotate(180deg); }
+.testimonial-carousel__dots{ display:flex; gap:var(--space-2); }
+.testimonial__dot{
+  width:8px; height:8px;
+  border-radius:50%;
+  background:var(--color-border-strong);
+  transition:all var(--duration-fast) var(--ease-standard);
+}
+.testimonial__dot.is-active{ background:var(--color-accent); width:22px; border-radius:var(--radius-pill); }
+
+@media (min-width:960px){
+  .efficacy__layout{ grid-template-columns:.9fr 1.1fr; gap:var(--space-16); }
+}
+
+/* ==========================================================================
+   Aesthetic / Atelier gallery + lightbox
+   ========================================================================== */
+.gallery{ background:var(--color-bg); }
+.gallery__filters{ display:flex; flex-wrap:wrap; gap:var(--space-3); margin-bottom:var(--space-10); }
+.gallery__grid{ display:grid; grid-template-columns:1fr; gap:var(--space-5); }
+@media (min-width:640px){ .gallery__grid, .gallery__skeleton-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (min-width:1100px){ .gallery__grid, .gallery__skeleton-grid{ grid-template-columns:repeat(3,1fr); } }
+
+.gallery-card{
+  position:relative;
+  border:1px solid var(--color-border-hairline);
+  overflow:hidden;
+  cursor:pointer;
+  background:transparent;
+  display:block;
+  width:100%;
+  text-align:left;
+  padding:0;
+  min-height:44px;
+}
+.gallery-card__art{
+  aspect-ratio:4/5;
+  width:100%;
+  position:relative;
+  overflow:hidden;
+}
+.gallery-card__art svg{ width:100%; height:100%; transition:transform var(--duration-slow) var(--ease-standard); }
+.gallery-card:hover .gallery-card__art svg{ transform:scale(1.05); }
+.gallery-card:focus-visible .gallery-card__art svg{ transform:scale(1.05); }
+.gallery-card__scrim{
+  position:absolute; inset:0;
+  background:linear-gradient(0deg, rgba(6,7,10,.86) 0%, rgba(6,7,10,0) 46%);
+  display:flex;
+  align-items:flex-end;
+  padding:var(--space-5);
+}
+.gallery-card__caption{ position:relative; z-index:2; }
+.gallery-card__eyebrow{ font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--color-accent); margin-bottom:var(--space-2); display:block; }
+.gallery-card__title{ font-family:var(--font-heading); font-size:var(--text-md); color:var(--color-text); font-weight:400; }
+.gallery-card__expand{
+  position:absolute;
+  top:var(--space-3); right:var(--space-3);
+  width:34px; height:34px;
+  border-radius:50%;
+  background:rgba(6,7,10,.5);
+  border:1px solid rgba(253,253,251,.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--color-text);
+  z-index:2;
+}
+
+.gallery__skeleton-grid{ display:grid; grid-template-columns:1fr; gap:var(--space-5); }
+.gallery__skeleton-art{ aspect-ratio:4/5; background:linear-gradient(90deg, rgba(253,253,251,.04) 25%, rgba(253,253,251,.1) 37%, rgba(253,253,251,.04) 63%); background-size:400% 100%; animation:shimmer 1.6s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce){ .gallery__skeleton-art{ animation:none; opacity:.5; } }
+
+/* -- lightbox modal -- */
+.lightbox{
+  position:fixed; inset:0;
+  z-index:300;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:var(--space-6);
+  background:rgba(4,5,7,.92);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity var(--duration-base) var(--ease-standard);
+}
+.lightbox.is-open{ opacity:1; pointer-events:auto; }
+.lightbox__dialog{
+  position:relative;
+  width:min(100%, 860px);
+  max-height:88vh;
+  overflow-y:auto;
+  background:var(--color-surface);
+  border:1px solid var(--color-border);
+  box-shadow:var(--elevation-3);
+  display:grid;
+  grid-template-columns:1fr;
+}
+.lightbox__art{ aspect-ratio:16/10; width:100%; }
+.lightbox__art svg{ width:100%; height:100%; }
+.lightbox__body{ padding:var(--space-8); }
+.lightbox__eyebrow{ font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--color-accent); }
+.lightbox__title{ font-size:var(--text-lg); color:var(--color-text); margin-block:var(--space-3) var(--space-4); }
+.lightbox__desc{ color:var(--color-text-muted); font-size:var(--text-sm); line-height:1.75; }
+.lightbox__close{
+  position:absolute;
+  top:var(--space-4); right:var(--space-4);
+  width:40px; height:40px;
+  border-radius:50%;
+  background:rgba(6,7,10,.55);
+  border:1px solid rgba(253,253,251,.3);
+  color:var(--color-text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:3;
+}
+.lightbox__nav{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:44px; height:44px;
+  border-radius:50%;
+  background:rgba(6,7,10,.55);
+  border:1px solid rgba(253,253,251,.3);
+  color:var(--color-text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:3;
+}
+.lightbox__nav--prev{ left:var(--space-4); }
+.lightbox__nav--next{ right:var(--space-4); }
+.lightbox__nav--prev svg{ transform:rotate(180deg); }
+.lightbox__counter{ position:absolute; bottom:var(--space-4); left:var(--space-4); font-size:.7rem; letter-spacing:.1em; color:rgba(253,253,251,.7); background:rgba(6,7,10,.5); padding:.3rem .6rem; z-index:3; }
+@media (min-width:760px){
+  .lightbox__dialog{ grid-template-columns:1.2fr 1fr; max-height:80vh; }
+  .lightbox__art{ aspect-ratio:auto; height:100%; }
+  .lightbox__body{ display:flex; flex-direction:column; justify-content:center; }
+}
+
+/* ==========================================================================
+   Clinicians
+   ========================================================================== */
+.clinicians{ background:var(--color-surface); }
+.clinicians__grid{ display:grid; grid-template-columns:1fr; gap:var(--space-8); }
+@media (min-width:760px){ .clinicians__grid{ grid-template-columns:repeat(3,1fr); } }
+.clinician-card{ text-align:left; }
+.clinician-card__portrait{
+  aspect-ratio:3/4;
+  width:100%;
+  margin-bottom:var(--space-5);
+  border:1px solid var(--color-border-hairline);
+  overflow:hidden;
+}
+.clinician-card__portrait svg{ width:100%; height:100%; }
+.clinician-card__name{ font-size:var(--text-lg); color:var(--color-text); font-weight:400; }
+.clinician-card__credential{ font-size:var(--text-xs); letter-spacing:.1em; text-transform:uppercase; color:var(--color-accent); margin-block:var(--space-2) var(--space-4); display:block; }
+.clinician-card__bio{ font-size:var(--text-sm); color:var(--color-text-muted); line-height:1.75; margin-bottom:var(--space-4); }
+.clinician-card__tags{ display:flex; flex-wrap:wrap; gap:var(--space-2); }
+
+/* ==========================================================================
+   Journal teaser
+   ========================================================================== */
+.journal{ background:var(--color-bg); }
+.journal__grid{ display:grid; grid-template-columns:1fr; gap:var(--space-8); }
+@media (min-width:760px){ .journal__grid{ grid-template-columns:repeat(3,1fr); } }
+.journal-card{ border-top:1px solid var(--color-border); padding-top:var(--space-6); display:flex; flex-direction:column; height:100%; }
+.journal-card__category{ font-size:.66rem; letter-spacing:.14em; text-transform:uppercase; color:var(--color-rose); }
+.journal-card__title{ font-size:var(--text-md); color:var(--color-text); margin-block:var(--space-3) var(--space-4); font-weight:400; line-height:1.35; }
+.journal-card__excerpt{ font-size:var(--text-sm); color:var(--color-text-muted); line-height:1.75; margin-bottom:var(--space-5); flex:1; }
+.journal-card__meta{ display:flex; align-items:center; justify-content:space-between; font-size:.72rem; color:var(--color-text-faint); }
+.journal-card__link{ color:var(--color-accent); text-decoration:none; display:inline-flex; align-items:center; gap:var(--space-2); }
+.journal-card__link:hover{ color:var(--color-accent-hover); }
+
+/* ==========================================================================
+   Membership — pricing tiers (glass_panel)
+   ========================================================================== */
+.membership{ background:var(--color-surface); }
+.membership__toggle{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--space-4);
+  padding:var(--space-2);
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-pill);
+  margin-bottom:var(--space-12);
+}
+.membership__toggle-btn{
+  padding:.6rem 1.3rem;
+  min-height:40px;
+  border-radius:var(--radius-pill);
+  font-size:var(--text-xs);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--color-text-muted);
+  transition:all var(--duration-fast) var(--ease-standard);
+}
+.membership__toggle-btn.is-active{ background:var(--color-accent); color:var(--color-accent-contrast); }
+.membership__save-note{ font-size:var(--text-xs); color:var(--color-success); margin-left:var(--space-2); }
+
+.price-grid{ display:grid; grid-template-columns:1fr; gap:var(--space-8); align-items:stretch; }
+@media (min-width:900px){ .price-grid{ grid-template-columns:repeat(3,1fr); } }
+
+.price-card{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  padding:var(--space-10) var(--space-8);
+  border:1px solid var(--color-border);
+  background:rgba(21,23,28,.55);
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+  transition:transform var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard);
+}
+@media (max-width:640px){ .price-card{ padding:var(--space-8) var(--space-6); } }
+.price-card:hover{ border-color:var(--color-border-strong); }
+.price-card--featured{
+  border-color:var(--color-border-strong);
+  background:linear-gradient(165deg, rgba(197,160,89,.12) 0%, rgba(21,23,28,.75) 45%);
+  box-shadow:var(--elevation-2);
+}
+@media (min-width:900px){ .price-card--featured{ transform:translateY(calc(-1 * var(--space-4))); } }
+.price-card__badge{
+  position:absolute;
+  top:calc(-1 * var(--space-4));
+  left:var(--space-8);
+  background:var(--color-accent);
+  color:var(--color-accent-contrast);
+  font-size:.66rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  padding:.35rem .8rem;
+  border-radius:var(--radius-pill);
+  font-weight:600;
+}
+.price-card__tier{ font-family:var(--font-heading); font-size:var(--text-lg); color:var(--color-text); margin-bottom:var(--space-3); }
+.price-card__price{ display:flex; align-items:baseline; gap:var(--space-2); margin-bottom:var(--space-2); }
+.price-card__amount{ font-family:var(--font-heading); font-size:var(--text-2xl); color:var(--color-text); }
+.price-card__period{ font-size:var(--text-sm); color:var(--color-text-faint); }
+.price-card__note{ font-size:var(--text-xs); color:var(--color-text-ghost); margin-bottom:var(--space-8); min-height:1.2em; }
+.price-card__features{ display:flex; flex-direction:column; gap:var(--space-4); margin-bottom:var(--space-10); flex:1; }
+.price-card__features li{ display:flex; align-items:flex-start; gap:var(--space-3); font-size:var(--text-sm); color:var(--color-text-muted); line-height:1.5; }
+.price-card__features svg{ flex:none; color:var(--color-accent); margin-top:3px; }
+
+/* ==========================================================================
+   FAQ accordion
+   ========================================================================== */
+.faq{ background:var(--color-bg); }
+.faq__list{ max-width:840px; }
+.faq-item{ border-bottom:1px solid var(--color-border-hairline); }
+.faq-item:first-child{ border-top:1px solid var(--color-border-hairline); }
+.faq-item__trigger{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--space-6);
+  padding-block:var(--space-6);
+  text-align:left;
+  font-size:var(--text-md);
+  color:var(--color-text);
+  font-family:var(--font-heading);
+  min-height:44px;
+}
+.faq-item__trigger svg{ flex:none; color:var(--color-accent); transition:transform var(--duration-base) var(--ease-standard); }
+.faq-item__trigger[aria-expanded="true"] svg{ transform:rotate(180deg); }
+.faq-item__panel{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height var(--duration-base) var(--ease-standard);
+}
+.faq-item__panel p{ padding-bottom:var(--space-6); color:var(--color-text-muted); font-size:var(--text-sm); line-height:1.8; max-width:70ch; }
+
+/* ==========================================================================
+   Forms — shared field system (consultation + newsletter)
+   ========================================================================== */
+.field{ display:flex; flex-direction:column; gap:var(--space-2); margin-bottom:var(--space-6); }
+.field__label{ font-size:var(--text-xs); letter-spacing:.06em; text-transform:uppercase; color:var(--color-text-faint); }
+.field__label .required{ color:var(--color-rose); margin-left:2px; }
+.field__control{
+  min-height:52px;
+  padding:0 var(--space-4);
+  background:rgba(253,253,251,.03);
+  border:1px solid var(--color-border);
+  color:var(--color-text);
+  border-radius:var(--radius-sm);
+  transition:border-color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard);
+  width:100%;
+}
+textarea.field__control{ min-height:120px; padding-block:var(--space-3); resize:vertical; }
+.field__control::placeholder{ color:var(--color-text-ghost); }
+.field__control:hover{ border-color:var(--color-border-strong); }
+.field__control:focus{ border-color:var(--color-accent); background:rgba(197,160,89,.05); outline:none; }
+.field__control:disabled{ opacity:.5; cursor:not-allowed; }
+.field__control[aria-invalid="true"]{ border-color:var(--color-error); }
+.field__error{ font-size:var(--text-xs); color:var(--color-error); min-height:1em; display:flex; align-items:center; gap:var(--space-2); }
+.field__error:empty{ display:none; }
+.field__hint{ font-size:.72rem; color:var(--color-text-ghost); }
+.field-row{ display:grid; grid-template-columns:1fr; gap:0 var(--space-5); }
+@media (min-width:640px){ .field-row{ grid-template-columns:1fr 1fr; } }
+
+.field-check{ display:flex; align-items:flex-start; gap:var(--space-3); margin-bottom:var(--space-8); }
+.field-check input{
+  width:20px; height:20px;
+  flex:none;
+  margin-top:2px;
+  accent-color:var(--color-accent);
+}
+.field-check label{ font-size:var(--text-sm); color:var(--color-text-muted); line-height:1.6; }
+
+.form__status{ font-size:var(--text-sm); min-height:1.4em; margin-top:var(--space-2); display:flex; align-items:center; gap:var(--space-2); }
+.form__status--pending{ color:var(--color-text-faint); }
+.form__status--error{ color:var(--color-error); }
+.form__status--success{ color:var(--color-success); }
+.form__status:empty{ display:none; }
+
+.form-success{
+  text-align:center;
+  padding:var(--space-16) var(--space-8);
+  border:1px solid var(--color-border-strong);
+  background:rgba(197,160,89,.06);
+}
+.form-success svg{ color:var(--color-success); margin-inline:auto; margin-bottom:var(--space-5); }
+.form-success h3{ font-size:var(--text-lg); color:var(--color-text); margin-bottom:var(--space-3); }
+.form-success p{ color:var(--color-text-muted); font-size:var(--text-sm); max-width:44ch; margin-inline:auto; }
+
+/* ==========================================================================
+   Consultation / booking
+   ========================================================================== */
+.consult{ background:var(--color-surface); }
+.consult__layout{ display:grid; grid-template-columns:minmax(0,1fr); gap:var(--space-14); }
+.consult__info-list{ display:flex; flex-direction:column; gap:var(--space-6); margin-top:var(--space-8); }
+.consult__info-item{ display:flex; gap:var(--space-4); }
+.consult__info-item svg{ flex:none; color:var(--color-accent); margin-top:3px; }
+.consult__info-item h3{ font-size:var(--text-sm); color:var(--color-text); margin-bottom:var(--space-1); font-weight:600; letter-spacing:.02em; }
+.consult__info-item p{ font-size:var(--text-sm); color:var(--color-text-muted); line-height:1.7; }
+.consult__form-panel{
+  border:1px solid var(--color-border);
+  background:rgba(10,11,14,.45);
+  padding:var(--space-8);
+}
+@media (min-width:560px){ .consult__form-panel{ padding:var(--space-10); } }
+@media (min-width:1080px){ .consult__layout{ grid-template-columns:.8fr 1.2fr; gap:var(--space-16); } }
+
+/* ==========================================================================
+   Location &amp; hours
+   ========================================================================== */
+.visit{ background:var(--color-bg); }
+.visit__layout{ display:grid; grid-template-columns:1fr; gap:var(--space-12); align-items:start; }
+.visit__map{
+  aspect-ratio:4/3;
+  border:1px solid var(--color-border);
+  position:relative;
+  overflow:hidden;
+  background:var(--color-bg-alt);
+}
+.visit__map svg{ width:100%; height:100%; }
+.visit__status{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--space-2);
+  font-size:var(--text-sm);
+  color:var(--color-text);
+  margin-bottom:var(--space-6);
+  padding:.55rem 1rem;
+  border:1px solid var(--color-border);
+  border-radius:var(--radius-pill);
+}
+.visit__status-dot{ width:8px; height:8px; border-radius:50%; background:var(--color-text-faint); flex:none; }
+.visit__status.is-open .visit__status-dot{ background:var(--color-success); box-shadow:0 0 0 3px rgba(169,210,179,.18); }
+.visit__status.is-closed .visit__status-dot{ background:var(--color-rose); }
+.visit__addr{ font-size:var(--text-md); color:var(--color-text); margin-bottom:var(--space-2); }
+.visit__addr-line{ color:var(--color-text-muted); font-size:var(--text-sm); margin-bottom:var(--space-8); }
+.hours-table{ width:100%; border-collapse:collapse; margin-bottom:var(--space-8); }
+.hours-table td{ padding-block:var(--space-2); font-size:var(--text-sm); border-bottom:1px solid var(--color-border-hairline); }
+.hours-table td:first-child{ color:var(--color-text-muted); }
+.hours-table td:last-child{ text-align:right; color:var(--color-text); font-variant-numeric:tabular-nums; }
+.hours-table tr.is-today td{ color:var(--color-accent); }
+.hours-table tr.is-today td:first-child{ font-weight:600; }
+@media (min-width:960px){ .visit__layout{ grid-template-columns:1fr 1fr; gap:var(--space-16); } }
+
+/* ==========================================================================
+   Final CTA banner
+   ========================================================================== */
+.final-cta{
+  background:var(--color-surface);
+  text-align:center;
+  border-top:1px solid var(--color-border);
+  border-bottom:1px solid var(--color-border);
+}
+.final-cta h2{ font-size:var(--text-2xl); color:var(--color-text); margin-bottom:var(--space-5); font-weight:400; }
+.final-cta p{ color:var(--color-text-muted); margin-bottom:var(--space-10); font-size:var(--text-md); margin-inline:auto; }
+.final-cta__actions{ display:flex; flex-wrap:wrap; justify-content:center; gap:var(--space-5); }
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer{ background:var(--color-bg-alt); padding-block:var(--space-20) var(--space-8); }
+.footer__top{ display:grid; grid-template-columns:1fr; gap:var(--space-12); margin-bottom:var(--space-16); }
+.footer-brand .logo{ margin-bottom:var(--space-5); }
+.footer-desc{ color:var(--color-text-faint); font-size:var(--text-sm); line-height:1.8; max-width:320px; margin-bottom:var(--space-6); }
+.footer-social{ display:flex; gap:var(--space-3); }
+.footer-social a{
+  width:38px; height:38px;
+  border:1px solid var(--color-border);
+  border-radius:50%;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--color-text-muted);
+  transition:all var(--duration-fast) var(--ease-standard);
+}
+.footer-social a:hover{ color:var(--color-accent); border-color:var(--color-border-strong); }
+.footer-cols{ display:grid; grid-template-columns:repeat(2,1fr); gap:var(--space-8); }
+.footer-col h4{ font-family:var(--font-accent); color:var(--color-text); font-size:var(--text-xs); letter-spacing:.15em; text-transform:uppercase; margin-bottom:var(--space-5); }
+.footer-col ul{ display:flex; flex-direction:column; gap:var(--space-3); }
+.footer-col ul li a{ text-decoration:none; color:var(--color-text-faint); font-size:var(--text-sm); transition:color var(--duration-fast) var(--ease-standard); }
+.footer-col ul li a:hover{ color:var(--color-accent); }
+.footer-newsletter{ grid-column:1 / -1; }
+.footer-newsletter h4{ font-family:var(--font-accent); color:var(--color-text); font-size:var(--text-xs); letter-spacing:.15em; text-transform:uppercase; margin-bottom:var(--space-3); }
+.footer-newsletter p{ color:var(--color-text-faint); font-size:var(--text-sm); margin-bottom:var(--space-5); max-width:44ch; }
+.newsletter-form{ display:flex; flex-direction:column; gap:var(--space-3); max-width:420px; }
+.newsletter-form__row{ display:flex; gap:var(--space-3); }
+.newsletter-form__row .field__control{ flex:1; }
+.newsletter__status{ font-size:var(--text-xs); min-height:1.4em; }
+.newsletter__status--error{ color:var(--color-error); }
+.newsletter__status--pending{ color:var(--color-text-faint); }
+.newsletter__status--success{ color:var(--color-success); }
+.footer-bottom{
+  display:flex;
+  flex-direction:column;
+  gap:var(--space-4);
+  padding-top:var(--space-8);
+  border-top:1px solid var(--color-border-hairline);
+  color:var(--color-text-ghost);
+  font-size:.78rem;
+}
+.footer-bottom__links{ display:flex; flex-wrap:wrap; gap:var(--space-5); }
+.footer-bottom__links a{ color:var(--color-text-ghost); text-decoration:none; }
+.footer-bottom__links a:hover{ color:var(--color-text-muted); }
+@media (min-width:640px){ .footer-cols{ grid-template-columns:repeat(3,1fr); } .footer-newsletter{ grid-column:auto; } }
+@media (min-width:900px){
+  .footer__top{ grid-template-columns:1.4fr 2fr; }
+  .footer-cols{ grid-template-columns:repeat(3,1fr); }
+}
+@media (min-width:1080px){
+  .footer__top{ grid-template-columns:1.2fr .8fr 1.6fr; }
+  .footer-newsletter{ grid-column:auto; }
+}
+@media (min-width:760px){
+  .footer-bottom{ flex-direction:row; justify-content:space-between; align-items:center; }
+}
+
+/* -- back to top -- */
+.back-to-top{
+  position:fixed;
+  right:var(--space-6);
+  bottom:var(--space-6);
+  width:48px; height:48px;
+  border-radius:50%;
+  background:var(--color-text);
+  color:var(--color-accent-contrast);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:var(--elevation-2);
+  opacity:0;
+  transform:translateY(12px);
+  pointer-events:none;
+  transition:opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard);
+  z-index:150;
+}
+.back-to-top.is-visible{ opacity:1; transform:none; pointer-events:auto; }
+.back-to-top svg{ transform:rotate(-90deg); }
+
+@media print{
+  .site-header,.nav-overlay,.nav-panel,.back-to-top,.scroll-cue,.lightbox{ display:none !important; }
+  body{ background:#fff; color:#111; }
+}
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">Aurelia <span>spa</span></div>
-        <nav>
-            <a href="#clinical">Clinical</a>
-            <a href="#aesthetic">Aesthetic</a>
-            <a href="#membership">Membership</a>
-            <a href="#consult" class="nav-cta">Reserve Consultation</a>
-        </nav>
-    </header>
+<a class="skip-link" href="#main">Skip to main content</a>
 
-    <section class="hero">
-        <div class="hero-split">
-            <div class="content-left">
-                <div class="accent-text">Macon, Georgia</div>
-                <h1>Medical precision.<br><i>Couture results.</i></h1>
-                <p class="hero-desc">Elevate your aesthetic journey. Aurelia Med Spa offers physician-led cosmetic interventions—from bespoke injectables to Morpheus8 and advanced laser therapy—within an intimately luxurious environment.</p>
-                <a href="#booking" class="primary-cta">
-                    Request Assessment <span class="cta-arrow">→</span>
-                </a>
-            </div>
-            
-            <div class="visual-right">
-                <div class="image-wrapper">
-                    <div class="visual-still">
-                        <div class="visual-grid"></div>
-                        <div class="visual-pill">Consult-led skin renewal</div>
-                    </div>
-                </div>
+<!-- ==========================================================================
+     Inline SVG symbol sprite — every icon on the page lives here, referenced
+     by <use>. No external image requests anywhere in this document.
+     ========================================================================== -->
+<svg xmlns="http://www.w3.org/2000/svg" class="visually-hidden" aria-hidden="true">
+  <defs>
+    <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M4 12h15.5M13.5 5.5 20 12l-6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 3.2 19.5 6v6.1c0 4.6-3.2 7.7-7.5 8.7-4.3-1-7.5-4.1-7.5-8.7V6L12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12.2l2.1 2.1 4-4.4" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 7.4V12l3.4 2" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-team" viewBox="0 0 24 24"><circle cx="8.6" cy="8.4" r="3" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="16.2" cy="9.6" r="2.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3.4 19c.5-3 2.6-4.7 5.2-4.7s4.7 1.7 5.2 4.7M13.8 19c.4-2.3 1.9-3.7 3.9-3.9" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+    <symbol id="icon-droplet" viewBox="0 0 24 24"><path d="M12 3.6S6.4 10 6.4 14a5.6 5.6 0 0 0 11.2 0c0-4-5.6-10.4-5.6-10.4Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-spark" viewBox="0 0 24 24"><path d="M12 3v5M12 16v5M3 12h5M16 12h5M6 6l3 3M15 15l3 3M6 18l3-3M15 9l3-3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+    <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M12 21s-6.8-6-6.8-11a6.8 6.8 0 1 1 13.6 0c0 5-6.8 11-6.8 11Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+    <symbol id="icon-phone" viewBox="0 0 24 24"><path d="M6 4.4h3l1.4 4-2 1.6a11.4 11.4 0 0 0 5.6 5.6l1.6-2 4 1.4v3a1.6 1.6 0 0 1-1.7 1.6A16 16 0 0 1 4.4 6.1 1.6 1.6 0 0 1 6 4.4Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24"><rect x="3.4" y="5.6" width="17.2" height="12.8" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 6.4l8 6.4 8-6.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="M4.5 12.6 9.5 18 19.5 6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-alert" viewBox="0 0 24 24"><path d="M12 4 21 19.5H3L12 4Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 10v4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="17.2" r=".9" fill="currentColor"/></symbol>
+    <symbol id="icon-empty" viewBox="0 0 24 24"><rect x="3.6" y="5.4" width="16.8" height="14" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3.6 15.6l4.6-4.4 3.4 2.8 4-3.6 4.8 4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><circle cx="8.4" cy="9.4" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="icon-inst" viewBox="0 0 24 24"><rect x="3.6" y="3.6" width="16.8" height="16.8" rx="4.4" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.3"/><circle cx="16.6" cy="7.4" r="1" fill="currentColor"/></symbol>
+    <symbol id="icon-pinterestlike" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9.6 17c.8-3 1-6.4 1.6-8.4a2.2 2.2 0 0 1 4.3.7c0 2-1.3 4-3.1 4-.6 0-1-.2-1.3-.6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></symbol>
+    <symbol id="icon-journal" viewBox="0 0 24 24"><path d="M5 4.6h11.4a2 2 0 0 1 2 2V19H7a2 2 0 0 1-2-2V4.6Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M5 19a2 2 0 0 0 2 2h11.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M8.4 8.6h6.6M8.4 11.8h6.6M8.4 15h4.2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></symbol>
+    <symbol id="icon-vial" viewBox="0 0 24 24"><path d="M9.6 3.4h4.8M10.4 3.4v6.8L5.8 18a2.4 2.4 0 0 0 2.1 3.6h8.2A2.4 2.4 0 0 0 18.2 18l-4.6-7.8V3.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M7.6 15.4h8.8" stroke="currentColor" stroke-width="1.1"/></symbol>
+    <symbol id="icon-leaf" viewBox="0 0 24 24"><path d="M5 19c-1-6 2.6-12.4 14-13.4C20 16 13.6 19.4 8 19c-1.4-.1-2.4-1-3-2Z" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><path d="M6 18C10 13.6 13.6 9.8 17.6 6.6" fill="none" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/></symbol>
+  </defs>
+</svg>
 
-                <div class="proof-module">
-                    <div class="proof-header">Signature Modalities</div>
-                    <ul class="treatment-list">
-                        <li>Neuromodulators <span>Elevate</span></li>
-                        <li>Morpheus8 RF <span>Refine</span></li>
-                        <li>Dermal Fillers <span>Restore</span></li>
-                        <li>IPL Photofacial <span>Luminate</span></li>
-                    </ul>
-                </div>
-            </div>
+<header class="site-header" id="siteHeader">
+  <a class="logo" href="#top">Aurelia <span>spa</span></a>
+
+  <nav class="primary-nav" aria-label="Primary">
+    <div class="primary-nav__links">
+      <a href="#clinical" class="nav__link">Clinical</a>
+      <a href="#aesthetic" class="nav__link">Aesthetic</a>
+      <a href="#membership" class="nav__link">Membership</a>
+      <a href="#journal" class="nav__link">Journal</a>
+    </div>
+    <a href="#consult" class="nav-cta">Reserve Consultation</a>
+  </nav>
+
+  <button type="button" class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
+    <span class="nav-toggle__bars"><span></span><span></span><span></span></span>
+  </button>
+</header>
+
+<div class="nav-overlay" id="navOverlay" hidden></div>
+<div class="nav-panel" id="navPanel" role="dialog" aria-modal="true" aria-label="Site menu">
+  <div class="nav-panel__top">
+    <span class="logo">Aurelia <span>spa</span></span>
+    <button type="button" class="nav-panel__close" id="navPanelClose" aria-label="Close menu">
+      <svg width="18" height="18" aria-hidden="true"><use href="#icon-close"></use></svg>
+    </button>
+  </div>
+  <nav class="nav-panel__links" aria-label="Mobile">
+    <a href="#clinical">Clinical <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+    <a href="#aesthetic">Aesthetic <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+    <a href="#process">The Process <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+    <a href="#clinicians">Clinicians <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+    <a href="#membership">Membership <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+    <a href="#journal">Journal <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+    <a href="#faq">FAQ <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+  </nav>
+  <div class="nav-panel__meta">
+    <a href="#consult" class="btn btn--ghost btn--full">Reserve Consultation</a>
+    <p>Macon, Georgia</p>
+    <a href="tel:+14785550142"><svg width="14" height="14" aria-hidden="true" style="display:inline;vertical-align:-2px;margin-right:6px;"><use href="#icon-phone"></use></svg>(478) 555-0142</a>
+  </div>
+</div>
+
+<main id="main">
+
+<section class="hero" id="top">
+  <div class="container hero-split">
+    <div class="content-left">
+      <span class="eyebrow">Macon, Georgia</span>
+      <h1>Medical precision.<br><i>Couture results.</i></h1>
+      <p class="hero-desc">Elevate your aesthetic journey. Aurelia Med Spa offers physician-led cosmetic interventions&mdash;from bespoke injectables to RF microneedling and advanced laser therapy&mdash;within an intimately luxurious environment.</p>
+      <div class="hero-actions">
+        <a href="#consult" class="btn btn--primary">Request Assessment <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+        <a href="#clinical" class="hero-secondary-link">View Signature Modalities <svg width="14" height="14" aria-hidden="true"><use href="#icon-chevron"></use></svg></a>
+      </div>
+    </div>
+
+    <div class="visual-right">
+      <div class="image-wrapper">
+        <div class="visual-still">
+          <div class="visual-grid" aria-hidden="true"></div>
+          <svg class="precision-map" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <path class="map-line" d="M50 14c14 0 22 12 22 27 0 17-10 31-22 34-12-3-22-17-22-34 0-15 8-27 22-27Z"/>
+            <path class="map-line" d="M34 40c4 8 4 16 0 24M66 40c-4 8-4 16 0 24M40 30c3 5 3 11 0 16M60 30c-3 5-3 11 0 16"/>
+            <circle class="map-node-ring" cx="38" cy="34" r="4.4"/>
+            <circle class="map-node" cx="38" cy="34" r="1.1"/>
+            <circle class="map-node-ring" cx="62" cy="34" r="4.4"/>
+            <circle class="map-node" cx="62" cy="34" r="1.1"/>
+            <circle class="map-node-ring" cx="50" cy="52" r="4.4"/>
+            <circle class="map-node" cx="50" cy="52" r="1.1"/>
+            <circle class="map-node-ring" cx="41" cy="66" r="3.6"/>
+            <circle class="map-node" cx="41" cy="66" r="1"/>
+            <circle class="map-node-ring" cx="59" cy="66" r="3.6"/>
+            <circle class="map-node" cx="59" cy="66" r="1"/>
+            <path class="map-line" d="M38 34 62 34M50 52 38 34M50 52 62 34M41 66 50 52M59 66 50 52" stroke-dasharray="1 2"/>
+            <text class="map-label" x="66.5" y="35">01</text>
+            <text class="map-label" x="52" y="49.5">02</text>
+            <text class="map-label" x="61.5" y="68">03</text>
+          </svg>
+          <div class="visual-pill"><svg width="13" height="13" aria-hidden="true"><use href="#icon-spark"></use></svg>Consult-led skin renewal</div>
+        </div>
+      </div>
+
+      <div class="proof-module">
+        <div class="proof-header">Signature Modalities</div>
+        <ul class="treatment-list">
+          <li>Neuromodulators <span>Elevate</span></li>
+          <li>RF Microneedling <span>Refine</span></li>
+          <li>Dermal Fillers <span>Restore</span></li>
+          <li>IPL Photofacial <span>Luminate</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="deco-line" aria-hidden="true"></div>
+  <div class="deco-text" aria-hidden="true">Aesthetic Excellence</div>
+  <a href="#trust" class="scroll-cue">
+    <span>Scroll</span>
+    <span class="scroll-cue__line" aria-hidden="true"></span>
+  </a>
+</section>
+
+<section class="trust-rail" id="trust" aria-label="Aurelia Med Spa at a glance">
+  <div class="container">
+    <div class="trust-rail__grid">
+      <div class="trust-item" data-reveal>
+        <span class="trust-item__icon" aria-hidden="true"><svg width="18" height="18"><use href="#icon-shield"></use></svg></span>
+        <span class="trust-item__text">
+          <span class="trust-item__value">Physician-Led</span>
+          <span class="trust-item__label">Medical Director on every plan</span>
+        </span>
+      </div>
+      <div class="trust-item" data-reveal>
+        <span class="trust-item__icon" aria-hidden="true"><svg width="18" height="18"><use href="#icon-team"></use></svg></span>
+        <span class="trust-item__text">
+          <span class="trust-item__value">14 Years</span>
+          <span class="trust-item__label">In practice, Macon &amp; Middle Georgia</span>
+        </span>
+      </div>
+      <div class="trust-item" data-reveal>
+        <span class="trust-item__icon" aria-hidden="true"><svg width="18" height="18"><use href="#icon-vial"></use></svg></span>
+        <span class="trust-item__text">
+          <span class="trust-item__value">3,200+</span>
+          <span class="trust-item__label">Bespoke treatment blueprints designed</span>
+        </span>
+      </div>
+      <div class="trust-item" data-reveal>
+        <span class="trust-item__icon" aria-hidden="true"><svg width="18" height="18"><use href="#icon-leaf"></use></svg></span>
+        <span class="trust-item__text">
+          <span class="trust-item__value">Consult-Led</span>
+          <span class="trust-item__label">No walk-in injectables, ever</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="philosophy section-pad" aria-labelledby="philosophy-heading">
+  <div class="ambient-glow" aria-hidden="true"></div>
+  <div class="container philosophy-content">
+    <span class="eyebrow eyebrow--center eyebrow--rose">The Aurelia Standard</span>
+    <h2 id="philosophy-heading">Beyond symmetry, we seek <i>harmony.</i></h2>
+    <p>Aesthetics is not merely the pursuit of youth, but the alignment of how you feel with how the world perceives you. At Aurelia Med Spa in Macon, our clinicians merge anatomical mastery with a refined editorial eye to deliver outcomes that are sophisticated, undetectable, and unmistakably yours.</p>
+
+    <div class="philosophy__pillars">
+      <div class="pillar" data-reveal>
+        <span class="pillar__icon" aria-hidden="true"><svg width="22" height="22"><use href="#icon-vial"></use></svg></span>
+        <h3>Diagnosis before device</h3>
+        <p>Every protocol begins with a physician-led skin and structure assessment &mdash; never a menu of add-ons chosen off a price sheet.</p>
+      </div>
+      <div class="pillar" data-reveal>
+        <span class="pillar__icon" aria-hidden="true"><svg width="22" height="22"><use href="#icon-spark"></use></svg></span>
+        <h3>Restraint is the craft</h3>
+        <p>We stage results across sessions on purpose. The goal is a face that reads as rested, not a face that reads as treated.</p>
+      </div>
+      <div class="pillar" data-reveal>
+        <span class="pillar__icon" aria-hidden="true"><svg width="22" height="22"><use href="#icon-shield"></use></svg></span>
+        <h3>Clinical accountability</h3>
+        <p>Your Medical Director signs off on every blueprint and every deviation from it &mdash; injectables included.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="modalities section-pad" id="clinical" aria-labelledby="modalities-heading">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div>
+        <span class="eyebrow">Clinical Interventions</span>
+        <h2 id="modalities-heading">Modalities, <i>mastered.</i></h2>
+        <p>Every intervention below is physician-designed and delivered by a credentialed injector or laser specialist &mdash; filter by category or read the full clinical menu.</p>
+      </div>
+      <a href="#consult" class="section-link">Request Full Menu &rarr;</a>
+    </div>
+
+    <div class="modalities__filters" role="group" aria-label="Filter modalities by category">
+      <button type="button" class="filter-chip is-active" data-filter="all" aria-pressed="true">All Modalities</button>
+      <button type="button" class="filter-chip" data-filter="injectables" aria-pressed="false">Injectables</button>
+      <button type="button" class="filter-chip" data-filter="skin-renewal" aria-pressed="false">Skin Renewal</button>
+      <button type="button" class="filter-chip" data-filter="laser-light" aria-pressed="false">Laser &amp; Light</button>
+      <button type="button" class="filter-chip" data-filter="body-contour" aria-pressed="false">Body &amp; Contour</button>
+      <button type="button" class="filter-chip" data-filter="bridal" aria-pressed="false">Bridal &amp; Events</button>
+    </div>
+
+    <p class="visually-hidden" id="modalitiesStatus" role="status" aria-live="polite"></p>
+    <div class="modalities__grid" id="modalitiesGrid" aria-busy="false"></div>
+  </div>
+</section>
+
+<section class="process section-pad" id="process" aria-labelledby="process-heading">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div>
+        <span class="eyebrow">The Consultation Journey</span>
+        <h2 id="process-heading">A blueprint, <i>then a needle.</i></h2>
+        <p>Nothing at Aurelia begins with treatment. It begins with a plan your Medical Director will actually stand behind.</p>
+      </div>
+    </div>
+
+    <ol class="process__list">
+      <li class="process-step" data-reveal>
+        <div class="process-step__marker">
+          <span class="process-step__number">01</span>
+          <span class="process-step__line" aria-hidden="true"></span>
+        </div>
+        <div class="process-step__body">
+          <div class="process-step__meta">
+            <span class="spec-chip"><svg width="12" height="12" aria-hidden="true"><use href="#icon-clock"></use></svg>45 min</span>
+            <span class="spec-chip">In-suite or virtual</span>
+          </div>
+          <h3 class="process-step__title">Discovery Consultation</h3>
+          <p class="process-step__desc">A full skin and structure assessment with precision mapping, goal intake, and a candid read on what is &mdash; and is not &mdash; worth treating.</p>
+        </div>
+      </li>
+      <li class="process-step" data-reveal>
+        <div class="process-step__marker">
+          <span class="process-step__number">02</span>
+          <span class="process-step__line" aria-hidden="true"></span>
+        </div>
+        <div class="process-step__body">
+          <div class="process-step__meta">
+            <span class="spec-chip"><svg width="12" height="12" aria-hidden="true"><use href="#icon-clock"></use></svg>2&ndash;3 days</span>
+            <span class="spec-chip">Authored by your Medical Director</span>
+          </div>
+          <h3 class="process-step__title">Bespoke Blueprint</h3>
+          <p class="process-step__desc">A written protocol sequencing modalities, sessions, and cost &mdash; sent to your patient portal before anything is scheduled.</p>
+        </div>
+      </li>
+      <li class="process-step" data-reveal>
+        <div class="process-step__marker">
+          <span class="process-step__number">03</span>
+          <span class="process-step__line" aria-hidden="true"></span>
+        </div>
+        <div class="process-step__body">
+          <div class="process-step__meta">
+            <span class="spec-chip"><svg width="12" height="12" aria-hidden="true"><use href="#icon-clock"></use></svg>20&ndash;60 min</span>
+            <span class="spec-chip">Private treatment suite</span>
+          </div>
+          <h3 class="process-step__title">Treatment Session</h3>
+          <p class="process-step__desc">Precision delivery under a comfort-first protocol &mdash; topical numbing, guided breathing, and a Medical Director on-site for every injectable day.</p>
+        </div>
+      </li>
+      <li class="process-step" data-reveal>
+        <div class="process-step__marker">
+          <span class="process-step__number">04</span>
+          <span class="process-step__line" aria-hidden="true"></span>
+        </div>
+        <div class="process-step__body">
+          <div class="process-step__meta">
+            <span class="spec-chip"><svg width="12" height="12" aria-hidden="true"><use href="#icon-clock"></use></svg>24&ndash;48 hr check-in</span>
+            <span class="spec-chip">Concierge portal</span>
+          </div>
+          <h3 class="process-step__title">Recovery &amp; Aftercare</h3>
+          <p class="process-step__desc">A same-week check-in, a plain-language aftercare sheet, and a direct line to your care team &mdash; not a printed pamphlet.</p>
+        </div>
+      </li>
+      <li class="process-step" data-reveal>
+        <div class="process-step__marker">
+          <span class="process-step__number">05</span>
+          <span class="process-step__line" aria-hidden="true"></span>
+        </div>
+        <div class="process-step__body">
+          <div class="process-step__meta">
+            <span class="spec-chip"><svg width="12" height="12" aria-hidden="true"><use href="#icon-clock"></use></svg>Quarterly rhythm</span>
+            <span class="spec-chip">Membership-eligible</span>
+          </div>
+          <h3 class="process-step__title">Maintenance Rhythm</h3>
+          <p class="process-step__desc">A standing cadence built around how your face actually ages, not a generic six-month reminder text.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="efficacy section-pad surface-band" aria-labelledby="efficacy-heading">
+  <div class="container efficacy__layout">
+    <div class="efficacy__panel" data-reveal>
+      <span class="eyebrow eyebrow--rose" id="efficacy-heading">Patient-Reported Outcomes</span>
+      <dl class="efficacy__stat-grid" style="margin-top:2rem;">
+        <div class="efficacy__stat"><dt>96%</dt><dd>Would return for the same protocol</dd></div>
+        <div class="efficacy__stat"><dt>4.9</dt><dd>Avg. consult clarity score</dd></div>
+        <div class="efficacy__stat"><dt>0</dt><dd>Walk-in injectables performed, ever</dd></div>
+        <div class="efficacy__stat"><dt>1 biz day</dt><dd>Typical coordinator response time</dd></div>
+        <p class="efficacy__stat-note">Figures reflect internal Aurelia intake &amp; post-visit surveys, illustrative for this concept and not an independent clinical study.</p>
+      </dl>
+    </div>
+
+    <div class="testimonial-carousel" data-reveal aria-roledescription="carousel" aria-label="Patient testimonials">
+      <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+      <div class="testimonial-carousel__viewport">
+        <div class="testimonial-carousel__track" id="testimonialTrack">
+          <div class="testimonial-card" role="group" aria-roledescription="slide" aria-label="1 of 4">
+            <p class="testimonial-card__text">The practitioners at Aurelia do not change how you look; they resurrect the vitality you thought was lost. It is clinical precision delivered with white-glove elegance.</p>
+            <span class="testimonial-card__author">S. Montgomery &mdash; Macon, GA</span>
+            <span class="testimonial-card__modality">Architectural Fillers &amp; Neuromodulators</span>
+          </div>
+          <div class="testimonial-card" role="group" aria-roledescription="slide" aria-label="2 of 4">
+            <p class="testimonial-card__text">My first consult ran forty minutes and I never once felt upsold. The blueprint they sent afterward read like a medical chart, not a marketing email.</p>
+            <span class="testimonial-card__author">R. Okafor &mdash; Warner Robins, GA</span>
+            <span class="testimonial-card__modality">RF Microneedling</span>
+          </div>
+          <div class="testimonial-card" role="group" aria-roledescription="slide" aria-label="3 of 4">
+            <p class="testimonial-card__text">I have been to three med spas in Middle Georgia. Aurelia is the only one where the physician actually looked at my skin before anyone touched a syringe.</p>
+            <span class="testimonial-card__author">L. Devereaux &mdash; Macon, GA</span>
+            <span class="testimonial-card__modality">Dermal Fillers</span>
+          </div>
+          <div class="testimonial-card" role="group" aria-roledescription="slide" aria-label="4 of 4">
+            <p class="testimonial-card__text">The laser plan was staged across three sessions on purpose. Slower than I wanted, and exactly right &mdash; the result reads like good skin, not a procedure.</p>
+            <span class="testimonial-card__author">J. Whitfield &mdash; Perry, GA</span>
+            <span class="testimonial-card__modality">Fractional Resurfacing</span>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial-carousel__controls">
+        <button type="button" class="carousel-btn carousel-btn--prev" id="testimonialPrev" aria-label="Previous testimonial">
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow"></use></svg>
+        </button>
+        <div class="testimonial-carousel__dots" id="testimonialDots" role="tablist" aria-label="Choose a testimonial"></div>
+        <button type="button" class="carousel-btn carousel-btn--next" id="testimonialNext" aria-label="Next testimonial">
+          <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow"></use></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery section-pad" id="aesthetic" aria-labelledby="gallery-heading">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div>
+        <span class="eyebrow">Aesthetic</span>
+        <h2 id="gallery-heading">Inside the <i>atelier.</i></h2>
+        <p>A quiet tour of the suite &mdash; no before-and-afters, just the rooms, rituals, and instruments your treatment plan will actually use.</p>
+      </div>
+    </div>
+
+    <div class="gallery__filters" role="group" aria-label="Filter atelier gallery by area">
+      <button type="button" class="filter-chip is-active" data-gfilter="all" aria-pressed="true">All Areas</button>
+      <button type="button" class="filter-chip" data-gfilter="suites" aria-pressed="false">Treatment Suites</button>
+      <button type="button" class="filter-chip" data-gfilter="rituals" aria-pressed="false">Rituals</button>
+      <button type="button" class="filter-chip" data-gfilter="studio" aria-pressed="false">Studio</button>
+    </div>
+
+    <p class="visually-hidden" id="galleryStatus" role="status" aria-live="polite"></p>
+    <div class="gallery__grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" hidden>
+  <div class="lightbox__dialog" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle" id="lightboxDialog">
+    <button type="button" class="lightbox__close" id="lightboxClose" aria-label="Close image viewer">
+      <svg width="16" height="16" aria-hidden="true"><use href="#icon-close"></use></svg>
+    </button>
+    <button type="button" class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous image">
+      <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow"></use></svg>
+    </button>
+    <button type="button" class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next image">
+      <svg width="16" height="16" aria-hidden="true"><use href="#icon-arrow"></use></svg>
+    </button>
+    <span class="lightbox__counter" id="lightboxCounter"></span>
+    <div class="lightbox__art" id="lightboxArt"></div>
+    <div class="lightbox__body">
+      <span class="lightbox__eyebrow" id="lightboxEyebrow"></span>
+      <h3 class="lightbox__title" id="lightboxTitle"></h3>
+      <p class="lightbox__desc" id="lightboxDesc"></p>
+    </div>
+  </div>
+</div>
+
+<section class="clinicians section-pad surface-band" id="clinicians" aria-labelledby="clinicians-heading">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div>
+        <span class="eyebrow">Physician-Led</span>
+        <h2 id="clinicians-heading">The <i>care team.</i></h2>
+        <p>Every blueprint is authored or countersigned by a credentialed clinician &mdash; not a technician working off a franchise script.</p>
+      </div>
+    </div>
+
+    <div class="clinicians__grid">
+      <article class="clinician-card" data-reveal>
+        <div class="clinician-card__portrait">
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Portrait placeholder for Dr. Elena Marchetti-Cole">
+            <defs><linearGradient id="port1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#57384a"/><stop offset=".55" stop-color="#2b1f2a"/><stop offset="1" stop-color="#0a0b0e"/></linearGradient></defs>
+            <rect width="300" height="400" fill="url(#port1)"/>
+            <circle cx="150" cy="164" r="58" fill="none" stroke="rgba(197,160,89,.5)" stroke-width="1"/>
+            <text x="150" y="178" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="44" fill="#E8D6D5">EM</text>
+          </svg>
+        </div>
+        <h3 class="clinician-card__name">Dr. Elena Marchetti-Cole</h3>
+        <span class="clinician-card__credential">MD &middot; Medical Director &amp; Founder</span>
+        <p class="clinician-card__bio">Fifteen years in aesthetic medicine before founding Aurelia. Signs every injectable blueprint personally.</p>
+        <div class="clinician-card__tags">
+          <span class="spec-chip">Injectables</span>
+          <span class="spec-chip">Full-Face Assessment</span>
+        </div>
+      </article>
+
+      <article class="clinician-card" data-reveal>
+        <div class="clinician-card__portrait">
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Portrait placeholder for Priya Anand">
+            <defs><linearGradient id="port2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3126"/><stop offset=".55" stop-color="#20201d"/><stop offset="1" stop-color="#0a0b0e"/></linearGradient></defs>
+            <rect width="300" height="400" fill="url(#port2)"/>
+            <circle cx="150" cy="164" r="58" fill="none" stroke="rgba(197,160,89,.5)" stroke-width="1"/>
+            <text x="150" y="178" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="44" fill="#E8D6D5">PA</text>
+          </svg>
+        </div>
+        <h3 class="clinician-card__name">Priya Anand, NP-C</h3>
+        <span class="clinician-card__credential">Injectables Lead</span>
+        <p class="clinician-card__bio">Advanced-practice injector focused on neuromodulators and structural filler placement.</p>
+        <div class="clinician-card__tags">
+          <span class="spec-chip">Neuromodulators</span>
+          <span class="spec-chip">Dermal Fillers</span>
+        </div>
+      </article>
+
+      <article class="clinician-card" data-reveal>
+        <div class="clinician-card__portrait">
+          <svg viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Portrait placeholder for Josephine Laurent">
+            <defs><linearGradient id="port3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2c3a35"/><stop offset=".55" stop-color="#1c2320"/><stop offset="1" stop-color="#0a0b0e"/></linearGradient></defs>
+            <rect width="300" height="400" fill="url(#port3)"/>
+            <circle cx="150" cy="164" r="58" fill="none" stroke="rgba(197,160,89,.5)" stroke-width="1"/>
+            <text x="150" y="178" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="44" fill="#E8D6D5">JL</text>
+          </svg>
+        </div>
+        <h3 class="clinician-card__name">Josephine Laurent, LE</h3>
+        <span class="clinician-card__credential">Skin Renewal Lead</span>
+        <p class="clinician-card__bio">Licensed aesthetician overseeing RF microneedling, peels, and every pre- and post-laser protocol.</p>
+        <div class="clinician-card__tags">
+          <span class="spec-chip">RF Microneedling</span>
+          <span class="spec-chip">Laser &amp; Light</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="journal section-pad" id="journal" aria-labelledby="journal-heading">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div>
+        <span class="eyebrow">The Aurelia Journal</span>
+        <h2 id="journal-heading">Notes from the <i>practice.</i></h2>
+        <p>Clinical philosophy and consult logic, written by the team that treats you &mdash; not licensed stock copy.</p>
+      </div>
+      <a href="#" class="section-link">Visit the Journal &rarr;</a>
+    </div>
+
+    <div class="journal__grid">
+      <article class="journal-card" data-reveal>
+        <span class="journal-card__category">Consult Logic</span>
+        <h3 class="journal-card__title">Reading a Consultation: What Your First Aurelia Visit Actually Covers</h3>
+        <p class="journal-card__excerpt">A walk-through of the intake, the precision mapping, and why we send you home with a document instead of an appointment card.</p>
+        <div class="journal-card__meta">
+          <span>6 min read</span>
+          <a href="#" class="journal-card__link">Read <svg width="12" height="12" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+        </div>
+      </article>
+      <article class="journal-card" data-reveal>
+        <span class="journal-card__category">Clinical Philosophy</span>
+        <h3 class="journal-card__title">The Case for Slower Injectables: Why We Stage Treatment Plans</h3>
+        <p class="journal-card__excerpt">On restraint as a clinical skill, and why the best injectable work is the work nobody notices happened.</p>
+        <div class="journal-card__meta">
+          <span>5 min read</span>
+          <a href="#" class="journal-card__link">Read <svg width="12" height="12" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+        </div>
+      </article>
+      <article class="journal-card" data-reveal>
+        <span class="journal-card__category">Bridal &amp; Events</span>
+        <h3 class="journal-card__title">Skin Renewal Before a Season of Events: A Macon Timeline</h3>
+        <p class="journal-card__excerpt">What to schedule at twelve weeks, six weeks, and the week-of &mdash; and what to firmly leave alone.</p>
+        <div class="journal-card__meta">
+          <span>7 min read</span>
+          <a href="#" class="journal-card__link">Read <svg width="12" height="12" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="membership section-pad" id="membership" aria-labelledby="membership-heading">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div>
+        <span class="eyebrow">Membership</span>
+        <h2 id="membership-heading">A standing seat <i>in the suite.</i></h2>
+        <p>Membership converts occasional visits into a maintained protocol &mdash; credit, priority, and pricing built around a rhythm, not a one-off appointment.</p>
+      </div>
+    </div>
+
+    <div class="membership__toggle" role="group" aria-label="View membership pricing by billing cycle">
+      <button type="button" class="membership__toggle-btn is-active" data-billing="monthly" aria-pressed="true">Billed Monthly</button>
+      <button type="button" class="membership__toggle-btn" data-billing="quarterly" aria-pressed="false">Billed Quarterly</button>
+      <span class="membership__save-note" id="membershipSaveNote" hidden>Save 15%</span>
+    </div>
+
+    <div class="price-grid">
+      <article class="price-card" data-reveal>
+        <h3 class="price-card__tier">The Essentials</h3>
+        <div class="price-card__price">
+          <span class="price-card__amount" data-price-monthly="145" data-price-quarterly="123">$145</span>
+          <span class="price-card__period">/ month</span>
+        </div>
+        <p class="price-card__note" data-note>Billed monthly &middot; cancel anytime</p>
+        <ul class="price-card__features">
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>$75 monthly treatment credit</li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>Member pricing on neuromodulators</li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>Priority booking window</li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>Complimentary skin consult, 1&times; / year</li>
+        </ul>
+        <a href="#consult" class="btn btn--outline btn--full">Start With Essentials</a>
+      </article>
+
+      <article class="price-card price-card--featured" data-reveal>
+        <span class="price-card__badge">Most Requested</span>
+        <h3 class="price-card__tier">The Signature</h3>
+        <div class="price-card__price">
+          <span class="price-card__amount" data-price-monthly="265" data-price-quarterly="225">$265</span>
+          <span class="price-card__period">/ month</span>
+        </div>
+        <p class="price-card__note" data-note>Billed monthly &middot; cancel anytime</p>
+        <ul class="price-card__features">
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>$150 monthly treatment credit</li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>Member pricing across all injectables</li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>Priority booking, waitlist bypass</li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>Quarterly complimentary Aurelia Infusion Facial</li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>Blueprint review every 6 months</li>
+        </ul>
+        <a href="#consult" class="btn btn--primary btn--full">Start With Signature</a>
+      </article>
+
+      <article class="price-card" data-reveal>
+        <h3 class="price-card__tier">The Atelier</h3>
+        <div class="price-card__price">
+          <span class="price-card__amount" data-price-monthly="495" data-price-quarterly="420">$495</span>
+          <span class="price-card__period">/ month</span>
+        </div>
+        <p class="price-card__note" data-note>Billed monthly &middot; cancel anytime</p>
+        <ul class="price-card__features">
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>$300 monthly treatment credit</li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>Member pricing, first access to new modalities</li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>Concierge scheduling, direct clinician line</li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>Annual blueprint review with the Medical Director</li>
+          <li><svg width="16" height="16" aria-hidden="true"><use href="#icon-check"></use></svg>2 guest passes per year</li>
+        </ul>
+        <a href="#consult" class="btn btn--outline btn--full">Start With Atelier</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="faq section-pad surface-band" id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <div class="section-header" data-reveal>
+      <div>
+        <span class="eyebrow">Before You Book</span>
+        <h2 id="faq-heading">Questions, <i>answered plainly.</i></h2>
+      </div>
+    </div>
+
+    <div class="faq__list" data-reveal>
+      <div class="faq-item">
+        <button type="button" class="faq-item__trigger" id="faq-trigger-1" aria-expanded="false" aria-controls="faq-panel-1">
+          What actually happens during my first consultation?
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1">
+          <p>A clinician-led intake: skin and structure assessment, precision mapping, goals discussion, and a candid recommendation. You leave with a written blueprint, not a booked injectable session &mdash; treatment is always a separate visit.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-item__trigger" id="faq-trigger-2" aria-expanded="false" aria-controls="faq-panel-2">
+          Will treatment hurt, and what are my numbing options?
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2">
+          <p>Most patients describe injectables as brief pressure rather than pain. Topical numbing is standard on all injectable and laser visits, with additional options available for lower pain tolerance &mdash; discussed at consultation, never assumed.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-item__trigger" id="faq-trigger-3" aria-expanded="false" aria-controls="faq-panel-3">
+          How much downtime should I actually plan for?
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3">
+          <p>It varies by modality &mdash; neuromodulators carry effectively none, RF microneedling runs two to four days of visible texture, and resurfacing can run a full week. Your blueprint states downtime per session so nothing is a surprise on the calendar.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-item__trigger" id="faq-trigger-4" aria-expanded="false" aria-controls="faq-panel-4">
+          Do I need to already know which modality I want?
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4">
+          <p>No. Most patients arrive with a general goal, not a modality list. Select &ldquo;Not sure yet&rdquo; on the consultation form and your clinician will build the recommendation during your visit.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-item__trigger" id="faq-trigger-5" aria-expanded="false" aria-controls="faq-panel-5">
+          Do you offer financing or payment plans?
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5">
+          <p>Yes &mdash; third-party financing is available for blueprints over $600, and membership treatment credit can be applied toward any modality. Your patient coordinator will walk through options after your consultation, never before.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-item__trigger" id="faq-trigger-6" aria-expanded="false" aria-controls="faq-panel-6">
+          What is your cancellation and reschedule policy?
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-6" role="region" aria-labelledby="faq-trigger-6">
+          <p>Consultations and treatment sessions can be moved with 24 hours&rsquo; notice at no charge through your patient portal. Saturday Atelier Hours are limited and non-refundable inside 48 hours due to suite demand.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-item__trigger" id="faq-trigger-7" aria-expanded="false" aria-controls="faq-panel-7">
+          Is every treatment performed or supervised by a physician?
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-7" role="region" aria-labelledby="faq-trigger-7">
+          <p>Every blueprint is authored or countersigned by our Medical Director. Injectables are performed by the Medical Director or a supervised advanced-practice injector; skin renewal and laser services by licensed aestheticians under written protocol.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="consult section-pad" id="consult" aria-labelledby="consult-heading">
+  <div class="container consult__layout">
+    <div data-reveal>
+      <span class="eyebrow">Reserve Consultation</span>
+      <h2 id="consult-heading" style="font-size:var(--text-2xl);margin-top:1.25rem;">Begin your <i style="color:var(--color-rose);font-style:italic;">protocol.</i></h2>
+      <p style="color:var(--color-text-muted);font-size:var(--text-md);margin-top:1rem;">Schedule a comprehensive facial assessment and bespoke treatment blueprint. This form requests a consultation &mdash; it does not book an injectable session.</p>
+
+      <div class="consult__info-list">
+        <div class="consult__info-item">
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-clock"></use></svg>
+          <div><h3>45-minute discovery visit</h3><p>In-suite at our Macon location or virtual, your choice.</p></div>
+        </div>
+        <div class="consult__info-item">
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-shield"></use></svg>
+          <div><h3>No obligation, no upsell</h3><p>You leave with a written blueprint, not a pressured booking.</p></div>
+        </div>
+        <div class="consult__info-item">
+          <svg width="18" height="18" aria-hidden="true"><use href="#icon-mail"></use></svg>
+          <div><h3>1 business day response</h3><p>Our patient coordinator confirms every request by phone or email.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="consult__form-panel" data-reveal>
+      <form id="consultForm" novalidate>
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label" for="consultName">Full Name<span class="required">*</span></label>
+            <input class="field__control" type="text" id="consultName" name="consultName" autocomplete="name" placeholder="Jordan Whitfield">
+            <p class="field__error" id="consultNameError" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="consultPhone">Phone<span class="required">*</span></label>
+            <input class="field__control" type="tel" id="consultPhone" name="consultPhone" autocomplete="tel" placeholder="(478) 555-0142">
+            <p class="field__error" id="consultPhoneError" role="alert"></p>
+          </div>
         </div>
 
-        <div class="deco-line"></div>
-        <div class="deco-text">Aesthetic Excellence</div>
-    </section>
+        <div class="field">
+          <label class="field__label" for="consultEmail">Email<span class="required">*</span></label>
+          <input class="field__control" type="email" id="consultEmail" name="consultEmail" autocomplete="email" placeholder="you@example.com">
+          <p class="field__error" id="consultEmailError" role="alert"></p>
+        </div>
 
+        <div class="field-row">
+          <div class="field">
+            <label class="field__label" for="consultModality">Modality of Interest<span class="required">*</span></label>
+            <select class="field__control" id="consultModality" name="consultModality">
+              <option value="">Select one&hellip;</option>
+              <option value="not-sure">Not sure yet &mdash; help me choose</option>
+              <option value="neuromodulators">Neuromodulators</option>
+              <option value="fillers">Dermal Fillers</option>
+              <option value="rf-microneedling">RF Microneedling</option>
+              <option value="ipl">IPL Photofacial</option>
+              <option value="resurfacing">Fractional Resurfacing</option>
+              <option value="contour">Aurelia Contour Ritual</option>
+              <option value="infusion">Aurelia Infusion Facial</option>
+            </select>
+            <p class="field__error" id="consultModalityError" role="alert"></p>
+          </div>
+          <div class="field">
+            <label class="field__label" for="consultTime">Preferred Suite Time<span class="required">*</span></label>
+            <select class="field__control" id="consultTime" name="consultTime">
+              <option value="">Select one&hellip;</option>
+              <option value="weekday-am">Weekday Morning</option>
+              <option value="weekday-pm">Weekday Afternoon</option>
+              <option value="weekday-eve">Weekday Evening</option>
+              <option value="saturday">Saturday Atelier Hours (Limited)</option>
+            </select>
+            <p class="field__error" id="consultTimeError" role="alert"></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="field__label" for="consultNotes">Notes <span style="color:var(--color-text-ghost);text-transform:none;letter-spacing:0;">(optional)</span></label>
+          <textarea class="field__control" id="consultNotes" name="consultNotes" placeholder="Anything your clinician should know before your visit&hellip;"></textarea>
+        </div>
+
+        <div class="field-check">
+          <input type="checkbox" id="consultConsent" name="consultConsent">
+          <label for="consultConsent">I understand this form requests a consultation, not a diagnosis or a treatment booking, and that times can be adjusted after intake.<span class="required">*</span></label>
+        </div>
+        <p class="field__error" id="consultConsentError" role="alert" style="margin-top:calc(-1 * var(--space-6));margin-bottom:var(--space-6);"></p>
+
+        <button type="submit" class="btn btn--primary btn--full" id="consultSubmit">Request My Consultation</button>
+        <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="form-success" id="formSuccess" hidden tabindex="-1">
+        <svg width="40" height="40" aria-hidden="true"><use href="#icon-check"></use></svg>
+        <h3>Request received.</h3>
+        <p>Your patient coordinator will confirm your consultation within one business day. Check the inbox you provided for a confirmation note.</p>
+        <button type="button" class="btn btn--ghost" id="formReset" style="margin-top:1.75rem;">Submit Another Request</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="visit section-pad surface-band" id="visit" aria-labelledby="visit-heading">
+  <div class="container visit__layout">
+    <div data-reveal>
+      <span class="eyebrow">Visit the Suite</span>
+      <h2 id="visit-heading" style="font-size:var(--text-2xl);margin-top:1.25rem;margin-bottom:1.75rem;">Find us in <i style="color:var(--color-rose);font-style:italic;">Macon.</i></h2>
+
+      <p class="visit__status is-closed" id="visitStatus">
+        <span class="visit__status-dot" aria-hidden="true"></span>
+        <span id="visitStatusText">Checking today&rsquo;s suite hours&hellip;</span>
+      </p>
+
+      <p class="visit__addr">Ingleside District &middot; Macon, Georgia 31204</p>
+      <p class="visit__addr-line">Private parking court &middot; entrance on the garden side</p>
+
+      <table class="hours-table" id="hoursTable" aria-label="Suite hours by day">
+        <tbody>
+          <tr data-day="1"><td>Monday</td><td>Closed &mdash; blueprint review only</td></tr>
+          <tr data-day="2"><td>Tuesday</td><td>9:00 AM &ndash; 6:00 PM</td></tr>
+          <tr data-day="3"><td>Wednesday</td><td>9:00 AM &ndash; 6:00 PM</td></tr>
+          <tr data-day="4"><td>Thursday</td><td>9:00 AM &ndash; 7:00 PM</td></tr>
+          <tr data-day="5"><td>Friday</td><td>9:00 AM &ndash; 5:00 PM</td></tr>
+          <tr data-day="6"><td>Saturday</td><td>9:00 AM &ndash; 1:00 PM (Atelier Hours)</td></tr>
+          <tr data-day="0"><td>Sunday</td><td>Closed</td></tr>
+        </tbody>
+      </table>
+
+      <div class="hero-actions">
+        <a href="tel:+14785550142" class="btn btn--outline"><svg width="15" height="15" aria-hidden="true" style="margin-right:.5em;"><use href="#icon-phone"></use></svg>(478) 555-0142</a>
+        <a href="mailto:hello@aureliamedspa.example" class="hero-secondary-link"><svg width="14" height="14" aria-hidden="true" style="margin-right:.4em;"><use href="#icon-mail"></use></svg>hello@aureliamedspa.example</a>
+      </div>
+    </div>
+
+    <div class="visit__map" data-reveal aria-hidden="true">
+      <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <defs><linearGradient id="mapGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#15171c"/><stop offset="1" stop-color="#0a0b0e"/></linearGradient></defs>
+        <rect width="400" height="300" fill="url(#mapGrad)"/>
+        <g stroke="rgba(253,253,251,.14)" stroke-width="1">
+          <path d="M0 60H400M0 130H400M0 200H400M0 250H400"/>
+          <path d="M70 0V300M150 0V300M230 0V300M310 0V300"/>
+        </g>
+        <path d="M0 130 C 90 118, 140 150, 230 128 S 340 96, 400 108" fill="none" stroke="rgba(197,160,89,.55)" stroke-width="2.4"/>
+        <path d="M150 0 C 160 90, 128 150, 150 300" fill="none" stroke="rgba(191,165,164,.4)" stroke-width="2"/>
+        <circle cx="218" cy="132" r="7" fill="none" stroke="#C5A059" stroke-width="1.4"/>
+        <circle cx="218" cy="132" r="2.4" fill="#C5A059"/>
+        <text x="228" y="128" font-family="Georgia, serif" font-style="italic" font-size="13" fill="#FDFDFB">Aurelia</text>
+        <text x="228" y="144" font-family="Arial, sans-serif" font-size="8" letter-spacing="1" fill="rgba(253,253,251,.55)">INGLESIDE DISTRICT</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta section-pad" aria-labelledby="finalcta-heading">
+  <div class="container" data-reveal>
+    <span class="eyebrow eyebrow--center">Aurelia Med Spa</span>
+    <h2 id="finalcta-heading" style="margin-top:1.5rem;">Begin Your Protocol.</h2>
+    <p>Schedule a comprehensive facial assessment and bespoke treatment blueprint.</p>
+    <div class="final-cta__actions">
+      <a href="#consult" class="btn btn--primary">Reserve Consultation <span class="btn-arrow" aria-hidden="true">&rarr;</span></a>
+      <a href="#clinical" class="btn btn--outline">Browse Modalities</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer__top">
+      <div class="footer-brand">
+        <span class="logo">Aurelia <span>spa</span></span>
+        <p class="footer-desc">Elevated aesthetic medicine and clinical skincare in the heart of Macon, Georgia. Physician-led, results-obsessed, consult before treatment &mdash; always.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Aurelia Med Spa on Instagram"><svg width="16" height="16" aria-hidden="true"><use href="#icon-inst"></use></svg></a>
+          <a href="#" aria-label="Aurelia Med Spa on Pinterest"><svg width="16" height="16" aria-hidden="true"><use href="#icon-pinterestlike"></use></svg></a>
+          <a href="#journal" aria-label="The Aurelia Journal"><svg width="16" height="16" aria-hidden="true"><use href="#icon-journal"></use></svg></a>
+        </div>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Treatments</h4>
+          <ul>
+            <li><a href="#clinical">Injectables</a></li>
+            <li><a href="#clinical">Skin Rejuvenation</a></li>
+            <li><a href="#clinical">Laser &amp; Light</a></li>
+            <li><a href="#clinical">Body Contouring</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Practice</h4>
+          <ul>
+            <li><a href="#clinicians">Our Clinicians</a></li>
+            <li><a href="#top">Patient Philosophy</a></li>
+            <li><a href="#membership">Membership</a></li>
+            <li><a href="#faq">Financing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <ul>
+            <li><a href="#consult">Contact Us</a></li>
+            <li><a href="#visit">Location &amp; Hours</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#journal">Journal</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-newsletter">
+        <h4>The Aurelia Journal, By Email</h4>
+        <p>One clinical read a month &mdash; consult logic, seasonal skin renewal timing, and what we are actually seeing in the suite. No sales blasts.</p>
+        <form class="newsletter-form" id="newsletterForm" novalidate>
+          <div class="newsletter-form__row">
+            <label class="visually-hidden" for="newsletterEmail">Email address</label>
+            <input class="field__control" type="email" id="newsletterEmail" name="newsletterEmail" placeholder="you@example.com" autocomplete="email">
+            <button type="submit" class="btn btn--ghost" id="newsletterSubmit">Join</button>
+          </div>
+          <p class="newsletter__status" id="newsletterStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; <span id="currentYear">2026</span> Aurelia Med Spa. All rights reserved. Macon, Georgia.</p>
+      <div class="footer-bottom__links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Patient Terms</a>
+        <a href="#">Accessibility</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg width="18" height="18" aria-hidden="true"><use href="#icon-arrow"></use></svg>
+</button>
+
+<script>
+(function () {
+  'use strict';
+
+  function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+  function $$(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+  function reduceMotion() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Header scroll state
+     ------------------------------------------------------------ */
+  function initHeaderScroll() {
+    var header = $('#siteHeader');
+    if (!header) return;
+    var ticking = false;
+    function update() {
+      header.classList.toggle('is-scrolled', window.scrollY > 20);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  }
+
+  /* ------------------------------------------------------------
+     Mobile nav drawer
+     ------------------------------------------------------------ */
+  function initMobileNav() {
+    var toggle = $('#navToggle');
+    var panel = $('#navPanel');
+    var overlay = $('#navOverlay');
+    var closeBtn = $('#navPanelClose');
+    if (!toggle || !panel || !overlay) return;
+
+    function openNav() {
+      overlay.hidden = false;
+      requestAnimationFrame(function () {
+        panel.classList.add('is-open');
+        overlay.classList.add('is-open');
+      });
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('no-scroll');
+      var firstLink = $('a, button', panel);
+      if (firstLink) firstLink.focus();
+    }
+    function closeNav() {
+      panel.classList.remove('is-open');
+      overlay.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('no-scroll');
+      toggle.focus();
+      window.setTimeout(function () { if (!overlay.classList.contains('is-open')) overlay.hidden = true; }, 300);
+    }
+    toggle.addEventListener('click', function () {
+      var isOpen = panel.classList.contains('is-open');
+      if (isOpen) { closeNav(); } else { openNav(); }
+    });
+    if (closeBtn) closeBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+    panel.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closeNav(); return; }
+      if (e.key === 'Tab') {
+        var focusables = $$('a, button', panel).filter(function (el) { return el.offsetParent !== null; });
+        if (!focusables.length) return;
+        var first = focusables[0], last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+    $$('a', panel).forEach(function (link) { link.addEventListener('click', closeNav); });
+  }
+
+  /* ------------------------------------------------------------
+     Smooth scroll + active nav link tracking
+     ------------------------------------------------------------ */
+  function initSmoothScrollAndActiveLink() {
+    var anchorLinks = $$('a[href^="#"]').filter(function (a) {
+      var href = a.getAttribute('href');
+      return href && href.length > 1;
+    });
+    anchorLinks.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var id = link.getAttribute('href').slice(1);
+        var target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+        target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      });
+    });
+
+    var navLinks = $$('.nav__link[href^="#"]');
+    if (!navLinks.length || !('IntersectionObserver' in window)) return;
+    var sections = navLinks
+      .map(function (l) { return document.getElementById(l.getAttribute('href').slice(1)); })
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          navLinks.forEach(function (l) {
+            l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { observer.observe(s); });
+  }
+
+  /* ------------------------------------------------------------
+     Back to top
+     ------------------------------------------------------------ */
+  function initBackToTop() {
+    var btn = $('#backToTop');
+    if (!btn) return;
+    function update() { btn.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.7); }
+    window.addEventListener('scroll', update, { passive: true });
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' });
+    });
+    update();
+  }
+
+  /* ------------------------------------------------------------
+     Reveal on scroll — with a frozen/backgrounded-tab safety net.
+     If IntersectionObserver never fires (hidden tab, odd viewport),
+     force-reveal everything after a short timeout so content is
+     never permanently invisible to a real visitor.
+     ------------------------------------------------------------ */
+  function initReveal() {
+    var items = $$('[data-reveal]');
+    if (!items.length) return;
+
+    function revealAll() { items.forEach(function (el) { el.classList.add('is-revealed'); }); }
+
+    if (reduceMotion() || !('IntersectionObserver' in window)) { revealAll(); return; }
+
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+    items.forEach(function (el) { observer.observe(el); });
+
+    window.setTimeout(revealAll, 1400);
+  }
+
+  /* ------------------------------------------------------------
+     Clinical Interventions — data-driven filterable grid with
+     simulated loading / empty / error(+retry) / success states.
+     ------------------------------------------------------------ */
+  var MODALITIES = [
+    { n: '01', cat: 'injectables', catLabel: 'Injectables', title: 'Architectural Fillers', desc: 'Strategic placement of premium dermal fillers to restore volume, define contours, and build foundational facial structure with absolute subtlety.', specs: ['45–60 min', '0–2 days downtime'] },
+    { n: '02', cat: 'injectables', catLabel: 'Injectables', title: 'Neuromodulators', desc: 'Precision-dosed wrinkle relaxers used not to freeze expression, but to soften the imprint of time and prevent new static lines from forming.', specs: ['20 min', 'Same-day, no downtime'] },
+    { n: '03', cat: 'skin-renewal', catLabel: 'Skin Renewal', title: 'Aurelia Infusion Facial', desc: 'A compounded nutrient and peptide infusion facial, customized at your blueprint visit and layered beneath a calming LED close.', specs: ['50 min', 'No downtime'] },
+    { n: '04', cat: 'skin-renewal', catLabel: 'Skin Renewal', title: 'RF Microneedling', desc: 'Advanced fractional radiofrequency microneedling that remodels tissue and stimulates deep collagen production for profound skin tightening.', specs: ['45 min', '2–4 days downtime'] },
+    { n: '05', cat: 'laser-light', catLabel: 'Laser & Light', title: 'IPL Photofacial', desc: 'Clinical-grade intense pulsed light to soften pigmentation, vascular redness, and textural irregularities for a luminous, even complexion.', specs: ['30 min', '1–3 days downtime'] },
+    { n: '06', cat: 'laser-light', catLabel: 'Laser & Light', title: 'Fractional Resurfacing', desc: 'Fractional laser resurfacing calibrated to your skin type, addressing texture and fine lines in staged, controlled passes.', specs: ['60 min', '4–7 days downtime'] },
+    { n: '07', cat: 'body-contour', catLabel: 'Body & Contour', title: 'Aurelia Contour Ritual', desc: 'A radiofrequency and lymphatic contouring ritual designed to complement — never replace — a maintained facial protocol.', specs: ['60 min', 'No downtime'] }
+  ];
+  var MODALITY_FILTER_LABELS = {
+    all: 'All Modalities', injectables: 'Injectables', 'skin-renewal': 'Skin Renewal',
+    'laser-light': 'Laser & Light', 'body-contour': 'Body & Contour', bridal: 'Bridal & Events'
+  };
+  var modalityHiccupShown = {};
+
+  function modalityCardMarkup(item) {
+    return '' +
+      '<article class="modality-card" data-category="' + item.cat + '">' +
+        '<div class="modality-card__top">' +
+          '<span class="modality-card__number">' + item.n + '</span>' +
+          '<span class="modality-card__category">' + escapeHtml(item.catLabel) + '</span>' +
+        '</div>' +
+        '<h3 class="modality-card__title">' + escapeHtml(item.title) + '</h3>' +
+        '<p class="modality-card__desc">' + escapeHtml(item.desc) + '</p>' +
+        '<div class="modality-card__specs">' +
+          item.specs.map(function (s) { return '<span class="spec-chip">' + escapeHtml(s) + '</span>'; }).join('') +
+        '</div>' +
+        '<a href="#consult" class="modality-card__link">Request This Modality <svg width="13" height="13" aria-hidden="true"><use href="#icon-arrow"></use></svg></a>' +
+      '</article>';
+  }
+
+  function modalitySkeletonMarkup() {
+    var card = '<div class="skeleton-card"><div class="skeleton-line w-40"></div><div class="skeleton-line w-70"></div><div class="skeleton-line w-100"></div><div class="skeleton-line w-90"></div><div class="skeleton-line w-50"></div></div>';
+    return '<div class="modalities__skeleton-grid">' + card + card + card + '</div>';
+  }
+
+  function initModalities() {
+    var grid = $('#modalitiesGrid');
+    var status = $('#modalitiesStatus');
+    var chips = $$('.modalities__filters .filter-chip');
+    if (!grid) return;
+
+    function setStatus(text) { if (status) status.textContent = text; }
+
+    function renderLoading(label) {
+      grid.setAttribute('aria-busy', 'true');
+      grid.innerHTML = modalitySkeletonMarkup();
+      setStatus('Loading ' + label + '…');
+    }
+    function renderGrid(items, label) {
+      grid.setAttribute('aria-busy', 'false');
+      grid.innerHTML = items.map(modalityCardMarkup).join('');
+      setStatus(items.length + ' modalit' + (items.length === 1 ? 'y' : 'ies') + ' shown for ' + label + '.');
+    }
+    function renderEmpty(label) {
+      grid.setAttribute('aria-busy', 'false');
+      grid.innerHTML =
+        '<div class="state-panel">' +
+          '<svg width="30" height="30" aria-hidden="true"><use href="#icon-empty"></use></svg>' +
+          '<h3>' + escapeHtml(label) + ' protocols are in development</h3>' +
+          '<p>We are building this category into the 2026 clinical menu. Mention it at your consultation and we will loop you in first.</p>' +
+          '<a href="#consult" class="btn btn--outline">Ask About ' + escapeHtml(label) + '</a>' +
+        '</div>';
+      setStatus('No modalities currently published under ' + label + '.');
+    }
+    function renderError(filterKey, label) {
+      grid.setAttribute('aria-busy', 'false');
+      grid.innerHTML =
+        '<div class="state-panel state-panel--error">' +
+          '<svg width="30" height="30" aria-hidden="true"><use href="#icon-alert"></use></svg>' +
+          '<h3>Could not load ' + escapeHtml(label) + '</h3>' +
+          '<p>Our clinical menu took too long to respond. This usually clears up on a retry.</p>' +
+          '<button type="button" class="btn btn--primary" data-modality-retry="' + filterKey + '">Retry</button>' +
+        '</div>';
+      setStatus('Failed to load ' + label + '. Retry is available.');
+    }
+
+    function load(filterKey) {
+      var label = MODALITY_FILTER_LABELS[filterKey] || filterKey;
+      renderLoading(label);
+      window.setTimeout(function () {
+        if (filterKey === 'laser-light' && !modalityHiccupShown['laser-light']) {
+          modalityHiccupShown['laser-light'] = true;
+          renderError(filterKey, label);
+          return;
+        }
+        if (filterKey === 'bridal') { renderEmpty(label); return; }
+        var items = filterKey === 'all' ? MODALITIES : MODALITIES.filter(function (i) { return i.cat === filterKey; });
+        if (items.length === 0) { renderEmpty(label); } else { renderGrid(items, label); }
+      }, 520);
+    }
+
+    grid.addEventListener('click', function (e) {
+      var retryBtn = e.target.closest ? e.target.closest('[data-modality-retry]') : null;
+      if (retryBtn) load(retryBtn.getAttribute('data-modality-retry'));
+    });
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('is-active'); c.setAttribute('aria-pressed', 'false'); });
+        chip.classList.add('is-active');
+        chip.setAttribute('aria-pressed', 'true');
+        load(chip.getAttribute('data-filter'));
+      });
+    });
+
+    // initial paint is synchronous — the page is never empty on load
+    renderGrid(MODALITIES, MODALITY_FILTER_LABELS.all);
+  }
+
+  /* ------------------------------------------------------------
+     Aesthetic gallery — instant client-side filter + lightbox.
+     Six distinct inline-SVG art treatments (no photography, no
+     external assets), each generated from its own path data so
+     no two tiles share markup.
+     ------------------------------------------------------------ */
+  var GALLERY_ITEMS = [
+    { cat: 'suites', eyebrow: 'Treatment Suites', title: 'The Consultation Suite', art: 'arcs', desc: 'Where every blueprint begins — a quiet room built for a forty-five minute conversation before a single instrument is unwrapped.' },
+    { cat: 'suites', eyebrow: 'Treatment Suites', title: 'Private Injectable Room', art: 'radial', desc: 'One patient, one clinician, no shared bay. Injectable sessions never happen in view of another appointment.' },
+    { cat: 'rituals', eyebrow: 'Rituals', title: 'The Renewal Studio', art: 'dotgrid', desc: 'Home to RF microneedling and resurfacing — mapped, gridded, and precision-lit for consistent, repeatable technique.' },
+    { cat: 'rituals', eyebrow: 'Rituals', title: 'Compounding Bar', art: 'bands', desc: 'Infusion facials and peel formulations are compounded to order here, batch-labeled to your blueprint.' },
+    { cat: 'studio', eyebrow: 'Studio', title: 'Laser & Light Bay', art: 'beams', desc: 'A dedicated bay for IPL and fractional resurfacing, calibrated per skin type before every single session.' },
+    { cat: 'studio', eyebrow: 'Studio', title: 'The Atelier Lounge', art: 'circles', desc: 'Where members wait between sessions — quiet, low-lit, and deliberately not a retail floor.' }
+  ];
+  var GALLERY_FILTER_LABELS = { all: 'All Areas', suites: 'Treatment Suites', rituals: 'Rituals', studio: 'Studio' };
+
+  function galleryArt(kind, uid, big) {
+    var w = big ? 640 : 320, h = big ? 400 : 400;
+    var defs = '<defs><linearGradient id="' + uid + '" x1="0" y1="0" x2="1" y2="1">' +
+      '<stop offset="0" stop-color="#57384a"/><stop offset=".55" stop-color="#2a2130"/><stop offset="1" stop-color="#0a0b0e"/></linearGradient></defs>';
+    var base = '<rect width="' + w + '" height="' + h + '" fill="url(#' + uid + ')"/>';
+    var body = '';
+    if (kind === 'arcs') {
+      body = '<g fill="none" stroke="rgba(197,160,89,.55)" stroke-width="1.6"><circle cx="' + (w * .3) + '" cy="' + (h * .35) + '" r="' + (h * .22) + '"/><circle cx="' + (w * .3) + '" cy="' + (h * .35) + '" r="' + (h * .34) + '" stroke="rgba(232,214,213,.35)"/></g><path d="M0 ' + (h * .78) + ' C ' + (w * .3) + ' ' + (h * .66) + ', ' + (w * .6) + ' ' + (h * .9) + ', ' + w + ' ' + (h * .7) + '" fill="none" stroke="rgba(253,253,251,.2)" stroke-width="1"/>';
+    } else if (kind === 'radial') {
+      body = '<circle cx="' + (w * .68) + '" cy="' + (h * .4) + '" r="' + (h * .3) + '" fill="rgba(191,165,164,.22)"/><circle cx="' + (w * .68) + '" cy="' + (h * .4) + '" r="' + (h * .14) + '" fill="rgba(197,160,89,.3)"/><g stroke="rgba(253,253,251,.16)" stroke-width="1"><path d="M0 0 L' + w + ' ' + h + 'M' + w + ' 0 L0 ' + h + '"/></g>';
+    } else if (kind === 'dotgrid') {
+      var dots = '';
+      for (var y = 0; y < 5; y++) { for (var x = 0; x < 4; x++) { dots += '<circle cx="' + (40 + x * (w - 80) / 3) + '" cy="' + (60 + y * (h - 120) / 4) + '" r="3" fill="rgba(197,160,89,' + (0.25 + (x + y) % 3 * 0.12) + ')"/>'; } }
+      body = '<g stroke="rgba(253,253,251,.08)" stroke-width="1"><path d="M0 ' + (h * .5) + 'H' + w + 'M' + (w * .5) + ' 0V' + h + '"/></g>' + dots;
+    } else if (kind === 'bands') {
+      body = '';
+      for (var i = 0; i < 5; i++) { body += '<rect x="0" y="' + (i * h / 5) + '" width="' + w + '" height="' + (h / 5 - 6) + '" fill="rgba(232,214,213,' + (0.05 + i * 0.03) + ')"/>'; }
+      body += '<rect x="' + (w * .1) + '" y="' + (h * .15) + '" width="' + (w * .12) + '" height="' + (h * .7) + '" fill="rgba(197,160,89,.35)"/>';
+    } else if (kind === 'beams') {
+      body = '<g stroke="rgba(197,160,89,.5)" stroke-width="2">';
+      for (var b = -2; b < 6; b++) { body += '<line x1="' + (b * w / 5) + '" y1="0" x2="' + (b * w / 5 + w * .3) + '" y2="' + h + '"/>'; }
+      body += '</g>';
+    } else {
+      body = '<circle cx="' + (w * .38) + '" cy="' + (h * .45) + '" r="' + (h * .28) + '" fill="none" stroke="rgba(191,165,164,.4)" stroke-width="1.4"/><circle cx="' + (w * .58) + '" cy="' + (h * .58) + '" r="' + (h * .2) + '" fill="none" stroke="rgba(197,160,89,.45)" stroke-width="1.4"/><circle cx="' + (w * .5) + '" cy="' + (h * .4) + '" r="' + (h * .08) + '" fill="rgba(253,253,251,.18)"/>';
+    }
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="xMidYMid slice" role="img" aria-hidden="true">' + defs + base + body + '</svg>';
+  }
+
+  function galleryCardMarkup(item, index) {
+    return '' +
+      '<button type="button" class="gallery-card" data-category="' + item.cat + '" data-index="' + index + '" aria-haspopup="dialog">' +
+        '<span class="gallery-card__expand" aria-hidden="true"><svg width="14" height="14"><use href="#icon-spark"></use></svg></span>' +
+        '<span class="gallery-card__art">' + galleryArt(item.art, 'gal' + index, false) + '</span>' +
+        '<span class="gallery-card__scrim">' +
+          '<span class="gallery-card__caption">' +
+            '<span class="gallery-card__eyebrow">' + escapeHtml(item.eyebrow) + '</span>' +
+            '<span class="gallery-card__title">' + escapeHtml(item.title) + '</span>' +
+          '</span>' +
+        '</span>' +
+      '</button>';
+  }
+
+  function initGallery() {
+    var grid = $('#galleryGrid');
+    var status = $('#galleryStatus');
+    var chips = $$('.gallery__filters .filter-chip');
+    if (!grid) return;
+
+    function render(filterKey) {
+      var label = GALLERY_FILTER_LABELS[filterKey] || filterKey;
+      var items = filterKey === 'all' ? GALLERY_ITEMS : GALLERY_ITEMS.filter(function (i) { return i.cat === filterKey; });
+      grid.innerHTML = items.map(function (item) {
+        var realIndex = GALLERY_ITEMS.indexOf(item);
+        return galleryCardMarkup(item, realIndex);
+      }).join('');
+      if (status) status.textContent = items.length + ' image' + (items.length === 1 ? '' : 's') + ' shown for ' + label + '.';
+    }
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('is-active'); c.setAttribute('aria-pressed', 'false'); });
+        chip.classList.add('is-active');
+        chip.setAttribute('aria-pressed', 'true');
+        render(chip.getAttribute('data-gfilter'));
+      });
+    });
+
+    grid.addEventListener('click', function (e) {
+      var card = e.target.closest ? e.target.closest('.gallery-card') : null;
+      if (card) openLightbox(parseInt(card.getAttribute('data-index'), 10));
+    });
+
+    render('all');
+  }
+
+  /* ------------------------------------------------------------
+     Lightbox — keyboard accessible, focus-trapped, returns focus
+     ------------------------------------------------------------ */
+  var lightboxIndex = 0;
+  var lightboxTrigger = null;
+  function renderLightbox() {
+    var item = GALLERY_ITEMS[lightboxIndex];
+    $('#lightboxArt').innerHTML = galleryArt(item.art, 'lb' + lightboxIndex, true);
+    $('#lightboxEyebrow').textContent = item.eyebrow;
+    $('#lightboxTitle').textContent = item.title;
+    $('#lightboxDesc').textContent = item.desc;
+    $('#lightboxCounter').textContent = (lightboxIndex + 1) + ' / ' + GALLERY_ITEMS.length;
+  }
+  function openLightbox(index) {
+    lightboxIndex = index;
+    lightboxTrigger = document.activeElement;
+    var lb = $('#lightbox');
+    lb.hidden = false;
+    renderLightbox();
+    requestAnimationFrame(function () { lb.classList.add('is-open'); });
+    document.body.classList.add('no-scroll');
+    $('#lightboxClose').focus();
+  }
+  function closeLightbox() {
+    var lb = $('#lightbox');
+    lb.classList.remove('is-open');
+    document.body.classList.remove('no-scroll');
+    window.setTimeout(function () { lb.hidden = true; }, 280);
+    if (lightboxTrigger) lightboxTrigger.focus();
+  }
+  function initLightbox() {
+    var lb = $('#lightbox');
+    if (!lb) return;
+    $('#lightboxClose').addEventListener('click', closeLightbox);
+    $('#lightboxPrev').addEventListener('click', function () { lightboxIndex = (lightboxIndex - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length; renderLightbox(); });
+    $('#lightboxNext').addEventListener('click', function () { lightboxIndex = (lightboxIndex + 1) % GALLERY_ITEMS.length; renderLightbox(); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    lb.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') { closeLightbox(); return; }
+      if (e.key === 'ArrowRight') { lightboxIndex = (lightboxIndex + 1) % GALLERY_ITEMS.length; renderLightbox(); return; }
+      if (e.key === 'ArrowLeft') { lightboxIndex = (lightboxIndex - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length; renderLightbox(); return; }
+      if (e.key === 'Tab') {
+        var focusables = $$('button', lb);
+        var first = focusables[0], last = focusables[focusables.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Testimonial carousel — dots + prev/next, autoplay pauses on
+     hover/focus and is skipped entirely under reduced motion.
+     ------------------------------------------------------------ */
+  function initTestimonialCarousel() {
+    var track = $('#testimonialTrack');
+    var prevBtn = $('#testimonialPrev');
+    var nextBtn = $('#testimonialNext');
+    var dotsWrap = $('#testimonialDots');
+    if (!track || !prevBtn || !nextBtn || !dotsWrap) return;
+
+    var slides = $$('.testimonial-card', track);
+    var index = 0;
+    var timer = null;
+
+    slides.forEach(function (_, i) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'testimonial__dot';
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', 'Show testimonial ' + (i + 1) + ' of ' + slides.length);
+      dot.addEventListener('click', function () { goTo(i); stopAutoplay(); });
+      dotsWrap.appendChild(dot);
+    });
+    var dots = $$('.testimonial__dot', dotsWrap);
+
+    function render() {
+      track.style.transform = 'translateX(' + (index * -100) + '%)';
+      dots.forEach(function (d, i) {
+        d.classList.toggle('is-active', i === index);
+        d.setAttribute('aria-selected', String(i === index));
+      });
+    }
+    function goTo(i) { index = (i + slides.length) % slides.length; render(); }
+    function startAutoplay() {
+      if (reduceMotion()) return;
+      stopAutoplay();
+      timer = window.setInterval(function () { goTo(index + 1); }, 6500);
+    }
+    function stopAutoplay() { if (timer) { window.clearInterval(timer); timer = null; } }
+
+    prevBtn.addEventListener('click', function () { goTo(index - 1); stopAutoplay(); });
+    nextBtn.addEventListener('click', function () { goTo(index + 1); stopAutoplay(); });
+    var wrap = track.closest('.testimonial-carousel');
+    wrap.addEventListener('mouseenter', stopAutoplay);
+    wrap.addEventListener('mouseleave', startAutoplay);
+    wrap.addEventListener('focusin', stopAutoplay);
+    wrap.addEventListener('focusout', startAutoplay);
+    wrap.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { goTo(index + 1); stopAutoplay(); }
+      if (e.key === 'ArrowLeft') { goTo(index - 1); stopAutoplay(); }
+    });
+
+    render();
+    startAutoplay();
+  }
+
+  /* ------------------------------------------------------------
+     FAQ accordion
+     ------------------------------------------------------------ */
+  function initAccordion() {
+    $$('.faq-item__trigger').forEach(function (trigger) {
+      var panel = document.getElementById(trigger.getAttribute('aria-controls'));
+      if (!panel) return;
+      trigger.addEventListener('click', function () {
+        var expanded = trigger.getAttribute('aria-expanded') === 'true';
+        trigger.setAttribute('aria-expanded', String(!expanded));
+        if (expanded) {
+          panel.style.maxHeight = '0px';
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+        }
+      });
+    });
+    // keep open panels correctly sized if the viewport reflows (e.g. rotate)
+    window.addEventListener('resize', function () {
+      $$('.faq-item__trigger[aria-expanded="true"]').forEach(function (trigger) {
+        var panel = document.getElementById(trigger.getAttribute('aria-controls'));
+        if (panel) panel.style.maxHeight = panel.scrollHeight + 'px';
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Membership billing toggle — monthly vs quarterly pricing
+     ------------------------------------------------------------ */
+  function initMembershipToggle() {
+    var buttons = $$('.membership__toggle-btn');
+    var saveNote = $('#membershipSaveNote');
+    var amounts = $$('.price-card__amount');
+    var notes = $$('[data-note]');
+    if (!buttons.length || !amounts.length) return;
+
+    function apply(cycle) {
+      amounts.forEach(function (el) {
+        var val = el.getAttribute('data-price-' + cycle);
+        el.textContent = '$' + val;
+      });
+      notes.forEach(function (el) {
+        el.textContent = cycle === 'quarterly'
+          ? 'Billed quarterly · save 15% vs. monthly'
+          : 'Billed monthly · cancel anytime';
+      });
+      $$('.price-card__period').forEach(function (el) { el.textContent = '/ month'; });
+      if (saveNote) saveNote.hidden = cycle !== 'quarterly';
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-pressed', 'true');
+        apply(btn.getAttribute('data-billing'));
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Consultation form — inline validation + simulated async
+     submit. First attempt at a Saturday Atelier slot deliberately
+     demonstrates the error+retry path (slot "just filled"); any
+     other time, or a second attempt, succeeds.
+     ------------------------------------------------------------ */
+  function initConsultForm() {
+    var form = $('#consultForm');
+    if (!form) return;
+    var status = $('#formStatus');
+    var successPanel = $('#formSuccess');
+    var submitBtn = $('#consultSubmit');
+    var resetBtn = $('#formReset');
+    var saturdayHiccupShown = false;
+
+    var fields = [
+      { id: 'consultName', validate: function (v) { return v.trim().length > 1; }, message: 'Enter your full name.' },
+      { id: 'consultPhone', validate: function (v) { return /^[\d()+\-.\s]{7,}$/.test(v.trim()); }, message: 'Enter a valid phone number.' },
+      { id: 'consultEmail', validate: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, message: 'Enter a valid email address.' },
+      { id: 'consultModality', validate: function (v) { return v !== ''; }, message: 'Select a modality of interest.' },
+      { id: 'consultTime', validate: function (v) { return v !== ''; }, message: 'Select a preferred suite time.' }
+    ];
+
+    function showFieldError(field, message) {
+      var input = $('#' + field.id);
+      var errorEl = $('#' + field.id + 'Error');
+      input.setAttribute('aria-invalid', 'true');
+      if (errorEl) errorEl.textContent = message;
+    }
+    function clearFieldError(field) {
+      var input = $('#' + field.id);
+      var errorEl = $('#' + field.id + 'Error');
+      input.removeAttribute('aria-invalid');
+      if (errorEl) errorEl.textContent = '';
+    }
+    function validateField(field) {
+      var input = $('#' + field.id);
+      var ok = field.validate(input.value);
+      if (ok) { clearFieldError(field); } else { showFieldError(field, field.message); }
+      return ok;
+    }
+    fields.forEach(function (f) {
+      var input = $('#' + f.id);
+      if (input) input.addEventListener('blur', function () { validateField(f); });
+    });
+
+    var consentInput = $('#consultConsent');
+    var consentError = $('#consultConsentError');
+    function validateConsent() {
+      var ok = consentInput.checked;
+      consentError.textContent = ok ? '' : 'Please confirm you understand this is a consultation request.';
+      return ok;
+    }
+    consentInput.addEventListener('change', validateConsent);
+
+    function setBusy(isBusy) {
+      submitBtn.disabled = isBusy;
+      submitBtn.classList.toggle('is-loading', isBusy);
+      $$('input, select, textarea', form).forEach(function (el) { el.disabled = isBusy; });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var allValid = true;
+      fields.forEach(function (f) { if (!validateField(f)) allValid = false; });
+      if (!validateConsent()) allValid = false;
+
+      if (!allValid) {
+        status.textContent = 'Please fix the highlighted fields before sending.';
+        status.className = 'form__status form__status--error';
+        var firstError = $('[aria-invalid="true"]', form) || (!consentInput.checked ? consentInput : null);
+        if (firstError) firstError.focus();
+        return;
+      }
+
+      setBusy(true);
+      status.textContent = 'Sending your request…';
+      status.className = 'form__status form__status--pending';
+      var timeValue = $('#consultTime').value;
+
+      window.setTimeout(function () {
+        setBusy(false);
+        if (timeValue === 'saturday' && !saturdayHiccupShown) {
+          saturdayHiccupShown = true;
+          status.textContent = 'That Saturday Atelier slot just filled — choose another time, or submit again and we will waitlist you.';
+          status.className = 'form__status form__status--error';
+          $('#consultTime').focus();
+          return;
+        }
+        form.setAttribute('hidden', '');
+        status.textContent = '';
+        successPanel.removeAttribute('hidden');
+        successPanel.focus();
+      }, 900);
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        form.reset();
+        form.removeAttribute('hidden');
+        successPanel.setAttribute('hidden', '');
+        saturdayHiccupShown = false;
+        fields.forEach(clearFieldError);
+        consentError.textContent = '';
+        status.textContent = '';
+        status.className = 'form__status';
+        $('#consultName').focus();
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------
+     Footer newsletter (The Aurelia Journal, by email)
+     ------------------------------------------------------------ */
+  function initNewsletterForm() {
+    var form = $('#newsletterForm');
+    if (!form) return;
+    var input = $('#newsletterEmail');
+    var status = $('#newsletterStatus');
+    var btn = $('#newsletterSubmit');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var value = input.value.trim();
+      var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+      if (!valid) {
+        status.textContent = 'Enter a valid email address to join the Journal.';
+        status.className = 'newsletter__status newsletter__status--error';
+        input.setAttribute('aria-invalid', 'true');
+        input.focus();
+        return;
+      }
+
+      input.removeAttribute('aria-invalid');
+      btn.disabled = true;
+      input.disabled = true;
+      btn.classList.add('is-loading');
+      status.textContent = 'Adding you to the Journal list…';
+      status.className = 'newsletter__status newsletter__status--pending';
+
+      window.setTimeout(function () {
+        btn.disabled = false;
+        input.disabled = false;
+        btn.classList.remove('is-loading');
+        status.textContent = 'You are on the list — watch for next month’s read.';
+        status.className = 'newsletter__status newsletter__status--success';
+        form.reset();
+      }, 700);
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Live suite-hours status (Tue–Fri + Sat Atelier Hours; see the
+     hours table markup for the authoritative schedule)
+     ------------------------------------------------------------ */
+  function initSuiteStatus() {
+    var statusWrap = $('#visitStatus');
+    var text = $('#visitStatusText');
+    if (!statusWrap || !text) return;
+    var HOURS = { 0: null, 1: null, 2: [9, 18], 3: [9, 18], 4: [9, 19], 5: [9, 17], 6: [9, 13] };
+    var DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+    function formatHour(h) {
+      var hh = Math.floor(h);
+      var period = hh >= 12 ? 'PM' : 'AM';
+      var display = hh % 12 === 0 ? 12 : hh % 12;
+      return display + ':00 ' + period;
+    }
+
+    function update() {
+      var now = new Date();
+      var day = now.getDay();
+      var hour = now.getHours() + now.getMinutes() / 60;
+      var todayHours = HOURS[day];
+      var isOpen = !!(todayHours && hour >= todayHours[0] && hour < todayHours[1]);
+
+      statusWrap.classList.toggle('is-open', isOpen);
+      statusWrap.classList.toggle('is-closed', !isOpen);
+
+      if (isOpen) {
+        text.textContent = 'Suite open now — closes ' + formatHour(todayHours[1]) + ' today.';
+      } else {
+        var nextDay = day, tries = 0, nextHours = null;
+        while (tries < 7) {
+          nextDay = (nextDay + 1) % 7;
+          tries++;
+          if (HOURS[nextDay]) { nextHours = HOURS[nextDay]; break; }
+        }
+        text.textContent = nextHours
+          ? 'Suite closed — opens ' + (tries === 1 ? 'tomorrow' : DAY_NAMES[nextDay]) + ' at ' + formatHour(nextHours[0]) + '.'
+          : 'Suite closed today.';
+      }
+
+      $$('#hoursTable tr').forEach(function (row) {
+        row.classList.toggle('is-today', parseInt(row.getAttribute('data-day'), 10) === day);
+      });
+    }
+    update();
+  }
+
+  function stampYear() {
+    var el = $('#currentYear');
+    if (el) el.textContent = String(new Date().getFullYear());
+  }
+
+  /* ------------------------------------------------------------
+     Boot
+     ------------------------------------------------------------ */
+  function init() {
+    initHeaderScroll();
+    initMobileNav();
+    initSmoothScrollAndActiveLink();
+    initBackToTop();
+    initReveal();
+    initModalities();
+    initGallery();
+    initLightbox();
+    initTestimonialCarousel();
+    initAccordion();
+    initMembershipToggle();
+    initConsultForm();
+    initNewsletterForm();
+    initSuiteStatus();
+    stampYear();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 </body>
 </html>

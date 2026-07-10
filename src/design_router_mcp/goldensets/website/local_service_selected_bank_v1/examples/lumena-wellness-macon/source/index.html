@@ -25,6 +25,30 @@
             box-sizing: border-box;
         }
 
+        a:focus-visible,
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible,
+        textarea:focus-visible,
+        summary:focus-visible {
+            outline: 2px solid var(--aurora-1);
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            header, .badge, h1, .hero-desc, .cta-group, .trust-grid, .hero-visual {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--warm-ivory);
@@ -339,15 +363,14 @@
             box-shadow: 0 24px 48px rgba(43, 26, 42, 0.08);
         }
 
-        .image-container img {
+        .image-container svg {
+            display: block;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            object-position: center 20%;
             transition: transform 7s ease;
         }
 
-        .hero-visual:hover .image-container img {
+        .hero-visual:hover .image-container svg {
             transform: scale(1.05);
         }
 
@@ -471,7 +494,7 @@
 
         @media (max-width: 768px) {
             nav {
-                display: none; /* In a real build, replace with hamburger menu */
+                display: none; /* logo + in-page sections carry navigation at this width */
             }
             .hero {
                 padding-bottom: 4rem;
@@ -507,18 +530,19 @@
             <span class="logo-mark"></span>
             Lumena Wellness
         </a>
-        <nav>
-            <a href="#" class="nav-link">Treatments</a>
-            <a href="#" class="nav-link">About Tonya</a>
-            <a href="#" class="nav-link">Membership</a>
+        <nav aria-label="Primary">
+            <a href="#treatments" class="nav-link">Treatments</a>
+            <a href="#about" class="nav-link">About Maren</a>
+            <a href="#book" class="nav-link">Membership</a>
             <div class="nav-location">
                 Macon, GA
-                <span>300 Northside Crossing</span>
+                <span>412 Larkspur Commons</span>
             </div>
         </nav>
     </header>
 
-    <main class="hero">
+    <main>
+    <section class="hero" aria-label="Lumena Wellness introduction">
         <div class="hero-content">
             <div class="badge">
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
@@ -528,12 +552,12 @@
             <h1>Celestial calm. <br><i>Clinical</i> confidence.</h1>
             
             <p class="hero-desc">
-                Discover personalized care that transforms. Led by Tonya Fitch's 25+ years of healthcare expertise, our tailored weight loss programs, IV therapies, and aesthetic treatments are designed entirely around helping you look and feel your absolute best.
+                Discover personalized care that transforms. Led by Maren Ellison's 25+ years of healthcare expertise, our tailored weight loss programs, IV therapies, and aesthetic treatments are designed entirely around helping you look and feel your absolute best.
             </p>
-            
+
             <div class="cta-group">
-                <a href="#" class="btn-primary">Book Consultation</a>
-                <a href="#" class="btn-secondary">Explore Treatments</a>
+                <a href="#book" class="btn-primary">Book Consultation</a>
+                <a href="#treatments" class="btn-secondary">Explore Treatments</a>
             </div>
 
             <div class="trust-grid">
@@ -551,18 +575,66 @@
         <div class="hero-visual">
             <div class="visual-backdrop"></div>
             <div class="image-container">
-                <!-- Using a highly curated, sophisticated Unsplash image fitting the celestial/wellness vibe -->
-                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop" alt="Abstract fluid artistic representation of wellness and aesthetic beauty">
+                <svg viewBox="0 0 900 1200" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="lwHeroScene">
+                    <title id="lwHeroScene">Abstract celestial illustration: a haloed moon above layered aurora waves in plum, mauve, and blush</title>
+                    <defs>
+                        <linearGradient id="lwSky" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#241623"/>
+                            <stop offset="0.5" stop-color="#3A2A3D"/>
+                            <stop offset="1" stop-color="#634B66"/>
+                        </linearGradient>
+                        <radialGradient id="lwMoonGlow" cx="0.5" cy="0.5" r="0.5">
+                            <stop offset="0" stop-color="#F4DCD6" stop-opacity="0.55"/>
+                            <stop offset="1" stop-color="#F4DCD6" stop-opacity="0"/>
+                        </radialGradient>
+                        <linearGradient id="lwMoon" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#FAF9F6"/>
+                            <stop offset="1" stop-color="#EAD9D6"/>
+                        </linearGradient>
+                    </defs>
+                    <rect width="900" height="1200" fill="url(#lwSky)"/>
+                    <g fill="#FAF9F6">
+                        <circle cx="120" cy="140" r="2.5" opacity="0.7"/>
+                        <circle cx="230" cy="90" r="1.8" opacity="0.5"/>
+                        <circle cx="330" cy="200" r="2" opacity="0.6"/>
+                        <circle cx="710" cy="120" r="2.5" opacity="0.7"/>
+                        <circle cx="790" cy="240" r="1.8" opacity="0.5"/>
+                        <circle cx="620" cy="70" r="2" opacity="0.55"/>
+                        <circle cx="90" cy="330" r="2" opacity="0.5"/>
+                        <circle cx="820" cy="420" r="2.2" opacity="0.55"/>
+                        <circle cx="160" cy="480" r="1.6" opacity="0.4"/>
+                        <circle cx="742" cy="330" r="1.6" opacity="0.45"/>
+                    </g>
+                    <circle cx="450" cy="330" r="240" fill="none" stroke="#F4DCD6" stroke-width="1.5" opacity="0.14"/>
+                    <circle cx="450" cy="330" r="205" fill="none" stroke="#F4DCD6" stroke-width="1.5" opacity="0.26"/>
+                    <circle cx="450" cy="330" r="185" fill="url(#lwMoonGlow)"/>
+                    <circle cx="450" cy="330" r="108" fill="url(#lwMoon)"/>
+                    <path d="M372 258 a108 108 0 0 0 42 168" fill="none" stroke="#B999B0" stroke-width="3" opacity="0.5"/>
+                    <circle cx="418" cy="296" r="12" fill="#B999B0" opacity="0.28"/>
+                    <circle cx="486" cy="374" r="17" fill="#B999B0" opacity="0.22"/>
+                    <circle cx="472" cy="288" r="8" fill="#B999B0" opacity="0.2"/>
+                    <!-- orbit line with a passing body -->
+                    <path d="M-40 520 C240 452 640 452 940 540" fill="none" stroke="#F4DCD6" stroke-width="1.5" opacity="0.4"/>
+                    <circle cx="682" cy="476" r="7" fill="#F4DCD6" opacity="0.9"/>
+                    <circle cx="682" cy="476" r="14" fill="none" stroke="#F4DCD6" stroke-width="1" opacity="0.4"/>
+                    <!-- aurora waves -->
+                    <path d="M0 700 C150 640 300 680 450 648 C600 618 760 660 900 626 V1200 H0 Z" fill="#634B66" opacity="0.9"/>
+                    <path d="M0 700 C150 640 300 680 450 648 C600 618 760 660 900 626" fill="none" stroke="#FAF9F6" stroke-width="1.5" opacity="0.25"/>
+                    <path d="M0 820 C170 764 330 806 480 776 C640 744 780 786 900 752 V1200 H0 Z" fill="#B999B0" opacity="0.85"/>
+                    <path d="M0 820 C170 764 330 806 480 776 C640 744 780 786 900 752" fill="none" stroke="#FAF9F6" stroke-width="1.5" opacity="0.3"/>
+                    <path d="M0 950 C160 900 320 936 470 908 C630 878 780 916 900 886 V1200 H0 Z" fill="#F4DCD6" opacity="0.92"/>
+                    <path d="M0 1080 C180 1036 350 1064 500 1042 C660 1018 790 1046 900 1022 V1200 H0 Z" fill="#E2E5E9" opacity="0.95"/>
+                </svg>
                 <div class="image-overlay"></div>
             </div>
-            
+
             <div class="floating-card">
-                <div class="floating-card-icon">T</div>
-                <h5>Tonya Fitch, NP</h5>
+                <div class="floating-card-icon" aria-hidden="true">M</div>
+                <h5>Maren Ellison, NP</h5>
                 <p>Over 25 years of deep healthcare expertise, bringing unparalleled safety and artistry to every personalized treatment plan.</p>
             </div>
         </div>
-    
+    </section>
 
 <style id="below-fold-patch">
     .section-padding {
@@ -633,13 +705,13 @@
         box-shadow: 0 24px 48px rgba(43, 26, 42, 0.08);
         height: 650px;
     }
-    .philosophy-image img {
+    .philosophy-image svg {
+        display: block;
         width: 100%;
         height: 100%;
-        object-fit: cover;
         transition: transform 7s ease;
     }
-    .philosophy-image:hover img {
+    .philosophy-image:hover svg {
         transform: scale(1.05);
     }
 
@@ -916,11 +988,288 @@
         color: var(--text-light);
     }
 
+    /* Testimonial header + supporting quotes */
+    .testimonial-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+    .testimonial-support {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        max-width: 1000px;
+        margin: 4.5rem auto 0;
+    }
+    .support-card {
+        background: var(--warm-ivory);
+        border: 1px solid var(--moonlit-silver);
+        border-radius: 8px;
+        padding: 2.5rem;
+        text-align: left;
+        margin: 0;
+    }
+    .support-card blockquote {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.25rem;
+        font-style: italic;
+        line-height: 1.5;
+        color: var(--deep-plum);
+        margin: 0 0 1.75rem 0;
+    }
+    .support-card figcaption cite {
+        font-style: normal;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--aurora-1);
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        display: block;
+    }
+    .support-card figcaption span {
+        font-size: 0.8rem;
+        color: var(--text-light);
+        font-weight: 300;
+    }
+
+    /* First Visit / Process */
+    .visit-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        margin-top: 4rem;
+    }
+    .visit-step {
+        position: relative;
+        padding-top: 2rem;
+        border-top: 1px solid var(--moonlit-silver);
+    }
+    .visit-step::before {
+        content: '';
+        position: absolute;
+        top: -1px;
+        left: 0;
+        width: 56px;
+        height: 2px;
+        background: var(--aurora-2);
+    }
+    .visit-step .step-number {
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 2.4rem;
+        color: var(--aurora-1);
+        display: block;
+        margin-bottom: 1rem;
+        line-height: 1;
+    }
+    .visit-step h3 {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: var(--deep-plum);
+        margin-bottom: 0.75rem;
+    }
+    .visit-step p {
+        font-size: 0.98rem;
+        line-height: 1.7;
+        color: var(--text-light);
+        font-weight: 300;
+    }
+
+    /* Service Area */
+    .area-section {
+        background: linear-gradient(to bottom, var(--soft-blush) 0%, var(--warm-ivory) 100%);
+    }
+    .area-inner {
+        max-width: 760px;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .area-orbit {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 1.5rem;
+        display: block;
+    }
+    .area-places {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.75rem 1rem;
+        list-style: none;
+        margin-top: 2.5rem;
+        padding: 0;
+    }
+    .area-places li {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 500;
+        color: var(--aurora-1);
+        border: 1px solid var(--moonlit-silver);
+        background: rgba(250, 249, 246, 0.7);
+        border-radius: 100px;
+        padding: 0.6rem 1.4rem;
+    }
+
+    /* FAQ */
+    .faq-list {
+        max-width: 780px;
+        margin: 3.5rem auto 0;
+    }
+    .faq-item {
+        border-bottom: 1px solid var(--moonlit-silver);
+    }
+    .faq-item:first-of-type {
+        border-top: 1px solid var(--moonlit-silver);
+    }
+    .faq-item summary {
+        list-style: none;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+        padding: 1.6rem 0.25rem;
+        font-family: 'Playfair Display', serif;
+        font-size: 1.35rem;
+        font-weight: 500;
+        color: var(--deep-plum);
+        transition: color 0.3s ease;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary:hover { color: var(--aurora-1); }
+    .faq-item summary::after {
+        content: '+';
+        font-family: 'Playfair Display', serif;
+        font-size: 1.6rem;
+        font-weight: 400;
+        color: var(--aurora-1);
+        flex-shrink: 0;
+        transition: transform 0.3s ease;
+    }
+    .faq-item[open] summary::after { transform: rotate(45deg); }
+    .faq-item p {
+        padding: 0 0.25rem 1.6rem;
+        max-width: 640px;
+        font-size: 1rem;
+        line-height: 1.75;
+        color: var(--text-light);
+        font-weight: 300;
+    }
+
+    /* Booking form */
+    .book-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 5rem;
+        align-items: flex-start;
+    }
+    .book-form {
+        background: var(--warm-ivory);
+        border: 1px solid var(--moonlit-silver);
+        border-radius: 8px;
+        padding: 3rem;
+        box-shadow: 0 20px 40px rgba(43, 26, 42, 0.05);
+    }
+    .field-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+    .field label {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--deep-plum);
+        font-weight: 600;
+    }
+    .field .hint {
+        font-size: 0.8rem;
+        color: var(--text-light);
+        font-weight: 300;
+    }
+    .field input,
+    .field select,
+    .field textarea {
+        font-family: 'Inter', sans-serif;
+        font-size: 0.98rem;
+        font-weight: 300;
+        color: var(--deep-plum);
+        background: #FFFFFF;
+        border: 1px solid var(--moonlit-silver);
+        border-radius: 4px;
+        padding: 0.85rem 1rem;
+        width: 100%;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .field textarea {
+        min-height: 104px;
+        resize: vertical;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+        border-color: var(--aurora-1);
+        box-shadow: 0 0 0 3px rgba(99, 75, 102, 0.12);
+        outline: none;
+    }
+    .field input:focus-visible,
+    .field select:focus-visible,
+    .field textarea:focus-visible {
+        outline: 2px solid var(--aurora-1);
+        outline-offset: 1px;
+    }
+    .book-form button {
+        font-family: 'Inter', sans-serif;
+        cursor: pointer;
+        border: none;
+        width: 100%;
+        margin-top: 0.5rem;
+        font-size: 0.9rem;
+    }
+    .book-note {
+        margin-top: 1.25rem;
+        font-size: 0.85rem;
+        color: var(--text-light);
+        font-weight: 300;
+        text-align: center;
+    }
+    .book-direct {
+        border-top: 1px solid var(--moonlit-silver);
+        margin-top: 2.5rem;
+        padding-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .book-direct span {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--text-light);
+    }
+    .book-direct a {
+        color: var(--aurora-1);
+        text-decoration: none;
+        font-family: 'Playfair Display', serif;
+        font-style: italic;
+        font-size: 1.3rem;
+        width: fit-content;
+    }
+    .book-direct a:hover { color: var(--deep-plum); }
+
     @media (max-width: 1200px) {
         .philosophy-grid { gap: 4rem; grid-template-columns: 1fr 1fr; }
         .philosophy-image { height: 500px; }
         .credentials-inner { padding: 4rem; gap: 4rem; }
         .footer-grid { grid-template-columns: 1fr 1fr; gap: 3rem; }
+        .book-grid { grid-template-columns: 1fr; gap: 3.5rem; }
     }
 
     @media (max-width: 992px) {
@@ -929,6 +1278,8 @@
         .credentials-inner { grid-template-columns: 1fr; padding: 3rem; gap: 3rem; }
         .credentials-stats { flex-direction: row; flex-wrap: wrap; gap: 2rem; justify-content: space-between; }
         .stat-item::after { display: none; }
+        .visit-steps { grid-template-columns: 1fr; gap: 2rem; }
+        .testimonial-support { grid-template-columns: 1fr; max-width: 560px; }
     }
 
     @media (max-width: 768px) {
@@ -938,33 +1289,92 @@
         .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
         .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
         .credentials-stats { flex-direction: column; text-align: center; }
+        .field-row { grid-template-columns: 1fr; gap: 0; }
+        .book-form { padding: 2rem 1.5rem; }
+        .faq-item summary { font-size: 1.15rem; }
+    }
+
+    @media (max-width: 420px) {
+        h1 { font-size: 2.75rem; }
+        .hero { padding-left: 1rem; padding-right: 1rem; }
     }
 </style>
 
-<section class="bg-ivory">
+<section id="about" class="bg-ivory" aria-labelledby="about-heading">
     <div class="section-padding philosophy-grid">
         <div class="philosophy-image">
-            <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?q=80&w=2487&auto=format&fit=crop" alt="Calm wellness interior with botanical shadows">
+            <svg viewBox="0 0 800 1000" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="lwPhilScene">
+                <title id="lwPhilScene">Illustration of eucalyptus stems in a mauve vessel casting soft shadows across a warm arched wall</title>
+                <defs>
+                    <linearGradient id="lwPhilWall" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#FAF9F6"/>
+                        <stop offset="1" stop-color="#F4DCD6"/>
+                    </linearGradient>
+                    <linearGradient id="lwPhilArch" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#FFFDFA"/>
+                        <stop offset="1" stop-color="#F8EBE6"/>
+                    </linearGradient>
+                </defs>
+                <rect width="800" height="1000" fill="url(#lwPhilWall)"/>
+                <!-- arched light panel -->
+                <path d="M180 860 V420 a220 220 0 0 1 440 0 V860 Z" fill="url(#lwPhilArch)"/>
+                <path d="M180 860 V420 a220 220 0 0 1 440 0 V860" fill="none" stroke="#E2E5E9" stroke-width="3"/>
+                <!-- celestial echo -->
+                <circle cx="560" cy="300" r="46" fill="#B999B0" opacity="0.5"/>
+                <circle cx="560" cy="300" r="66" fill="none" stroke="#B999B0" stroke-width="1.5" opacity="0.4"/>
+                <!-- shadow branches (offset) -->
+                <g stroke="#2B1A2A" stroke-width="5" fill="none" opacity="0.08" stroke-linecap="round" transform="translate(36 20)">
+                    <path d="M400 852 C388 700 342 590 268 500"/>
+                    <path d="M400 852 C412 690 462 578 528 496"/>
+                    <path d="M400 852 C400 720 396 620 388 540"/>
+                </g>
+                <g fill="#2B1A2A" opacity="0.08" transform="translate(36 20)">
+                    <circle cx="300" cy="560" r="15"/><circle cx="272" cy="512" r="13"/><circle cx="330" cy="620" r="16"/>
+                    <circle cx="496" cy="560" r="15"/><circle cx="524" cy="510" r="13"/><circle cx="470" cy="620" r="16"/>
+                    <circle cx="390" cy="580" r="13"/><circle cx="386" cy="640" r="15"/>
+                </g>
+                <!-- stems -->
+                <g stroke="#634B66" stroke-width="5" fill="none" stroke-linecap="round">
+                    <path d="M400 852 C388 700 342 590 268 500"/>
+                    <path d="M400 852 C412 690 462 578 528 496"/>
+                    <path d="M400 852 C400 720 396 620 388 540"/>
+                </g>
+                <!-- eucalyptus leaves -->
+                <g fill="#634B66">
+                    <circle cx="300" cy="560" r="15"/><circle cx="272" cy="512" r="13"/><circle cx="330" cy="620" r="16"/><circle cx="268" cy="498" r="10" opacity="0.85"/>
+                </g>
+                <g fill="#7A5E7C">
+                    <circle cx="496" cy="560" r="15"/><circle cx="524" cy="510" r="13"/><circle cx="470" cy="620" r="16"/><circle cx="530" cy="494" r="10" opacity="0.9"/>
+                </g>
+                <g fill="#B999B0">
+                    <circle cx="390" cy="580" r="13"/><circle cx="386" cy="640" r="15"/><circle cx="392" cy="528" r="10"/>
+                </g>
+                <!-- vessel -->
+                <ellipse cx="400" cy="936" rx="150" ry="14" fill="#2B1A2A" opacity="0.07"/>
+                <path d="M330 830 q-8 62 24 92 h92 q32 -30 24 -92 Z" fill="#B999B0"/>
+                <path d="M330 830 h140" stroke="#9D7F98" stroke-width="4"/>
+                <path d="M352 876 h96" stroke="#FAF9F6" stroke-width="2" opacity="0.5"/>
+            </svg>
         </div>
         <div class="philosophy-content">
             <span class="subheading">Our Philosophy</span>
-            <h2 class="heading-secondary mb-3">Beauty grounded in medical integrity.</h2>
+            <h2 id="about-heading" class="heading-secondary mb-3">Beauty grounded in medical integrity.</h2>
             <p class="body-text mb-3">
                 Lumena Wellness isn't just about surface-level changes. It's about deep, physiological optimization that radiates outward. We believe true aesthetic enhancement begins with cellular health.
             </p>
             <p class="body-text mb-4">
                 Led by 25+ years of clinical expertise, we merge advanced medical weight loss, targeted IV nutrient therapies, and precision aesthetic treatments into a single, cohesive wellness strategy tailored exclusively to your biology.
             </p>
-            <a href="#" class="btn-primary" style="display: inline-block;">Meet Tonya Fitch</a>
+            <a href="#credentials" class="btn-primary" style="display: inline-block;">Meet Maren Ellison</a>
         </div>
     </div>
 </section>
 
-<section class="bg-blush services-wrapper">
+<section id="treatments" class="bg-blush services-wrapper" aria-labelledby="treatments-heading">
     <div class="section-padding">
         <div class="text-center mb-4" style="max-width: 700px; margin-inline: auto;">
             <span class="subheading">Curated Treatments</span>
-            <h2 class="heading-secondary mb-3">Signature services tailored to your unique structure.</h2>
+            <h2 id="treatments-heading" class="heading-secondary mb-3">Signature services tailored to your unique structure.</h2>
             <p class="body-text">We utilize industry-leading techniques and pharmaceutical-grade treatments to deliver natural, profound results.</p>
         </div>
         
@@ -1000,7 +1410,7 @@
     </div>
 </section>
 
-<section class="bg-ivory">
+<section id="credentials" class="bg-ivory" aria-labelledby="credentials-heading">
     <div class="section-padding">
         <div class="credentials-inner">
             <div class="credentials-stats">
@@ -1019,9 +1429,9 @@
             </div>
             <div class="credentials-content">
                 <span class="subheading">Clinical Excellence</span>
-                <h2 class="heading-secondary mb-3">Safety is our foundation. Artistry is our signature.</h2>
+                <h2 id="credentials-heading" class="heading-secondary mb-3">Safety is our foundation. Artistry is our signature.</h2>
                 <p class="body-text mb-3">
-                    In an industry often clouded by rushed procedures, Lumena Wellness stands apart through meticulous clinical governance. Tonya Fitch, NP, brings over two decades of critical healthcare experience to every aesthetic decision.
+                    In an industry often clouded by rushed procedures, Lumena Wellness stands apart through meticulous clinical governance. Maren Ellison, NP, brings over two decades of critical healthcare experience to every aesthetic decision.
                 </p>
                 <p class="body-text">
                     Every dose, every placement, and every protocol is administered with a deep understanding of human anatomy. We never compromise on safety, ensuring your journey to renewed confidence is as secure as it is transformative.
@@ -1031,30 +1441,195 @@
     </div>
 </section>
 
-<section class="testimonial-wrapper">
+<section id="voices" class="testimonial-wrapper" aria-labelledby="voices-heading">
     <div class="section-padding">
+        <div class="testimonial-header">
+            <span class="subheading">Patient Voices</span>
+            <h2 id="voices-heading" class="heading-secondary">Kind words, honest results.</h2>
+        </div>
         <div class="testimonial-slider">
-            <div class="quote-mark">"</div>
+            <div class="quote-mark" aria-hidden="true">"</div>
             <p class="testimonial-text">
-                Tonya didn't just give me a treatment; she gave me a comprehensive plan. Her clinical background made me feel incredibly safe, and the results of my weight loss protocol and skin treatments have been nothing short of life-changing. I finally feel like myself again.
+                Maren didn't just give me a treatment; she gave me a comprehensive plan. Her clinical background made me feel incredibly safe, and the results of my weight loss protocol and skin treatments have been nothing short of life-changing. I finally feel like myself again.
             </p>
             <div class="testimonial-author">Sarah M.</div>
             <div class="testimonial-treatment">Medical Weight Loss & Aesthetic Patient</div>
         </div>
+        <div class="testimonial-support">
+            <figure class="support-card">
+                <blockquote>The consult was the first time a provider walked me through my labs line by line. Ten months in, I'm down 31 pounds and my energy is steady.</blockquote>
+                <figcaption>
+                    <cite>Danielle K.</cite>
+                    <span>Medical weight loss patient</span>
+                </figcaption>
+            </figure>
+            <figure class="support-card">
+                <blockquote>I asked for subtle, and subtle is exactly what I got. Friends say I look rested &mdash; no one has guessed why.</blockquote>
+                <figcaption>
+                    <cite>Marcus D.</cite>
+                    <span>Aesthetic injections patient</span>
+                </figcaption>
+            </figure>
+        </div>
     </div>
 </section>
 
-<section class="cta-section">
+<section id="visit" class="bg-ivory" aria-labelledby="visit-heading">
+    <div class="section-padding">
+        <div style="max-width: 640px;">
+            <span class="subheading">What to Expect</span>
+            <h2 id="visit-heading" class="heading-secondary mb-3">Your first visit, unhurried.</h2>
+            <p class="body-text">Every Lumena journey begins the same way: with time. Your first appointment is a full hour with Maren &mdash; never a technician hand-off &mdash; and nothing is prescribed before your story is heard.</p>
+        </div>
+        <div class="visit-steps">
+            <div class="visit-step">
+                <span class="step-number" aria-hidden="true">01</span>
+                <h3>Consultation &amp; history</h3>
+                <p>A private conversation about your goals, health history, and current medications &mdash; with baseline labs ordered when your plan calls for them.</p>
+            </div>
+            <div class="visit-step">
+                <span class="step-number" aria-hidden="true">02</span>
+                <h3>A plan built to your biology</h3>
+                <p>Maren maps a sequenced protocol across weight loss, IV therapy, and aesthetics &mdash; with transparent pricing and no bundled pressure.</p>
+            </div>
+            <div class="visit-step">
+                <span class="step-number" aria-hidden="true">03</span>
+                <h3>Guided follow-through</h3>
+                <p>Scheduled check-ins track your labs, dosing, and results, and your plan is adjusted as your body responds &mdash; not on a fixed calendar.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="area" class="area-section" aria-labelledby="area-heading">
+    <div class="section-padding area-inner">
+        <svg class="area-orbit" viewBox="0 0 72 72" aria-hidden="true" focusable="false">
+            <circle cx="36" cy="36" r="30" fill="none" stroke="#B999B0" stroke-width="1.5" opacity="0.7"/>
+            <circle cx="36" cy="36" r="19" fill="none" stroke="#634B66" stroke-width="1.5" opacity="0.5"/>
+            <circle cx="36" cy="36" r="7" fill="#634B66"/>
+            <circle cx="62" cy="24" r="4" fill="#B999B0"/>
+        </svg>
+        <span class="subheading">Where We Care</span>
+        <h2 id="area-heading" class="heading-secondary mb-3">Rooted in Macon, welcoming Middle Georgia.</h2>
+        <p class="body-text">Our studio sits at 412 Larkspur Commons in north Macon. Most members live nearby &mdash; and a devoted number drive in from across the surrounding Middle Georgia communities for the same reason: care that never feels rushed.</p>
+        <ul class="area-places">
+            <li>Macon</li>
+            <li>North Macon</li>
+            <li>Greater Bibb County</li>
+            <li>Middle Georgia</li>
+        </ul>
+    </div>
+</section>
+
+<section id="faq" class="bg-ivory" aria-labelledby="faq-heading">
+    <div class="section-padding">
+        <div class="text-center">
+            <span class="subheading">Good Questions</span>
+            <h2 id="faq-heading" class="heading-secondary">Asked before every first visit.</h2>
+        </div>
+        <div class="faq-list">
+            <details class="faq-item">
+                <summary>What happens at the first consultation?</summary>
+                <p>You spend a full hour with Maren Ellison, NP &mdash; reviewing your history, goals, and any labs. You leave with a written plan and clear pricing. There is no obligation to book treatment that day.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Am I a candidate for medical weight loss?</summary>
+                <p>Candidacy is a medical decision, not a sales one. We screen your history, medications, and lab work first; if a GLP-1 protocol is not safe or suitable for you, we will say so and suggest what is.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How often can I receive IV therapy?</summary>
+                <p>Most members settle into a rhythm of one to two infusions per month, tailored to their bloodwork and season of life. We will never recommend a cadence your labs do not support.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Will injectables look natural?</summary>
+                <p>That is the entire philosophy here. Maren doses conservatively, favors refinement over transformation, and schedules a complimentary two-week review so any adjustment is unhurried and precise.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Is there downtime?</summary>
+                <p>Most treatments allow you to return to your day immediately; injectables may show brief redness or minor bruising. You receive written aftercare guidance before you leave the studio.</p>
+            </details>
+            <details class="faq-item">
+                <summary>How does membership work?</summary>
+                <p>Membership applies a monthly credit toward any treatment and unlocks member pricing across the menu. Details are shared at your consultation &mdash; it is an option, never a requirement.</p>
+            </details>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section" aria-labelledby="cta-heading">
     <div class="cta-glow"></div>
     <div class="section-padding cta-container">
         <span class="subheading" style="color: var(--aurora-2);">Begin Your Journey</span>
-        <h2 class="heading-secondary mb-3" style="color: var(--warm-ivory);">Ready to experience the Lumena difference?</h2>
+        <h2 id="cta-heading" class="heading-secondary mb-3" style="color: var(--warm-ivory);">Ready to experience the Lumena difference?</h2>
         <p class="body-text mb-4" style="color: rgba(250, 249, 246, 0.8);">
             Schedule a comprehensive consultation at our Macon studio to discuss your goals, evaluate your options, and craft a personalized wellness roadmap.
         </p>
-        <a href="#" class="btn-primary-light">Book Your Consultation</a>
+        <a href="#book" class="btn-primary-light">Book Your Consultation</a>
     </div>
 </section>
+
+<section id="book" class="bg-ivory" aria-labelledby="book-heading">
+    <div class="section-padding book-grid">
+        <div>
+            <span class="subheading">Request a Consultation</span>
+            <h2 id="book-heading" class="heading-secondary mb-3">Reserve your hour.</h2>
+            <p class="body-text mb-3">Share a little about yourself and what brings you in. Our care coordinator replies within one business day with available times &mdash; mornings, lunch hours, and early evenings included.</p>
+            <div class="book-direct">
+                <span>Prefer to reach us directly?</span>
+                <a href="tel:+14785550142">(478) 555-0142</a>
+                <a href="mailto:hello@lumenawellness.example">hello@lumenawellness.example</a>
+            </div>
+        </div>
+        <form class="book-form" action="#" method="post">
+            <div class="field-row">
+                <div class="field">
+                    <label for="bk-name">Full name</label>
+                    <input type="text" id="bk-name" name="name" autocomplete="name" required>
+                </div>
+                <div class="field">
+                    <label for="bk-phone">Phone</label>
+                    <input type="tel" id="bk-phone" name="phone" autocomplete="tel" required>
+                    <span class="hint">Used once, to confirm your time.</span>
+                </div>
+            </div>
+            <div class="field">
+                <label for="bk-email">Email</label>
+                <input type="email" id="bk-email" name="email" autocomplete="email" required>
+            </div>
+            <div class="field-row">
+                <div class="field">
+                    <label for="bk-interest">I&rsquo;m interested in</label>
+                    <select id="bk-interest" name="interest">
+                        <option>Medical weight loss</option>
+                        <option>IV nutrient therapy</option>
+                        <option>Aesthetic injections</option>
+                        <option>Skin rejuvenation</option>
+                        <option>Membership</option>
+                        <option>Not sure yet</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label for="bk-time">Preferred time of day</label>
+                    <select id="bk-time" name="time">
+                        <option>Morning</option>
+                        <option>Lunch hour</option>
+                        <option>Early evening</option>
+                        <option>First available</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
+                <label for="bk-notes">Anything you&rsquo;d like Maren to know?</label>
+                <textarea id="bk-notes" name="notes"></textarea>
+                <span class="hint">Health context, past treatments, questions &mdash; all held in confidence.</span>
+            </div>
+            <button type="submit" class="btn-primary">Request My Consultation</button>
+            <p class="book-note">No card required &mdash; consultations are conversations, not commitments.</p>
+        </form>
+    </div>
+</section>
+
+    </main>
 
 <footer class="site-footer">
     <div class="footer-grid">
@@ -1071,31 +1646,34 @@
         <div class="footer-col">
             <h6>Treatments</h6>
             <ul class="footer-links">
-                <li><a href="#">Medical Weight Loss</a></li>
-                <li><a href="#">IV Therapy</a></li>
-                <li><a href="#">Injectables</a></li>
-                <li><a href="#">Skin Rejuvenation</a></li>
+                <li><a href="#treatments">Medical Weight Loss</a></li>
+                <li><a href="#treatments">IV Therapy</a></li>
+                <li><a href="#treatments">Injectables</a></li>
+                <li><a href="#treatments">Skin Rejuvenation</a></li>
             </ul>
         </div>
-        
+
         <div class="footer-col">
             <h6>Studio</h6>
             <ul class="footer-links">
-                <li><a href="#">About Tonya</a></li>
-                <li><a href="#">Membership</a></li>
+                <li><a href="#about">About Maren</a></li>
+                <li><a href="#book">Membership</a></li>
                 <li><a href="#">Patient Portal</a></li>
-                <li><a href="#">Contact Us</a></li>
+                <li><a href="#book">Contact Us</a></li>
             </ul>
         </div>
-        
+
         <div class="footer-col">
             <h6>Visit Us</h6>
             <div class="footer-contact">
-                <p>300 Northside Crossing</p>
+                <p>412 Larkspur Commons</p>
                 <p>Macon, GA 31210</p>
                 <br>
-                <p><strong>Phone:</strong> (478) 555-0142</p>
-                <p><strong>Email:</strong> hello@lumenawellness.example</p>
+                <p>Mon&ndash;Fri: 9:00am &ndash; 5:30pm</p>
+                <p>Sat: By appointment</p>
+                <br>
+                <p><strong>Phone:</strong> <a href="tel:+14785550142" style="color: var(--aurora-1); text-decoration: none;">(478) 555-0142</a></p>
+                <p><strong>Email:</strong> <a href="mailto:hello@lumenawellness.example" style="color: var(--aurora-1); text-decoration: none;">hello@lumenawellness.example</a></p>
             </div>
         </div>
     </div>
@@ -1108,8 +1686,6 @@
         </div>
     </div>
 </footer>
-
-</main>
 
 </body>
 </html>

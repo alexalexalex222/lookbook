@@ -1,843 +1,2959 @@
-<html lang="en" class="js" data-astro-cid-5hce7sga=""><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><script>
-      document.documentElement.classList.remove('no-js');
-      document.documentElement.classList.add('js');
-    </script><title>Maison — Pénombre</title><meta name="description" content="On materials, slowness and restraint. The working philosophy of Pénombre, a small Paris maison de parfum."><link rel="canonical" href="https://penombre.example/maison"><meta name="theme-color" content="#0b0a08"><meta name="color-scheme" content="dark light"><!-- LCP font: preload the display weight used by the first heading. --><link rel="preload" href="/fonts/cormorant-garamond-600.woff2" as="font" type="font/woff2" crossorigin="anonymous"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><meta property="og:type" content="website"><meta property="og:site_name" content="Pénombre"><meta property="og:title" content="Maison — Pénombre"><meta property="og:description" content="On materials, slowness and restraint. The working philosophy of Pénombre, a small Paris maison de parfum."><meta property="og:url" content="https://penombre.example/maison"><meta name="twitter:card" content="summary_large_image"><style data-vite-dev-id="penombre/src/styles/global.css">/* PÉNOMBRE — self-hosted type. Latin subset, woff2 only. font-display: swap
-   so first paint is never blocked; the hero weight is also <link rel=preload>ed
-   in Base.astro to keep the LCP swap imperceptible. */
-
-/* Cormorant Garamond — the lyric voice: display, headings, long-form body. */
-
-@font-face {
-  font-family: 'Cormorant Garamond';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/cormorant-garamond-400.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Cormorant Garamond';
-  font-style: italic;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/cormorant-garamond-400-italic.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Cormorant Garamond';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/cormorant-garamond-500.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Cormorant Garamond';
-  font-style: normal;
-  font-weight: 600;
-  font-display: swap;
-  src: url('/fonts/cormorant-garamond-600.woff2') format('woff2');
-}
-
-/* Jost — the structural voice: wordmark, navigation, eyebrows, prices, UI. */
-
-@font-face {
-  font-family: 'Jost';
-  font-style: normal;
-  font-weight: 300;
-  font-display: swap;
-  src: url('/fonts/jost-300.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Jost';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/fonts/jost-400.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Jost';
-  font-style: normal;
-  font-weight: 500;
-  font-display: swap;
-  src: url('/fonts/jost-500.woff2') format('woff2');
-}
-
-/* =============================================================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>document.documentElement.classList.add('js');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pénombre — Maison de Parfum, Paris</title>
+<meta name="description" content="Pénombre composes five perfumes, each written for a single hour of the day — from the first cold blue of dawn to the narrow stillness of midnight. A small maison, working from one bench in Paris.">
+<meta name="theme-color" content="#0b0a08">
+<meta name="color-scheme" content="dark light">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pénombre">
+<meta property="og:title" content="Pénombre — Maison de Parfum, Paris">
+<meta property="og:description" content="Perfume for the half-light. Five compositions, one for each threshold hour of the day.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0a08'/%3E%3Cpath d='M5 21a11 11 0 0 1 22 0' fill='none' stroke='%23c8a96a' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='21' r='2.3' fill='%23c8a96a'/%3E%3Cline x1='3.5' y1='24.5' x2='28.5' y2='24.5' stroke='%23c8a96a' stroke-width='1' stroke-opacity='.55'/%3E%3C/svg%3E">
+<style>
+/* ==========================================================================
    PÉNOMBRE — design tokens
-   One source of truth. Every surface is built from these; nothing is ad hoc.
+   Fictional maison de parfum, Paris. Perfume for the half-light: five
+   compositions, each written for one threshold hour of the day. Restraint
+   as hierarchy — large serif type, thin dividers, very few controls.
    ========================================================================== */
+:root{
+  color-scheme: dark;
 
-:root {
-  /* — Type families ----------------------------------------------------- */
-  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Jost', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  /* -- primitive palette: warm-neutral ramp, the inside of dark amber glass -- */
+  --pen-ink-950:#060503;
+  --pen-ink-900:#0b0a08;
+  --pen-ink-850:#100e0b;
+  --pen-ink-800:#15120e;
+  --pen-ink-700:#1d1813;
+  --pen-ink-600:#2a231b;
+  --pen-ink-500:#3b3225;
+  --pen-ink-300:#6b6150;
+  --pen-ink-200:#978b76;
+  --pen-ink-100:#b8ad99;
+  --pen-ink-050:#d6cbb6;
+  --pen-ink-000:#ece3d4;
 
-  /* — Fluid type scale (ratio-locked, clamp-driven) --------------------- */
-  --fs-eyebrow: clamp(0.68rem, 0.64rem + 0.18vw, 0.76rem);
-  --fs-caption: clamp(0.72rem, 0.69rem + 0.15vw, 0.8rem);
-  --fs-sm: clamp(0.875rem, 0.84rem + 0.18vw, 0.95rem);
-  --fs-body: clamp(1.05rem, 1rem + 0.3vw, 1.2rem);
-  --fs-lead: clamp(1.3rem, 1.13rem + 0.78vw, 1.7rem);
-  --fs-h3: clamp(1.5rem, 1.25rem + 1.25vw, 2.25rem);
-  --fs-h2: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
-  --fs-h1: clamp(2.7rem, 1.7rem + 4.9vw, 5.25rem);
-  --fs-display: clamp(3.3rem, 1.2rem + 9.4vw, 8.75rem);
-  --fs-mega: clamp(4.5rem, 0.5rem + 17vw, 15rem);
+  --pen-bone-900:#1a1613;
+  --pen-bone-700:#3a3326;
+  --pen-bone-500:#6f6555;
+  --pen-bone-300:#b6ab94;
+  --pen-bone-100:#ddd4c2;
+  --pen-bone-050:#e9e1d2;
+  --pen-bone-000:#f1ebdd;
 
-  /* — Spacing scale (4px base) ------------------------------------------ */
-  --sp-1: 0.25rem;
-  --sp-2: 0.5rem;
-  --sp-3: 0.75rem;
-  --sp-4: 1rem;
-  --sp-5: 1.5rem;
-  --sp-6: 2rem;
-  --sp-7: 3rem;
-  --sp-8: 4rem;
-  --sp-9: 6rem;
-  --sp-10: 8rem;
-  --sp-11: 12rem;
-  --section-y: clamp(4.5rem, 3rem + 7vw, 10rem);
+  --pen-gold:#c8a96a;
+  --pen-gold-bright:#ddc188;
+  --pen-gold-deep:#8c6f3c;
 
-  /* — Layout ------------------------------------------------------------ */
-  --gutter: clamp(1.5rem, 5vw, 5rem);
-  --w-content: 1200px;
-  --w-wide: 1480px;
-  --w-text: 38rem; /* comfortable reading measure */
+  /* -- type families (system-stacked; no network fonts in a single file) -- */
+  --font-serif:'Cormorant Garamond','Adobe Garamond Pro',Garamond,Georgia,'Times New Roman',serif;
+  --font-sans:'Jost','Century Gothic',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
 
-  /* — Radii (sharp; restraint reads expensive) -------------------------- */
-  --r-sm: 1px;
-  --r-md: 2px;
-  --r-pill: 100px;
+  /* -- fluid type scale (ratio-locked, clamp-driven) -- */
+  --fs-eyebrow:clamp(0.68rem,0.64rem + 0.18vw,0.76rem);
+  --fs-caption:clamp(0.72rem,0.69rem + 0.15vw,0.8rem);
+  --fs-sm:clamp(0.875rem,0.84rem + 0.18vw,0.95rem);
+  --fs-body:clamp(1.05rem,1rem + 0.3vw,1.2rem);
+  --fs-lead:clamp(1.3rem,1.13rem + 0.78vw,1.7rem);
+  --fs-h3:clamp(1.5rem,1.25rem + 1.25vw,2.25rem);
+  --fs-h2:clamp(2rem,1.5rem + 2.5vw,3.5rem);
+  --fs-h1:clamp(2.7rem,1.7rem + 4.9vw,5.25rem);
+  --fs-display:clamp(3rem,1.1rem + 8.6vw,7.75rem);
 
-  /* — Motion ------------------------------------------------------------ */
-  --dur-fast: 180ms;
-  --dur-mid: 360ms;
-  --dur-slow: 640ms;
-  --dur-xslow: 1100ms;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
-  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* -- 4px spacing scale -- */
+  --sp-1:0.25rem;
+  --sp-2:0.5rem;
+  --sp-3:0.75rem;
+  --sp-4:1rem;
+  --sp-5:1.5rem;
+  --sp-6:2rem;
+  --sp-7:3rem;
+  --sp-8:4rem;
+  --sp-9:6rem;
+  --sp-10:8rem;
+  --sp-11:12rem;
+  --section-y:clamp(4.5rem,3rem + 7vw,9rem);
 
-  /* — Z-index ----------------------------------------------------------- */
-  --z-base: 1;
-  --z-nav: 100;
-  --z-overlay: 200;
-  --z-grain: 400;
-  --z-skip: 500;
+  /* -- layout -- */
+  --gutter:clamp(1.25rem,5vw,5rem);
+  --w-content:1200px;
+  --w-wide:1480px;
+  --w-text:38rem;
+  --header-h:5rem;
+  --header-h-scrolled:4.25rem;
 
-  /* — Color: warm-neutral ramp (the inside of dark amber glass) --------- */
-  --ink-900: #0b0a08;
-  --ink-850: #100e0b;
-  --ink-800: #15120e;
-  --ink-700: #1d1813;
-  --ink-600: #2a231b;
-  --ink-500: #3b3225;
-  --ink-300: #6b6150;
-  --ink-200: #978b76;
-  --ink-100: #b8ad99;
-  --ink-050: #d6cbb6;
-  --ink-000: #ece3d4;
+  /* -- radii: sharp; restraint reads expensive -- */
+  --r-sm:1px;
+  --r-md:2px;
+  --r-pill:100px;
 
-  --bone-900: #1a1613;
-  --bone-700: #3a3326;
-  --bone-500: #6f6555;
-  --bone-300: #b6ab94;
-  --bone-100: #ddd4c2;
-  --bone-050: #e9e1d2;
-  --bone-000: #f1ebdd;
+  /* -- motion -- */
+  --dur-fast:180ms;
+  --dur-mid:360ms;
+  --dur-slow:640ms;
+  --dur-xslow:1100ms;
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+  --ease-inout:cubic-bezier(0.65,0,0.35,1);
+  --ease-soft:cubic-bezier(0.22,0.61,0.36,1);
 
-  --gold: #c8a96a;
-  --gold-bright: #ddc188;
-  --gold-deep: #8c6f3c;
+  /* -- z-index scale -- */
+  --z-base:1;
+  --z-nav:100;
+  --z-overlay:200;
+  --z-toast:300;
+  --z-grain:400;
+  --z-skip:500;
 
-  /* — Semantic roles (default = nocturne / dark) ------------------------ */
-  --bg: var(--ink-900);
-  --bg-raised: var(--ink-800);
-  --bg-sunken: #060503;
-  --text: var(--ink-000);
-  --text-dim: var(--ink-100);
-  --text-faint: var(--ink-200);
-  --line: rgba(236, 227, 212, 0.12);
-  --line-strong: rgba(236, 227, 212, 0.26);
-  --accent: var(--gold);
-  --accent-bright: var(--gold-bright);
-  --accent-soft: rgba(200, 169, 106, 0.14);
-  --error: #d98a6a;
-  --success: #b6c29a;
-  --shadow-1: 0 24px 60px -36px rgba(0, 0, 0, 0.85);
-  --shadow-2: 0 50px 120px -50px rgba(0, 0, 0, 0.92);
+  /* -- elevation: 3 levels only -- */
+  --shadow-1:0 24px 60px -36px rgba(0,0,0,0.85);
+  --shadow-2:0 50px 120px -50px rgba(0,0,0,0.92);
+  --shadow-3:0 14px 34px -14px rgba(0,0,0,0.7);
+
+  /* -- semantic roles: default = nocturne / dark -- */
+  --bg:var(--pen-ink-900);
+  --bg-raised:var(--pen-ink-800);
+  --bg-sunken:var(--pen-ink-950);
+  --text:var(--pen-ink-000);
+  --text-dim:var(--pen-ink-100);
+  --text-faint:var(--pen-ink-200);
+  --line:rgba(236,227,212,0.12);
+  --line-strong:rgba(236,227,212,0.26);
+  --accent:var(--pen-gold);
+  --accent-bright:var(--pen-gold-bright);
+  --accent-soft:rgba(200,169,106,0.14);
+  --error:#d98a6a;
+  --error-soft:rgba(217,138,106,0.14);
+  --success:#b6c29a;
+  --success-soft:rgba(182,194,154,0.14);
+  --skeleton:rgba(236,227,212,0.06);
+  --skeleton-sheen:rgba(236,227,212,0.1);
+}
+
+/* Both explicit theme states are named, so a forced band (the quote, the
+   footer) always resolves correctly regardless of the page's own mode. */
+:root,
+[data-theme='dark']{
+  --bg:var(--pen-ink-900);
+  --bg-raised:var(--pen-ink-800);
+  --bg-sunken:var(--pen-ink-950);
+  --text:var(--pen-ink-000);
+  --text-dim:var(--pen-ink-100);
+  --text-faint:var(--pen-ink-200);
+  --line:rgba(236,227,212,0.12);
+  --line-strong:rgba(236,227,212,0.26);
+  --accent:var(--pen-gold);
+  --accent-bright:var(--pen-gold-bright);
+  --accent-soft:rgba(200,169,106,0.14);
+  --error:#d98a6a;
+  --error-soft:rgba(217,138,106,0.14);
+  --success:#b6c29a;
+  --success-soft:rgba(182,194,154,0.14);
+  --skeleton:rgba(236,227,212,0.06);
+  --skeleton-sheen:rgba(236,227,212,0.1);
   color-scheme: dark;
 }
 
-/* Light passages (parchment) — flip semantic roles, keep the same ramp. */
-
-[data-theme='light'] {
-  --bg: var(--bone-050);
-  --bg-raised: var(--bone-000);
-  --bg-sunken: #ded5c4;
-  --text: var(--bone-900);
-  --text-dim: var(--bone-700);
-  /* faint + accent darkened from the base ramp to clear WCAG AA (4.5:1) for
-     small text on parchment — the lighter values measured 4.41 and 3.63. */
-  --text-faint: #5d5443;
-  --line: rgba(26, 22, 19, 0.16);
-  --line-strong: rgba(26, 22, 19, 0.32);
-  --accent: #6d5430;
-  --accent-bright: #855f2c;
-  --accent-soft: rgba(140, 111, 60, 0.12);
-  --error: #b15a3a;
-  --success: #6f7a4e;
-  --shadow-1: 0 24px 60px -40px rgba(58, 47, 30, 0.4);
-  --shadow-2: 0 50px 110px -54px rgba(58, 47, 30, 0.45);
+[data-theme='light']{
+  --bg:var(--pen-bone-050);
+  --bg-raised:var(--pen-bone-000);
+  --bg-sunken:#ded5c4;
+  --text:var(--pen-bone-900);
+  --text-dim:var(--pen-bone-700);
+  /* darkened from the base ramp to clear WCAG AA (4.5:1) on parchment —
+     text-faint, accent and accent-bright below were all verified against
+     this exact background (#e9e1d2) rather than assumed from the dark ramp. */
+  --text-faint:#5d5443;
+  --line:rgba(26,22,19,0.16);
+  --line-strong:rgba(26,22,19,0.32);
+  --accent:#6d5430;
+  --accent-bright:#825d2b;
+  --accent-soft:rgba(140,111,60,0.12);
+  --error:#b15a3a;
+  --error-soft:rgba(177,90,58,0.1);
+  --success:#5c6a3e;
+  --success-soft:rgba(92,106,62,0.1);
+  --skeleton:rgba(26,22,19,0.06);
+  --skeleton-sheen:rgba(26,22,19,0.1);
   color-scheme: light;
 }
 
-/* =============================================================================
+/* ==========================================================================
    Reset
    ========================================================================== */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+  scroll-padding-top:6rem;
 }
 
-html {
-  -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
-  /* anchored scrolls clear the fixed header */
-  scroll-padding-top: 6rem;
+body{
+  min-height:100vh;
+  background-color:var(--bg);
+  color:var(--text);
+  font-family:var(--font-serif);
+  font-size:var(--fs-body);
+  font-weight:400;
+  line-height:1.6;
+  font-feature-settings:'kern','liga','clig','calt';
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+  transition:background-color var(--dur-slow) var(--ease-soft),
+             color var(--dur-slow) var(--ease-soft);
 }
 
-body {
-  min-height: 100vh;
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: var(--font-serif);
-  font-size: var(--fs-body);
-  font-weight: 400;
-  line-height: 1.6;
-  font-feature-settings: 'kern', 'liga', 'clig', 'calt';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  overflow-x: hidden;
-  transition: background-color var(--dur-slow) var(--ease-soft),
-    color var(--dur-slow) var(--ease-soft);
+img,svg,picture,video{ display:block; max-width:100%; }
+
+button,input,textarea,select{
+  font:inherit;
+  color:inherit;
+  background:none;
+  border:none;
 }
 
-img,
-svg,
-picture,
-video {
-  display: block;
-  max-width: 100%;
+button{ cursor:pointer; }
+a{ color:inherit; text-decoration:none; }
+ul,ol{ list-style:none; }
+
+:focus{ outline:none; }
+
+:focus-visible{
+  outline:2px solid var(--accent-bright);
+  outline-offset:3px;
+  border-radius:var(--r-sm);
 }
 
-button,
-input,
-textarea,
-select {
-  font: inherit;
-  color: inherit;
-  background: none;
-  border: none;
-}
+::selection{ background:var(--accent-soft); color:var(--text); }
 
-button {
-  cursor: pointer;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-ul,
-ol {
-  list-style: none;
-}
-
-:focus {
-  outline: none;
-}
-
-:focus-visible {
-  outline: 2px solid var(--accent-bright);
-  outline-offset: 3px;
-  border-radius: var(--r-sm);
-}
-
-::selection {
-  background: var(--accent-soft);
-  color: var(--text);
-}
-
-::-moz-selection {
-  background: var(--accent-soft);
-  color: var(--text);
-}
-
-/* =============================================================================
+/* ==========================================================================
    Base typography
    ========================================================================== */
-
-h1,
-h2,
-h3,
-h4 {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.012em;
-  text-wrap: balance;
+h1,h2,h3,h4{
+  font-family:var(--font-serif);
+  font-weight:500;
+  line-height:1.08;
+  letter-spacing:-0.012em;
+  text-wrap:balance;
 }
 
-p {
-  text-wrap: pretty;
-}
+p{ text-wrap:pretty; }
+strong{ font-weight:600; }
+em,i{ font-style:italic; }
 
-strong {
-  font-weight: 600;
-}
-
-em {
-  font-style: italic;
-}
-
-/* =============================================================================
+/* ==========================================================================
    Layout primitives
    ========================================================================== */
+.container{
+  width:100%;
+  max-width:calc(var(--w-content) + var(--gutter) * 2);
+  margin-inline:auto;
+  padding-inline:var(--gutter);
+}
+.container--wide{ max-width:calc(var(--w-wide) + var(--gutter) * 2); }
+.container--text{ max-width:calc(var(--w-text) + var(--gutter) * 2); }
 
-.container {
-  width: 100%;
-  max-width: calc(var(--w-content) + var(--gutter) * 2);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
+.section{ padding-block:var(--section-y); }
+.section--top{ padding-top:calc(var(--header-h) + var(--section-y) * 0.6); }
+.section--tight{ padding-block:calc(var(--section-y) * 0.6); }
+
+.bleed{
+  background-color:var(--bg);
+  color:var(--text);
+  transition:background-color var(--dur-slow) var(--ease-soft),
+             color var(--dur-slow) var(--ease-soft);
 }
 
-.container--wide {
-  max-width: calc(var(--w-wide) + var(--gutter) * 2);
+.divider{
+  height:1px;
+  background:var(--line);
+  border:0;
 }
 
-.container--text {
-  max-width: calc(var(--w-text) + var(--gutter) * 2);
-}
-
-.section {
-  padding-block: var(--section-y);
-}
-
-.section--top {
-  padding-top: var(--section-y);
-}
-
-.bleed {
-  background-color: var(--bg);
-  color: var(--text);
-  transition: background-color var(--dur-slow) var(--ease-soft),
-    color var(--dur-slow) var(--ease-soft);
-}
-
-/* =============================================================================
+/* ==========================================================================
    Type utilities
    ========================================================================== */
+.eyebrow{
+  font-family:var(--font-sans);
+  font-size:var(--fs-eyebrow);
+  font-weight:400;
+  letter-spacing:0.34em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-3);
+}
+.eyebrow--accent{ color:var(--accent); }
 
-.eyebrow {
-  font-family: var(--font-sans);
-  font-size: var(--fs-eyebrow);
-  font-weight: 400;
-  letter-spacing: 0.34em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-3);
+.ui{ font-family:var(--font-sans); font-weight:400; letter-spacing:0.02em; }
+
+.display{
+  font-family:var(--font-serif);
+  font-weight:500;
+  font-size:var(--fs-display);
+  line-height:0.98;
+  letter-spacing:-0.02em;
+}
+.h1{ font-size:var(--fs-h1); line-height:1.04; letter-spacing:-0.016em; }
+.h2{ font-size:var(--fs-h2); line-height:1.08; letter-spacing:-0.014em; }
+.h3{ font-size:var(--fs-h3); line-height:1.16; }
+
+.lead{
+  font-size:var(--fs-lead);
+  line-height:1.45;
+  color:var(--text-dim);
+  font-weight:400;
 }
 
-.eyebrow--accent {
-  color: var(--accent);
+.prose{ max-width:var(--w-text); }
+.prose p + p{ margin-top:var(--sp-5); }
+
+.meta{
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  letter-spacing:0.02em;
+  color:var(--text-faint);
 }
 
-.ui {
-  font-family: var(--font-sans);
-  font-weight: 400;
-  letter-spacing: 0.02em;
+.accent-text{ color:var(--accent); }
+.dim{ color:var(--text-dim); }
+
+.sr-only{
+  position:absolute;
+  width:1px; height:1px;
+  padding:0; margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
 }
 
-.display {
-  font-family: var(--font-serif);
-  font-weight: 500;
-  font-size: var(--fs-display);
-  line-height: 0.98;
-  letter-spacing: -0.02em;
+.skip-link{
+  position:fixed;
+  top:var(--sp-3);
+  left:var(--sp-3);
+  z-index:var(--z-skip);
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  background:var(--text);
+  color:var(--bg);
+  padding:var(--sp-3) var(--sp-5);
+  border-radius:var(--r-md);
+  transform:translateY(-150%);
+  transition:transform var(--dur-mid) var(--ease-out);
 }
+.skip-link:focus{ transform:translateY(0); outline-offset:2px; }
 
-.h1 {
-  font-size: var(--fs-h1);
-  line-height: 1.04;
-  letter-spacing: -0.016em;
+/* ==========================================================================
+   Reveal — slow, staggered entrance. Enhancement only; hidden ONLY when JS
+   is present (html.js). No JS at all = everything is visible from paint.
+   A JS-side safety-net also force-reveals after a short timeout so a
+   backgrounded or frozen tab can never leave content permanently invisible.
+   ========================================================================== */
+html.js [data-reveal]{
+  opacity:0;
+  transform:translateY(22px);
+  transition:opacity var(--dur-xslow) var(--ease-out),
+             transform var(--dur-xslow) var(--ease-out);
+  transition-delay:var(--reveal-delay,0ms);
+  will-change:opacity,transform;
 }
+html.js [data-reveal='fade']{ transform:none; }
+html.js [data-reveal].is-revealed{ opacity:1; transform:none; }
 
-.h2 {
-  font-size: var(--fs-h2);
-  line-height: 1.08;
-  letter-spacing: -0.014em;
+/* ==========================================================================
+   Reduced motion — respected everywhere, including inside components below.
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *,*::before,*::after{
+    animation-duration:0.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:0.001ms !important;
+    scroll-behavior:auto !important;
+  }
+  html.js [data-reveal]{ opacity:1 !important; transform:none !important; }
 }
-
-.h3 {
-  font-size: var(--fs-h3);
-  line-height: 1.16;
-}
-
-.lead {
-  font-size: var(--fs-lead);
-  line-height: 1.4;
-  color: var(--text-dim);
-  font-weight: 400;
-}
-
-.prose {
-  max-width: var(--w-text);
-}
-
-.prose p + p {
-  margin-top: var(--sp-5);
-}
-
-.meta {
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  letter-spacing: 0.02em;
-  color: var(--text-faint);
-}
-
-.italic {
-  font-style: italic;
-}
-
-.accent-text {
-  color: var(--accent);
-}
-
-.dim {
-  color: var(--text-dim);
-}
-
-/* A hairline rule with optional centered breath */
-
-.rule {
-  height: 1px;
-  background: var(--line);
-  border: 0;
-}
-
-/* =============================================================================
+/* ==========================================================================
    Links & buttons
    ========================================================================== */
-
-/* Editorial inline link — an underline that draws in on hover. */
-
-.link {
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text);
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-3);
-  padding-block: var(--sp-2);
-  transition: color var(--dur-mid) var(--ease-soft);
+.link{
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--text);
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-3);
+  padding-block:var(--sp-2);
+  transition:color var(--dur-mid) var(--ease-soft);
 }
-
-.link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(var(--u, 1));
-  transform-origin: left;
-  transition: transform var(--dur-slow) var(--ease-out),
-    background-color var(--dur-mid) var(--ease-soft);
+.link::after{
+  content:'';
+  position:absolute;
+  left:0; bottom:0;
+  width:100%; height:1px;
+  background:currentColor;
+  transform:scaleX(1);
+  transform-origin:left;
+  transition:transform var(--dur-slow) var(--ease-out),background-color var(--dur-mid) var(--ease-soft);
 }
+.link .arrow{ display:inline-block; transition:transform var(--dur-slow) var(--ease-out); }
+.link:hover{ color:var(--accent-bright); }
+.link:hover .arrow{ transform:translateX(0.4em); }
+.link--draw{ color:var(--text-dim); }
+.link--draw::after{ transform:scaleX(0); }
+.link--draw:hover{ color:var(--text); }
+.link--draw:hover::after{ transform:scaleX(1); background:var(--accent); }
+.link:focus-visible{ outline-offset:4px; }
 
-.link .arrow {
-  display: inline-block;
-  transition: transform var(--dur-slow) var(--ease-out);
+.btn{
+  --btn-fg:var(--text);
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  font-weight:400;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--btn-fg);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--sp-3);
+  min-height:3.25rem;
+  padding:0 var(--sp-7);
+  border:1px solid var(--line-strong);
+  border-radius:var(--r-md);
+  background:transparent;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  transition:color var(--dur-mid) var(--ease-soft),border-color var(--dur-mid) var(--ease-soft),opacity var(--dur-mid) var(--ease-soft);
 }
-
-.link:hover {
-  color: var(--accent-bright);
+.btn::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:var(--text);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform var(--dur-slow) var(--ease-out);
 }
-
-.link:hover .arrow {
-  transform: translateX(0.4em);
-}
-
-/* underline variant that grows from nothing on hover */
-
-.link--draw {
-  color: var(--text-dim);
-}
-
-.link--draw::after {
-  transform: scaleX(0);
-}
-
-.link--draw:hover {
-  color: var(--text);
-}
-
-.link--draw:hover::after {
-  transform: scaleX(1);
-  background: var(--accent);
-}
-
-/* Buttons */
-
-.btn {
-  --btn-fg: var(--text);
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--btn-fg);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-3);
-  min-height: 3.25rem;
-  padding: 0 var(--sp-7);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r-md);
-  background: transparent;
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  transition: color var(--dur-mid) var(--ease-soft),
-    border-color var(--dur-mid) var(--ease-soft);
-}
-
-.btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: var(--text);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--dur-slow) var(--ease-out);
-}
-
-.btn:hover {
-  border-color: var(--text);
-  color: var(--bg);
-}
-
-.btn:hover::before {
-  transform: scaleX(1);
-}
-
-.btn:active {
-  transform: translateY(1px);
-}
-
-.btn--solid {
-  background: var(--text);
-  color: var(--bg);
-  border-color: var(--text);
-}
-
-.btn--solid::before {
-  background: var(--accent);
-}
-
-.btn--solid:hover {
-  color: var(--ink-900);
-  border-color: var(--accent);
-}
-
+.btn:hover{ border-color:var(--text); color:var(--bg); }
+.btn:hover::before{ transform:scaleX(1); }
+.btn:active{ transform:translateY(1px); }
+.btn--solid{ background:var(--text); color:var(--bg); border-color:var(--text); }
+.btn--solid::before{ background:var(--accent); }
+.btn--solid:hover{ color:var(--pen-ink-900); border-color:var(--accent); }
 .btn:disabled,
-.btn[aria-disabled='true'] {
-  opacity: 0.45;
-  cursor: not-allowed;
-  pointer-events: none;
+.btn[aria-disabled='true']{
+  opacity:0.4;
+  cursor:not-allowed;
+  pointer-events:none;
 }
-
-.btn--block {
-  width: 100%;
+.btn--block{ width:100%; }
+.btn--sm{ min-height:2.75rem; padding-inline:var(--sp-5); font-size:var(--fs-caption); }
+.btn--ghost{ border-color:transparent; padding-inline:var(--sp-3); }
+.btn .spinner{ display:none; }
+.btn[aria-busy='true']{ pointer-events:none; opacity:0.75; }
+.btn[aria-busy='true'] .spinner{
+  display:inline-block;
+  width:0.9em; height:0.9em;
+  border-radius:50%;
+  border:1.5px solid currentColor;
+  border-right-color:transparent;
+  animation:spin 760ms linear infinite;
 }
+@keyframes spin{ to{ transform:rotate(360deg); } }
 
-/* =============================================================================
-   Forms — shared across the newsletter and the contact letter.
+/* icon-only buttons (theme toggle, quantity steppers, dismiss controls) —
+   visual glyph can be small, hit area never is */
+.icon-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:44px;
+  min-height:44px;
+  border-radius:var(--r-md);
+  color:var(--text-dim);
+  transition:color var(--dur-mid) var(--ease-soft),background-color var(--dur-mid) var(--ease-soft);
+}
+.icon-btn:hover{ color:var(--text); background:var(--accent-soft); }
+.icon-btn:active{ transform:translateY(1px); }
+.icon-btn svg{ width:18px; height:18px; }
+.icon-btn:disabled{ opacity:0.35; cursor:not-allowed; pointer-events:none; }
+
+/* ==========================================================================
+   Forms
    ========================================================================== */
-
-.field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-3);
+.field{ display:flex; flex-direction:column; gap:var(--sp-3); }
+.field__label{
+  font-family:var(--font-sans);
+  font-size:var(--fs-eyebrow);
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--text-faint);
 }
-
-.field__label {
-  font-family: var(--font-sans);
-  font-size: var(--fs-eyebrow);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-faint);
+.field__control{
+  font-family:var(--font-serif);
+  font-size:var(--fs-body);
+  color:var(--text);
+  background:transparent;
+  border:1px solid var(--line-strong);
+  border-radius:var(--r-md);
+  padding:0.85rem 1rem;
+  min-height:3.25rem;
+  width:100%;
+  transition:border-color var(--dur-mid) var(--ease-soft),background-color var(--dur-mid) var(--ease-soft);
 }
-
-.field__input,
-.field__textarea {
-  font-family: var(--font-serif);
-  font-size: var(--fs-body);
-  color: var(--text);
-  background: transparent;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r-md);
-  padding: 0.85rem 1rem;
-  min-height: 3.25rem;
-  width: 100%;
-  transition: border-color var(--dur-mid) var(--ease-soft),
-    background-color var(--dur-mid) var(--ease-soft);
+textarea.field__control{ min-height:9rem; resize:vertical; line-height:1.5; }
+select.field__control{ appearance:none; -webkit-appearance:none; background-image:linear-gradient(45deg,transparent 50%,var(--text-faint) 50%),linear-gradient(135deg,var(--text-faint) 50%,transparent 50%); background-position:calc(100% - 22px) center,calc(100% - 16px) center; background-size:6px 6px,6px 6px; background-repeat:no-repeat; padding-right:2.75rem; }
+.field__control::placeholder{ color:var(--text-faint); opacity:0.7; }
+.field__control:hover{ border-color:var(--text-faint); }
+.field__control:focus-visible{ outline:none; border-color:var(--accent); background:var(--accent-soft); }
+.field__control[aria-invalid='true']{ border-color:var(--error); }
+.field__control:disabled{ opacity:0.5; cursor:not-allowed; }
+.field__error{
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  letter-spacing:0.01em;
+  color:var(--error);
+  min-height:1.2em;
+  display:flex;
+  align-items:center;
+  gap:var(--sp-2);
 }
+.field__error svg{ width:14px; height:14px; flex-shrink:0; }
+.field__error[hidden]{ display:none; }
+.field__hint{ font-family:var(--font-sans); font-size:var(--fs-caption); color:var(--text-faint); }
 
-.field__textarea {
-  min-height: 9rem;
-  resize: vertical;
-  line-height: 1.5;
+.form-banner{
+  display:flex;
+  align-items:flex-start;
+  gap:var(--sp-3);
+  padding:var(--sp-4) var(--sp-5);
+  border-radius:var(--r-md);
+  border:1px solid transparent;
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  line-height:1.5;
 }
+.form-banner[hidden]{ display:none; }
+.form-banner--error{ background:var(--error-soft); border-color:var(--error); color:var(--error); }
+.form-banner--success{ background:var(--success-soft); border-color:var(--success); color:var(--success); }
+.form-banner svg{ width:18px; height:18px; flex-shrink:0; margin-top:0.15em; }
 
-.field__input::placeholder,
-.field__textarea::placeholder {
-  color: var(--text-faint);
-  opacity: 0.7;
+.form-success{
+  font-family:var(--font-serif);
+  font-size:var(--fs-lead);
+  color:var(--text);
+  padding:var(--sp-6) 0;
+  display:flex;
+  flex-direction:column;
+  gap:var(--sp-4);
 }
-
-.field__input:hover,
-.field__textarea:hover {
-  border-color: var(--text-faint);
+.form-success[hidden]{ display:none; }
+.form-success .icon-badge{
+  width:2.75rem; height:2.75rem;
+  border-radius:50%;
+  border:1px solid var(--success);
+  color:var(--success);
+  display:flex; align-items:center; justify-content:center;
 }
+.form-success .icon-badge svg{ width:20px; height:20px; }
 
-.field__input:focus-visible,
-.field__textarea:focus-visible {
-  outline: none;
-  border-color: var(--accent);
-  background: var(--accent-soft);
+/* checkbox / radio-less consent line used by the contact form */
+.field-check{ display:flex; align-items:flex-start; gap:var(--sp-3); }
+.field-check input[type='checkbox']{
+  appearance:none; -webkit-appearance:none;
+  width:1.15rem; height:1.15rem; margin-top:0.2em; flex-shrink:0;
+  border:1px solid var(--line-strong); border-radius:var(--r-sm);
+  display:inline-flex; align-items:center; justify-content:center;
+  transition:border-color var(--dur-mid) var(--ease-soft),background-color var(--dur-mid) var(--ease-soft);
 }
-
-.field__input[aria-invalid='true'],
-.field__textarea[aria-invalid='true'] {
-  border-color: var(--error);
+.field-check input[type='checkbox']:checked{ background:var(--accent); border-color:var(--accent); }
+.field-check input[type='checkbox']:checked::after{
+  content:''; width:6px; height:9px;
+  border-right:1.6px solid var(--pen-ink-900); border-bottom:1.6px solid var(--pen-ink-900);
+  transform:rotate(40deg) translate(-1px,-1px);
 }
-
-.field__error {
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  letter-spacing: 0.01em;
-  color: var(--error);
-  min-height: 1.2em;
-}
-
-.field__error[hidden] {
-  display: none;
-}
-
-.field__success {
-  font-family: var(--font-serif);
-  font-style: italic;
-  font-size: var(--fs-body);
-  color: var(--success);
-}
-
-.field__success[hidden] {
-  display: none;
-}
-
-/* Bag line items are injected at runtime, so they live in the global layer
-   rather than a component's scoped styles. */
-
-.bag-item {
-  display: flex;
-  justify-content: space-between;
-  gap: var(--sp-4);
-  padding-block: var(--sp-5);
-  border-bottom: 1px solid var(--line);
-}
-
-.bag-item:first-child {
-  padding-top: 0;
-}
-
-.bag-item__name {
-  font-family: var(--font-serif);
-  font-size: 1.3rem;
-  color: var(--text);
-}
-
-.bag-item__meta {
-  margin-top: var(--sp-2);
-}
-
-.bag-item__side {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: var(--sp-3);
-  white-space: nowrap;
-}
-
-.bag-item__price {
-  font-family: var(--font-serif);
-  font-size: 1.2rem;
-  color: var(--text);
-}
-
-.bag-item__remove {
-  font-family: var(--font-sans);
-  font-size: var(--fs-eyebrow);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-  transition: color var(--dur-mid) var(--ease-soft);
-}
-
-.bag-item__remove:hover {
-  color: var(--error);
-}
-
-/* =============================================================================
-   Reveal — slow, staggered entrance. Enhancement only.
-   Hidden ONLY when JS is present (html.js); without JS everything is visible.
+.field-check input[type='checkbox']:focus-visible{ outline:2px solid var(--accent-bright); outline-offset:2px; }
+.field-check label{ font-family:var(--font-sans); font-size:var(--fs-sm); color:var(--text-dim); line-height:1.5; }
+/* ==========================================================================
+   Site header
    ========================================================================== */
-
-html.js [data-reveal] {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity var(--dur-xslow) var(--ease-out),
-    transform var(--dur-xslow) var(--ease-out);
-  transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
+.site-header{
+  position:fixed;
+  inset:0 0 auto 0;
+  z-index:var(--z-nav);
+  transition:background-color var(--dur-slow) var(--ease-soft),backdrop-filter var(--dur-slow) var(--ease-soft),border-color var(--dur-slow) var(--ease-soft);
+  border-bottom:1px solid transparent;
 }
-
-html.js [data-reveal='fade'] {
-  transform: none;
+.site-header.is-scrolled{
+  background-color:color-mix(in srgb,var(--bg) 72%,transparent);
+  backdrop-filter:blur(14px) saturate(1.1);
+  -webkit-backdrop-filter:blur(14px) saturate(1.1);
+  border-bottom-color:var(--line);
 }
-
-html.js [data-reveal].is-visible {
-  opacity: 1;
-  transform: none;
+.site-header__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--sp-5);
+  min-height:var(--header-h);
+  transition:min-height var(--dur-mid) var(--ease-soft);
 }
+.site-header.is-scrolled .site-header__inner{ min-height:var(--header-h-scrolled); }
 
-/* =============================================================================
-   Accessibility
+.wordmark{
+  font-family:var(--font-sans);
+  font-weight:300;
+  font-size:clamp(1.05rem,0.9rem + 0.6vw,1.4rem);
+  letter-spacing:0.42em;
+  text-transform:uppercase;
+  color:var(--text);
+  padding-right:0.1em;
+  white-space:nowrap;
+  transition:color var(--dur-mid) var(--ease-soft);
+}
+.wordmark:hover{ color:var(--accent-bright); }
+.wordmark--quiet{ pointer-events:none; }
+.wordmark--footer{ font-size:clamp(1.2rem,1rem + 0.8vw,1.6rem); display:inline-block; }
+
+.site-nav__list{ display:flex; gap:clamp(1.25rem,2.5vw,2.75rem); }
+.site-nav__link{
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  position:relative;
+  padding-block:var(--sp-2);
+  transition:color var(--dur-mid) var(--ease-soft);
+}
+.site-nav__link::after{
+  content:'';
+  position:absolute; left:0; bottom:0;
+  width:100%; height:1px;
+  background:var(--accent);
+  transform:scaleX(0);
+  transform-origin:center;
+  transition:transform var(--dur-slow) var(--ease-out);
+}
+.site-nav__link:hover,
+.site-nav__link.is-active{ color:var(--text); }
+.site-nav__link:hover::after,
+.site-nav__link.is-active::after{ transform:scaleX(1); }
+
+.site-header__actions{ display:flex; align-items:center; gap:var(--sp-4); }
+
+.theme-toggle,
+.bag-toggle,
+.menu-toggle{
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  display:inline-flex;
+  align-items:center;
+  gap:0.45em;
+  min-height:44px;
+  padding-inline:0.3em;
+  transition:color var(--dur-mid) var(--ease-soft);
+}
+.theme-toggle:hover,
+.bag-toggle:hover,
+.menu-toggle:hover{ color:var(--text); }
+.theme-toggle[aria-pressed='true']{ color:var(--accent); }
+
+.bag-toggle__count{
+  font-size:0.7em;
+  min-width:1.5em; height:1.5em;
+  display:inline-flex; align-items:center; justify-content:center;
+  border:1px solid var(--line-strong);
+  border-radius:var(--r-pill);
+  color:var(--text-faint);
+  transition:color var(--dur-mid) var(--ease-soft),border-color var(--dur-mid) var(--ease-soft),background-color var(--dur-mid) var(--ease-soft);
+}
+.bag-toggle[data-filled='true'] .bag-toggle__count{
+  color:var(--pen-ink-900);
+  background:var(--accent);
+  border-color:var(--accent);
+}
+.menu-toggle{ display:none; }
+
+/* ==========================================================================
+   Mobile overlay menu
    ========================================================================== */
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
+.overlay-menu{
+  position:fixed; inset:0;
+  z-index:var(--z-overlay);
+  background:var(--bg-sunken);
+  display:flex; flex-direction:column;
+  opacity:0; visibility:hidden;
+  transition:opacity var(--dur-slow) var(--ease-soft),visibility var(--dur-slow);
 }
-
-.skip-link {
-  position: fixed;
-  top: var(--sp-3);
-  left: var(--sp-3);
-  z-index: var(--z-skip);
-  font-family: var(--font-sans);
-  font-size: var(--fs-sm);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  background: var(--text);
-  color: var(--bg);
-  padding: var(--sp-3) var(--sp-5);
-  border-radius: var(--r-md);
-  transform: translateY(-150%);
-  transition: transform var(--dur-mid) var(--ease-out);
+.overlay-menu[hidden]{ display:none; }
+.overlay-menu.is-open{ opacity:1; visibility:visible; }
+.overlay-menu__bar{ display:flex; align-items:center; justify-content:space-between; min-height:var(--header-h); }
+.overlay-menu__nav{ flex:1; display:flex; align-items:center; padding-inline:var(--gutter); }
+.overlay-menu__nav ul{ display:flex; flex-direction:column; gap:clamp(0.9rem,4vh,2rem); width:100%; }
+.overlay-menu__link{
+  font-family:var(--font-serif);
+  font-size:clamp(2.3rem,12vw,4.2rem);
+  line-height:1;
+  letter-spacing:-0.02em;
+  color:var(--text);
+  display:flex; align-items:baseline; gap:var(--sp-4);
+  opacity:0; transform:translateY(20px);
 }
-
-.skip-link:focus {
-  transform: translateY(0);
-  outline-offset: 2px;
+.overlay-menu.is-open .overlay-menu__link{
+  opacity:1; transform:none;
+  transition:opacity var(--dur-slow) var(--ease-out),transform var(--dur-slow) var(--ease-out);
+  transition-delay:calc(120ms + var(--i) * 90ms);
 }
+.overlay-menu__index{ font-family:var(--font-sans); font-size:0.75rem; letter-spacing:0.2em; color:var(--accent); }
+.overlay-menu__foot{ padding:var(--gutter); padding-top:0; display:flex; justify-content:space-between; align-items:center; gap:var(--sp-4); flex-wrap:wrap; }
 
-/* =============================================================================
-   Reduced motion — respect it everywhere.
+/* ==========================================================================
+   Bag drawer
    ========================================================================== */
+.bag-scrim{
+  position:fixed; inset:0;
+  z-index:var(--z-overlay);
+  background:rgba(0,0,0,0.55);
+  opacity:0;
+  transition:opacity var(--dur-slow) var(--ease-soft);
+}
+.bag-scrim[hidden]{ display:none; }
+.bag-scrim.is-open{ opacity:1; }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
-  }
-  html.js [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
-  }
+.bag-drawer{
+  position:fixed; top:0; right:0; bottom:0;
+  z-index:calc(var(--z-overlay) + 1);
+  width:min(28rem,92vw);
+  background:var(--bg-raised);
+  border-left:1px solid var(--line);
+  box-shadow:var(--shadow-2);
+  display:flex; flex-direction:column;
+  transform:translateX(100%);
+  transition:transform var(--dur-slow) var(--ease-out);
+}
+.bag-drawer[hidden]{ display:none; }
+.bag-drawer.is-open{ transform:none; }
+.bag-drawer__head{ display:flex; align-items:center; justify-content:space-between; padding:var(--sp-6) var(--sp-6) var(--sp-5); border-bottom:1px solid var(--line); }
+.bag-drawer__title{ font-size:1rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--text); }
+.bag-drawer__body{ flex:1; overflow-y:auto; padding:var(--sp-6); }
+.bag-empty{ display:flex; flex-direction:column; align-items:flex-start; gap:var(--sp-5); color:var(--text-dim); font-size:var(--fs-lead); padding-block:var(--sp-7); }
+.bag-empty[hidden]{ display:none; }
+.bag-empty__mark{ width:42px; height:1px; background:var(--accent); }
+.bag-list{ display:flex; flex-direction:column; }
+.bag-item{ display:flex; justify-content:space-between; gap:var(--sp-4); padding-block:var(--sp-5); border-bottom:1px solid var(--line); }
+.bag-item:first-child{ padding-top:0; }
+.bag-item__name{ font-family:var(--font-serif); font-size:1.25rem; color:var(--text); }
+.bag-item__meta{ margin-top:var(--sp-2); }
+.bag-item__side{ display:flex; flex-direction:column; align-items:flex-end; gap:var(--sp-3); white-space:nowrap; }
+.bag-item__price{ font-family:var(--font-serif); font-size:1.15rem; color:var(--text); }
+.bag-item__qty{ display:flex; align-items:center; gap:var(--sp-2); border:1px solid var(--line-strong); border-radius:var(--r-md); }
+.bag-item__qty button{ min-width:32px; min-height:32px; display:flex; align-items:center; justify-content:center; color:var(--text-dim); transition:color var(--dur-fast) var(--ease-soft); }
+.bag-item__qty button:hover{ color:var(--accent-bright); }
+.bag-item__qty span{ font-family:var(--font-sans); font-size:var(--fs-sm); min-width:1.4em; text-align:center; }
+.bag-item__remove{
+  font-family:var(--font-sans); font-size:var(--fs-eyebrow); letter-spacing:0.12em; text-transform:uppercase;
+  color:var(--text-faint); transition:color var(--dur-mid) var(--ease-soft); min-height:24px;
+}
+.bag-item__remove:hover{ color:var(--error); }
+.bag-drawer__foot{ border-top:1px solid var(--line); padding:var(--sp-6); display:flex; flex-direction:column; gap:var(--sp-4); }
+.bag-drawer__foot[hidden]{ display:none; }
+.bag-subtotal{ display:flex; align-items:baseline; justify-content:space-between; }
+.bag-subtotal span:first-child{ letter-spacing:0.16em; text-transform:uppercase; font-size:var(--fs-sm); color:var(--text-dim); }
+.bag-subtotal__value{ font-family:var(--font-serif); font-size:1.6rem; color:var(--text); }
+
+@media (max-width: 820px){
+  .site-nav{ display:none; }
+  .menu-toggle{ display:inline-flex; }
+  .site-header__inner{ min-height:4.5rem; }
+  .site-header.is-scrolled .site-header__inner{ min-height:4rem; }
+}
+/* Mobile-polish: below ~480px the header actions row (theme toggle + bag +
+   menu) no longer fits beside the tracked-out wordmark, pushing the menu
+   button off-canvas. The theme toggle is already duplicated in the
+   full-screen mobile menu (#themeToggleMobile), so hide the header's copy
+   here only — desktop/tablet keep all three controls unchanged. */
+@media (max-width: 480px){
+  .site-header__actions .theme-toggle{ display:none; }
+}
+/* ==========================================================================
+   Atmosphere — fixed decorative grain + glow + vignette layer
+   ========================================================================== */
+.atmos{ position:fixed; inset:0; z-index:var(--z-grain); pointer-events:none; }
+.atmos__grain{ position:absolute; inset:-50%; width:200%; height:200%; opacity:0.05; mix-blend-mode:soft-light; }
+.atmos__glow{
+  position:absolute; inset:0;
+  background:radial-gradient(58vw 52vh at 24% -8%,rgba(200,169,106,0.07),transparent 60%),
+             radial-gradient(50vw 60vh at 88% 16%,rgba(120,96,150,0.045),transparent 62%);
+  mix-blend-mode:screen;
+  animation:drift 64s var(--ease-inout) infinite alternate;
+}
+.atmos__vignette{ position:absolute; inset:0; background:radial-gradient(132% 104% at 50% 36%,transparent 54%,rgba(0,0,0,0.38)); }
+@keyframes drift{ from{ transform:translate3d(-2%,-1%,0) scale(1.02); } to{ transform:translate3d(3%,2%,0) scale(1.08); } }
+@media (prefers-reduced-motion: reduce){ .atmos__glow{ animation:none; } }
+
+main{ display:block; }
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero{
+  position:relative;
+  padding-top:calc(var(--header-h) + clamp(2.5rem,7vw,6rem));
+  padding-bottom:clamp(3rem,7vw,5rem);
+  overflow:hidden;
+}
+.hero__grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:var(--sp-7);
+  position:relative;
+  z-index:1;
+}
+.hero__title{ margin-top:var(--sp-5); }
+.hero__title em{ color:var(--accent); font-style:italic; }
+.hero__lead{ margin-top:var(--sp-6); max-width:34rem; }
+.hero__actions{ display:flex; gap:var(--sp-4); margin-top:var(--sp-7); flex-wrap:wrap; }
+
+.hero__dial{
+  position:absolute;
+  right:clamp(-4rem,-2vw,2rem);
+  top:calc(var(--header-h) + 1rem);
+  width:min(30rem,42vw);
+  opacity:0.55;
+  pointer-events:none;
+}
+.hero__dial svg{ width:100%; height:auto; }
+
+.hero__scroll{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-3);
+  margin-top:var(--sp-9);
+  color:var(--text-faint);
+}
+.hero__scroll-line{
+  width:1px; height:2.5rem;
+  background:linear-gradient(var(--accent),transparent);
+  position:relative;
+  overflow:hidden;
+}
+html.js .hero__scroll-line::after{
+  content:'';
+  position:absolute; left:0; top:-100%;
+  width:100%; height:100%;
+  background:var(--accent-bright);
+  animation:scrollcue 2.6s var(--ease-inout) infinite;
+}
+@keyframes scrollcue{ 0%{ transform:translateY(-100%); } 60%,100%{ transform:translateY(220%); } }
+@media (prefers-reduced-motion: reduce){ html.js .hero__scroll-line::after{ animation:none; display:none; } }
+
+/* ==========================================================================
+   Facts strip
+   ========================================================================== */
+.facts-strip{ border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+.facts-strip__row{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+}
+.facts-strip__item{
+  padding:var(--sp-5) var(--sp-5);
+  border-left:1px solid var(--line);
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  letter-spacing:0.04em;
+  color:var(--text-dim);
+  display:flex;
+  align-items:center;
+  min-height:4.5rem;
+}
+.facts-strip__item:first-child{ border-left:0; padding-left:0; }
+.facts-strip__item strong{ color:var(--text); font-weight:500; margin-right:0.4em; }
+
+/* ==========================================================================
+   Toast
+   ========================================================================== */
+.toast-region{
+  position:fixed;
+  left:50%;
+  bottom:var(--sp-6);
+  transform:translateX(-50%) translateY(0);
+  z-index:var(--z-toast);
+  width:min(24rem,calc(100vw - var(--sp-6) * 2));
+  pointer-events:none;
+}
+.toast{
+  pointer-events:auto;
+  display:flex;
+  align-items:center;
+  gap:var(--sp-4);
+  background:var(--text);
+  color:var(--bg);
+  border-radius:var(--r-md);
+  padding:var(--sp-4) var(--sp-5);
+  box-shadow:var(--shadow-3);
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  letter-spacing:0.02em;
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity var(--dur-mid) var(--ease-out),transform var(--dur-mid) var(--ease-out);
+}
+.toast.is-visible{ opacity:1; transform:none; }
+.toast[hidden]{ display:none; }
+.toast__msg{ flex:1; }
+.toast__dismiss{
+  font-family:var(--font-sans);
+  font-size:var(--fs-caption);
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--bg);
+  opacity:0.6;
+  min-height:32px;
+  padding-inline:var(--sp-2);
+  transition:opacity var(--dur-fast) var(--ease-soft);
+}
+.toast__dismiss:hover{ opacity:1; }
+
+/* ==========================================================================
+   Back to top
+   ========================================================================== */
+.back-to-top{
+  position:fixed;
+  right:var(--sp-6);
+  bottom:var(--sp-6);
+  z-index:calc(var(--z-nav) - 1);
+  width:3rem; height:3rem;
+  border-radius:50%;
+  border:1px solid var(--line-strong);
+  background:color-mix(in srgb,var(--bg) 80%,transparent);
+  backdrop-filter:blur(6px);
+  color:var(--text-dim);
+  display:flex; align-items:center; justify-content:center;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(10px);
+  transition:opacity var(--dur-mid) var(--ease-soft),transform var(--dur-mid) var(--ease-soft),visibility var(--dur-mid),color var(--dur-fast) var(--ease-soft),border-color var(--dur-fast) var(--ease-soft);
+}
+.back-to-top.is-visible{ opacity:1; visibility:visible; transform:none; }
+.back-to-top:hover{ color:var(--text); border-color:var(--accent); }
+.back-to-top svg{ width:16px; height:16px; transform:rotate(-90deg); }
+
+@media (max-width: 720px){
+  .facts-strip__row{ grid-template-columns:repeat(2,1fr); }
+  .facts-strip__item:nth-child(3){ border-left:0; padding-left:0; }
+  .facts-strip__item:nth-child(3),
+  .facts-strip__item:nth-child(4){ border-top:1px solid var(--line); padding-top:var(--sp-5); }
+  .hero__dial{ opacity:0.3; width:60vw; right:-6rem; }
+  .back-to-top{ right:var(--sp-4); bottom:var(--sp-4); }
+}
+/* Mobile-polish: the same min-content squeeze also hits the default 4-column
+   layout in a narrow tablet-portrait band just above the breakpoint above
+   (confirmed horizontal overflow ~721-780px, e.g. 768px). Reuse the 2-column
+   treatment there too — verified no overflow through this whole range. */
+@media (min-width: 721px) and (max-width: 800px){
+  .facts-strip__row{ grid-template-columns:repeat(2,1fr); }
+  .facts-strip__item:nth-child(3){ border-left:0; padding-left:0; }
+  .facts-strip__item:nth-child(3),
+  .facts-strip__item:nth-child(4){ border-top:1px solid var(--line); padding-top:var(--sp-5); }
+}
+/* Mobile-polish: at phone widths the 2-column facts-strip still forces each
+   flex item's text (e.g. "Hand-composed in Paris, on one bench") to wrap
+   word-by-word in a ~170px column, and pushes the row past the viewport
+   (confirmed horizontal overflow at 360px). Drop to one column, single
+   full-width line per fact, with row dividers instead of vertical rules. */
+@media (max-width: 480px){
+  .facts-strip__row{ grid-template-columns:1fr; }
+  .facts-strip__item{ border-left:0; padding-left:0; }
+  .facts-strip__item:nth-child(n+2){ border-top:1px solid var(--line); padding-top:var(--sp-5); }
+}
+/* ==========================================================================
+   Collection
+   ========================================================================== */
+.collection__head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:var(--sp-6);
+  flex-wrap:wrap;
+  margin-bottom:var(--sp-8);
+}
+.collection__head .lead{ margin-top:var(--sp-4); max-width:32rem; }
+
+.collection__controls{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--sp-5);
+  align-items:center;
+  justify-content:space-between;
+  padding-bottom:var(--sp-6);
+  margin-bottom:var(--sp-7);
+  border-bottom:1px solid var(--line);
+}
+.filter-pills{ display:flex; flex-wrap:wrap; gap:var(--sp-3); }
+.filter-pill{
+  font-family:var(--font-sans);
+  font-size:var(--fs-caption);
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  border:1px solid var(--line-strong);
+  border-radius:var(--r-pill);
+  padding:0.6rem 1.15rem;
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  transition:color var(--dur-fast) var(--ease-soft),border-color var(--dur-fast) var(--ease-soft),background-color var(--dur-fast) var(--ease-soft);
+}
+.filter-pill:hover{ border-color:var(--text-faint); color:var(--text); }
+.filter-pill[aria-pressed='true']{ background:var(--text); border-color:var(--text); color:var(--bg); }
+
+.search-field{ position:relative; width:min(20rem,100%); }
+.search-field svg{
+  position:absolute; left:0.9rem; top:50%; transform:translateY(-50%);
+  width:16px; height:16px; color:var(--text-faint); pointer-events:none;
+}
+.search-field input{
+  width:100%;
+  min-height:44px;
+  padding:0.6rem 1rem 0.6rem 2.6rem;
+  border:1px solid var(--line-strong);
+  border-radius:var(--r-pill);
+  background:transparent;
+  font-family:var(--font-sans);
+  font-size:var(--fs-sm);
+  color:var(--text);
+  transition:border-color var(--dur-mid) var(--ease-soft);
+}
+.search-field input::placeholder{ color:var(--text-faint); }
+.search-field input:focus-visible{ outline:none; border-color:var(--accent); }
+.search-field__clear{
+  position:absolute; right:0.3rem; top:50%; transform:translateY(-50%);
+  min-width:36px; min-height:36px; display:flex; align-items:center; justify-content:center;
+  color:var(--text-faint);
+}
+.search-field__clear[hidden]{ display:none; }
+.search-field__clear:hover{ color:var(--text); }
+.search-field__clear svg{ position:static; width:13px; height:13px; }
+
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+}
+.product-grid:not(:empty){
+  background:var(--line);
+  border:1px solid var(--line);
+  min-height:12rem;
+}
+.product-grid[aria-busy='true']{ pointer-events:none; }
+
+.product-card{
+  background:var(--bg);
+  padding:var(--sp-6);
+  display:flex;
+  flex-direction:column;
+  position:relative;
+}
+.product-card__hour{
+  font-family:var(--font-sans);
+  font-size:var(--fs-caption);
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--accent);
+  display:flex;
+  align-items:center;
+  gap:var(--sp-2);
+}
+.product-card__hour .dot{ width:5px; height:5px; border-radius:50%; background:currentColor; }
+.product-card__name{ font-family:var(--font-serif); font-size:var(--fs-h3); margin-top:var(--sp-3); line-height:1.1; }
+.product-card__family{ margin-top:var(--sp-2); }
+.product-card__blurb{ margin-top:var(--sp-4); color:var(--text-dim); font-size:1.05rem; line-height:1.5; flex-grow:1; }
+
+.product-card__notes{
+  margin-top:var(--sp-5);
+  max-height:0;
+  overflow:hidden;
+  transition:max-height var(--dur-slow) var(--ease-inout);
+}
+.product-card__notes[data-open='true']{ max-height:22rem; }
+.product-card__notes-inner{ padding-top:var(--sp-2); padding-bottom:var(--sp-2); }
+.product-card__notes dt{ font-family:var(--font-sans); font-size:var(--fs-caption); letter-spacing:0.16em; text-transform:uppercase; color:var(--text-faint); margin-top:var(--sp-4); }
+.product-card__notes dt:first-child{ margin-top:0; }
+.product-card__notes dd{ font-family:var(--font-serif); font-size:1.05rem; color:var(--text-dim); margin-top:0.2rem; }
+.product-card__story{ margin-top:var(--sp-4); font-size:0.98rem; color:var(--text-dim); line-height:1.55; font-style:italic; }
+
+.product-card__notes-toggle{
+  align-self:flex-start;
+  font-family:var(--font-sans);
+  font-size:var(--fs-caption);
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-2);
+  min-height:36px;
+  margin-top:var(--sp-5);
+  transition:color var(--dur-fast) var(--ease-soft);
+}
+.product-card__notes-toggle:hover{ color:var(--text); }
+.product-card__notes-toggle svg{ width:11px; height:11px; transition:transform var(--dur-mid) var(--ease-soft); }
+.product-card__notes-toggle[aria-expanded='true'] svg{ transform:rotate(180deg); }
+
+.product-card__foot{
+  margin-top:var(--sp-6);
+  padding-top:var(--sp-5);
+  border-top:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--sp-4);
+  flex-wrap:wrap;
+}
+.product-card__price{ font-family:var(--font-serif); }
+.product-card__price strong{ font-size:1.2rem; color:var(--text); display:block; }
+.product-card__price span{ font-family:var(--font-sans); font-size:var(--fs-caption); color:var(--text-faint); }
+.product-card__badge{
+  position:absolute; top:var(--sp-6); right:var(--sp-6);
+  font-family:var(--font-sans); font-size:var(--fs-caption); letter-spacing:0.14em; text-transform:uppercase;
+  color:var(--accent); border:1px solid var(--accent-soft); border-radius:var(--r-pill);
+  padding:0.3rem 0.7rem;
+}
+
+/* discovery card, visually distinct within the same grid rhythm */
+.product-card--discovery{ background:var(--bg-raised); }
+
+/* skeleton loading state — shown briefly while the grid (re)renders */
+.product-skeleton{ background:var(--bg); padding:var(--sp-6); display:flex; flex-direction:column; gap:var(--sp-4); }
+.skeleton-line{
+  height:0.9em;
+  border-radius:var(--r-sm);
+  background:linear-gradient(100deg,var(--skeleton) 30%,var(--skeleton-sheen) 50%,var(--skeleton) 70%);
+  background-size:200% 100%;
+  animation:shimmer 1.5s ease-in-out infinite;
+}
+html.js .skeleton-line{ }
+@keyframes shimmer{ 0%{ background-position:200% 0; } 100%{ background-position:-200% 0; } }
+.skeleton-line--eyebrow{ width:40%; height:0.7em; }
+.skeleton-line--title{ width:70%; height:1.6em; margin-top:var(--sp-2); }
+.skeleton-line--body{ width:100%; }
+.skeleton-line--body:nth-of-type(2){ width:85%; }
+.skeleton-line--foot{ width:35%; margin-top:var(--sp-6); }
+@media (prefers-reduced-motion: reduce){ .skeleton-line{ animation:none; background:var(--skeleton); } }
+
+.collection-state{
+  grid-column:1 / -1;
+  padding:var(--sp-9) var(--sp-6);
+  text-align:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:var(--sp-5);
+  background:var(--bg);
+}
+.collection-state[hidden]{ display:none; }
+.collection-state svg{ width:34px; height:34px; color:var(--text-faint); }
+.collection-state__title{ font-family:var(--font-serif); font-size:var(--fs-h3); }
+.collection-state__body{ color:var(--text-dim); max-width:28rem; }
+.collection-state--error svg{ color:var(--error); }
+
+@media (max-width: 980px){
+  .product-grid{ grid-template-columns:repeat(2,1fr); }
+}
+@media (max-width: 640px){
+  .product-grid{ grid-template-columns:1fr; }
+  .collection__controls{ flex-direction:column; align-items:stretch; }
+  .search-field{ width:100%; }
+  /* Mobile-polish: bring the notes/story toggle up to a 44px tap target
+     (was 36px) — it's the most-tapped control in the collection grid. */
+  .product-card__notes-toggle{ min-height:44px; }
+}
+/* ==========================================================================
+   Materials — accordion (multi-open)
+   ========================================================================== */
+.materials__intro{ max-width:38rem; }
+.materials-list{ border-top:1px solid var(--line); margin-top:var(--sp-7); }
+.material{ border-bottom:1px solid var(--line); }
+.material__trigger{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--sp-5);
+  padding-block:var(--sp-6);
+  text-align:left;
+}
+.material__name{ font-family:var(--font-serif); font-size:var(--fs-h3); color:var(--text); transition:color var(--dur-mid) var(--ease-soft); }
+.material__trigger:hover .material__name{ color:var(--accent-bright); }
+.material__chevron{ flex-shrink:0; width:14px; height:14px; color:var(--text-faint); transition:transform var(--dur-mid) var(--ease-soft); }
+.material__trigger[aria-expanded='true'] .material__chevron{ transform:rotate(180deg); }
+.material__panel{ max-height:0; overflow:hidden; transition:max-height var(--dur-slow) var(--ease-inout); }
+.material__panel-inner{ padding-bottom:var(--sp-6); display:grid; grid-template-columns:1fr auto; gap:var(--sp-6); align-items:start; }
+.material__desc{ font-size:var(--fs-lead); line-height:1.5; color:var(--text-dim); font-style:italic; max-width:36rem; }
+.material__used{ display:flex; flex-direction:column; gap:var(--sp-2); align-items:flex-start; }
+.material__used-label{ font-family:var(--font-sans); font-size:var(--fs-caption); letter-spacing:0.16em; text-transform:uppercase; color:var(--text-faint); }
+.material__tag{
+  font-family:var(--font-sans); font-size:var(--fs-caption); letter-spacing:0.06em;
+  color:var(--text-dim); border:1px solid var(--line-strong); border-radius:var(--r-pill);
+  padding:0.3rem 0.75rem; display:inline-flex;
+}
+
+/* ==========================================================================
+   Maison — principles
+   ========================================================================== */
+.opening__text{ font-family:var(--font-serif); font-size:var(--fs-h3); line-height:1.3; color:var(--text); }
+.opening__text + .opening__text{ margin-top:var(--sp-6); color:var(--text-dim); }
+
+.principles__list{ border-top:1px solid var(--line); margin-top:var(--sp-8); }
+.principle{
+  display:grid;
+  grid-template-columns:auto 1fr 1.3fr;
+  gap:clamp(1.5rem,5vw,5rem);
+  align-items:start;
+  padding-block:clamp(3rem,7vw,5.5rem);
+  border-bottom:1px solid var(--line);
+}
+.principle__n{ font-family:var(--font-serif); font-size:clamp(2rem,1.4rem + 2vw,3.4rem); color:var(--accent); line-height:1; font-style:italic; }
+.principle__title{ letter-spacing:-0.01em; }
+.principle__body p{ font-size:var(--fs-lead); line-height:1.5; color:var(--text-dim); }
+.principle__body p + p{ margin-top:var(--sp-5); }
+
+/* ==========================================================================
+   Process — from bench to bottle + the five hours
+   ========================================================================== */
+.process-steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:var(--sp-6);
+  margin-top:var(--sp-8);
+}
+.process-step{ border-top:1px solid var(--line-strong); padding-top:var(--sp-5); }
+.process-step__n{ font-family:var(--font-sans); font-size:var(--fs-caption); letter-spacing:0.2em; color:var(--accent); }
+.process-step__title{ font-family:var(--font-serif); font-size:var(--fs-h3); margin-top:var(--sp-3); }
+.process-step__body{ margin-top:var(--sp-3); color:var(--text-dim); line-height:1.55; }
+
+.hours{ margin-top:var(--sp-10); position:relative; }
+.hours__title{ font-family:var(--font-serif); font-size:var(--fs-h3); margin-bottom:var(--sp-7); }
+.hours__rail{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  position:relative;
+}
+.hours__rail::before{
+  content:'';
+  position:absolute;
+  left:0; right:0; top:7px;
+  height:1px;
+  background:var(--line-strong);
+}
+.hour-stop{ position:relative; padding-top:var(--sp-6); padding-right:var(--sp-4); }
+.hour-stop::before{
+  content:'';
+  position:absolute; left:0; top:0;
+  width:15px; height:15px;
+  border-radius:50%;
+  background:var(--bg);
+  border:1px solid var(--accent);
+  transition:background-color var(--dur-mid) var(--ease-soft);
+}
+.hour-stop:hover::before{ background:var(--accent); }
+.hour-stop__time{ font-family:var(--font-sans); font-size:var(--fs-caption); letter-spacing:0.14em; text-transform:uppercase; color:var(--text-faint); }
+.hour-stop__name{ font-family:var(--font-serif); font-size:var(--fs-h3); margin-top:var(--sp-2); }
+.hour-stop__note{ margin-top:var(--sp-2); color:var(--text-dim); font-size:0.98rem; line-height:1.5; }
+
+/* ==========================================================================
+   Quote band — forced light, regardless of the page's own theme mode
+   ========================================================================== */
+.quote-band{ padding-block:clamp(5rem,12vw,10rem); text-align:center; }
+.quote-band__text{ font-family:var(--font-serif); font-size:var(--fs-h1); line-height:1.12; letter-spacing:-0.015em; color:var(--text); text-wrap:balance; }
+.quote-band__attr{ margin-top:var(--sp-5); }
+
+@media (max-width: 980px){
+  .process-steps{ grid-template-columns:repeat(2,1fr); }
+  .hours__rail{ grid-template-columns:1fr; gap:var(--sp-6); }
+  .hours__rail::before{ left:7px; top:0; bottom:0; right:auto; width:1px; height:auto; }
+  .hour-stop{ padding-top:0; padding-left:var(--sp-6); padding-right:0; }
+  .hour-stop::before{ left:0; top:0.3em; }
+}
+@media (max-width: 820px){
+  .principle{ grid-template-columns:auto 1fr; gap:var(--sp-4) var(--sp-5); }
+  .principle__body{ grid-column:1 / -1; }
+  .material__panel-inner{ grid-template-columns:1fr; }
+}
+@media (max-width: 600px){
+  .process-steps{ grid-template-columns:1fr; }
+}
+/* ==========================================================================
+   FAQ — accordion (single-open)
+   ========================================================================== */
+.faq-list{ border-top:1px solid var(--line); margin-top:var(--sp-7); max-width:44rem; }
+.faq-item{ border-bottom:1px solid var(--line); }
+.faq-item__trigger{
+  width:100%; display:flex; align-items:center; justify-content:space-between; gap:var(--sp-5);
+  padding-block:var(--sp-5); text-align:left;
+}
+.faq-item__q{ font-family:var(--font-serif); font-size:1.3rem; color:var(--text); }
+.faq-item__chevron{ flex-shrink:0; width:13px; height:13px; color:var(--text-faint); transition:transform var(--dur-mid) var(--ease-soft); }
+.faq-item__trigger[aria-expanded='true'] .faq-item__chevron{ transform:rotate(180deg); }
+.faq-item__panel{ max-height:0; overflow:hidden; transition:max-height var(--dur-slow) var(--ease-inout); }
+.faq-item__panel-inner{ padding-bottom:var(--sp-5); color:var(--text-dim); line-height:1.6; max-width:38rem; }
+
+/* ==========================================================================
+   Contact
+   ========================================================================== */
+.contact__grid{
+  display:grid;
+  grid-template-columns:0.85fr 1.15fr;
+  gap:clamp(2.5rem,6vw,6rem);
+  margin-top:var(--sp-8);
+}
+.contact__info p + p{ margin-top:var(--sp-5); }
+.contact__details{ margin-top:var(--sp-7); display:flex; flex-direction:column; gap:var(--sp-4); }
+.contact__detail-row{ display:flex; align-items:center; gap:var(--sp-3); }
+.contact__detail-row svg{ width:15px; height:15px; color:var(--accent); flex-shrink:0; }
+.contact__copy-btn{
+  font-family:var(--font-sans); font-size:var(--fs-caption); letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--text-faint); min-height:32px; padding-inline:0.5em; transition:color var(--dur-fast) var(--ease-soft);
+}
+.contact__copy-btn:hover{ color:var(--accent-bright); }
+.contact-form{ display:flex; flex-direction:column; gap:var(--sp-5); }
+.contact-form__row{ display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-5); }
+.contact-form__actions{ display:flex; align-items:center; gap:var(--sp-5); flex-wrap:wrap; margin-top:var(--sp-2); }
+
+@media (max-width: 900px){
+  .contact__grid{ grid-template-columns:1fr; }
+}
+@media (max-width: 560px){
+  .contact-form__row{ grid-template-columns:1fr; }
+}
+
+/* ==========================================================================
+   Footer + newsletter — forced dark, regardless of the page's own theme mode
+   ========================================================================== */
+.site-footer{ padding-top:var(--section-y); padding-bottom:var(--sp-7); border-top:1px solid var(--line); }
+.site-footer__top{ display:grid; grid-template-columns:1.1fr 1fr; gap:clamp(2rem,6vw,6rem); align-items:end; }
+.site-footer__statement{ margin-top:var(--sp-4); max-width:20ch; color:var(--text); }
+.newsletter{ width:100%; }
+.newsletter__row{ display:flex; gap:var(--sp-3); align-items:stretch; }
+.newsletter__btn{ flex-shrink:0; padding-inline:var(--sp-6); }
+.site-footer__rule{ margin-block:clamp(3rem,7vw,5.5rem); }
+.site-footer__grid{ display:grid; grid-template-columns:1.4fr 1fr 1fr 1.4fr; gap:clamp(1.5rem,4vw,3.5rem); }
+.site-footer__city{ margin-top:var(--sp-4); }
+.site-footer__heading{ font-family:var(--font-sans); font-size:var(--fs-eyebrow); letter-spacing:0.24em; text-transform:uppercase; color:var(--text-faint); margin-bottom:var(--sp-5); }
+.site-footer__col ul{ display:flex; flex-direction:column; gap:var(--sp-3); }
+.site-footer__link{ font-family:var(--font-serif); font-size:1.15rem; color:var(--text-dim); transition:color var(--dur-mid) var(--ease-soft); display:inline-block; padding-block:2px; }
+.site-footer__link:hover{ color:var(--accent-bright); }
+.site-footer__practical{ line-height:1.7; margin-bottom:var(--sp-5); max-width:34ch; }
+.site-footer__bottom{ display:flex; justify-content:space-between; align-items:center; gap:var(--sp-4); margin-top:clamp(3rem,7vw,5.5rem); flex-wrap:wrap; }
+.site-footer__sign{ font-family:var(--font-serif); font-style:italic; font-size:1.05rem; color:var(--text-faint); }
+
+@media (max-width: 880px){
+  .site-footer__top{ grid-template-columns:1fr; gap:var(--sp-7); align-items:start; }
+  .site-footer__grid{ grid-template-columns:1fr 1fr; gap:var(--sp-7) var(--sp-5); }
+}
+@media (max-width: 540px){
+  .newsletter__row{ flex-direction:column; }
+  .newsletter__btn{ padding-inline:var(--sp-5); }
+  .site-footer__grid{ grid-template-columns:1fr; }
+  .site-footer__bottom{ flex-direction:column; align-items:flex-start; }
+}
+
+/* ==========================================================================
+   Print — quiet, ink-friendly fallback (not a primary target, but not broken)
+   ========================================================================== */
+@media print{
+  .site-header,.overlay-menu,.bag-scrim,.bag-drawer,.atmos,.toast-region,.back-to-top,.hero__scroll{ display:none !important; }
+  body{ background:#fff; color:#000; }
 }
 </style>
-<style data-vite-dev-id="penombre/src/components/Header.astro?astro&amp;type=style&amp;index=0&amp;lang.css">.site-header[data-astro-cid-3ef6ksr2]{position:fixed;inset:0 0 auto 0;z-index:var(--z-nav);transition:background-color var(--dur-slow) var(--ease-soft),backdrop-filter var(--dur-slow) var(--ease-soft),border-color var(--dur-slow) var(--ease-soft);border-bottom:1px solid transparent}.site-header[data-astro-cid-3ef6ksr2].is-scrolled{background-color:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(14px) saturate(1.1);border-bottom-color:var(--line)}.site-header__inner[data-astro-cid-3ef6ksr2]{display:flex;align-items:center;justify-content:space-between;gap:var(--sp-5);min-height:5rem}.wordmark[data-astro-cid-3ef6ksr2]{font-family:var(--font-sans);font-weight:300;font-size:clamp(1.05rem,0.9rem + 0.6vw,1.4rem);letter-spacing:0.42em;text-transform:uppercase;color:var(--text);padding-right:0.1em;white-space:nowrap;transition:color var(--dur-mid) var(--ease-soft)}.wordmark[data-astro-cid-3ef6ksr2]:hover{color:var(--accent-bright)}.wordmark--quiet[data-astro-cid-3ef6ksr2]{pointer-events:none}.site-nav__list[data-astro-cid-3ef6ksr2]{display:flex;gap:clamp(1.25rem,2.5vw,2.75rem)}.site-nav__link[data-astro-cid-3ef6ksr2]{font-family:var(--font-sans);font-size:var(--fs-sm);letter-spacing:0.16em;text-transform:uppercase;color:var(--text-dim);position:relative;padding-block:var(--sp-2);transition:color var(--dur-mid) var(--ease-soft)}.site-nav__link[data-astro-cid-3ef6ksr2]::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:1px;background:var(--accent);transform:scaleX(0);transform-origin:center;transition:transform var(--dur-slow) var(--ease-out)}.site-nav__link[data-astro-cid-3ef6ksr2]:hover,.site-nav__link[data-astro-cid-3ef6ksr2][aria-current=page]{color:var(--text)}.site-nav__link[data-astro-cid-3ef6ksr2]:hover::after,.site-nav__link[data-astro-cid-3ef6ksr2][aria-current=page]::after{transform:scaleX(1)}.site-header__actions[data-astro-cid-3ef6ksr2]{display:flex;align-items:center;gap:var(--sp-5)}.bag-toggle[data-astro-cid-3ef6ksr2],.menu-toggle[data-astro-cid-3ef6ksr2]{font-family:var(--font-sans);font-size:var(--fs-sm);letter-spacing:0.16em;text-transform:uppercase;color:var(--text-dim);display:inline-flex;align-items:center;gap:0.45em;min-height:44px;padding-inline:0.2em;transition:color var(--dur-mid) var(--ease-soft)}.bag-toggle[data-astro-cid-3ef6ksr2]:hover,.menu-toggle[data-astro-cid-3ef6ksr2]:hover{color:var(--text)}.bag-toggle__count[data-astro-cid-3ef6ksr2]{font-size:0.7em;min-width:1.5em;height:1.5em;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--line-strong);border-radius:var(--r-pill);color:var(--text-faint);transition:color var(--dur-mid) var(--ease-soft),border-color var(--dur-mid) var(--ease-soft),background-color var(--dur-mid) var(--ease-soft)}.bag-toggle[data-astro-cid-3ef6ksr2][data-filled=true] .bag-toggle__count[data-astro-cid-3ef6ksr2]{color:var(--ink-900);background:var(--accent);border-color:var(--accent)}.menu-toggle[data-astro-cid-3ef6ksr2]{display:none}.overlay-menu[data-astro-cid-3ef6ksr2]{position:fixed;inset:0;z-index:var(--z-overlay);background:var(--bg-sunken);display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity var(--dur-slow) var(--ease-soft),visibility var(--dur-slow)}.overlay-menu[data-astro-cid-3ef6ksr2][hidden]{display:none}.overlay-menu[data-astro-cid-3ef6ksr2].is-open{opacity:1;visibility:visible}.overlay-menu__bar[data-astro-cid-3ef6ksr2]{display:flex;align-items:center;justify-content:space-between;min-height:5rem}.overlay-menu__nav[data-astro-cid-3ef6ksr2]{flex:1;display:flex;align-items:center;padding-inline:var(--gutter)}.overlay-menu__nav[data-astro-cid-3ef6ksr2] ul[data-astro-cid-3ef6ksr2]{display:flex;flex-direction:column;gap:clamp(1rem,4vh,2.25rem);width:100%}.overlay-menu__link[data-astro-cid-3ef6ksr2]{font-family:var(--font-serif);font-size:clamp(2.5rem,13vw,4.5rem);line-height:1;letter-spacing:-0.02em;color:var(--text);display:flex;align-items:baseline;gap:var(--sp-4);opacity:0;transform:translateY(20px)}.overlay-menu[data-astro-cid-3ef6ksr2].is-open .overlay-menu__link[data-astro-cid-3ef6ksr2]{opacity:1;transform:none;transition:opacity var(--dur-slow) var(--ease-out),transform var(--dur-slow) var(--ease-out);transition-delay:calc(120ms + var(--i) * 90ms)}.overlay-menu__index[data-astro-cid-3ef6ksr2]{font-family:var(--font-sans);font-size:0.8rem;letter-spacing:0.2em;color:var(--accent)}.overlay-menu__foot[data-astro-cid-3ef6ksr2]{padding:var(--gutter);padding-top:0}.bag-scrim[data-astro-cid-3ef6ksr2]{position:fixed;inset:0;z-index:var(--z-overlay);background:rgba(0,0,0,0.55);opacity:0;transition:opacity var(--dur-slow) var(--ease-soft)}.bag-scrim[data-astro-cid-3ef6ksr2][hidden]{display:none}.bag-scrim[data-astro-cid-3ef6ksr2].is-open{opacity:1}.bag-drawer[data-astro-cid-3ef6ksr2]{position:fixed;top:0;right:0;bottom:0;z-index:calc(var(--z-overlay) + 1);width:min(28rem,92vw);background:var(--bg-raised);border-left:1px solid var(--line);box-shadow:var(--shadow-2);display:flex;flex-direction:column;transform:translateX(100%);transition:transform var(--dur-slow) var(--ease-out)}.bag-drawer[data-astro-cid-3ef6ksr2][hidden]{display:none}.bag-drawer[data-astro-cid-3ef6ksr2].is-open{transform:none}.bag-drawer__head[data-astro-cid-3ef6ksr2]{display:flex;align-items:center;justify-content:space-between;padding:var(--sp-6) var(--sp-6) var(--sp-5);border-bottom:1px solid var(--line)}.bag-drawer__title[data-astro-cid-3ef6ksr2]{font-size:1rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--text)}.bag-close[data-astro-cid-3ef6ksr2]{font-family:var(--font-sans);font-size:var(--fs-sm);letter-spacing:0.14em;text-transform:uppercase;color:var(--text-faint);min-height:44px;transition:color var(--dur-mid) var(--ease-soft)}.bag-close[data-astro-cid-3ef6ksr2]:hover{color:var(--text)}.bag-drawer__body[data-astro-cid-3ef6ksr2]{flex:1;overflow-y:auto;padding:var(--sp-6)}.bag-empty[data-astro-cid-3ef6ksr2]{display:flex;flex-direction:column;align-items:flex-start;gap:var(--sp-5);color:var(--text-dim);font-size:var(--fs-lead);padding-block:var(--sp-7)}.bag-empty[data-astro-cid-3ef6ksr2][hidden]{display:none}.bag-empty__mark[data-astro-cid-3ef6ksr2]{width:42px;height:1px;background:var(--accent)}.bag-list[data-astro-cid-3ef6ksr2]{display:flex;flex-direction:column}.bag-drawer__foot[data-astro-cid-3ef6ksr2]{border-top:1px solid var(--line);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4)}.bag-drawer__foot[data-astro-cid-3ef6ksr2][hidden]{display:none}.bag-subtotal[data-astro-cid-3ef6ksr2]{display:flex;align-items:baseline;justify-content:space-between}.bag-subtotal[data-astro-cid-3ef6ksr2] span[data-astro-cid-3ef6ksr2]:first-child{letter-spacing:0.16em;text-transform:uppercase;font-size:var(--fs-sm);color:var(--text-dim)}.bag-subtotal__value[data-astro-cid-3ef6ksr2]{font-family:var(--font-serif);font-size:1.6rem;color:var(--text)}@media (max-width: 820px){.site-nav[data-astro-cid-3ef6ksr2]{display:none}.menu-toggle[data-astro-cid-3ef6ksr2]{display:inline-flex}.site-header__inner[data-astro-cid-3ef6ksr2]{min-height:4.5rem}}</style>
-<style data-vite-dev-id="penombre/src/components/Footer.astro?astro&amp;type=style&amp;index=0&amp;lang.css">.site-footer[data-astro-cid-sz7xmlte]{background:var(--bg-sunken);padding-top:var(--section-y);padding-bottom:var(--sp-7);border-top:1px solid var(--line)}.site-footer__top[data-astro-cid-sz7xmlte]{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(2rem,6vw,6rem);align-items:end}.site-footer__statement[data-astro-cid-sz7xmlte]{margin-top:var(--sp-4);max-width:18ch;color:var(--text)}.newsletter[data-astro-cid-sz7xmlte]{width:100%}.newsletter__row[data-astro-cid-sz7xmlte]{display:flex;gap:var(--sp-3);align-items:stretch}.newsletter__btn[data-astro-cid-sz7xmlte]{flex-shrink:0;padding-inline:var(--sp-6)}.site-footer__rule[data-astro-cid-sz7xmlte]{margin-block:clamp(3rem,7vw,5.5rem)}.site-footer__grid[data-astro-cid-sz7xmlte]{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.4fr;gap:clamp(1.5rem,4vw,3.5rem)}.wordmark--footer[data-astro-cid-sz7xmlte]{font-size:clamp(1.2rem,1rem + 0.8vw,1.6rem);display:inline-block}.site-footer__city[data-astro-cid-sz7xmlte]{margin-top:var(--sp-4)}.site-footer__heading[data-astro-cid-sz7xmlte]{font-family:var(--font-sans);font-size:var(--fs-eyebrow);letter-spacing:0.24em;text-transform:uppercase;color:var(--text-faint);margin-bottom:var(--sp-5)}.site-footer__col[data-astro-cid-sz7xmlte] ul[data-astro-cid-sz7xmlte]{display:flex;flex-direction:column;gap:var(--sp-3)}.site-footer__link[data-astro-cid-sz7xmlte]{font-family:var(--font-serif);font-size:1.15rem;color:var(--text-dim);transition:color var(--dur-mid) var(--ease-soft);display:inline-block;padding-block:2px}.site-footer__link[data-astro-cid-sz7xmlte]:hover{color:var(--accent-bright)}.site-footer__practical[data-astro-cid-sz7xmlte]{line-height:1.7;margin-bottom:var(--sp-5);max-width:34ch}.site-footer__bottom[data-astro-cid-sz7xmlte]{display:flex;justify-content:space-between;align-items:center;gap:var(--sp-4);margin-top:clamp(3rem,7vw,5.5rem)}.site-footer__sign[data-astro-cid-sz7xmlte]{font-family:var(--font-serif);font-style:italic;font-size:1.05rem;color:var(--text-faint)}@media (max-width: 880px){.site-footer__top[data-astro-cid-sz7xmlte]{grid-template-columns:1fr;gap:var(--sp-7);align-items:start}.site-footer__grid[data-astro-cid-sz7xmlte]{grid-template-columns:1fr 1fr;gap:var(--sp-7) var(--sp-5)}}@media (max-width: 540px){.newsletter__row[data-astro-cid-sz7xmlte]{flex-direction:column}.site-footer__grid[data-astro-cid-sz7xmlte]{grid-template-columns:1fr}.site-footer__bottom[data-astro-cid-sz7xmlte]{flex-direction:column;align-items:flex-start}}</style>
-<style data-vite-dev-id="penombre/src/components/Atmosphere.astro?astro&amp;type=style&amp;index=0&amp;lang.css">.atmos[data-astro-cid-p7ciunqv]{position:fixed;inset:0;z-index:var(--z-grain);pointer-events:none}.atmos__grain[data-astro-cid-p7ciunqv]{position:absolute;inset:-50%;width:200%;height:200%;opacity:0.05;mix-blend-mode:soft-light}.atmos__glow[data-astro-cid-p7ciunqv]{position:absolute;inset:0;background:radial-gradient(58vw 52vh at 24% -8%,rgba(200,169,106,0.07),transparent 60%),radial-gradient(50vw 60vh at 88% 16%,rgba(120,96,150,0.045),transparent 62%);mix-blend-mode:screen;animation:drift 64s var(--ease-inout) infinite alternate}.atmos__vignette[data-astro-cid-p7ciunqv]{position:absolute;inset:0;background:radial-gradient(132% 104% at 50% 36%,transparent 54%,rgba(0,0,0,0.38))}@keyframes drift{from{transform:translate3d(-2%,-1%,0) scale(1.02)}to{transform:translate3d(3%,2%,0) scale(1.08)}}@media (prefers-reduced-motion: reduce){.atmos__glow[data-astro-cid-p7ciunqv]{animation:none}}</style>
-<style data-vite-dev-id="penombre/src/layouts/Base.astro?astro&amp;type=style&amp;index=0&amp;lang.css">main[data-astro-cid-5hce7sga].has-offset{padding-top:5rem}</style>
-<style data-vite-dev-id="penombre/src/pages/maison.astro?astro&amp;type=style&amp;index=0&amp;lang.css">.page-head[data-astro-cid-5ygbeua4]{padding-top:clamp(3rem,7vw,6rem);padding-bottom:0}.page-head__title[data-astro-cid-5ygbeua4]{margin-top:var(--sp-4)}.opening[data-astro-cid-5ygbeua4]{padding-top:clamp(3rem,6vw,5rem)}.opening__text[data-astro-cid-5ygbeua4]{font-family:var(--font-serif);font-size:var(--fs-h3);line-height:1.3;color:var(--text);text-wrap:pretty}.opening__text[data-astro-cid-5ygbeua4]+.opening__text[data-astro-cid-5ygbeua4]{margin-top:var(--sp-6);color:var(--text-dim)}.principles[data-astro-cid-5ygbeua4]{padding-bottom:var(--section-y)}.principles__list[data-astro-cid-5ygbeua4]{border-top:1px solid var(--line)}.principle[data-astro-cid-5ygbeua4]{display:grid;grid-template-columns:auto 1fr 1.3fr;gap:clamp(1.5rem,5vw,5rem);align-items:start;padding-block:clamp(3rem,7vw,6rem);border-bottom:1px solid var(--line)}.principle__n[data-astro-cid-5ygbeua4]{font-family:var(--font-serif);font-size:clamp(2rem,1.4rem + 2vw,3.4rem);color:var(--accent);line-height:1;font-style:italic}.principle__title[data-astro-cid-5ygbeua4]{letter-spacing:-0.01em}.principle__body[data-astro-cid-5ygbeua4] p[data-astro-cid-5ygbeua4]{font-size:var(--fs-lead);line-height:1.5;color:var(--text-dim)}.principle__body[data-astro-cid-5ygbeua4] p[data-astro-cid-5ygbeua4]+p[data-astro-cid-5ygbeua4]{margin-top:var(--sp-5)}.maison-quote[data-astro-cid-5ygbeua4]{background:var(--bg);padding-block:clamp(5rem,12vw,11rem);text-align:center}.maison-quote__text[data-astro-cid-5ygbeua4]{font-family:var(--font-serif);font-size:var(--fs-h1);line-height:1.1;letter-spacing:-0.015em;color:var(--text);text-wrap:balance}.maison-close__title[data-astro-cid-5ygbeua4]{margin-top:var(--sp-4)}.maison-close__actions[data-astro-cid-5ygbeua4]{display:flex;gap:var(--sp-4);margin-top:var(--sp-7);flex-wrap:wrap;justify-content:center}@media (max-width: 820px){.principle[data-astro-cid-5ygbeua4]{grid-template-columns:auto 1fr;gap:var(--sp-4) var(--sp-5)}.principle__body[data-astro-cid-5ygbeua4]{grid-column:1 / -1}}</style><script type="module" src="/src/layouts/Base.astro?astro&amp;type=script&amp;index=0&amp;lang.ts"></script>
-<script type="module" src="/@vite/client"></script>
-<script type="module" src="/@fspenombre/node_modules/astro/dist/runtime/client/dev-toolbar/entrypoint.js?v=7c1b96fe"></script>
-<script>window.__astro_dev_toolbar__ = {"root":"penombre/","version":"4.16.19","debugInfo":"Astro                    v4.16.19\nNode                     v22.22.3\nSystem                   macOS (arm64)\nPackage Manager          unknown\nOutput                   static\nAdapter                  none\nIntegrations             none"}</script>
-<script type="module" src="/@id/astro:scripts/page.js"></script>
-<script type="module" src="/src/styles/global.css"></script>
-<script type="module" src="/src/components/Header.astro?astro&amp;type=style&amp;index=0&amp;lang.css"></script>
-<script type="module" src="/src/components/Footer.astro?astro&amp;type=style&amp;index=0&amp;lang.css"></script>
-<script type="module" src="/src/components/Atmosphere.astro?astro&amp;type=style&amp;index=0&amp;lang.css"></script>
-<script type="module" src="/src/layouts/Base.astro?astro&amp;type=style&amp;index=0&amp;lang.css"></script>
-<script type="module" src="/src/pages/maison.astro?astro&amp;type=style&amp;index=0&amp;lang.css"></script></head> <body data-astro-cid-5hce7sga="" data-astro-source-file="penombre/src/layouts/Base.astro" data-astro-source-loc="51:9"> <a href="#main" class="skip-link" data-astro-cid-5hce7sga="" data-astro-source-file="penombre/src/layouts/Base.astro" data-astro-source-loc="52:39">Skip to content</a> <div class="atmos" aria-hidden="true" data-astro-cid-p7ciunqv="" data-astro-source-file="penombre/src/components/Atmosphere.astro" data-astro-source-loc="8:39"> <div class="atmos__glow" data-astro-cid-p7ciunqv="" data-astro-source-file="penombre/src/components/Atmosphere.astro" data-astro-source-loc="9:4"></div> <svg class="atmos__grain" xmlns="http://www.w3.org/2000/svg" data-astro-cid-p7ciunqv="" data-astro-source-file="penombre/src/components/Atmosphere.astro" data-astro-source-loc="10:64"> <filter id="penombre-grain" data-astro-cid-p7ciunqv="" data-astro-source-file="penombre/src/components/Atmosphere.astro" data-astro-source-loc="11:33"> <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="2" stitchTiles="stitch" data-astro-cid-p7ciunqv="" data-astro-source-file="penombre/src/components/Atmosphere.astro" data-astro-source-loc="12:8"></feTurbulence> <feColorMatrix type="saturate" values="0" data-astro-cid-p7ciunqv="" data-astro-source-file="penombre/src/components/Atmosphere.astro" data-astro-source-loc="13:8"></feColorMatrix> </filter> <rect width="100%" height="100%" filter="url(#penombre-grain)" data-astro-cid-p7ciunqv="" data-astro-source-file="penombre/src/components/Atmosphere.astro" data-astro-source-loc="15:6"></rect> </svg> <div class="atmos__vignette" data-astro-cid-p7ciunqv="" data-astro-source-file="penombre/src/components/Atmosphere.astro" data-astro-source-loc="17:4"></div> </div>  <header class="site-header" data-header="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="11:41"> <div class="site-header__inner container container--wide" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="12:61"> <a href="/" class="wordmark" aria-label="Pénombre — home" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="13:63">Pénombre</a> <nav class="site-nav" aria-label="Primary" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="15:48"> <ul class="site-nav__list" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="16:34"> <li data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="18:15"> <a href="/parfums" class="site-nav__link" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="23:14"> The Collection </a> </li><li data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="18:15"> <a href="/maison" class="site-nav__link" aria-current="page" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="23:14"> Maison </a> </li><li data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="18:15"> <a href="/contact" class="site-nav__link" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="23:14"> Contact </a> </li> </ul> </nav> <div class="site-header__actions" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="31:39"> <button class="bag-toggle" data-bag-open="" aria-haspopup="dialog" aria-expanded="false" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="32:93" data-filled="false">
-Bag<span class="bag-toggle__count" data-bag-count="" aria-hidden="true" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="33:78">0</span> <span class="sr-only" data-bag-count-label="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="34:52">0 items in bag</span> </button> <button class="menu-toggle" data-menu-open="" aria-haspopup="dialog" aria-expanded="false" aria-controls="mobile-menu" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="42:8">
-Menu
-</button> </div> </div> </header> <!-- Full-screen mobile menu --> <div class="overlay-menu" id="mobile-menu" data-menu="" role="dialog" aria-modal="true" aria-label="Menu" hidden="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="50:111"> <div class="overlay-menu__bar container container--wide" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="51:60"> <span class="wordmark wordmark--quiet" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="52:44">Pénombre</span> <button class="menu-toggle" data-menu-close="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="53:49">Close</button> </div> <nav class="overlay-menu__nav" aria-label="Primary, full screen" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="55:68"> <ul data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="56:9"> <li style="--i:0" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="58:32"> <a href="/parfums" class="overlay-menu__link" data-menu-link="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="59:73"> <span class="overlay-menu__index" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="60:47">01</span> The Collection </a> </li><li style="--i:1" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="58:32"> <a href="/maison" class="overlay-menu__link" data-menu-link="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="59:73"> <span class="overlay-menu__index" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="60:47">02</span> Maison </a> </li><li style="--i:2" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="58:32"> <a href="/contact" class="overlay-menu__link" data-menu-link="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="59:73"> <span class="overlay-menu__index" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="60:47">03</span> Contact </a> </li> </ul> </nav> <p class="overlay-menu__foot meta" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="67:38">Maison de parfum · Paris</p> </div> <!-- Bag drawer --> <div class="bag-scrim" data-bag-scrim="" hidden="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="71:2"></div> <aside class="bag-drawer" data-bag-drawer="" role="dialog" aria-modal="true" aria-label="Shopping bag" aria-hidden="true" hidden="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="72:127"> <div class="bag-drawer__head" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="73:33"> <p class="bag-drawer__title ui" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="74:37">Your Bag</p> <button class="bag-close" data-bag-close="" aria-label="Close bag" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="75:69">Close</button> </div> <div class="bag-drawer__body" data-bag-body="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="77:47"> <p class="bag-empty" data-bag-empty="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="78:41"> <span class="bag-empty__mark" aria-hidden="true" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="79:8"></span>
-Your bag is empty.
-<a href="/parfums" class="link link--draw" data-bag-close="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="81:65">Discover the collection</a> </p> <ul class="bag-list" data-bag-list="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="83:6"></ul> </div> <div class="bag-drawer__foot" data-bag-foot="" hidden="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="85:54"> <div class="bag-subtotal" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="86:31"> <span class="ui" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="87:24">Subtotal</span> <span class="bag-subtotal__value" data-bag-subtotal="" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="88:59">€0</span> </div> <p class="bag-note meta" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="90:30">Complimentary shipping and samples included with every order.</p> <a href="/contact" class="btn btn--solid btn--block" data-astro-cid-3ef6ksr2="" data-astro-source-file="penombre/src/components/Header.astro" data-astro-source-loc="91:58">Place order with the atelier</a> </div> </aside>  <main id="main" class="has-offset" data-astro-cid-5hce7sga="" data-astro-source-file="penombre/src/layouts/Base.astro" data-astro-source-loc="55:63">  <header class="page-head section--top" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="37:42"> <div class="container container--wide" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="38:44"> <p class="eyebrow eyebrow--accent is-visible" data-reveal="" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="39:54">The Maison</p> <h1 class="display page-head__title is-visible" data-reveal="" style="--reveal-delay:120ms" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="40:85">
-The house.
-</h1> </div> </header> <section class="section opening" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="46:36"> <div class="container container--text" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="47:44"> <p class="opening__text is-visible" data-reveal="" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="48:44">
-Pénombre keeps a small house and a long bench, and makes perfume for the
-        half-light — the hours that belong fully neither to the day nor to the
-        dark. We are interested in the thresholds: the cold blue before dawn,
-        the cooling of stone at dusk, the narrow stillness at midnight.
-</p> <p class="opening__text is-visible" data-reveal="" style="--reveal-delay:140ms" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="54:73">
-What follows is not a history. It is how we work.
-</p> </div> </section> <section class="principles" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="60:31"> <div class="container container--wide" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="61:44"> <ol class="principles__list" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="62:36"> <li class="principle is-visible" data-reveal="" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="64:45"> <span class="principle__n" aria-hidden="true" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="65:59">01</span> <div class="principle__head" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="66:42"> <h2 class="principle__title h2" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="67:47">On materials</h2> </div> <div class="principle__body prose" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="69:48"> <p data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="70:40">We buy few things, and we buy them well. Iris that takes years to travel from rhizome to butter. The resins — frankincense, myrrh, labdanum — and the absolutes that cannot be faked.</p><p data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="70:40">Where a natural carries the idea, we use the natural. Where a synthetic carries it further — cleaner, steadier, kinder to the world — we use the synthetic, and we say so. A perfume is judged by how it smells, not by the romance of its parts.</p> </div> </li><li class="principle is-visible" data-reveal="" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="64:45"> <span class="principle__n" aria-hidden="true" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="65:59">02</span> <div class="principle__head" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="66:42"> <h2 class="principle__title h2" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="67:47">On slowness</h2> </div> <div class="principle__body prose" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="69:48"> <p data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="70:40">A composition lives on the bench for months before it is named. We wear it, change it, set it down, return to it. Materials marry slowly; a formula that smells finished on Monday is rarely finished by Friday.</p><p data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="70:40">Nothing here is released to a calendar. It is released when it is right, and not before.</p> </div> </li><li class="principle is-visible" data-reveal="" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="64:45"> <span class="principle__n" aria-hidden="true" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="65:59">03</span> <div class="principle__head" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="66:42"> <h2 class="principle__title h2" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="67:47">On restraint</h2> </div> <div class="principle__body prose" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="69:48"> <p data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="70:40">The hardest decision in a formula is what to leave out. A perfume that tries to please everyone in the room ends up smelling of no one.</p><p data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="70:40">We would rather make something quiet and exact than something loud and approximate. Each Pénombre is built to be worn close — to be noticed by the person beside you, and almost no further.</p> </div> </li> </ol> </div> </section> <section class="maison-quote bleed" data-theme="light" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="78:58"> <div class="container container--text" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="79:44"> <blockquote class="maison-quote__text is-visible" data-reveal="" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="80:58">
-We are a small house. We intend to stay one.
-</blockquote> </div> </section> <section class="section maison-close" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="86:41"> <div class="container invite__inner" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="87:42"> <p class="eyebrow is-visible" data-reveal="" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="88:38">Begin</p> <h2 class="display maison-close__title is-visible" data-reveal="" style="--reveal-delay:120ms" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="89:88">
-Five hours await.
-</h2> <div class="maison-close__actions is-visible" data-reveal="" style="--reveal-delay:220ms" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="92:83"> <a class="btn btn--solid" href="/parfums" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="93:51">The Collection</a> <a class="btn" href="/contact" data-astro-cid-5ygbeua4="" data-astro-source-file="penombre/src/pages/maison.astro" data-astro-source-loc="94:40">Write to the house</a> </div> </div> </section>  </main> <footer class="site-footer bleed" data-theme="dark" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="6:53"> <div class="container container--wide" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="7:42"> <div class="site-footer__top" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="8:35"> <div class="site-footer__lede is-visible" data-reveal="" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="9:50"> <p class="eyebrow eyebrow--accent" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="10:44">Letters from the house</p> <h2 class="h2 site-footer__statement" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="11:47">
-Occasional notes on new compositions, and word from the boutique.
-          Nothing more.
-</h2> </div> <form class="newsletter is-visible" data-form="newsletter" novalidate="" data-reveal="" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="17:78"> <div class="field" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="18:28"> <label class="field__label" for="nl-email" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="19:54">Email address</label> <div class="newsletter__row" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="20:40"> <input class="field__input" type="email" id="nl-email" name="email" autocomplete="email" placeholder="you@example.com" required="" aria-describedby="nl-email-error" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="21:14"> <button class="btn newsletter__btn" type="submit" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="31:63"> <span data-form-label="" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="32:37">Subscribe</span> </button> </div> <p class="field__error" id="nl-email-error" data-error-for="email" hidden="" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="35:12"></p> <p class="field__success" data-form-success="" hidden="" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="36:62">
-Thank you. Look for the first letter soon.
-</p> </div> </form> </div> <hr class="rule site-footer__rule" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="43:6"> <div class="site-footer__grid" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="45:36"> <div class="site-footer__brand" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="46:39"> <a href="/" class="wordmark wordmark--footer" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="47:55">Pénombre</a> <p class="meta site-footer__city" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="48:43">Maison de parfum · Paris</p> </div> <nav class="site-footer__col" aria-label="The collection" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="51:65"> <p class="site-footer__heading" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="52:41">The Collection</p> <ul data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="53:13"> <li data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="55:17"> <a href="/parfums/aube" class="site-footer__link" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="56:72">Aube</a> </li><li data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="55:17"> <a href="/parfums/heure-grise" class="site-footer__link" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="56:72">Heure Grise</a> </li><li data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="55:17"> <a href="/parfums/foin-coupe" class="site-footer__link" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="56:72">Foin Coupé</a> </li><li data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="55:17"> <a href="/parfums/vepres" class="site-footer__link" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="56:72">Vêpres</a> </li><li data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="55:17"> <a href="/parfums/minuit" class="site-footer__link" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="56:72">Minuit</a> </li> </ul> </nav> <nav class="site-footer__col" aria-label="The house" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="62:60"> <p class="site-footer__heading" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="63:41">The House</p> <ul data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="64:13"> <li data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="65:16"><a href="/maison" class="site-footer__link" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="65:59">Maison</a></li> <li data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="66:16"><a href="/parfums" class="site-footer__link" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="66:60">All Parfums</a></li> <li data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="67:16"><a href="/contact" class="site-footer__link" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="67:60">Contact &amp; Orders</a></li> </ul> </nav> <div class="site-footer__col" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="71:37"> <p class="site-footer__heading" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="72:41">The Boutique</p> <p class="meta site-footer__practical" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="73:48">
-Orders are placed with the atelier and dispatched within two working
-          days. Each is accompanied by samples chosen for you. Written enquiries
-          are answered in person.
-</p> <a href="/contact" class="link link--draw" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="78:52">Write to the house <span class="arrow" aria-hidden="true" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="78:110">→</span></a> </div> </div> <div class="site-footer__bottom" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="82:38"> <p class="meta" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="83:23">© 2026 Pénombre. All rights reserved.</p> <p class="meta site-footer__sign" data-astro-cid-sz7xmlte="" data-astro-source-file="penombre/src/components/Footer.astro" data-astro-source-loc="84:41">Composed for the half-light.</p> </div> </div> </footer>      <astro-dev-toolbar></astro-dev-toolbar></body></html>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+
+<!-- Fixed decorative atmosphere: grain, glow, vignette. Never intercepts input. -->
+<div class="atmos" aria-hidden="true">
+  <div class="atmos__glow"></div>
+  <svg class="atmos__grain" xmlns="http://www.w3.org/2000/svg">
+    <filter id="penombre-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.82" numOctaves="2" stitchTiles="stitch"></feTurbulence>
+      <feColorMatrix type="saturate" values="0"></feColorMatrix>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#penombre-grain)"></rect>
+  </svg>
+  <div class="atmos__vignette"></div>
+</div>
+
+<!-- Shared icon sprite. A short, deliberate set — restraint extends to the icon language too. -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="icon-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-check" viewBox="0 0 24 24"><path d="M4.5 12.6 9.5 18 19.5 6.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-alert" viewBox="0 0 24 24"><path d="M12 4 21 19.5H3L12 4Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 10v4.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><circle cx="12" cy="17.2" r=".9" fill="currentColor"/></symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24"><circle cx="10.6" cy="10.6" r="6.4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M15.6 15.6 20.5 20.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></symbol>
+    <symbol id="icon-close" viewBox="0 0 24 24"><path d="M5 5l14 14M19 5 5 19" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+    <symbol id="icon-empty" viewBox="0 0 24 24"><rect x="3.6" y="5.4" width="16.8" height="14" rx="1.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M3.6 15.6l4.6-4.4 3.4 2.8 4-3.6 4.8 4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/><circle cx="8.4" cy="9.4" r="1.2" fill="currentColor"/></symbol>
+    <symbol id="icon-mail" viewBox="0 0 24 24"><rect x="3.4" y="5.6" width="17.2" height="12.8" rx="1.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M4 6.4l8 6.4 8-6.4" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-pin" viewBox="0 0 24 24"><path d="M12 21s-6.8-6-6.8-11a6.8 6.8 0 1 1 13.6 0c0 5-6.8 11-6.8 11Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.4"/></symbol>
+    <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.4" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M12 2.6v3M12 18.4v3M21.4 12h-3M5.6 12h-3M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7 5.6 5.6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></symbol>
+    <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M20 14.2A8.4 8.4 0 1 1 9.8 4a6.6 6.6 0 0 0 10.2 10.2Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+    <symbol id="icon-arrow-down" viewBox="0 0 24 24"><path d="M12 4v15M12 19l-5.5-5.5M12 19l5.5-5.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<!-- Live region for toast confirmations -->
+<div class="toast-region" aria-live="polite" aria-atomic="true">
+  <div class="toast" id="toast" role="status" hidden>
+    <span class="toast__msg" id="toastMsg"></span>
+    <button type="button" class="toast__dismiss" id="toastDismiss">Dismiss</button>
+  </div>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="site-header__inner container container--wide">
+    <a href="#top" class="wordmark" aria-label="Pénombre — home">Pénombre</a>
+    <nav class="site-nav" aria-label="Primary">
+      <ul class="site-nav__list">
+        <li><a href="#collection" class="site-nav__link">The Collection</a></li>
+        <li><a href="#maison" class="site-nav__link">Maison</a></li>
+        <li><a href="#process" class="site-nav__link">Process</a></li>
+        <li><a href="#contact" class="site-nav__link">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="site-header__actions">
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false">
+        <svg id="themeToggleIcon" width="15" height="15" aria-hidden="true"><use href="#icon-moon"></use></svg>
+        <span id="themeToggleLabel">Lumière</span>
+      </button>
+      <button type="button" class="bag-toggle" id="bagToggle" aria-haspopup="dialog" aria-expanded="false" data-filled="false">
+        Bag<span class="bag-toggle__count" id="bagCount" aria-hidden="true">0</span>
+        <span class="sr-only" id="bagCountLabel">0 items in bag</span>
+      </button>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-haspopup="dialog" aria-expanded="false" aria-controls="mobileMenu">Menu</button>
+    </div>
+  </div>
+</header>
+
+<!-- Full-screen mobile menu -->
+<div class="overlay-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu" hidden>
+  <div class="overlay-menu__bar container container--wide">
+    <span class="wordmark wordmark--quiet">Pénombre</span>
+    <button type="button" class="menu-toggle" id="menuClose">Close</button>
+  </div>
+  <nav class="overlay-menu__nav" aria-label="Primary, full screen">
+    <ul>
+      <li style="--i:0"><a href="#collection" class="overlay-menu__link" data-menu-link><span class="overlay-menu__index">01</span> The Collection</a></li>
+      <li style="--i:1"><a href="#maison" class="overlay-menu__link" data-menu-link><span class="overlay-menu__index">02</span> Maison</a></li>
+      <li style="--i:2"><a href="#process" class="overlay-menu__link" data-menu-link><span class="overlay-menu__index">03</span> Process</a></li>
+      <li style="--i:3"><a href="#contact" class="overlay-menu__link" data-menu-link><span class="overlay-menu__index">04</span> Contact</a></li>
+    </ul>
+  </nav>
+  <div class="overlay-menu__foot">
+    <p class="meta">Maison de Parfum · Paris</p>
+    <button type="button" class="theme-toggle" id="themeToggleMobile" aria-pressed="false">
+      <svg width="15" height="15" aria-hidden="true"><use href="#icon-moon"></use></svg>
+      <span id="themeToggleMobileLabel">Lumière</span>
+    </button>
+  </div>
+</div>
+
+<!-- Bag drawer -->
+<div class="bag-scrim" id="bagScrim" hidden></div>
+<aside class="bag-drawer" id="bagDrawer" role="dialog" aria-modal="true" aria-label="Shopping bag" aria-hidden="true" hidden>
+  <div class="bag-drawer__head">
+    <p class="bag-drawer__title ui">Your Bag</p>
+    <button type="button" class="icon-btn" id="bagClose" aria-label="Close bag"><svg width="16" height="16" aria-hidden="true"><use href="#icon-close"></use></svg></button>
+  </div>
+  <div class="bag-drawer__body" id="bagBody">
+    <p class="bag-empty" id="bagEmpty">
+      <span class="bag-empty__mark" aria-hidden="true"></span>
+      Your bag is empty.
+      <a href="#collection" class="link link--draw" data-bag-close>Discover the collection</a>
+    </p>
+    <ul class="bag-list" id="bagList" hidden></ul>
+  </div>
+  <div class="bag-drawer__foot" id="bagFoot" hidden>
+    <div class="bag-subtotal">
+      <span class="ui">Subtotal</span>
+      <span class="bag-subtotal__value" id="bagSubtotal">€0</span>
+    </div>
+    <p class="meta">Complimentary samples are included with every order.</p>
+    <button type="button" class="btn btn--solid btn--block" id="bagCheckout">Enquire to Order</button>
+  </div>
+</aside>
+
+<main id="main">
+<!-- ======================================================================
+     Hero
+     ====================================================================== -->
+<section class="hero" id="top">
+  <div class="hero__dial" aria-hidden="true">
+    <svg viewBox="0 0 400 400" fill="none">
+      <circle cx="200" cy="200" r="164" stroke="var(--line-strong)" stroke-width="1"/>
+      <circle cx="200" cy="200" r="120" stroke="var(--line)" stroke-width="1"/>
+      <path d="M200 36a164 164 0 0 1 116 280" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round"/>
+      <circle cx="200" cy="36" r="4" fill="var(--accent)"/>
+      <circle cx="316" cy="316" r="3" fill="var(--accent)" opacity=".8"/>
+      <circle cx="88" cy="257" r="3" fill="var(--text-faint)" opacity=".7"/>
+      <circle cx="60" cy="140" r="3" fill="var(--text-faint)" opacity=".7"/>
+      <circle cx="145" cy="52" r="3" fill="var(--text-faint)" opacity=".7"/>
+    </svg>
+  </div>
+  <div class="container container--wide hero__grid">
+    <div>
+      <p class="eyebrow eyebrow--accent is-visible" data-reveal>Maison de Parfum · Paris</p>
+      <h1 class="display hero__title is-visible" data-reveal style="--reveal-delay:120ms">
+        Perfume, kept<br>for the <em>half-light.</em>
+      </h1>
+      <p class="lead hero__lead is-visible" data-reveal style="--reveal-delay:220ms">
+        Pénombre writes one composition for each threshold hour of the day —
+        the cold blue before dawn, the grey interval mid-morning, the long
+        afternoon, the bell at vespers, the narrow stillness of midnight.
+        Five hours, five bottles, one small bench.
+      </p>
+      <div class="hero__actions is-visible" data-reveal style="--reveal-delay:320ms">
+        <a href="#collection" class="btn btn--solid">Discover the Collection</a>
+        <a href="#maison" class="btn">Read the Maison</a>
+      </div>
+      <div class="hero__scroll is-visible" data-reveal="fade" style="--reveal-delay:520ms" aria-hidden="true">
+        <span class="hero__scroll-line"></span>
+        <span class="meta">Scroll</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     Facts strip
+     ====================================================================== -->
+<section class="facts-strip bleed" aria-label="At a glance">
+  <div class="container container--wide facts-strip__row">
+    <p class="facts-strip__item"><strong>Five</strong> compositions, one per hour</p>
+    <p class="facts-strip__item"><strong>Hand-composed</strong> in Paris, on one bench</p>
+    <p class="facts-strip__item"><strong>Complimentary</strong> samples with every order</p>
+    <p class="facts-strip__item"><strong>Decants</strong> from 15ml, extraits from 50ml</p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     Collection
+     ====================================================================== -->
+<section class="section" id="collection">
+  <div class="container container--wide">
+    <div class="collection__head">
+      <div>
+        <p class="eyebrow eyebrow--accent is-visible" data-reveal>The Collection</p>
+        <h2 class="h1 is-visible" data-reveal style="--reveal-delay:80ms">Five hours, five compositions.</h2>
+        <p class="lead is-visible" data-reveal style="--reveal-delay:160ms">
+          Every Pénombre is written for a single hour and worn close. New to
+          the house? The discovery set carries all five, two millilitres each.
+        </p>
+      </div>
+    </div>
+
+    <div class="collection__controls is-visible" data-reveal="fade">
+      <div class="filter-pills" role="group" aria-label="Filter the collection by scent family">
+        <button type="button" class="filter-pill" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" class="filter-pill" data-filter="green" aria-pressed="false">Green</button>
+        <button type="button" class="filter-pill" data-filter="amber" aria-pressed="false">Amber</button>
+        <button type="button" class="filter-pill" data-filter="woody" aria-pressed="false">Woody</button>
+      </div>
+      <div class="search-field">
+        <label for="collectionSearch" class="sr-only">Search the collection by name or note</label>
+        <svg aria-hidden="true"><use href="#icon-search"></use></svg>
+        <input type="search" id="collectionSearch" placeholder="Search by name or note…" autocomplete="off">
+        <button type="button" class="search-field__clear" id="searchClear" aria-label="Clear search" hidden>
+          <svg aria-hidden="true"><use href="#icon-close"></use></svg>
+        </button>
+      </div>
+    </div>
+
+    <p class="sr-only" id="collectionStatus" role="status" aria-live="polite"></p>
+    <div class="product-grid" id="productGrid" aria-busy="false"></div>
+
+    <div class="collection-state" id="collectionEmpty" hidden>
+      <svg aria-hidden="true"><use href="#icon-empty"></use></svg>
+      <h3 class="collection-state__title">Nothing matches, yet.</h3>
+      <p class="collection-state__body">No compositions match that search or filter combination. Try a different note, or clear what you've set.</p>
+      <button type="button" class="btn btn--sm" id="collectionClearFilters">Clear filters</button>
+    </div>
+
+    <div class="collection-state collection-state--error" id="collectionError" role="alert" hidden>
+      <svg aria-hidden="true"><use href="#icon-alert"></use></svg>
+      <h3 class="collection-state__title">The collection couldn't be displayed.</h3>
+      <p class="collection-state__body">Something interrupted the render. This usually resolves itself — try again.</p>
+      <button type="button" class="btn btn--sm" id="collectionRetry">Retry</button>
+    </div>
+  </div>
+</section>
+<!-- ======================================================================
+     Materials
+     ====================================================================== -->
+<section class="section section--tight" id="materials">
+  <div class="container container--wide">
+    <p class="eyebrow eyebrow--accent is-visible" data-reveal>The Bench</p>
+    <h2 class="h2 materials__intro is-visible" data-reveal style="--reveal-delay:80ms">A short list of materials.</h2>
+    <p class="lead materials__intro is-visible" data-reveal style="--reveal-delay:160ms">
+      We keep a small palette on purpose. Every material below earns its
+      place in more than one composition, or it doesn't stay on the bench.
+    </p>
+
+    <div class="materials-list">
+      <div class="material is-visible" data-reveal>
+        <button type="button" class="material__trigger" aria-expanded="false" aria-controls="material-panel-1" id="material-trigger-1">
+          <span class="material__name">Iris Pallida Butter</span>
+          <svg class="material__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="material__panel" id="material-panel-1" role="region" aria-labelledby="material-trigger-1">
+          <div class="material__panel-inner">
+            <p class="material__desc">Rhizomes rested three years before the still ever sees them — most of the cost of iris is patience, not the plant.</p>
+            <div class="material__used"><span class="material__used-label">Used in</span><span class="material__tag">Aube</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="material is-visible" data-reveal>
+        <button type="button" class="material__trigger" aria-expanded="false" aria-controls="material-panel-2" id="material-trigger-2">
+          <span class="material__name">Ambrette Seed Absolute</span>
+          <svg class="material__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="material__panel" id="material-panel-2" role="region" aria-labelledby="material-trigger-2">
+          <div class="material__panel-inner">
+            <p class="material__desc">A marine, skin-like musk pressed from a seed, not drawn from any animal. It reads as warmth rather than scent.</p>
+            <div class="material__used"><span class="material__used-label">Used in</span><span class="material__tag">Aube</span><span class="material__tag">Heure Grise</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="material is-visible" data-reveal>
+        <button type="button" class="material__trigger" aria-expanded="false" aria-controls="material-panel-3" id="material-trigger-3">
+          <span class="material__name">Frankincense Resinoid</span>
+          <svg class="material__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="material__panel" id="material-panel-3" role="region" aria-labelledby="material-trigger-3">
+          <div class="material__panel-inner">
+            <p class="material__desc">Tapped in tears, dissolved slowly, and kept back for the evening compositions — it carries better once the light has gone low.</p>
+            <div class="material__used"><span class="material__used-label">Used in</span><span class="material__tag">Vêpres</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="material is-visible" data-reveal>
+        <button type="button" class="material__trigger" aria-expanded="false" aria-controls="material-panel-4" id="material-trigger-4">
+          <span class="material__name">Hay Absolute</span>
+          <svg class="material__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="material__panel" id="material-panel-4" role="region" aria-labelledby="material-trigger-4">
+          <div class="material__panel-inner">
+            <p class="material__desc">Cut, dried, and turned twice before it ever meets a still. The green fades out; what's left is warmer, closer to skin.</p>
+            <div class="material__used"><span class="material__used-label">Used in</span><span class="material__tag">Foin Coupé</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="material is-visible" data-reveal>
+        <button type="button" class="material__trigger" aria-expanded="false" aria-controls="material-panel-5" id="material-trigger-5">
+          <span class="material__name">Labdanum Absolute</span>
+          <svg class="material__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="material__panel" id="material-panel-5" role="region" aria-labelledby="material-trigger-5">
+          <div class="material__panel-inner">
+            <p class="material__desc">The dark amber heart of every resin accord we build — leathery, faintly sweet, and honest about being resinous.</p>
+            <div class="material__used"><span class="material__used-label">Used in</span><span class="material__tag">Vêpres</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="material is-visible" data-reveal>
+        <button type="button" class="material__trigger" aria-expanded="false" aria-controls="material-panel-6" id="material-trigger-6">
+          <span class="material__name">Vetiver Bourbon</span>
+          <svg class="material__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="material__panel" id="material-panel-6" role="region" aria-labelledby="material-trigger-6">
+          <div class="material__panel-inner">
+            <p class="material__desc">Roots washed by hand and rested twelve months before harvest — smoked lightly in the base of Minuit, left raw everywhere else.</p>
+            <div class="material__used"><span class="material__used-label">Used in</span><span class="material__tag">Minuit</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     Maison — philosophy + numbered principles
+     ====================================================================== -->
+<section class="section" id="maison">
+  <div class="container container--text">
+    <p class="eyebrow eyebrow--accent is-visible" data-reveal>The Maison</p>
+    <h2 class="h1 is-visible" data-reveal style="--reveal-delay:100ms;margin-top:var(--sp-4)">The house, briefly.</h2>
+    <p class="opening__text is-visible" data-reveal style="--reveal-delay:160ms;margin-top:var(--sp-7)">
+      Pénombre keeps one bench and a small house, and writes perfume for
+      the half-light — the hours that belong fully to neither the day nor
+      the dark. We're interested in the thresholds: the cold blue before
+      sunrise, the stone cooling at dusk, the narrow quiet at midnight.
+    </p>
+    <p class="opening__text is-visible" data-reveal style="--reveal-delay:220ms">
+      What follows isn't a history. It's how we work, in four short rules
+      we try not to break.
+    </p>
+  </div>
+
+  <div class="container container--wide">
+    <ol class="principles__list">
+      <li class="principle is-visible" data-reveal>
+        <span class="principle__n" aria-hidden="true">01</span>
+        <div class="principle__head"><h3 class="principle__title h2">On materials</h3></div>
+        <div class="principle__body prose">
+          <p>We buy few things, and only when they earn it. Certain naturals — iris, the resins, the absolutes — can't yet be replaced without losing what made us choose them in the first place.</p>
+          <p>Where a synthetic carries an idea further, cleaner or kinder than the natural it stands in for, we use it, and we say so. A composition is judged by what it does on skin, not by the price of what went into the beaker.</p>
+        </div>
+      </li>
+      <li class="principle is-visible" data-reveal>
+        <span class="principle__n" aria-hidden="true">02</span>
+        <div class="principle__head"><h3 class="principle__title h2">On slowness</h3></div>
+        <div class="principle__body prose">
+          <p>A formula sits on the bench for months before it earns a name. We wear it, forget it, and come back changed — a composition that smells finished on Monday rarely still is by Friday.</p>
+          <p>Nothing here answers to a launch calendar. It's released when it's right, and not one day before.</p>
+        </div>
+      </li>
+      <li class="principle is-visible" data-reveal>
+        <span class="principle__n" aria-hidden="true">03</span>
+        <div class="principle__head"><h3 class="principle__title h2">On restraint</h3></div>
+        <div class="principle__body prose">
+          <p>The hardest note in any formula is the one we leave out. A scent built to please a whole room tends to end up belonging to no one in it.</p>
+          <p>We'd rather make something small and exact than loud and approximate. Every Pénombre is built to be noticed by the person standing close, and almost no further.</p>
+        </div>
+      </li>
+      <li class="principle is-visible" data-reveal>
+        <span class="principle__n" aria-hidden="true">04</span>
+        <div class="principle__head"><h3 class="principle__title h2">On the hour</h3></div>
+        <div class="principle__body prose">
+          <p>Each composition is written for a single hour, not a season or an occasion. Dawn asks for something different than midnight does, and we don't pretend otherwise.</p>
+          <p>Wear the hour you're in, or the one you're walking toward. It's the only rule that's held since the bench was one table in one room.</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+<!-- ======================================================================
+     Process — from bench to bottle, and the five hours
+     ====================================================================== -->
+<section class="section" id="process">
+  <div class="container container--wide">
+    <p class="eyebrow eyebrow--accent is-visible" data-reveal>From Bench to Bottle</p>
+    <h2 class="h1 is-visible" data-reveal style="--reveal-delay:80ms">How a composition is made.</h2>
+    <p class="lead is-visible" data-reveal style="--reveal-delay:160ms;max-width:34rem">
+      Four stages, none of them fast. A bottle that reaches you has usually
+      spent longer resting than it did being written.
+    </p>
+
+    <ol class="process-steps">
+      <li class="process-step is-visible" data-reveal>
+        <p class="process-step__n">01</p>
+        <h3 class="process-step__title">Accord</h3>
+        <p class="process-step__body">Every composition starts on paper — a short list of materials and the one relationship between them we're trying to prove.</p>
+      </li>
+      <li class="process-step is-visible" data-reveal style="--reveal-delay:60ms">
+        <p class="process-step__n">02</p>
+        <h3 class="process-step__title">Bench</h3>
+        <p class="process-step__body">Weeks, sometimes months, of small adjustments. A formula rests between each one; we don't trust a decision made the same day it was written.</p>
+      </li>
+      <li class="process-step is-visible" data-reveal style="--reveal-delay:120ms">
+        <p class="process-step__n">03</p>
+        <h3 class="process-step__title">Assembly</h3>
+        <p class="process-step__body">Finished accords are married in the exact ratio the bench settled on, then rested once more before a single bottle is filled.</p>
+      </li>
+      <li class="process-step is-visible" data-reveal style="--reveal-delay:180ms">
+        <p class="process-step__n">04</p>
+        <h3 class="process-step__title">Decant</h3>
+        <p class="process-step__body">Each bottle and decant is hand-filled and labelled in Paris, with samples chosen to match what you ordered.</p>
+      </li>
+    </ol>
+
+    <div class="hours is-visible" data-reveal>
+      <h3 class="hours__title">The five hours.</h3>
+      <div class="hours__rail">
+        <div class="hour-stop">
+          <p class="hour-stop__time">Dawn</p>
+          <p class="hour-stop__name">Aube</p>
+          <p class="hour-stop__note">The cold blue quarter-hour before the city wakes.</p>
+        </div>
+        <div class="hour-stop">
+          <p class="hour-stop__time">Grey Hour</p>
+          <p class="hour-stop__name">Heure Grise</p>
+          <p class="hour-stop__note">Neither bright nor dim — the hour that asks nothing of you.</p>
+        </div>
+        <div class="hour-stop">
+          <p class="hour-stop__time">Afternoon</p>
+          <p class="hour-stop__name">Foin Coupé</p>
+          <p class="hour-stop__note">A field, mown at noon, still warm by four.</p>
+        </div>
+        <div class="hour-stop">
+          <p class="hour-stop__time">Vespers</p>
+          <p class="hour-stop__name">Vêpres</p>
+          <p class="hour-stop__note">The bell that closes the working day.</p>
+        </div>
+        <div class="hour-stop">
+          <p class="hour-stop__time">Midnight</p>
+          <p class="hour-stop__name">Minuit</p>
+          <p class="hour-stop__note">The narrow stillness at the centre of the night.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     Quote band — forced light theme, a deliberate pause mid-page
+     ====================================================================== -->
+<section class="quote-band bleed" data-theme="light">
+  <div class="container container--text">
+    <blockquote class="quote-band__text is-visible" data-reveal>
+      A house stays a house by refusing to become anything larger.
+    </blockquote>
+    <p class="meta quote-band__attr is-visible" data-reveal style="--reveal-delay:120ms">— the working note pinned above the bench</p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     FAQ
+     ====================================================================== -->
+<section class="section section--tight" id="faq">
+  <div class="container container--wide">
+    <p class="eyebrow eyebrow--accent is-visible" data-reveal>Questions</p>
+    <h2 class="h1 is-visible" data-reveal style="--reveal-delay:80ms">Answered plainly.</h2>
+
+    <div class="faq-list">
+      <div class="faq-item is-visible" data-reveal>
+        <button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-1" id="faq-trigger-1">
+          <span class="faq-item__q">What's the difference between the decant and the extrait?</span>
+          <svg class="faq-item__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1">
+          <div class="faq-item__panel-inner"><p>The 15ml decant is drawn from the same finished batch as the 50ml extrait — same concentration, same bench, a smaller vial. Nothing is diluted for the smaller size.</p></div>
+        </div>
+      </div>
+      <div class="faq-item is-visible" data-reveal>
+        <button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-2" id="faq-trigger-2">
+          <span class="faq-item__q">Can I try before I choose a full size?</span>
+          <svg class="faq-item__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2">
+          <div class="faq-item__panel-inner"><p>Yes. The discovery set carries five 2ml vials, one for every hour, and its cost is credited toward your first full-size order.</p></div>
+        </div>
+      </div>
+      <div class="faq-item is-visible" data-reveal>
+        <button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-3" id="faq-trigger-3">
+          <span class="faq-item__q">Do you ship outside Paris?</span>
+          <svg class="faq-item__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3">
+          <div class="faq-item__panel-inner"><p>We dispatch from the atelier to most territories within two working days of an order. A written note will confirm timing for yours before you're charged.</p></div>
+        </div>
+      </div>
+      <div class="faq-item is-visible" data-reveal>
+        <button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-4" id="faq-trigger-4">
+          <span class="faq-item__q">Is anything tested on animals?</span>
+          <svg class="faq-item__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4">
+          <div class="faq-item__panel-inner"><p>No. It never has been, and it won't be — that's a condition of working here, not a claim we renew every year.</p></div>
+        </div>
+      </div>
+      <div class="faq-item is-visible" data-reveal>
+        <button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-5" id="faq-trigger-5">
+          <span class="faq-item__q">How should I store a bottle?</span>
+          <svg class="faq-item__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5">
+          <div class="faq-item__panel-inner"><p>Upright, capped, away from direct light and from the swing of a bathroom's humidity. A cool drawer will always outlast a windowsill.</p></div>
+        </div>
+      </div>
+      <div class="faq-item is-visible" data-reveal>
+        <button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-6" id="faq-trigger-6">
+          <span class="faq-item__q">Can I exchange a scent that isn't right for me?</span>
+          <svg class="faq-item__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-6" role="region" aria-labelledby="faq-trigger-6">
+          <div class="faq-item__panel-inner"><p>Within thirty days, yes, provided the seal is unbroken. Write to the atelier first — we'll usually suggest a better match before we process anything.</p></div>
+        </div>
+      </div>
+      <div class="faq-item is-visible" data-reveal>
+        <button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-7" id="faq-trigger-7">
+          <span class="faq-item__q">Can I visit the atelier?</span>
+          <svg class="faq-item__chevron" aria-hidden="true"><use href="#icon-chevron"></use></svg>
+        </button>
+        <div class="faq-item__panel" id="faq-panel-7" role="region" aria-labelledby="faq-trigger-7">
+          <div class="faq-item__panel-inner"><p>By written appointment only. We keep a small bench and a smaller room, and we'd rather give you both our full attention than an open door.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ======================================================================
+     Contact
+     ====================================================================== -->
+<section class="section" id="contact">
+  <div class="container container--wide">
+    <p class="eyebrow eyebrow--accent is-visible" data-reveal>Write to the Maison</p>
+    <h2 class="h1 is-visible" data-reveal style="--reveal-delay:80ms">Begin a correspondence.</h2>
+
+    <div class="contact__grid">
+      <div class="contact__info is-visible" data-reveal style="--reveal-delay:120ms">
+        <p class="lead">Written enquiries reach the bench directly — no call centre stands between you and the person who answers. Expect a reply within two working days.</p>
+        <p class="dim">Press and stockist enquiries are welcome through the same form; choose the reason that fits and we'll route it by hand.</p>
+
+        <div class="contact__details">
+          <p class="contact__detail-row">
+            <svg aria-hidden="true"><use href="#icon-mail"></use></svg>
+            <span class="ui">atelier@penombre.example</span>
+            <button type="button" class="contact__copy-btn" id="copyEmailBtn" data-copy-value="atelier@penombre.example">Copy</button>
+          </p>
+          <p class="contact__detail-row">
+            <svg aria-hidden="true"><use href="#icon-pin"></use></svg>
+            <span class="ui">The atelier, Paris — by written appointment only</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="is-visible" data-reveal style="--reveal-delay:180ms">
+        <form class="contact-form" id="contactForm" novalidate>
+          <div class="form-banner form-banner--error" id="contactBanner" role="alert" hidden>
+            <svg aria-hidden="true"><use href="#icon-alert"></use></svg>
+            <span id="contactBannerText">Please correct the fields below before sending.</span>
+          </div>
+
+          <div id="contactFields">
+            <div class="contact-form__row">
+              <div class="field">
+                <label class="field__label" for="ct-name">Name</label>
+                <input class="field__control" type="text" id="ct-name" name="name" autocomplete="name" required aria-describedby="ct-name-error">
+                <p class="field__error" id="ct-name-error" hidden></p>
+              </div>
+              <div class="field">
+                <label class="field__label" for="ct-email">Email address</label>
+                <input class="field__control" type="email" id="ct-email" name="email" autocomplete="email" required aria-describedby="ct-email-error">
+                <p class="field__error" id="ct-email-error" hidden></p>
+              </div>
+            </div>
+
+            <div class="field" style="margin-top:var(--sp-5)">
+              <label class="field__label" for="ct-reason">Reason for writing</label>
+              <select class="field__control" id="ct-reason" name="reason" required aria-describedby="ct-reason-error">
+                <option value="">Choose one…</option>
+                <option value="general">General enquiry</option>
+                <option value="order">Order or dispatch</option>
+                <option value="press">Press</option>
+                <option value="stockist">Stockist enquiry</option>
+                <option value="consultation">Private consultation</option>
+              </select>
+              <p class="field__error" id="ct-reason-error" hidden></p>
+            </div>
+
+            <div class="field" style="margin-top:var(--sp-5)">
+              <label class="field__label" for="ct-message">Message</label>
+              <textarea class="field__control" id="ct-message" name="message" required aria-describedby="ct-message-error"></textarea>
+              <p class="field__error" id="ct-message-error" hidden></p>
+            </div>
+
+            <div class="field-check" style="margin-top:var(--sp-5)">
+              <input type="checkbox" id="ct-consent" name="consent">
+              <label for="ct-consent">I'd like the occasional letter from the house. (Optional — you can also subscribe below.)</label>
+            </div>
+
+            <div class="contact-form__actions">
+              <button type="submit" class="btn btn--solid" id="contactSubmit">
+                <span class="spinner" aria-hidden="true"></span>
+                <span id="contactSubmitLabel">Send to the Atelier</span>
+              </button>
+              <p class="meta" id="contactSubmitHint">Fields marked required must be complete before sending.</p>
+            </div>
+          </div>
+
+          <div class="form-success" id="contactSuccess" hidden>
+            <span class="icon-badge"><svg aria-hidden="true"><use href="#icon-check"></use></svg></span>
+            <span>Thank you. Your note has reached the bench — expect a reply within two working days.</span>
+            <button type="button" class="link link--draw" id="contactReset">Write another note<span class="arrow" aria-hidden="true">→</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg aria-hidden="true"><use href="#icon-arrow-down"></use></svg>
+</button>
+
+<footer class="site-footer bleed" data-theme="dark">
+  <div class="container container--wide">
+    <div class="site-footer__top">
+      <div class="site-footer__lede is-visible" data-reveal>
+        <p class="eyebrow eyebrow--accent">Letters from the House</p>
+        <h2 class="h2 site-footer__statement">Short notes on new compositions and the boutique. Nothing more.</h2>
+      </div>
+      <form class="newsletter is-visible" id="newsletterForm" data-reveal novalidate>
+        <div class="field">
+          <label class="field__label" for="nl-email">Email address</label>
+          <div class="newsletter__row">
+            <input class="field__control" type="email" id="nl-email" name="email" autocomplete="email" placeholder="you@example.com" required aria-describedby="nl-email-error">
+            <button class="btn newsletter__btn" type="submit" id="newsletterSubmit">
+              <span class="spinner" aria-hidden="true"></span>
+              <span id="newsletterSubmitLabel">Subscribe</span>
+            </button>
+          </div>
+          <p class="field__error" id="nl-email-error" hidden></p>
+          <p class="field__success" id="nl-success" hidden>Thank you. Look for the first letter soon.</p>
+        </div>
+      </form>
+    </div>
+
+    <hr class="divider site-footer__rule">
+
+    <div class="site-footer__grid">
+      <div class="site-footer__brand">
+        <a href="#top" class="wordmark wordmark--footer">Pénombre</a>
+        <p class="meta site-footer__city">Maison de Parfum · Paris</p>
+      </div>
+      <nav class="site-footer__col" aria-label="The collection">
+        <p class="site-footer__heading">The Collection</p>
+        <ul>
+          <li><a href="#product-aube" class="site-footer__link" data-product-link="aube">Aube</a></li>
+          <li><a href="#product-heure-grise" class="site-footer__link" data-product-link="heure-grise">Heure Grise</a></li>
+          <li><a href="#product-foin-coupe" class="site-footer__link" data-product-link="foin-coupe">Foin Coupé</a></li>
+          <li><a href="#product-vepres" class="site-footer__link" data-product-link="vepres">Vêpres</a></li>
+          <li><a href="#product-minuit" class="site-footer__link" data-product-link="minuit">Minuit</a></li>
+        </ul>
+      </nav>
+      <nav class="site-footer__col" aria-label="The house">
+        <p class="site-footer__heading">The House</p>
+        <ul>
+          <li><a href="#maison" class="site-footer__link">Maison</a></li>
+          <li><a href="#materials" class="site-footer__link">Materials</a></li>
+          <li><a href="#process" class="site-footer__link">Process</a></li>
+          <li><a href="#faq" class="site-footer__link">Questions</a></li>
+        </ul>
+      </nav>
+      <div class="site-footer__col">
+        <p class="site-footer__heading">The Boutique</p>
+        <p class="meta site-footer__practical">Orders are dispatched from the atelier within two working days, each with samples chosen to match. Written enquiries are answered in person.</p>
+        <a href="#contact" class="link link--draw">Write to the house <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+
+    <div class="site-footer__bottom">
+      <p class="meta">© <span id="copyYear">2026</span> Pénombre. All rights reserved.</p>
+      <p class="meta site-footer__sign">For the hours the day forgets.</p>
+    </div>
+  </div>
+</footer>
+<script>
+(function () {
+  'use strict';
+
+  function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+  function $$(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+  function reduceMotion() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function formatEUR(n) { return '€' + n.toLocaleString('fr-FR'); }
+
+  /* ------------------------------------------------------------
+     Canonical collection data. One source of truth: the grid, the
+     footer deep-links, the bag and the checkout prefill all read
+     from this array rather than duplicating copy in markup.
+     ------------------------------------------------------------ */
+  var PRODUCTS = [
+    {
+      id: 'aube', name: 'Aube', hour: 'Dawn', family: 'iris-green', familyLabel: 'Green & Iris',
+      blurb: 'The cold blue quarter-hour before the city wakes.',
+      top: 'Bergamot, blackcurrant bud', heart: 'Iris pallida, violet leaf', base: 'White musk, ambrette',
+      story: 'Written to smell like the light does at 5am — thin, a little green, not yet warm.',
+      sizes: [{ label: '15ml decant', price: 68 }, { label: '50ml extrait', price: 185 }],
+      limited: false
+    },
+    {
+      id: 'heure-grise', name: 'Heure Grise', hour: 'Grey Hour', family: 'amber-skin', familyLabel: 'Amber & Skin',
+      blurb: 'Neither bright nor dim — the hour that asks nothing of you.',
+      top: 'Pink pepper, fig leaf', heart: 'Cashmere wood accord, iris', base: 'Ambrette, soft musk',
+      story: 'The closest thing the house makes to a second skin. Worn more than any other in the collection.',
+      sizes: [{ label: '15ml decant', price: 72 }, { label: '50ml extrait', price: 195 }],
+      limited: false
+    },
+    {
+      id: 'foin-coupe', name: 'Foin Coupé', hour: 'Afternoon', family: 'green-woody', familyLabel: 'Green & Woody',
+      blurb: 'A field, mown at noon, still warm by four.',
+      top: 'Cut-grass accord, mandarin', heart: 'Hay absolute, clover', base: 'Tonka bean, oakmoss accord',
+      story: 'Built around a single hay absolute; everything else is there to keep it from turning sweet.',
+      sizes: [{ label: '15ml decant', price: 68 }, { label: '50ml extrait', price: 185 }],
+      limited: false
+    },
+    {
+      id: 'vepres', name: 'Vêpres', hour: 'Vespers', family: 'amber-resin', familyLabel: 'Amber & Resin',
+      blurb: 'The bell that closes the working day.',
+      top: 'Elemi, pink pepper', heart: 'Frankincense, labdanum', base: 'Benzoin, dry amber',
+      story: 'The warmest composition we make, and the slowest to develop — give it twenty minutes on skin.',
+      sizes: [{ label: '15ml decant', price: 74 }, { label: '50ml extrait', price: 205 }],
+      limited: false
+    },
+    {
+      id: 'minuit', name: 'Minuit', hour: 'Midnight', family: 'woody-leather', familyLabel: 'Woody & Leather',
+      blurb: 'The narrow stillness at the centre of the night.',
+      top: 'Black pepper, cardamom', heart: 'Dark rose, leather accord', base: 'Vetiver, smoked woods',
+      story: 'A limited bench run — the smoked vetiver base takes longer to prepare than the rest of the collection combined.',
+      sizes: [{ label: '15ml decant', price: 78 }, { label: '50ml extrait', price: 215 }],
+      limited: true
+    },
+    {
+      id: 'discovery', name: 'The Discovery Set', hour: 'All Five Hours', family: 'discovery', familyLabel: 'Sampler',
+      blurb: 'One 2ml vial of each composition, for the hour you haven’t met yet.',
+      top: 'All five top accords', heart: 'All five heart accords', base: 'All five base accords',
+      story: 'The cost of the set is credited toward your first full-size order, so trying everything costs nothing in the end.',
+      sizes: [{ label: '5 × 2ml vials', price: 48 }],
+      limited: false, isDiscovery: true
+    }
+  ];
+
+  var MATERIAL_BY_PRODUCT = {}; // reserved for future cross-linking; kept intentionally small
+
+  /* ------------------------------------------------------------
+     Shared state
+     ------------------------------------------------------------ */
+  var state = {
+    filter: 'all',
+    query: '',
+    bag: [], // [{id, qty}]
+    requestToken: 0
+  };
+
+  var BAG_STORAGE_KEY = 'penombre-bag-v1';
+  var THEME_STORAGE_KEY = 'penombre-theme-v1';
+
+  /* ------------------------------------------------------------
+     Header scroll state
+     ------------------------------------------------------------ */
+  function initHeaderScroll() {
+    var header = $('#siteHeader');
+    if (!header) return;
+    var ticking = false;
+    function update() {
+      header.classList.toggle('is-scrolled', window.scrollY > 20);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  }
+
+  /* ------------------------------------------------------------
+     Theme toggle — Lumière (light) / Nocturne (dark). Defaults to
+     dark (the house's own choice) unless the visitor has already
+     told us otherwise, or the OS prefers light and we've never
+     been asked before.
+     ------------------------------------------------------------ */
+  function initThemeToggle() {
+    var root = document.documentElement;
+    var buttons = $$('#themeToggle, #themeToggleMobile');
+    if (!buttons.length) return;
+
+    function apply(theme, persist) {
+      if (theme === 'light') { root.setAttribute('data-theme', 'light'); }
+      else { root.removeAttribute('data-theme'); }
+      buttons.forEach(function (btn) {
+        btn.setAttribute('aria-pressed', theme === 'light' ? 'true' : 'false');
+        var icon = $('svg use', btn);
+        if (icon) icon.setAttribute('href', theme === 'light' ? '#icon-sun' : '#icon-moon');
+        var label = btn.querySelector('span:last-child');
+        if (label) label.textContent = theme === 'light' ? 'Nocturne' : 'Lumière';
+      });
+      if (persist) { try { window.localStorage.setItem(THEME_STORAGE_KEY, theme); } catch (e) { /* private mode: ignore */ } }
+    }
+
+    var saved = null;
+    try { saved = window.localStorage.getItem(THEME_STORAGE_KEY); } catch (e) { /* ignore */ }
+    if (saved === 'light' || saved === 'dark') {
+      apply(saved, false);
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      apply('light', false);
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var current = root.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+        apply(current === 'light' ? 'dark' : 'light', true);
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Generic focus trap for dialog-like overlays (mobile menu, bag)
+     ------------------------------------------------------------ */
+  function trapFocus(container, onEscape) {
+    function handler(e) {
+      if (e.key === 'Escape') { onEscape(); return; }
+      if (e.key !== 'Tab') return;
+      var focusables = $$('a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])', container)
+        .filter(function (el) { return el.offsetParent !== null; });
+      if (!focusables.length) return;
+      var first = focusables[0], last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+    container.addEventListener('keydown', handler);
+    return function () { container.removeEventListener('keydown', handler); };
+  }
+
+  /* ------------------------------------------------------------
+     Mobile menu
+     ------------------------------------------------------------ */
+  function initMobileMenu() {
+    var toggle = $('#menuToggle');
+    var closeBtn = $('#menuClose');
+    var menu = $('#mobileMenu');
+    if (!toggle || !menu) return;
+    var untrap = null;
+
+    function open() {
+      menu.hidden = false;
+      requestAnimationFrame(function () { menu.classList.add('is-open'); });
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      untrap = trapFocus(menu, close);
+      var firstLink = $('.overlay-menu__link', menu);
+      if (firstLink) firstLink.focus();
+    }
+    function close() {
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      if (untrap) { untrap(); untrap = null; }
+      toggle.focus();
+      window.setTimeout(function () { if (!menu.classList.contains('is-open')) menu.hidden = true; }, reduceMotion() ? 0 : 400);
+    }
+    toggle.addEventListener('click', open);
+    if (closeBtn) closeBtn.addEventListener('click', close);
+    $$('[data-menu-link]', menu).forEach(function (link) { link.addEventListener('click', close); });
+    menu.__close = close;
+  }
+
+  /* ------------------------------------------------------------
+     Bag drawer shell (open/close). Item rendering lives in the
+     bag-state module below, which shares this drawer's DOM.
+     ------------------------------------------------------------ */
+  var bagUntrap = null;
+  function openBagDrawer() {
+    var scrim = $('#bagScrim'), drawer = $('#bagDrawer'), toggle = $('#bagToggle');
+    if (!scrim || !drawer) return;
+    scrim.hidden = false;
+    drawer.hidden = false;
+    requestAnimationFrame(function () { scrim.classList.add('is-open'); drawer.classList.add('is-open'); });
+    drawer.setAttribute('aria-hidden', 'false');
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    bagUntrap = trapFocus(drawer, closeBagDrawer);
+    var closeBtn = $('#bagClose');
+    if (closeBtn) closeBtn.focus();
+  }
+  function closeBagDrawer() {
+    var scrim = $('#bagScrim'), drawer = $('#bagDrawer'), toggle = $('#bagToggle');
+    if (!scrim || !drawer) return;
+    scrim.classList.remove('is-open');
+    drawer.classList.remove('is-open');
+    drawer.setAttribute('aria-hidden', 'true');
+    if (toggle) { toggle.setAttribute('aria-expanded', 'false'); toggle.focus(); }
+    document.body.style.overflow = '';
+    if (bagUntrap) { bagUntrap(); bagUntrap = null; }
+    window.setTimeout(function () {
+      if (!drawer.classList.contains('is-open')) { scrim.hidden = true; drawer.hidden = true; }
+    }, reduceMotion() ? 0 : 400);
+  }
+  function initBagDrawer() {
+    var toggle = $('#bagToggle'), scrim = $('#bagScrim'), closeBtn = $('#bagClose');
+    if (!toggle) return;
+    toggle.addEventListener('click', openBagDrawer);
+    if (scrim) scrim.addEventListener('click', closeBagDrawer);
+    if (closeBtn) closeBtn.addEventListener('click', closeBagDrawer);
+    $$('[data-bag-close]').forEach(function (el) { el.addEventListener('click', closeBagDrawer); });
+  }
+  /* ------------------------------------------------------------
+     Toast — single reusable confirmation, auto-dismiss, manual
+     close, aria-live region already wraps it in markup.
+     ------------------------------------------------------------ */
+  var toastTimer = null;
+  function showToast(message) {
+    var toast = $('#toast'), msg = $('#toastMsg');
+    if (!toast || !msg) return;
+    msg.textContent = message;
+    toast.hidden = false;
+    requestAnimationFrame(function () { toast.classList.add('is-visible'); });
+    if (toastTimer) window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(hideToast, 4200);
+  }
+  function hideToast() {
+    var toast = $('#toast');
+    if (!toast) return;
+    toast.classList.remove('is-visible');
+    window.setTimeout(function () { if (!toast.classList.contains('is-visible')) toast.hidden = true; }, reduceMotion() ? 0 : 320);
+  }
+  function initToast() {
+    var dismiss = $('#toastDismiss');
+    if (dismiss) dismiss.addEventListener('click', function () { if (toastTimer) window.clearTimeout(toastTimer); hideToast(); });
+  }
+
+  /* ------------------------------------------------------------
+     Bag state — persisted to localStorage so a reload doesn't
+     silently empty a visitor's bag.
+     ------------------------------------------------------------ */
+  function loadBag() {
+    try {
+      var raw = window.localStorage.getItem(BAG_STORAGE_KEY);
+      if (!raw) return;
+      var parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        state.bag = parsed.filter(function (row) {
+          return row && typeof row.id === 'string' && PRODUCTS.some(function (p) { return p.id === row.id; });
+        });
+      }
+    } catch (e) { /* corrupt or unavailable storage: start empty, don't throw */ }
+  }
+  function persistBag() {
+    try { window.localStorage.setItem(BAG_STORAGE_KEY, JSON.stringify(state.bag)); } catch (e) { /* ignore */ }
+  }
+  function findProduct(id) { return PRODUCTS.filter(function (p) { return p.id === id; })[0]; }
+  function bagLine(id) { return state.bag.filter(function (r) { return r.id === id; })[0]; }
+
+  function addToBag(id) {
+    var product = findProduct(id);
+    if (!product || product.limited) return;
+    var line = bagLine(id);
+    if (line) { line.qty += 1; } else { state.bag.push({ id: id, qty: 1 }); }
+    persistBag();
+    renderBag();
+    openBagDrawer();
+  }
+  function changeQty(id, delta) {
+    var line = bagLine(id);
+    if (!line) return;
+    line.qty += delta;
+    if (line.qty <= 0) { removeFromBag(id, true); return; }
+    persistBag();
+    renderBag();
+  }
+  function removeFromBag(id, silent) {
+    var product = findProduct(id);
+    state.bag = state.bag.filter(function (r) { return r.id !== id; });
+    persistBag();
+    renderBag();
+    if (!silent && product) showToast('Removed ' + product.name + ' from your bag.');
+  }
+  function computeSubtotal() {
+    return state.bag.reduce(function (sum, row) {
+      var product = findProduct(row.id);
+      if (!product) return sum;
+      return sum + product.sizes[product.sizes.length - 1].price * row.qty;
+    }, 0);
+  }
+
+  function renderBag() {
+    var list = $('#bagList'), empty = $('#bagEmpty'), foot = $('#bagFoot');
+    var count = $('#bagCount'), countLabel = $('#bagCountLabel'), toggle = $('#bagToggle');
+    if (!list) return;
+
+    var totalItems = state.bag.reduce(function (s, r) { return s + r.qty; }, 0);
+    if (count) count.textContent = String(totalItems);
+    if (countLabel) countLabel.textContent = totalItems + (totalItems === 1 ? ' item in bag' : ' items in bag');
+    if (toggle) toggle.setAttribute('data-filled', totalItems > 0 ? 'true' : 'false');
+
+    if (!state.bag.length) {
+      list.hidden = true;
+      list.innerHTML = '';
+      if (empty) empty.hidden = false;
+      if (foot) foot.hidden = true;
+      return;
+    }
+    if (empty) empty.hidden = true;
+    list.hidden = false;
+    if (foot) foot.hidden = false;
+
+    list.innerHTML = state.bag.map(function (row) {
+      var product = findProduct(row.id);
+      if (!product) return '';
+      var size = product.sizes[product.sizes.length - 1];
+      return '' +
+        '<li class="bag-item" data-bag-row="' + escapeHtml(product.id) + '">' +
+          '<div>' +
+            '<p class="bag-item__name">' + escapeHtml(product.name) + '</p>' +
+            '<p class="meta bag-item__meta">' + escapeHtml(size.label) + ' · ' + escapeHtml(product.hour) + '</p>' +
+          '</div>' +
+          '<div class="bag-item__side">' +
+            '<p class="bag-item__price">' + formatEUR(size.price * row.qty) + '</p>' +
+            '<div class="bag-item__qty">' +
+              '<button type="button" data-qty-minus="' + escapeHtml(product.id) + '" aria-label="Decrease quantity of ' + escapeHtml(product.name) + '">−</button>' +
+              '<span aria-hidden="true">' + row.qty + '</span>' +
+              '<button type="button" data-qty-plus="' + escapeHtml(product.id) + '" aria-label="Increase quantity of ' + escapeHtml(product.name) + '">+</button>' +
+            '</div>' +
+            '<button type="button" class="bag-item__remove" data-bag-remove="' + escapeHtml(product.id) + '">Remove</button>' +
+          '</div>' +
+        '</li>';
+    }).join('');
+
+    var subtotalEl = $('#bagSubtotal');
+    if (subtotalEl) subtotalEl.textContent = formatEUR(computeSubtotal());
+  }
+
+  function initBagInteractions() {
+    var list = $('#bagList');
+    if (list) {
+      list.addEventListener('click', function (e) {
+        var minus = e.target.closest('[data-qty-minus]');
+        var plus = e.target.closest('[data-qty-plus]');
+        var remove = e.target.closest('[data-bag-remove]');
+        if (minus) changeQty(minus.getAttribute('data-qty-minus'), -1);
+        else if (plus) changeQty(plus.getAttribute('data-qty-plus'), 1);
+        else if (remove) removeFromBag(remove.getAttribute('data-bag-remove'));
+      });
+    }
+    var checkout = $('#bagCheckout');
+    if (checkout) {
+      checkout.addEventListener('click', function () {
+        var lines = state.bag.map(function (row) {
+          var product = findProduct(row.id);
+          if (!product) return '';
+          var size = product.sizes[product.sizes.length - 1];
+          return row.qty + ' × ' + product.name + ' (' + size.label + ')';
+        }).filter(Boolean);
+        var textarea = $('#ct-message');
+        var reasonSelect = $('#ct-reason');
+        if (textarea && lines.length) {
+          textarea.value = 'I would like to order:\n' + lines.join('\n') + '\n\n';
+        }
+        if (reasonSelect) reasonSelect.value = 'order';
+        closeBagDrawer();
+        var target = $('#contact');
+        if (target) {
+          target.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+          window.setTimeout(function () { var nameField = $('#ct-name'); if (nameField) nameField.focus(); }, reduceMotion() ? 0 : 500);
+        }
+      });
+    }
+  }
+  /* ------------------------------------------------------------
+     Collection grid — data-driven render with a genuine loading
+     flash, an empty state, and a defensive error state wired
+     through a real try/catch (with a Retry action that re-runs
+     the same render call).
+     ------------------------------------------------------------ */
+  function matchesFilter(product) {
+    if (state.filter === 'all') return true;
+    if (product.family === 'discovery') return false;
+    return product.family.indexOf(state.filter) !== -1;
+  }
+  function matchesQuery(product) {
+    if (!state.query) return true;
+    var q = state.query.toLowerCase();
+    var haystack = [product.name, product.hour, product.familyLabel, product.top, product.heart, product.base, product.blurb].join(' ').toLowerCase();
+    return haystack.indexOf(q) !== -1;
+  }
+
+  function productCardHTML(product) {
+    var size = product.sizes[product.sizes.length - 1];
+    var addButton = product.limited
+      ? '<button type="button" class="btn btn--sm" disabled aria-disabled="true">Add to Bag</button>' +
+        '<button type="button" class="link link--draw" data-waitlist="' + escapeHtml(product.id) + '" style="margin-left:var(--sp-4)">Join the Waitlist</button>'
+      : '<button type="button" class="btn btn--sm" data-add-to-bag="' + escapeHtml(product.id) + '">Add to Bag</button>';
+    return '' +
+      '<article class="product-card' + (product.isDiscovery ? ' product-card--discovery' : '') + '" id="product-' + escapeHtml(product.id) + '" data-reveal>' +
+        (product.limited ? '<span class="product-card__badge">Limited Bench Run</span>' : '') +
+        '<p class="product-card__hour"><span class="dot" aria-hidden="true"></span>' + escapeHtml(product.hour) + '</p>' +
+        '<h3 class="product-card__name">' + escapeHtml(product.name) + '</h3>' +
+        '<p class="meta product-card__family">' + escapeHtml(product.familyLabel) + '</p>' +
+        '<p class="product-card__blurb">' + escapeHtml(product.blurb) + '</p>' +
+        '<button type="button" class="product-card__notes-toggle" aria-expanded="false" aria-controls="notes-' + escapeHtml(product.id) + '">' +
+          'Notes &amp; Story <svg aria-hidden="true"><use href="#icon-chevron"></use></svg>' +
+        '</button>' +
+        '<div class="product-card__notes" id="notes-' + escapeHtml(product.id) + '" data-open="false">' +
+          '<div class="product-card__notes-inner">' +
+            '<dl>' +
+              '<dt>Top</dt><dd>' + escapeHtml(product.top) + '</dd>' +
+              '<dt>Heart</dt><dd>' + escapeHtml(product.heart) + '</dd>' +
+              '<dt>Base</dt><dd>' + escapeHtml(product.base) + '</dd>' +
+            '</dl>' +
+            '<p class="product-card__story">' + escapeHtml(product.story) + '</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="product-card__foot">' +
+          '<p class="product-card__price"><strong>' + formatEUR(size.price) + '</strong><span>' + escapeHtml(size.label) + '</span></p>' +
+          '<div>' + addButton + '</div>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function skeletonHTML() {
+    var block = '' +
+      '<div class="product-skeleton" aria-hidden="true">' +
+        '<div class="skeleton-line skeleton-line--eyebrow"></div>' +
+        '<div class="skeleton-line skeleton-line--title"></div>' +
+        '<div class="skeleton-line skeleton-line--body"></div>' +
+        '<div class="skeleton-line skeleton-line--body"></div>' +
+        '<div class="skeleton-line skeleton-line--foot"></div>' +
+      '</div>';
+    return block + block + block;
+  }
+
+  function renderProducts() {
+    var grid = $('#productGrid'), status = $('#collectionStatus');
+    var emptyState = $('#collectionEmpty'), errorState = $('#collectionError');
+    if (!grid) return;
+
+    var myToken = ++state.requestToken;
+    grid.setAttribute('aria-busy', 'true');
+    grid.innerHTML = skeletonHTML();
+    if (emptyState) emptyState.hidden = true;
+    if (errorState) errorState.hidden = true;
+
+    window.setTimeout(function () {
+      if (myToken !== state.requestToken) return; // a newer filter/search request has superseded this one
+      try {
+        var matches = PRODUCTS.filter(function (p) { return matchesFilter(p) && matchesQuery(p); });
+        if (!matches.length) {
+          grid.innerHTML = '';
+          grid.setAttribute('aria-busy', 'false');
+          if (emptyState) emptyState.hidden = false;
+          if (status) status.textContent = 'No compositions match your search.';
+          return;
+        }
+        grid.innerHTML = matches.map(productCardHTML).join('');
+        grid.setAttribute('aria-busy', 'false');
+        if (status) status.textContent = matches.length + (matches.length === 1 ? ' composition shown.' : ' compositions shown.');
+        if (!reduceMotion() && 'IntersectionObserver' in window) { observeReveal($$('[data-reveal]', grid)); }
+        else { $$('[data-reveal]', grid).forEach(function (el) { el.classList.add('is-revealed'); }); }
+      } catch (err) {
+        grid.innerHTML = '';
+        grid.setAttribute('aria-busy', 'false');
+        if (errorState) errorState.hidden = false;
+        if (status) status.textContent = 'The collection could not be displayed.';
+      }
+    }, reduceMotion() ? 0 : 260);
+  }
+
+  var searchDebounce = null;
+  function initCollection() {
+    var pills = $$('.filter-pill');
+    pills.forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        pills.forEach(function (p) { p.setAttribute('aria-pressed', 'false'); });
+        pill.setAttribute('aria-pressed', 'true');
+        state.filter = pill.getAttribute('data-filter');
+        renderProducts();
+      });
+    });
+
+    var search = $('#collectionSearch'), clearBtn = $('#searchClear');
+    if (search) {
+      search.addEventListener('input', function () {
+        if (clearBtn) clearBtn.hidden = !search.value;
+        if (searchDebounce) window.clearTimeout(searchDebounce);
+        searchDebounce = window.setTimeout(function () {
+          state.query = search.value.trim();
+          renderProducts();
+        }, 180);
+      });
+    }
+    if (clearBtn) {
+      clearBtn.addEventListener('click', function () {
+        search.value = '';
+        clearBtn.hidden = true;
+        state.query = '';
+        search.focus();
+        renderProducts();
+      });
+    }
+
+    var clearFiltersBtn = $('#collectionClearFilters');
+    if (clearFiltersBtn) {
+      clearFiltersBtn.addEventListener('click', function () {
+        pills.forEach(function (p) { p.setAttribute('aria-pressed', p.getAttribute('data-filter') === 'all' ? 'true' : 'false'); });
+        state.filter = 'all';
+        state.query = '';
+        if (search) search.value = '';
+        if (clearBtn) clearBtn.hidden = true;
+        renderProducts();
+      });
+    }
+    var retryBtn = $('#collectionRetry');
+    if (retryBtn) retryBtn.addEventListener('click', renderProducts);
+
+    // Event delegation: the grid's contents are replaced wholesale on
+    // every render, so listeners are bound once on the stable container.
+    var grid = $('#productGrid');
+    if (grid) {
+      grid.addEventListener('click', function (e) {
+        var notesBtn = e.target.closest('[data-add-to-bag], .product-card__notes-toggle, [data-waitlist]');
+        if (!notesBtn) return;
+        if (notesBtn.hasAttribute('data-add-to-bag')) {
+          addToBag(notesBtn.getAttribute('data-add-to-bag'));
+          return;
+        }
+        if (notesBtn.hasAttribute('data-waitlist')) {
+          var product = findProduct(notesBtn.getAttribute('data-waitlist'));
+          showToast('Added to the ' + (product ? product.name : 'composition') + ' waitlist. We\'ll write when the next run is ready.');
+          return;
+        }
+        var expanded = notesBtn.getAttribute('aria-expanded') === 'true';
+        notesBtn.setAttribute('aria-expanded', String(!expanded));
+        var panel = document.getElementById(notesBtn.getAttribute('aria-controls'));
+        if (panel) panel.setAttribute('data-open', String(!expanded));
+      });
+    }
+
+    renderProducts();
+  }
+
+  function goToProduct(id) {
+    state.filter = 'all';
+    state.query = '';
+    var search = $('#collectionSearch'), clearBtn = $('#searchClear');
+    if (search) search.value = '';
+    if (clearBtn) clearBtn.hidden = true;
+    $$('.filter-pill').forEach(function (p) { p.setAttribute('aria-pressed', p.getAttribute('data-filter') === 'all' ? 'true' : 'false'); });
+    renderProducts();
+    window.setTimeout(function () {
+      var target = document.getElementById('product-' + id);
+      if (!target) return;
+      target.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'center' });
+      target.setAttribute('tabindex', '-1');
+      target.focus({ preventScroll: true });
+    }, reduceMotion() ? 20 : 340);
+  }
+  function initProductDeepLinks() {
+    $$('[data-product-link]').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        goToProduct(link.getAttribute('data-product-link'));
+      });
+    });
+  }
+  /* ------------------------------------------------------------
+     Accordions — materials allow multiple open panels at once
+     (it's a reference list); FAQ allows only one at a time (it's
+     a sequence of answers, not a library).
+     ------------------------------------------------------------ */
+  function wireAccordion(triggerSelector, opts) {
+    var singleOpen = !!(opts && opts.singleOpen);
+    var triggers = $$(triggerSelector);
+    triggers.forEach(function (trigger) {
+      trigger.addEventListener('click', function () {
+        var panel = document.getElementById(trigger.getAttribute('aria-controls'));
+        var willOpen = trigger.getAttribute('aria-expanded') !== 'true';
+        if (singleOpen && willOpen) {
+          triggers.forEach(function (other) {
+            if (other === trigger) return;
+            other.setAttribute('aria-expanded', 'false');
+            var otherPanel = document.getElementById(other.getAttribute('aria-controls'));
+            if (otherPanel) otherPanel.style.maxHeight = '0px';
+          });
+        }
+        trigger.setAttribute('aria-expanded', String(willOpen));
+        if (panel) panel.style.maxHeight = willOpen ? panel.scrollHeight + 'px' : '0px';
+      });
+    });
+  }
+  function initAccordions() {
+    wireAccordion('.material__trigger', { singleOpen: false });
+    wireAccordion('.faq-item__trigger', { singleOpen: true });
+  }
+
+  /* ------------------------------------------------------------
+     Reveal on scroll, with a frozen/backgrounded-tab safety net:
+     if IntersectionObserver never fires, everything is force-
+     revealed after a short delay so content already on screen in
+     a hidden or throttled tab is never left invisible.
+     ------------------------------------------------------------ */
+  var revealObserver = null;
+  function ensureRevealObserver() {
+    if (revealObserver || reduceMotion() || !('IntersectionObserver' in window)) return revealObserver;
+    revealObserver = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    return revealObserver;
+  }
+  function observeReveal(items) {
+    if (reduceMotion() || !('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-revealed'); });
+      return;
+    }
+    var obs = ensureRevealObserver();
+    items.forEach(function (el) { obs.observe(el); });
+    window.setTimeout(function () { items.forEach(function (el) { el.classList.add('is-revealed'); }); }, 1500);
+  }
+  function initReveal() {
+    var items = $$('[data-reveal]');
+    if (!items.length) return;
+    observeReveal(items);
+  }
+
+  /* ------------------------------------------------------------
+     Smooth scroll for on-page anchors + active nav-link tracking
+     ------------------------------------------------------------ */
+  function initSmoothScrollAndActiveLink() {
+    $$('a[href^="#"]').forEach(function (link) {
+      var href = link.getAttribute('href');
+      if (!href || href.length < 2) return;
+      if (link.hasAttribute('data-product-link')) return; // handled by goToProduct
+      link.addEventListener('click', function (e) {
+        var target = document.getElementById(href.slice(1));
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+        target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      });
+    });
+
+    var navLinks = $$('.site-nav__link[href^="#"]');
+    if (!navLinks.length || !('IntersectionObserver' in window)) return;
+    var sections = navLinks
+      .map(function (l) { return document.getElementById(l.getAttribute('href').slice(1)); })
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          navLinks.forEach(function (l) { l.classList.toggle('is-active', l.getAttribute('href') === '#' + id); });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+    sections.forEach(function (s) { observer.observe(s); });
+  }
+
+  /* ------------------------------------------------------------
+     Back to top
+     ------------------------------------------------------------ */
+  function initBackToTop() {
+    var btn = $('#backToTop');
+    if (!btn) return;
+    function update() { btn.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.8); }
+    window.addEventListener('scroll', update, { passive: true });
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' });
+    });
+    update();
+  }
+  /* ------------------------------------------------------------
+     Newsletter form — loading / error / success, matching the
+     contact form's pattern at a smaller scale.
+     ------------------------------------------------------------ */
+  function initNewsletterForm() {
+    var form = $('#newsletterForm');
+    if (!form) return;
+    var input = $('#nl-email', form);
+    var errorEl = $('#nl-email-error');
+    var successEl = $('#nl-success');
+    var submitBtn = $('#newsletterSubmit');
+    var submitLabel = $('#newsletterSubmitLabel');
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function setError(msg) {
+      if (msg) {
+        input.setAttribute('aria-invalid', 'true');
+        errorEl.textContent = msg;
+        errorEl.hidden = false;
+      } else {
+        input.removeAttribute('aria-invalid');
+        errorEl.textContent = '';
+        errorEl.hidden = true;
+      }
+    }
+
+    input.addEventListener('input', function () {
+      if (!successEl.hidden) successEl.hidden = true;
+      if (input.getAttribute('aria-invalid') === 'true') setError('');
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      successEl.hidden = true;
+      var value = input.value.trim();
+      if (!value) { setError('An email address is required.'); input.focus(); return; }
+      if (!emailRe.test(value)) { setError('That doesn’t look like a complete email address.'); input.focus(); return; }
+      setError('');
+      submitBtn.setAttribute('aria-busy', 'true');
+      submitBtn.disabled = true;
+      submitLabel.textContent = 'Sending…';
+      window.setTimeout(function () {
+        submitBtn.removeAttribute('aria-busy');
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Subscribe';
+        input.value = '';
+        successEl.hidden = false;
+      }, reduceMotion() ? 30 : 700);
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Contact form — four required fields, field-level errors, a
+     form-level banner on submit-with-errors, a loading button
+     state, and a success view that swaps in for the fields.
+     ------------------------------------------------------------ */
+  function initContactForm() {
+    var form = $('#contactForm');
+    if (!form) return;
+    var banner = $('#contactBanner'), bannerText = $('#contactBannerText');
+    var fieldsWrap = $('#contactFields'), successWrap = $('#contactSuccess');
+    var submitBtn = $('#contactSubmit'), submitLabel = $('#contactSubmitLabel');
+    var resetBtn = $('#contactReset');
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    var fields = [
+      { el: $('#ct-name', form), errorEl: $('#ct-name-error'), validate: function (v) { return v.trim() ? '' : 'Please tell us your name.'; } },
+      { el: $('#ct-email', form), errorEl: $('#ct-email-error'), validate: function (v) {
+          if (!v.trim()) return 'An email address is required.';
+          return emailRe.test(v.trim()) ? '' : 'That doesn’t look like a complete email address.';
+        } },
+      { el: $('#ct-reason', form), errorEl: $('#ct-reason-error'), validate: function (v) { return v ? '' : 'Please choose a reason.'; } },
+      { el: $('#ct-message', form), errorEl: $('#ct-message-error'), validate: function (v) { return v.trim().length >= 8 ? '' : 'A few more words would help — at least 8 characters.'; } }
+    ];
+
+    function clearFieldError(f) { f.el.removeAttribute('aria-invalid'); f.errorEl.hidden = true; f.errorEl.textContent = ''; }
+    function setFieldError(f, msg) { f.el.setAttribute('aria-invalid', 'true'); f.errorEl.textContent = msg; f.errorEl.hidden = false; }
+
+    fields.forEach(function (f) {
+      f.el.addEventListener('input', function () { clearFieldError(f); });
+      f.el.addEventListener('change', function () { clearFieldError(f); });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var firstInvalid = null;
+      var anyError = false;
+      fields.forEach(function (f) {
+        var msg = f.validate(f.el.value);
+        if (msg) { setFieldError(f, msg); anyError = true; if (!firstInvalid) firstInvalid = f.el; }
+        else { clearFieldError(f); }
+      });
+      if (anyError) {
+        banner.hidden = false;
+        bannerText.textContent = 'Please correct the fields below before sending.';
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+      banner.hidden = true;
+      submitBtn.setAttribute('aria-busy', 'true');
+      submitBtn.disabled = true;
+      submitLabel.textContent = 'Sending…';
+      window.setTimeout(function () {
+        submitBtn.removeAttribute('aria-busy');
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Send to the Atelier';
+        fieldsWrap.hidden = true;
+        successWrap.hidden = false;
+        successWrap.setAttribute('tabindex', '-1');
+        successWrap.focus({ preventScroll: true });
+      }, reduceMotion() ? 30 : 900);
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        form.reset();
+        fields.forEach(clearFieldError);
+        fieldsWrap.hidden = false;
+        successWrap.hidden = true;
+        banner.hidden = true;
+        fields[0].el.focus();
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------
+     Copy-to-clipboard for the atelier email, with a manual-select
+     fallback for browsers without the async Clipboard API.
+     ------------------------------------------------------------ */
+  function initCopyButtons() {
+    var btn = $('#copyEmailBtn');
+    if (!btn) return;
+    btn.addEventListener('click', function () {
+      var value = btn.getAttribute('data-copy-value') || '';
+      function done(ok) { showToast(ok ? 'Email address copied.' : 'Copy this by hand: ' + value); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).then(function () { done(true); }).catch(function () { done(false); });
+        return;
+      }
+      try {
+        var temp = document.createElement('textarea');
+        temp.value = value;
+        temp.style.position = 'fixed';
+        temp.style.opacity = '0';
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        document.body.removeChild(temp);
+        done(true);
+      } catch (e) { done(false); }
+    });
+  }
+
+  function initYear() {
+    var el = $('#copyYear');
+    if (el) el.textContent = String(new Date().getFullYear());
+  }
+
+  /* ------------------------------------------------------------
+     Boot
+     ------------------------------------------------------------ */
+  function init() {
+    loadBag();
+    renderBag();
+    initHeaderScroll();
+    initThemeToggle();
+    initMobileMenu();
+    initBagDrawer();
+    initBagInteractions();
+    initToast();
+    initCollection();
+    initProductDeepLinks();
+    initAccordions();
+    initReveal();
+    initSmoothScrollAndActiveLink();
+    initBackToTop();
+    initNewsletterForm();
+    initContactForm();
+    initCopyButtons();
+    initYear();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,713 +1,2577 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>FreezeBreeze Live Lab | Live Cooling Product Demos</title>
-  <meta name="description" content="A live-commerce and product-education shell for cooling and comfort product demonstrations. Built for shoppable live broadcasts with no invented claims.">
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FreezeBreeze CORE — Personal Cooling Zone for Hot Sleepers | $29.97</title>
+<meta name="description" content="FreezeBreeze CORE is a $29.97 personal cool-mist tower that creates a targeted cooling zone right where you sleep — without freezing your partner or spiking your AC bill. Free 2-3 day shipping. 30-day guarantee.">
+<meta name="color-scheme" content="dark">
+<style>
+/* ============================================================
+   FREEZEBREEZE CORE — Design Tokens
+   Dark near-black DTC theme, electric-blue accent.
+   ============================================================ */
+:root{
+  /* --- surfaces --- */
+  --bg-0:#000000;
+  --bg-1:#05090d;
+  --bg-2:#0a1017;
+  --bg-3:#0f1720;
+  --bg-4:#141d28;
+  --panel-glass:rgba(255,255,255,.035);
+  --panel-glass-strong:rgba(255,255,255,.06);
+
+  /* --- lines --- */
+  --line:rgba(255,255,255,.10);
+  --line-strong:rgba(255,255,255,.18);
+  --line-accent:rgba(0,212,255,.45);
+
+  /* --- accent (electric blue) --- */
+  --accent:#00d4ff;
+  --accent-2:#5ab6ff;
+  --accent-3:#4d9dff;
+  --accent-soft:rgba(0,212,255,.14);
+  --accent-soft-strong:rgba(0,212,255,.26);
+  --accent-ink:#031018;
+
+  /* --- text --- */
+  --text-0:#ffffff;
+  --text-1:rgba(255,255,255,.76);
+  --text-2:rgba(255,255,255,.54);
+  --text-3:rgba(255,255,255,.36);
+
+  /* --- signal (used sparingly: sold-out / X marks) --- */
+  --neg:rgba(255,255,255,.42);
+  --neg-bg:rgba(255,255,255,.06);
+
+  /* --- type --- */
+  --font-display:-apple-system,"SF Pro Display","Helvetica Neue",Arial,system-ui,"Segoe UI",Roboto,sans-serif;
+  --font-body:-apple-system,"SF Pro Text",system-ui,"Segoe UI",Roboto,Arial,sans-serif;
+  --fs-h1:clamp(2.35rem, 1.75rem + 3vw, 4.2rem);
+  --fs-h2:clamp(1.85rem, 1.55rem + 1.6vw, 2.85rem);
+  --fs-h3:clamp(1.3rem, 1.15rem + 0.7vw, 1.6rem);
+  --fs-lede:clamp(1.05rem, 1rem + 0.3vw, 1.25rem);
+  --fs-base:1rem;
+  --fs-sm:0.925rem;
+  --fs-xs:0.8125rem;
+  --lh-tight:1.08;
+  --lh-snug:1.3;
+  --lh-normal:1.6;
+
+  /* --- spacing (4px scale) --- */
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:24px;
+  --sp-6:32px; --sp-7:48px; --sp-8:64px; --sp-9:96px; --sp-10:128px;
+
+  /* --- radii --- */
+  --r-sm:8px; --r-md:14px; --r-lg:20px; --r-xl:28px; --r-pill:999px;
+
+  /* --- elevation --- */
+  --e-1:0 1px 2px rgba(0,0,0,.4), 0 1px 1px rgba(0,0,0,.3);
+  --e-2:0 8px 24px rgba(0,0,0,.45), 0 2px 8px rgba(0,0,0,.35);
+  --e-3:0 24px 64px rgba(0,0,0,.55), 0 8px 24px rgba(0,212,255,.08);
+
+  /* --- motion --- */
+  --dur-fast:150ms; --dur-mid:280ms; --dur-slow:640ms;
+  --ease:cubic-bezier(.4,0,.2,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+
+  --offer-bar-h:44px;
+  --nav-h:76px;
+  --container:1180px;
+}
+
+/* ============================================================
+   Reset
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg-0);
+  color:var(--text-0);
+  font-family:var(--font-body);
+  font-size:var(--fs-base);
+  line-height:var(--lh-normal);
+  overflow-x:hidden;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+img,svg{display:block;max-width:100%;}
+ul,ol{margin:0;padding:0;list-style:none;}
+h1,h2,h3,h4,p,figure,blockquote,dl,dd{margin:0;}
+a{color:inherit;text-decoration:none;}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;}
+table{border-collapse:collapse;}
+input,textarea,select{font:inherit;}
+
+h1,h2,h3,h4{
+  font-family:var(--font-display);
+  font-weight:800;
+  letter-spacing:-0.02em;
+  line-height:var(--lh-tight);
+}
+
+/* visually-hidden but available to assistive tech */
+.vh{
+  position:absolute !important;
+  width:1px;height:1px;
+  padding:0;margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+
+/* skip link */
+.skip-link{
+  position:fixed;
+  top:-60px;left:var(--sp-4);
+  z-index:1000;
+  background:var(--accent);
+  color:var(--accent-ink);
+  font-weight:700;
+  padding:12px 20px;
+  border-radius:var(--r-sm);
+  transition:top var(--dur-fast) var(--ease);
+}
+.skip-link:focus{top:var(--sp-4);}
+
+/* universal focus-visible */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible{
+  outline:3px solid var(--accent);
+  outline-offset:3px;
+  border-radius:4px;
+}
+dialog:focus-visible{outline:none;}
+
+/* ============================================================
+   Utility
+   ============================================================ */
+.container{
+  width:100%;
+  max-width:var(--container);
+  margin-inline:auto;
+  padding-inline:var(--sp-5);
+}
+@media (min-width:760px){ .container{padding-inline:var(--sp-7);} }
+@media (min-width:1280px){ .container{padding-inline:var(--sp-5);} }
+
+.section{
+  padding-block:var(--sp-9);
+  position:relative;
+}
+@media (max-width:759px){
+  .section{padding-block:var(--sp-8);}
+}
+
+.kicker{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-2);
+  font-family:var(--font-body);
+  font-size:var(--fs-xs);
+  font-weight:700;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:var(--sp-4);
+}
+.kicker::before{
+  content:"";
+  width:18px;height:2px;
+  background:var(--accent);
+  border-radius:2px;
+}
+
+.accent-grad{
+  background:linear-gradient(92deg, var(--accent) 0%, var(--accent-2) 55%, var(--accent-3) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  color:var(--accent);
+}
+
+.section-head{
+  max-width:56ch;
+  margin-bottom:var(--sp-8);
+}
+.section-head.center{margin-inline:auto;text-align:center;}
+.section-head p{
+  color:var(--text-1);
+  font-size:var(--fs-lede);
+  margin-top:var(--sp-3);
+}
+
+.btn{
+  --btn-h:52px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--sp-2);
+  height:var(--btn-h);
+  min-width:44px;
+  padding-inline:var(--sp-6);
+  border-radius:var(--r-sm);
+  font-weight:700;
+  font-size:var(--fs-sm);
+  letter-spacing:-0.005em;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+  border:1px solid transparent;
+}
+.btn svg{flex:none;}
+.btn-primary{
+  background:var(--accent);
+  color:var(--accent-ink);
+  box-shadow:0 1px 0 rgba(255,255,255,.35) inset, 0 12px 28px rgba(0,212,255,.22);
+}
+.btn-primary:hover{
+  background:#33ddff;
+  transform:translateY(-2px);
+  box-shadow:0 1px 0 rgba(255,255,255,.4) inset, 0 18px 36px rgba(0,212,255,.32);
+}
+.btn-primary:active{
+  transform:translateY(0px) scale(.98);
+  box-shadow:0 1px 0 rgba(255,255,255,.3) inset, 0 8px 18px rgba(0,212,255,.22);
+}
+.btn-primary:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+  transform:none;
+  box-shadow:none;
+}
+.btn-ghost{
+  background:rgba(255,255,255,.04);
+  color:var(--text-0);
+  border-color:var(--line-strong);
+  backdrop-filter:blur(6px);
+}
+.btn-ghost:hover{
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.32);
+  transform:translateY(-2px);
+}
+.btn-ghost:active{transform:translateY(0) scale(.98);}
+.btn-block{width:100%;}
+.btn-sm{--btn-h:44px;padding-inline:var(--sp-5);font-size:var(--fs-xs);}
+
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-2);
+  padding:var(--sp-2) var(--sp-4);
+  border-radius:var(--r-pill);
+  background:var(--accent-soft);
+  border:1px solid var(--line-accent);
+  color:var(--text-0);
+  font-size:var(--fs-xs);
+  font-weight:700;
+  letter-spacing:.01em;
+}
+.pill svg{flex:none;color:var(--accent);}
+
+.check-ico,.x-ico{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:22px;height:22px;
+  border-radius:50%;
+  flex:none;
+}
+.check-ico{background:var(--accent-soft-strong);color:var(--accent);}
+.x-ico{background:var(--neg-bg);color:var(--neg);}
+
+.glass-card{
+  background:linear-gradient(180deg, var(--panel-glass-strong), var(--panel-glass));
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  backdrop-filter:blur(14px);
+}
+
+.sr-eyebrow{
+  font-size:var(--fs-xs);
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--text-2);
+}
+</style>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to main content</a>
+<a class="skip-link" href="#main">Skip to content</a>
 
-  <div class="shell">
-    <header class="topbar">
-      <nav class="nav" aria-label="Primary">
-        <a class="brand" href="#top" aria-label="FreezeBreeze Live Lab home">
-          <span class="brand-mark" aria-hidden="true">
-            <svg viewBox="0 0 32 32" width="28" height="28" focusable="false">
-              <title>FreezeBreeze frost mark</title>
-              <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                <path d="M16 4v24M5.6 10l20.8 12M5.6 22l20.8-12"/>
-                <path d="M16 4l-3 3M16 4l3 3M16 28l-3-3M16 28l3-3"/>
-                <path d="M5.6 10l.3 4.2M5.6 10l4-1.4M26.4 22l-.3-4.2M26.4 22l-4 1.4"/>
-                <path d="M26.4 10l-.3 4.2M26.4 10l-4-1.4M5.6 22l.3-4.2M5.6 22l4 1.4"/>
-              </g>
-            </svg>
-          </span>
-          <span class="brand-word">FreezeBreeze<span class="brand-sub">Live Lab</span></span>
+<style>
+/* ============================================================
+   Sticky offer bar + header / nav
+   ============================================================ */
+.offer-bar{
+  position:sticky;
+  top:0;
+  z-index:60;
+  height:var(--offer-bar-h);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--sp-4);
+  background:linear-gradient(90deg, #00b7de, var(--accent) 55%, #4fc9ff);
+  color:var(--accent-ink);
+  font-size:var(--fs-xs);
+  font-weight:700;
+  padding-inline:var(--sp-4);
+  text-align:center;
+}
+.offer-bar .offer-copy{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  min-width:0;
+}
+.offer-bar .offer-copy .sep{
+  margin-inline:var(--sp-2);
+  opacity:.55;
+}
+@media (max-width:479px){
+  .offer-bar{gap:var(--sp-2);padding-inline:var(--sp-3);}
+  .offer-bar .ship-part{display:none;}
+  .offer-bar .offer-copy .sep:last-of-type{display:none;}
+}
+@media (max-width:359px){
+  .offer-bar .brand-part{display:none;}
+  .offer-bar .offer-copy .sep:first-of-type{display:none;}
+}
+.offer-bar-cta{
+  flex:none;
+  display:inline-flex;
+  align-items:center;
+  height:28px;
+  padding-inline:var(--sp-3);
+  border-radius:var(--r-pill);
+  background:var(--accent-ink);
+  color:var(--text-0);
+  font-weight:700;
+  font-size:var(--fs-xs);
+  transition:transform var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+}
+.offer-bar-cta:hover{background:#0a2130;transform:translateY(-1px);}
+.offer-bar-cta:active{transform:translateY(0) scale(.96);}
+
+.site-header{
+  position:sticky;
+  top:var(--offer-bar-h);
+  z-index:59;
+  height:var(--nav-h);
+  display:flex;
+  align-items:center;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(16px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+  transition:box-shadow var(--dur-mid) var(--ease), border-color var(--dur-mid) var(--ease);
+}
+.site-header.is-scrolled{
+  box-shadow:0 12px 30px rgba(0,0,0,.45);
+  border-color:var(--line-strong);
+}
+.nav-inner{
+  width:100%;
+  max-width:var(--container);
+  margin-inline:auto;
+  padding-inline:var(--sp-5);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--sp-5);
+}
+@media (min-width:760px){ .nav-inner{padding-inline:var(--sp-7);} }
+
+.brand{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-2);
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:1.15rem;
+  letter-spacing:-0.01em;
+  color:var(--text-0);
+  flex:none;
+}
+.brand-mark{color:var(--accent);flex:none;}
+
+.nav-links{
+  display:none;
+  align-items:center;
+  gap:var(--sp-6);
+}
+.nav-links a{
+  font-size:var(--fs-sm);
+  font-weight:600;
+  color:var(--text-1);
+  position:relative;
+  padding-block:var(--sp-2);
+  transition:color var(--dur-fast) var(--ease);
+}
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:-2px;
+  height:2px;
+  background:var(--accent);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform var(--dur-mid) var(--ease-out);
+}
+.nav-links a:hover{color:var(--text-0);}
+.nav-links a:hover::after{transform:scaleX(1);}
+
+.nav-actions{
+  display:flex;
+  align-items:center;
+  gap:var(--sp-3);
+  flex:none;
+}
+.icon-btn{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:44px;height:44px;
+  border-radius:var(--r-sm);
+  color:var(--text-0);
+  transition:background-color var(--dur-fast) var(--ease);
+}
+.icon-btn:hover{background:rgba(255,255,255,.08);}
+.icon-btn:active{background:rgba(255,255,255,.14);}
+.cart-count{
+  position:absolute;
+  top:4px;right:4px;
+  min-width:16px;height:16px;
+  padding:0 3px;
+  border-radius:999px;
+  background:var(--accent);
+  color:var(--accent-ink);
+  font-size:10px;
+  font-weight:800;
+  line-height:16px;
+  text-align:center;
+}
+.nav-cta{display:none;}
+@media (min-width:1020px){
+  .nav-links{display:flex;}
+  .nav-cta{display:inline-flex;}
+}
+
+.menu-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:44px;height:44px;
+  border-radius:var(--r-sm);
+  color:var(--text-0);
+}
+.menu-toggle:hover{background:rgba(255,255,255,.08);}
+.menu-toggle .icon-close{display:none;}
+.menu-toggle[aria-expanded="true"] .icon-open{display:none;}
+.menu-toggle[aria-expanded="true"] .icon-close{display:block;}
+@media (min-width:1020px){ .menu-toggle{display:none;} }
+
+.mobile-menu{
+  position:fixed;
+  inset:calc(var(--offer-bar-h) + var(--nav-h)) 0 0 0;
+  z-index:58;
+  background:rgba(0,2,4,.98);
+  backdrop-filter:blur(20px);
+  transform:translateY(-8px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity var(--dur-mid) var(--ease), transform var(--dur-mid) var(--ease);
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+.mobile-menu.is-open{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:auto;
+}
+.mobile-menu-inner{
+  padding:var(--sp-6) var(--sp-5) var(--sp-9);
+  display:flex;
+  flex-direction:column;
+  gap:var(--sp-1);
+}
+.mobile-menu a{
+  padding:var(--sp-4) var(--sp-2);
+  font-size:1.4rem;
+  font-weight:700;
+  font-family:var(--font-display);
+  border-bottom:1px solid var(--line);
+  min-height:44px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  color:var(--text-0);
+}
+.mobile-menu a:hover,
+.mobile-menu a:focus-visible{color:var(--accent);}
+.mobile-menu .mm-cta{margin-top:var(--sp-6);}
+@media (min-width:1020px){ .mobile-menu{display:none;} }
+</style>
+
+<div class="offer-bar" role="note" aria-label="Current offer">
+  <p class="offer-copy"><strong class="brand-part">FreezeBreeze CORE</strong><span class="sep">&middot;</span>$29.97<span class="sep">&middot;</span><span class="ship-part">Free 2&ndash;3 day shipping</span></p>
+  <a class="offer-bar-cta" href="#buy">Get Yours</a>
+</div>
+
+<header class="site-header" id="siteHeader">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="FreezeBreeze home">
+      <svg class="brand-mark" width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <path d="M13 2v22M13 2l-4 4M13 2l4 4M13 24l-4-4M13 24l4-4M2 13h22M2 13l4-4M2 13l4 4M24 13l-4-4M24 13l-4 4M5.6 5.6l14.8 14.8M5.6 5.6l1.2 5.2M5.6 5.6l5.2-1.2M20.4 20.4l-1.2-5.2M20.4 20.4l-5.2 1.2M20.4 5.6L5.6 20.4M20.4 5.6l-5.2 1.2M20.4 5.6l1.2 5.2M5.6 20.4l5.2-1.2M5.6 20.4l-1.2-5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+      FreezeBreeze
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#buy">Shop</a>
+      <a href="#story">About</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+      <a href="#shipping">Shipping</a>
+    </nav>
+
+    <div class="nav-actions">
+      <a class="btn btn-primary btn-sm nav-cta" href="#buy">Get Yours</a>
+      <button class="icon-btn" id="cartToggle" aria-haspopup="dialog" aria-controls="cartDrawer" aria-label="Open cart, 0 items">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20.5" r="1.4" fill="currentColor"/><circle cx="17" cy="20.5" r="1.4" fill="currentColor"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+        <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Sibling of <header>, not a descendant: header's backdrop-filter would otherwise
+     create a containing block that traps this fixed-position panel to the header's
+     own box instead of the viewport. -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <a href="#buy">Home</a>
+    <a href="#buy">Shop</a>
+    <a href="#story">About</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="#shipping">Shipping</a>
+    <a class="btn btn-primary btn-block mm-cta" href="#buy">Get Yours &mdash; $29.97</a>
+  </div>
+</div>
+
+<style>
+/* ============================================================
+   Hero
+   ============================================================ */
+.hero{
+  position:relative;
+  padding-top:var(--sp-8);
+  padding-bottom:var(--sp-9);
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  top:-20%;left:50%;
+  width:1400px;height:1400px;
+  transform:translateX(-50%);
+  background:radial-gradient(circle, rgba(0,140,180,.16) 0%, rgba(0,60,90,.06) 40%, transparent 70%);
+  pointer-events:none;
+  z-index:0;
+}
+.hero-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  gap:var(--sp-8);
+  grid-template-areas:"art" "content";
+}
+@media (min-width:1020px){
+  .hero-grid{
+    grid-template-columns:1.05fr 1fr;
+    grid-template-areas:"content art";
+    align-items:center;
+    gap:var(--sp-9);
+  }
+}
+.hero-content{grid-area:content;}
+.hero-art-wrap{
+  grid-area:art;
+  position:relative;
+  display:flex;
+  justify-content:center;
+}
+.hero-badge{margin-bottom:var(--sp-5);}
+.hero h1{
+  font-size:var(--fs-h1);
+  color:var(--text-0);
+  max-width:14ch;
+}
+.hero-sub{
+  margin-top:var(--sp-5);
+  font-size:var(--fs-lede);
+  color:var(--text-1);
+  max-width:52ch;
+}
+.hero-sub strong{color:var(--text-0);font-weight:700;}
+.chip-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--sp-3);
+  margin-top:var(--sp-6);
+}
+.chip{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-2);
+  padding:var(--sp-2) var(--sp-4) var(--sp-2) var(--sp-2);
+  border-radius:var(--r-pill);
+  background:var(--panel-glass);
+  border:1px solid var(--line);
+  font-size:var(--fs-xs);
+  font-weight:600;
+  color:var(--text-1);
+}
+.chip .check-ico{width:20px;height:20px;}
+.cta-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--sp-4);
+  margin-top:var(--sp-7);
+}
+.trust-line{
+  margin-top:var(--sp-5);
+  font-size:var(--fs-xs);
+  color:var(--text-2);
+}
+
+/* product art */
+.hero-art-wrap .product-art{
+  width:min(430px, 88vw);
+  height:auto;
+  filter:drop-shadow(0 30px 60px rgba(0,0,0,.55));
+}
+.float-badge{
+  position:absolute;
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-2);
+  padding:var(--sp-2) var(--sp-4);
+  border-radius:var(--r-pill);
+  background:rgba(6,14,20,.82);
+  border:1px solid var(--line-strong);
+  backdrop-filter:blur(10px);
+  font-size:var(--fs-xs);
+  font-weight:700;
+  color:var(--text-0);
+  box-shadow:var(--e-1);
+}
+.float-badge svg{color:var(--accent);flex:none;}
+.float-badge.fb-usb{top:8%;right:2%;}
+.float-badge.fb-led{bottom:20%;right:-2%;}
+@media (max-width:559px){
+  .float-badge{font-size:10.5px;padding:6px 10px;}
+  .float-badge.fb-usb{top:4%;right:0;}
+  .float-badge.fb-led{bottom:16%;right:-4%;}
+}
+
+/* product art motion */
+.fb-fan{transform-origin:210px 300px;animation:fbSpin 9s linear infinite;}
+.fb-glow{animation:fbPulse 3.4s ease-in-out infinite;}
+.fb-rays{animation:fbRayPulse 3.4s ease-in-out infinite;}
+.fb-mist ellipse{animation:fbDrift 7s ease-in-out infinite;}
+.fb-mist ellipse:nth-child(2){animation-delay:-2.3s;}
+.fb-mist ellipse:nth-child(3){animation-delay:-4.6s;}
+@keyframes fbSpin{to{transform:rotate(360deg);}}
+@keyframes fbPulse{0%,100%{opacity:.75;}50%{opacity:1;}}
+@keyframes fbRayPulse{0%,100%{opacity:.6;}50%{opacity:1;}}
+@keyframes fbDrift{0%,100%{transform:translateY(0) scale(1);}50%{transform:translateY(-10px) scale(1.05);}}
+@media (prefers-reduced-motion:reduce){
+  .fb-fan,.fb-glow,.fb-rays,.fb-mist ellipse{animation:none !important;}
+}
+
+/* ============================================================
+   Trust stat row
+   ============================================================ */
+.trust-row{
+  position:relative;
+  z-index:1;
+  border-top:1px solid var(--line);
+  padding-block:var(--sp-6);
+}
+.trust-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:var(--sp-6) var(--sp-4);
+}
+@media (min-width:760px){
+  .trust-grid{grid-template-columns:repeat(4,1fr);}
+}
+.trust-item{
+  display:flex;
+  align-items:flex-start;
+  gap:var(--sp-3);
+}
+.trust-item svg{
+  flex:none;
+  color:var(--accent);
+  width:22px;height:22px;
+  margin-top:2px;
+}
+.trust-item strong{
+  display:block;
+  font-size:var(--fs-base);
+  font-weight:800;
+  color:var(--text-0);
+}
+.trust-item span{
+  display:block;
+  font-size:var(--fs-xs);
+  color:var(--text-2);
+  margin-top:2px;
+}
+</style>
+
+<!-- SVG sprite: product illustration (defined once, reused via <use>) -->
+<svg style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="fbCoreArt" viewBox="0 0 420 500">
+      <defs>
+        <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#f5f9fb"/>
+          <stop offset=".45" stop-color="#c9d5de"/>
+          <stop offset="1" stop-color="#889299"/>
+        </linearGradient>
+        <linearGradient id="bodyGradShade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ffffff" stop-opacity=".55"/>
+          <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="tankGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#bdf3ff" stop-opacity=".9"/>
+          <stop offset="1" stop-color="#2fa9d8" stop-opacity=".6"/>
+        </linearGradient>
+        <linearGradient id="handleGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#eaf9ff"/>
+          <stop offset="1" stop-color="#9fdcf2"/>
+        </linearGradient>
+        <radialGradient id="bezelGrad" cx=".4" cy=".35" r=".8">
+          <stop offset="0" stop-color="#3d4a56"/>
+          <stop offset="1" stop-color="#0e1318"/>
+        </radialGradient>
+        <radialGradient id="hubGrad" cx=".4" cy=".35" r=".8">
+          <stop offset="0" stop-color="#eef8ff"/>
+          <stop offset="1" stop-color="#7c8a96"/>
+        </radialGradient>
+        <linearGradient id="finGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#f1faff"/>
+          <stop offset="1" stop-color="#8fa4b0"/>
+        </linearGradient>
+        <radialGradient id="glowCore" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#eafcff" stop-opacity=".95"/>
+          <stop offset=".35" stop-color="#5fd8ff" stop-opacity=".68"/>
+          <stop offset="1" stop-color="#5fd8ff" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="rayGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#8fe6ff" stop-opacity=".95"/>
+          <stop offset="1" stop-color="#8fe6ff" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="mistGrad" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#bdeeff" stop-opacity=".5"/>
+          <stop offset="1" stop-color="#bdeeff" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="softBlur" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="9"/>
+        </filter>
+        <filter id="mistBlur" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="16"/>
+        </filter>
+      </defs>
+
+      <ellipse cx="210" cy="452" rx="118" ry="18" fill="#000000" opacity=".55" filter="url(#softBlur)"/>
+
+      <g class="fb-mist" filter="url(#mistBlur)">
+        <ellipse cx="130" cy="330" rx="66" ry="38" fill="url(#mistGrad)"/>
+        <ellipse cx="300" cy="360" rx="76" ry="44" fill="url(#mistGrad)"/>
+        <ellipse cx="210" cy="410" rx="112" ry="34" fill="url(#mistGrad)"/>
+      </g>
+
+      <g class="fb-rays">
+        <line x1="310.0" y1="300.0" x2="400.0" y2="300.0" stroke="url(#rayGrad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+        <line x1="302.4" y1="338.3" x2="385.5" y2="372.7" stroke="url(#rayGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.24"/>
+        <line x1="280.7" y1="370.7" x2="344.4" y2="434.4" stroke="url(#rayGrad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+        <line x1="248.3" y1="392.4" x2="282.7" y2="475.5" stroke="url(#rayGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.24"/>
+        <line x1="210.0" y1="400.0" x2="210.0" y2="490.0" stroke="url(#rayGrad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+        <line x1="171.7" y1="392.4" x2="137.3" y2="475.5" stroke="url(#rayGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.24"/>
+        <line x1="139.3" y1="370.7" x2="75.6" y2="434.4" stroke="url(#rayGrad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+        <line x1="117.6" y1="338.3" x2="34.5" y2="372.7" stroke="url(#rayGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.24"/>
+        <line x1="110.0" y1="300.0" x2="20.0" y2="300.0" stroke="url(#rayGrad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+        <line x1="117.6" y1="261.7" x2="34.5" y2="227.3" stroke="url(#rayGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.24"/>
+        <line x1="139.3" y1="229.3" x2="75.6" y2="165.6" stroke="url(#rayGrad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+        <line x1="171.7" y1="207.6" x2="137.3" y2="124.5" stroke="url(#rayGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.24"/>
+        <line x1="210.0" y1="200.0" x2="210.0" y2="110.0" stroke="url(#rayGrad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+        <line x1="248.3" y1="207.6" x2="282.7" y2="124.5" stroke="url(#rayGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.24"/>
+        <line x1="280.7" y1="229.3" x2="344.4" y2="165.6" stroke="url(#rayGrad)" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+        <line x1="302.4" y1="261.7" x2="385.5" y2="227.3" stroke="url(#rayGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.24"/>
+      </g>
+      <circle class="fb-glow" cx="210" cy="300" r="92" fill="url(#glowCore)"/>
+
+      <g class="fb-body">
+        <path d="M150 96 Q150 70 178 70 L242 70 Q270 70 270 96 L276 190 L144 190 Z" fill="url(#bodyGrad)" stroke="#5c6874" stroke-width="1.5"/>
+        <path d="M150 96 Q150 70 178 70 L242 70 Q270 70 270 96 L273 130 L147 130 Z" fill="url(#bodyGradShade)"/>
+
+        <path d="M168 78 Q210 26 252 78" fill="none" stroke="url(#handleGrad)" stroke-width="12" stroke-linecap="round"/>
+        <path d="M168 78 Q210 26 252 78" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+
+        <rect x="222" y="88" width="42" height="70" rx="10" fill="url(#tankGrad)" stroke="#bdeeff" stroke-width="1.5"/>
+        <line x1="226" y1="128" x2="260" y2="128" stroke="#eafbff" stroke-width="2" opacity=".8"/>
+        <circle cx="236" cy="140" r="2.4" fill="#eafbff" opacity=".8"/>
+        <circle cx="248" cy="120" r="1.8" fill="#eafbff" opacity=".7"/>
+
+        <rect x="158" y="108" width="70" height="26" rx="8" fill="#0d1319" opacity=".92"/>
+        <circle cx="168" cy="121" r="6.4" fill="url(#hubGrad)" stroke="#0d1319" stroke-width="1"/>
+        <circle cx="168" cy="121" r="2.6" fill="#00d4ff"/>
+        <circle cx="184" cy="121" r="6" fill="#3a4550" stroke="#0d1319" stroke-width="1"/>
+        <circle cx="199" cy="121" r="6" fill="#3a4550" stroke="#0d1319" stroke-width="1"/>
+        <circle cx="214" cy="121" r="6" fill="#3a4550" stroke="#0d1319" stroke-width="1"/>
+
+        <g aria-hidden="true">
+          <circle cx="168" cy="152" r="3.4" fill="#00d4ff"/>
+          <circle cx="180" cy="152" r="3.4" fill="#3fa9ff"/>
+          <circle cx="192" cy="152" r="3.4" fill="#7c7dff"/>
+          <circle cx="204" cy="152" r="3.4" fill="#c86bff"/>
+          <circle cx="216" cy="152" r="3.4" fill="#ff6ec7"/>
+          <circle cx="228" cy="152" r="3.4" fill="#5af0c0"/>
+          <circle cx="240" cy="152" r="3.4" fill="#ffffff"/>
+        </g>
+
+        <rect x="96" y="182" width="228" height="238" rx="30" fill="url(#bodyGrad)" stroke="#5c6874" stroke-width="1.5"/>
+        <rect x="96" y="182" width="228" height="90" rx="30" fill="url(#bodyGradShade)"/>
+
+        <circle cx="210" cy="300" r="104" fill="url(#bezelGrad)" stroke="#020507" stroke-width="2"/>
+        <circle cx="210" cy="300" r="98" fill="none" stroke="#4b5966" stroke-width="1.5" opacity=".6"/>
+
+        <g class="fb-fan">
+          <line x1="210.0" y1="273.0" x2="210.0" y2="204.0" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="216.0" y1="273.7" x2="231.4" y2="206.4" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="221.7" y1="275.7" x2="251.7" y2="213.5" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="226.8" y1="278.9" x2="269.9" y2="224.9" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="231.1" y1="283.2" x2="285.1" y2="240.1" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="234.3" y1="288.3" x2="296.5" y2="258.3" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="236.3" y1="294.0" x2="303.6" y2="278.6" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="237.0" y1="300.0" x2="306.0" y2="300.0" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="236.3" y1="306.0" x2="303.6" y2="321.4" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="234.3" y1="311.7" x2="296.5" y2="341.7" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="231.1" y1="316.8" x2="285.1" y2="359.9" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="226.8" y1="321.1" x2="269.9" y2="375.1" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="221.7" y1="324.3" x2="251.7" y2="386.5" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="216.0" y1="326.3" x2="231.4" y2="393.6" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="210.0" y1="327.0" x2="210.0" y2="396.0" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="204.0" y1="326.3" x2="188.6" y2="393.6" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="198.3" y1="324.3" x2="168.3" y2="386.5" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="193.2" y1="321.1" x2="150.1" y2="375.1" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="188.9" y1="316.8" x2="134.9" y2="359.9" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="185.7" y1="311.7" x2="123.5" y2="341.7" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="183.7" y1="306.0" x2="116.4" y2="321.4" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="183.0" y1="300.0" x2="114.0" y2="300.0" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="183.7" y1="294.0" x2="116.4" y2="278.6" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="185.7" y1="288.3" x2="123.5" y2="258.3" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="188.9" y1="283.2" x2="134.9" y2="240.1" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="193.2" y1="278.9" x2="150.1" y2="224.9" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <line x1="198.3" y1="275.7" x2="168.3" y2="213.5" stroke="url(#finGrad)" stroke-width="2.6" stroke-linecap="round" opacity="0.85"/>
+          <line x1="204.0" y1="273.7" x2="188.6" y2="206.4" stroke="url(#finGrad)" stroke-width="1.6" stroke-linecap="round" opacity="0.55"/>
+          <circle cx="210" cy="300" r="27" fill="url(#hubGrad)" stroke="#232d36" stroke-width="2"/>
+          <circle cx="210" cy="300" r="9" fill="#232d36"/>
+        </g>
+
+        <line x1="106" y1="220" x2="106" y2="252" stroke="#5c6874" stroke-width="2" opacity=".5"/>
+        <line x1="112" y1="220" x2="112" y2="252" stroke="#5c6874" stroke-width="2" opacity=".5"/>
+        <line x1="118" y1="220" x2="118" y2="252" stroke="#5c6874" stroke-width="2" opacity=".5"/>
+
+        <rect x="296" y="240" width="16" height="9" rx="3" fill="#12181e" stroke="#5c6874" stroke-width="1"/>
+
+        <rect x="120" y="418" width="180" height="14" rx="7" fill="#232d36"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<main id="main">
+<section class="hero" id="top">
+  <div class="container hero-grid">
+    <div class="hero-content">
+      <span class="pill hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Free Shipping + 30-Day Guarantee
+      </span>
+      <h1>2:47 AM. Eyes Snap Open.<br><span class="accent-grad">Drenched Again.</span></h1>
+      <p class="hero-sub">What if tonight was the last night you woke up sweating? The <strong>$29.97 personal cooling zone</strong> that creates a cool mist breeze right where you sleep — without freezing your partner or spiking your AC bill.</p>
+
+      <div class="chip-row">
+        <span class="chip"><span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Fast Personal Cooling</span>
+        <span class="chip"><span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quiet enough to sleep next to</span>
+        <span class="chip"><span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>USB-C Powered</span>
+      </div>
+
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#buy">
+          Get Cool Relief &mdash; Free Shipping
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <div class="nav-links">
-          <a href="#demo-sequence">Demo</a>
-          <a href="#schedule">Schedule</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#offers">Offers</a>
-          <a href="#faq">FAQ</a>
-        </div>
-        <a class="button nav-cta" href="#schedule">
-          <span class="live-dot" aria-hidden="true"></span>
-          Watch it live
-        </a>
-      </nav>
-    </header>
+        <button class="btn btn-ghost" type="button" id="watchDemoBtn" aria-haspopup="dialog" aria-controls="demoModal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.6"/><path d="M10 8.5l6 3.5-6 3.5v-7z" fill="currentColor"/></svg>
+          Watch Demo
+        </button>
+      </div>
 
-    <main id="main">
-      <span id="top" class="anchor-top" aria-hidden="true"></span>
+      <p class="trust-line">1,200+ orders since 2024 — Shopify, TikTok Shop, eBay &amp; Facebook</p>
+    </div>
 
-      <!-- 1. HERO with product schematic SVG + watch-it-live CTA -->
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Live product lab — cooling &amp; comfort</p>
-          <h1 id="hero-title">See the airflow before you decide.</h1>
-          <p class="lede">FreezeBreeze Live Lab is a broadcast shell for demonstrating how a cooling product actually moves air, where the cold lands, and which settings matter — explained live, on camera, in plain language.</p>
-          <div class="hero-actions">
-            <a class="button" href="#schedule">
-              <span class="live-dot" aria-hidden="true"></span>
-              Watch it live
-            </a>
-            <a class="button secondary" href="#how-it-works">How it works</a>
-          </div>
-          <dl class="hero-spec" aria-label="Demo session at a glance">
-            <div>
-              <dt>Format</dt>
-              <dd>Hosted live demo</dd>
-            </div>
-            <div>
-              <dt>Focus</dt>
-              <dd>Airflow &amp; comfort</dd>
-            </div>
-            <div>
-              <dt>Proof</dt>
-              <dd>Shown on camera</dd>
-            </div>
-          </dl>
-        </div>
+    <div class="hero-art-wrap">
+      <svg class="product-art" viewBox="0 0 420 500" role="img" aria-labelledby="heroArtTitle">
+        <title id="heroArtTitle">FreezeBreeze CORE personal cooling tower illustration, with a glowing blue mist rising from the front fan</title>
+        <use href="#fbCoreArt"></use>
+      </svg>
+      <span class="float-badge fb-usb">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 12h10M7 12l3-3M7 12l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect x="2" y="9" width="4" height="6" rx="1" stroke="currentColor" stroke-width="1.6"/></svg>
+        USB-C Powered
+      </span>
+      <span class="float-badge fb-led">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/><path d="M12 3v2.4M12 18.6V21M21 12h-2.4M5.4 12H3M18.1 5.9l-1.7 1.7M7.6 16.4l-1.7 1.7M18.1 18.1l-1.7-1.7M7.6 7.6L5.9 5.9" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        7 LED Colors
+      </span>
+    </div>
+  </div>
+</section>
 
-        <!-- ATOM: product_schematic_svg_v1 -->
-        <figure class="schematic" data-atom="product_schematic_svg_v1">
-          <div class="schematic-stage">
-            <svg class="schematic-svg" viewBox="0 0 520 480" role="img" aria-labelledby="schematic-title schematic-desc">
-              <title id="schematic-title">Cooling unit airflow schematic</title>
-              <desc id="schematic-desc">A vector cross-section of a tower cooling unit showing the intake at the base, an internal fan, a chilled core, and three labelled airflow streams rising and curving outward.</desc>
-              <defs>
-                <linearGradient id="bodyFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#1d3a63"/>
-                  <stop offset="1" stop-color="#0f2342"/>
-                </linearGradient>
-                <linearGradient id="coreFill" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0" stop-color="#8fe3ff"/>
-                  <stop offset="1" stop-color="#39b6e6"/>
-                </linearGradient>
-                <linearGradient id="streamCool" x1="0" y1="1" x2="0" y2="0">
-                  <stop offset="0" stop-color="#39b6e6" stop-opacity="0"/>
-                  <stop offset="1" stop-color="#8fe3ff" stop-opacity="0.95"/>
-                </linearGradient>
-              </defs>
+<section class="trust-row" id="shipping">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17 20.5c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zM7 20.5c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3z" stroke="currentColor" stroke-width="1.6"/><path d="M4 14.5V6a1 1 0 011-1h9v9.5M7 14.5h10M14 8h4l2.5 3.6V14.5H20" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <div><strong>1,200+</strong><span>Orders since 2024</span></div>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 6.5v6l4 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12.5" r="8.5" stroke="currentColor" stroke-width="1.6"/></svg>
+        <div><strong>Ships in 24h</strong><span>Free USPS Priority &middot; 2&ndash;3 days</span></div>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-6.1 7-11.5A7 7 0 105 9.5C5 14.9 12 21 12 21z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.4" stroke="currentColor" stroke-width="1.6"/></svg>
+        <div><strong>Blairsville, GA</strong><span>Packed by the founder</span></div>
+      </div>
+      <div class="trust-item">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3l7 3.2v5.3c0 4.8-3 8.7-7 9.5-4-.8-7-4.7-7-9.5V6.2L12 3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M9 12l2 2 4-4.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div><strong>30 Day</strong><span>Money-back guarantee</span></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-              <!-- unit body -->
-              <rect x="176" y="70" width="168" height="360" rx="26" fill="url(#bodyFill)" stroke="#3f6ea8" stroke-width="2"/>
-              <!-- top vent grille -->
-              <g stroke="#7fd3f2" stroke-width="3" stroke-linecap="round">
-                <path d="M196 100h128"/>
-                <path d="M196 116h128"/>
-                <path d="M196 132h128"/>
-              </g>
-              <!-- chilled core -->
-              <rect x="212" y="176" width="96" height="150" rx="14" fill="url(#coreFill)" opacity="0.9"/>
-              <g stroke="#0f2342" stroke-width="2" opacity="0.5">
-                <path d="M212 206h96M212 236h96M212 266h96M212 296h96"/>
-              </g>
-              <!-- fan blades -->
-              <g transform="translate(260 372)" class="schematic-fan">
-                <circle r="34" fill="#0f2342" stroke="#7fd3f2" stroke-width="2"/>
-                <g fill="#7fd3f2">
-                  <path d="M0 0 Q14 -22 0 -30 Q-8 -16 0 0Z"/>
-                  <path d="M0 0 Q22 14 30 0 Q16 -8 0 0Z"/>
-                  <path d="M0 0 Q-14 22 0 30 Q8 16 0 0Z"/>
-                  <path d="M0 0 Q-22 -14 -30 0 Q-16 8 0 0Z"/>
-                </g>
-                <circle r="6" fill="#0f2342"/>
-              </g>
-              <!-- intake arrows at base -->
-              <g stroke="#9fb6d4" stroke-width="3" stroke-linecap="round" fill="none">
-                <path d="M150 392h40"/><path d="M178 384l12 8-12 8"/>
-                <path d="M370 392h-40"/><path d="M342 384l-12 8 12 8"/>
-              </g>
+<style>
+/* ============================================================
+   Problem section
+   ============================================================ */
+.problem{background:var(--bg-1);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.problem-grid{
+  display:grid;
+  gap:var(--sp-8);
+}
+@media (min-width:1020px){
+  .problem-grid{grid-template-columns:1.1fr .9fr;gap:var(--sp-9);align-items:start;}
+}
+.problem h2{font-size:var(--fs-h2);max-width:16ch;}
+.problem-lede{
+  margin-top:var(--sp-5);
+  color:var(--text-1);
+  font-size:var(--fs-lede);
+  max-width:58ch;
+}
+.problem-lede + .problem-lede{margin-top:var(--sp-3);}
+.problem-lede strong{color:var(--text-0);}
 
-              <!-- airflow streams (animated shimmer; reduced-motion safe) -->
-              <g class="schematic-streams" fill="none" stroke-linecap="round">
-                <path class="stream stream-1" d="M236 150 C232 96 196 70 150 56" stroke="url(#streamCool)" stroke-width="9"/>
-                <path class="stream stream-2" d="M260 146 C260 84 260 60 260 34" stroke="url(#streamCool)" stroke-width="11"/>
-                <path class="stream stream-3" d="M284 150 C288 96 324 70 370 56" stroke="url(#streamCool)" stroke-width="9"/>
-              </g>
+.tried-everything{
+  margin-top:var(--sp-7);
+}
+.tried-everything h3{
+  font-size:var(--fs-base);
+  font-weight:700;
+  color:var(--text-0);
+  margin-bottom:var(--sp-4);
+}
+.tried-list{
+  display:flex;
+  flex-direction:column;
+  gap:var(--sp-3);
+}
+.tried-item{
+  display:flex;
+  gap:var(--sp-3);
+  align-items:flex-start;
+  padding:var(--sp-4);
+  background:var(--panel-glass);
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+}
+.tried-item strong{
+  display:block;
+  color:var(--text-0);
+  font-size:var(--fs-sm);
+  font-weight:700;
+}
+.tried-item span{
+  display:block;
+  color:var(--text-2);
+  font-size:var(--fs-xs);
+  margin-top:2px;
+}
 
-              <!-- callout dots -->
-              <g class="schematic-pins" font-family="inherit" font-size="13" font-weight="700">
-                <g>
-                  <circle cx="384" cy="248" r="5" fill="#8fe3ff"/>
-                  <path d="M389 248h40" stroke="#8fe3ff" stroke-width="1.5"/>
-                  <text x="433" y="245" fill="#cfe6ff">Chilled core</text>
-                  <text x="433" y="262" fill="#7f97b8" font-weight="500" font-size="11">where the cold builds</text>
-                </g>
-                <g>
-                  <circle cx="384" cy="372" r="5" fill="#8fe3ff"/>
-                  <path d="M389 372h40" stroke="#8fe3ff" stroke-width="1.5"/>
-                  <text x="433" y="369" fill="#cfe6ff">Airflow fan</text>
-                  <text x="433" y="386" fill="#7f97b8" font-weight="500" font-size="11">moves the air out</text>
-                </g>
-                <g>
-                  <circle cx="150" cy="56" r="5" fill="#8fe3ff"/>
-                  <text x="34" y="52" fill="#cfe6ff">Cool stream</text>
-                  <text x="34" y="69" fill="#7f97b8" font-weight="500" font-size="11">direction of reach</text>
-                </g>
-              </g>
-            </svg>
-          </div>
-          <figcaption class="schematic-caption">
-            <span class="tag">Schematic</span>
-            <span>Illustrative airflow diagram for on-air explanation. Replace measured figures with verified test data before publishing.</span>
-          </figcaption>
-        </figure>
-      </section>
+.callout-card{
+  background:linear-gradient(160deg, rgba(0,212,255,.1), rgba(0,212,255,.02));
+  border:1px solid var(--line-accent);
+  border-radius:var(--r-lg);
+  padding:var(--sp-6);
+  align-self:start;
+  position:sticky;
+  top:calc(var(--offer-bar-h) + var(--nav-h) + var(--sp-5));
+}
+.callout-card h3{
+  font-size:var(--fs-h3);
+  color:var(--text-0);
+  margin-bottom:var(--sp-4);
+}
+.callout-card p{color:var(--text-1);font-size:var(--fs-base);}
+.callout-card em{color:var(--accent);font-style:normal;font-weight:700;}
+@media (max-width:1019px){
+  .callout-card{position:static;}
+}
 
-      <!-- live cue rail / broadcast status strip -->
-      <section class="cue-rail" aria-label="Live broadcast cues">
-        <article class="cue">
-          <span class="cue-state" data-state="ready">Ready</span>
-          <strong>Pre-roll &amp; welcome</strong>
-          <p>Host frames the session and sets expectations before any product claim.</p>
-        </article>
-        <article class="cue">
-          <span class="cue-state" data-state="air">On air</span>
-          <strong>Airflow walk-through</strong>
-          <p>Camera follows the air path on the schematic and the physical unit.</p>
-        </article>
-        <article class="cue">
-          <span class="cue-state" data-state="queue">Queued</span>
-          <strong>Settings &amp; comfort</strong>
-          <p>Speed, tilt, and quiet mode shown without performance promises.</p>
-        </article>
-        <article class="cue">
-          <span class="cue-state" data-state="hold">On hold</span>
-          <strong>Q&amp;A &amp; offers</strong>
-          <p>Questions answered, then the offer structure is reviewed honestly.</p>
-        </article>
-      </section>
+/* ============================================================
+   What if tonight
+   ============================================================ */
+.whatif{position:relative;overflow:hidden;}
+.whatif::before{
+  content:"";
+  position:absolute;
+  top:10%;right:-10%;
+  width:900px;height:900px;
+  background:radial-gradient(circle, rgba(0,140,180,.14), transparent 65%);
+  pointer-events:none;
+}
+.whatif-grid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  gap:var(--sp-8);
+  grid-template-areas:"art" "content";
+}
+@media (min-width:1020px){
+  .whatif-grid{grid-template-columns:1fr 1fr;grid-template-areas:"art content";align-items:center;gap:var(--sp-9);}
+}
+.whatif-art{grid-area:art;display:flex;justify-content:center;}
+.whatif-art .product-art{width:min(360px, 80vw);filter:drop-shadow(0 24px 48px rgba(0,0,0,.6));}
+.whatif-art .product-art .fb-body{filter:brightness(.32) saturate(.7);}
+.whatif-art .product-art-tint{
+  position:relative;
+}
+.whatif-content{grid-area:content;}
+.whatif h2{font-size:var(--fs-h2);max-width:14ch;}
+.whatif .kicker-sub{
+  margin-top:var(--sp-2);
+  color:var(--text-1);
+  font-size:var(--fs-lede);
+}
+.whatif-body{margin-top:var(--sp-5);}
+.whatif-body p{color:var(--text-1);font-size:var(--fs-base);margin-top:var(--sp-3);}
+.whatif-body p:first-child{margin-top:0;}
+.whatif-body strong{color:var(--text-0);}
+.check-list{
+  margin-top:var(--sp-6);
+  display:flex;
+  flex-direction:column;
+  gap:var(--sp-3);
+}
+.check-list li{
+  display:flex;
+  align-items:center;
+  gap:var(--sp-3);
+  font-size:var(--fs-sm);
+  font-weight:600;
+  color:var(--text-0);
+}
+.whatif-close{
+  margin-top:var(--sp-6);
+  font-size:var(--fs-base);
+  color:var(--text-1);
+  padding-top:var(--sp-5);
+  border-top:1px solid var(--line);
+}
+.whatif-close em{color:var(--accent);font-style:italic;}
+</style>
 
-      <!-- 2. DEMO SEQUENCE TIMELINE -->
-      <!-- ATOM: live_demo_sequence_v1 -->
-      <section class="section" id="demo-sequence" aria-labelledby="demo-title" data-atom="live_demo_sequence_v1">
-        <div class="section-head">
-          <p class="eyebrow">Demo sequence</p>
-          <h2 id="demo-title">A demo that moves from claim-free setup to real airflow.</h2>
-          <p class="lede">Each segment has a job. The sequence keeps the broadcast honest: explain, show, answer, and only then talk about buying.</p>
-        </div>
-        <ol class="timeline">
-          <li class="timeline-step">
-            <div class="timeline-time"><span aria-hidden="true">00:00</span><span class="timeline-len">~3 min</span></div>
-            <div class="timeline-body">
-              <h3>Frame the session</h3>
-              <p>Welcome, what we will cover, and a clear statement that figures shown are illustrative until verified.</p>
-            </div>
+<section class="section problem" aria-labelledby="problemHeading">
+  <div class="container problem-grid">
+    <div>
+      <span class="kicker">The Problem</span>
+      <h2 id="problemHeading">It starts the same way every night.<br>2:47 AM. You're <span class="accent-grad">Drenched.</span></h2>
+      <p class="problem-lede">Sheets soaked. Pillow damp. That familiar wave of heat rolling through your body like a furnace someone forgot to turn off.</p>
+      <p class="problem-lede">You throw off the covers. Too hot. You pull them back. Too cold. You flip the pillow to the cool side. <strong>It's not cool.</strong></p>
+
+      <div class="tried-everything">
+        <h3>You've tried everything:</h3>
+        <ul class="tried-list">
+          <li class="tried-item">
+            <span class="x-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+            <span><strong>Cranked the AC</strong><span>Partner froze. Bill hit $400.</span></span>
           </li>
-          <li class="timeline-step">
-            <div class="timeline-time"><span aria-hidden="true">00:03</span><span class="timeline-len">~6 min</span></div>
-            <div class="timeline-body">
-              <h3>Trace the airflow</h3>
-              <p>Walk the schematic, then the unit: intake, core, fan, and where the cool stream actually reaches.</p>
-            </div>
+          <li class="tried-item">
+            <span class="x-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+            <span><strong>$500 cooling mattress</strong><span>Helped for a week.</span></span>
           </li>
-          <li class="timeline-step">
-            <div class="timeline-time"><span aria-hidden="true">00:09</span><span class="timeline-len">~5 min</span></div>
-            <div class="timeline-body">
-              <h3>Show the controls</h3>
-              <p>Speeds, oscillation, tilt, and quiet mode demonstrated on camera, described in plain terms.</p>
-            </div>
+          <li class="tried-item">
+            <span class="x-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+            <span><strong>Box fan</strong><span>Too loud. Dried out your sinuses.</span></span>
           </li>
-          <li class="timeline-step">
-            <div class="timeline-time"><span aria-hidden="true">00:14</span><span class="timeline-len">~7 min</span></div>
-            <div class="timeline-body">
-              <h3>Answer live questions</h3>
-              <p>Pull viewer questions, repeat them for the recording, and answer with what is known.</p>
-            </div>
-          </li>
-          <li class="timeline-step">
-            <div class="timeline-time"><span aria-hidden="true">00:21</span><span class="timeline-len">~4 min</span></div>
-            <div class="timeline-body">
-              <h3>Review the offer</h3>
-              <p>Walk the bundle structure and availability honestly. No countdowns, no invented discounts.</p>
-            </div>
-          </li>
-        </ol>
-      </section>
-
-      <!-- 3. LIVE SCHEDULE SHELL -->
-      <section class="section schedule" id="schedule" aria-labelledby="schedule-title">
-        <div class="section-head">
-          <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Live schedule</p>
-          <h2 id="schedule-title">A schedule shell ready for your real broadcast times.</h2>
-          <p class="lede">Slots are placeholders. Drop in confirmed dates, times, and platforms before going live — nothing here implies a session that is not booked.</p>
-        </div>
-        <ul class="schedule-list" aria-label="Upcoming live sessions">
-          <li class="schedule-row">
-            <div class="schedule-when">
-              <span class="schedule-day">[DAY]</span>
-              <span class="schedule-date">[DATE — confirm before publishing]</span>
-            </div>
-            <div class="schedule-topic">
-              <h3>Airflow &amp; reach walk-through</h3>
-              <p>Core demo of how the unit moves air and where it lands.</p>
-            </div>
-            <div class="schedule-meta">
-              <span class="chip" data-platform="tiktok">TikTok</span>
-              <span class="chip" data-platform="youtube">YouTube</span>
-            </div>
-            <a class="button small schedule-cta" href="#schedule" aria-label="Set a reminder for the airflow walk-through session">Remind me</a>
-          </li>
-          <li class="schedule-row">
-            <div class="schedule-when">
-              <span class="schedule-day">[DAY]</span>
-              <span class="schedule-date">[DATE — confirm before publishing]</span>
-            </div>
-            <div class="schedule-topic">
-              <h3>Settings, quiet mode &amp; care</h3>
-              <p>Controls demonstrated, plus cleaning and maintenance notes.</p>
-            </div>
-            <div class="schedule-meta">
-              <span class="chip" data-platform="shopify">Shopify Live</span>
-            </div>
-            <a class="button small schedule-cta" href="#schedule" aria-label="Set a reminder for the settings and care session">Remind me</a>
-          </li>
-          <li class="schedule-row">
-            <div class="schedule-when">
-              <span class="schedule-day">[DAY]</span>
-              <span class="schedule-date">[DATE — confirm before publishing]</span>
-            </div>
-            <div class="schedule-topic">
-              <h3>Open Q&amp;A &amp; bundle review</h3>
-              <p>Viewer questions answered and the offer structure explained.</p>
-            </div>
-            <div class="schedule-meta">
-              <span class="chip" data-platform="youtube">YouTube</span>
-            </div>
-            <a class="button small schedule-cta" href="#schedule" aria-label="Set a reminder for the open Q and A and bundle review session">Remind me</a>
+          <li class="tried-item">
+            <span class="x-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+            <span><strong>Guest room</strong><span>That's not a solution. That's a symptom.</span></span>
           </li>
         </ul>
-        <p class="schedule-note">Availability is never implied until a session is confirmed. Ask about current availability.</p>
-      </section>
+      </div>
+    </div>
 
-      <!-- 4. PRODUCT EDUCATION / HOW IT WORKS -->
-      <!-- ATOM: product_education_callout_v1 -->
-      <section class="section how" id="how-it-works" aria-labelledby="how-title">
-        <div class="section-head">
-          <p class="eyebrow">How it works</p>
-          <h2 id="how-title">Three things to understand before the cold makes sense.</h2>
-          <p class="lede">Product education first. These callouts give viewers a mental model so the live demo lands — without overstating what the unit does.</p>
-        </div>
-        <div class="callout-grid">
-          <article class="callout" data-atom="product_education_callout_v1">
-            <div class="callout-figure" aria-hidden="true">
-              <svg viewBox="0 0 120 120" focusable="false">
-                <circle cx="60" cy="60" r="54" fill="none" stroke="#39b6e6" stroke-width="2" opacity="0.4"/>
-                <g fill="none" stroke="#8fe3ff" stroke-width="3" stroke-linecap="round">
-                  <path d="M30 78h60"/><path d="M30 60h60"/><path d="M30 42h60"/>
-                  <path d="M82 70l10 8-10 8" transform="translate(0 -8)"/>
-                  <path d="M82 52l10 8-10 8" transform="translate(0 -10)"/>
-                </g>
-              </svg>
-            </div>
-            <h3>1 — Air has to move</h3>
-            <p>A cooling unit works by moving air across a chilled surface. The fan and the path it takes matter as much as the cold itself.</p>
-          </article>
-          <article class="callout" data-atom="product_education_callout_v1">
-            <div class="callout-figure" aria-hidden="true">
-              <svg viewBox="0 0 120 120" focusable="false">
-                <rect x="40" y="20" width="40" height="80" rx="12" fill="none" stroke="#39b6e6" stroke-width="2" opacity="0.5"/>
-                <rect x="50" y="44" width="20" height="40" rx="6" fill="#8fe3ff" opacity="0.85"/>
-                <g stroke="#0f2342" stroke-width="2" opacity="0.5"><path d="M50 56h20M50 68h20"/></g>
-                <path d="M60 20v-8M52 14l8-6 8 6" fill="none" stroke="#8fe3ff" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-            </div>
-            <h3>2 — Reach is a zone, not a number</h3>
-            <p>Cool air spreads and fades with distance. We show the comfort zone on camera instead of promising a single figure.</p>
-          </article>
-          <article class="callout" data-atom="product_education_callout_v1">
-            <div class="callout-figure" aria-hidden="true">
-              <svg viewBox="0 0 120 120" focusable="false">
-                <g fill="none" stroke="#8fe3ff" stroke-width="3" stroke-linecap="round">
-                  <path d="M36 84c0-16 12-28 24-28s24 12 24 28"/>
-                  <path d="M60 56V30"/>
-                  <path d="M44 40a16 16 0 0132 0"/>
-                </g>
-                <circle cx="60" cy="24" r="6" fill="#8fe3ff"/>
-              </svg>
-            </div>
-            <h3>3 — Settings change the feel</h3>
-            <p>Speed, oscillation, and quiet mode each trade something. The demo lets viewers judge the trade for their own space.</p>
-          </article>
-        </div>
+    <div class="callout-card glass-card">
+      <h3>But what if you didn't have to be a &ldquo;hot sleeper&rdquo;?</h3>
+      <p>What if there was something that creates a <em>personal cooling zone</em> right where YOU sleep — your pillow, your face, your side of the bed — without freezing your partner or spiking your AC bill?</p>
+    </div>
+  </div>
+</section>
 
-        <!-- heat-map accent legend (CSS/SVG only) -->
-        <div class="heatmap" aria-labelledby="heatmap-title">
-          <div class="heatmap-copy">
-            <h3 id="heatmap-title">Comfort zone, shown as a gradient</h3>
-            <p>This is a relative illustration of where cool air concentrates and fades. It is a teaching aid, not a measured map — confirm any figures with real testing.</p>
-            <ul class="heatmap-legend">
-              <li><span class="swatch s-core" aria-hidden="true"></span> Coolest, nearest the unit</li>
-              <li><span class="swatch s-mid" aria-hidden="true"></span> Comfortable working zone</li>
-              <li><span class="swatch s-edge" aria-hidden="true"></span> Air settling to room temperature</li>
-            </ul>
-          </div>
-          <div class="heatmap-figure">
-            <svg viewBox="0 0 360 200" role="img" aria-labelledby="heatmap-fig-title heatmap-fig-desc">
-              <title id="heatmap-fig-title">Relative comfort zone gradient</title>
-              <desc id="heatmap-fig-desc">A horizontal gradient fanning out from a unit on the left, moving from cool blue through mid cyan to a faded edge, illustrating how cool air weakens with distance.</desc>
-              <defs>
-                <radialGradient id="heat" cx="8%" cy="50%" r="92%">
-                  <stop offset="0" stop-color="#8fe3ff"/>
-                  <stop offset="0.42" stop-color="#39b6e6"/>
-                  <stop offset="0.74" stop-color="#3f6ea8"/>
-                  <stop offset="1" stop-color="#0f2342"/>
-                </radialGradient>
-              </defs>
-              <rect x="0" y="0" width="360" height="200" rx="14" fill="url(#heat)"/>
-              <rect x="14" y="58" width="26" height="84" rx="7" fill="#0f2342" stroke="#8fe3ff" stroke-width="2"/>
-              <g fill="none" stroke="#eaf6ff" stroke-width="2" opacity="0.55" stroke-dasharray="3 7">
-                <path d="M120 30v140M210 30v140M300 30v140"/>
-              </g>
-              <g fill="#eaf6ff" font-size="12" font-weight="700" opacity="0.92">
-                <text x="96" y="190">near</text>
-                <text x="186" y="190">mid</text>
-                <text x="276" y="190">edge</text>
-              </g>
-            </svg>
-          </div>
-        </div>
-      </section>
+<section class="section whatif" aria-labelledby="whatifHeading">
+  <div class="container whatif-grid">
+    <div class="whatif-art">
+      <div class="product-art-tint">
+        <svg class="product-art" viewBox="0 0 420 500" role="img" aria-labelledby="whatifArtTitle">
+          <title id="whatifArtTitle">FreezeBreeze CORE in a moody dark setting with a bright blue mist swirl</title>
+          <use href="#fbCoreArt"></use>
+        </svg>
+      </div>
+    </div>
+    <div class="whatif-content">
+      <h2 id="whatifHeading">What If Tonight Was <span class="accent-grad">Different?</span></h2>
+      <p class="kicker-sub">The $29.97 device changing how hot sleepers sleep</p>
+      <div class="whatif-body">
+        <p>Imagine pressing one button and feeling a cool mist breeze wash over your face.</p>
+        <p>Not your partner's face. Not the whole room. <strong>Just yours.</strong></p>
+        <p>That's FreezeBreeze — a personal cooling zone that sits on your nightstand and creates relief exactly where you need it.</p>
+      </div>
+      <ul class="check-list">
+        <li><span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Cool mist aimed right at you</li>
+        <li><span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quiet enough to sleep next to</li>
+        <li><span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>No installation, no monthly bills</li>
+      </ul>
+      <p class="whatif-close">Your body finally gets the message: <em>&ldquo;It's safe to sleep now.&rdquo;</em></p>
+    </div>
+  </div>
+</section>
 
-      <!-- 5. BUNDLE / OFFER MATRIX (no fake discounts) -->
-      <!-- ATOM: offer_bundle_matrix_v1 -->
-      <section class="section offers" id="offers" aria-labelledby="offers-title" data-atom="offer_bundle_matrix_v1">
-        <div class="section-head">
-          <p class="eyebrow">Offer structure</p>
-          <h2 id="offers-title">Bundle structure you fill with real, confirmed pricing.</h2>
-          <p class="lede">The matrix shows how tiers compare. Every price and offer detail is a labelled placeholder — there are no invented discounts, no was/now pricing, and no countdown pressure.</p>
-        </div>
-        <div class="offer-matrix" role="table" aria-label="Bundle comparison matrix">
-          <div class="offer-col is-head" role="row">
-            <span role="columnheader" class="offer-feature-label">What's included</span>
-          </div>
-          <div class="offer-col" role="row">
-            <h3 role="columnheader">Single Unit</h3>
-            <p class="offer-price">[PRICE — confirm before publishing]</p>
-            <p class="offer-sub">For one room or workspace.</p>
-            <ul class="offer-feats">
-              <li data-on="yes">Cooling unit</li>
-              <li data-on="yes">Quick-start guide</li>
-              <li data-on="no">Spare filter pack</li>
-              <li data-on="no">Care &amp; cleaning kit</li>
-            </ul>
-            <a class="button secondary small" href="#schedule" aria-label="Ask about availability for the single unit">Ask about availability</a>
-          </div>
-          <div class="offer-col is-feature" role="row">
-            <span class="offer-flag">Most explained on air</span>
-            <h3 role="columnheader">Comfort Bundle</h3>
-            <p class="offer-price">[PRICE — confirm before publishing]</p>
-            <p class="offer-sub">Unit plus the parts people ask about.</p>
-            <ul class="offer-feats">
-              <li data-on="yes">Cooling unit</li>
-              <li data-on="yes">Quick-start guide</li>
-              <li data-on="yes">Spare filter pack</li>
-              <li data-on="no">Care &amp; cleaning kit</li>
-            </ul>
-            <a class="button small" href="#schedule" aria-label="Ask about availability for the comfort bundle">Ask about availability</a>
-          </div>
-          <div class="offer-col" role="row">
-            <h3 role="columnheader">Full Lab Kit</h3>
-            <p class="offer-price">[PRICE — confirm before publishing]</p>
-            <p class="offer-sub">Everything shown in the demo.</p>
-            <ul class="offer-feats">
-              <li data-on="yes">Cooling unit</li>
-              <li data-on="yes">Quick-start guide</li>
-              <li data-on="yes">Spare filter pack</li>
-              <li data-on="yes">Care &amp; cleaning kit</li>
-            </ul>
-            <a class="button secondary small" href="#schedule" aria-label="Ask about availability for the full lab kit">Ask about availability</a>
-          </div>
-        </div>
-        <p class="offer-note">[OFFER_DETAIL — confirm before publishing]. Pricing, inclusions, and availability must be verified before any session goes live.</p>
-      </section>
+<style>
+/* ============================================================
+   AC bill truth
+   ============================================================ */
+.ac-truth{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:
+    radial-gradient(600px 260px at 50% 0%, rgba(0,212,255,.08), transparent 70%),
+    var(--bg-1);
+  text-align:center;
+}
+.ac-truth .container{max-width:820px;}
+.ac-truth h2{font-size:var(--fs-h2);}
+.ac-truth p{
+  margin-top:var(--sp-5);
+  font-size:var(--fs-lede);
+  color:var(--text-1);
+}
+.ac-truth .num{color:var(--text-0);font-weight:800;}
+.ac-truth .follow-q{
+  margin-top:var(--sp-6);
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:var(--fs-h3);
+  color:var(--text-0);
+}
 
-      <!-- 6. OBJECTION-HANDLING FAQ -->
-      <!-- ATOM: objection_faq_panel_v1 -->
-      <section class="section faq" id="faq" aria-labelledby="faq-title" data-atom="objection_faq_panel_v1">
-        <div class="section-head">
-          <p class="eyebrow">Objection handling</p>
-          <h2 id="faq-title">The questions that come up mid-stream.</h2>
-          <p class="lede">Honest answers to the doubts buyers raise on air. Where a real figure belongs, there is a placeholder — not a guess.</p>
-        </div>
-        <div class="faq-list">
-          <details class="faq-item" name="faq">
-            <summary>
-              <span class="faq-q">Will this actually cool my room?</span>
-              <span class="faq-icon" aria-hidden="true">
-                <svg viewBox="0 0 20 20" width="18" height="18" focusable="false"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              </span>
-            </summary>
-            <div class="faq-a">
-              <p>It moves cooled air through a defined comfort zone rather than chilling an entire room like an AC unit. The live demo shows that zone honestly. Match it to your space and expectations.</p>
-            </div>
-          </details>
-          <details class="faq-item" name="faq">
-            <summary>
-              <span class="faq-q">How far does the air reach?</span>
-              <span class="faq-icon" aria-hidden="true">
-                <svg viewBox="0 0 20 20" width="18" height="18" focusable="false"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              </span>
-            </summary>
-            <div class="faq-a">
-              <p>Reach is a zone that fades with distance, not a single number. [REACH_FIGURE — confirm with verified testing] before stating a measurement on air.</p>
-            </div>
-          </details>
-          <details class="faq-item" name="faq">
-            <summary>
-              <span class="faq-q">Is it loud?</span>
-              <span class="faq-icon" aria-hidden="true">
-                <svg viewBox="0 0 20 20" width="18" height="18" focusable="false"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              </span>
-            </summary>
-            <div class="faq-a">
-              <p>There is a quiet mode that trades some airflow for lower noise. We run it live so you can hear it for yourself. [NOISE_LEVEL — confirm with verified testing] before quoting a figure.</p>
-            </div>
-          </details>
-          <details class="faq-item" name="faq">
-            <summary>
-              <span class="faq-q">What about returns and support?</span>
-              <span class="faq-icon" aria-hidden="true">
-                <svg viewBox="0 0 20 20" width="18" height="18" focusable="false"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              </span>
-            </summary>
-            <div class="faq-a">
-              <p>[RETURN_POLICY — confirm before publishing] and [SUPPORT_CONTACT — confirm before publishing]. State the real policy on air; never imply terms that are not in writing.</p>
-            </div>
-          </details>
-          <details class="faq-item" name="faq">
-            <summary>
-              <span class="faq-q">Why no discount countdown?</span>
-              <span class="faq-icon" aria-hidden="true">
-                <svg viewBox="0 0 20 20" width="18" height="18" focusable="false"><path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-              </span>
-            </summary>
-            <div class="faq-a">
-              <p>Because false urgency is not how this lab sells. If there is a real, time-bound offer, the host states it plainly with the actual terms. Otherwise, the price is the price.</p>
-            </div>
-          </details>
-        </div>
-      </section>
+/* ============================================================
+   Old way vs FreezeBreeze way
+   ============================================================ */
+.battle{background:var(--bg-0);}
+.battle .section-head{max-width:none;text-align:center;margin-inline:auto;}
+.battle-grid{
+  display:grid;
+  gap:var(--sp-6);
+  align-items:stretch;
+  grid-template-areas:"old" "vs" "new";
+}
+@media (min-width:860px){
+  .battle-grid{
+    grid-template-columns:1fr auto 1fr;
+    grid-template-areas:"old vs new";
+  }
+}
+.battle-card{
+  border-radius:var(--r-xl);
+  padding:var(--sp-7) var(--sp-6);
+  border:1px solid var(--line);
+}
+.battle-card.old{
+  grid-area:old;
+  background:var(--bg-2);
+}
+.battle-card.new{
+  grid-area:new;
+  background:linear-gradient(165deg, rgba(0,212,255,.14), rgba(0,212,255,.03));
+  border-color:var(--line-accent);
+  box-shadow:var(--e-2);
+  position:relative;
+}
+.battle-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-2);
+  font-size:var(--fs-xs);
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  padding:var(--sp-1) var(--sp-3);
+  border-radius:var(--r-pill);
+}
+.battle-card.old .battle-tag{background:var(--neg-bg);color:var(--text-2);}
+.battle-card.new .battle-tag{background:var(--accent-soft-strong);color:var(--accent);}
+.battle-card h3{
+  font-size:var(--fs-h3);
+  margin-top:var(--sp-4);
+  color:var(--text-0);
+}
+.battle-card > p.sub{
+  color:var(--text-2);
+  font-size:var(--fs-sm);
+  margin-top:var(--sp-2);
+}
+.battle-list{
+  margin-top:var(--sp-6);
+  display:flex;
+  flex-direction:column;
+  gap:var(--sp-4);
+}
+.battle-list li{
+  display:flex;
+  gap:var(--sp-3);
+}
+.battle-list strong{
+  display:block;
+  font-size:var(--fs-sm);
+  font-weight:700;
+  color:var(--text-0);
+}
+.battle-list span{
+  display:block;
+  font-size:var(--fs-xs);
+  color:var(--text-2);
+  margin-top:2px;
+}
+.battle-vs{
+  grid-area:vs;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-block:var(--sp-2);
+}
+.battle-vs span{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:52px;height:52px;
+  border-radius:50%;
+  background:var(--bg-3);
+  border:1px solid var(--line-strong);
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:var(--fs-xs);
+  color:var(--text-2);
+}
+</style>
 
-      <!-- 7. SHOPPABLE VIDEO QUEUE (CSS/SVG placeholders) -->
-      <!-- ATOM: shoppable_video_queue_v1 -->
-      <section class="section queue" aria-labelledby="queue-title" data-atom="shoppable_video_queue_v1">
-        <div class="section-head">
-          <p class="eyebrow">Shoppable video queue</p>
-          <h2 id="queue-title">A queue shell for clips you have actually recorded.</h2>
-          <p class="lede">These are placeholder cards, not embedded media. Add verified demo clips here and queue them for review before publishing.</p>
-        </div>
-        <ul class="queue-grid" aria-label="Shoppable clip queue">
-          <li class="clip">
-            <div class="clip-frame" aria-hidden="true">
-              <svg viewBox="0 0 320 180" focusable="false" preserveAspectRatio="xMidYMid slice">
-                <rect width="320" height="180" fill="#0f2342"/>
-                <g fill="none" stroke="#3f6ea8" stroke-width="2" opacity="0.6">
-                  <path d="M0 60h320M0 120h320M80 0v180M160 0v180M240 0v180"/>
-                </g>
-                <circle cx="160" cy="90" r="30" fill="#8fe3ff" opacity="0.18"/>
-                <path d="M150 76l24 14-24 14z" fill="#8fe3ff"/>
-              </svg>
-              <span class="clip-badge">Clip slot</span>
-            </div>
-            <div class="clip-body">
-              <h3>Airflow in 30 seconds</h3>
-              <p>[CLIP — add verified demo footage]</p>
-              <div class="clip-foot">
-                <span class="clip-tag">Education</span>
-                <a class="link-cta" href="#offers" aria-label="View the offer linked to the airflow clip">View offer
-                  <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                </a>
-              </div>
-            </div>
+<section class="section ac-truth" aria-labelledby="acTruthHeading">
+  <div class="container">
+    <h2 id="acTruthHeading">The Uncomfortable Truth About <span class="accent-grad">Your AC Bill</span></h2>
+    <p>You're paying to cool <span class="num">1,500 square feet</span> when you only occupy <span class="num">20 square feet</span> of bed.</p>
+    <p class="follow-q">What if you only cooled the 20 that matter?</p>
+  </div>
+</section>
+
+<section class="section battle" aria-labelledby="battleHeading">
+  <div class="container">
+    <div class="section-head center">
+      <h2 id="battleHeading">Stop Fighting the <span class="accent-grad">Wrong Battle</span></h2>
+      <p>There's a smarter way to stay cool at night</p>
+    </div>
+
+    <div class="battle-grid">
+      <div class="battle-card old">
+        <span class="battle-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+          The Old Way
+        </span>
+        <h3>Cool the Whole House</h3>
+        <p class="sub">And deal with the consequences.</p>
+        <ul class="battle-list">
+          <li>
+            <span class="x-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+            <span><strong>$200+ Monthly Bills</strong><span>Cooling empty rooms while you sleep</span></span>
           </li>
-          <li class="clip">
-            <div class="clip-frame" aria-hidden="true">
-              <svg viewBox="0 0 320 180" focusable="false" preserveAspectRatio="xMidYMid slice">
-                <rect width="320" height="180" fill="#13294a"/>
-                <g fill="none" stroke="#3f6ea8" stroke-width="2" opacity="0.6">
-                  <path d="M0 60h320M0 120h320M80 0v180M160 0v180M240 0v180"/>
-                </g>
-                <circle cx="160" cy="90" r="30" fill="#8fe3ff" opacity="0.18"/>
-                <path d="M150 76l24 14-24 14z" fill="#8fe3ff"/>
-              </svg>
-              <span class="clip-badge">Clip slot</span>
-            </div>
-            <div class="clip-body">
-              <h3>Quiet mode, on camera</h3>
-              <p>[CLIP — add verified demo footage]</p>
-              <div class="clip-foot">
-                <span class="clip-tag">Controls</span>
-                <a class="link-cta" href="#offers" aria-label="View the offer linked to the quiet mode clip">View offer
-                  <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                </a>
-              </div>
-            </div>
+          <li>
+            <span class="x-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+            <span><strong>Thermostat Wars</strong><span>You're hot. Partner's freezing. Nobody wins.</span></span>
           </li>
-          <li class="clip">
-            <div class="clip-frame" aria-hidden="true">
-              <svg viewBox="0 0 320 180" focusable="false" preserveAspectRatio="xMidYMid slice">
-                <rect width="320" height="180" fill="#0d1f3a"/>
-                <g fill="none" stroke="#3f6ea8" stroke-width="2" opacity="0.6">
-                  <path d="M0 60h320M0 120h320M80 0v180M160 0v180M240 0v180"/>
-                </g>
-                <circle cx="160" cy="90" r="30" fill="#8fe3ff" opacity="0.18"/>
-                <path d="M150 76l24 14-24 14z" fill="#8fe3ff"/>
-              </svg>
-              <span class="clip-badge">Clip slot</span>
-            </div>
-            <div class="clip-body">
-              <h3>Cleaning &amp; care</h3>
-              <p>[CLIP — add verified demo footage]</p>
-              <div class="clip-foot">
-                <span class="clip-tag">Maintenance</span>
-                <a class="link-cta" href="#offers" aria-label="View the offer linked to the cleaning and care clip">View offer
-                  <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-                </a>
-              </div>
-            </div>
+          <li>
+            <span class="x-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+            <span><strong>Still Waking Up Sweating</strong><span>Whole-house AC doesn't target where you need it</span></span>
           </li>
         </ul>
-      </section>
+      </div>
 
-      <!-- 8. PLATFORM TAGGING CHECKLIST -->
-      <!-- ATOM: platform_tagging_checklist_v1 -->
-      <section class="section tagging" aria-labelledby="tagging-title" data-atom="platform_tagging_checklist_v1">
-        <div class="section-head">
-          <p class="eyebrow">Publishing checklist</p>
-          <h2 id="tagging-title">Tag products correctly on every platform.</h2>
-          <p class="lede">A pre-publish checklist for TikTok, YouTube, and Shopify product tagging. Tick each item before a clip or stream goes live.</p>
-        </div>
-        <form class="tag-board" aria-label="Platform tagging checklist">
-          <fieldset class="tag-group">
-            <legend>
-              <span class="tag-platform" data-platform="tiktok">TikTok</span>
-            </legend>
-            <label class="check"><input type="checkbox" name="tt-product"> <span>Products linked in TikTok Shop</span></label>
-            <label class="check"><input type="checkbox" name="tt-pin"> <span>Pinned product matches the segment on screen</span></label>
-            <label class="check"><input type="checkbox" name="tt-disclose"> <span>Paid / promotional disclosure added</span></label>
-            <label class="check"><input type="checkbox" name="tt-claims"> <span>No unverified performance claims in caption</span></label>
-          </fieldset>
-          <fieldset class="tag-group">
-            <legend>
-              <span class="tag-platform" data-platform="youtube">YouTube</span>
-            </legend>
-            <label class="check"><input type="checkbox" name="yt-tag"> <span>Products tagged in the live control room</span></label>
-            <label class="check"><input type="checkbox" name="yt-chapters"> <span>Chapters match the demo sequence</span></label>
-            <label class="check"><input type="checkbox" name="yt-disclose"> <span>Paid promotion box checked if applicable</span></label>
-            <label class="check"><input type="checkbox" name="yt-links"> <span>Description links point to verified product pages</span></label>
-          </fieldset>
-          <fieldset class="tag-group">
-            <legend>
-              <span class="tag-platform" data-platform="shopify">Shopify</span>
-            </legend>
-            <label class="check"><input type="checkbox" name="sh-inventory"> <span>Inventory and price confirmed in the catalog</span></label>
-            <label class="check"><input type="checkbox" name="sh-variants"> <span>Bundle variants map to the offer matrix</span></label>
-            <label class="check"><input type="checkbox" name="sh-policy"> <span>Return policy &amp; support details published</span></label>
-            <label class="check"><input type="checkbox" name="sh-checkout"> <span>Live checkout link tested end to end</span></label>
-          </fieldset>
-        </form>
-        <p class="tagging-note">This checklist captures intent only and is not submitted anywhere. Queue every item for review before publishing.</p>
-      </section>
+      <div class="battle-vs" aria-hidden="true"><span>VS</span></div>
 
-      <!-- 9. LIVE SEGMENT SCRIPT RAIL -->
-      <!-- ATOM: live_segment_script_rail_v1 -->
-      <section class="section script" aria-labelledby="script-title" data-atom="live_segment_script_rail_v1">
-        <div class="section-head">
-          <p class="eyebrow">Segment script rail</p>
-          <h2 id="script-title">A host rail to keep the live read honest and on time.</h2>
-          <p class="lede">Cue cards with talk track, the on-screen action, and a built-in claim check. Fill the talk track with your own words — keep the guardrails.</p>
-        </div>
-        <ol class="script-rail">
-          <li class="script-card">
-            <div class="script-head">
-              <span class="script-num" aria-hidden="true">01</span>
-              <h3>Open</h3>
-              <span class="script-len">~3 min</span>
-            </div>
-            <p class="script-say"><span class="script-label">Say</span> Welcome, here is what we will show, and a reminder that figures on screen are illustrative until verified.</p>
-            <p class="script-do"><span class="script-label">Do</span> Hold up the unit; point to the schematic.</p>
-            <p class="script-guard"><span class="script-label">Claim check</span> No numbers yet. No "best", no "guaranteed".</p>
+      <div class="battle-card new">
+        <span class="battle-tag">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          The FreezeBreeze Way
+        </span>
+        <h3>Cool Just You</h3>
+        <p class="sub">Targeted relief where you actually need it.</p>
+        <ul class="battle-list">
+          <li>
+            <span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span><strong>$29.97 Once</strong><span>No monthly bills, no subscriptions</span></span>
           </li>
-          <li class="script-card">
-            <div class="script-head">
-              <span class="script-num" aria-hidden="true">02</span>
-              <h3>Demonstrate</h3>
-              <span class="script-len">~6 min</span>
-            </div>
-            <p class="script-say"><span class="script-label">Say</span> Trace the air: in at the base, across the core, out through the top. Here is the comfort zone.</p>
-            <p class="script-do"><span class="script-label">Do</span> Run the fan; move a light ribbon or tissue to show airflow.</p>
-            <p class="script-guard"><span class="script-label">Claim check</span> Show, do not promise. Say "reaches this zone", not a measured distance.</p>
+          <li>
+            <span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span><strong>Partner Stays Comfortable</strong><span>Cool YOUR side without freezing theirs</span></span>
           </li>
-          <li class="script-card">
-            <div class="script-head">
-              <span class="script-num" aria-hidden="true">03</span>
-              <h3>Answer</h3>
-              <span class="script-len">~7 min</span>
-            </div>
-            <p class="script-say"><span class="script-label">Say</span> Great question — repeating it for everyone watching the replay. Here is what I know.</p>
-            <p class="script-do"><span class="script-label">Do</span> Read viewer questions aloud; demonstrate where possible.</p>
-            <p class="script-guard"><span class="script-label">Claim check</span> If you do not know, say so and note it for follow-up.</p>
+          <li>
+            <span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <span><strong>Wake Up Refreshed</strong><span>Cool mist aimed at your face and neck</span></span>
           </li>
-          <li class="script-card">
-            <div class="script-head">
-              <span class="script-num" aria-hidden="true">04</span>
-              <h3>Offer</h3>
-              <span class="script-len">~4 min</span>
-            </div>
-            <p class="script-say"><span class="script-label">Say</span> Here is how the bundles compare and what is in each. Ask me about current availability.</p>
-            <p class="script-do"><span class="script-label">Do</span> Walk the offer matrix on screen.</p>
-            <p class="script-guard"><span class="script-label">Claim check</span> No fake discounts, no countdowns. State only confirmed terms.</p>
-          </li>
-        </ol>
-      </section>
-    </main>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- 10. FOOTER -->
-    <footer class="footer">
-      <div class="footer-inner">
-        <div class="footer-brand">
-          <a class="brand" href="#top" aria-label="FreezeBreeze Live Lab home">
-            <span class="brand-mark" aria-hidden="true">
-              <svg viewBox="0 0 32 32" width="24" height="24" focusable="false">
-                <title>FreezeBreeze frost mark</title>
-                <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-                  <path d="M16 4v24M5.6 10l20.8 12M5.6 22l20.8-12"/>
-                  <path d="M16 4l-3 3M16 4l3 3M16 28l-3-3M16 28l3-3"/>
-                </g>
-              </svg>
-            </span>
-            <span class="brand-word">FreezeBreeze<span class="brand-sub">Live Lab</span></span>
-          </a>
-          <p>A live-commerce and product-education shell for cooling and comfort product demonstrations. Built claim-free: add verified evidence before publishing.</p>
+<style>
+/* ============================================================
+   3 steps
+   ============================================================ */
+.steps{background:var(--bg-1);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.steps .section-head{text-align:center;margin-inline:auto;max-width:none;}
+.steps-grid{
+  display:grid;
+  gap:var(--sp-5);
+  grid-template-columns:1fr;
+}
+@media (min-width:600px) and (max-width:899px){
+  /* tablet tier: 2-up avoids overly narrow 3-up cards on portrait tablets */
+  .steps-grid{grid-template-columns:repeat(2,1fr);}
+  .steps-grid .step-card:last-child{grid-column:1 / -1;max-width:calc(50% - (var(--sp-5) / 2));margin-inline:auto;}
+}
+@media (min-width:900px){
+  .steps-grid{grid-template-columns:repeat(3,1fr);}
+}
+.step-card{
+  position:relative;
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  border-radius:var(--r-lg);
+  padding:var(--sp-6);
+  overflow:hidden;
+  transition:transform var(--dur-mid) var(--ease), border-color var(--dur-mid) var(--ease);
+}
+.step-card:hover{transform:translateY(-4px);border-color:var(--line-accent);}
+.step-num{
+  position:absolute;
+  right:var(--sp-4);
+  bottom:var(--sp-2);
+  font-family:var(--font-display);
+  font-size:5rem;
+  font-weight:800;
+  color:rgba(255,255,255,.05);
+  line-height:1;
+  pointer-events:none;
+}
+.step-icon{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:52px;height:52px;
+  border-radius:var(--r-md);
+  background:var(--accent-soft);
+  color:var(--accent);
+  margin-bottom:var(--sp-5);
+}
+.step-card h3{font-size:var(--fs-h3);color:var(--text-0);}
+.step-card p{margin-top:var(--sp-2);color:var(--text-1);font-size:var(--fs-sm);position:relative;z-index:1;}
+
+/* ============================================================
+   Built for hot sleepers
+   ============================================================ */
+.hotsleepers .section-head{text-align:center;margin-inline:auto;max-width:none;}
+.nightstand-card{
+  position:relative;
+  max-width:820px;
+  margin-inline:auto;
+  background:linear-gradient(160deg, rgba(0,212,255,.09), rgba(255,255,255,.02));
+  border:1px solid var(--line);
+  border-radius:var(--r-xl);
+  padding:var(--sp-7);
+  overflow:hidden;
+}
+.nightstand-watermark{
+  position:absolute;
+  top:var(--sp-3);
+  right:var(--sp-6);
+  font-family:var(--font-display);
+  font-size:6rem;
+  font-weight:800;
+  color:rgba(255,255,255,.04);
+  line-height:1;
+  pointer-events:none;
+}
+.nightstand-card h3{font-size:var(--fs-h3);color:var(--text-0);position:relative;z-index:1;}
+.nightstand-card p{
+  margin-top:var(--sp-3);
+  color:var(--text-1);
+  font-size:var(--fs-base);
+  max-width:60ch;
+  position:relative;
+  z-index:1;
+}
+.nightstand-card p strong{color:var(--text-0);}
+.tag-row{
+  margin-top:var(--sp-6);
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--sp-3);
+  position:relative;
+  z-index:1;
+}
+.tag-row span{
+  font-size:var(--fs-xs);
+  font-weight:600;
+  color:var(--text-1);
+  padding:var(--sp-2) var(--sp-4);
+  border-radius:var(--r-pill);
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--line);
+}
+.also-perfect{
+  margin-top:var(--sp-6);
+  padding-top:var(--sp-5);
+  border-top:1px solid var(--line);
+  font-size:var(--fs-sm);
+  color:var(--text-2);
+  position:relative;
+  z-index:1;
+}
+.also-perfect strong{color:var(--text-1);font-weight:600;}
+</style>
+
+<section class="section steps" aria-labelledby="stepsHeading">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="stepsHeading">Tonight: <span class="accent-grad">3 Steps to Cool Sleep</span></h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3s6 6.8 6 11a6 6 0 11-12 0c0-4.2 6-11 6-11z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        </span>
+        <h3>Fill</h3>
+        <p>Add water. Add ice for extra cold. Aim it where you need relief.</p>
+        <span class="step-num" aria-hidden="true">1</span>
+      </div>
+      <div class="step-card">
+        <span class="step-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M13 3L4 14h6l-1 7 9-11h-6l1-7z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        </span>
+        <h3>Plug In</h3>
+        <p>USB-C into any outlet. Uses less power than your phone charger.</p>
+        <span class="step-num" aria-hidden="true">2</span>
+      </div>
+      <div class="step-card">
+        <span class="step-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 119.5 4 6.8 6.8 0 0020 14.5z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>
+        </span>
+        <h3>Sleep</h3>
+        <p>Cool mist breeze hits your face. Body gets the signal: it's safe to sleep now.</p>
+        <span class="step-num" aria-hidden="true">3</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hotsleepers" aria-labelledby="hotsleepersHeading">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="hotsleepersHeading">Built for <span class="accent-grad">Hot Sleepers</span></h2>
+      <p>The bedroom is where FreezeBreeze changes everything</p>
+    </div>
+
+    <div class="nightstand-card">
+      <span class="nightstand-watermark" aria-hidden="true">01</span>
+      <h3>Your Nightstand's New Best Friend</h3>
+      <p>Place it 2&ndash;3 feet from your pillow. Aim the cool mist at your face and neck — right where you feel the heat most.</p>
+      <p>Partner stays comfortable on their side. <strong>You finally stop waking up drenched.</strong></p>
+      <ul class="tag-row">
+        <li><span>Hot sleepers</span></li>
+        <li><span>Stuffy bedrooms</span></li>
+        <li><span>Summer nights</span></li>
+        <li><span>Thermostat wars</span></li>
+      </ul>
+      <p class="also-perfect"><strong>Also perfect for:</strong> Home Office &middot; Dorm Rooms &middot; RV Life &middot; Anywhere you overheat</p>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ============================================================
+   Comparison table
+   ============================================================ */
+.compare{background:var(--bg-1);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+.compare .section-head{text-align:center;margin-inline:auto;max-width:none;}
+
+.compare-table-wrap{
+  display:none;
+  border-radius:var(--r-lg);
+  border:1px solid var(--line);
+  overflow:hidden;
+  background:var(--bg-2);
+}
+@media (min-width:760px){ .compare-table-wrap{display:block;} }
+
+.compare-table{width:100%;font-size:var(--fs-sm);}
+.compare-table th,.compare-table td{
+  padding:var(--sp-4) var(--sp-5);
+  text-align:left;
+  border-bottom:1px solid var(--line);
+}
+.compare-table thead th{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:var(--fs-base);
+  color:var(--text-0);
+  background:var(--bg-3);
+}
+.compare-table thead th:first-child{color:var(--text-2);font-family:var(--font-body);font-weight:600;font-size:var(--fs-xs);text-transform:uppercase;letter-spacing:.08em;}
+.compare-table tbody th{
+  font-weight:600;
+  color:var(--text-1);
+  font-size:var(--fs-xs);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  white-space:nowrap;
+}
+.compare-table td{color:var(--text-1);}
+.compare-table tbody tr:last-child th,
+.compare-table tbody tr:last-child td{border-bottom:0;}
+.compare-table .is-winner{
+  background:linear-gradient(180deg, rgba(0,212,255,.1), rgba(0,212,255,.03));
+  color:var(--text-0);
+  font-weight:700;
+  position:relative;
+}
+.compare-table thead th.is-winner{
+  background:linear-gradient(180deg, rgba(0,212,255,.28), rgba(0,212,255,.12));
+  color:var(--accent);
+}
+
+.compare-cards{display:grid;gap:var(--sp-5);}
+@media (min-width:760px){ .compare-cards{display:none;} }
+.compare-card{
+  border-radius:var(--r-lg);
+  border:1px solid var(--line);
+  background:var(--bg-2);
+  padding:var(--sp-6);
+}
+.compare-card.is-winner{
+  background:linear-gradient(160deg, rgba(0,212,255,.14), rgba(0,212,255,.02));
+  border:2px solid var(--accent);
+  box-shadow:var(--e-2);
+}
+.compare-card h3{
+  font-size:var(--fs-h3);
+  color:var(--text-0);
+}
+.compare-card.is-winner h3{color:var(--accent);}
+.compare-card dl{
+  margin-top:var(--sp-4);
+  display:flex;
+  flex-direction:column;
+}
+.compare-card .row{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:var(--sp-4);
+  padding-block:var(--sp-3);
+  border-top:1px solid var(--line);
+}
+.compare-card dt{color:var(--text-2);font-size:var(--fs-xs);}
+.compare-card dd{margin:0;color:var(--text-0);font-weight:700;font-size:var(--fs-sm);text-align:right;}
+</style>
+
+<section class="section compare" aria-labelledby="compareHeading">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="compareHeading">Why Hot Sleepers <span class="accent-grad">Make the Switch</span></h2>
+      <p>See how FreezeBreeze stacks up against traditional cooling</p>
+    </div>
+
+    <div class="compare-table-wrap">
+      <table class="compare-table">
+        <caption class="vh">Comparison of monthly cost, coverage, noise, portability, installation, and sleep quality between Central AC, a Window Unit, and FreezeBreeze CORE</caption>
+        <thead>
+          <tr>
+            <th scope="col">Feature</th>
+            <th scope="col">Central AC</th>
+            <th scope="col">Window Unit</th>
+            <th scope="col" class="is-winner">FreezeBreeze CORE</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Monthly Cost</th>
+            <td>$200&ndash;400+</td>
+            <td>$50&ndash;150+</td>
+            <td class="is-winner">&lt; $2</td>
+          </tr>
+          <tr>
+            <th scope="row">What It Cools</th>
+            <td>Empty rooms</td>
+            <td>One loud room</td>
+            <td class="is-winner">Exactly where YOU are</td>
+          </tr>
+          <tr>
+            <th scope="row">Noise Level</th>
+            <td>Moderate</td>
+            <td>Loud</td>
+            <td class="is-winner">Under 40dB hum</td>
+          </tr>
+          <tr>
+            <th scope="row">Portability</th>
+            <td>None</td>
+            <td>Heavy</td>
+            <td class="is-winner">Take it anywhere</td>
+          </tr>
+          <tr>
+            <th scope="row">Installation</th>
+            <td>Professional</td>
+            <td>Tools + time</td>
+            <td class="is-winner">Just add water</td>
+          </tr>
+          <tr>
+            <th scope="row">Sleep Quality</th>
+            <td>Dry air, noise</td>
+            <td>Loud compressor</td>
+            <td class="is-winner">Cool mist, quiet</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="compare-cards">
+      <article class="compare-card is-winner">
+        <h3>FreezeBreeze CORE &mdash; $29.97</h3>
+        <dl>
+          <div class="row"><dt>Monthly Cost</dt><dd>&lt; $2</dd></div>
+          <div class="row"><dt>What It Cools</dt><dd>Exactly where YOU are</dd></div>
+          <div class="row"><dt>Noise Level</dt><dd>Under 40dB hum</dd></div>
+          <div class="row"><dt>Portability</dt><dd>Take it anywhere</dd></div>
+          <div class="row"><dt>Installation</dt><dd>Just add water</dd></div>
+          <div class="row"><dt>Sleep Quality</dt><dd>Cool mist, quiet</dd></div>
+        </dl>
+      </article>
+
+      <article class="compare-card">
+        <h3>Central AC</h3>
+        <dl>
+          <div class="row"><dt>Monthly Cost</dt><dd>$200&ndash;400+</dd></div>
+          <div class="row"><dt>What It Cools</dt><dd>Empty rooms</dd></div>
+          <div class="row"><dt>Noise Level</dt><dd>Moderate</dd></div>
+          <div class="row"><dt>Portability</dt><dd>None</dd></div>
+          <div class="row"><dt>Installation</dt><dd>Professional</dd></div>
+          <div class="row"><dt>Sleep Quality</dt><dd>Dry air, noise</dd></div>
+        </dl>
+      </article>
+
+      <article class="compare-card">
+        <h3>Window Unit</h3>
+        <dl>
+          <div class="row"><dt>Monthly Cost</dt><dd>$50&ndash;150+</dd></div>
+          <div class="row"><dt>What It Cools</dt><dd>One loud room</dd></div>
+          <div class="row"><dt>Noise Level</dt><dd>Loud</dd></div>
+          <div class="row"><dt>Portability</dt><dd>Heavy</dd></div>
+          <div class="row"><dt>Installation</dt><dd>Tools + time</dd></div>
+          <div class="row"><dt>Sleep Quality</dt><dd>Loud compressor</dd></div>
+        </dl>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+/* ============================================================
+   FAQ
+   ============================================================ */
+.faq{background:var(--bg-0);}
+.faq .section-head{text-align:center;margin-inline:auto;max-width:none;}
+.faq-list{
+  max-width:760px;
+  margin-inline:auto;
+  display:flex;
+  flex-direction:column;
+  gap:var(--sp-3);
+}
+.faq-item{
+  border:1px solid var(--line);
+  border-radius:var(--r-md);
+  background:var(--panel-glass);
+  overflow:hidden;
+}
+.faq-item[open]{border-color:var(--line-accent);background:linear-gradient(160deg, rgba(0,212,255,.08), rgba(255,255,255,.01));}
+.faq-item summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--sp-4);
+  padding:var(--sp-5);
+  font-weight:700;
+  font-size:var(--fs-base);
+  color:var(--text-0);
+  min-height:44px;
+}
+.faq-item summary::-webkit-details-marker{display:none;}
+.faq-item summary:hover{color:var(--accent);}
+.faq-icon{
+  flex:none;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;height:28px;
+  border-radius:50%;
+  background:rgba(255,255,255,.06);
+  color:var(--text-1);
+  transition:transform var(--dur-mid) var(--ease), background-color var(--dur-mid) var(--ease), color var(--dur-mid) var(--ease);
+}
+.faq-item[open] .faq-icon{
+  transform:rotate(45deg);
+  background:var(--accent-soft-strong);
+  color:var(--accent);
+}
+@media (prefers-reduced-motion:reduce){
+  .faq-item[open] .faq-icon{transform:none;}
+}
+.faq-body{
+  padding:0 var(--sp-5) var(--sp-5);
+  color:var(--text-1);
+  font-size:var(--fs-sm);
+  max-width:66ch;
+}
+.faq-more{
+  margin-top:var(--sp-6);
+  text-align:center;
+}
+.faq-more a{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-2);
+  font-weight:700;
+  color:var(--accent);
+  font-size:var(--fs-sm);
+  padding:var(--sp-2);
+  min-height:44px;
+}
+.faq-more a:hover{text-decoration:underline;}
+.faq-more svg{transition:transform var(--dur-fast) var(--ease);}
+.faq-more a:hover svg{transform:translateX(3px);}
+</style>
+
+<section class="section faq" id="faq" aria-labelledby="faqHeading">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="faqHeading">Quick Questions</h2>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item" name="faq-group">
+        <summary>
+          Will it cool my entire room?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+        </summary>
+        <p class="faq-body">No — and that's the point. FreezeBreeze creates a personal cooling zone just for you. It cools YOUR face, YOUR neck, YOUR side of the bed — without wasting energy on the whole room.</p>
+      </details>
+
+      <details class="faq-item" name="faq-group">
+        <summary>
+          Will it wake my partner?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+        </summary>
+        <p class="faq-body">At under 40dB it's a steady white-noise fan hum. To a sleeping partner it fades into the background — they'll just wonder why you finally stopped tossing and turning.</p>
+      </details>
+
+      <details class="faq-item" name="faq-group">
+        <summary>
+          Does it work in humid climates?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+        </summary>
+        <p class="faq-body">Honest numbers: below ~50% indoor humidity you get the full evaporative effect. At 50&ndash;60% it still works (roughly an 8&ndash;11&deg;F cooler breeze at typical summer temps). Above ~70%, switch to fan-only — moving air still cools your skin, the mist just stops adding much. That's why there are 3 mist settings: high for dry air, low for muggy days, off for the swampiest nights. And if you run AC or a dehumidifier, your bedroom usually sits at 40&ndash;60% humidity even in humid states — indoor air is much drier than outside.</p>
+      </details>
+
+      <details class="faq-item" name="faq-group">
+        <summary>
+          What if it doesn't work for me?
+          <span class="faq-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+        </summary>
+        <p class="faq-body">30-day money-back guarantee. Try it for a month. If you're still waking up sweating, send it back. Full refund, no questions. Plus 12-month warranty.</p>
+      </details>
+    </div>
+
+    <p class="faq-more">
+      <a href="#faq">See all FAQs
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+    </p>
+  </div>
+</section>
+
+<style>
+/* ============================================================
+   Final CTA / buy box
+   ============================================================ */
+.final-cta{
+  position:relative;
+  background:var(--bg-1);
+  border-top:1px solid var(--line);
+  overflow:hidden;
+}
+.final-cta::before{
+  content:"";
+  position:absolute;
+  top:0;left:50%;
+  width:1200px;height:1200px;
+  transform:translate(-50%,-40%);
+  background:radial-gradient(circle, rgba(0,180,220,.16), transparent 65%);
+  pointer-events:none;
+}
+.buy-box{
+  position:relative;
+  z-index:1;
+  max-width:560px;
+  margin-inline:auto;
+  text-align:center;
+}
+.buy-box h2{font-size:var(--fs-h2);}
+.buy-box .sub{
+  margin-top:var(--sp-4);
+  color:var(--text-1);
+  font-size:var(--fs-lede);
+}
+.buy-box .sub em{color:var(--text-0);font-style:normal;font-weight:700;}
+.buy-art{
+  display:flex;
+  justify-content:center;
+  margin-top:var(--sp-7);
+}
+.buy-art .product-art{width:min(280px, 64vw);filter:drop-shadow(0 24px 48px rgba(0,0,0,.6));}
+.buy-price{
+  margin-top:var(--sp-6);
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:clamp(2rem, 1.7rem + 1vw, 2.75rem);
+  color:var(--text-0);
+}
+.buy-checks{
+  margin-top:var(--sp-4);
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:var(--sp-3) var(--sp-5);
+}
+.buy-checks li{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--sp-2);
+  font-size:var(--fs-xs);
+  font-weight:600;
+  color:var(--text-1);
+}
+.buy-box .btn{margin-top:var(--sp-6);}
+.buy-microcopy{
+  margin-top:var(--sp-4);
+  font-size:var(--fs-xs);
+  color:var(--text-2);
+}
+
+/* color picker */
+.color-picker{
+  margin-top:var(--sp-7);
+  text-align:left;
+  max-width:340px;
+  margin-inline:auto;
+}
+.color-picker legend{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  width:100%;
+  font-size:var(--fs-xs);
+  font-weight:700;
+  color:var(--text-2);
+  text-transform:uppercase;
+  letter-spacing:.06em;
+  margin-bottom:var(--sp-3);
+  padding:0;
+}
+.color-picker-selected{
+  color:var(--text-0);
+  text-transform:none;
+  font-weight:600;
+  letter-spacing:normal;
+  font-size:var(--fs-sm);
+}
+.swatch-row{
+  display:flex;
+  gap:var(--sp-3);
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.swatch{
+  position:relative;
+  display:inline-flex;
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  cursor:pointer;
+  flex:none;
+}
+.swatch input{
+  position:absolute;
+  inset:0;
+  opacity:0;
+  margin:0;
+  cursor:pointer;
+}
+.swatch-dot{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  background:var(--sw);
+  border:2px solid rgba(255,255,255,.28);
+  box-shadow:inset 0 0 0 2px rgba(0,0,0,.3);
+  transition:transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+  pointer-events:none;
+}
+.swatch input:hover + .swatch-dot{transform:scale(1.1);}
+.swatch input:checked + .swatch-dot{
+  box-shadow:0 0 0 2px var(--bg-1), 0 0 0 4px var(--accent), inset 0 0 0 2px rgba(0,0,0,.3);
+}
+.swatch input:focus-visible + .swatch-dot{
+  outline:3px solid var(--accent);
+  outline-offset:3px;
+}
+.swatch input:active + .swatch-dot{transform:scale(.92);}
+@media (prefers-reduced-motion:reduce){
+  .swatch-dot{transition:none;}
+}
+
+/* quantity stepper */
+.qty-row{
+  margin-top:var(--sp-6);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:var(--sp-4);
+}
+.qty-stepper{
+  display:inline-flex;
+  align-items:stretch;
+  border:1px solid var(--line-strong);
+  border-radius:var(--r-sm);
+  overflow:hidden;
+}
+.qty-btn{
+  width:44px;
+  height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.3rem;
+  font-weight:700;
+  color:var(--text-0);
+  background:rgba(255,255,255,.04);
+  transition:background-color var(--dur-fast) var(--ease);
+}
+.qty-btn:hover{background:rgba(255,255,255,.1);}
+.qty-btn:active{background:rgba(255,255,255,.16);}
+.qty-btn:disabled{opacity:.32;cursor:not-allowed;}
+.qty-value{
+  min-width:44px;
+  height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  font-size:var(--fs-sm);
+  color:var(--text-0);
+  border-inline:1px solid var(--line);
+}
+.qty-label{font-size:var(--fs-xs);color:var(--text-2);}
+
+/* ============================================================
+   Founder teaser
+   ============================================================ */
+.founder{background:var(--bg-0);border-top:1px solid var(--line);}
+.founder .container{
+  max-width:640px;
+  text-align:center;
+}
+.founder h2{font-size:var(--fs-h3);color:var(--text-0);}
+.founder p{margin-top:var(--sp-3);color:var(--text-1);font-size:var(--fs-base);}
+.founder .btn{margin-top:var(--sp-6);}
+</style>
+
+<section class="section final-cta" id="buy" aria-labelledby="finalCtaHeading">
+  <div class="container">
+    <div class="buy-box">
+      <h2 id="finalCtaHeading">Tonight Could Be <span class="accent-grad">Different</span></h2>
+      <p class="sub">The next time you wake up at 2:47 AM, you won't be drenched. You'll be cool. Comfortable. <em>Asleep.</em></p>
+
+      <div class="buy-art">
+        <svg class="product-art" viewBox="0 0 420 500" role="img" aria-labelledby="buyArtTitle">
+          <title id="buyArtTitle">FreezeBreeze CORE personal cooling tower, ready to ship</title>
+          <use href="#fbCoreArt"></use>
+        </svg>
+      </div>
+
+      <p class="buy-price">$29.97</p>
+
+      <ul class="buy-checks">
+        <li><span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Free Shipping</li>
+        <li><span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>30-Day Guarantee</li>
+        <li><span class="check-ico"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Ships From Blairsville, GA</li>
+      </ul>
+
+      <fieldset class="color-picker">
+        <legend>Mist glow color <span class="color-picker-selected" id="colorSelectedLabel">Electric Blue</span></legend>
+        <div class="swatch-row">
+          <label class="swatch">
+            <input type="radio" name="ledColor" value="Electric Blue" checked>
+            <span class="swatch-dot" style="--sw:#00d4ff"></span>
+            <span class="vh">Electric Blue</span>
+          </label>
+          <label class="swatch">
+            <input type="radio" name="ledColor" value="Sky Blue">
+            <span class="swatch-dot" style="--sw:#3fa9ff"></span>
+            <span class="vh">Sky Blue</span>
+          </label>
+          <label class="swatch">
+            <input type="radio" name="ledColor" value="Violet">
+            <span class="swatch-dot" style="--sw:#7c7dff"></span>
+            <span class="vh">Violet</span>
+          </label>
+          <label class="swatch">
+            <input type="radio" name="ledColor" value="Orchid">
+            <span class="swatch-dot" style="--sw:#c86bff"></span>
+            <span class="vh">Orchid</span>
+          </label>
+          <label class="swatch">
+            <input type="radio" name="ledColor" value="Pink">
+            <span class="swatch-dot" style="--sw:#ff6ec7"></span>
+            <span class="vh">Pink</span>
+          </label>
+          <label class="swatch">
+            <input type="radio" name="ledColor" value="Mint">
+            <span class="swatch-dot" style="--sw:#5af0c0"></span>
+            <span class="vh">Mint</span>
+          </label>
+          <label class="swatch">
+            <input type="radio" name="ledColor" value="Crisp White">
+            <span class="swatch-dot" style="--sw:#ffffff"></span>
+            <span class="vh">Crisp White</span>
+          </label>
         </div>
-        <nav class="footer-nav" aria-label="Footer">
-          <h2 class="footer-heading">Sections</h2>
-          <a href="#demo-sequence">Demo sequence</a>
-          <a href="#schedule">Live schedule</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#offers">Offers</a>
-          <a href="#faq">FAQ</a>
-        </nav>
-        <div class="footer-note">
-          <h2 class="footer-heading">Before you publish</h2>
-          <p>Replace every placeholder with verified information. No invented reviews, sales numbers, discounts, or performance claims.</p>
-          <a class="button secondary small" href="#schedule">Ask about availability</a>
+      </fieldset>
+
+      <div class="qty-row">
+        <span class="qty-label" id="qtyLabel">Quantity</span>
+        <div class="qty-stepper" role="group" aria-labelledby="qtyLabel">
+          <button type="button" class="qty-btn" id="qtyMinus" aria-label="Decrease quantity" disabled>&minus;</button>
+          <span class="qty-value" id="qtyValue" aria-live="polite">1</span>
+          <button type="button" class="qty-btn" id="qtyPlus" aria-label="Increase quantity">+</button>
         </div>
       </div>
-      <div class="footer-base">
-        <span>FreezeBreeze Live Lab — fictional demonstration shell.</span>
-        <span>Proof-safe by design.</span>
-      </div>
-    </footer>
+
+      <button type="button" class="btn btn-primary btn-block" id="addToCartBtn">
+        Yes, I Want Cool Sleep
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <p class="buy-microcopy">Try it for 30 nights. If it is not right for your space, contact us for the return path.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section founder" id="story" aria-labelledby="founderHeading">
+  <div class="container">
+    <h2 id="founderHeading">The real story behind FreezeBreeze.</h2>
+    <p>FreezeBreeze Core was built after my own 2024 product runs taught me what people actually wanted. Read the real origin story.</p>
+    <a class="btn btn-ghost" href="#story">
+      Read Our Story
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</section>
+
+<style>
+/* ============================================================
+   Footer
+   ============================================================ */
+.site-footer{
+  background:var(--bg-1);
+  border-top:1px solid var(--line);
+  padding-top:var(--sp-9);
+}
+.footer-grid{
+  display:grid;
+  gap:var(--sp-7);
+  grid-template-columns:1fr;
+  padding-bottom:var(--sp-8);
+}
+@media (min-width:640px){
+  .footer-grid{grid-template-columns:1.4fr repeat(3, 1fr);}
+}
+.footer-brand .brand{margin-bottom:var(--sp-3);}
+.footer-brand p{
+  color:var(--text-2);
+  font-size:var(--fs-sm);
+  max-width:34ch;
+}
+.footer-col h3{
+  font-family:var(--font-body);
+  font-size:var(--fs-xs);
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--text-2);
+  margin-bottom:var(--sp-4);
+}
+.footer-col ul{display:flex;flex-direction:column;gap:var(--sp-3);}
+.footer-col a{
+  color:var(--text-1);
+  font-size:var(--fs-sm);
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  transition:color var(--dur-fast) var(--ease);
+}
+.footer-col a:hover{color:var(--accent);}
+.footer-bottom{
+  border-top:1px solid var(--line);
+  padding-block:var(--sp-5);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:var(--sp-3);
+}
+.footer-bottom p{color:var(--text-2);font-size:var(--fs-xs);}
+
+/* ============================================================
+   Cart drawer + demo modal (native <dialog>)
+   ============================================================ */
+dialog::backdrop{
+  background:rgba(0,4,8,.7);
+  backdrop-filter:blur(4px);
+}
+.drawer{
+  position:fixed;
+  inset:0 0 0 auto;
+  margin:0;
+  height:100vh;
+  max-height:100vh;
+  width:min(420px, 100vw);
+  border:0;
+  border-left:1px solid var(--line-strong);
+  background:var(--bg-1);
+  color:var(--text-0);
+  padding:0;
+  box-shadow:-24px 0 64px rgba(0,0,0,.5);
+  transform:translateX(100%);
+  transition:transform var(--dur-slow) var(--ease-out);
+  display:flex;
+  flex-direction:column;
+}
+.drawer[open]{transform:translateX(0);}
+@starting-style{ .drawer[open]{transform:translateX(100%);} }
+@media (prefers-reduced-motion:reduce){ .drawer{transition:none;} }
+
+.drawer-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:var(--sp-5);
+  border-bottom:1px solid var(--line);
+  flex:none;
+}
+.drawer-head h2{font-size:var(--fs-h3);}
+.drawer-body{
+  padding:var(--sp-6) var(--sp-5);
+  overflow-y:auto;
+  flex:1;
+}
+.cart-empty{
+  text-align:center;
+  padding-block:var(--sp-8);
+  color:var(--text-2);
+}
+.cart-empty svg{margin-inline:auto;color:var(--text-3);margin-bottom:var(--sp-4);}
+.cart-empty p{font-size:var(--fs-sm);}
+.cart-empty .btn{margin-top:var(--sp-6);}
+
+.cart-line{
+  display:flex;
+  gap:var(--sp-4);
+  align-items:center;
+  padding-block:var(--sp-4);
+  border-bottom:1px solid var(--line);
+}
+.cart-line .cart-thumb{
+  width:64px;height:64px;
+  flex:none;
+  border-radius:var(--r-sm);
+  background:var(--bg-3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.cart-line .cart-thumb svg{width:52px;height:auto;}
+.cart-line-info{flex:1;min-width:0;}
+.cart-line-info strong{display:block;font-size:var(--fs-sm);color:var(--text-0);}
+.cart-line-info span{display:block;font-size:var(--fs-xs);color:var(--text-2);margin-top:2px;}
+.cart-summary{padding-top:var(--sp-5);}
+.cart-summary .row{display:flex;justify-content:space-between;font-size:var(--fs-sm);color:var(--text-1);padding-block:var(--sp-2);}
+.cart-summary .row strong{color:var(--text-0);}
+.cart-summary .btn{margin-top:var(--sp-5);}
+.cart-note{margin-top:var(--sp-3);font-size:var(--fs-xs);color:var(--text-2);text-align:center;}
+
+.spinner{
+  width:16px;height:16px;
+  border-radius:50%;
+  border:2.5px solid rgba(0,0,0,.25);
+  border-top-color:var(--accent-ink);
+  animation:spin .7s linear infinite;
+  flex:none;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+@media (prefers-reduced-motion:reduce){
+  .spinner{animation-duration:1.4s;}
+}
+
+.modal{
+  margin:auto;
+  border:1px solid var(--line-strong);
+  border-radius:var(--r-xl);
+  background:var(--bg-2);
+  color:var(--text-0);
+  width:min(560px, 92vw);
+  max-height:88vh;
+  padding:0;
+  box-shadow:var(--e-3);
+}
+.modal-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:var(--sp-5) var(--sp-5) 0;
+}
+.modal-head h2{font-size:var(--fs-h3);}
+.modal-body{
+  padding:var(--sp-5);
+  text-align:center;
+}
+.modal-body .product-art{width:min(260px, 70vw);margin-inline:auto;}
+.modal-caption{
+  margin-top:var(--sp-3);
+  font-size:var(--fs-xs);
+  color:var(--text-2);
+}
+.modal-body .btn{margin-top:var(--sp-5);}
+</style>
+
+</main>
+
+<footer class="site-footer" id="contact">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="#top" aria-label="FreezeBreeze home">
+        <svg class="brand-mark" width="24" height="24" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+          <path d="M13 2v22M13 2l-4 4M13 2l4 4M13 24l-4-4M13 24l4-4M2 13h22M2 13l4-4M2 13l4 4M24 13l-4-4M24 13l-4 4M5.6 5.6l14.8 14.8M5.6 5.6l1.2 5.2M5.6 5.6l5.2-1.2M20.4 20.4l-1.2-5.2M20.4 20.4l-5.2 1.2M20.4 5.6L5.6 20.4M20.4 5.6l-5.2 1.2M20.4 5.6l1.2 5.2M5.6 20.4l5.2-1.2M5.6 20.4l-1.2-5.2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        FreezeBreeze
+      </a>
+      <p>Personal cool-mist fan for targeted relief. Not a whole-room air conditioner.</p>
+    </div>
+
+    <nav class="footer-col" aria-labelledby="footerShop">
+      <h3 id="footerShop">Shop</h3>
+      <ul>
+        <li><a href="#buy">FreezeBreeze CORE</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-labelledby="footerSupport">
+      <h3 id="footerSupport">Support</h3>
+      <ul>
+        <li><a href="#contact">Contact Us</a></li>
+        <li><a href="#shipping">Shipping Info</a></li>
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-labelledby="footerCompany">
+      <h3 id="footerCompany">Company</h3>
+      <ul>
+        <li><a href="#story">About Us</a></li>
+        <li><a href="#privacy">Privacy Policy</a></li>
+      </ul>
+    </nav>
   </div>
 
-  <script src="script.js" defer></script>
+  <div class="container footer-bottom" id="privacy">
+    <p>&copy; 2026 FreezeBreeze. All rights reserved.</p>
+  </div>
+</footer>
+
+<dialog class="drawer" id="cartDrawer" aria-labelledby="cartTitle">
+  <div class="drawer-head">
+    <h2 id="cartTitle">Your Cart</h2>
+    <button class="icon-btn" type="button" data-close-cart aria-label="Close cart">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="cartBody">
+    <div class="cart-empty" id="cartEmptyState">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20.5" r="1.2" fill="currentColor"/><circle cx="17" cy="20.5" r="1.2" fill="currentColor"/></svg>
+      <p>Your cart is empty.</p>
+      <button type="button" class="btn btn-primary" data-close-cart>Shop FreezeBreeze CORE</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="modal" id="demoModal" aria-labelledby="demoTitle">
+  <div class="modal-head">
+    <h2 id="demoTitle">FreezeBreeze CORE &mdash; Live Preview</h2>
+    <button class="icon-btn" type="button" data-close-demo aria-label="Close preview">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+  <div class="modal-body">
+    <svg class="product-art" viewBox="0 0 420 500" role="img" aria-labelledby="demoArtTitle">
+      <title id="demoArtTitle">Animated preview of FreezeBreeze CORE's cool mist and glow</title>
+      <use href="#fbCoreArt"></use>
+    </svg>
+    <p class="modal-caption">Animated product preview &mdash; illustrated, not stock footage.</p>
+    <a class="btn btn-primary" href="#buy" data-close-demo>Get Cool Relief &mdash; $29.97</a>
+  </div>
+</dialog>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- header scroll shadow ---------- */
+  var header = document.getElementById('siteHeader');
+  var lastScrolled = false;
+  function onScroll(){
+    var scrolled = window.scrollY > 8;
+    if (scrolled !== lastScrolled){
+      header.classList.toggle('is-scrolled', scrolled);
+      lastScrolled = scrolled;
+    }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* ---------- mobile menu ---------- */
+  var menuToggle = document.getElementById('menuToggle');
+  var mobileMenu = document.getElementById('mobileMenu');
+  function closeMenu(){
+    menuToggle.setAttribute('aria-expanded', 'false');
+    mobileMenu.classList.remove('is-open');
+  }
+  function openMenu(){
+    menuToggle.setAttribute('aria-expanded', 'true');
+    mobileMenu.classList.add('is-open');
+  }
+  menuToggle.addEventListener('click', function(){
+    var isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+    isOpen ? closeMenu() : openMenu();
+  });
+  mobileMenu.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  /* ---------- generic dialog open/close helpers ---------- */
+  function wireDialog(dialog, openTriggers, closeSelector){
+    openTriggers.forEach(function(trigger){
+      trigger.addEventListener('click', function(e){
+        e.preventDefault();
+        if (typeof dialog.showModal === 'function'){
+          dialog.showModal();
+        } else {
+          dialog.setAttribute('open','');
+        }
+      });
+    });
+    dialog.querySelectorAll(closeSelector).forEach(function(btn){
+      btn.addEventListener('click', function(){ dialog.close(); });
+    });
+    dialog.addEventListener('click', function(e){
+      if (e.target === dialog) dialog.close();
+    });
+  }
+
+  /* ---------- color picker ---------- */
+  var colorLabel = document.getElementById('colorSelectedLabel');
+  var colorInputs = document.querySelectorAll('input[name="ledColor"]');
+  var selectedColor = 'Electric Blue';
+  colorInputs.forEach(function(input){
+    input.addEventListener('change', function(){
+      if (input.checked){
+        selectedColor = input.value;
+        if (colorLabel) colorLabel.textContent = selectedColor;
+      }
+    });
+  });
+
+  /* ---------- quantity stepper ---------- */
+  var qtyValue = document.getElementById('qtyValue');
+  var qtyMinus = document.getElementById('qtyMinus');
+  var qtyPlus = document.getElementById('qtyPlus');
+  var qty = 1;
+  var QTY_MIN = 1, QTY_MAX = 9;
+  function updateQtyUI(){
+    qtyValue.textContent = String(qty);
+    qtyMinus.disabled = qty <= QTY_MIN;
+    qtyPlus.disabled = qty >= QTY_MAX;
+  }
+  if (qtyMinus && qtyPlus){
+    qtyMinus.addEventListener('click', function(){
+      if (qty > QTY_MIN){ qty -= 1; updateQtyUI(); }
+    });
+    qtyPlus.addEventListener('click', function(){
+      if (qty < QTY_MAX){ qty += 1; updateQtyUI(); }
+    });
+  }
+
+  /* ---------- cart drawer ---------- */
+  var cartDrawer = document.getElementById('cartDrawer');
+  var cartBody = document.getElementById('cartBody');
+  var cartCount = document.getElementById('cartCount');
+  var cartToggle = document.getElementById('cartToggle');
+  var addToCartBtn = document.getElementById('addToCartBtn');
+  var cartItems = 0;
+  var cartLastColor = 'Electric Blue';
+
+  wireDialog(cartDrawer, [cartToggle], '[data-close-cart]');
+
+  function renderCart(){
+    if (cartItems < 1){
+      cartBody.innerHTML =
+        '<div class="cart-empty" id="cartEmptyState">' +
+          '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 4h2l2.2 11.4a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L20.5 8H6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="10" cy="20.5" r="1.2" fill="currentColor"/><circle cx="17" cy="20.5" r="1.2" fill="currentColor"/></svg>' +
+          '<p>Your cart is empty.</p>' +
+          '<button type="button" class="btn btn-primary" data-close-cart>Shop FreezeBreeze CORE</button>' +
+        '</div>';
+    } else {
+      var total = (cartItems * 29.97).toFixed(2);
+      cartBody.innerHTML =
+        '<div class="cart-line">' +
+          '<span class="cart-thumb"><svg viewBox="0 0 420 500" role="img" aria-label="FreezeBreeze CORE"><use href="#fbCoreArt"></use></svg></span>' +
+          '<div class="cart-line-info"><strong>FreezeBreeze CORE</strong><span>' + cartLastColor + ' &middot; Qty ' + cartItems + ' &middot; $29.97 each</span></div>' +
+        '</div>' +
+        '<div class="cart-summary">' +
+          '<div class="row"><span>Shipping</span><strong>Free</strong></div>' +
+          '<div class="row"><span>Subtotal</span><strong>$' + total + '</strong></div>' +
+          '<button type="button" class="btn btn-primary btn-block">Checkout &mdash; $' + total + '</button>' +
+          '<p class="cart-note">30-day money-back guarantee on every order.</p>' +
+        '</div>';
+    }
+    cartBody.querySelectorAll('[data-close-cart]').forEach(function(btn){
+      btn.addEventListener('click', function(){ cartDrawer.close(); });
+    });
+  }
+
+  if (addToCartBtn){
+    addToCartBtn.addEventListener('click', function(){
+      var original = addToCartBtn.innerHTML;
+      var addedQty = qty;
+      addToCartBtn.disabled = true;
+      addToCartBtn.innerHTML = '<span class="spinner" aria-hidden="true"></span> Adding&hellip;';
+      window.setTimeout(function(){
+        cartItems += addedQty;
+        cartLastColor = selectedColor;
+        cartCount.textContent = String(cartItems);
+        renderCart();
+        addToCartBtn.disabled = false;
+        addToCartBtn.innerHTML = original;
+        qty = 1;
+        updateQtyUI();
+        if (typeof cartDrawer.showModal === 'function'){
+          cartDrawer.showModal();
+        } else {
+          cartDrawer.setAttribute('open','');
+        }
+      }, 450);
+    });
+  }
+
+  /* ---------- demo modal ---------- */
+  var demoModal = document.getElementById('demoModal');
+  var watchDemoBtn = document.getElementById('watchDemoBtn');
+  wireDialog(demoModal, [watchDemoBtn], '[data-close-demo]');
+
+})();
+</script>
+
 </body>
 </html>

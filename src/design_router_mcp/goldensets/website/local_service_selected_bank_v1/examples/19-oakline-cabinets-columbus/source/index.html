@@ -19,7 +19,7 @@
         <div class="container header-inner">
             <div class="brand">
                 <svg class="compass-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                    stroke-linecap="round" stroke-linejoin="round">
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                     <circle cx="12" cy="12" r="10"></circle>
                     <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
                 </svg>
@@ -29,7 +29,7 @@
                 <a href="#portfolio">Our Portfolio</a>
                 <a href="#process">The Process</a>
                 <a href="tel:7065550119" class="header-phone-pill">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                     <span>CALL: (706) 555-0119</span>
                 </a>
             </nav>
@@ -38,17 +38,76 @@
 
     <!-- ═══════ HERO ═══════ -->
     <section class="hero-luxury">
+        <div class="hero-backdrop" aria-hidden="true">
+            <svg viewBox="0 0 1440 812" preserveAspectRatio="xMidYMid slice" focusable="false">
+                <defs>
+                    <linearGradient id="ok-wall" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#2A1C12"/>
+                        <stop offset="1" stop-color="#170F0A"/>
+                    </linearGradient>
+                    <radialGradient id="ok-glow" cx="0.5" cy="0.5" r="0.5">
+                        <stop offset="0" stop-color="#D4AF37" stop-opacity="0.22"/>
+                        <stop offset="1" stop-color="#D4AF37" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+                <rect width="1440" height="812" fill="url(#ok-wall)"/>
+                <circle cx="1040" cy="270" r="500" fill="url(#ok-glow)"/>
+                <polygon points="960,0 1250,0 1440,320 1440,520" fill="#E8C87E" opacity="0.05"/>
+                <rect x="600" y="128" width="840" height="20" fill="#35241A"/>
+                <g transform="translate(610 148)">
+                    <rect width="152" height="492" rx="2" fill="#302014"/>
+                    <rect x="17" y="17" width="118" height="458" rx="2" fill="#261811" stroke="#1A110D" stroke-width="2"/>
+                    <path d="M45 40v408M76 40v408M107 40v408" stroke="#1E130C" stroke-width="1.3" opacity="0.5" fill="none"/>
+                    <circle cx="138" cy="246" r="5" fill="#D4AF37"/>
+                </g>
+                <g transform="translate(777 148)">
+                    <rect width="152" height="492" rx="2" fill="#2C1E13"/>
+                    <rect x="17" y="17" width="118" height="458" rx="2" fill="#241710" stroke="#1A110D" stroke-width="2"/>
+                    <path d="M45 40v408M76 40v408M107 40v408" stroke="#1E130C" stroke-width="1.3" opacity="0.5" fill="none"/>
+                    <circle cx="14" cy="246" r="5" fill="#D4AF37"/>
+                </g>
+                <g transform="translate(944 148)">
+                    <rect width="152" height="492" rx="2" fill="#332217"/>
+                    <rect x="17" y="17" width="118" height="458" rx="2" fill="#291B12" stroke="#1A110D" stroke-width="2"/>
+                    <path d="M45 40v408M76 40v408M107 40v408" stroke="#1E130C" stroke-width="1.3" opacity="0.5" fill="none"/>
+                    <circle cx="138" cy="246" r="5" fill="#D4AF37"/>
+                </g>
+                <g transform="translate(1111 148)">
+                    <rect width="152" height="492" rx="2" fill="#2E1F14"/>
+                    <rect x="17" y="17" width="118" height="458" rx="2" fill="#251811" stroke="#1A110D" stroke-width="2"/>
+                    <path d="M45 40v408M76 40v408M107 40v408" stroke="#1E130C" stroke-width="1.3" opacity="0.5" fill="none"/>
+                    <circle cx="14" cy="246" r="5" fill="#D4AF37"/>
+                </g>
+                <g transform="translate(1278 148)">
+                    <rect width="152" height="492" rx="2" fill="#312116"/>
+                    <rect x="17" y="17" width="118" height="458" rx="2" fill="#281A11" stroke="#1A110D" stroke-width="2"/>
+                    <path d="M45 40v408M76 40v408M107 40v408" stroke="#1E130C" stroke-width="1.3" opacity="0.5" fill="none"/>
+                    <circle cx="138" cy="246" r="5" fill="#D4AF37"/>
+                </g>
+                <rect x="600" y="640" width="840" height="24" fill="#0F0906"/>
+                <rect x="600" y="640" width="840" height="2" fill="#D4AF37" opacity="0.5"/>
+                <rect x="0" y="664" width="1440" height="148" fill="#140C08"/>
+                <rect x="0" y="664" width="1440" height="2" fill="#D4AF37" opacity="0.18"/>
+                <g fill="#C08A4E" opacity="0.05">
+                    <rect x="640" y="672" width="92" height="96"/>
+                    <rect x="807" y="672" width="92" height="96"/>
+                    <rect x="974" y="672" width="92" height="96"/>
+                    <rect x="1141" y="672" width="92" height="96"/>
+                    <rect x="1308" y="672" width="92" height="96"/>
+                </g>
+            </svg>
+        </div>
         <div class="hero-overlay"></div>
         <div class="container hero-layout">
 
             <div class="hero-content">
                 <div class="trust-badge">
-                    <div class="stars">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                    <div class="stars" role="img" aria-label="Rated 5 out of 5 stars">
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
                     </div>
                     <span>#1 Rated Custom Cabinet Maker in Columbus</span>
                 </div>
@@ -69,13 +128,13 @@
             <div class="hero-visual-stack">
                 <div class="luxury-highlight top-card">
                     <div class="lh-box">
-                        <span class="lh-title">Precision Millwork</span>
+                        <h2 class="lh-title">Precision Millwork</h2>
                         <span class="lh-desc">Every edge, joint, and finish is executed with obsessive attention to detail. No pre-fabs. Just pure carpentry.</span>
                     </div>
                 </div>
                 <div class="luxury-highlight bottom-card">
                     <div class="lh-box">
-                        <span class="lh-title">Premium Materials</span>
+                        <h2 class="lh-title">Premium Materials</h2>
                         <span class="lh-desc">Sourcing only the finest hardwoods and architectural-grade hardware for a lifetime of elegance.</span>
                     </div>
                 </div>

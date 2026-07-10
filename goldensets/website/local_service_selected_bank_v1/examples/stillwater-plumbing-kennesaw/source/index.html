@@ -146,6 +146,48 @@
             line-height: 1;
             z-index: -1;
         }
+
+        /* Visible keyboard focus in the page's own materials */
+        a:focus-visible, button:focus-visible, input:focus-visible,
+        select:focus-visible, textarea:focus-visible, summary:focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 3px;
+        }
+        section[id] { scroll-margin-top: 6rem; }
+
+        /* Request-service form fields */
+        .sw-field {
+            width: 100%;
+            background: rgba(244, 244, 242, 0.02);
+            border: 1px solid rgba(106, 140, 132, 0.3);
+            border-radius: 2px;
+            padding: 0.9rem 1rem;
+            font-size: 0.875rem;
+            font-weight: 300;
+            color: var(--mineral);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .sw-field::placeholder { color: rgba(244, 244, 242, 0.35); }
+        .sw-field:focus {
+            border-color: var(--copper);
+            box-shadow: 0 0 0 1px var(--copper);
+            outline: none;
+        }
+
+        /* FAQ disclosures */
+        details.sw-faq summary { list-style: none; cursor: pointer; }
+        details.sw-faq summary::-webkit-details-marker { display: none; }
+        .sw-faq-icon { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        details.sw-faq[open] .sw-faq-icon { transform: rotate(45deg); }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
     </style>
 </head>
 <body>
@@ -158,10 +200,12 @@
                 <span class="w-px h-5 bg-oxidized block opacity-50"></span>
                 <span class="text-xs uppercase tracking-widest text-oxidized font-medium hidden sm:block">Plumbing Co.</span>
             </div>
-            <div class="hidden md:flex items-center gap-10">
+            <div class="hidden md:flex items-center gap-8 lg:gap-10">
                 <a href="#expertise" class="text-xs uppercase tracking-widest text-gray-400 hover:text-mineral transition-colors">Expertise</a>
                 <a href="#philosophy" class="text-xs uppercase tracking-widest text-gray-400 hover:text-mineral transition-colors">Philosophy</a>
                 <a href="#partnerships" class="text-xs uppercase tracking-widest text-gray-400 hover:text-mineral transition-colors">Partnerships</a>
+                <a href="#coverage" class="text-xs uppercase tracking-widest text-gray-400 hover:text-mineral transition-colors">Territory</a>
+                <a href="#faq" class="text-xs uppercase tracking-widest text-gray-400 hover:text-mineral transition-colors">FAQ</a>
             </div>
             <div class="flex items-center gap-6 md:gap-8">
                 <a href="tel:7705550158" class="text-sm font-medium tracking-wider hover:text-copper transition-colors hidden sm:block">(770) 555-0158</a>
@@ -180,7 +224,7 @@
             <div class="lg:col-span-7 flex flex-col justify-center pt-10 lg:pt-0">
                 <div class="flex items-center gap-4 mb-8 fade-in-up">
                     <span class="w-12 h-px bg-copper"></span>
-                    <p class="text-xs uppercase tracking-[0.2em] text-copper font-medium">Since 1994</p>
+                    <p class="text-xs uppercase tracking-[0.2em] text-copper font-medium">Since 1989</p>
                 </div>
                 
                 <h1 class="font-serif text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.05] mb-8 fade-in-up delay-1">
@@ -197,7 +241,7 @@
                         Schedule a Consultation
                     </a>
                     <div class="flex flex-col">
-                        <span class="text-xs text-gray-500 uppercase tracking-wider mb-1">Serving</span>
+                        <span class="text-xs text-gray-400 uppercase tracking-wider mb-1">Serving</span>
                         <span class="text-sm text-mineral font-medium">Kennesaw, Marietta & Woodstock</span>
                     </div>
                 </div>
@@ -206,9 +250,76 @@
             <!-- Right Visual -->
             <div class="lg:col-span-5 relative h-[50vh] sm:h-[60vh] lg:h-[80vh] fade-in-up delay-2">
                 <div class="absolute inset-0 img-mask-right bg-slate-deep">
-                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1500&auto=format&fit=crop" 
-                         alt="Luxury contemporary plumbing fixture" 
-                         class="w-full h-full object-cover opacity-80 mix-blend-luminosity">
+                    <svg class="w-full h-full" viewBox="0 0 900 1100" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="swh-title">
+                        <title id="swh-title">Blueprint-style illustration of a tall architectural faucet pouring a single thread of water into a basin</title>
+                        <defs>
+                            <linearGradient id="swh-bg" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0" stop-color="#0a0b0d"/><stop offset="1" stop-color="#15181c"/>
+                            </linearGradient>
+                            <linearGradient id="swh-copper" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#dda588"/><stop offset="1" stop-color="#a5674a"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="900" height="1100" fill="url(#swh-bg)"/>
+                        <!-- contour field -->
+                        <g fill="none" stroke-width="1">
+                            <path d="M-60 220C180 130 360 380 600 250S880 300 960 240" stroke="#6a8c84" stroke-opacity="0.35"/>
+                            <path d="M-60 260C170 160 350 420 610 280S890 340 960 280" stroke="#76d4d9" stroke-opacity="0.15"/>
+                            <path d="M-60 960C200 900 420 1030 640 950S900 980 960 940" stroke="#6a8c84" stroke-opacity="0.25"/>
+                        </g>
+                        <!-- blueprint guides -->
+                        <circle cx="430" cy="520" r="300" fill="none" stroke="#f4f4f2" stroke-opacity="0.06" stroke-width="1.5"/>
+                        <circle cx="430" cy="520" r="212" fill="none" stroke="#f4f4f2" stroke-opacity="0.1" stroke-dasharray="3 10"/>
+                        <!-- ruler -->
+                        <g stroke="#6a8c84" stroke-opacity="0.5" stroke-width="1.5">
+                            <line x1="836" y1="140" x2="836" y2="960"/>
+                            <line x1="828" y1="140" x2="844" y2="140"/><line x1="830" y1="240" x2="842" y2="240"/>
+                            <line x1="828" y1="340" x2="844" y2="340"/><line x1="830" y1="440" x2="842" y2="440"/>
+                            <line x1="828" y1="540" x2="844" y2="540"/><line x1="830" y1="640" x2="842" y2="640"/>
+                            <line x1="828" y1="740" x2="844" y2="740"/><line x1="830" y1="840" x2="842" y2="840"/>
+                            <line x1="828" y1="960" x2="844" y2="960"/>
+                        </g>
+                        <!-- faucet -->
+                        <g>
+                            <line x1="300" y1="898" x2="300" y2="470" stroke="url(#swh-copper)" stroke-width="48"/>
+                            <path d="M300 478C300 366 560 366 560 478" fill="none" stroke="url(#swh-copper)" stroke-width="40" stroke-linecap="round"/>
+                            <line x1="560" y1="478" x2="560" y2="498" stroke="url(#swh-copper)" stroke-width="40" stroke-linecap="round"/>
+                            <!-- cross handle -->
+                            <line x1="276" y1="580" x2="212" y2="580" stroke="url(#swh-copper)" stroke-width="14"/>
+                            <circle cx="196" cy="580" r="30" fill="none" stroke="#f4f4f2" stroke-opacity="0.75" stroke-width="4"/>
+                            <g stroke="#f4f4f2" stroke-opacity="0.75" stroke-width="4" stroke-linecap="round">
+                                <line x1="196" y1="558" x2="196" y2="602"/>
+                                <line x1="174" y1="580" x2="218" y2="580"/>
+                            </g>
+                            <!-- collar detail -->
+                            <line x1="272" y1="640" x2="328" y2="640" stroke="#0a0b0d" stroke-width="5"/>
+                            <line x1="272" y1="660" x2="328" y2="660" stroke="#0a0b0d" stroke-width="3"/>
+                            <!-- base plate -->
+                            <line x1="240" y1="906" x2="360" y2="906" stroke="#f4f4f2" stroke-opacity="0.4" stroke-width="10" stroke-linecap="round"/>
+                        </g>
+                        <!-- water thread -->
+                        <g>
+                            <line x1="560" y1="520" x2="560" y2="784" stroke="#76d4d9" stroke-opacity="0.7" stroke-width="3.5"/>
+                            <line x1="553" y1="540" x2="553" y2="700" stroke="#76d4d9" stroke-opacity="0.25" stroke-width="2"/>
+                            <line x1="567" y1="560" x2="567" y2="740" stroke="#76d4d9" stroke-opacity="0.25" stroke-width="2"/>
+                        </g>
+                        <!-- basin + ripples -->
+                        <g fill="none">
+                            <ellipse cx="560" cy="800" rx="140" ry="24" stroke="#f4f4f2" stroke-opacity="0.55" stroke-width="3"/>
+                            <ellipse cx="560" cy="800" rx="92" ry="15" stroke="#76d4d9" stroke-opacity="0.4" stroke-width="2"/>
+                            <ellipse cx="560" cy="800" rx="44" ry="7" stroke="#76d4d9" stroke-opacity="0.6" stroke-width="2"/>
+                        </g>
+                        <!-- floor + reflection -->
+                        <line x1="60" y1="900" x2="840" y2="900" stroke="#f4f4f2" stroke-opacity="0.14" stroke-width="1.5"/>
+                        <line x1="300" y1="918" x2="300" y2="1010" stroke="#c48b71" stroke-opacity="0.14" stroke-width="30"/>
+                        <ellipse cx="560" cy="922" rx="110" ry="12" fill="none" stroke="#76d4d9" stroke-opacity="0.1" stroke-width="2"/>
+                        <!-- dimension arrow -->
+                        <g stroke="#c48b71" stroke-opacity="0.65" stroke-width="1.5">
+                            <line x1="700" y1="520" x2="700" y2="784"/>
+                            <path d="M694 532l6-12 6 12" fill="none"/>
+                            <path d="M694 772l6 12 6-12" fill="none"/>
+                        </g>
+                    </svg>
                 </div>
                 
                 <!-- Floating Info Card -->
@@ -224,6 +335,7 @@
     <!-- Ethos / Credibility Section -->
     <section class="py-24 lg:py-32 relative bg-slate-deep border-y border-oxidized">
         <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+            <h2 class="sr-only">Why homeowners choose Stillwater</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-12">
                 
                 <!-- Stat 1 -->
@@ -231,7 +343,7 @@
                     <span class="text-5xl lg:text-6xl font-serif text-mineral mb-4">30<span class="text-copper italic">+</span></span>
                     <h3 class="text-sm uppercase tracking-widest text-oxidized font-medium mb-3">Years of Excellence</h3>
                     <p class="text-gray-400 font-light text-sm leading-relaxed">
-                        Operating with professional ethics and precision in Cobb & Cherokee Counties since 1994. Experience dictates quality.
+                        Operating with professional ethics and precision in Cobb & Cherokee Counties since 1989. Experience dictates quality.
                     </p>
                 </div>
 
@@ -350,11 +462,11 @@
                                 <span class="font-serif italic text-2xl text-oxidized opacity-50 w-8">01</span>
                                 <div>
                                     <h3 class="font-serif text-2xl lg:text-3xl text-mineral group-hover:text-copper transition-colors mb-1">Water Heater Systems</h3>
-                                    <p class="text-sm font-light text-gray-500 sm:hidden">Repair, Replacement & Tankless Upgrades</p>
+                                    <p class="text-sm font-light text-gray-400 sm:hidden">Repair, Replacement & Tankless Upgrades</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-6">
-                                <p class="text-sm font-light text-gray-500 uppercase tracking-wider hidden sm:block text-right">Repair & Installation</p>
+                                <p class="text-sm font-light text-gray-400 uppercase tracking-wider hidden sm:block text-right">Repair & Installation</p>
                                 <svg class="w-6 h-6 service-arrow text-gray-600 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </div>
                         </div>
@@ -365,11 +477,11 @@
                                 <span class="font-serif italic text-2xl text-oxidized opacity-50 w-8">02</span>
                                 <div>
                                     <h3 class="font-serif text-2xl lg:text-3xl text-mineral group-hover:text-copper transition-colors mb-1">Pipe Repair & Replacement</h3>
-                                    <p class="text-sm font-light text-gray-500 sm:hidden">Whole-home repiping and structural fixes</p>
+                                    <p class="text-sm font-light text-gray-400 sm:hidden">Whole-home repiping and structural fixes</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-6">
-                                <p class="text-sm font-light text-gray-500 uppercase tracking-wider hidden sm:block text-right">Structural Integrity</p>
+                                <p class="text-sm font-light text-gray-400 uppercase tracking-wider hidden sm:block text-right">Structural Integrity</p>
                                 <svg class="w-6 h-6 service-arrow text-gray-600 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </div>
                         </div>
@@ -380,11 +492,11 @@
                                 <span class="font-serif italic text-2xl text-oxidized opacity-50 w-8">03</span>
                                 <div>
                                     <h3 class="font-serif text-2xl lg:text-3xl text-mineral group-hover:text-copper transition-colors mb-1">Premium Fixture Installation</h3>
-                                    <p class="text-sm font-light text-gray-500 sm:hidden">Faucets, sinks, and luxury bathroom upgrades</p>
+                                    <p class="text-sm font-light text-gray-400 sm:hidden">Faucets, sinks, and luxury bathroom upgrades</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-6">
-                                <p class="text-sm font-light text-gray-500 uppercase tracking-wider hidden sm:block text-right">Aesthetic Upgrades</p>
+                                <p class="text-sm font-light text-gray-400 uppercase tracking-wider hidden sm:block text-right">Aesthetic Upgrades</p>
                                 <svg class="w-6 h-6 service-arrow text-gray-600 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </div>
                         </div>
@@ -395,11 +507,11 @@
                                 <span class="font-serif italic text-2xl text-oxidized opacity-50 w-8">04</span>
                                 <div>
                                     <h3 class="font-serif text-2xl lg:text-3xl text-mineral group-hover:text-copper transition-colors mb-1">Advanced Diagnostics</h3>
-                                    <p class="text-sm font-light text-gray-500 sm:hidden">Camera inspections and exact leak detection</p>
+                                    <p class="text-sm font-light text-gray-400 sm:hidden">Camera inspections and exact leak detection</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-6">
-                                <p class="text-sm font-light text-gray-500 uppercase tracking-wider hidden sm:block text-right">Leak Detection</p>
+                                <p class="text-sm font-light text-gray-400 uppercase tracking-wider hidden sm:block text-right">Leak Detection</p>
                                 <svg class="w-6 h-6 service-arrow text-gray-600 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </div>
                         </div>
@@ -410,11 +522,11 @@
                                 <span class="font-serif italic text-2xl text-oxidized opacity-50 w-8">05</span>
                                 <div>
                                     <h3 class="font-serif text-2xl lg:text-3xl text-mineral group-hover:text-copper transition-colors mb-1">Sewer & Drain Clearing</h3>
-                                    <p class="text-sm font-light text-gray-500 sm:hidden">Comprehensive blockage removal</p>
+                                    <p class="text-sm font-light text-gray-400 sm:hidden">Comprehensive blockage removal</p>
                                 </div>
                             </div>
                             <div class="flex items-center gap-6">
-                                <p class="text-sm font-light text-gray-500 uppercase tracking-wider hidden sm:block text-right">Flow Restoration</p>
+                                <p class="text-sm font-light text-gray-400 uppercase tracking-wider hidden sm:block text-right">Flow Restoration</p>
                                 <svg class="w-6 h-6 service-arrow text-gray-600 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                             </div>
                         </div>
@@ -431,13 +543,81 @@
             
             <div class="relative h-[60vh] order-2 lg:order-1">
                 <div class="absolute inset-0 img-mask-left bg-slate-deep border border-oxidized border-opacity-30 p-2">
-                    <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=1500&auto=format&fit=crop" 
-                         alt="Plumbing professional working with precision" 
-                         class="w-full h-full object-cover mix-blend-luminosity opacity-70">
+                    <svg class="w-full h-full" viewBox="0 0 900 1100" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="swf-title">
+                        <title id="swf-title">Technical illustration of a precision copper pipe run with flanged joints, a gate valve and a pressure gauge</title>
+                        <defs>
+                            <linearGradient id="swf-bg" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#101317"/><stop offset="1" stop-color="#0a0b0d"/>
+                            </linearGradient>
+                            <linearGradient id="swf-copper" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#d69a7c"/><stop offset="1" stop-color="#9c6144"/>
+                            </linearGradient>
+                        </defs>
+                        <rect width="900" height="1100" fill="url(#swf-bg)"/>
+                        <!-- backdrop guides -->
+                        <path d="M-40 180C200 100 380 320 620 210S900 260 940 200" fill="none" stroke="#6a8c84" stroke-opacity="0.3"/>
+                        <circle cx="620" cy="760" r="240" fill="none" stroke="#f4f4f2" stroke-opacity="0.06" stroke-width="1.5"/>
+                        <g fill="#6a8c84" opacity="0.3">
+                            <circle cx="120" cy="140" r="2.5"/><circle cx="240" cy="180" r="2.5"/><circle cx="760" cy="120" r="2.5"/>
+                            <circle cx="820" cy="420" r="2.5"/><circle cx="120" cy="520" r="2.5"/><circle cx="800" cy="960" r="2.5"/>
+                        </g>
+                        <!-- pipe run -->
+                        <path d="M220 1060V460Q220 400 280 400H540Q600 400 600 460V680Q600 740 660 740H900" fill="none" stroke="url(#swf-copper)" stroke-width="42"/>
+                        <path d="M220 1060V460Q220 400 280 400H540Q600 400 600 460V680Q600 740 660 740H900" fill="none" stroke="#f4f4f2" stroke-opacity="0.25" stroke-width="2" stroke-dasharray="10 12"/>
+                        <!-- flanges -->
+                        <g fill="#1c2126" stroke="#6a8c84" stroke-opacity="0.7" stroke-width="2.5">
+                            <rect x="186" y="820" width="68" height="20" rx="4"/>
+                            <rect x="380" y="366" width="20" height="68" rx="4"/>
+                            <rect x="566" y="560" width="68" height="20" rx="4"/>
+                        </g>
+                        <g fill="#c48b71">
+                            <circle cx="196" cy="830" r="3.5"/><circle cx="244" cy="830" r="3.5"/>
+                            <circle cx="390" cy="376" r="3.5"/><circle cx="390" cy="424" r="3.5"/>
+                            <circle cx="576" cy="570" r="3.5"/><circle cx="624" cy="570" r="3.5"/>
+                        </g>
+                        <!-- gate valve -->
+                        <g>
+                            <line x1="470" y1="378" x2="470" y2="320" stroke="#f4f4f2" stroke-opacity="0.6" stroke-width="10"/>
+                            <circle cx="470" cy="270" r="50" fill="none" stroke="url(#swf-copper)" stroke-width="7"/>
+                            <g stroke="#c48b71" stroke-width="4" stroke-linecap="round">
+                                <line x1="470" y1="228" x2="470" y2="312"/>
+                                <line x1="428" y1="270" x2="512" y2="270"/>
+                                <line x1="440" y1="240" x2="500" y2="300"/>
+                                <line x1="500" y1="240" x2="440" y2="300"/>
+                            </g>
+                            <circle cx="470" cy="270" r="9" fill="#f4f4f2"/>
+                        </g>
+                        <!-- pressure gauge -->
+                        <g>
+                            <line x1="770" y1="718" x2="770" y2="660" stroke="#f4f4f2" stroke-opacity="0.6" stroke-width="9"/>
+                            <circle cx="770" cy="606" r="52" fill="#14171b" stroke="#f4f4f2" stroke-opacity="0.65" stroke-width="3.5"/>
+                            <g stroke="#6a8c84" stroke-width="2.5" stroke-linecap="round">
+                                <line x1="736" y1="586" x2="746" y2="592"/>
+                                <line x1="758" y1="566" x2="762" y2="576"/>
+                                <line x1="784" y1="566" x2="780" y2="576"/>
+                                <line x1="804" y1="586" x2="794" y2="592"/>
+                            </g>
+                            <line x1="770" y1="606" x2="746" y2="580" stroke="#c48b71" stroke-width="4" stroke-linecap="round"/>
+                            <circle cx="770" cy="606" r="5" fill="#c48b71"/>
+                        </g>
+                        <!-- dimension guides -->
+                        <g stroke="#6a8c84" stroke-opacity="0.6" stroke-width="1.5">
+                            <line x1="120" y1="460" x2="120" y2="1040"/>
+                            <line x1="112" y1="460" x2="128" y2="460"/>
+                            <line x1="112" y1="1040" x2="128" y2="1040"/>
+                            <line x1="280" y1="330" x2="540" y2="330"/>
+                            <line x1="280" y1="322" x2="280" y2="338"/>
+                            <line x1="540" y1="322" x2="540" y2="338"/>
+                        </g>
+                        <!-- solder glint -->
+                        <g stroke="#f4f4f2" stroke-width="2.5" stroke-linecap="round" opacity="0.8">
+                            <path d="M600 500v18M591 509h18"/>
+                        </g>
+                    </svg>
                 </div>
                 <!-- Accent box -->
                 <div class="absolute -right-4 lg:-right-12 top-1/2 -translate-y-1/2 w-24 h-48 border border-copper bg-slate-deep flex items-center justify-center">
-                    <p class="font-serif text-3xl text-mineral transform -rotate-90 whitespace-nowrap tracking-widest">EST. 1994</p>
+                    <p class="font-serif text-3xl text-mineral transform -rotate-90 whitespace-nowrap tracking-widest">EST. 1989</p>
                 </div>
             </div>
 
@@ -452,7 +632,7 @@
                 </h2>
                 <div class="space-y-6 text-gray-400 font-light text-lg leading-relaxed">
                     <p>
-                        In 1994, Stillwater Plumbing Co. was established with a singular directive: to elevate the standard of residential plumbing service in Cobb and Cherokee Counties. We recognized a void in the market for a contractor who treated homeowners as long-term partners rather than singular transactions.
+                        In 1989, Stillwater Plumbing Co. was established with a singular directive: to elevate the standard of residential plumbing service in Cobb and Cherokee Counties. We recognized a void in the market for a contractor who treated homeowners as long-term partners rather than singular transactions.
                     </p>
                     <p>
                         We are a deliberately small, highly focused operation. This intentionally tight structure allows us to maintain absolute quality control over every diagnostic assessment, every fixture installation, and every structural repair we undertake.
@@ -475,10 +655,10 @@
                 <p class="text-gray-400 font-light max-w-xl mx-auto">The caliber of our work is reflected entirely in the long-term relationships we maintain with Kennesaw and Marietta homeowners.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-10">
                 <!-- Review 1 -->
                 <div class="relative testimonial-quote p-8 border border-oxidized border-opacity-20 bg-slate-base hover:border-copper transition-colors duration-500">
-                    <div class="flex gap-1 text-copper mb-6">
+                    <div class="flex gap-1 text-copper mb-6" aria-hidden="true">
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -496,7 +676,7 @@
 
                 <!-- Review 2 -->
                 <div class="relative testimonial-quote p-8 border border-oxidized border-opacity-20 bg-slate-base hover:border-copper transition-colors duration-500 mt-8 md:mt-16">
-                    <div class="flex gap-1 text-copper mb-6">
+                    <div class="flex gap-1 text-copper mb-6" aria-hidden="true">
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
@@ -507,8 +687,26 @@
                         "A true partner in maintaining our property. Stillwater Plumbing operates with a level of refinement and transparency you rarely see in this industry. They are the only call we make."
                     </p>
                     <div>
-                        <p class="text-sm font-medium tracking-wide text-mineral uppercase">Sarah Jenkins</p>
+                        <p class="text-sm font-medium tracking-wide text-mineral uppercase">Sarah J.</p>
                         <p class="text-xs text-oxidized tracking-widest mt-1">Kennesaw, GA</p>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="relative testimonial-quote p-8 border border-oxidized border-opacity-20 bg-slate-base hover:border-copper transition-colors duration-500 lg:mt-8">
+                    <div class="flex gap-1 text-copper mb-6" aria-hidden="true">
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    </div>
+                    <p class="font-serif text-xl md:text-2xl italic leading-relaxed text-mineral mb-8">
+                        "They repiped our 1987 ranch in three days, walked us through every material choice, and the access cuts were so clean the drywall patching was trivial. Worth every dollar."
+                    </p>
+                    <div>
+                        <p class="text-sm font-medium tracking-wide text-mineral uppercase">Daniel K.</p>
+                        <p class="text-xs text-oxidized tracking-widest mt-1">Acworth, GA</p>
                     </div>
                 </div>
             </div>
@@ -517,17 +715,266 @@
     </section>
 
     <!-- Visual Divider -->
-    <div class="w-full h-[40vh] md:h-[50vh] relative">
+    <div class="w-full h-[40vh] md:h-[50vh] relative" aria-hidden="true">
         <div class="absolute inset-0 bg-slate-deep">
-            <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?q=80&w=2000&auto=format&fit=crop" 
-                 alt="Elegant bathroom interior" 
-                 class="w-full h-full object-cover opacity-30 mix-blend-luminosity grayscale">
+            <svg class="w-full h-full" viewBox="0 0 1600 520" preserveAspectRatio="xMidYMid slice">
+                <defs>
+                    <linearGradient id="swd-bg" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#111316"/><stop offset="1" stop-color="#0a0b0d"/>
+                    </linearGradient>
+                </defs>
+                <rect width="1600" height="520" fill="url(#swd-bg)"/>
+                <!-- laminar flow lines -->
+                <g fill="none" stroke-linecap="round">
+                    <path d="M-40 120C260 60 520 190 820 130S1360 160 1640 110" stroke="#6a8c84" stroke-opacity="0.3" stroke-width="1.5"/>
+                    <path d="M-40 180C280 120 540 250 840 190S1380 220 1640 170" stroke="#6a8c84" stroke-opacity="0.2" stroke-width="1.5"/>
+                    <path d="M-40 250C300 190 560 320 860 260S1400 290 1640 240" stroke="#c48b71" stroke-opacity="0.55" stroke-width="2"/>
+                    <path d="M-40 320C320 260 580 390 880 330S1420 360 1640 310" stroke="#76d4d9" stroke-opacity="0.18" stroke-width="1.5"/>
+                    <path d="M-40 390C340 330 600 460 900 400S1440 430 1640 380" stroke="#6a8c84" stroke-opacity="0.22" stroke-width="1.5"/>
+                    <path d="M-40 450C360 396 620 508 920 452S1460 480 1640 436" stroke="#f4f4f2" stroke-opacity="0.07" stroke-width="1.5"/>
+                </g>
+                <!-- still point: drop + rings -->
+                <g fill="none">
+                    <ellipse cx="500" cy="262" rx="66" ry="12" stroke="#76d4d9" stroke-opacity="0.35" stroke-width="1.5"/>
+                    <ellipse cx="500" cy="262" rx="34" ry="6" stroke="#76d4d9" stroke-opacity="0.55" stroke-width="1.5"/>
+                    <line x1="500" y1="170" x2="500" y2="248" stroke="#76d4d9" stroke-opacity="0.5" stroke-width="2"/>
+                    <path d="M500 148c-8 12-8 20 0 22 8-2 8-10 0-22z" fill="#76d4d9" fill-opacity="0.5"/>
+                </g>
+                <!-- bubbles -->
+                <g fill="none" stroke="#76d4d9" stroke-opacity="0.25">
+                    <circle cx="1160" cy="220" r="7"/><circle cx="1210" cy="300" r="4"/><circle cx="1120" cy="330" r="5"/>
+                </g>
+            </svg>
         </div>
         <div class="absolute inset-0 bg-gradient-to-t from-slate-deep via-transparent to-slate-base"></div>
     </div>
 
+    <!-- Service Territory -->
+    <section id="coverage" class="py-24 lg:py-32 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="w-8 h-px bg-copper"></span>
+                    <p class="text-xs uppercase tracking-[0.2em] text-copper font-medium">Service Territory</p>
+                </div>
+                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-mineral leading-tight mb-8">
+                    A deliberately <span class="italic font-light text-oxidized">compact map.</span>
+                </h2>
+                <p class="text-gray-400 font-light text-lg leading-relaxed mb-10 max-w-lg">
+                    We keep our territory tight so a technician is never more than a short drive from your home. Headquartered in Kennesaw, we work throughout Cobb and Cherokee Counties.
+                </p>
+                <ul class="grid grid-cols-2 gap-y-4 gap-x-8 max-w-md">
+                    <li class="flex items-center gap-3 text-sm text-mineral font-medium tracking-wide">
+                        <span class="w-2 h-2 bg-copper rounded-full flex-shrink-0" aria-hidden="true"></span>Kennesaw &mdash; HQ
+                    </li>
+                    <li class="flex items-center gap-3 text-sm text-gray-400 font-light tracking-wide">
+                        <span class="w-1.5 h-1.5 border border-oxidized rounded-full flex-shrink-0" aria-hidden="true"></span>Marietta
+                    </li>
+                    <li class="flex items-center gap-3 text-sm text-gray-400 font-light tracking-wide">
+                        <span class="w-1.5 h-1.5 border border-oxidized rounded-full flex-shrink-0" aria-hidden="true"></span>Acworth
+                    </li>
+                    <li class="flex items-center gap-3 text-sm text-gray-400 font-light tracking-wide">
+                        <span class="w-1.5 h-1.5 border border-oxidized rounded-full flex-shrink-0" aria-hidden="true"></span>Woodstock
+                    </li>
+                    <li class="flex items-center gap-3 text-sm text-gray-400 font-light tracking-wide">
+                        <span class="w-1.5 h-1.5 border border-oxidized rounded-full flex-shrink-0" aria-hidden="true"></span>Powder Springs
+                    </li>
+                    <li class="flex items-center gap-3 text-sm text-gray-400 font-light tracking-wide">
+                        <span class="w-1.5 h-1.5 border border-oxidized rounded-full flex-shrink-0" aria-hidden="true"></span>Dallas
+                    </li>
+                </ul>
+                <p class="text-xs text-gray-400 uppercase tracking-widest mt-10">Outside the map? Call &mdash; if we cannot come, we will point you to someone reputable who can.</p>
+            </div>
+            <div class="relative">
+                <div class="bg-slate-deep border border-oxidized p-6 lg:p-10">
+                    <svg class="w-full h-auto" viewBox="0 0 700 520" role="img" aria-labelledby="swm-title">
+                        <title id="swm-title">Abstract contour map: Stillwater's Kennesaw headquarters ringed by its service radius and nearby towns</title>
+                        <!-- topo rings -->
+                        <g fill="none" stroke="#6a8c84" stroke-opacity="0.35" stroke-width="1.5">
+                            <path d="M120 100C240 40 460 60 560 140S640 340 540 420 220 500 130 410 30 170 120 100Z"/>
+                            <path d="M170 140C270 90 440 105 520 170S580 330 500 390 250 450 180 375 90 195 170 140Z"/>
+                            <path d="M225 185C300 145 420 155 480 205S520 320 460 360 285 400 235 345 165 230 225 185Z"/>
+                        </g>
+                        <!-- service radius -->
+                        <circle cx="350" cy="268" r="150" fill="none" stroke="#c48b71" stroke-opacity="0.5" stroke-width="1.5" stroke-dasharray="4 10"/>
+                        <!-- connectors -->
+                        <g fill="none" stroke="#6a8c84" stroke-opacity="0.5" stroke-width="1.5">
+                            <line x1="350" y1="268" x2="472" y2="168"/>
+                            <line x1="350" y1="268" x2="238" y2="160"/>
+                            <line x1="350" y1="268" x2="212" y2="360"/>
+                            <line x1="350" y1="268" x2="470" y2="376"/>
+                            <line x1="350" y1="268" x2="356" y2="420"/>
+                        </g>
+                        <!-- satellite towns -->
+                        <g fill="#f4f4f2" fill-opacity="0.8">
+                            <circle cx="472" cy="168" r="6"/><circle cx="238" cy="160" r="6"/><circle cx="212" cy="360" r="6"/>
+                            <circle cx="470" cy="376" r="6"/><circle cx="356" cy="420" r="6"/>
+                        </g>
+                        <!-- HQ marker -->
+                        <circle cx="350" cy="268" r="40" fill="none" stroke="#c48b71" stroke-width="2"/>
+                        <circle cx="350" cy="268" r="26" fill="#0a0b0d" stroke="#c48b71" stroke-width="2.5"/>
+                        <path d="M350 254c-8 12-8 20 0 22 8-2 8-10 0-22z" fill="#76d4d9"/>
+                        <!-- compass -->
+                        <g transform="translate(636 66)">
+                            <circle r="22" fill="none" stroke="#6a8c84" stroke-opacity="0.6" stroke-width="1.5"/>
+                            <path d="M0-13L5 6 0 2-5 6Z" fill="#c48b71"/>
+                        </g>
+                        <!-- scale ticks -->
+                        <g stroke="#6a8c84" stroke-opacity="0.6" stroke-width="1.5">
+                            <line x1="60" y1="474" x2="220" y2="474"/>
+                            <line x1="60" y1="468" x2="60" y2="480"/>
+                            <line x1="140" y1="470" x2="140" y2="478"/>
+                            <line x1="220" y1="468" x2="220" y2="480"/>
+                        </g>
+                    </svg>
+                </div>
+                <div class="absolute -left-3 -top-3 w-16 h-16 border-l border-t border-copper pointer-events-none" aria-hidden="true"></div>
+                <div class="absolute -right-3 -bottom-3 w-16 h-16 border-r border-b border-copper pointer-events-none" aria-hidden="true"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Client Questions -->
+    <section id="faq" class="py-24 lg:py-32 relative bg-slate-deep border-t border-oxidized border-opacity-30">
+        <div class="max-w-4xl mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16">
+                <div class="flex items-center justify-center gap-4 mb-6">
+                    <span class="w-8 h-px bg-oxidized"></span>
+                    <p class="text-xs uppercase tracking-[0.2em] text-oxidized font-medium">Straight Answers</p>
+                    <span class="w-8 h-px bg-oxidized"></span>
+                </div>
+                <h2 class="font-serif text-4xl md:text-5xl text-mineral leading-tight">Client <span class="italic font-light text-copper">questions.</span></h2>
+            </div>
+            <div class="border-t border-oxidized">
+                <details class="sw-faq border-b border-oxidized">
+                    <summary class="flex items-center justify-between gap-6 py-7">
+                        <h3 class="font-serif text-xl md:text-2xl text-mineral">Do you handle emergencies?</h3>
+                        <span class="sw-faq-icon flex-shrink-0 w-9 h-9 border border-oxidized rounded-sm flex items-center justify-center text-copper" aria-hidden="true">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M12 5v14M5 12h14"/></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-400 font-light leading-relaxed pb-7 max-w-2xl">Active leaks and failed water heaters jump the queue. We hold same-day slots for existing client-partners and take new emergency calls as capacity allows &mdash; phone first, always, so we can talk you through shutting off water at the main.</p>
+                </details>
+                <details class="sw-faq border-b border-oxidized">
+                    <summary class="flex items-center justify-between gap-6 py-7">
+                        <h3 class="font-serif text-xl md:text-2xl text-mineral">How do you price your work?</h3>
+                        <span class="sw-faq-icon flex-shrink-0 w-9 h-9 border border-oxidized rounded-sm flex items-center justify-center text-copper" aria-hidden="true">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M12 5v14M5 12h14"/></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-400 font-light leading-relaxed pb-7 max-w-2xl">Diagnostics first, then a flat, itemized quote covering materials and labor before any work begins. No hourly ambiguity, and the number we quote is the number you pay unless you change the scope.</p>
+                </details>
+                <details class="sw-faq border-b border-oxidized">
+                    <summary class="flex items-center justify-between gap-6 py-7">
+                        <h3 class="font-serif text-xl md:text-2xl text-mineral">Are you licensed and insured?</h3>
+                        <span class="sw-faq-icon flex-shrink-0 w-9 h-9 border border-oxidized rounded-sm flex items-center justify-center text-copper" aria-hidden="true">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M12 5v14M5 12h14"/></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-400 font-light leading-relaxed pb-7 max-w-2xl">Yes &mdash; Georgia Master Plumber licensed and fully insured. Where a repair or replacement requires a permit, we pull it and schedule the inspection ourselves rather than leaving that to you.</p>
+                </details>
+                <details class="sw-faq border-b border-oxidized">
+                    <summary class="flex items-center justify-between gap-6 py-7">
+                        <h3 class="font-serif text-xl md:text-2xl text-mineral">Tank or tankless water heater?</h3>
+                        <span class="sw-faq-icon flex-shrink-0 w-9 h-9 border border-oxidized rounded-sm flex items-center justify-center text-copper" aria-hidden="true">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M12 5v14M5 12h14"/></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-400 font-light leading-relaxed pb-7 max-w-2xl">Honestly: it depends on your gas line capacity, usage patterns, and how long you plan to stay in the home. Tankless wins on longevity and space; a quality tank often wins on installed cost. We size both options against your actual household before recommending either.</p>
+                </details>
+                <details class="sw-faq border-b border-oxidized">
+                    <summary class="flex items-center justify-between gap-6 py-7">
+                        <h3 class="font-serif text-xl md:text-2xl text-mineral">Do you warranty your work?</h3>
+                        <span class="sw-faq-icon flex-shrink-0 w-9 h-9 border border-oxidized rounded-sm flex items-center justify-center text-copper" aria-hidden="true">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-width="1.5" d="M12 5v14M5 12h14"/></svg>
+                        </span>
+                    </summary>
+                    <p class="text-gray-400 font-light leading-relaxed pb-7 max-w-2xl">Every repair carries a two-year labor warranty, and we register manufacturer warranties on installed equipment on your behalf. If something we touched fails within the warranty window, the return visit costs you nothing.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Request Service -->
+    <section id="contact" class="py-24 lg:py-32 relative overflow-hidden">
+        <div class="contour-bg" aria-hidden="true"></div>
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16">
+            <div class="lg:col-span-5">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="w-8 h-px bg-copper"></span>
+                    <p class="text-xs uppercase tracking-[0.2em] text-copper font-medium">Request Service</p>
+                </div>
+                <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-mineral leading-tight mb-8">
+                    Tell us about <span class="italic font-light text-oxidized">your home.</span>
+                </h2>
+                <p class="text-gray-400 font-light text-lg leading-relaxed mb-10 max-w-md">
+                    Share the essentials and we will respond within one business day &mdash; sooner for active leaks. Prefer a voice? The direct line reaches a person, not a phone tree.
+                </p>
+                <div class="space-y-8 border-t border-oxidized pt-8">
+                    <div>
+                        <p class="text-mineral font-medium mb-2 uppercase tracking-widest text-xs">Direct Line</p>
+                        <a href="tel:7705550158" class="font-serif text-3xl text-mineral hover:text-copper transition-colors">(770) 555-0158</a>
+                    </div>
+                    <div>
+                        <p class="text-mineral font-medium mb-2 uppercase tracking-widest text-xs">Email</p>
+                        <a href="mailto:service@stillwaterplumbing.example" class="text-sm font-light text-gray-400 hover:text-copper transition-colors break-all">service@stillwaterplumbing.example</a>
+                    </div>
+                    <div>
+                        <p class="text-mineral font-medium mb-2 uppercase tracking-widest text-xs">Hours</p>
+                        <p class="text-sm font-light text-gray-400 leading-relaxed">Monday &ndash; Friday, 7:30am &ndash; 5:30pm<br>Emergency line monitored after hours</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-7">
+                <form action="#" class="bg-slate-deep border border-oxidized p-8 lg:p-12">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="sw-name" class="block text-xs uppercase tracking-widest text-mineral font-medium mb-2.5">Full Name</label>
+                            <input type="text" id="sw-name" name="name" required autocomplete="name" class="sw-field" placeholder="Your name">
+                        </div>
+                        <div>
+                            <label for="sw-phone" class="block text-xs uppercase tracking-widest text-mineral font-medium mb-2.5">Phone</label>
+                            <input type="tel" id="sw-phone" name="phone" required autocomplete="tel" aria-describedby="sw-phone-hint" class="sw-field" placeholder="(___) ___-____">
+                            <p id="sw-phone-hint" class="text-xs font-light text-gray-400 mt-2">Used only to coordinate your visit.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="sw-email" class="block text-xs uppercase tracking-widest text-mineral font-medium mb-2.5">Email</label>
+                            <input type="email" id="sw-email" name="email" autocomplete="email" class="sw-field" placeholder="Your email address">
+                        </div>
+                        <div>
+                            <label for="sw-service" class="block text-xs uppercase tracking-widest text-mineral font-medium mb-2.5">Service Needed</label>
+                            <select id="sw-service" name="service" class="sw-field">
+                                <option>Water heater repair or replacement</option>
+                                <option>Pipe repair / repipe</option>
+                                <option>Fixture installation</option>
+                                <option>Leak detection &amp; diagnostics</option>
+                                <option>Sewer &amp; drain clearing</option>
+                                <option>Something else</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-6">
+                        <label for="sw-address" class="block text-xs uppercase tracking-widest text-mineral font-medium mb-2.5">Street &amp; City</label>
+                        <input type="text" id="sw-address" name="address" autocomplete="street-address" aria-describedby="sw-address-hint" class="sw-field" placeholder="Street address, city">
+                        <p id="sw-address-hint" class="text-xs font-light text-gray-400 mt-2">Helps us confirm you are inside our service territory.</p>
+                    </div>
+                    <div class="mb-8">
+                        <label for="sw-details" class="block text-xs uppercase tracking-widest text-mineral font-medium mb-2.5">What's Happening? <span class="normal-case font-light text-gray-400 tracking-normal">(optional)</span></label>
+                        <textarea id="sw-details" name="details" rows="4" class="sw-field resize-y" placeholder="Describe the issue, the fixture, or the project&hellip;"></textarea>
+                    </div>
+                    <button type="submit" class="btn-copper border border-mineral text-mineral px-10 py-4 text-sm uppercase tracking-widest font-medium rounded-sm w-full sm:w-auto">
+                        Request Consultation
+                    </button>
+                    <p class="text-xs font-light text-gray-400 mt-5">We respond within one business day. Your details are never shared.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA & Footer -->
-    <footer id="contact" class="bg-slate-deep pt-24 pb-12 relative border-t border-oxidized border-opacity-30">
+    <footer class="bg-slate-deep pt-24 pb-12 relative border-t border-oxidized border-opacity-30">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-16 mb-24">
@@ -547,23 +994,35 @@
                     <div class="flex flex-col gap-6">
                         <div>
                             <p class="text-mineral font-medium mb-2 uppercase tracking-widest text-xs">Corporate HQ</p>
-                            <p>2959 Cherokee St #303C<br>Kennesaw, GA 30144</p>
+                            <p>1160 Watermark Lane, Suite C<br>Kennesaw, GA 30144</p>
                         </div>
+                        <div>
+                            <p class="text-mineral font-medium mb-2 uppercase tracking-widest text-xs">Email</p>
+                            <a href="mailto:service@stillwaterplumbing.example" class="hover:text-copper transition-colors break-all">service@stillwaterplumbing.example</a>
+                        </div>
+                        <div>
+                            <p class="text-mineral font-medium mb-2 uppercase tracking-widest text-xs">Hours</p>
+                            <p>Mon &ndash; Fri, 7:30am &ndash; 5:30pm<br>Emergency line after hours</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-6">
                         <div>
                             <p class="text-mineral font-medium mb-2 uppercase tracking-widest text-xs">Service Territories</p>
                             <p class="max-w-[200px]">Kennesaw, Marietta, Acworth, Woodstock, Cobb and Cherokee Counties.</p>
                         </div>
-                    </div>
-                    
-                    <div class="flex flex-col justify-between">
-                        <div class="flex flex-col gap-3">
-                            <a href="#expertise" class="hover:text-copper transition-colors">Expertise</a>
-                            <a href="#philosophy" class="hover:text-copper transition-colors">Methodology</a>
-                            <a href="#partnerships" class="hover:text-copper transition-colors">Client Partners</a>
+                        <div class="flex flex-col justify-between flex-grow">
+                            <nav class="flex flex-col gap-3" aria-label="Footer">
+                                <a href="#expertise" class="hover:text-copper transition-colors">Expertise</a>
+                                <a href="#philosophy" class="hover:text-copper transition-colors">Methodology</a>
+                                <a href="#partnerships" class="hover:text-copper transition-colors">Client Partners</a>
+                                <a href="#coverage" class="hover:text-copper transition-colors">Territory</a>
+                                <a href="#faq" class="hover:text-copper transition-colors">Questions</a>
+                            </nav>
+                            <a href="#contact" class="mt-8 border border-oxidized text-center py-4 px-8 rounded-sm uppercase tracking-widest text-xs hover:bg-mineral hover:text-slate-deep transition-all">
+                                Contact Online
+                            </a>
                         </div>
-                        <a href="https://www.stillwaterplumbing.example/contact-us" target="_blank" class="mt-8 border border-oxidized text-center py-4 px-8 rounded-sm uppercase tracking-widest text-xs hover:bg-mineral hover:text-slate-deep transition-all">
-                            Contact Online
-                        </a>
                     </div>
                 </div>
             </div>
@@ -574,12 +1033,12 @@
                     <span class="font-serif text-xl tracking-wide text-mineral uppercase">Stillwater</span>
                     <span class="text-[10px] uppercase tracking-widest text-oxidized font-medium">Plumbing Company, Inc.</span>
                 </div>
-                <div class="flex gap-6 text-[10px] text-gray-500 uppercase tracking-widest">
-                    <span>Est. 1994</span>
-                    <span class="w-px h-3 bg-gray-700"></span>
+                <div class="flex gap-6 text-[10px] text-gray-400 uppercase tracking-widest">
+                    <span>Est. 1989</span>
+                    <span class="w-px h-3 bg-gray-700" aria-hidden="true"></span>
                     <span>Fully Licensed & Insured</span>
                 </div>
-                <p class="text-[10px] text-gray-500 uppercase tracking-widest">
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest">
                     &copy; 2026 STILLWATER PLUMBING COMPANY.
                 </p>
             </div>

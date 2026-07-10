@@ -46,8 +46,9 @@ body {
 }
 
 .logo-icon {
+    width: 30px;
+    height: 30px;
     color: var(--color-amber-warning);
-    font-size: 2rem;
     filter: drop-shadow(0 0 8px var(--color-amber-glow));
 }
 
@@ -69,6 +70,12 @@ body {
 
 .nav-links a:hover {
     color: #fff;
+}
+
+.nav-links a:focus-visible {
+    color: #fff;
+    outline: 2px solid var(--color-amber-warning);
+    outline-offset: 4px;
 }
 
 .nav-cta {
@@ -104,11 +111,17 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    /* We expect proof_concept_a_storm_clean to be passed here */
-    background-image: url('storm_clean.png');
-    background-size: cover;
-    background-position: center bottom;
+    /* Bespoke storm-and-ridgeline scene rendered inline in the HTML */
+    background-color: var(--color-slate-dark);
     z-index: 1;
+}
+
+.storm-scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
 }
 
 /* Aggressive gradient overlay ensuring the left-side typography is readable even against light skies */
@@ -241,7 +254,7 @@ body {
 .cta-group {
     display: flex;
     gap: 20px;
-    margin-bottom: 60px;
+    margin-bottom: 24px;
 }
 
 .btn-primary {
@@ -287,6 +300,70 @@ body {
 .btn-secondary:hover {
     border-color: #fff;
     background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-primary:focus-visible,
+.btn-secondary:focus-visible {
+    outline: 2px solid var(--color-amber-warning);
+    outline-offset: 3px;
+}
+
+.btn-primary:active {
+    transform: translateY(-1px);
+}
+
+/* Dispatch Line */
+.dispatch-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 16px;
+    margin-bottom: 56px;
+}
+
+.dispatch-label {
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-amber-warning);
+}
+
+.dispatch-phone {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.dispatch-phone:hover {
+    color: var(--color-amber-warning);
+}
+
+.dispatch-divider {
+    width: 1px;
+    height: 16px;
+    background: rgba(240, 244, 248, 0.25);
+}
+
+.dispatch-email {
+    color: #b5c1cd;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 400;
+    transition: color 0.3s ease;
+}
+
+.dispatch-email:hover {
+    color: #fff;
+}
+
+.dispatch-phone:focus-visible,
+.dispatch-email:focus-visible {
+    outline: 2px solid var(--color-amber-warning);
+    outline-offset: 3px;
 }
 
 /* Trust Metrics */
@@ -365,8 +442,13 @@ body {
         font-size: 1.5rem;
     }
 
+    .logo-icon {
+        width: 24px;
+        height: 24px;
+    }
+
     .hero-headline {
-        font-size: 4.5rem;
+        font-size: clamp(3rem, 13vw, 4.5rem);
     }
 
     .hero-section {
@@ -385,5 +467,11 @@ body {
 
     .trust-item strong {
         font-size: 2rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pulse-dot {
+        animation: none;
     }
 }

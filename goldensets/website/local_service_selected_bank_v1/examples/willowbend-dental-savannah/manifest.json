@@ -1,0 +1,55 @@
+{
+  "pack_id": "willowbend_dental_sage_glass_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "willowbend-dental-savannah"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "light",
+    "editorial",
+    "calm",
+    "trustworthy",
+    "warm-neutral"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "glass_panel",
+    "split_hero",
+    "booking_flow",
+    "trust_rail",
+    "stats_strip",
+    "cta_treatment",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "dental_practice_homepage",
+    "appointment_booking_homepage",
+    "cosmetic_dentistry_landing",
+    "local_service_homepage_polish"
+  ],
+  "anti_patterns": [
+    "sterile clinical dashboard feel",
+    "generic dental office template",
+    "influencer beauty landing page"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1000,
+  "confidence_score": 4,
+  "example_ids": []
+}

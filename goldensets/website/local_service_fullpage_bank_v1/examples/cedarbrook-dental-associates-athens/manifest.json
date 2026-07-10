@@ -1,0 +1,56 @@
+{
+  "pack_id": "cedarbrook_dental_champagne_editorial_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "cedarbrook-dental-associates-athens"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "light",
+    "calm",
+    "clinical",
+    "editorial",
+    "warm",
+    "restrained"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "cta_treatment",
+    "split_hero",
+    "light_precision",
+    "headline_hierarchy",
+    "glass_panel",
+    "trust_rail",
+    "proof_cards"
+  ],
+  "supports_tasks": [
+    "dental_practice_homepage",
+    "family_dentistry_landing",
+    "clinic_homepage_polish",
+    "light_editorial_medical_website"
+  ],
+  "anti_patterns": [
+    "dark clinical dashboard",
+    "generic stock-photo dental template",
+    "urgent-care emergency framing"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1000,
+  "confidence_score": 4,
+  "example_ids": []
+}

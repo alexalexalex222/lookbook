@@ -1,40 +1,42 @@
-<html lang="en" class="reduce-motion"><head>
-    <script type="module" src="/@vite/client"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#04060a">
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="color-scheme" content="dark">
-    <meta name="theme-color" content="#04060a">
+  <title>AETHON — Mass to Orbit</title>
+  <meta name="description" content="AETHON is a private orbital launch provider. We carry payloads to low Earth and Sun-synchronous orbit aboard Meridian — a two-stage vehicle built for precision insertion. The pad is integrated. First flight ahead.">
+  <meta name="author" content="AETHON">
 
-    <title>AETHON — Mass to Orbit</title>
-    <meta name="description" content="AETHON is a private orbital launch provider. We carry payloads to low Earth and Sun-synchronous orbit aboard Meridian — a two-stage vehicle built for precision insertion. The pad is integrated. First flight ahead.">
-    <meta name="author" content="AETHON">
+  <!-- Open Graph (text only; og:image is a labeled placeholder pending real render) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AETHON — Mass to Orbit">
+  <meta property="og:description" content="A private orbital launch provider on the threshold of first flight. Precision insertion aboard Meridian.">
+  <meta property="og:site_name" content="AETHON">
+  <!-- og:image: [OG_COVER_IMAGE] — supply a 1200x630 render before launch -->
 
-    <!-- Open Graph (text only; og:image is a labeled placeholder pending real render) -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="AETHON — Mass to Orbit">
-    <meta property="og:description" content="A private orbital launch provider on the threshold of first flight. Precision insertion aboard Meridian.">
-    <meta property="og:site_name" content="AETHON">
-    <!-- og:image: [OG_COVER_IMAGE] — supply a 1200x630 render before launch -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2304060a'/%3E%3Cpath d='M6.5 25 L16 7 L25.5 25' fill='none' stroke='%23eef2f8' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cline x1='11' y1='19.4' x2='21' y2='19.4' stroke='%23ff5e2c' stroke-width='2.4' stroke-linecap='round'/%3E%3C/svg%3E">
 
-    <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <!-- Anti-flash: paint the void before the page settles, release it once boot script runs. -->
+  <style>
+    html { background: #04060a; color-scheme: dark; }
+    #boot {
+      position: fixed; inset: 0; display: grid; place-items: center;
+      background: #04060a; z-index: 9999;
+      transition: opacity 600ms ease, visibility 600ms ease;
+    }
+    #boot[hidden] { opacity: 0; visibility: hidden; pointer-events: none; }
+    #boot .wm {
+      font-family: 'Space Grotesk', system-ui, sans-serif;
+      letter-spacing: 0.34em; font-weight: 700; font-size: 15px;
+      color: #5a6678; text-indent: 0.34em;
+    }
+  </style>
 
-    <!-- Anti-flash: paint the void before the bundle arrives. -->
-    <style>
-      html { background: #04060a; color-scheme: dark; }
-      #boot {
-        position: fixed; inset: 0; display: grid; place-items: center;
-        background: #04060a; z-index: 9999;
-        transition: opacity 600ms ease, visibility 600ms ease;
-      }
-      #boot[hidden] { opacity: 0; visibility: hidden; }
-      #boot .wm {
-        font-family: 'Space Grotesk', system-ui, sans-serif;
-        letter-spacing: 0.34em; font-weight: 700; font-size: 15px;
-        color: #5a6678; text-indent: 0.34em;
-      }
-    </style>
-  <style type="text/css" data-vite-dev-id="aethon-launch-site/src/styles/tokens.css">/* ============================================================================
+  <style>
+/* ============================================================================
    AETHON — Design tokens
    The entire visual language. Components build only from these.
    Theme: the cold dark of space + the single warm event of ignition.
@@ -42,6 +44,9 @@
 
 :root {
   /* --- Type families ------------------------------------------------------ */
+  /* No network font fetches: named families are used only if the visitor
+     happens to have them installed locally; the stacks fall back to solid
+     system fonts so the page never blocks on, or reaches out for, a font. */
   --font-display: 'Space Grotesk', 'Inter', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono: 'Space Mono', ui-monospace, 'SF Mono', 'Roboto Mono', monospace;
@@ -185,53 +190,8 @@
   --z-overlay: 2000;
   --z-top: 3000;
 }
-</style><style type="text/css" data-vite-dev-id="aethon-launch-site/src/styles/fonts.css">/* Self-hosted variable + static fonts — latin subset, font-display: swap.
-   Inter & Space Grotesk ship as single variable files; Space Mono as two statics. */
 
-@font-face {
-  font-family: 'Space Grotesk';
-  font-style: normal;
-  font-weight: 300 700;
-  font-display: swap;
-  src: url('/src/assets/fonts/space-grotesk-var.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
-    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 100 900;
-  font-display: swap;
-  src: url('/src/assets/fonts/inter-var.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
-    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: 'Space Mono';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url('/src/assets/fonts/space-mono-400.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
-    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-
-@font-face {
-  font-family: 'Space Mono';
-  font-style: normal;
-  font-weight: 700;
-  font-display: swap;
-  src: url('/src/assets/fonts/space-mono-700.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
-    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
-    U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
-</style><style type="text/css" data-vite-dev-id="aethon-launch-site/src/styles/base.css">/* ============================================================================
+/* ============================================================================
    Base — reset, typography, shared primitives.
    ========================================================================= */
 
@@ -273,6 +233,7 @@ a { color: inherit; text-decoration: none; }
 button, input, select, textarea { font: inherit; color: inherit; }
 button { background: none; border: none; cursor: pointer; }
 ul, ol { list-style: none; padding: 0; }
+fieldset { border: 0; margin: 0; padding: 0; min-inline-size: auto; }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
@@ -311,6 +272,19 @@ p { text-wrap: pretty; }
   max-width: var(--measure);
   margin-inline: auto;
   padding-inline: var(--gutter);
+}
+
+/* screen-reader-only utility — visually hidden, still in the a11y tree */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* --- Reveal on scroll ----------------------------------------------------- */
@@ -447,6 +421,21 @@ p { text-wrap: pretty; }
 
 .btn[disabled] { opacity: 0.55; cursor: not-allowed; transform: none; box-shadow: none; }
 .btn[disabled]::after { display: none; }
+.btn[disabled]:hover { transform: none; }
+
+/* loading spinner ring — reads on any button variant via currentColor */
+.btn.is-loading { cursor: progress; }
+.btn.is-loading::before {
+  content: '';
+  flex: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid color-mix(in oklab, currentColor 25%, transparent);
+  border-top-color: currentColor;
+  animation: btn-spin 750ms linear infinite;
+}
+@keyframes btn-spin { to { transform: rotate(360deg); } }
 
 /* --- Reduced motion ------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
@@ -460,7 +449,8 @@ p { text-wrap: pretty; }
   [data-reveal] { opacity: 1 !important; transform: none !important; }
 }
 .reduce-motion [data-reveal] { opacity: 1; transform: none; transition: none; }
-</style><style type="text/css" data-vite-dev-id="aethon-launch-site/src/styles/sections.css">/* ============================================================================
+
+/* ============================================================================
    Sections — composition & craft. Mobile-first; cinematic dark.
    ========================================================================= */
 
@@ -500,6 +490,7 @@ p { text-wrap: pretty; }
   align-items: center;
   gap: 0.6rem;
   color: var(--ink);
+  border-radius: var(--radius-xs);
 }
 .wordmark svg { color: var(--ink); }
 .wordmark__text {
@@ -565,6 +556,7 @@ p { text-wrap: pretty; }
   width: 44px;
   height: 44px;
   align-items: center;
+  border-radius: var(--radius-sm);
 }
 .nav__toggle-bar {
   width: 22px;
@@ -603,6 +595,7 @@ p { text-wrap: pretty; }
   transition: color var(--dur-2);
 }
 .navmenu__link:hover { color: var(--ink); }
+.navmenu__link.is-active { color: var(--ink); }
 .navmenu__cta { align-self: flex-start; margin-top: var(--space-2); }
 
 @media (min-width: 760px) {
@@ -711,12 +704,17 @@ p { text-wrap: pretty; }
   margin-inline: auto;
   padding-inline: var(--gutter);
   padding-bottom: var(--space-6);
-  display: flex;
+  display: grid;
+  /* Three-track grid: telemetry keeps its natural left position, the scroll
+     cue lives in the middle track so it is genuinely centered on the hero's
+     full width (not shoved to the end of a two-item flex row), and the third
+     track mirrors the first so the center track's math stays true even
+     though nothing is ever placed in it. */
+  grid-template-columns: 1fr auto 1fr;
   align-items: flex-end;
-  justify-content: space-between;
   gap: var(--space-5);
 }
-.hero__telemetry { display: flex; flex-wrap: wrap; gap: var(--space-5) var(--space-6); }
+.hero__telemetry { grid-column: 1; justify-self: start; display: flex; flex-wrap: wrap; gap: var(--space-5) var(--space-6); }
 .telem { display: flex; flex-direction: column; gap: 0.25rem; padding-left: var(--space-4); border-left: 1px solid var(--line-soft); }
 .telem__k {
   font-family: var(--font-mono);
@@ -728,7 +726,7 @@ p { text-wrap: pretty; }
 .telem__v { font-family: var(--font-display); font-size: var(--text-sm); color: var(--ink); letter-spacing: var(--ls-wide); }
 .telem__v .ph { font-size: 0.78rem; }
 
-.hero__cue { display: none; flex-direction: column; align-items: center; gap: 0.6rem; color: var(--ink-dim); }
+.hero__cue { grid-column: 2; justify-self: center; display: none; flex-direction: column; align-items: center; gap: 0.6rem; color: var(--ink-dim); border-radius: var(--radius-xs); }
 .hero__cue-label { font-family: var(--font-mono); font-size: var(--text-2xs); letter-spacing: var(--ls-wider); text-transform: uppercase; }
 .hero__cue-line { position: relative; width: 1px; height: 46px; background: linear-gradient(var(--line-mid), transparent); overflow: hidden; }
 .hero__cue-line::after {
@@ -751,6 +749,21 @@ p { text-wrap: pretty; }
 .h-tower-rung, .h-tower-x { stroke: var(--n-4); stroke-width: 0.9; vector-effect: non-scaling-stroke; }
 .h-crewarm { stroke: var(--n-5); stroke-width: 1.4; vector-effect: non-scaling-stroke; }
 .h-padlight { fill: var(--ignition); opacity: 0.55; }
+
+/* hero vehicle — fine elevation detail (nose greebling, panel seams, grid
+   fins, raceway, landing struts, engine skirt) layered onto the silhouette */
+.h-vehicle-mast-line { stroke: var(--n-6); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.h-vehicle-sensor { fill: var(--n-7); }
+.h-vehicle-panel { stroke: var(--line-faint); stroke-width: 0.8; vector-effect: non-scaling-stroke; fill: none; }
+.h-vehicle-panel-box { fill: #0a0f16; stroke: var(--n-6); stroke-width: 0.7; vector-effect: non-scaling-stroke; }
+.h-vehicle-rivet { fill: var(--n-5); opacity: 0.55; }
+.h-vehicle-raceway { stroke: var(--line-soft); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+.h-vehicle-raceway-tick { stroke: var(--line-faint); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+.h-vehicle-fin2 { fill: #0a0f16; stroke: var(--n-5); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+.h-vehicle-fin2-grid { stroke: var(--n-4); stroke-width: 0.5; vector-effect: non-scaling-stroke; }
+.h-vehicle-leg-detail { stroke: var(--n-5); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+.h-vehicle-foot { fill: var(--n-6); }
+.h-vehicle-nozzle { fill: #050809; stroke: var(--n-6); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
 
 @media (min-width: 760px) { .hero__cue { display: flex; } }
 
@@ -905,6 +918,24 @@ p { text-wrap: pretty; }
 .v-wordmark { fill: var(--ink-dim); font-family: var(--font-mono); font-size: 15px; letter-spacing: 6px; text-anchor: middle; opacity: 0.75; }
 .v-serial { fill: var(--ink-faint); font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; text-anchor: middle; }
 
+/* Meridian elevation — extra greebling layer (nose greebles, tank paneling,
+   engine-bay plumbing, leg/fin mechanisms, hazard marking) */
+.v-panel { stroke: var(--line-faint); stroke-width: 1; vector-effect: non-scaling-stroke; fill: none; }
+.v-panel-v { stroke: var(--line-faint); stroke-width: 0.8; vector-effect: non-scaling-stroke; opacity: 0.55; }
+.v-mast { stroke: var(--n-6); stroke-width: 1.1; vector-effect: non-scaling-stroke; }
+.v-sensor { fill: var(--n-7); }
+.v-rcs { fill: #0a0f16; stroke: var(--n-6); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.v-feed { stroke: var(--n-5); stroke-width: 0.9; vector-effect: non-scaling-stroke; fill: none; opacity: 0.75; }
+.v-ring-ghost { stroke: var(--line-soft); stroke-width: 1; vector-effect: non-scaling-stroke; fill: none; stroke-dasharray: 1.5 3; }
+.v-bell-ghost path { fill: none; stroke: var(--line-soft); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+.v-bell-ghost .v-bell-rim { opacity: 0.5; }
+.v-leg-foot { fill: #0a0f16; stroke: var(--n-6); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.v-leg-hinge { fill: var(--n-6); }
+.v-fin-hinge { fill: none; stroke: var(--n-6); stroke-width: 0.9; vector-effect: non-scaling-stroke; }
+.v-fin-arm { stroke: var(--n-5); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+.v-hazard { stroke: var(--ignition-deep); stroke-width: 2; opacity: 0.45; vector-effect: non-scaling-stroke; }
+.v-skirt-ring { stroke: var(--line-mid); stroke-width: 1; vector-effect: non-scaling-stroke; fill: none; }
+
 .v-cursor { transition: transform var(--dur-3) var(--ease-out); }
 .v-cursor-line { stroke: var(--signal); stroke-width: 1; vector-effect: non-scaling-stroke; opacity: 0.5; stroke-dasharray: 2 3; }
 .v-cursor-cap { stroke: var(--signal); stroke-width: 1.4; fill: none; vector-effect: non-scaling-stroke; }
@@ -1031,6 +1062,21 @@ p { text-wrap: pretty; }
 .o-code.o-sso { fill: var(--signal-bright); }
 .o-code.o-inc { fill: var(--ignition); }
 
+/* globe surface detail — continents, ice, cloud, city lights, reference ring */
+.o-land { fill: #16212e; opacity: 0.92; }
+.o-land-hi { fill: #1c2c3b; opacity: 0.55; }
+.o-polar { fill: #c9d9e6; opacity: 0.14; }
+.o-cloud { stroke: #dbe6ee; stroke-width: 3; fill: none; stroke-linecap: round; opacity: 0.07; }
+.o-citylight { fill: var(--signal-bright); opacity: 0.85; }
+.o-citylight--warm { fill: var(--ignition-ink); opacity: 0.7; }
+.o-ref-ring { fill: none; stroke: var(--line-soft); stroke-width: 0.8; vector-effect: non-scaling-stroke; stroke-dasharray: 1 4; }
+.o-axis { stroke: var(--line-mid); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.o-axis-tick { fill: var(--ink-dim); }
+.o-trail { stroke-width: 1; vector-effect: non-scaling-stroke; opacity: 0.4; }
+.o-trail.o-leo { stroke: var(--signal); }
+.o-trail.o-sso { stroke: var(--signal-bright); }
+.o-trail.o-inc { stroke: var(--ignition); }
+
 @media (min-width: 920px) {
   .orbits__body { grid-template-columns: 1.1fr 1fr; align-items: center; gap: var(--space-9); }
 }
@@ -1129,6 +1175,12 @@ p { text-wrap: pretty; }
 .field__control::placeholder { color: var(--ink-faint); }
 .field__control:hover { border-color: var(--line-strong); }
 .field__control:focus { outline: none; border-color: var(--signal); background: var(--surface-1); box-shadow: 0 0 0 3px var(--signal-haze); }
+.field__control:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  border-color: var(--line-soft);
+  background: var(--surface-0);
+}
 .field__control--area { min-height: 7rem; resize: vertical; line-height: var(--lh-base); }
 select.field__control {
   appearance: none;
@@ -1140,10 +1192,28 @@ select.field__control {
   cursor: pointer;
 }
 select.field__control:invalid { color: var(--ink-faint); }
+select.field__control:disabled { cursor: not-allowed; }
 .field.has-error .field__control { border-color: var(--danger); background: var(--danger-haze); }
 .field.has-error .field__control:focus { box-shadow: 0 0 0 3px var(--danger-haze); }
 .field__error { font-family: var(--font-mono); font-size: var(--text-2xs); letter-spacing: var(--ls-wide); color: var(--danger); min-height: 1em; }
 .field__error:empty { min-height: 0; }
+
+/* form-level status banner — error state for the whole transmission */
+.manifest-form__banner {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--ls-wide);
+  line-height: var(--lh-relaxed);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-5);
+}
+.manifest-form__banner[hidden] { display: none; }
+.manifest-form__banner--error {
+  color: var(--danger);
+  background: var(--danger-haze);
+  border: 1px solid color-mix(in oklab, var(--danger) 45%, transparent);
+}
 
 .manifest-form__actions { margin-top: var(--space-6); display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-5); }
 .manifest-form__note { color: var(--ink-dim); font-size: var(--text-sm); max-width: 32ch; }
@@ -1188,7 +1258,7 @@ a.footer__link:hover { color: var(--ink); }
 
 .footer__bar { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-6); align-items: center; justify-content: space-between; padding-top: var(--space-5); font-family: var(--font-mono); font-size: var(--text-2xs); letter-spacing: var(--ls-wide); color: var(--ink-dim); }
 .footer__export { max-width: 40ch; opacity: 0.8; }
-.footer__top { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--ink-muted); transition: color var(--dur-2); }
+.footer__top { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--ink-muted); transition: color var(--dur-2); border-radius: var(--radius-xs); }
 .footer__top:hover { color: var(--ink); }
 .footer__top-arrow svg { width: 14px; height: 14px; }
 
@@ -1197,305 +1267,1492 @@ a.footer__link:hover { color: var(--ink); }
   .footer__grid { grid-template-columns: 1.2fr 2fr; }
   .footer__cols { grid-template-columns: repeat(3, 1fr); }
 }
-</style></head>
-  <body>
-    <!-- Minimal boot paint, removed by the app once mounted. -->
-    
 
-    <div id="app"><header class="nav" id="nav"><div class="nav__inner"><a class="wordmark" href="#top" aria-label="AETHON — home"><svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><path d="M6.5 25 L16 7 L25.5 25" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><line x1="11" y1="19.4" x2="21" y2="19.4" stroke="var(--ignition)" stroke-width="2.2" stroke-linecap="round"></line></svg><span class="wordmark__text">AETHON</span></a><nav class="nav__links" aria-label="Primary"><a class="nav__link" href="#vehicle" data-nav="vehicle">Vehicle</a><a class="nav__link" href="#specs" data-nav="specs">Specification</a><a class="nav__link" href="#orbits" data-nav="orbits">Orbits</a><a class="nav__link" href="#operations" data-nav="operations">Operations</a><a class="nav__link is-active" href="#program" data-nav="program">Program</a></nav><div class="nav__actions"><span class="nav__status" aria-hidden="true"><span class="nav__status-dot"></span>PAD · STANDBY</span><a class="btn btn--line nav__cta" href="#manifest">Open the manifest</a><button class="nav__toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navmenu"><span class="nav__toggle-bar" aria-hidden="true"></span><span class="nav__toggle-bar" aria-hidden="true"></span></button></div></div><div class="navmenu" id="navmenu" aria-hidden="true"><nav class="navmenu__links" aria-label="Primary"><a class="navmenu__link" href="#vehicle">Vehicle</a><a class="navmenu__link" href="#specs">Specification</a><a class="navmenu__link" href="#orbits">Orbits</a><a class="navmenu__link" href="#operations">Operations</a><a class="navmenu__link" href="#program">Program</a></nav><a class="btn btn--ignition navmenu__cta" href="#manifest">Open the manifest</a></div></header><main class="main"><section class="hero" id="top"><div class="hero__sky" aria-hidden="true"><canvas class="starfield-canvas" aria-hidden="true" width="1512" height="896" style="width: 1512px; height: 896.219px;"></canvas></div><div class="hero__scene" aria-hidden="true">
-<svg class="hero-scene" viewBox="0 0 1600 620" preserveAspectRatio="xMidYMax slice" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <defs>
-    <radialGradient id="hExhaust" cx="0.5" cy="0.1" r="0.9">
-      <stop offset="0" stop-color="#ff6a34" stop-opacity="0.5"></stop>
-      <stop offset="0.4" stop-color="#ff5e2c" stop-opacity="0.14"></stop>
-      <stop offset="1" stop-color="#ff5e2c" stop-opacity="0"></stop>
-    </radialGradient>
-    <linearGradient id="hGround" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#0a0f16"></stop>
-      <stop offset="1" stop-color="#04060a"></stop>
-    </linearGradient>
-    <linearGradient id="hVehicle" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#10161f"></stop>
-      <stop offset="0.5" stop-color="#2a3644"></stop>
-      <stop offset="1" stop-color="#0a0e15"></stop>
-    </linearGradient>
-  </defs>
+/* ============================================================================
+   Small-viewport hardening (down to 320px) — belt & suspenders atop the
+   fluid clamp() scale so nothing can force horizontal scroll.
+   ========================================================================= */
+@media (max-width: 380px) {
+  .hero__telemetry { gap: var(--space-4) var(--space-5); }
+  .footer__bar { justify-content: flex-start; }
+  /* vehicle-rail's 5 flex-equal ticks are wide enough at tablet/desktop, but at
+     360px "Stage two"/"Stage one" alone wrap to a second line while the other
+     three ticks stay single-line — a ragged, uneven baseline across the row.
+     Tightening tracking + gap keeps every label on one line so the row reads
+     as a clean, level index again. */
+  .vehicle-rail { gap: 0.35rem; }
+  .vehicle-rail__label { letter-spacing: 0; font-size: 0.5625rem; }
+}
+  </style>
+</head>
+<body>
+  <!-- Minimal boot paint — hidden by the boot script once the first frame lands. -->
+  <div id="boot" aria-hidden="true"><span class="wm">AETHON</span></div>
 
-  <!-- ground plane -->
-  <rect class="h-ground" x="0" y="520" width="1600" height="100" fill="url(#hGround)"></rect>
-  <line class="h-horizon" x1="0" y1="520" x2="1600" y2="520"></line>
-  <line class="h-horizon-tick" x1="160" y1="520" x2="120" y2="540"></line><line class="h-horizon-tick" x1="360" y1="520" x2="320" y2="540"></line><line class="h-horizon-tick" x1="560" y1="520" x2="520" y2="540"></line><line class="h-horizon-tick" x1="1320" y1="520" x2="1280" y2="540"></line><line class="h-horizon-tick" x1="1480" y1="520" x2="1440" y2="540"></line>
-
-  <!-- lightning masts ringing the pad -->
-  <line class="h-mast" x1="940" y1="150" x2="940" y2="520"></line>
-     <circle class="h-mast-tip" cx="940" cy="150" r="2"></circle>
-     <line class="h-mast" x1="940" y1="160" x2="931" y2="176"></line>
-     <line class="h-mast" x1="940" y1="160" x2="949" y2="176"></line>
-  <line class="h-mast" x1="1235" y1="138" x2="1235" y2="520"></line>
-     <circle class="h-mast-tip" cx="1235" cy="138" r="2"></circle>
-     <line class="h-mast" x1="1235" y1="148" x2="1226" y2="164"></line>
-     <line class="h-mast" x1="1235" y1="148" x2="1244" y2="164"></line>
-
-  <!-- banked ignition glow at the base (the one warm note) -->
-  <ellipse cx="1085" cy="516" rx="120" ry="40" fill="url(#hExhaust)"></ellipse>
-
-  <!-- the vehicle -->
-  <g class="h-vehicle">
-    <path d="M1085 196 C1093 202 1098 214 1098 230 L1098 506 L1072 506 L1072 230 C1072 214 1077 202 1085 196 Z" fill="url(#hVehicle)"></path>
-    <path d="M1085 196 C1093 202 1098 214 1098 230 L1098 506 L1072 506 L1072 230 C1072 214 1077 202 1085 196 Z" class="h-vehicle-edge"></path>
-    <line class="h-vehicle-seam" x1="1085" y1="206" x2="1085" y2="500"></line>
-    <path class="h-vehicle-fin" d="M1072 470 L1060 506 L1072 506 Z"></path>
-    <path class="h-vehicle-fin" d="M1098 470 L1110 506 L1098 506 Z"></path>
-    <rect class="h-mount" x="1064" y="506" width="42" height="14"></rect>
-  </g>
-
-  <!-- service tower + crew arm -->
-  <g class="h-tower">
-    <line class="h-tower-leg" x1="1142" y1="186" x2="1142" y2="520"></line>
-    <line class="h-tower-leg" x1="1170" y1="186" x2="1170" y2="520"></line>
-    <line class="h-tower-rung" x1="1142" y1="196" x2="1170" y2="196"></line>
-            <line class="h-tower-x" x1="1142" y1="196" x2="1170" y2="223"></line>
-            <line class="h-tower-x" x1="1170" y1="196" x2="1142" y2="223"></line><line class="h-tower-rung" x1="1142" y1="223" x2="1170" y2="223"></line>
-            <line class="h-tower-x" x1="1142" y1="223" x2="1170" y2="250"></line>
-            <line class="h-tower-x" x1="1170" y1="223" x2="1142" y2="250"></line><line class="h-tower-rung" x1="1142" y1="250" x2="1170" y2="250"></line>
-            <line class="h-tower-x" x1="1142" y1="250" x2="1170" y2="277"></line>
-            <line class="h-tower-x" x1="1170" y1="250" x2="1142" y2="277"></line><line class="h-tower-rung" x1="1142" y1="277" x2="1170" y2="277"></line>
-            <line class="h-tower-x" x1="1142" y1="277" x2="1170" y2="304"></line>
-            <line class="h-tower-x" x1="1170" y1="277" x2="1142" y2="304"></line><line class="h-tower-rung" x1="1142" y1="304" x2="1170" y2="304"></line>
-            <line class="h-tower-x" x1="1142" y1="304" x2="1170" y2="331"></line>
-            <line class="h-tower-x" x1="1170" y1="304" x2="1142" y2="331"></line><line class="h-tower-rung" x1="1142" y1="331" x2="1170" y2="331"></line>
-            <line class="h-tower-x" x1="1142" y1="331" x2="1170" y2="358"></line>
-            <line class="h-tower-x" x1="1170" y1="331" x2="1142" y2="358"></line><line class="h-tower-rung" x1="1142" y1="358" x2="1170" y2="358"></line>
-            <line class="h-tower-x" x1="1142" y1="358" x2="1170" y2="385"></line>
-            <line class="h-tower-x" x1="1170" y1="358" x2="1142" y2="385"></line><line class="h-tower-rung" x1="1142" y1="385" x2="1170" y2="385"></line>
-            <line class="h-tower-x" x1="1142" y1="385" x2="1170" y2="412"></line>
-            <line class="h-tower-x" x1="1170" y1="385" x2="1142" y2="412"></line><line class="h-tower-rung" x1="1142" y1="412" x2="1170" y2="412"></line>
-            <line class="h-tower-x" x1="1142" y1="412" x2="1170" y2="439"></line>
-            <line class="h-tower-x" x1="1170" y1="412" x2="1142" y2="439"></line><line class="h-tower-rung" x1="1142" y1="439" x2="1170" y2="439"></line>
-            <line class="h-tower-x" x1="1142" y1="439" x2="1170" y2="466"></line>
-            <line class="h-tower-x" x1="1170" y1="439" x2="1142" y2="466"></line><line class="h-tower-rung" x1="1142" y1="466" x2="1170" y2="466"></line>
-            <line class="h-tower-x" x1="1142" y1="466" x2="1170" y2="493"></line>
-            <line class="h-tower-x" x1="1170" y1="466" x2="1142" y2="493"></line><line class="h-tower-rung" x1="1142" y1="493" x2="1170" y2="493"></line>
-            <line class="h-tower-x" x1="1142" y1="493" x2="1170" y2="520"></line>
-            <line class="h-tower-x" x1="1170" y1="493" x2="1142" y2="520"></line>
-    <line class="h-crewarm" x1="1142" y1="300" x2="1100" y2="300"></line>
-  </g>
-
-  <!-- pad lights -->
-  <circle class="h-padlight" cx="1000" cy="514" r="1.5"></circle><circle class="h-padlight" cx="1180" cy="510" r="1.5"></circle><circle class="h-padlight" cx="1040" cy="514" r="1.5"></circle><circle class="h-padlight" cx="1150" cy="510" r="1.5"></circle>
-</svg></div><div class="hero__veil" aria-hidden="true"></div><div class="hero__grid"><div class="hero__content"><div class="hero__eyebrow is-in" data-reveal=""><span class="hero__eyebrow-dot"></span>Private orbital launch<span class="hero__eyebrow-sep">·</span><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: LAUNCH_SITE"><span class="ph__brk">[</span>LAUNCH_SITE<span class="ph__brk">]</span></span></div><h1 class="hero__headline"><span class="hero__line is-in" data-reveal="" data-reveal-i="0"><span class="hero__line-inner">Mass</span></span><span class="hero__line is-in" data-reveal="" data-reveal-i="1"><span class="hero__line-inner">to orbit.</span></span></h1><p class="hero__lede is-in" data-reveal="" data-reveal-i="3">Every gram a customer hands us leaves the ground exactly once. AETHON exists to make that moment certain — a two-stage vehicle, a clean insertion, a payload precisely where it was promised.</p><div class="hero__cta is-in" data-reveal="" data-reveal-i="4"><a class="btn btn--ignition" href="#manifest">Open the manifest<span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 16" fill="none"><path d="M2 8h19M15 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a class="btn btn--ghost" href="#vehicle">Meet Meridian</a></div></div></div><div class="hero__foot"><div class="hero__telemetry is-in" data-reveal=""><div class="telem"><span class="telem__k">Vehicle</span><span class="telem__v">Meridian</span></div><div class="telem"><span class="telem__k">Status</span><span class="telem__v">Integrated</span></div><div class="telem"><span class="telem__k">Pad</span><span class="telem__v">Standby</span></div><div class="telem"><span class="telem__k">First flight</span><span class="telem__v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: FIRST_FLIGHT"><span class="ph__brk">[</span>FIRST_FLIGHT<span class="ph__brk">]</span><span class="ph__hint">date</span></span></span></div></div><a class="hero__cue" href="#vehicle" aria-label="Scroll to the vehicle"><span class="hero__cue-label">Scroll</span><span class="hero__cue-line" aria-hidden="true"></span></a></div></section><section class="manifesto" id="threshold"><div class="manifesto__inner"><div class="eyebrow is-in" data-reveal=""><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">00</span><span class="eyebrow__label">The threshold</span></div><div class="manifesto__lines"><p class="manifesto__line is-in" data-reveal="" data-reveal-i="0">There is a silence before ignition.</p><p class="manifesto__line is-in" data-reveal="" data-reveal-i="1">The vehicle is fuelled. The payload is mated. The count holds at nine.</p><p class="manifesto__line is-in" data-reveal="" data-reveal-i="2">For a few seconds, nothing anyone says matters —</p><p class="manifesto__line is-key is-in" data-reveal="" data-reveal-i="3">only what was built.</p></div><div class="manifesto__base"><p class="manifesto__emphasis is-in" data-reveal="">AETHON is built for those seconds.</p><p class="manifesto__body is-in" data-reveal="">We are not building spectacle. We are building arrival — the right mass in the right orbit at the right minute, with margin held in reserve. Every system on Meridian exists to shorten the distance between a customer’s intention and its place in the sky.</p></div></div></section><section class="vehicle" id="vehicle"><div class="vehicle__inner"><div class="vehicle__head"><div class="eyebrow is-in" data-reveal=""><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">01</span><span class="eyebrow__label">The vehicle</span></div><h2 class="vehicle__name is-in" data-reveal="">Meridian</h2><p class="vehicle__kicker is-in" data-reveal="">Two stages. A booster that comes home. One engine family, flown from sea level to vacuum.</p><p class="vehicle__intro is-in" data-reveal="">Meridian is a two-stage orbital launch vehicle. Its first stage is designed to fly, return, and fly again. Its second stage is built around a single restartable engine — precise enough to set a payload in its slot and walk away. Both stages burn the same propellant, lit by the same engine family: Ardent.</p></div></div><div class="vehicle__crane"><div class="vehicle__sticky"><div class="vehicle__stage"><div class="vehicle__scale" aria-hidden="true"><span class="vehicle__scale-cap"></span><span class="vehicle__scale-rule"></span><span class="vehicle__scale-cap"></span><span class="vehicle__scale-label">Vehicle height <span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: VEHICLE_HEIGHT"><span class="ph__brk">[</span>VEHICLE_HEIGHT<span class="ph__brk">]</span><span class="ph__hint">m</span></span></span></div><div class="vehicle__figure">
-<svg class="vehicle-svg" viewBox="0 0 240 1280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Meridian — a two-stage orbital launch vehicle, drawn in technical elevation.">
-  <defs>
-    <linearGradient id="vBody" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#080c12"></stop>
-      <stop offset="0.17" stop-color="#19222e"></stop>
-      <stop offset="0.42" stop-color="#30404f"></stop>
-      <stop offset="0.6" stop-color="#1b2531"></stop>
-      <stop offset="1" stop-color="#070a0f"></stop>
-    </linearGradient>
-    <linearGradient id="vSkirt" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#06090d"></stop>
-      <stop offset="0.45" stop-color="#222d3a"></stop>
-      <stop offset="1" stop-color="#05080c"></stop>
-    </linearGradient>
-    <linearGradient id="vSheen" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#ffffff" stop-opacity="0.10"></stop>
-      <stop offset="0.25" stop-color="#ffffff" stop-opacity="0"></stop>
-      <stop offset="1" stop-color="#000000" stop-opacity="0.18"></stop>
-    </linearGradient>
-  </defs>
-
-  <!-- engine skirt fill (under body) -->
-  <path class="v-skirt-fill" d="M 166 1040 L 178 1200 L 62 1200 L 74 1040 Z" fill="url(#vSkirt)"></path>
-  
-    <path class="v-leg" d="M 74 1090 L 64 1196"></path>
-    <path class="v-leg" d="M 166 1090 L 176 1196"></path>
-    <path class="v-leg" d="M 86 1090 L 80 1196"></path>
-    <path class="v-leg" d="M 154 1090 L 160 1196"></path>
-  <g class="v-bell">
-        <path d="M 75 1200
-                 C 74 1217, 71 1228, 71 1234
-                 L 93 1234
-                 C 93 1228, 90 1217, 89 1200 Z"></path>
-        <ellipse class="v-bell-rim" cx="82" cy="1234" rx="11" ry="3.4"></ellipse>
-        <line class="v-bell-throat" x1="82" y1="1203" x2="82" y2="1231"></line>
-      </g><g class="v-bell">
-        <path d="M 94 1200
-                 C 93 1217, 90 1228, 90 1234
-                 L 112 1234
-                 C 112 1228, 109 1217, 108 1200 Z"></path>
-        <ellipse class="v-bell-rim" cx="101" cy="1234" rx="11" ry="3.4"></ellipse>
-        <line class="v-bell-throat" x1="101" y1="1203" x2="101" y2="1231"></line>
-      </g><g class="v-bell v-bell--center">
-        <path d="M 113 1206
-                 C 112 1226, 107 1240, 107 1246
-                 L 133 1246
-                 C 133 1240, 128 1226, 127 1206 Z"></path>
-        <ellipse class="v-bell-rim" cx="120" cy="1246" rx="13" ry="3.4"></ellipse>
-        <line class="v-bell-throat" x1="120" y1="1209" x2="120" y2="1243"></line>
-      </g><g class="v-bell">
-        <path d="M 132 1200
-                 C 131 1217, 128 1228, 128 1234
-                 L 150 1234
-                 C 150 1228, 147 1217, 146 1200 Z"></path>
-        <ellipse class="v-bell-rim" cx="139" cy="1234" rx="11" ry="3.4"></ellipse>
-        <line class="v-bell-throat" x1="139" y1="1203" x2="139" y2="1231"></line>
-      </g><g class="v-bell">
-        <path d="M 151 1200
-                 C 150 1217, 147 1228, 147 1234
-                 L 169 1234
-                 C 169 1228, 166 1217, 165 1200 Z"></path>
-        <ellipse class="v-bell-rim" cx="158" cy="1234" rx="11" ry="3.4"></ellipse>
-        <line class="v-bell-throat" x1="158" y1="1203" x2="158" y2="1231"></line>
-      </g>
-
-  <!-- main silhouette -->
-  <path class="v-body" d="
-    M 120 40
-    C 150 58, 170 116, 170 175
-    L 170 296
-    L 166 312
-    L 166 1080
-    L 178 1200
-    L 62 1200
-    L 74 1080
-    L 74 312
-    L 70 296
-    L 70 175
-    C 70 116, 90 58, 120 40 Z" fill="url(#vBody)"></path>
-  <path class="v-body-sheen" d="
-    M 120 40
-    C 150 58, 170 116, 170 175
-    L 170 296
-    L 166 312
-    L 166 1080
-    L 178 1200
-    L 62 1200
-    L 74 1080
-    L 74 312
-    L 70 296
-    L 70 175
-    C 70 116, 90 58, 120 40 Z" fill="url(#vSheen)"></path>
-  <path class="v-body-edge" d="
-    M 120 40
-    C 150 58, 170 116, 170 175
-    L 170 296
-    L 166 312
-    L 166 1080
-    L 178 1200
-    L 62 1200
-    L 74 1080
-    L 74 312
-    L 70 296
-    L 70 175
-    C 70 116, 90 58, 120 40 Z"></path>
-
-  <!-- centerline + fairing seam -->
-  <line class="v-center" x1="120" y1="60" x2="120" y2="1190"></line>
-  <line class="v-fairing-seam" x1="120" y1="52" x2="120" y2="296"></line>
-
-  <!-- interstage truss -->
-  <rect class="v-interstage" x="74" y="520" width="92" height="60"></rect>
-  <line class="v-truss" x1="78" y1="522" x2="90" y2="578"></line><line class="v-truss" x1="90" y1="522" x2="78" y2="578"></line><line class="v-truss" x1="90" y1="522" x2="102" y2="578"></line><line class="v-truss" x1="102" y1="522" x2="90" y2="578"></line><line class="v-truss" x1="102" y1="522" x2="114" y2="578"></line><line class="v-truss" x1="114" y1="522" x2="102" y2="578"></line><line class="v-truss" x1="114" y1="522" x2="126" y2="578"></line><line class="v-truss" x1="126" y1="522" x2="114" y2="578"></line><line class="v-truss" x1="126" y1="522" x2="138" y2="578"></line><line class="v-truss" x1="138" y1="522" x2="126" y2="578"></line><line class="v-truss" x1="138" y1="522" x2="150" y2="578"></line><line class="v-truss" x1="150" y1="522" x2="138" y2="578"></line><line class="v-truss" x1="150" y1="522" x2="162" y2="578"></line><line class="v-truss" x1="162" y1="522" x2="150" y2="578"></line><line class="v-truss" x1="162" y1="522" x2="174" y2="578"></line><line class="v-truss" x1="174" y1="522" x2="162" y2="578"></line>
-
-  
-    <g class="v-finbox">
-      <rect class="v-fin" x="166" y="600" width="18" height="34" rx="1.5"></rect>
-      <line class="v-fin-grid" x1="169.5" y1="603" x2="169.5" y2="631"></line><line class="v-fin-grid" x1="173.5" y1="603" x2="173.5" y2="631"></line><line class="v-fin-grid" x1="177.5" y1="603" x2="177.5" y2="631"></line><line class="v-fin-grid" x1="181.5" y1="603" x2="181.5" y2="631"></line>
-      <line class="v-fin-grid" x1="168" y1="607" x2="182" y2="607"></line><line class="v-fin-grid" x1="168" y1="615" x2="182" y2="615"></line><line class="v-fin-grid" x1="168" y1="623" x2="182" y2="623"></line>
-    </g>
-    <g class="v-finbox">
-      <rect class="v-fin" x="56" y="600" width="18" height="34" rx="1.5"></rect>
-      <line class="v-fin-grid" x1="59.5" y1="603" x2="59.5" y2="631"></line><line class="v-fin-grid" x1="63.5" y1="603" x2="63.5" y2="631"></line><line class="v-fin-grid" x1="67.5" y1="603" x2="67.5" y2="631"></line><line class="v-fin-grid" x1="71.5" y1="603" x2="71.5" y2="631"></line>
-      <line class="v-fin-grid" x1="58" y1="607" x2="72" y2="607"></line><line class="v-fin-grid" x1="58" y1="615" x2="72" y2="615"></line><line class="v-fin-grid" x1="58" y1="623" x2="72" y2="623"></line>
-    </g>
-  <line class="v-seam" x1="76" y1="340" x2="164" y2="340"></line><line class="v-seam" x1="76" y1="400" x2="164" y2="400"></line><line class="v-seam" x1="76" y1="460" x2="164" y2="460"></line><line class="v-seam" x1="76" y1="640" x2="164" y2="640"></line><line class="v-seam" x1="76" y1="720" x2="164" y2="720"></line><line class="v-seam" x1="76" y1="800" x2="164" y2="800"></line><line class="v-seam" x1="76" y1="880" x2="164" y2="880"></line><line class="v-seam" x1="76" y1="960" x2="164" y2="960"></line><line class="v-seam" x1="76" y1="1030" x2="164" y2="1030"></line>
-  <circle class="v-rivet" cx="88" cy="620" r="0.9"></circle><circle class="v-rivet" cx="152" cy="620" r="0.9"></circle><circle class="v-rivet" cx="88" cy="680" r="0.9"></circle><circle class="v-rivet" cx="152" cy="680" r="0.9"></circle><circle class="v-rivet" cx="88" cy="740" r="0.9"></circle><circle class="v-rivet" cx="152" cy="740" r="0.9"></circle><circle class="v-rivet" cx="88" cy="860" r="0.9"></circle><circle class="v-rivet" cx="152" cy="860" r="0.9"></circle><circle class="v-rivet" cx="88" cy="920" r="0.9"></circle><circle class="v-rivet" cx="152" cy="920" r="0.9"></circle><circle class="v-rivet" cx="88" cy="1000" r="0.9"></circle><circle class="v-rivet" cx="152" cy="1000" r="0.9"></circle>
-
-  <!-- section boundary seams -->
-  <line class="v-seam-strong" x1="70" y1="296" x2="170" y2="296"></line>
-  <line class="v-seam-strong" x1="74" y1="520" x2="166" y2="520"></line>
-  <line class="v-seam-strong" x1="74" y1="580" x2="166" y2="580"></line>
-  <line class="v-seam-strong" x1="74" y1="1080" x2="166" y2="1080"></line>
-
-  <!-- vehicle identity -->
-  <text class="v-wordmark" x="120" y="770" transform="rotate(-90 120 770)">MERIDIAN</text>
-  <text class="v-serial" x="120" y="1120">[SN]</text>
-
-  <!-- focus cursor (driven by scroll) -->
-  <g id="vCursor" class="v-cursor" transform="translate(0 1160)">
-    <line class="v-cursor-line" x1="40" y1="0" x2="200" y2="0"></line>
-    <path class="v-cursor-cap" d="M 40 -5 L 33 0 L 40 5"></path>
-    <path class="v-cursor-cap" d="M 200 -5 L 207 0 L 200 5"></path>
-    <circle class="v-cursor-dot" cx="200" cy="0" r="2.4"></circle>
-  </g>
-</svg></div></div><aside class="vehicle__readout"><div class="vehicle__readout-head"><span class="vehicle__readout-k">Elevation</span><span class="vehicle__readout-v">Vehicle height <span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: VEHICLE_HEIGHT"><span class="ph__brk">[</span>VEHICLE_HEIGHT<span class="ph__brk">]</span><span class="ph__hint">m</span></span></span></div><ol class="vehicle-rail" aria-hidden="true"><li class="vehicle-rail__tick" data-seg="fairing"><span class="vehicle-rail__idx">05</span><span class="vehicle-rail__label">Payload</span></li><li class="vehicle-rail__tick" data-seg="stage2"><span class="vehicle-rail__idx">04</span><span class="vehicle-rail__label">Stage two</span></li><li class="vehicle-rail__tick" data-seg="staging"><span class="vehicle-rail__idx">03</span><span class="vehicle-rail__label">Staging</span></li><li class="vehicle-rail__tick" data-seg="stage1"><span class="vehicle-rail__idx">02</span><span class="vehicle-rail__label">Stage one</span></li><li class="vehicle-rail__tick" data-seg="propulsion"><span class="vehicle-rail__idx">01</span><span class="vehicle-rail__label">Propulsion</span></li></ol><div class="vehicle__cards"><article class="vehicle-card is-active" data-seg="propulsion"><div class="vehicle-card__top"><span class="vehicle-card__idx">01</span><span class="vehicle-card__label">Propulsion</span></div><h3 class="vehicle-card__title">Nine Ardent engines</h3><p class="vehicle-card__body">A sea-level cluster, deep-throttle capable. Eight hold the ring; one gimbals at the centre for control through ascent and landing.</p><div class="vehicle-card__fig"><span class="vehicle-card__fig-cap">Liftoff thrust</span><span class="vehicle-card__fig-val"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: LIFTOFF_THRUST"><span class="ph__brk">[</span>LIFTOFF_THRUST<span class="ph__brk">]</span><span class="ph__hint">kN</span></span></span></div></article><article class="vehicle-card" data-seg="stage1"><div class="vehicle-card__top"><span class="vehicle-card__idx">02</span><span class="vehicle-card__label">Stage one</span></div><h3 class="vehicle-card__title">The booster that returns</h3><p class="vehicle-card__body">After separation the first stage reorients, relights, and flies a controlled descent to be recovered and reflown. Reuse is the architecture, not an afterthought.</p></article><article class="vehicle-card" data-seg="staging"><div class="vehicle-card__top"><span class="vehicle-card__idx">03</span><span class="vehicle-card__label">Staging</span></div><h3 class="vehicle-card__title">Clean separation</h3><p class="vehicle-card__body">Pneumatic pushers and a vented interstage part the stages without pyrotechnic shock reaching the payload.</p></article><article class="vehicle-card" data-seg="stage2"><div class="vehicle-card__top"><span class="vehicle-card__idx">04</span><span class="vehicle-card__label">Stage two</span></div><h3 class="vehicle-card__title">One engine, vacuum-tuned</h3><p class="vehicle-card__body">A single restartable Ardent Vacuum carries the stack to orbit, then relights to circularise, phase, and deorbit itself — leaving nothing behind.</p></article><article class="vehicle-card" data-seg="fairing"><div class="vehicle-card__top"><span class="vehicle-card__idx">05</span><span class="vehicle-card__label">Payload</span></div><h3 class="vehicle-card__title">Encapsulated clean</h3><p class="vehicle-card__body">Your spacecraft rides inside a composite fairing, encapsulated under cleanroom conditions and mated to the vehicle vertically.</p><div class="vehicle-card__fig"><span class="vehicle-card__fig-cap">Static envelope</span><span class="vehicle-card__fig-val"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: FAIRING_VOLUME"><span class="ph__brk">[</span>FAIRING_VOLUME<span class="ph__brk">]</span><span class="ph__hint">m³</span></span></span></div></article></div></aside></div></div></section><section class="specs" id="specs"><div class="specs__inner"><div class="specs__aside"><div class="eyebrow is-in" data-reveal=""><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">02</span><span class="eyebrow__label">Specification</span></div><h2 class="specs__title is-in" data-reveal="">The envelope</h2><p class="specs__note is-in" data-reveal="">Performance figures are published design targets, confirmed at qualification. Values shown as tokens are pending release.</p><div class="specs__legend is-in" data-reveal=""><span class="ph ph--legend"><span class="ph__brk">[</span>PENDING<span class="ph__brk">]</span></span><span class="specs__legend-text">confirmed at qualification</span></div></div><dl class="specs__table"><div class="spec-row is-pending is-in" data-reveal="" data-reveal-i="0"><dt class="spec-row__label">Payload to LEO<span class="spec-row__note">200 km · 28.5°</span></dt><dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: PAYLOAD_LEO"><span class="ph__brk">[</span>PAYLOAD_LEO<span class="ph__brk">]</span><span class="ph__hint">kg</span></span></dd></div><div class="spec-row is-pending is-in" data-reveal="" data-reveal-i="1"><dt class="spec-row__label">Payload to SSO<span class="spec-row__note">500 km · polar</span></dt><dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: PAYLOAD_SSO"><span class="ph__brk">[</span>PAYLOAD_SSO<span class="ph__brk">]</span><span class="ph__hint">kg</span></span></dd></div><div class="spec-row is-pending is-in" data-reveal="" data-reveal-i="2"><dt class="spec-row__label">Vehicle height</dt><dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: VEHICLE_HEIGHT"><span class="ph__brk">[</span>VEHICLE_HEIGHT<span class="ph__brk">]</span><span class="ph__hint">m</span></span></dd></div><div class="spec-row is-pending is-in" data-reveal="" data-reveal-i="3"><dt class="spec-row__label">Fairing — static envelope</dt><dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: FAIRING_ENVELOPE"><span class="ph__brk">[</span>FAIRING_ENVELOPE<span class="ph__brk">]</span><span class="ph__hint">m</span></span></dd></div><div class="spec-row is-pending is-in" data-reveal="" data-reveal-i="4"><dt class="spec-row__label">Liftoff thrust</dt><dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: LIFTOFF_THRUST"><span class="ph__brk">[</span>LIFTOFF_THRUST<span class="ph__brk">]</span><span class="ph__hint">kN</span></span></dd></div><div class="spec-row is-in" data-reveal="" data-reveal-i="5"><dt class="spec-row__label">Architecture</dt><dd class="spec-row__value">Two stage · partial reuse</dd></div><div class="spec-row is-in" data-reveal="" data-reveal-i="6"><dt class="spec-row__label">First-stage propulsion</dt><dd class="spec-row__value">Nine × Ardent</dd></div><div class="spec-row is-in" data-reveal="" data-reveal-i="6"><dt class="spec-row__label">Upper-stage propulsion</dt><dd class="spec-row__value">One × Ardent Vacuum</dd></div><div class="spec-row is-in" data-reveal="" data-reveal-i="6"><dt class="spec-row__label">Booster recovery</dt><dd class="spec-row__value">Propulsive return</dd></div><div class="spec-row is-pending is-in" data-reveal="" data-reveal-i="6"><dt class="spec-row__label">Launch site</dt><dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: LAUNCH_SITE"><span class="ph__brk">[</span>LAUNCH_SITE<span class="ph__brk">]</span></span></dd></div></dl></div></section><section class="orbits" id="orbits"><div class="orbits__inner"><div class="orbits__head"><div class="eyebrow is-in" data-reveal=""><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">03</span><span class="eyebrow__label">Destinations</span></div><h2 class="orbits__title is-in" data-reveal="">Where Meridian delivers</h2><p class="orbits__intro is-in" data-reveal="">Meridian is tuned for the orbits where most of the world’s payloads actually go — low, fast, and Sun-synchronous.</p></div><div class="orbits__body"><div class="orbits__diagram is-in" data-reveal="">
-<svg class="orbits-svg" viewBox="0 0 760 700" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic of Earth with low Earth, Sun-synchronous, and inclined orbital rings served by Meridian.">
-  <defs>
-    <radialGradient id="earthCore" cx="0.4" cy="0.62" r="0.85">
-      <stop offset="0" stop-color="#0c2030"></stop>
-      <stop offset="0.55" stop-color="#081522"></stop>
-      <stop offset="1" stop-color="#04080e"></stop>
-    </radialGradient>
-    <radialGradient id="atmo" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0.74" stop-color="#4fa3c7" stop-opacity="0"></stop>
-      <stop offset="0.9" stop-color="#4fa3c7" stop-opacity="0.16"></stop>
-      <stop offset="1" stop-color="#4fa3c7" stop-opacity="0"></stop>
-    </radialGradient>
-    <clipPath id="globeClip"><circle cx="380" cy="372" r="118"></circle></clipPath>
-  </defs>
-
-  <circle cx="380" cy="372" r="144" fill="url(#atmo)"></circle>
-
-  <!-- globe first, orbital rings drawn over it as a clean schematic -->
-  
-    <g clip-path="url(#globeClip)">
-      <circle cx="380" cy="372" r="118" fill="url(#earthCore)"></circle>
-      <ellipse class="o-grid" cx="380" cy="298.84000000000003" rx="92.58301356080392" ry="14.813282169728627"></ellipse><ellipse class="o-grid" cx="380" cy="336.6" rx="112.5648257671996" ry="18.010372122751935"></ellipse><ellipse class="o-grid" cx="380" cy="372" rx="118" ry="18.88"></ellipse><ellipse class="o-grid" cx="380" cy="407.4" rx="112.5648257671996" ry="18.010372122751935"></ellipse><ellipse class="o-grid" cx="380" cy="445.15999999999997" rx="92.58301356080392" ry="14.813282169728627"></ellipse>
-      <ellipse class="o-grid" cx="380" cy="372" rx="37.76" ry="118"></ellipse><ellipse class="o-grid" cx="380" cy="372" rx="77.88000000000001" ry="118"></ellipse><ellipse class="o-grid" cx="380" cy="372" rx="118" ry="118"></ellipse>
-      <ellipse class="o-terminator" cx="426" cy="372" rx="118" ry="118"></ellipse>
-    </g>
-    <circle class="o-limb" cx="380" cy="372" r="118"></circle>
-
-  <g transform="rotate(74 380 372)">
-      <path class="o-ring o-inc" d="M 130 372 a 250 78 0 1 0 500 0 a 250 78 0 1 0 -500 0"></path>
-      <rect class="o-sat o-inc" x="625.5" y="367.5" width="9" height="9" rx="1.4"></rect>
-    </g>
-  <g transform="rotate(0 380 372)">
-      <path class="o-ring o-sso" d="M 148 372 a 232 74 0 1 0 464 0 a 232 74 0 1 0 -464 0"></path>
-      <rect class="o-sat o-sso" x="607.5" y="367.5" width="9" height="9" rx="1.4"></rect>
-    </g>
-  <g transform="rotate(0 380 372)">
-      <path class="o-ring o-leo" d="M 212 372 a 168 54 0 1 0 336 0 a 168 54 0 1 0 -336 0"></path>
-      <rect class="o-sat o-leo" x="543.5" y="367.5" width="9" height="9" rx="1.4"></rect>
-    </g>
-
-  <!-- ring labels -->
-  <g class="o-labels">
-    <line class="o-leader" x1="548" y1="372" x2="690" y2="232"></line>
-    <text class="o-code o-leo" x="690" y="226">LEO</text>
-    <line class="o-leader" x1="612" y1="372" x2="700" y2="372"></line>
-    <text class="o-code o-sso" x="700" y="366">SSO</text>
-    <line class="o-leader" x1="380" y1="132" x2="392" y2="92"></line>
-    <text class="o-code o-inc" x="392" y="86">POLAR</text>
-  </g>
-</svg></div><div class="orbits__list"><article class="orbit-card orbit-card--leo is-in" data-reveal="" data-reveal-i="0"><div class="orbit-card__head"><span class="orbit-card__code">LEO</span><span class="orbit-card__band">≈ 200–1,000 km</span></div><h3 class="orbit-card__name">Low Earth Orbit</h3><p class="orbit-card__body">Constellations, technology demonstration, resupply. The busiest neighbourhood in space — and the one Meridian is built for.</p></article><article class="orbit-card orbit-card--sso is-in" data-reveal="" data-reveal-i="1"><div class="orbit-card__head"><span class="orbit-card__code">SSO</span><span class="orbit-card__band">≈ 600–800 km</span></div><h3 class="orbit-card__name">Sun-Synchronous Orbit</h3><p class="orbit-card__body">Earth observation and remote sensing, crossing each point at the same local sun-time. Polar, exacting, unforgiving on insertion accuracy.</p></article><article class="orbit-card orbit-card--inc is-in" data-reveal="" data-reveal-i="2"><div class="orbit-card__head"><span class="orbit-card__code">INC</span><span class="orbit-card__band">On request</span></div><h3 class="orbit-card__name">Dedicated inclination</h3><p class="orbit-card__body">Your orbit, your inclination, your timing. A dedicated mission places the payload exactly — no rideshare compromise on where you end up.</p></article><div class="orbits__modes is-in" data-reveal=""><div class="orbit-mode"><span class="orbit-mode__k">Dedicated</span><span class="orbit-mode__v">The whole vehicle, your orbit. Full control of inclination, altitude, and window.</span></div><div class="orbit-mode"><span class="orbit-mode__k">Rideshare</span><span class="orbit-mode__v">Share the ride to a standard orbit on a fixed cadence. Lower cost, set destination.</span></div></div></div></div></div></section><section class="operations" id="operations"><div class="operations__inner"><div class="operations__head"><div class="eyebrow is-in" data-reveal=""><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">04</span><span class="eyebrow__label">Operations</span></div><h2 class="operations__title is-in" data-reveal="">How a mission flies</h2><p class="operations__intro is-in" data-reveal="">From signed manifest to separation confirmation, a Meridian mission moves through the same disciplined sequence every time. Predictability is the product.</p></div><ol class="operations__timeline"><span class="operations__spine" aria-hidden="true"></span><li class="op-step is-in" data-reveal="" data-reveal-i="0"><div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div><div class="op-step__body"><span class="op-step__idx">01</span><h3 class="op-step__title">Manifest</h3><p class="op-step__text">We lock your mass, volume, orbit, and window, and assign a mission manager who stays with you to flight.</p></div></li><li class="op-step is-in" data-reveal="" data-reveal-i="1"><div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div><div class="op-step__body"><span class="op-step__idx">02</span><h3 class="op-step__title">Integration</h3><p class="op-step__text">Your spacecraft is received, inspected, and integrated to the payload adapter in a controlled facility.</p></div></li><li class="op-step is-in" data-reveal="" data-reveal-i="2"><div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div><div class="op-step__body"><span class="op-step__idx">03</span><h3 class="op-step__title">Encapsulation</h3><p class="op-step__text">Sealed inside the fairing under cleanroom conditions, then mated to the vehicle.</p></div></li><li class="op-step is-in" data-reveal="" data-reveal-i="3"><div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div><div class="op-step__body"><span class="op-step__idx">04</span><h3 class="op-step__title">Rehearsal</h3><p class="op-step__text">A full wet dress rehearsal — propellant load, countdown, and hold — before anyone commits to flight.</p></div></li><li class="op-step is-in" data-reveal="" data-reveal-i="4"><div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div><div class="op-step__body"><span class="op-step__idx">05</span><h3 class="op-step__title">Launch</h3><p class="op-step__text">The window opens. The count runs. Nine engines light and the stack leaves the pad.</p></div></li><li class="op-step is-in" data-reveal="" data-reveal-i="5"><div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div><div class="op-step__body"><span class="op-step__idx">06</span><h3 class="op-step__title">Insertion</h3><p class="op-step__text">Stage two sets you in your slot, confirms the state vector, and deploys. You have telemetry before the booster is home.</p></div></li></ol></div></section><section class="program" id="program"><div class="program__inner"><div class="program__head"><div class="eyebrow is-in" data-reveal=""><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">05</span><span class="eyebrow__label">Program</span></div><h2 class="program__title is-in" data-reveal="">The road to first flight</h2><p class="program__intro is-in" data-reveal="">AETHON has not yet flown. We say that plainly. Below is the qualification campaign standing between Meridian and orbit — and we publish each gate the moment it clears.</p></div><ol class="program__track"><span class="program__line" aria-hidden="true"></span><li class="gate is-in" data-reveal="" data-reveal-i="0"><div class="gate__node" aria-hidden="true"></div><div class="gate__index">G1</div><h3 class="gate__title">Ardent engine qualification</h3><p class="gate__body">Full-duration and restart firing across the flight envelope.</p><div class="gate__status"><span class="gate__status-k">Status</span><span class="gate__status-v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: STATUS"><span class="ph__brk">[</span>STATUS<span class="ph__brk">]</span></span></span></div></li><li class="gate is-in" data-reveal="" data-reveal-i="1"><div class="gate__node" aria-hidden="true"></div><div class="gate__index">G2</div><h3 class="gate__title">Stage test campaign</h3><p class="gate__body">Structural proof, tank cycling, and stage-level hot fire.</p><div class="gate__status"><span class="gate__status-k">Status</span><span class="gate__status-v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: STATUS"><span class="ph__brk">[</span>STATUS<span class="ph__brk">]</span></span></span></div></li><li class="gate is-in" data-reveal="" data-reveal-i="2"><div class="gate__node" aria-hidden="true"></div><div class="gate__index">G3</div><h3 class="gate__title">Integrated vehicle test</h3><p class="gate__body">Full stack on the pad — fuelled, counted down, held.</p><div class="gate__status"><span class="gate__status-k">Status</span><span class="gate__status-v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: STATUS"><span class="ph__brk">[</span>STATUS<span class="ph__brk">]</span></span></span></div></li><li class="gate is-in" data-reveal="" data-reveal-i="3"><div class="gate__node" aria-hidden="true"></div><div class="gate__index">G4</div><h3 class="gate__title">Wet dress rehearsal</h3><p class="gate__body">End-to-end countdown to T-minus seconds, propellant aboard.</p><div class="gate__status"><span class="gate__status-k">Status</span><span class="gate__status-v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: STATUS"><span class="ph__brk">[</span>STATUS<span class="ph__brk">]</span></span></span></div></li><li class="gate gate--terminus is-in" data-reveal="" data-reveal-i="4"><div class="gate__node" aria-hidden="true"></div><div class="gate__index">G5</div><h3 class="gate__title">First orbital flight</h3><p class="gate__body">Maiden flight of Meridian to low Earth orbit.</p><div class="gate__status"><span class="gate__status-k">T-0</span><span class="gate__status-v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: FIRST_FLIGHT"><span class="ph__brk">[</span>FIRST_FLIGHT<span class="ph__brk">]</span><span class="ph__hint">date</span></span></span></div></li></ol></div></section><section class="manifest" id="manifest"><div class="manifest__inner"><div class="manifest__head"><div class="eyebrow is-in" data-reveal=""><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">06</span><span class="eyebrow__label">Manifest</span></div><h2 class="manifest__title is-in" data-reveal="">Open the manifest</h2><p class="manifest__intro is-in" data-reveal="">If you have mass that needs to be in orbit, start here. Tell us what you’re flying and where it has to go. Every inquiry reaches a launch engineer — not an auto-reply.</p><a class="manifest__direct" href="mailto:manifest@aethon.example">manifest@aethon.example</a></div><div class="manifest__panel is-in" data-reveal=""><form class="manifest-form" novalidate="" aria-label="Launch inquiry"><div class="manifest-form__grid"><div class="field"><label class="field__label" for="mf-org">Organisation<span class="field__req" aria-hidden="true">*</span></label><input class="field__control" id="mf-org" name="org" type="text" placeholder="Who is flying" aria-describedby="mf-org-err" autocomplete="organization" aria-required="true"><span class="field__error" id="mf-org-err" role="alert" aria-live="polite"></span></div><div class="field"><label class="field__label" for="mf-name">Contact name<span class="field__req" aria-hidden="true">*</span></label><input class="field__control" id="mf-name" name="name" type="text" placeholder="Your name" aria-describedby="mf-name-err" autocomplete="name" aria-required="true"><span class="field__error" id="mf-name-err" role="alert" aria-live="polite"></span></div><div class="field"><label class="field__label" for="mf-email">Email<span class="field__req" aria-hidden="true">*</span></label><input class="field__control" id="mf-email" name="email" type="email" placeholder="you@organisation.com" aria-describedby="mf-email-err" autocomplete="email" aria-required="true"><span class="field__error" id="mf-email-err" role="alert" aria-live="polite"></span></div><div class="field"><label class="field__label" for="mf-mass">Approx. payload mass</label><input class="field__control" id="mf-mass" name="mass" type="text" placeholder="e.g. 180 kg" aria-describedby="mf-mass-err" autocomplete="off"><span class="field__error" id="mf-mass-err" role="alert" aria-live="polite"></span></div><div class="field"><label class="field__label" for="mf-orbit">Target orbit<span class="field__req" aria-hidden="true">*</span></label><select class="field__control" id="mf-orbit" name="orbit" aria-describedby="mf-orbit-err" aria-required="true"><option value="" disabled="" selected="">Select…</option><option value="Low Earth Orbit (LEO)">Low Earth Orbit (LEO)</option><option value="Sun-Synchronous (SSO)">Sun-Synchronous (SSO)</option><option value="Dedicated inclination">Dedicated inclination</option><option value="Not sure yet">Not sure yet</option></select><span class="field__error" id="mf-orbit-err" role="alert" aria-live="polite"></span></div><div class="field"><label class="field__label" for="mf-window">Desired window</label><input class="field__control" id="mf-window" name="window" type="text" placeholder="Quarter / year" aria-describedby="mf-window-err" autocomplete="off"><span class="field__error" id="mf-window-err" role="alert" aria-live="polite"></span></div><div class="field field--wide"><label class="field__label" for="mf-message">The mission</label><textarea class="field__control field__control--area" id="mf-message" name="message" rows="4" placeholder="What are you flying, and what does success look like?" aria-describedby="mf-message-err"></textarea><span class="field__error" id="mf-message-err" role="alert" aria-live="polite"></span></div></div><div class="manifest-form__actions"><button class="btn btn--ignition manifest-form__submit" type="submit"><span class="manifest-form__submit-label">Prepare inquiry</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 16" fill="none"><path d="M2 8h19M15 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></button><p class="manifest-form__note">No commitment. We respond to scope and feasibility before anything else.</p></div></form><div class="manifest-confirm" hidden="" aria-live="polite"></div></div></div></section></main><footer class="footer"><div class="footer__inner"><p class="footer__closing">The pad is quiet. The vehicle is ready. We are listening for go.</p><div class="footer__grid"><div class="footer__brand"><svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true"><path d="M6.5 25 L16 7 L25.5 25" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><line x1="11" y1="19.4" x2="21" y2="19.4" stroke="var(--ignition)" stroke-width="2.2" stroke-linecap="round"></line></svg><span class="footer__wordmark">AETHON</span><p class="footer__tagline">Mass to orbit.</p><p class="footer__location"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: LAUNCH_SITE"><span class="ph__brk">[</span>LAUNCH_SITE<span class="ph__brk">]</span></span><span class="footer__loc-sep">·</span><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: HQ_LOCATION"><span class="ph__brk">[</span>HQ_LOCATION<span class="ph__brk">]</span></span></p></div><div class="footer__cols"><div class="footer__col"><h4 class="footer__col-title">Vehicle</h4><ul class="footer__links"><li><a class="footer__link" href="#vehicle">Meridian</a></li><li><a class="footer__link" href="#specs">Specification</a></li><li><a class="footer__link" href="#orbits">Orbits</a></li></ul></div><div class="footer__col"><h4 class="footer__col-title">Program</h4><ul class="footer__links"><li><a class="footer__link" href="#operations">Operations</a></li><li><a class="footer__link" href="#program">Road to first flight</a></li><li><a class="footer__link" href="#manifest">Open the manifest</a></li></ul></div><div class="footer__col"><h4 class="footer__col-title">Company</h4><ul class="footer__links"><li><span class="footer__link is-ph" title="Placeholder — page pending">About<span class="footer__ph-tag">soon</span></span></li><li><span class="footer__link is-ph" title="Placeholder — page pending">Careers<span class="footer__ph-tag">soon</span></span></li><li><span class="footer__link is-ph" title="Placeholder — page pending">Press<span class="footer__ph-tag">soon</span></span></li></ul></div></div></div><div class="footer__bar"><span class="footer__legal">© 2026 AETHON. All rights reserved.</span><span class="footer__export">[EXPORT_CONTROL_NOTICE] — subject to ITAR / EAR. Placeholder pending counsel review.</span><a class="footer__top" href="#top">Back to top<span class="footer__top-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M8 13V3M3 8l5-5 5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a></div></div></footer></div>
-
-    <noscript>
-      <div style="max-width: 40rem; margin: 18vh auto; padding: 0 1.5rem;
-        font-family: 'Inter', system-ui, sans-serif; color: #aab4c4; line-height: 1.6;">
-        <p style="font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.34em;
-          font-weight: 700; color: #eef2f8;">AETHON</p>
-        <h1 style="font-family: 'Space Grotesk', sans-serif; color: #eef2f8;
-          font-size: 2rem; font-weight: 500; line-height: 1.15;">Mass to orbit.</h1>
-        <p>AETHON is a private orbital launch provider. This site uses motion and
-          progressive interaction that require JavaScript. Enable it to view the full
-          briefing, or reach the program directly at
-          <a style="color:#ff8a52;" href="mailto:manifest@aethon.example">manifest@aethon.example</a>.</p>
+  <div id="app">
+    <header class="nav" id="nav">
+      <div class="nav__inner">
+        <a class="wordmark" href="#top" aria-label="AETHON — home">
+          <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
+            <path d="M6.5 25 L16 7 L25.5 25" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <line x1="11" y1="19.4" x2="21" y2="19.4" stroke="var(--ignition)" stroke-width="2.2" stroke-linecap="round"></line>
+          </svg>
+          <span class="wordmark__text">AETHON</span>
+        </a>
+        <nav class="nav__links" aria-label="Primary">
+          <a class="nav__link" href="#vehicle" data-nav="vehicle">Vehicle</a>
+          <a class="nav__link" href="#specs" data-nav="specs">Specification</a>
+          <a class="nav__link" href="#orbits" data-nav="orbits">Orbits</a>
+          <a class="nav__link" href="#operations" data-nav="operations">Operations</a>
+          <a class="nav__link" href="#program" data-nav="program">Program</a>
+          <a class="nav__link" href="#manifest" data-nav="manifest">Manifest</a>
+        </nav>
+        <div class="nav__actions">
+          <span class="nav__status" aria-hidden="true"><span class="nav__status-dot"></span>PAD · STANDBY</span>
+          <a class="btn btn--line nav__cta" href="#manifest">Open the manifest</a>
+          <button class="nav__toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="navmenu">
+            <span class="nav__toggle-bar" aria-hidden="true"></span>
+            <span class="nav__toggle-bar" aria-hidden="true"></span>
+          </button>
+        </div>
       </div>
-    </noscript>
+    </header>
 
-    <script type="module" src="/src/main.ts?t=1782148155802"></script>
-  
+    <div class="navmenu" id="navmenu" aria-hidden="true">
+      <nav class="navmenu__links" aria-label="Primary">
+        <a class="navmenu__link" href="#vehicle" data-nav="vehicle">Vehicle</a>
+        <a class="navmenu__link" href="#specs" data-nav="specs">Specification</a>
+        <a class="navmenu__link" href="#orbits" data-nav="orbits">Orbits</a>
+        <a class="navmenu__link" href="#operations" data-nav="operations">Operations</a>
+        <a class="navmenu__link" href="#program" data-nav="program">Program</a>
+        <a class="navmenu__link" href="#manifest" data-nav="manifest">Manifest</a>
+      </nav>
+      <a class="btn btn--ignition navmenu__cta" href="#manifest">Open the manifest</a>
+    </div>
 
-</body></html>
+    <main class="main">
+      <section class="hero" id="top">
+        <div class="hero__sky" aria-hidden="true">
+          <canvas class="starfield-canvas" width="1600" height="900" aria-hidden="true"></canvas>
+        </div>
+        <div class="hero__scene" aria-hidden="true">
+          <svg class="hero-scene" viewBox="0 0 1600 620" preserveAspectRatio="xMidYMax slice" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs>
+              <radialGradient id="hExhaust" cx="0.5" cy="0.1" r="0.9">
+                <stop offset="0" stop-color="#ff6a34" stop-opacity="0.5"></stop>
+                <stop offset="0.4" stop-color="#ff5e2c" stop-opacity="0.14"></stop>
+                <stop offset="1" stop-color="#ff5e2c" stop-opacity="0"></stop>
+              </radialGradient>
+              <linearGradient id="hGround" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#0a0f16"></stop>
+                <stop offset="1" stop-color="#04060a"></stop>
+              </linearGradient>
+              <linearGradient id="hVehicle" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#10161f"></stop>
+                <stop offset="0.5" stop-color="#2a3644"></stop>
+                <stop offset="1" stop-color="#0a0e15"></stop>
+              </linearGradient>
+            </defs>
+
+            <!-- ground plane -->
+            <rect class="h-ground" x="0" y="520" width="1600" height="100" fill="url(#hGround)"></rect>
+            <line class="h-horizon" x1="0" y1="520" x2="1600" y2="520"></line>
+            <line class="h-horizon-tick" x1="160" y1="520" x2="120" y2="540"></line>
+            <line class="h-horizon-tick" x1="360" y1="520" x2="320" y2="540"></line>
+            <line class="h-horizon-tick" x1="560" y1="520" x2="520" y2="540"></line>
+            <line class="h-horizon-tick" x1="1320" y1="520" x2="1280" y2="540"></line>
+            <line class="h-horizon-tick" x1="1480" y1="520" x2="1440" y2="540"></line>
+
+            <!-- lightning masts ringing the pad -->
+            <line class="h-mast" x1="940" y1="150" x2="940" y2="520"></line>
+            <circle class="h-mast-tip" cx="940" cy="150" r="2"></circle>
+            <line class="h-mast" x1="940" y1="160" x2="931" y2="176"></line>
+            <line class="h-mast" x1="940" y1="160" x2="949" y2="176"></line>
+            <line class="h-mast" x1="1235" y1="138" x2="1235" y2="520"></line>
+            <circle class="h-mast-tip" cx="1235" cy="138" r="2"></circle>
+            <line class="h-mast" x1="1235" y1="148" x2="1226" y2="164"></line>
+            <line class="h-mast" x1="1235" y1="148" x2="1244" y2="164"></line>
+
+            <!-- banked ignition glow at the base (the one warm note) -->
+            <ellipse cx="1085" cy="516" rx="120" ry="40" fill="url(#hExhaust)"></ellipse>
+
+            <!-- the vehicle, small and quiet in the frame — full elevation greebling -->
+            <g class="h-vehicle">
+              <!-- engine skirt (tapered boat-tail, not a flat mount) + three nozzles nested in the glow -->
+              <path class="h-mount" d="M1071 506 L1064 522 L1106 522 L1099 506 Z"></path>
+              <line class="h-vehicle-raceway-tick" x1="1069" y1="514" x2="1073" y2="514"></line>
+              <line class="h-vehicle-raceway-tick" x1="1097" y1="514" x2="1101" y2="514"></line>
+              <ellipse class="h-vehicle-nozzle" cx="1076.5" cy="518.5" rx="4.2" ry="1.6"></ellipse>
+              <ellipse class="h-vehicle-nozzle" cx="1085" cy="520.5" rx="4.8" ry="1.85"></ellipse>
+              <ellipse class="h-vehicle-nozzle" cx="1093.5" cy="518.5" rx="4.2" ry="1.6"></ellipse>
+
+              <!-- primary silhouette -->
+              <path d="M1085 196 C1093 202 1098 214 1098 230 L1098 506 L1072 506 L1072 230 C1072 214 1077 202 1085 196 Z" fill="url(#hVehicle)"></path>
+              <path d="M1085 196 C1093 202 1098 214 1098 230 L1098 506 L1072 506 L1072 230 C1072 214 1077 202 1085 196 Z" class="h-vehicle-edge"></path>
+
+              <!-- nose sensor mast -->
+              <line class="h-vehicle-mast-line" x1="1085" y1="185" x2="1085" y2="199"></line>
+              <circle class="h-vehicle-sensor" cx="1085" cy="183" r="1.1"></circle>
+
+              <!-- fairing split (two panel halves) + shoulder seam -->
+              <path class="h-vehicle-panel" d="M1085 203 C1089 208 1092 217 1092 228"></path>
+              <path class="h-vehicle-panel" d="M1085 203 C1081 208 1078 217 1078 228"></path>
+              <line class="h-vehicle-seam" x1="1072" y1="230" x2="1098" y2="230"></line>
+
+              <!-- avionics / RCS panel greeble on the fairing shoulder -->
+              <rect class="h-vehicle-panel-box" x="1088.5" y="238" width="6" height="9" rx="1"></rect>
+
+              <!-- centerline + hull panel seams down the booster -->
+              <line class="h-vehicle-seam" x1="1085" y1="206" x2="1085" y2="500"></line>
+              <line class="h-vehicle-seam" x1="1072" y1="266" x2="1098" y2="266"></line>
+              <line class="h-vehicle-seam" x1="1072" y1="302" x2="1098" y2="302"></line>
+              <line class="h-vehicle-seam" x1="1072" y1="346" x2="1098" y2="346"></line>
+              <line class="h-vehicle-seam" x1="1072" y1="390" x2="1098" y2="390"></line>
+              <line class="h-vehicle-seam" x1="1072" y1="434" x2="1098" y2="434"></line>
+              <line class="h-vehicle-seam" x1="1072" y1="470" x2="1098" y2="470"></line>
+
+              <!-- rivets on two panel bands -->
+              <circle class="h-vehicle-rivet" cx="1076" cy="302" r="0.6"></circle>
+              <circle class="h-vehicle-rivet" cx="1094" cy="302" r="0.6"></circle>
+              <circle class="h-vehicle-rivet" cx="1076" cy="390" r="0.6"></circle>
+              <circle class="h-vehicle-rivet" cx="1094" cy="390" r="0.6"></circle>
+              <circle class="h-vehicle-rivet" cx="1076" cy="434" r="0.6"></circle>
+              <circle class="h-vehicle-rivet" cx="1094" cy="434" r="0.6"></circle>
+
+              <!-- cable raceway running the booster's flank, with clip ticks -->
+              <line class="h-vehicle-raceway" x1="1094.5" y1="231" x2="1094.5" y2="468"></line>
+              <line class="h-vehicle-raceway-tick" x1="1092.5" y1="260" x2="1096.5" y2="260"></line>
+              <line class="h-vehicle-raceway-tick" x1="1092.5" y1="330" x2="1096.5" y2="330"></line>
+              <line class="h-vehicle-raceway-tick" x1="1092.5" y1="400" x2="1096.5" y2="400"></line>
+              <line class="h-vehicle-raceway-tick" x1="1092.5" y1="460" x2="1096.5" y2="460"></line>
+
+              <!-- stowed grid fins near the top of the booster -->
+              <g>
+                <rect class="h-vehicle-fin2" x="1098" y="300" width="5" height="24"></rect>
+                <line class="h-vehicle-fin2-grid" x1="1099.4" y1="302" x2="1099.4" y2="322"></line>
+                <line class="h-vehicle-fin2-grid" x1="1101.6" y1="302" x2="1101.6" y2="322"></line>
+              </g>
+              <g>
+                <rect class="h-vehicle-fin2" x="1067" y="300" width="5" height="24"></rect>
+                <line class="h-vehicle-fin2-grid" x1="1068.4" y1="302" x2="1068.4" y2="322"></line>
+                <line class="h-vehicle-fin2-grid" x1="1070.6" y1="302" x2="1070.6" y2="322"></line>
+              </g>
+
+              <!-- base flare fairings + landing-leg struts and feet -->
+              <path class="h-vehicle-fin" d="M1072 470 L1060 506 L1072 506 Z"></path>
+              <path class="h-vehicle-fin" d="M1098 470 L1110 506 L1098 506 Z"></path>
+              <line class="h-vehicle-leg-detail" x1="1071" y1="478" x2="1063" y2="503"></line>
+              <line class="h-vehicle-leg-detail" x1="1099" y1="478" x2="1107" y2="503"></line>
+              <circle class="h-vehicle-foot" cx="1061.5" cy="505" r="1.2"></circle>
+              <circle class="h-vehicle-foot" cx="1108.5" cy="505" r="1.2"></circle>
+            </g>
+
+            <!-- service tower + crew arm -->
+            <g class="h-tower">
+              <line class="h-tower-leg" x1="1142" y1="186" x2="1142" y2="520"></line>
+              <line class="h-tower-leg" x1="1170" y1="186" x2="1170" y2="520"></line>
+          <line class="h-tower-rung" x1="1142" y1="196" x2="1170" y2="196"></line>
+          <line class="h-tower-x" x1="1142" y1="196" x2="1170" y2="223"></line>
+          <line class="h-tower-x" x1="1170" y1="196" x2="1142" y2="223"></line>
+          <line class="h-tower-rung" x1="1142" y1="223" x2="1170" y2="223"></line>
+          <line class="h-tower-x" x1="1142" y1="223" x2="1170" y2="250"></line>
+          <line class="h-tower-x" x1="1170" y1="223" x2="1142" y2="250"></line>
+          <line class="h-tower-rung" x1="1142" y1="250" x2="1170" y2="250"></line>
+          <line class="h-tower-x" x1="1142" y1="250" x2="1170" y2="277"></line>
+          <line class="h-tower-x" x1="1170" y1="250" x2="1142" y2="277"></line>
+          <line class="h-tower-rung" x1="1142" y1="277" x2="1170" y2="277"></line>
+          <line class="h-tower-x" x1="1142" y1="277" x2="1170" y2="304"></line>
+          <line class="h-tower-x" x1="1170" y1="277" x2="1142" y2="304"></line>
+          <line class="h-tower-rung" x1="1142" y1="304" x2="1170" y2="304"></line>
+          <line class="h-tower-x" x1="1142" y1="304" x2="1170" y2="331"></line>
+          <line class="h-tower-x" x1="1170" y1="304" x2="1142" y2="331"></line>
+          <line class="h-tower-rung" x1="1142" y1="331" x2="1170" y2="331"></line>
+          <line class="h-tower-x" x1="1142" y1="331" x2="1170" y2="358"></line>
+          <line class="h-tower-x" x1="1170" y1="331" x2="1142" y2="358"></line>
+          <line class="h-tower-rung" x1="1142" y1="358" x2="1170" y2="358"></line>
+          <line class="h-tower-x" x1="1142" y1="358" x2="1170" y2="385"></line>
+          <line class="h-tower-x" x1="1170" y1="358" x2="1142" y2="385"></line>
+          <line class="h-tower-rung" x1="1142" y1="385" x2="1170" y2="385"></line>
+          <line class="h-tower-x" x1="1142" y1="385" x2="1170" y2="412"></line>
+          <line class="h-tower-x" x1="1170" y1="385" x2="1142" y2="412"></line>
+          <line class="h-tower-rung" x1="1142" y1="412" x2="1170" y2="412"></line>
+          <line class="h-tower-x" x1="1142" y1="412" x2="1170" y2="439"></line>
+          <line class="h-tower-x" x1="1170" y1="412" x2="1142" y2="439"></line>
+          <line class="h-tower-rung" x1="1142" y1="439" x2="1170" y2="439"></line>
+          <line class="h-tower-x" x1="1142" y1="439" x2="1170" y2="466"></line>
+          <line class="h-tower-x" x1="1170" y1="439" x2="1142" y2="466"></line>
+          <line class="h-tower-rung" x1="1142" y1="466" x2="1170" y2="466"></line>
+          <line class="h-tower-x" x1="1142" y1="466" x2="1170" y2="493"></line>
+          <line class="h-tower-x" x1="1170" y1="466" x2="1142" y2="493"></line>
+          <line class="h-tower-rung" x1="1142" y1="493" x2="1170" y2="493"></line>
+          <line class="h-tower-x" x1="1142" y1="493" x2="1170" y2="520"></line>
+          <line class="h-tower-x" x1="1170" y1="493" x2="1142" y2="520"></line>
+          <line class="h-tower-rung" x1="1142" y1="520" x2="1170" y2="520"></line>
+              <line class="h-crewarm" x1="1142" y1="300" x2="1100" y2="300"></line>
+            </g>
+
+            <!-- pad lights -->
+            <circle class="h-padlight" cx="1000" cy="514" r="1.5"></circle>
+            <circle class="h-padlight" cx="1180" cy="510" r="1.5"></circle>
+            <circle class="h-padlight" cx="1040" cy="514" r="1.5"></circle>
+            <circle class="h-padlight" cx="1150" cy="510" r="1.5"></circle>
+          </svg>
+        </div>
+        <div class="hero__veil" aria-hidden="true"></div>
+        <div class="hero__grid">
+          <div class="hero__content">
+            <div class="hero__eyebrow" data-reveal>
+              <span class="hero__eyebrow-dot"></span>Private orbital launch<span class="hero__eyebrow-sep">·</span><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: LAUNCH_SITE"><span class="ph__brk">[</span>LAUNCH_SITE<span class="ph__brk">]</span></span>
+            </div>
+            <h1 class="hero__headline">
+              <span class="hero__line" data-reveal data-reveal-i="0"><span class="hero__line-inner">Mass</span></span><span class="hero__line" data-reveal data-reveal-i="1"><span class="hero__line-inner">to orbit.</span></span>
+            </h1>
+            <p class="hero__lede" data-reveal data-reveal-i="3">Every gram a customer hands us leaves the ground exactly once. AETHON exists to make that moment certain — a two-stage vehicle, a clean insertion, a payload precisely where it was promised.</p>
+            <div class="hero__cta" data-reveal data-reveal-i="4">
+              <a class="btn btn--ignition" href="#manifest">Open the manifest<span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 16" fill="none"><path d="M2 8h19M15 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a>
+              <a class="btn btn--ghost" href="#vehicle">Meet Meridian</a>
+            </div>
+          </div>
+        </div>
+        <div class="hero__foot">
+          <div class="hero__telemetry" data-reveal>
+            <div class="telem"><span class="telem__k">Vehicle</span><span class="telem__v">Meridian</span></div>
+            <div class="telem"><span class="telem__k">Status</span><span class="telem__v">Integrated</span></div>
+            <div class="telem"><span class="telem__k">Pad</span><span class="telem__v">Standby</span></div>
+            <div class="telem"><span class="telem__k">First flight</span><span class="telem__v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: FIRST_FLIGHT"><span class="ph__brk">[</span>FIRST_FLIGHT<span class="ph__brk">]</span><span class="ph__hint">date</span></span></span></div>
+          </div>
+          <a class="hero__cue" href="#threshold" aria-label="Scroll to read the AETHON threshold statement"><span class="hero__cue-label">Scroll</span><span class="hero__cue-line" aria-hidden="true"></span></a>
+        </div>
+      </section>
+
+      <section class="manifesto" id="threshold">
+        <div class="manifesto__inner">
+          <div class="eyebrow" data-reveal><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">00</span><span class="eyebrow__label">The threshold</span></div>
+          <div class="manifesto__lines">
+            <p class="manifesto__line" data-reveal data-reveal-i="0">There is a silence before ignition.</p>
+            <p class="manifesto__line" data-reveal data-reveal-i="1">The vehicle is fuelled. The payload is mated. The count holds at nine.</p>
+            <p class="manifesto__line" data-reveal data-reveal-i="2">For a few seconds, nothing anyone says matters —</p>
+            <p class="manifesto__line is-key" data-reveal data-reveal-i="3">only what was built.</p>
+          </div>
+          <div class="manifesto__base">
+            <p class="manifesto__emphasis" data-reveal>AETHON is built for those seconds.</p>
+            <p class="manifesto__body" data-reveal>We are not building spectacle. We are building arrival — the right mass in the right orbit at the right minute, with margin held in reserve. Every system on Meridian exists to shorten the distance between a customer's intention and its place in the sky.</p>
+          </div>
+        </div>
+      </section>
+      <section class="vehicle" id="vehicle">
+        <div class="vehicle__inner">
+          <div class="vehicle__head">
+            <div class="eyebrow" data-reveal><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">01</span><span class="eyebrow__label">The vehicle</span></div>
+            <h2 class="vehicle__name" data-reveal>Meridian</h2>
+            <p class="vehicle__kicker" data-reveal>Two stages. A booster that comes home. One engine family, flown from sea level to vacuum.</p>
+            <p class="vehicle__intro" data-reveal>Meridian is a two-stage orbital launch vehicle. Its first stage is designed to fly, return, and fly again. Its second stage is built around a single restartable engine — precise enough to set a payload in its slot and walk away. Both stages burn the same propellant, lit by the same engine family: Ardent.</p>
+          </div>
+        </div>
+        <div class="vehicle__crane">
+          <div class="vehicle__sticky">
+            <div class="vehicle__stage">
+              <div class="vehicle__scale" aria-hidden="true">
+                <span class="vehicle__scale-cap"></span>
+                <span class="vehicle__scale-rule"></span>
+                <span class="vehicle__scale-cap"></span>
+                <span class="vehicle__scale-label">Vehicle height <span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: VEHICLE_HEIGHT"><span class="ph__brk">[</span>VEHICLE_HEIGHT<span class="ph__brk">]</span><span class="ph__hint">m</span></span></span>
+              </div>
+              <div class="vehicle__figure">
+                <svg class="vehicle-svg" viewBox="0 0 240 1280" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Meridian — a two-stage orbital launch vehicle, drawn in technical elevation.">
+                  <defs>
+                    <linearGradient id="vBody" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0" stop-color="#080c12"></stop>
+                      <stop offset="0.17" stop-color="#19222e"></stop>
+                      <stop offset="0.42" stop-color="#30404f"></stop>
+                      <stop offset="0.6" stop-color="#1b2531"></stop>
+                      <stop offset="1" stop-color="#070a0f"></stop>
+                    </linearGradient>
+                    <linearGradient id="vSkirt" x1="0" y1="0" x2="1" y2="0">
+                      <stop offset="0" stop-color="#06090d"></stop>
+                      <stop offset="0.45" stop-color="#222d3a"></stop>
+                      <stop offset="1" stop-color="#05080c"></stop>
+                    </linearGradient>
+                    <linearGradient id="vSheen" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#ffffff" stop-opacity="0.10"></stop>
+                      <stop offset="0.25" stop-color="#ffffff" stop-opacity="0"></stop>
+                      <stop offset="1" stop-color="#000000" stop-opacity="0.18"></stop>
+                    </linearGradient>
+                  </defs>
+
+                  <!-- engine skirt fill (under body) -->
+                  <path class="v-skirt-fill" d="M 166 1040 L 178 1200 L 62 1200 L 74 1040 Z" fill="url(#vSkirt)"></path>
+
+                  <!-- landing legs (stowed) -->
+                  <path class="v-leg" d="M 74 1090 L 64 1196"></path>
+                  <path class="v-leg" d="M 166 1090 L 176 1196"></path>
+                  <path class="v-leg" d="M 86 1090 L 80 1196"></path>
+                  <path class="v-leg" d="M 154 1090 L 160 1196"></path>
+
+                  <!-- mounting ring ghosted at the base — five of the nine Ardent bells sit in
+                       this elevation, four more implied behind them on the same ring -->
+                  <ellipse class="v-ring-ghost" cx="120" cy="1206" rx="59" ry="15"></ellipse>
+                  <g class="v-bell-ghost">
+                    <path d="M 63 1202 C 62 1213, 60 1220, 60 1224 L 75 1224 C 75 1220, 73 1213, 72 1202 Z"></path>
+                    <ellipse class="v-bell-rim" cx="67.5" cy="1224" rx="7.5" ry="2.3"></ellipse>
+                  </g>
+                  <g class="v-bell-ghost">
+                    <path d="M 168 1202 C 167 1213, 165 1220, 165 1224 L 180 1224 C 180 1220, 178 1213, 177 1202 Z"></path>
+                    <ellipse class="v-bell-rim" cx="172.5" cy="1224" rx="7.5" ry="2.3"></ellipse>
+                  </g>
+                  <g class="v-bell-ghost">
+                    <path d="M 99 1213 C 98 1222, 96 1228, 96 1231 L 109 1231 C 109 1228, 107 1222, 106 1213 Z"></path>
+                    <ellipse class="v-bell-rim" cx="102.5" cy="1231" rx="6.5" ry="2"></ellipse>
+                  </g>
+                  <g class="v-bell-ghost">
+                    <path d="M 131 1213 C 130 1222, 128 1228, 128 1231 L 141 1231 C 141 1228, 139 1222, 138 1213 Z"></path>
+                    <ellipse class="v-bell-rim" cx="134.5" cy="1231" rx="6.5" ry="2"></ellipse>
+                  </g>
+                  <g class="v-bell">
+                    <path d="M 75 1200 C 74 1217, 71 1228, 71 1234 L 93 1234 C 93 1228, 90 1217, 89 1200 Z"></path>
+                    <ellipse class="v-bell-rim" cx="82" cy="1234" rx="11" ry="3.4"></ellipse>
+                    <line class="v-bell-throat" x1="82" y1="1203" x2="82" y2="1231"></line>
+                  </g>
+                  <g class="v-bell">
+                    <path d="M 94 1200 C 93 1217, 90 1228, 90 1234 L 112 1234 C 112 1228, 109 1217, 108 1200 Z"></path>
+                    <ellipse class="v-bell-rim" cx="101" cy="1234" rx="11" ry="3.4"></ellipse>
+                    <line class="v-bell-throat" x1="101" y1="1203" x2="101" y2="1231"></line>
+                  </g>
+                  <g class="v-bell v-bell--center">
+                    <path d="M 113 1206 C 112 1226, 107 1240, 107 1246 L 133 1246 C 133 1240, 128 1226, 127 1206 Z"></path>
+                    <ellipse class="v-bell-rim" cx="120" cy="1246" rx="13" ry="3.4"></ellipse>
+                    <line class="v-bell-throat" x1="120" y1="1209" x2="120" y2="1243"></line>
+                  </g>
+                  <g class="v-bell">
+                    <path d="M 132 1200 C 131 1217, 128 1228, 128 1234 L 150 1234 C 150 1228, 147 1217, 146 1200 Z"></path>
+                    <ellipse class="v-bell-rim" cx="139" cy="1234" rx="11" ry="3.4"></ellipse>
+                    <line class="v-bell-throat" x1="139" y1="1203" x2="139" y2="1231"></line>
+                  </g>
+                  <g class="v-bell">
+                    <path d="M 151 1200 C 150 1217, 147 1228, 147 1234 L 169 1234 C 169 1228, 166 1217, 165 1200 Z"></path>
+                    <ellipse class="v-bell-rim" cx="158" cy="1234" rx="11" ry="3.4"></ellipse>
+                    <line class="v-bell-throat" x1="158" y1="1203" x2="158" y2="1231"></line>
+                  </g>
+
+                  <!-- main silhouette: nose, fairing, interstage, booster, skirt -->
+                  <path class="v-body" d="
+                    M 120 40
+                    C 150 58, 170 116, 170 175
+                    L 170 296
+                    L 166 312
+                    L 166 1080
+                    L 178 1200
+                    L 62 1200
+                    L 74 1080
+                    L 74 312
+                    L 70 296
+                    L 70 175
+                    C 70 116, 90 58, 120 40 Z" fill="url(#vBody)"></path>
+                  <path class="v-body-sheen" d="
+                    M 120 40
+                    C 150 58, 170 116, 170 175
+                    L 170 296
+                    L 166 312
+                    L 166 1080
+                    L 178 1200
+                    L 62 1200
+                    L 74 1080
+                    L 74 312
+                    L 70 296
+                    L 70 175
+                    C 70 116, 90 58, 120 40 Z" fill="url(#vSheen)"></path>
+                  <path class="v-body-edge" d="
+                    M 120 40
+                    C 150 58, 170 116, 170 175
+                    L 170 296
+                    L 166 312
+                    L 166 1080
+                    L 178 1200
+                    L 62 1200
+                    L 74 1080
+                    L 74 312
+                    L 70 296
+                    L 70 175
+                    C 70 116, 90 58, 120 40 Z"></path>
+
+                  <!-- nose tip sensor mast -->
+                  <line class="v-mast" x1="120" y1="26" x2="120" y2="43"></line>
+                  <circle class="v-sensor" cx="120" cy="24" r="2"></circle>
+
+                  <!-- fairing split lines (two half-shells) — start a few units below the sharp
+                       apex so the linework doesn't cluster at the tightest point of the curve -->
+                  <path class="v-panel" d="M 120 49 C 129 64 140 102 141 148 C 142 188 141 226 137 258"></path>
+                  <path class="v-panel" d="M 120 49 C 111 64 100 102 99 148 C 98 188 99 226 103 258"></path>
+
+                  <!-- nose panel seams -->
+                  <line class="v-seam" x1="92" y1="90" x2="148" y2="90"></line>
+                  <line class="v-seam" x1="82" y1="140" x2="158" y2="140"></line>
+                  <line class="v-seam" x1="72" y1="200" x2="168" y2="200"></line>
+
+                  <!-- RCS thruster pods, fairing shoulder -->
+                  <rect class="v-rcs" x="164" y="250" width="10" height="14" rx="1.5"></rect>
+                  <rect class="v-rcs" x="66" y="250" width="10" height="14" rx="1.5"></rect>
+
+                  <!-- centerline + fairing seam -->
+                  <line class="v-center" x1="120" y1="60" x2="120" y2="1190"></line>
+                  <line class="v-fairing-seam" x1="120" y1="52" x2="120" y2="296"></line>
+
+                  <!-- tank panel seams (vertical) + cable raceway along the flank -->
+                  <line class="v-panel-v" x1="95" y1="600" x2="95" y2="1030"></line>
+                  <line class="v-panel-v" x1="145" y1="600" x2="145" y2="1030"></line>
+                  <line class="v-panel-v" x1="167.5" y1="316" x2="167.5" y2="1078"></line>
+                  <line class="v-fin-arm" x1="165.5" y1="360" x2="169.5" y2="360"></line>
+                  <line class="v-fin-arm" x1="165.5" y1="640" x2="169.5" y2="640"></line>
+                  <line class="v-fin-arm" x1="165.5" y1="800" x2="169.5" y2="800"></line>
+                  <line class="v-fin-arm" x1="165.5" y1="960" x2="169.5" y2="960"></line>
+
+                  <!-- interstage truss -->
+                  <rect class="v-interstage" x="74" y="520" width="92" height="60"></rect>
+          <line class="v-truss" x1="78" y1="522" x2="90" y2="578"></line><line class="v-truss" x1="90" y1="522" x2="78" y2="578"></line>
+          <line class="v-truss" x1="90" y1="522" x2="102" y2="578"></line><line class="v-truss" x1="102" y1="522" x2="90" y2="578"></line>
+          <line class="v-truss" x1="102" y1="522" x2="114" y2="578"></line><line class="v-truss" x1="114" y1="522" x2="102" y2="578"></line>
+          <line class="v-truss" x1="114" y1="522" x2="126" y2="578"></line><line class="v-truss" x1="126" y1="522" x2="114" y2="578"></line>
+          <line class="v-truss" x1="126" y1="522" x2="138" y2="578"></line><line class="v-truss" x1="138" y1="522" x2="126" y2="578"></line>
+          <line class="v-truss" x1="138" y1="522" x2="150" y2="578"></line><line class="v-truss" x1="150" y1="522" x2="138" y2="578"></line>
+          <line class="v-truss" x1="150" y1="522" x2="162" y2="578"></line><line class="v-truss" x1="162" y1="522" x2="150" y2="578"></line>
+          <line class="v-truss" x1="162" y1="522" x2="174" y2="578"></line><line class="v-truss" x1="174" y1="522" x2="162" y2="578"></line>
+
+                  <!-- fin boxes (grid-fin stubs, stowed) -->
+          <g class="v-finbox">
+            <rect class="v-fin" x="166" y="600" width="18" height="34" rx="1.5"></rect>
+            <line class="v-fin-grid" x1="169.5" y1="603" x2="169.5" y2="631"></line><line class="v-fin-grid" x1="173.5" y1="603" x2="173.5" y2="631"></line><line class="v-fin-grid" x1="177.5" y1="603" x2="177.5" y2="631"></line><line class="v-fin-grid" x1="181.5" y1="603" x2="181.5" y2="631"></line>
+            <line class="v-fin-grid" x1="168" y1="607" x2="182" y2="607"></line><line class="v-fin-grid" x1="168" y1="615" x2="182" y2="615"></line><line class="v-fin-grid" x1="168" y1="623" x2="182" y2="623"></line>
+            <circle class="v-fin-hinge" cx="175" cy="617" r="3"></circle>
+            <line class="v-fin-arm" x1="166" y1="617" x2="152" y2="613"></line>
+          </g>
+          <g class="v-finbox">
+            <rect class="v-fin" x="56" y="600" width="18" height="34" rx="1.5"></rect>
+            <line class="v-fin-grid" x1="59.5" y1="603" x2="59.5" y2="631"></line><line class="v-fin-grid" x1="63.5" y1="603" x2="63.5" y2="631"></line><line class="v-fin-grid" x1="67.5" y1="603" x2="67.5" y2="631"></line><line class="v-fin-grid" x1="71.5" y1="603" x2="71.5" y2="631"></line>
+            <line class="v-fin-grid" x1="58" y1="607" x2="72" y2="607"></line><line class="v-fin-grid" x1="58" y1="615" x2="72" y2="615"></line><line class="v-fin-grid" x1="58" y1="623" x2="72" y2="623"></line>
+            <circle class="v-fin-hinge" cx="65" cy="617" r="3"></circle>
+            <line class="v-fin-arm" x1="74" y1="617" x2="88" y2="613"></line>
+          </g>
+
+                  <!-- hull seams -->
+          <line class="v-seam" x1="76" y1="340" x2="164" y2="340"></line>
+          <line class="v-seam" x1="76" y1="400" x2="164" y2="400"></line>
+          <line class="v-seam" x1="76" y1="460" x2="164" y2="460"></line>
+          <line class="v-seam" x1="76" y1="640" x2="164" y2="640"></line>
+          <line class="v-seam" x1="76" y1="720" x2="164" y2="720"></line>
+          <line class="v-seam" x1="76" y1="800" x2="164" y2="800"></line>
+          <line class="v-seam" x1="76" y1="880" x2="164" y2="880"></line>
+          <line class="v-seam" x1="76" y1="960" x2="164" y2="960"></line>
+          <line class="v-seam" x1="76" y1="1030" x2="164" y2="1030"></line>
+
+                  <!-- rivet lines -->
+          <circle class="v-rivet" cx="88" cy="620" r="0.9"></circle><circle class="v-rivet" cx="152" cy="620" r="0.9"></circle>
+          <circle class="v-rivet" cx="88" cy="680" r="0.9"></circle><circle class="v-rivet" cx="152" cy="680" r="0.9"></circle>
+          <circle class="v-rivet" cx="88" cy="740" r="0.9"></circle><circle class="v-rivet" cx="152" cy="740" r="0.9"></circle>
+          <circle class="v-rivet" cx="88" cy="860" r="0.9"></circle><circle class="v-rivet" cx="152" cy="860" r="0.9"></circle>
+          <circle class="v-rivet" cx="88" cy="920" r="0.9"></circle><circle class="v-rivet" cx="152" cy="920" r="0.9"></circle>
+          <circle class="v-rivet" cx="88" cy="1000" r="0.9"></circle><circle class="v-rivet" cx="152" cy="1000" r="0.9"></circle>
+          <circle class="v-rivet" cx="88" cy="360" r="0.8"></circle><circle class="v-rivet" cx="152" cy="360" r="0.8"></circle>
+          <circle class="v-rivet" cx="88" cy="420" r="0.8"></circle><circle class="v-rivet" cx="152" cy="420" r="0.8"></circle>
+          <circle class="v-rivet" cx="88" cy="760" r="0.8"></circle><circle class="v-rivet" cx="152" cy="760" r="0.8"></circle>
+          <circle class="v-rivet" cx="88" cy="900" r="0.8"></circle><circle class="v-rivet" cx="152" cy="900" r="0.8"></circle>
+
+                  <!-- landing-leg mechanism detail (hinge, secondary strut, foot pad) -->
+                  <circle class="v-leg-hinge" cx="74" cy="1090" r="2.2"></circle>
+                  <circle class="v-leg-hinge" cx="166" cy="1090" r="2.2"></circle>
+                  <circle class="v-leg-hinge" cx="86" cy="1090" r="1.8"></circle>
+                  <circle class="v-leg-hinge" cx="154" cy="1090" r="1.8"></circle>
+                  <line class="v-fin-arm" x1="80" y1="1108" x2="70" y2="1178"></line>
+                  <line class="v-fin-arm" x1="160" y1="1108" x2="170" y2="1178"></line>
+                  <rect class="v-leg-foot" x="58" y="1195" width="12" height="5" rx="1.4"></rect>
+                  <rect class="v-leg-foot" x="170" y="1195" width="12" height="5" rx="1.4"></rect>
+                  <rect class="v-leg-foot" x="75" y="1195" width="10" height="5" rx="1.2"></rect>
+                  <rect class="v-leg-foot" x="155" y="1195" width="10" height="5" rx="1.2"></rect>
+
+                  <!-- hazard band + heat-shield collar, just above the engine skirt -->
+                  <line class="v-hazard" x1="80" y1="1183" x2="88" y2="1191"></line>
+                  <line class="v-hazard" x1="92" y1="1183" x2="100" y2="1191"></line>
+                  <line class="v-hazard" x1="104" y1="1183" x2="112" y2="1191"></line>
+                  <line class="v-hazard" x1="128" y1="1183" x2="136" y2="1191"></line>
+                  <line class="v-hazard" x1="140" y1="1183" x2="148" y2="1191"></line>
+                  <line class="v-hazard" x1="152" y1="1183" x2="160" y2="1191"></line>
+                  <line class="v-skirt-ring" x1="68" y1="1190" x2="172" y2="1190"></line>
+
+                  <!-- section boundary seams -->
+                  <line class="v-seam-strong" x1="70" y1="296" x2="170" y2="296"></line>
+                  <line class="v-seam-strong" x1="74" y1="520" x2="166" y2="520"></line>
+                  <line class="v-seam-strong" x1="74" y1="580" x2="166" y2="580"></line>
+                  <line class="v-seam-strong" x1="74" y1="1080" x2="166" y2="1080"></line>
+
+                  <!-- vehicle identity -->
+                  <text class="v-wordmark" x="120" y="770" transform="rotate(-90 120 770)">MERIDIAN</text>
+                  <text class="v-serial" x="120" y="1120">[SN]</text>
+
+                  <!-- focus cursor, driven by scroll progress through the crane -->
+                  <g id="vCursor" class="v-cursor" transform="translate(0 1160)">
+                    <line class="v-cursor-line" x1="40" y1="0" x2="200" y2="0"></line>
+                    <path class="v-cursor-cap" d="M 40 -5 L 33 0 L 40 5"></path>
+                    <path class="v-cursor-cap" d="M 200 -5 L 207 0 L 200 5"></path>
+                    <circle class="v-cursor-dot" cx="200" cy="0" r="2.4"></circle>
+                  </g>
+                </svg>
+              </div>
+            </div>
+            <aside class="vehicle__readout">
+              <div class="vehicle__readout-head">
+                <span class="vehicle__readout-k">Elevation</span>
+                <span class="vehicle__readout-v">Vehicle height <span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: VEHICLE_HEIGHT"><span class="ph__brk">[</span>VEHICLE_HEIGHT<span class="ph__brk">]</span><span class="ph__hint">m</span></span></span>
+              </div>
+              <ol class="vehicle-rail" aria-hidden="true">
+                <li class="vehicle-rail__tick" data-seg="fairing"><span class="vehicle-rail__idx">05</span><span class="vehicle-rail__label">Payload</span></li>
+                <li class="vehicle-rail__tick" data-seg="stage2"><span class="vehicle-rail__idx">04</span><span class="vehicle-rail__label">Stage two</span></li>
+                <li class="vehicle-rail__tick" data-seg="staging"><span class="vehicle-rail__idx">03</span><span class="vehicle-rail__label">Staging</span></li>
+                <li class="vehicle-rail__tick" data-seg="stage1"><span class="vehicle-rail__idx">02</span><span class="vehicle-rail__label">Stage one</span></li>
+                <li class="vehicle-rail__tick is-active" data-seg="propulsion"><span class="vehicle-rail__idx">01</span><span class="vehicle-rail__label">Propulsion</span></li>
+              </ol>
+              <div class="vehicle__cards">
+                <article class="vehicle-card is-active" data-seg="propulsion">
+                  <div class="vehicle-card__top"><span class="vehicle-card__idx">01</span><span class="vehicle-card__label">Propulsion</span></div>
+                  <h3 class="vehicle-card__title">Nine Ardent engines</h3>
+                  <p class="vehicle-card__body">A sea-level cluster, deep-throttle capable. Eight hold the ring; one gimbals at the centre for control through ascent and landing.</p>
+                  <div class="vehicle-card__fig"><span class="vehicle-card__fig-cap">Liftoff thrust</span><span class="vehicle-card__fig-val"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: LIFTOFF_THRUST"><span class="ph__brk">[</span>LIFTOFF_THRUST<span class="ph__brk">]</span><span class="ph__hint">kN</span></span></span></div>
+                </article>
+                <article class="vehicle-card" data-seg="stage1">
+                  <div class="vehicle-card__top"><span class="vehicle-card__idx">02</span><span class="vehicle-card__label">Stage one</span></div>
+                  <h3 class="vehicle-card__title">The booster that returns</h3>
+                  <p class="vehicle-card__body">After separation the first stage reorients, relights, and flies a controlled descent to be recovered and reflown. Reuse is the architecture, not an afterthought.</p>
+                </article>
+                <article class="vehicle-card" data-seg="staging">
+                  <div class="vehicle-card__top"><span class="vehicle-card__idx">03</span><span class="vehicle-card__label">Staging</span></div>
+                  <h3 class="vehicle-card__title">Clean separation</h3>
+                  <p class="vehicle-card__body">Pneumatic pushers and a vented interstage part the stages without pyrotechnic shock reaching the payload.</p>
+                </article>
+                <article class="vehicle-card" data-seg="stage2">
+                  <div class="vehicle-card__top"><span class="vehicle-card__idx">04</span><span class="vehicle-card__label">Stage two</span></div>
+                  <h3 class="vehicle-card__title">One engine, vacuum-tuned</h3>
+                  <p class="vehicle-card__body">A single restartable Ardent Vacuum carries the stack to orbit, then relights to circularise, phase, and deorbit itself — leaving nothing behind.</p>
+                </article>
+                <article class="vehicle-card" data-seg="fairing">
+                  <div class="vehicle-card__top"><span class="vehicle-card__idx">05</span><span class="vehicle-card__label">Payload</span></div>
+                  <h3 class="vehicle-card__title">Encapsulated clean</h3>
+                  <p class="vehicle-card__body">Your spacecraft rides inside a composite fairing, encapsulated under cleanroom conditions and mated to the vehicle vertically.</p>
+                  <div class="vehicle-card__fig"><span class="vehicle-card__fig-cap">Static envelope</span><span class="vehicle-card__fig-val"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: FAIRING_VOLUME"><span class="ph__brk">[</span>FAIRING_VOLUME<span class="ph__brk">]</span><span class="ph__hint">m³</span></span></span></div>
+                </article>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="specs" id="specs">
+        <div class="specs__inner">
+          <div class="specs__aside">
+            <div class="eyebrow" data-reveal><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">02</span><span class="eyebrow__label">Specification</span></div>
+            <h2 class="specs__title" data-reveal>The envelope</h2>
+            <p class="specs__note" data-reveal>Performance figures are published design targets, confirmed at qualification. Values shown as tokens are pending release.</p>
+            <div class="specs__legend" data-reveal><span class="ph ph--legend"><span class="ph__brk">[</span>PENDING<span class="ph__brk">]</span></span><span class="specs__legend-text">confirmed at qualification</span></div>
+          </div>
+          <dl class="specs__table">
+            <div class="spec-row is-pending" data-reveal data-reveal-i="0">
+              <dt class="spec-row__label">Payload to LEO<span class="spec-row__note">200 km · 28.5°</span></dt>
+              <dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: PAYLOAD_LEO"><span class="ph__brk">[</span>PAYLOAD_LEO<span class="ph__brk">]</span><span class="ph__hint">kg</span></span></dd>
+            </div>
+            <div class="spec-row is-pending" data-reveal data-reveal-i="1">
+              <dt class="spec-row__label">Payload to SSO<span class="spec-row__note">500 km · polar</span></dt>
+              <dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: PAYLOAD_SSO"><span class="ph__brk">[</span>PAYLOAD_SSO<span class="ph__brk">]</span><span class="ph__hint">kg</span></span></dd>
+            </div>
+            <div class="spec-row is-pending" data-reveal data-reveal-i="2">
+              <dt class="spec-row__label">Vehicle height</dt>
+              <dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: VEHICLE_HEIGHT"><span class="ph__brk">[</span>VEHICLE_HEIGHT<span class="ph__brk">]</span><span class="ph__hint">m</span></span></dd>
+            </div>
+            <div class="spec-row is-pending" data-reveal data-reveal-i="3">
+              <dt class="spec-row__label">Fairing — static envelope</dt>
+              <dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: FAIRING_ENVELOPE"><span class="ph__brk">[</span>FAIRING_ENVELOPE<span class="ph__brk">]</span><span class="ph__hint">m</span></span></dd>
+            </div>
+            <div class="spec-row is-pending" data-reveal data-reveal-i="4">
+              <dt class="spec-row__label">Liftoff thrust</dt>
+              <dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: LIFTOFF_THRUST"><span class="ph__brk">[</span>LIFTOFF_THRUST<span class="ph__brk">]</span><span class="ph__hint">kN</span></span></dd>
+            </div>
+            <div class="spec-row" data-reveal data-reveal-i="5">
+              <dt class="spec-row__label">Architecture</dt>
+              <dd class="spec-row__value">Two stage · partial reuse</dd>
+            </div>
+            <div class="spec-row" data-reveal data-reveal-i="6">
+              <dt class="spec-row__label">First-stage propulsion</dt>
+              <dd class="spec-row__value">Nine × Ardent</dd>
+            </div>
+            <div class="spec-row" data-reveal data-reveal-i="6">
+              <dt class="spec-row__label">Upper-stage propulsion</dt>
+              <dd class="spec-row__value">One × Ardent Vacuum</dd>
+            </div>
+            <div class="spec-row" data-reveal data-reveal-i="6">
+              <dt class="spec-row__label">Booster recovery</dt>
+              <dd class="spec-row__value">Propulsive return</dd>
+            </div>
+            <div class="spec-row is-pending" data-reveal data-reveal-i="6">
+              <dt class="spec-row__label">Launch site</dt>
+              <dd class="spec-row__value"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: LAUNCH_SITE"><span class="ph__brk">[</span>LAUNCH_SITE<span class="ph__brk">]</span></span></dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="orbits" id="orbits">
+        <div class="orbits__inner">
+          <div class="orbits__head">
+            <div class="eyebrow" data-reveal><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">03</span><span class="eyebrow__label">Destinations</span></div>
+            <h2 class="orbits__title" data-reveal>Where Meridian delivers</h2>
+            <p class="orbits__intro" data-reveal>Meridian is tuned for the orbits where most of the world's payloads actually go — low, fast, and Sun-synchronous.</p>
+          </div>
+          <div class="orbits__body">
+            <div class="orbits__diagram" data-reveal>
+              <svg class="orbits-svg" viewBox="0 0 760 700" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schematic of Earth with low Earth, Sun-synchronous, and inclined orbital rings served by Meridian.">
+                <defs>
+                  <radialGradient id="earthCore" cx="0.4" cy="0.62" r="0.85">
+                    <stop offset="0" stop-color="#0c2030"></stop>
+                    <stop offset="0.55" stop-color="#081522"></stop>
+                    <stop offset="1" stop-color="#04080e"></stop>
+                  </radialGradient>
+                  <radialGradient id="atmo" cx="0.5" cy="0.5" r="0.5">
+                    <stop offset="0.74" stop-color="#4fa3c7" stop-opacity="0"></stop>
+                    <stop offset="0.9" stop-color="#4fa3c7" stop-opacity="0.16"></stop>
+                    <stop offset="1" stop-color="#4fa3c7" stop-opacity="0"></stop>
+                  </radialGradient>
+                  <radialGradient id="sunGlint" cx="0.32" cy="0.34" r="0.55">
+                    <stop offset="0" stop-color="#cfe3ee" stop-opacity="0.28"></stop>
+                    <stop offset="0.55" stop-color="#4fa3c7" stop-opacity="0.08"></stop>
+                    <stop offset="1" stop-color="#4fa3c7" stop-opacity="0"></stop>
+                  </radialGradient>
+                  <clipPath id="globeClip"><circle cx="380" cy="372" r="118"></circle></clipPath>
+                </defs>
+
+                <circle cx="380" cy="372" r="144" fill="url(#atmo)"></circle>
+
+                <!-- globe first, orbital rings drawn over it as a clean schematic -->
+                <g clip-path="url(#globeClip)">
+                  <circle cx="380" cy="372" r="118" fill="url(#earthCore)"></circle>
+
+                  <!-- fictional, abstracted landmasses (not a real-world map) -->
+                  <path class="o-land" d="M300 300 C296 288 306 278 322 276 C340 274 356 282 358 296 C360 308 350 318 334 320 C316 322 304 314 300 300 Z"></path>
+                  <path class="o-land-hi" d="M304 292 C308 284 320 280 330 283 C324 284 314 288 310 296 Z"></path>
+                  <path class="o-land" d="M410 300 C408 292 416 286 428 286 C440 286 448 294 446 304 C444 312 434 316 424 314 C414 312 412 306 410 300 Z"></path>
+                  <path class="o-land" d="M330 420 C322 408 332 396 350 394 C370 392 388 402 390 416 C392 430 380 442 362 444 C346 446 336 434 330 420 Z"></path>
+                  <path class="o-land-hi" d="M338 408 C344 400 356 397 366 400 C358 400 348 404 342 412 Z"></path>
+                  <path class="o-land" d="M440 378 C438 374 442 371 447 372 C452 373 453 378 449 381 C445 384 442 382 440 378 Z"></path>
+                  <path class="o-land" d="M295 350 C293 346 297 343 301 344 C305 345 306 349 302 352 C299 354 297 353 295 350 Z"></path>
+
+                  <!-- polar ice tint -->
+                  <ellipse class="o-polar" cx="380" cy="259" rx="58" ry="9"></ellipse>
+                  <ellipse class="o-polar" cx="380" cy="485" rx="58" ry="9"></ellipse>
+
+                  <!-- soft cloud wisps -->
+                  <path class="o-cloud" d="M288 322 C318 313 350 317 380 327 C400 333 420 331 438 323"></path>
+                  <path class="o-cloud" d="M322 418 C352 427 382 431 412 422"></path>
+                  <path class="o-cloud" d="M300 270 C322 264 344 267 362 275"></path>
+
+                  <!-- latitude / longitude graticule (technical reference grid) -->
+                  <ellipse class="o-grid" cx="380" cy="259.8" rx="36.46" ry="5.83"></ellipse>
+                  <ellipse class="o-grid" cx="380" cy="298.84000000000003" rx="92.58301356080392" ry="14.813282169728627"></ellipse>
+                  <ellipse class="o-grid" cx="380" cy="336.6" rx="112.5648257671996" ry="18.010372122751935"></ellipse>
+                  <ellipse class="o-grid" cx="380" cy="372" rx="118" ry="18.88"></ellipse>
+                  <ellipse class="o-grid" cx="380" cy="407.4" rx="112.5648257671996" ry="18.010372122751935"></ellipse>
+                  <ellipse class="o-grid" cx="380" cy="445.15999999999997" rx="92.58301356080392" ry="14.813282169728627"></ellipse>
+                  <ellipse class="o-grid" cx="380" cy="484.2" rx="36.46" ry="5.83"></ellipse>
+                  <ellipse class="o-grid" cx="380" cy="372" rx="16.4" ry="118"></ellipse>
+                  <ellipse class="o-grid" cx="380" cy="372" rx="37.76" ry="118"></ellipse>
+                  <ellipse class="o-grid" cx="380" cy="372" rx="77.88000000000001" ry="118"></ellipse>
+                  <ellipse class="o-grid" cx="380" cy="372" rx="106.9" ry="118"></ellipse>
+                  <ellipse class="o-grid" cx="380" cy="372" rx="118" ry="118"></ellipse>
+
+                  <!-- day/night terminator, soft two-layer blend -->
+                  <ellipse class="o-terminator" cx="404" cy="372" rx="118" ry="118" opacity="0.28"></ellipse>
+                  <ellipse class="o-terminator" cx="426" cy="372" rx="118" ry="118"></ellipse>
+
+                  <!-- night-side city lights -->
+                  <circle class="o-citylight" cx="418" cy="298" r="0.9"></circle>
+                  <circle class="o-citylight" cx="428" cy="302" r="0.7"></circle>
+                  <circle class="o-citylight--warm" cx="422" cy="306" r="0.8"></circle>
+                  <circle class="o-citylight" cx="446" cy="380" r="0.8"></circle>
+                  <circle class="o-citylight--warm" cx="442" cy="385" r="0.7"></circle>
+                  <circle class="o-citylight" cx="356" cy="428" r="0.7"></circle>
+
+                  <!-- specular sun glint, lit limb -->
+                  <circle cx="322" cy="330" r="46" fill="url(#sunGlint)"></circle>
+                </g>
+                <circle class="o-limb" cx="380" cy="372" r="118"></circle>
+
+                <!-- rotation axis ticks (N/S) -->
+                <line class="o-axis" x1="380" y1="242" x2="380" y2="254"></line>
+                <circle class="o-axis-tick" cx="380" cy="240" r="1.4"></circle>
+                <line class="o-axis" x1="380" y1="490" x2="380" y2="502"></line>
+                <circle class="o-axis-tick" cx="380" cy="504" r="1.4"></circle>
+
+                <!-- equatorial reference plane (0° inclination datum) -->
+                <ellipse class="o-ref-ring" cx="380" cy="372" rx="140" ry="44.7"></ellipse>
+
+                <g transform="rotate(74 380 372)">
+                  <path class="o-ring o-inc" d="M 130 372 a 250 78 0 1 0 500 0 a 250 78 0 1 0 -500 0"></path>
+                  <line class="o-trail o-inc" x1="625.5" y1="358" x2="625.5" y2="386"></line>
+                  <rect class="o-sat o-inc" x="625.5" y="367.5" width="9" height="9" rx="1.4"></rect>
+                </g>
+                <g transform="rotate(0 380 372)">
+                  <path class="o-ring o-sso" d="M 148 372 a 232 74 0 1 0 464 0 a 232 74 0 1 0 -464 0"></path>
+                  <line class="o-trail o-sso" x1="607.5" y1="358" x2="607.5" y2="386"></line>
+                  <rect class="o-sat o-sso" x="607.5" y="367.5" width="9" height="9" rx="1.4"></rect>
+                </g>
+                <g transform="rotate(0 380 372)">
+                  <path class="o-ring o-leo" d="M 212 372 a 168 54 0 1 0 336 0 a 168 54 0 1 0 -336 0"></path>
+                  <line class="o-trail o-leo" x1="543.5" y1="358" x2="543.5" y2="386"></line>
+                  <rect class="o-sat o-leo" x="543.5" y="367.5" width="9" height="9" rx="1.4"></rect>
+                </g>
+
+                <!-- ring labels -->
+                <g class="o-labels">
+                  <line class="o-leader" x1="548" y1="372" x2="690" y2="232"></line>
+                  <text class="o-code o-leo" x="690" y="226">LEO</text>
+                  <line class="o-leader" x1="612" y1="372" x2="700" y2="372"></line>
+                  <text class="o-code o-sso" x="700" y="366">SSO</text>
+                  <line class="o-leader" x1="380" y1="132" x2="392" y2="92"></line>
+                  <text class="o-code o-inc" x="392" y="86">POLAR</text>
+                </g>
+              </svg>
+            </div>
+            <div class="orbits__list">
+              <article class="orbit-card orbit-card--leo" data-reveal data-reveal-i="0">
+                <div class="orbit-card__head"><span class="orbit-card__code">LEO</span><span class="orbit-card__band">≈ 200–1,000 km</span></div>
+                <h3 class="orbit-card__name">Low Earth Orbit</h3>
+                <p class="orbit-card__body">Constellations, technology demonstration, resupply. The busiest neighbourhood in space — and the one Meridian is built for.</p>
+              </article>
+              <article class="orbit-card orbit-card--sso" data-reveal data-reveal-i="1">
+                <div class="orbit-card__head"><span class="orbit-card__code">SSO</span><span class="orbit-card__band">≈ 600–800 km</span></div>
+                <h3 class="orbit-card__name">Sun-Synchronous Orbit</h3>
+                <p class="orbit-card__body">Earth observation and remote sensing, crossing each point at the same local sun-time. Polar, exacting, unforgiving on insertion accuracy.</p>
+              </article>
+              <article class="orbit-card orbit-card--inc" data-reveal data-reveal-i="2">
+                <div class="orbit-card__head"><span class="orbit-card__code">INC</span><span class="orbit-card__band">On request</span></div>
+                <h3 class="orbit-card__name">Dedicated inclination</h3>
+                <p class="orbit-card__body">Your orbit, your inclination, your timing. A dedicated mission places the payload exactly — no rideshare compromise on where you end up.</p>
+              </article>
+              <div class="orbits__modes" data-reveal>
+                <div class="orbit-mode"><span class="orbit-mode__k">Dedicated</span><span class="orbit-mode__v">The whole vehicle, your orbit. Full control of inclination, altitude, and window.</span></div>
+                <div class="orbit-mode"><span class="orbit-mode__k">Rideshare</span><span class="orbit-mode__v">Share the ride to a standard orbit on a fixed cadence. Lower cost, set destination.</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="operations" id="operations">
+        <div class="operations__inner">
+          <div class="operations__head">
+            <div class="eyebrow" data-reveal><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">04</span><span class="eyebrow__label">Operations</span></div>
+            <h2 class="operations__title" data-reveal>How a mission flies</h2>
+            <p class="operations__intro" data-reveal>From signed manifest to separation confirmation, a Meridian mission moves through the same disciplined sequence every time. Predictability is the product.</p>
+          </div>
+          <ol class="operations__timeline">
+            <span class="operations__spine" aria-hidden="true"></span>
+            <li class="op-step" data-reveal data-reveal-i="0">
+              <div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div>
+              <div class="op-step__body"><span class="op-step__idx">01</span><h3 class="op-step__title">Manifest</h3><p class="op-step__text">We lock your mass, volume, orbit, and window, and assign a mission manager who stays with you to flight.</p></div>
+            </li>
+            <li class="op-step" data-reveal data-reveal-i="1">
+              <div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div>
+              <div class="op-step__body"><span class="op-step__idx">02</span><h3 class="op-step__title">Integration</h3><p class="op-step__text">Your spacecraft is received, inspected, and integrated to the payload adapter in a controlled facility.</p></div>
+            </li>
+            <li class="op-step" data-reveal data-reveal-i="2">
+              <div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div>
+              <div class="op-step__body"><span class="op-step__idx">03</span><h3 class="op-step__title">Encapsulation</h3><p class="op-step__text">Sealed inside the fairing under cleanroom conditions, then mated to the vehicle.</p></div>
+            </li>
+            <li class="op-step" data-reveal data-reveal-i="3">
+              <div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div>
+              <div class="op-step__body"><span class="op-step__idx">04</span><h3 class="op-step__title">Rehearsal</h3><p class="op-step__text">A full wet dress rehearsal — propellant load, countdown, and hold — before anyone commits to flight.</p></div>
+            </li>
+            <li class="op-step" data-reveal data-reveal-i="4">
+              <div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div>
+              <div class="op-step__body"><span class="op-step__idx">05</span><h3 class="op-step__title">Launch</h3><p class="op-step__text">The window opens. The count runs. Nine engines light and the stack leaves the pad.</p></div>
+            </li>
+            <li class="op-step" data-reveal data-reveal-i="5">
+              <div class="op-step__node" aria-hidden="true"><span class="op-step__dot"></span></div>
+              <div class="op-step__body"><span class="op-step__idx">06</span><h3 class="op-step__title">Insertion</h3><p class="op-step__text">Stage two sets you in your slot, confirms the state vector, and deploys. You have telemetry before the booster is home.</p></div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="program" id="program">
+        <div class="program__inner">
+          <div class="program__head">
+            <div class="eyebrow" data-reveal><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">05</span><span class="eyebrow__label">Program</span></div>
+            <h2 class="program__title" data-reveal>The road to first flight</h2>
+            <p class="program__intro" data-reveal>AETHON has not yet flown. We say that plainly. Below is the qualification campaign standing between Meridian and orbit — and we publish each gate the moment it clears.</p>
+          </div>
+          <ol class="program__track">
+            <span class="program__line" aria-hidden="true"></span>
+            <li class="gate" data-reveal data-reveal-i="0">
+              <div class="gate__node" aria-hidden="true"></div>
+              <div class="gate__index">G1</div>
+              <h3 class="gate__title">Ardent engine qualification</h3>
+              <p class="gate__body">Full-duration and restart firing across the flight envelope.</p>
+              <div class="gate__status"><span class="gate__status-k">Status</span><span class="gate__status-v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: STATUS"><span class="ph__brk">[</span>STATUS<span class="ph__brk">]</span></span></span></div>
+            </li>
+            <li class="gate" data-reveal data-reveal-i="1">
+              <div class="gate__node" aria-hidden="true"></div>
+              <div class="gate__index">G2</div>
+              <h3 class="gate__title">Stage test campaign</h3>
+              <p class="gate__body">Structural proof, tank cycling, and stage-level hot fire.</p>
+              <div class="gate__status"><span class="gate__status-k">Status</span><span class="gate__status-v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: STATUS"><span class="ph__brk">[</span>STATUS<span class="ph__brk">]</span></span></span></div>
+            </li>
+            <li class="gate" data-reveal data-reveal-i="2">
+              <div class="gate__node" aria-hidden="true"></div>
+              <div class="gate__index">G3</div>
+              <h3 class="gate__title">Integrated vehicle test</h3>
+              <p class="gate__body">Full stack on the pad — fuelled, counted down, held.</p>
+              <div class="gate__status"><span class="gate__status-k">Status</span><span class="gate__status-v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: STATUS"><span class="ph__brk">[</span>STATUS<span class="ph__brk">]</span></span></span></div>
+            </li>
+            <li class="gate" data-reveal data-reveal-i="3">
+              <div class="gate__node" aria-hidden="true"></div>
+              <div class="gate__index">G4</div>
+              <h3 class="gate__title">Wet dress rehearsal</h3>
+              <p class="gate__body">End-to-end countdown to T-minus seconds, propellant aboard.</p>
+              <div class="gate__status"><span class="gate__status-k">Status</span><span class="gate__status-v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: STATUS"><span class="ph__brk">[</span>STATUS<span class="ph__brk">]</span></span></span></div>
+            </li>
+            <li class="gate gate--terminus" data-reveal data-reveal-i="4">
+              <div class="gate__node" aria-hidden="true"></div>
+              <div class="gate__index">G5</div>
+              <h3 class="gate__title">First orbital flight</h3>
+              <p class="gate__body">Maiden flight of Meridian to low Earth orbit.</p>
+              <div class="gate__status"><span class="gate__status-k">T-0</span><span class="gate__status-v"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: FIRST_FLIGHT"><span class="ph__brk">[</span>FIRST_FLIGHT<span class="ph__brk">]</span><span class="ph__hint">date</span></span></span></div>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="manifest" id="manifest">
+        <div class="manifest__inner">
+          <div class="manifest__head">
+            <div class="eyebrow" data-reveal><span class="eyebrow__tick" aria-hidden="true"></span><span class="eyebrow__idx">06</span><span class="eyebrow__label">Manifest</span></div>
+            <h2 class="manifest__title" data-reveal>Open the manifest</h2>
+            <p class="manifest__intro" data-reveal>If you have mass that needs to be in orbit, start here. Tell us what you're flying and where it has to go. Every inquiry reaches a launch engineer — not an auto-reply.</p>
+            <a class="manifest__direct" href="mailto:manifest@aethon.example">manifest@aethon.example</a>
+          </div>
+          <div class="manifest__panel" data-reveal>
+            <form class="manifest-form" novalidate aria-label="Launch inquiry">
+              <p class="manifest-form__banner" role="alert" hidden></p>
+              <fieldset class="manifest-form__grid">
+                <legend class="visually-hidden">Launch inquiry details</legend>
+                <div class="field">
+                  <label class="field__label" for="mf-org">Organisation<span class="field__req" aria-hidden="true">*</span></label>
+                  <input class="field__control" id="mf-org" name="org" type="text" placeholder="Who is flying" aria-describedby="mf-org-err" autocomplete="organization" aria-required="true">
+                  <span class="field__error" id="mf-org-err" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="mf-name">Contact name<span class="field__req" aria-hidden="true">*</span></label>
+                  <input class="field__control" id="mf-name" name="name" type="text" placeholder="Your name" aria-describedby="mf-name-err" autocomplete="name" aria-required="true">
+                  <span class="field__error" id="mf-name-err" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="mf-email">Email<span class="field__req" aria-hidden="true">*</span></label>
+                  <input class="field__control" id="mf-email" name="email" type="email" placeholder="you@organisation.com" aria-describedby="mf-email-err" autocomplete="email" aria-required="true">
+                  <span class="field__error" id="mf-email-err" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="mf-mass">Approx. payload mass</label>
+                  <input class="field__control" id="mf-mass" name="mass" type="text" placeholder="e.g. 180 kg" aria-describedby="mf-mass-err" autocomplete="off">
+                  <span class="field__error" id="mf-mass-err" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="mf-orbit">Target orbit<span class="field__req" aria-hidden="true">*</span></label>
+                  <select class="field__control" id="mf-orbit" name="orbit" aria-describedby="mf-orbit-err" aria-required="true">
+                    <option value="" disabled selected>Select…</option>
+                    <option value="Low Earth Orbit (LEO)">Low Earth Orbit (LEO)</option>
+                    <option value="Sun-Synchronous (SSO)">Sun-Synchronous (SSO)</option>
+                    <option value="Dedicated inclination">Dedicated inclination</option>
+                    <option value="Not sure yet">Not sure yet</option>
+                  </select>
+                  <span class="field__error" id="mf-orbit-err" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="field">
+                  <label class="field__label" for="mf-window">Desired window</label>
+                  <input class="field__control" id="mf-window" name="window" type="text" placeholder="Quarter / year" aria-describedby="mf-window-err" autocomplete="off">
+                  <span class="field__error" id="mf-window-err" role="alert" aria-live="polite"></span>
+                </div>
+                <div class="field field--wide">
+                  <label class="field__label" for="mf-message">The mission</label>
+                  <textarea class="field__control field__control--area" id="mf-message" name="message" rows="4" placeholder="What are you flying, and what does success look like?" aria-describedby="mf-message-err"></textarea>
+                  <span class="field__error" id="mf-message-err" role="alert" aria-live="polite"></span>
+                </div>
+              </fieldset>
+              <div class="manifest-form__actions">
+                <button class="btn btn--ignition manifest-form__submit" type="submit" aria-busy="false"><span class="manifest-form__submit-label">Prepare inquiry</span><span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 16" fill="none"><path d="M2 8h19M15 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></button>
+                <p class="manifest-form__note">No commitment. We respond to scope and feasibility before anything else.</p>
+              </div>
+            </form>
+            <div class="manifest-confirm" hidden aria-live="polite" tabindex="-1"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <p class="footer__closing">The pad is quiet. The vehicle is ready. We are listening for go.</p>
+        <div class="footer__grid">
+          <div class="footer__brand">
+            <svg viewBox="0 0 32 32" width="20" height="20" aria-hidden="true">
+              <path d="M6.5 25 L16 7 L25.5 25" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+              <line x1="11" y1="19.4" x2="21" y2="19.4" stroke="var(--ignition)" stroke-width="2.2" stroke-linecap="round"></line>
+            </svg>
+            <span class="footer__wordmark">AETHON</span>
+            <p class="footer__tagline">Mass to orbit.</p>
+            <p class="footer__location"><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: LAUNCH_SITE"><span class="ph__brk">[</span>LAUNCH_SITE<span class="ph__brk">]</span></span><span class="footer__loc-sep">·</span><span class="ph" title="Placeholder — confirmed value published before flight" aria-label="pending value: HQ_LOCATION"><span class="ph__brk">[</span>HQ_LOCATION<span class="ph__brk">]</span></span></p>
+          </div>
+          <div class="footer__cols">
+            <div class="footer__col">
+              <h4 class="footer__col-title">Vehicle</h4>
+              <ul class="footer__links">
+                <li><a class="footer__link" href="#vehicle">Meridian</a></li>
+                <li><a class="footer__link" href="#specs">Specification</a></li>
+                <li><a class="footer__link" href="#orbits">Orbits</a></li>
+              </ul>
+            </div>
+            <div class="footer__col">
+              <h4 class="footer__col-title">Program</h4>
+              <ul class="footer__links">
+                <li><a class="footer__link" href="#operations">Operations</a></li>
+                <li><a class="footer__link" href="#program">Road to first flight</a></li>
+                <li><a class="footer__link" href="#manifest">Open the manifest</a></li>
+              </ul>
+            </div>
+            <div class="footer__col">
+              <h4 class="footer__col-title">Company</h4>
+              <ul class="footer__links">
+                <li><span class="footer__link is-ph" title="Placeholder — page pending">About<span class="footer__ph-tag">soon</span></span></li>
+                <li><span class="footer__link is-ph" title="Placeholder — page pending">Careers<span class="footer__ph-tag">soon</span></span></li>
+                <li><span class="footer__link is-ph" title="Placeholder — page pending">Press<span class="footer__ph-tag">soon</span></span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer__bar">
+          <span class="footer__legal">© 2026 AETHON. All rights reserved.</span>
+          <span class="footer__export">[EXPORT_CONTROL_NOTICE] — subject to ITAR / EAR. Placeholder pending counsel review.</span>
+          <a class="footer__top" href="#top">Back to top<span class="footer__top-arrow" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M8 13V3M3 8l5-5 5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <noscript>
+    <div style="max-width: 40rem; margin: 18vh auto; padding: 0 1.5rem;
+      font-family: 'Inter', system-ui, sans-serif; color: #aab4c4; line-height: 1.6;">
+      <p style="font-family: 'Space Grotesk', sans-serif; letter-spacing: 0.34em;
+        font-weight: 700; color: #eef2f8;">AETHON</p>
+      <h1 style="font-family: 'Space Grotesk', sans-serif; color: #eef2f8;
+        font-size: 2rem; font-weight: 500; line-height: 1.15;">Mass to orbit.</h1>
+      <p>AETHON is a private orbital launch provider. This site uses motion and
+        progressive interaction that require JavaScript. Enable it to view the full
+        briefing, or reach the program directly at
+        <a style="color:#ff8a52;" href="mailto:manifest@aethon.example">manifest@aethon.example</a>.</p>
+    </div>
+  </noscript>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var root = document.documentElement;
+    var reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    function prefersReducedMotion() { return reduceMotionQuery.matches; }
+    function syncMotionPreference() { root.classList.toggle('reduce-motion', prefersReducedMotion()); }
+    function onMqChange(mq, handler) {
+      if (mq.addEventListener) mq.addEventListener('change', handler);
+      else if (mq.addListener) mq.addListener(handler);
+    }
+    syncMotionPreference();
+    onMqChange(reduceMotionQuery, syncMotionPreference);
+
+    /* -----------------------------------------------------------------------
+       BOOT — release the anti-flash void once the first frame has painted.
+       -------------------------------------------------------------------- */
+    (function boot() {
+      var el = document.getElementById('boot');
+      if (!el) return;
+      window.requestAnimationFrame(function () {
+        window.requestAnimationFrame(function () {
+          el.setAttribute('hidden', '');
+        });
+      });
+    })();
+
+    /* -----------------------------------------------------------------------
+       STARFIELD — generative canvas backdrop behind the hero, dpr-aware,
+       resize-aware, and inert under prefers-reduced-motion.
+       -------------------------------------------------------------------- */
+    (function starfield() {
+      var canvas = document.querySelector('.starfield-canvas');
+      if (!canvas || !canvas.getContext) return;
+      var ctx = canvas.getContext('2d');
+      var stars = [];
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      var w = 0, h = 0, rafId = null;
+
+      var seed = 194823;
+      function rand() {
+        seed = (seed * 9301 + 49297) % 233280;
+        return seed / 233280;
+      }
+
+      function buildStars() {
+        var count = Math.max(70, Math.min(220, Math.round((w * h) / 9000)));
+        stars = [];
+        for (var i = 0; i < count; i++) {
+          var big = rand() > 0.92;
+          stars.push({
+            x: rand() * w,
+            y: rand() * h * 0.82,
+            r: big ? 1.1 + rand() * 0.9 : 0.4 + rand() * 0.6,
+            base: big ? 0.55 + rand() * 0.3 : 0.18 + rand() * 0.34,
+            amp: rand() * 0.35,
+            speed: 0.4 + rand() * 0.8,
+            phase: rand() * Math.PI * 2
+          });
+        }
+      }
+
+      function draw(t) {
+        ctx.clearRect(0, 0, w, h);
+        for (var i = 0; i < stars.length; i++) {
+          var s = stars[i];
+          var flicker = prefersReducedMotion() ? 0 : Math.sin(t * 0.001 * s.speed + s.phase) * s.amp;
+          var alpha = Math.max(0, Math.min(1, s.base + flicker));
+          ctx.beginPath();
+          ctx.fillStyle = 'rgba(233, 238, 245, ' + alpha.toFixed(3) + ')';
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function loop(t) {
+        draw(t);
+        rafId = window.requestAnimationFrame(loop);
+      }
+
+      function stopLoop() {
+        if (rafId) { window.cancelAnimationFrame(rafId); rafId = null; }
+      }
+      function startLoop() {
+        if (!rafId) rafId = window.requestAnimationFrame(loop);
+      }
+
+      function resize() {
+        var rect = canvas.getBoundingClientRect();
+        w = Math.max(1, Math.round(rect.width));
+        h = Math.max(1, Math.round(rect.height));
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        buildStars();
+        draw(0);
+      }
+
+      resize();
+      if (!prefersReducedMotion()) startLoop();
+
+      onMqChange(reduceMotionQuery, function () {
+        if (prefersReducedMotion()) { stopLoop(); draw(0); }
+        else { startLoop(); }
+      });
+
+      var resizeTimer;
+      window.addEventListener('resize', function () {
+        window.clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(resize, 150);
+      });
+    })();
+
+    /* -----------------------------------------------------------------------
+       NAV — scroll shell state, hide-on-scroll-down, active-section spy,
+       mobile overlay with focus trap.
+       -------------------------------------------------------------------- */
+    (function nav() {
+      var navEl = document.getElementById('nav');
+      var toggle = document.getElementById('navToggle');
+      var menu = document.getElementById('navmenu');
+      if (!navEl) return;
+
+      var lastY = window.scrollY || 0;
+      var ticking = false;
+
+      function onScroll() {
+        var y = window.scrollY || 0;
+        navEl.classList.toggle('is-scrolled', y > 8);
+        var menuOpen = menu && menu.classList.contains('is-open');
+        if (!menuOpen) {
+          if (y > lastY && y > 160) navEl.classList.add('is-hidden');
+          else navEl.classList.remove('is-hidden');
+        }
+        lastY = y;
+        ticking = false;
+      }
+      window.addEventListener('scroll', function () {
+        if (!ticking) { ticking = true; window.requestAnimationFrame(onScroll); }
+      }, { passive: true });
+      onScroll();
+
+      function onMenuKeydown(e) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+          closeMenu(true);
+          return;
+        }
+        if (e.key === 'Tab') {
+          var focusable = menu.querySelectorAll('a[href], button');
+          if (!focusable.length) return;
+          var first = focusable[0];
+          var last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault(); last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault(); first.focus();
+          }
+        }
+      }
+      function openMenu() {
+        menu.classList.add('is-open');
+        menu.removeAttribute('aria-hidden');
+        toggle.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+        root.classList.add('menu-open');
+        var firstLink = menu.querySelector('.navmenu__link');
+        if (firstLink) firstLink.focus();
+        document.addEventListener('keydown', onMenuKeydown);
+      }
+      function closeMenu(returnFocus) {
+        menu.classList.remove('is-open');
+        menu.setAttribute('aria-hidden', 'true');
+        toggle.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        root.classList.remove('menu-open');
+        document.removeEventListener('keydown', onMenuKeydown);
+        if (returnFocus) toggle.focus();
+      }
+      if (toggle && menu) {
+        toggle.addEventListener('click', function () {
+          if (menu.classList.contains('is-open')) closeMenu(true);
+          else openMenu();
+        });
+        Array.prototype.forEach.call(menu.querySelectorAll('a'), function (a) {
+          a.addEventListener('click', function () { closeMenu(false); });
+        });
+      }
+
+      var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+      var links = Array.prototype.slice.call(document.querySelectorAll('[data-nav]'));
+      if (sections.length && links.length && 'IntersectionObserver' in window) {
+        var spy = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var id = entry.target.id;
+            links.forEach(function (l) {
+              l.classList.toggle('is-active', l.getAttribute('data-nav') === id);
+            });
+          });
+        }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+        sections.forEach(function (s) { spy.observe(s); });
+      }
+    })();
+
+    /* -----------------------------------------------------------------------
+       REVEAL — one-shot IntersectionObserver fade/slide-in with stagger.
+       -------------------------------------------------------------------- */
+    (function reveal() {
+      var els = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+      if (!els.length) return;
+      els.forEach(function (el) {
+        var i = el.getAttribute('data-reveal-i');
+        if (i !== null) el.style.setProperty('--ri', i);
+      });
+      if (!('IntersectionObserver' in window)) {
+        els.forEach(function (el) { el.classList.add('is-in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries, obs) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-in');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+      els.forEach(function (el) { io.observe(el); });
+    })();
+
+    /* -----------------------------------------------------------------------
+       OPERATIONS TIMELINE — mark each step reached as it enters view (lights
+       the spine dot; independent of the generic reveal fade above).
+       -------------------------------------------------------------------- */
+    (function timeline() {
+      var steps = Array.prototype.slice.call(document.querySelectorAll('.op-step'));
+      if (!steps.length || !('IntersectionObserver' in window)) {
+        steps.forEach(function (s) { s.classList.add('is-in'); });
+        return;
+      }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) entry.target.classList.add('is-in');
+        });
+      }, { threshold: 0.5 });
+      steps.forEach(function (s) { io.observe(s); });
+    })();
+
+    /* -----------------------------------------------------------------------
+       VEHICLE CRANE — scroll-linked segment focus (desktop, motion-safe).
+       Maps scroll progress through the pinned crane onto five structural
+       segments; moves the readout rail, the active spec card, and the
+       in-SVG focus cursor together.
+       -------------------------------------------------------------------- */
+    (function vehicleCrane() {
+      var crane = document.querySelector('.vehicle__crane');
+      var cursor = document.getElementById('vCursor');
+      var ticks = Array.prototype.slice.call(document.querySelectorAll('.vehicle-rail__tick'));
+      var cards = Array.prototype.slice.call(document.querySelectorAll('.vehicle__cards .vehicle-card'));
+      if (!crane || !cursor || !ticks.length || !cards.length) return;
+
+      var order = ['propulsion', 'stage1', 'staging', 'stage2', 'fairing'];
+      var cursorY = { propulsion: 1160, stage1: 830, staging: 550, stage2: 408, fairing: 168 };
+      var mq = window.matchMedia('(min-width: 901px)');
+      var active = -1;
+      var ticking = false;
+      var bound = false;
+
+      function setActive(index) {
+        if (index === active) return;
+        active = index;
+        var seg = order[index];
+        ticks.forEach(function (t) { t.classList.toggle('is-active', t.getAttribute('data-seg') === seg); });
+        cards.forEach(function (c) { c.classList.toggle('is-active', c.getAttribute('data-seg') === seg); });
+        cursor.setAttribute('transform', 'translate(0 ' + cursorY[seg] + ')');
+      }
+
+      function update() {
+        ticking = false;
+        var rect = crane.getBoundingClientRect();
+        var vh = window.innerHeight;
+        var scrollable = rect.height - vh;
+        if (scrollable <= 0) { setActive(0); return; }
+        var progress = Math.max(0, Math.min(1, (-rect.top) / scrollable));
+        var index = Math.min(order.length - 1, Math.floor(progress * order.length));
+        setActive(index);
+      }
+      function onScroll() {
+        if (!ticking) { ticking = true; window.requestAnimationFrame(update); }
+      }
+      function bind() {
+        if (bound) return;
+        bound = true;
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        update();
+      }
+      function unbind() {
+        if (!bound) return;
+        bound = false;
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onScroll);
+        active = -1;
+        setActive(0);
+      }
+      function sync() {
+        if (mq.matches && !prefersReducedMotion()) bind();
+        else unbind();
+      }
+      sync();
+      onMqChange(mq, sync);
+      onMqChange(reduceMotionQuery, sync);
+    })();
+
+    /* -----------------------------------------------------------------------
+       MANIFEST FORM — inline validation, disabled-while-submitting,
+       simulated transmission with a real (bounded) failure path, and a
+       populated success confirmation.
+       -------------------------------------------------------------------- */
+    (function manifestForm() {
+      var form = document.querySelector('.manifest-form');
+      var confirmPanel = document.querySelector('.manifest-confirm');
+      if (!form || !confirmPanel) return;
+
+      var fieldset = form.querySelector('.manifest-form__grid');
+      var submitBtn = form.querySelector('.manifest-form__submit');
+      var submitLabel = submitBtn.querySelector('.manifest-form__submit-label');
+      var banner = form.querySelector('.manifest-form__banner');
+      var defaultLabel = submitLabel.textContent;
+      var failCount = 0;
+
+      var validators = {
+        org: function (v) { return v.trim().length > 0 || 'Tell us who is flying.'; },
+        name: function (v) { return v.trim().length > 0 || 'Add a contact name.'; },
+        email: function (v) {
+          if (!v.trim()) return 'Add an email we can reach you at.';
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) || 'That email address looks incomplete.';
+        },
+        orbit: function (v) { return v !== '' || 'Select a target orbit.'; }
+      };
+
+      function fieldWrap(input) { return input.closest ? input.closest('.field') : null; }
+
+      function setError(input, message) {
+        var wrap = fieldWrap(input);
+        var err = document.getElementById(input.id + '-err');
+        if (!wrap || !err) return;
+        wrap.classList.toggle('has-error', !!message);
+        err.textContent = message || '';
+      }
+
+      function validateField(input) {
+        var rule = validators[input.name];
+        if (!rule) { setError(input, ''); return true; }
+        var result = rule(input.value);
+        if (result === true) { setError(input, ''); return true; }
+        setError(input, result);
+        return false;
+      }
+
+      Array.prototype.forEach.call(form.elements, function (el) {
+        if (!el.name || !validators[el.name]) return;
+        el.addEventListener('blur', function () { validateField(el); });
+        var revalidate = function () {
+          if (fieldWrap(el) && fieldWrap(el).classList.contains('has-error')) validateField(el);
+        };
+        el.addEventListener('input', revalidate);
+        el.addEventListener('change', revalidate);
+      });
+
+      function setBanner(state, message) {
+        if (!banner) return;
+        banner.className = 'manifest-form__banner';
+        if (state) banner.classList.add('manifest-form__banner--' + state);
+        banner.textContent = message || '';
+        if (message) banner.removeAttribute('hidden');
+        else banner.setAttribute('hidden', '');
+      }
+
+      function setLoading(isLoading) {
+        submitBtn.disabled = isLoading;
+        submitBtn.setAttribute('aria-busy', isLoading ? 'true' : 'false');
+        submitBtn.classList.toggle('is-loading', isLoading);
+        submitLabel.textContent = isLoading ? 'Transmitting…' : defaultLabel;
+        if (fieldset) fieldset.disabled = isLoading;
+      }
+
+      function summaryLine(label, value) {
+        return label + ': ' + (value && value.trim() ? value.trim() : '—');
+      }
+
+      function resetToForm() {
+        form.reset();
+        Array.prototype.forEach.call(form.elements, function (el) { setError(el, ''); });
+        setBanner(null);
+        failCount = 0;
+        form.hidden = false;
+        confirmPanel.hidden = true;
+        confirmPanel.innerHTML = '';
+        var first = document.getElementById('mf-org');
+        if (first) first.focus();
+      }
+
+      function showConfirmation(data) {
+        form.hidden = true;
+        setBanner(null);
+        confirmPanel.hidden = false;
+        confirmPanel.innerHTML =
+          '<svg class="manifest-confirm__mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">' +
+            '<circle cx="24" cy="24" r="21" stroke="currentColor" stroke-width="1.6"></circle>' +
+            '<path d="M15 24.5l6 6 12-13" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>' +
+          '</svg>' +
+          '<h3 class="manifest-confirm__title">Manifest received</h3>' +
+          '<p class="manifest-confirm__text">A launch engineer will confirm scope and feasibility before anything else. Expect first contact from the mission management team.</p>' +
+          '<div class="manifest-confirm__summary" role="group" aria-label="Submitted manifest summary">' +
+            '<p class="manifest-confirm__line">' + summaryLine('Organisation', data.org) + '</p>' +
+            '<p class="manifest-confirm__line">' + summaryLine('Contact', data.name) + '</p>' +
+            '<p class="manifest-confirm__line">' + summaryLine('Email', data.email) + '</p>' +
+            '<p class="manifest-confirm__line">' + summaryLine('Approx. mass', data.mass) + '</p>' +
+            '<p class="manifest-confirm__line">' + summaryLine('Target orbit', data.orbit) + '</p>' +
+            '<p class="manifest-confirm__line">' + summaryLine('Desired window', data.window) + '</p>' +
+          '</div>' +
+          '<div class="manifest-confirm__actions">' +
+            '<button type="button" class="btn btn--line manifest-confirm__copy">Copy summary</button>' +
+            '<button type="button" class="btn btn--ghost manifest-confirm__reset">File another manifest<span class="arrow" aria-hidden="true"><svg viewBox="0 0 24 16" fill="none"><path d="M2 8h19M15 2l6 6-6 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></button>' +
+          '</div>';
+
+        confirmPanel.querySelector('.manifest-confirm__reset').addEventListener('click', resetToForm);
+
+        var copyBtn = confirmPanel.querySelector('.manifest-confirm__copy');
+        copyBtn.addEventListener('click', function () {
+          var text = Array.prototype.map.call(
+            confirmPanel.querySelectorAll('.manifest-confirm__line'),
+            function (p) { return p.textContent; }
+          ).join('\n');
+          var announceCopied = function () {
+            var original = copyBtn.textContent;
+            copyBtn.textContent = 'Copied';
+            window.setTimeout(function () { copyBtn.textContent = original; }, 1800);
+          };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(announceCopied, announceCopied);
+          } else {
+            announceCopied();
+          }
+        });
+
+        confirmPanel.focus();
+      }
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var requiredIds = ['mf-org', 'mf-name', 'mf-email', 'mf-orbit'];
+        var fields = requiredIds.map(function (id) { return document.getElementById(id); });
+        var valid = true;
+        var firstInvalid = null;
+        fields.forEach(function (input) {
+          var ok = validateField(input);
+          if (!ok && !firstInvalid) firstInvalid = input;
+          valid = valid && ok;
+        });
+        if (!valid) {
+          setBanner('error', 'A few fields need attention before this can transmit.');
+          if (firstInvalid) firstInvalid.focus();
+          return;
+        }
+
+        setBanner(null);
+        setLoading(true);
+
+        var data = {
+          org: document.getElementById('mf-org').value,
+          name: document.getElementById('mf-name').value,
+          email: document.getElementById('mf-email').value,
+          mass: document.getElementById('mf-mass').value,
+          orbit: document.getElementById('mf-orbit').value,
+          window: document.getElementById('mf-window').value,
+          message: document.getElementById('mf-message').value
+        };
+
+        window.setTimeout(function () {
+          var shouldFail = failCount < 2 && Math.random() < 0.2;
+          if (shouldFail) {
+            failCount += 1;
+            setLoading(false);
+            setBanner('error', 'Signal lost before confirmation. The manifest was not received — try again.');
+            submitBtn.focus();
+            return;
+          }
+          failCount = 0;
+          setLoading(false);
+          showConfirmation(data);
+        }, 1100);
+      });
+    })();
+
+  })();
+  </script>
+</body>
+</html>

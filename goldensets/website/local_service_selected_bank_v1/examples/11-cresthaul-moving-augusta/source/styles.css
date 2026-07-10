@@ -1,8 +1,11 @@
 :root {
     --primary: #0A2540;
     --secondary: #3B82F6;
+    --secondary-deep: #2563EB;
     --accent: #F59E0B;
+    --accent-deep: #D97706;
     --text-dark: #1E293B;
+    --text-muted: #64748B;
     --text-light: #F8FAFC;
     --bg-white: #FFFFFF;
     --font: 'Outfit', sans-serif;
@@ -44,7 +47,7 @@ body {
 }
 
 .logo strong { font-weight: 800; font-size: 1.6rem; color: var(--secondary); }
-.logo .sub { font-size: 0.75rem; letter-spacing: 2px; font-weight: 600; color: #64748B; }
+.logo .sub { font-size: 0.75rem; letter-spacing: 2px; font-weight: 600; color: var(--text-muted); }
 
 .trust-bar {
     display: flex;
@@ -60,6 +63,13 @@ body {
     gap: 0.5rem;
 }
 
+.trust-item .icon {
+    width: 18px;
+    height: 18px;
+    color: var(--secondary);
+    flex-shrink: 0;
+}
+
 .contact-group { display: flex; align-items: center; gap: 1.5rem; }
 
 .phone-link {
@@ -67,11 +77,14 @@ body {
     color: var(--primary);
     text-decoration: none;
     font-size: 1.1rem;
+    transition: color 0.3s;
 }
+
+.phone-link:hover { color: var(--secondary-deep); }
 
 .btn-sm {
     background: var(--accent);
-    color: white;
+    color: var(--primary);
     text-decoration: none;
     padding: 0.6rem 1.2rem;
     border-radius: 4px;
@@ -79,7 +92,12 @@ body {
     transition: background 0.3s;
 }
 
-.btn-sm:hover { background: #D97706; }
+.btn-sm:hover { background: var(--accent-deep); }
+
+a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--secondary);
+    outline-offset: 2px;
+}
 
 /* Hero */
 .hero {
@@ -93,10 +111,14 @@ body {
 .hero-bg {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background-image: url('hero-bg.jpg');
-    background-size: cover;
-    background-position: center;
+    background: var(--primary);
     z-index: 1;
+}
+
+.hero-scene {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    display: block;
 }
 
 .hero-bg .overlay {
@@ -155,7 +177,8 @@ body {
     max-width: 500px;
 }
 
-.stars { color: var(--accent); font-size: 1.2rem; margin-bottom: 0.5rem; }
+.stars { display: flex; gap: 3px; color: var(--accent); margin-bottom: 0.5rem; }
+.stars svg { width: 18px; height: 18px; fill: currentColor; }
 .review-text { font-style: italic; margin-bottom: 0.5rem; font-size: 0.95rem; }
 .review-author { font-size: 0.85rem; color: #94A3B8; font-weight: 600; }
 
@@ -168,14 +191,14 @@ body {
 }
 
 .quote-header {
-    background: var(--secondary);
+    background: var(--secondary-deep);
     color: white;
     padding: 2rem;
     text-align: center;
 }
 
-.quote-header h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
-.quote-header p { color: #DBEAFE; font-size: 0.95rem; }
+.quote-header h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.25rem; }
+.quote-header p { color: #EFF6FF; font-size: 0.95rem; }
 
 .quote-form { padding: 2rem; }
 
@@ -190,7 +213,7 @@ body {
     display: block;
     font-size: 0.85rem;
     font-weight: 600;
-    color: #64748B;
+    color: var(--text-muted);
     margin-bottom: 0.5rem;
 }
 
@@ -213,7 +236,7 @@ body {
 .btn-submit {
     width: 100%;
     background: var(--accent);
-    color: white;
+    color: var(--primary);
     border: none;
     padding: 1rem;
     border-radius: 6px;
@@ -224,7 +247,7 @@ body {
     font-family: inherit;
 }
 
-.btn-submit:hover { background: #D97706; }
+.btn-submit:hover { background: var(--accent-deep); }
 
 @media (max-width: 1200px) {
     .trust-bar { display: none; }

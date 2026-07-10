@@ -1,0 +1,55 @@
+{
+  "pack_id": "pattern_generator_s2_v1",
+  "role": "anchor",
+  "family": "website.interactive_experience",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "pattern-generator-s2"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "editorial",
+    "premium",
+    "high-contrast",
+    "warm-neutral",
+    "precise",
+    "restrained"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section",
+    "full_site"
+  ],
+  "motif_tags": [
+    "interactive_stage",
+    "instrument_control",
+    "headline_hierarchy",
+    "numbered_principles",
+    "preset_swatch_grid",
+    "export_bar",
+    "eyebrow_label"
+  ],
+  "supports_tasks": [
+    "pattern_generator_landing_tool",
+    "design_tool_marketing_hero",
+    "generative_design_tool",
+    "creative_saas_tool_landing"
+  ],
+  "anti_patterns": [
+    "canvas game or toy framing",
+    "dark cinematic theatrics",
+    "copying exact preset pattern set"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1100,
+  "confidence_score": 4,
+  "example_ids": []
+}

@@ -1,0 +1,55 @@
+{
+  "pack_id": "hale_winslow_legal_basalt_bronze_v1",
+  "role": "anchor",
+  "family": "website.professional_services",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "hale-winslow-columbus"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "premium",
+    "authoritative",
+    "editorial",
+    "high-contrast",
+    "restrained"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "sticky_nav",
+    "cta_treatment",
+    "trust_rail",
+    "proof_cards",
+    "dark_texture",
+    "headline_hierarchy",
+    "high_contrast_blocking"
+  ],
+  "supports_tasks": [
+    "litigation_firm_homepage",
+    "personal_injury_law_landing",
+    "class_action_law_firm_website",
+    "trial_law_dark_editorial"
+  ],
+  "anti_patterns": [
+    "light parchment corporate counsel look",
+    "small-claims consumer legal template",
+    "SaaS dashboard layout"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 800,
+  "confidence_score": 4,
+  "example_ids": []
+}

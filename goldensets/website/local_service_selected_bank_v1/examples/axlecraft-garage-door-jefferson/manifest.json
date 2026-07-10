@@ -1,0 +1,37 @@
+{
+  "pack_id": "axlecraft_garage_door_industrial_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["axlecraft-garage-door-jefferson"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["industrial", "dark", "high-contrast", "technical", "precise", "field-service"],
+  "surfaces": ["homepage", "hero", "landing", "section"],
+  "motif_tags": [
+    "hero_shell",
+    "sticky_nav",
+    "cta_treatment",
+    "high_contrast_blocking",
+    "stats_strip",
+    "process_timeline",
+    "proof_cards",
+    "equipment_diagram",
+    "issue_selector",
+    "field_service_quote_flow"
+  ],
+  "supports_tasks": [
+    "garage_door_service_homepage",
+    "trade_service_quote_flow",
+    "field_service_diagnostic_page",
+    "local_service_homepage_polish"
+  ],
+  "anti_patterns": [
+    "soft pastel residential warmth",
+    "generic template feel",
+    "wellness spa softness"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 900,
+  "confidence_score": 4,
+  "example_ids": []
+}

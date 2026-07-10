@@ -3,9 +3,1757 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0908" />
   <meta name="description" content="Iron Circuit Fight Academy — adult and teen combat-sports training in striking, grappling, and MMA fundamentals. Book a trial session." />
   <title>Iron Circuit Fight Academy — Striking, Grappling &amp; MMA Fundamentals</title>
-  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* =====================================================================
+       Iron Circuit Fight Academy — single-file build
+       Self-contained. System fonts only. No external assets.
+       Identity: matte black / carbon / deep brown base; copper + bone +
+       controlled red accents. Mat-grid, taped-corner, fight-card grammar.
+       ===================================================================== */
+
+    /* ---------- 1. DESIGN TOKENS ---------- */
+    :root {
+      /* Neutral ramp (carbon → bone), 6 steps */
+      --ic-n-900: #0a0908;  /* deepest matte black */
+      --ic-n-800: #121110;  /* base surface */
+      --ic-n-700: #1b1917;  /* raised surface */
+      --ic-n-600: #2a2622;  /* hairline / borders (deep brown cast) */
+      --ic-n-400: #6f6a62;  /* muted text */
+      --ic-n-200: #b8b1a4;  /* secondary text */
+      --ic-bone:  #ece4d6;  /* primary text on dark */
+
+      /* Brand accents */
+      --ic-copper:      #b5713a;  /* primary accent */
+      --ic-copper-soft: #c98a52;  /* hover / lighter copper */
+      --ic-copper-deep: #7d4a23;  /* pressed / shadow copper */
+      --ic-red:         #a23226;  /* controlled red, sparing */
+
+      /* Semantic roles */
+      --ic-bg:            var(--ic-n-800);
+      --ic-bg-deep:       var(--ic-n-900);
+      --ic-surface:       var(--ic-n-700);
+      --ic-surface-raised: #201d19;
+      --ic-border:        var(--ic-n-600);
+      --ic-text:          var(--ic-bone);
+      --ic-text-muted:    var(--ic-n-200);
+      --ic-text-faint:    var(--ic-n-400);
+      --ic-accent:        var(--ic-copper);
+      --ic-accent-hover:  var(--ic-copper-soft);
+      --ic-accent-press:  var(--ic-copper-deep);
+      --ic-on-accent:     var(--ic-n-900);
+      --ic-focus:         #e7b07a;        /* high-contrast focus ring on dark */
+      --ic-danger:        #e06a4f;        /* validation text, AA on dark surface */
+      --ic-ok:            #7fb98f;
+
+      /* Fluid type scale — ratio-locked via clamp(), body >= 16px */
+      --ic-fs-100: clamp(0.78rem, 0.74rem + 0.18vw, 0.86rem);   /* micro / labels */
+      --ic-fs-200: clamp(0.95rem, 0.91rem + 0.2vw, 1.05rem);    /* small */
+      --ic-fs-300: clamp(1rem, 0.96rem + 0.25vw, 1.15rem);      /* body */
+      --ic-fs-400: clamp(1.2rem, 1.1rem + 0.5vw, 1.45rem);      /* lede / lead */
+      --ic-fs-500: clamp(1.5rem, 1.3rem + 1vw, 2.1rem);         /* h3 */
+      --ic-fs-600: clamp(2rem, 1.6rem + 2vw, 3.2rem);           /* h2 */
+      --ic-fs-700: clamp(2.8rem, 1.9rem + 4.4vw, 5.6rem);       /* h1 */
+
+      /* Spacing scale — 4px base */
+      --ic-sp-1: 4px;
+      --ic-sp-2: 8px;
+      --ic-sp-3: 12px;
+      --ic-sp-4: 16px;
+      --ic-sp-5: 24px;
+      --ic-sp-6: 32px;
+      --ic-sp-7: 48px;
+      --ic-sp-8: 64px;
+      --ic-sp-9: 96px;
+      --ic-sp-10: 128px;
+
+      /* Named radii */
+      --ic-r-xs: 2px;
+      --ic-r-sm: 4px;
+      --ic-r-md: 8px;
+      --ic-r-lg: 14px;
+      --ic-r-pill: 999px;
+
+      /* Elevation tiers (3) — restrained on a matte surface */
+      --ic-e-1: 0 1px 2px rgba(0, 0, 0, 0.5);
+      --ic-e-2: 0 8px 24px rgba(0, 0, 0, 0.45);
+      --ic-e-3: 0 24px 60px rgba(0, 0, 0, 0.55);
+
+      /* Motion */
+      --ic-dur-1: 140ms;
+      --ic-dur-2: 220ms;
+      --ic-dur-3: 420ms;
+      --ic-ease: cubic-bezier(0.2, 0.7, 0.3, 1);
+      --ic-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+      /* Type families — condensed athletic display + readable grotesk body */
+      --ic-font-display: "Arial Narrow", "Helvetica Neue Condensed", "Roboto Condensed", "Oswald", system-ui, sans-serif;
+      --ic-font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --ic-font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+      /* Layout */
+      --ic-maxw: 1240px;
+      --ic-gutter: clamp(20px, 5vw, 72px);
+      --ic-nav-h: 64px;
+      --ic-strip-h: 40px;
+    }
+
+    /* ---------- RESET ---------- */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    html:focus-within { scroll-padding-top: calc(var(--ic-nav-h) + var(--ic-strip-h) + 12px); }
+    body {
+      margin: 0;
+      background: var(--ic-bg);
+      color: var(--ic-text);
+      font-family: var(--ic-font-body);
+      font-size: var(--ic-fs-300);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+    img, svg { display: block; max-width: 100%; }
+    h1, h2, h3, h4, p, ul, ol, dl, dd, figure, table { margin: 0; }
+    ul, ol { padding: 0; list-style: none; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; color: inherit; cursor: pointer; background: none; }
+    table { border-collapse: collapse; }
+    :focus:not(:focus-visible) { outline: none; }
+    :focus-visible {
+      outline: 3px solid var(--ic-focus);
+      outline-offset: 2px;
+      border-radius: var(--ic-r-xs);
+    }
+
+    /* ---------- UTILITIES ---------- */
+    .ic-visually-hidden, .ic-skip:not(:focus):not(:focus-within) {
+      position: absolute !important;
+      width: 1px; height: 1px;
+      padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0);
+      white-space: nowrap; border: 0;
+    }
+    .ic-skip {
+      position: fixed;
+      top: var(--ic-sp-3);
+      left: var(--ic-sp-3);
+      z-index: 100;
+      background: var(--ic-accent);
+      color: var(--ic-on-accent);
+      padding: var(--ic-sp-3) var(--ic-sp-5);
+      border-radius: var(--ic-r-sm);
+      font-weight: 700;
+      box-shadow: var(--ic-e-2);
+    }
+
+    /* ---------- BUTTONS (all states) ---------- */
+    .ic-btn {
+      --btn-bg: transparent;
+      --btn-fg: var(--ic-text);
+      --btn-bd: var(--ic-border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--ic-sp-2);
+      min-height: 44px;
+      padding: var(--ic-sp-3) var(--ic-sp-5);
+      background: var(--btn-bg);
+      color: var(--btn-fg);
+      border: 1px solid var(--btn-bd);
+      border-radius: var(--ic-r-sm);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: background var(--ic-dur-1) var(--ic-ease),
+                  color var(--ic-dur-1) var(--ic-ease),
+                  border-color var(--ic-dur-1) var(--ic-ease),
+                  transform var(--ic-dur-1) var(--ic-ease),
+                  opacity var(--ic-dur-1) var(--ic-ease);
+    }
+    .ic-btn--lg { min-height: 52px; padding: var(--ic-sp-4) var(--ic-sp-6); }
+    .ic-btn--block { width: 100%; }
+
+    .ic-btn--solid { --btn-bg: var(--ic-accent); --btn-fg: var(--ic-on-accent); --btn-bd: var(--ic-accent); }
+    .ic-btn--solid:hover { --btn-bg: var(--ic-accent-hover); --btn-bd: var(--ic-accent-hover); }
+    .ic-btn--solid:active { --btn-bg: var(--ic-accent-press); --btn-bd: var(--ic-accent-press); transform: translateY(1px); }
+
+    .ic-btn--ghost { --btn-bg: transparent; --btn-fg: var(--ic-text); --btn-bd: var(--ic-border); }
+    .ic-btn--ghost:hover { --btn-bd: var(--ic-accent); --btn-fg: var(--ic-accent-hover); }
+    .ic-btn--ghost:active { transform: translateY(1px); }
+
+    .ic-btn:disabled, .ic-btn[aria-disabled="true"], .ic-btn[aria-busy="true"] {
+      opacity: 0.55; cursor: not-allowed; transform: none;
+    }
+    .ic-btn:disabled:hover, .ic-btn[aria-busy="true"]:hover { --btn-bg: var(--ic-accent); --btn-bd: var(--ic-accent); }
+
+    /* spinner used only inside the submit button while aria-busy="true" */
+    .ic-spin {
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      border: 2px solid color-mix(in srgb, var(--ic-on-accent) 35%, transparent);
+      border-top-color: var(--ic-on-accent);
+      flex: 0 0 auto;
+      display: none;
+      animation: ic-spin 720ms linear infinite;
+    }
+    .ic-btn[aria-busy="true"] .ic-spin { display: inline-block; }
+    @keyframes ic-spin { to { transform: rotate(360deg); } }
+
+    /* ---------- SHARED TYPE ATOMS ---------- */
+    .ic-eyebrow, .ic-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--ic-sp-2);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--ic-accent);
+    }
+    .ic-kicker__num {
+      color: var(--ic-text-faint);
+      border: 1px solid color-mix(in srgb, var(--ic-copper) 45%, var(--ic-border));
+      border-radius: var(--ic-r-xs);
+      padding: 2px 6px;
+      font-size: 0.72em;
+    }
+    .ic-h2 {
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-600);
+      font-weight: 700;
+      line-height: 0.98;
+      letter-spacing: 0.01em;
+      text-transform: uppercase;
+      margin-top: var(--ic-sp-3);
+    }
+    .ic-h3-plain {
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-500);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+    }
+
+    /* ---------- SECTION SHELL ----------
+       Every section shares the same floor-grid wash, the same seam
+       hairline, and the same anchor clearance — this is the single
+       biggest lever for reading as one continuous mat, not stacked
+       cards. See design_note_coherence_pass_v1 in principles. */
+    .ic-section, .ic-approach, .ic-footer {
+      background-image:
+        repeating-linear-gradient(0deg,
+          rgba(236, 228, 214, 0.028) 0px, rgba(236, 228, 214, 0.028) 1px,
+          transparent 1px, transparent 64px),
+        repeating-linear-gradient(90deg,
+          rgba(236, 228, 214, 0.02) 0px, rgba(236, 228, 214, 0.02) 1px,
+          transparent 1px, transparent 64px);
+    }
+    .ic-section {
+      position: relative;
+      padding: clamp(var(--ic-sp-8), 9vw, var(--ic-sp-10)) var(--ic-gutter);
+      background-color: var(--ic-bg);
+      scroll-margin-top: calc(var(--ic-nav-h) + var(--ic-strip-h) + var(--ic-sp-5));
+      border-top: 1px solid var(--ic-border);
+    }
+    .ic-section:nth-of-type(even) { background-color: var(--ic-bg-deep); }
+    .ic-section__head { max-width: 760px; margin-bottom: var(--ic-sp-8); }
+    .ic-section__head--wide { max-width: 900px; }
+    .ic-section__intro {
+      margin-top: var(--ic-sp-4);
+      color: var(--ic-text-muted);
+      font-size: var(--ic-fs-400);
+      line-height: 1.5;
+      max-width: 60ch;
+    }
+    .ic-section__foot-note {
+      margin-top: var(--ic-sp-6);
+      color: var(--ic-text-faint);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.06em;
+      max-width: 62ch;
+    }
+
+    /* =====================================================================
+       1. STICKY NAV
+       ===================================================================== */
+    .ic-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      background: color-mix(in srgb, var(--ic-bg-deep) 92%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--ic-border);
+      transition: box-shadow var(--ic-dur-2) var(--ic-ease),
+                  background var(--ic-dur-2) var(--ic-ease);
+    }
+    .ic-header[data-elevate="true"] { box-shadow: var(--ic-e-2); }
+
+    .ic-strip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--ic-sp-2);
+      min-height: var(--ic-strip-h);
+      padding: var(--ic-sp-2) var(--ic-gutter);
+      background: var(--ic-bg-deep);
+      border-bottom: 1px solid var(--ic-border);
+      color: var(--ic-text-muted);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.1em;
+      text-align: center;
+    }
+    .ic-strip__dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--ic-accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--ic-accent) 25%, transparent);
+      flex: 0 0 auto;
+    }
+
+    .ic-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--ic-sp-5);
+      min-height: var(--ic-nav-h);
+      max-width: var(--ic-maxw);
+      margin: 0 auto;
+      padding: 0 var(--ic-gutter);
+    }
+
+    /* Brand */
+    .ic-brand { display: inline-flex; align-items: center; gap: var(--ic-sp-3); }
+    .ic-brand__mark { width: 36px; height: 36px; flex: 0 0 auto; }
+    .ic-brand__plate { fill: none; stroke: var(--ic-border); stroke-width: 2; }
+    .ic-brand__ring { fill: none; stroke: var(--ic-accent); stroke-width: 2.5; }
+    .ic-brand__hand { fill: none; stroke: var(--ic-bone); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .ic-brand__word {
+      font-family: var(--ic-font-display);
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+    }
+    .ic-brand__word i { font-style: normal; color: var(--ic-accent); }
+
+    /* Nav menu */
+    .ic-nav__menu { display: flex; align-items: center; gap: clamp(var(--ic-sp-5), 3vw, var(--ic-sp-7)); }
+    .ic-nav__list { display: flex; align-items: center; gap: clamp(var(--ic-sp-4), 2vw, var(--ic-sp-5)); }
+    .ic-nav__list a {
+      position: relative;
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ic-text-muted);
+      padding: var(--ic-sp-2) 0;
+      transition: color var(--ic-dur-1) var(--ic-ease);
+    }
+    .ic-nav__list a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -2px;
+      width: 100%; height: 2px;
+      background: var(--ic-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--ic-dur-2) var(--ic-ease);
+    }
+    .ic-nav__list a:hover, .ic-nav__list a:focus-visible { color: var(--ic-bone); }
+    .ic-nav__list a:hover::after, .ic-nav__list a:focus-visible::after { transform: scaleX(1); }
+    .ic-nav__list a.is-active { color: var(--ic-accent); }
+    .ic-nav__list a.is-active::after { transform: scaleX(1); }
+
+    /* Mobile toggle (hidden on desktop) */
+    .ic-nav__toggle {
+      display: none;
+      align-items: center;
+      gap: var(--ic-sp-2);
+      min-height: 44px;
+      padding: var(--ic-sp-2) var(--ic-sp-3);
+      background: transparent;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-sm);
+      color: var(--ic-bone);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: border-color var(--ic-dur-1) var(--ic-ease);
+    }
+    .ic-nav__toggle:hover { border-color: var(--ic-accent); }
+    .ic-nav__bars { position: relative; width: 18px; height: 2px; background: currentColor; }
+    .ic-nav__bars::before, .ic-nav__bars::after {
+      content: ""; position: absolute; left: 0; width: 18px; height: 2px; background: currentColor;
+      transition: transform var(--ic-dur-2) var(--ic-ease), opacity var(--ic-dur-1) var(--ic-ease);
+    }
+    .ic-nav__bars::before { top: -6px; }
+    .ic-nav__bars::after { top: 6px; }
+    .ic-nav__toggle[aria-expanded="true"] .ic-nav__bars { background: transparent; }
+    .ic-nav__toggle[aria-expanded="true"] .ic-nav__bars::before { transform: translateY(6px) rotate(45deg); }
+    .ic-nav__toggle[aria-expanded="true"] .ic-nav__bars::after { transform: translateY(-6px) rotate(-45deg); }
+
+    /* =====================================================================
+       2. HERO
+       ===================================================================== */
+    .ic-hero {
+      position: relative;
+      overflow: hidden;
+      padding: calc(var(--ic-nav-h) + var(--ic-strip-h) + clamp(var(--ic-sp-8), 12vh, 140px))
+               var(--ic-gutter) clamp(var(--ic-sp-8), 10vh, 120px);
+      min-height: clamp(600px, 88vh, 880px);
+      background-color: var(--ic-bg-deep);
+      border-bottom: 1px solid var(--ic-border);
+    }
+
+    /* ---------- hero scene: full-bleed cage / floor / hard-light composition ----------
+       Replaces the old corner-badge mat diagram. One inline SVG carries the
+       whole atmosphere: a receding mat-floor grid, a two-rail cage silhouette
+       viewed close and low, three screen-blended light shafts, hand-authored
+       film grain via feTurbulence, and the original center-circle + crosshair
+       + taped-corner motif re-grounded where the floor meets the cage. */
+    .ic-hero__scene {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .ic-hero__scene svg { width: 100%; height: 100%; display: block; }
+
+    .ic-scene__sky { fill: url(#ic-skygrad); }
+    .ic-scene__floor-fill { fill: url(#ic-floorgrad); }
+    .ic-scene__glow { fill: url(#ic-heroglow); }
+
+    .ic-scene__floor-lines line { stroke: rgba(236, 228, 214, 0.13); stroke-width: 1; }
+    .ic-scene__floor-lines line.is-strong { stroke: rgba(236, 228, 214, 0.22); }
+
+    .ic-scene__cage-mesh-fill { fill: url(#ic-meshpattern); opacity: 0.85; }
+    .ic-scene__cage-outer { fill: none; stroke: var(--ic-copper-soft); stroke-width: 3.5; opacity: 0.75; }
+    .ic-scene__cage-inner { fill: none; stroke: var(--ic-copper-soft); stroke-width: 1.5; opacity: 0.4; }
+
+    .ic-scene__beams { mix-blend-mode: screen; }
+    .ic-scene__beam { fill: url(#ic-beamgrad); }
+    .ic-scene__beam--soft { opacity: 0.38; }
+    .ic-scene__beam--hard { opacity: 0.58; }
+    .ic-scene__beam--thin { opacity: 0.46; }
+
+    .ic-scene__grain { opacity: 0.05; mix-blend-mode: overlay; }
+
+    /* the mat-zone motif: grid, outer zone, center circle, crosshair, taped
+       corners — kept from the original build, re-grounded in the new scene. */
+    .ic-mat__zone { fill: none; stroke-width: 2; }
+    .ic-mat__zone--outer { stroke: rgba(181, 113, 58, 0.4); }
+    .ic-mat__zone--center {
+      stroke: var(--ic-copper);
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: ic-draw var(--ic-dur-3) var(--ic-ease-out) 300ms forwards;
+    }
+    .ic-mat__axis {
+      stroke: rgba(236, 228, 214, 0.24);
+      stroke-width: 1.5;
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+      animation: ic-draw 600ms var(--ic-ease-out) 450ms forwards;
+    }
+    .ic-mat__tape { fill: none; stroke: var(--ic-red); stroke-width: 3; stroke-linecap: square; opacity: 0.8; }
+    @keyframes ic-draw { to { stroke-dashoffset: 0; } }
+
+    /* legibility scrim — above the scene, below the copy, so the headline
+       column always reads at full contrast no matter how busy the art gets. */
+    .ic-hero__scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(100deg,
+          rgba(10, 9, 8, 0.96) 0%, rgba(10, 9, 8, 0.86) 30%,
+          rgba(10, 9, 8, 0.5) 52%, rgba(10, 9, 8, 0.14) 72%, transparent 88%),
+        linear-gradient(180deg,
+          rgba(10, 9, 8, 0.5) 0%, transparent 20%,
+          transparent 68%, rgba(10, 9, 8, 0.6) 100%);
+    }
+
+    .ic-hero__inner { position: relative; z-index: 2; max-width: var(--ic-maxw); margin: 0 auto; }
+    .ic-hero__title {
+      margin-top: var(--ic-sp-4);
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-700);
+      font-weight: 700;
+      line-height: 0.94;
+      letter-spacing: 0.005em;
+      text-transform: uppercase;
+      max-width: 16ch;
+    }
+    .ic-hero__title-em { color: var(--ic-accent); font-style: normal; }
+    .ic-hero__lede {
+      margin-top: var(--ic-sp-5);
+      max-width: 46ch;
+      font-size: var(--ic-fs-400);
+      color: var(--ic-text-muted);
+      line-height: 1.5;
+    }
+    .ic-hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ic-sp-3);
+      margin-top: var(--ic-sp-7);
+    }
+    .ic-hero__facts {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: var(--ic-sp-6);
+      margin-top: var(--ic-sp-8);
+      padding-top: var(--ic-sp-6);
+      border-top: 1px solid var(--ic-border);
+      width: fit-content;
+    }
+    .ic-hero__facts dt {
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ic-text-faint);
+    }
+    .ic-hero__facts dd {
+      margin-top: var(--ic-sp-1);
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-400);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+    }
+
+    /* =====================================================================
+       3. APPROACH STRIP  (why-train-here value band, hero-adjacent)
+       ===================================================================== */
+    .ic-approach {
+      position: relative;
+      background-color: var(--ic-bg-deep);
+      border-bottom: 1px solid var(--ic-border);
+      padding: clamp(var(--ic-sp-8), 9vw, var(--ic-sp-10)) var(--ic-gutter);
+    }
+    .ic-approach__inner { max-width: var(--ic-maxw); margin: 0 auto; }
+    .ic-approach__head { max-width: 640px; }
+    .ic-approach__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--ic-sp-6);
+      margin-top: var(--ic-sp-7);
+    }
+    .ic-approach__item {
+      padding-top: var(--ic-sp-5);
+      border-top: 3px solid var(--ic-accent);
+      transition: transform var(--ic-dur-2) var(--ic-ease);
+    }
+    .ic-approach__item:hover { transform: translateY(-3px); }
+    /* shared icon-chip frame — same bordered box language as the Floor
+       zone diagrams (.ic-floor__icon below), so the two icon-led feature
+       grids on the page read as one family instead of two inventions. */
+    .ic-icon-chip {
+      width: 64px; height: 64px;
+      margin-bottom: var(--ic-sp-4);
+      display: flex; align-items: center; justify-content: center;
+      background: var(--ic-bg-deep);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-sm);
+      transition: border-color var(--ic-dur-2) var(--ic-ease);
+    }
+    .ic-approach__item:hover .ic-icon-chip { border-color: var(--ic-accent); }
+    .ic-approach__icon { width: 28px; height: 28px; flex: 0 0 auto; }
+    .ic-approach__icon path, .ic-approach__icon circle, .ic-approach__icon rect {
+      fill: none; stroke: var(--ic-accent); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .ic-approach__title {
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-500);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+    }
+    .ic-approach__text {
+      margin-top: var(--ic-sp-3);
+      color: var(--ic-text-muted);
+      font-size: var(--ic-fs-200);
+      max-width: 34ch;
+    }
+
+    /* =====================================================================
+       4. PROGRAM SELECTOR TABS  (program_selector_tabs_v1)
+       ===================================================================== */
+    .ic-tabs__list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ic-sp-2);
+      border-bottom: 1px solid var(--ic-border);
+      padding-bottom: var(--ic-sp-4);
+    }
+    .ic-tabs__tab {
+      flex: 1 1 150px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      text-align: left;
+      min-height: 44px;
+      padding: var(--ic-sp-4);
+      background: var(--ic-surface);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-sm);
+      transition: border-color var(--ic-dur-1) var(--ic-ease),
+                  background var(--ic-dur-1) var(--ic-ease),
+                  transform var(--ic-dur-1) var(--ic-ease);
+    }
+    .ic-tabs__tab-label {
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-400);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+    }
+    .ic-tabs__tab-sub {
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.08em;
+      color: var(--ic-text-faint);
+    }
+    .ic-tabs__tab:hover { border-color: var(--ic-accent); transform: translateY(-2px); }
+    .ic-tabs__tab:active { transform: translateY(0); }
+    .ic-tabs__tab[aria-selected="true"] {
+      background: var(--ic-bg-deep);
+      border-color: var(--ic-accent);
+      box-shadow: inset 0 -3px 0 var(--ic-accent);
+    }
+    .ic-tabs__tab[aria-selected="true"] .ic-tabs__tab-sub { color: var(--ic-accent); }
+
+    .ic-tabs__panel { margin-top: var(--ic-sp-7); }
+    .ic-tabs__panel[hidden] { display: none; }
+    .ic-prog {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: clamp(var(--ic-sp-6), 5vw, var(--ic-sp-9));
+      align-items: start;
+    }
+    .ic-prog__title {
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-500);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+    }
+    .ic-prog__body p { margin-top: var(--ic-sp-3); color: var(--ic-text-muted); }
+    .ic-prog__list { margin-top: var(--ic-sp-5); display: grid; gap: var(--ic-sp-3); }
+    .ic-prog__list li {
+      position: relative;
+      padding-left: var(--ic-sp-5);
+      color: var(--ic-text);
+    }
+    .ic-prog__list li::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0.6em;
+      width: 10px; height: 2px;
+      background: var(--ic-accent);
+    }
+    /* mini round-structure flow — a compact ordered breakdown per track */
+    .ic-prog__flow {
+      margin-top: var(--ic-sp-6);
+      padding-top: var(--ic-sp-5);
+      border-top: 1px dashed var(--ic-border);
+    }
+    .ic-prog__flow-title {
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ic-text-faint);
+      margin-bottom: var(--ic-sp-4);
+    }
+    .ic-prog__flow-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ic-sp-3);
+      counter-reset: flowstep;
+    }
+    .ic-prog__flow-list li {
+      counter-increment: flowstep;
+      display: flex;
+      align-items: center;
+      gap: var(--ic-sp-2);
+      padding: var(--ic-sp-2) var(--ic-sp-4) var(--ic-sp-2) var(--ic-sp-2);
+      background: var(--ic-surface);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-pill);
+      font-size: var(--ic-fs-200);
+      color: var(--ic-text-muted);
+    }
+    .ic-prog__flow-list li::before {
+      counter-increment: none;
+      content: counter(flowstep);
+      display: inline-grid;
+      place-items: center;
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: var(--ic-bg-deep);
+      color: var(--ic-accent);
+      font-family: var(--ic-font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+    .ic-prog__meta {
+      display: grid;
+      gap: var(--ic-sp-4);
+      padding: var(--ic-sp-5);
+      background: var(--ic-surface);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-md);
+      border-left: 3px solid var(--ic-accent);
+    }
+    .ic-prog__meta dt {
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ic-text-faint);
+    }
+    .ic-prog__meta dd {
+      margin-top: 2px;
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-400);
+      letter-spacing: 0.02em;
+      color: var(--ic-bone);
+    }
+    .ic-prog__meta-note {
+      margin-top: var(--ic-sp-2);
+      padding-top: var(--ic-sp-4);
+      border-top: 1px dashed var(--ic-border);
+      font-size: var(--ic-fs-100);
+      color: var(--ic-text-faint);
+      font-family: var(--ic-font-mono);
+      letter-spacing: 0.02em;
+    }
+
+    /* =====================================================================
+       5. SCHEDULE MATRIX + DISCIPLINE FILTER  (class_schedule_matrix_v1)
+       ===================================================================== */
+    .ic-schedfilter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ic-sp-2);
+      margin-bottom: var(--ic-sp-5);
+    }
+    .ic-schedfilter__chip {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--ic-sp-2);
+      min-height: 40px;
+      padding: var(--ic-sp-2) var(--ic-sp-4);
+      background: var(--ic-surface);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-pill);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ic-text-muted);
+      transition: border-color var(--ic-dur-1) var(--ic-ease),
+                  background var(--ic-dur-1) var(--ic-ease),
+                  color var(--ic-dur-1) var(--ic-ease);
+    }
+    .ic-schedfilter__chip:hover { border-color: var(--ic-text-faint); color: var(--ic-bone); }
+    .ic-schedfilter__chip[aria-pressed="true"] {
+      background: var(--ic-accent);
+      border-color: var(--ic-accent);
+      color: var(--ic-on-accent);
+    }
+    .ic-schedfilter__sw { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; background: currentColor; opacity: 0.8; }
+
+    .ic-matrix {
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      overflow-x: auto;
+      overscroll-behavior-inline: contain;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-md);
+      -webkit-overflow-scrolling: touch;
+    }
+    .ic-matrix__table {
+      width: 100%;
+      min-width: 640px;
+      border-collapse: collapse;
+    }
+    .ic-matrix__table th,
+    .ic-matrix__table td {
+      padding: var(--ic-sp-4);
+      border-bottom: 1px solid var(--ic-border);
+      border-right: 1px solid var(--ic-border);
+      text-align: left;
+      vertical-align: middle;
+    }
+    .ic-matrix__table thead th {
+      background: var(--ic-bg-deep);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ic-text-muted);
+      position: sticky;
+      top: 0;
+    }
+    .ic-matrix__corner { background: var(--ic-bg-deep); }
+    .ic-matrix__table tbody th {
+      background: var(--ic-surface);
+      white-space: nowrap;
+    }
+    .ic-matrix__time {
+      display: block;
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-400);
+      font-weight: 700;
+      color: var(--ic-bone);
+    }
+    .ic-matrix__band {
+      display: block;
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ic-text-faint);
+    }
+    .ic-matrix__table tr:last-child th,
+    .ic-matrix__table tbody tr:last-child td { border-bottom: 0; }
+    .ic-matrix__table th:last-child,
+    .ic-matrix__table td:last-child { border-right: 0; }
+
+    .ic-cell {
+      display: inline-block;
+      width: 100%;
+      padding: var(--ic-sp-2) var(--ic-sp-3);
+      border-radius: var(--ic-r-sm);
+      border: 1px solid transparent;
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+      transition: opacity var(--ic-dur-2) var(--ic-ease);
+    }
+    .ic-cell.is-dim { opacity: 0.25; }
+    .ic-cell-empty { text-align: center; color: var(--ic-text-faint); transition: opacity var(--ic-dur-2) var(--ic-ease); }
+    /* discipline color coding — tinted backgrounds, AA-legible bone text */
+    .ic-cell--strike { background: color-mix(in srgb, var(--ic-copper) 20%, var(--ic-n-800)); border-color: color-mix(in srgb, var(--ic-copper) 45%, transparent); }
+    .ic-cell--grap   { background: color-mix(in srgb, var(--ic-n-200) 14%, var(--ic-n-800)); border-color: color-mix(in srgb, var(--ic-n-200) 30%, transparent); }
+    .ic-cell--fund   { background: color-mix(in srgb, var(--ic-ok) 16%, var(--ic-n-800)); border-color: color-mix(in srgb, var(--ic-ok) 38%, transparent); }
+    .ic-cell--youth  { background: color-mix(in srgb, var(--ic-red) 20%, var(--ic-n-800)); border-color: color-mix(in srgb, var(--ic-red) 45%, transparent); }
+    .ic-cell--mma    { background: color-mix(in srgb, var(--ic-bone) 16%, var(--ic-n-800)); border-color: color-mix(in srgb, var(--ic-bone) 30%, transparent); }
+    .ic-cell--open   { background: transparent; border-color: var(--ic-border); border-style: dashed; color: var(--ic-text-muted); }
+
+    .ic-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--ic-sp-5);
+      margin-top: var(--ic-sp-5);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ic-text-muted);
+    }
+    .ic-legend li { display: inline-flex; align-items: center; gap: var(--ic-sp-2); }
+    .ic-legend__sw { width: 16px; height: 16px; border-radius: var(--ic-r-xs); border: 1px solid var(--ic-border); }
+    .ic-matrix__note {
+      margin-top: var(--ic-sp-4);
+      color: var(--ic-text-faint);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.04em;
+    }
+
+    /* =====================================================================
+       6. FIRST-WEEK TIMELINE  (first_week_timeline_v1)
+       ===================================================================== */
+    .ic-timeline {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: var(--ic-sp-5);
+      counter-reset: step;
+    }
+    .ic-timeline__step { position: relative; }
+    .ic-timeline__node {
+      display: inline-grid;
+      place-items: center;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--ic-bg-deep);
+      border: 1px solid var(--ic-accent);
+      color: var(--ic-accent);
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-400);
+      font-weight: 700;
+    }
+    .ic-timeline__step--after .ic-timeline__node { border-style: dashed; opacity: 0.85; }
+    .ic-timeline__card {
+      margin-top: var(--ic-sp-4);
+      padding: var(--ic-sp-5);
+      background: var(--ic-surface);
+      border: 1px solid var(--ic-border);
+      border-top: 3px solid var(--ic-accent);
+      border-radius: var(--ic-r-md);
+      height: 100%;
+    }
+    .ic-timeline__step--after .ic-timeline__card { border-top-style: dashed; }
+    /* connector rail between nodes */
+    .ic-timeline__step:not(:last-child) .ic-timeline__node::after {
+      content: "";
+      position: absolute;
+      left: 40px; top: 20px;
+      width: calc(100% - 40px);
+      height: 1px;
+      background: linear-gradient(90deg, var(--ic-accent), var(--ic-border));
+    }
+    .ic-timeline__tag {
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ic-text-faint);
+    }
+    .ic-timeline__title {
+      margin: var(--ic-sp-2) 0 var(--ic-sp-3);
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-500);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+    }
+    .ic-timeline__card p:last-child { color: var(--ic-text-muted); }
+
+    /* =====================================================================
+       7. COACH ROSTER — bento (coach_roster_proof_safe_v1)
+       ===================================================================== */
+    .ic-roster {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 1fr;
+      gap: var(--ic-sp-5);
+    }
+    .ic-coach {
+      display: flex;
+      flex-direction: column;
+      gap: var(--ic-sp-4);
+      padding: var(--ic-sp-5);
+      background: var(--ic-surface);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-md);
+      transition: border-color var(--ic-dur-2) var(--ic-ease), transform var(--ic-dur-2) var(--ic-ease);
+    }
+    .ic-coach:hover { border-color: var(--ic-accent); transform: translateY(-3px); }
+    .ic-coach--featured {
+      grid-column: span 3;
+      flex-direction: row;
+      align-items: center;
+      gap: var(--ic-sp-7);
+      background: var(--ic-bg-deep);
+      border-left: 3px solid var(--ic-accent);
+    }
+    .ic-coach--featured .ic-coach__portrait { width: 128px; height: 128px; }
+    .ic-coach--featured .ic-coach__body { flex: 1; }
+    .ic-coach--featured .ic-coach__cred { margin-top: var(--ic-sp-3); }
+    .ic-coach__portrait { width: 84px; height: 84px; flex: 0 0 auto; }
+    .ic-coach__plate { fill: var(--ic-bg-deep); stroke: var(--ic-border); stroke-width: 2; }
+    .ic-coach__figure { fill: color-mix(in srgb, var(--ic-copper) 60%, var(--ic-n-700)); }
+    .ic-coach__role {
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ic-accent);
+    }
+    .ic-coach__name {
+      margin: var(--ic-sp-1) 0;
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-500);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+    }
+    .ic-coach__bio { color: var(--ic-text-muted); font-size: var(--ic-fs-200); }
+    .ic-coach__cred {
+      margin-top: auto;
+      padding-top: var(--ic-sp-3);
+      border-top: 1px dashed var(--ic-border);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.04em;
+      color: var(--ic-text-faint);
+    }
+
+    /* =====================================================================
+       8. THE FLOOR — facility zone diagrams (bespoke SVG, one per zone)
+       ===================================================================== */
+    .ic-floor__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--ic-sp-5);
+    }
+    .ic-floor__zone {
+      padding: var(--ic-sp-5);
+      background: var(--ic-surface);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-md);
+      transition: border-color var(--ic-dur-2) var(--ic-ease), transform var(--ic-dur-2) var(--ic-ease);
+    }
+    .ic-floor__zone:hover { border-color: var(--ic-accent); transform: translateY(-3px); }
+    .ic-floor__icon {
+      width: 100%;
+      height: 96px;
+      margin-bottom: var(--ic-sp-4);
+      background: var(--ic-bg-deep);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-sm);
+    }
+    .ic-floor__icon rect.ic-floor__pad { fill: none; stroke: var(--ic-border); stroke-width: 1; }
+    .ic-floor__icon .ic-floor__mark { fill: none; stroke: var(--ic-accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .ic-floor__num {
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.1em;
+      color: var(--ic-text-faint);
+    }
+    .ic-floor__name {
+      margin-top: var(--ic-sp-2);
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-400);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+    }
+    .ic-floor__desc { margin-top: var(--ic-sp-2); color: var(--ic-text-muted); font-size: var(--ic-fs-200); }
+
+    /* =====================================================================
+       9. FACILITY / GEAR CHECKLIST
+       ===================================================================== */
+    .ic-facility__cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--ic-sp-5);
+    }
+    .ic-checklist {
+      padding: clamp(var(--ic-sp-5), 4vw, var(--ic-sp-7));
+      background: var(--ic-surface);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-md);
+    }
+    .ic-checklist--alt { background: var(--ic-bg-deep); border-left: 3px solid var(--ic-accent); }
+    .ic-checklist__title {
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-500);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+      margin-bottom: var(--ic-sp-5);
+    }
+    .ic-checklist__list { display: grid; gap: var(--ic-sp-4); }
+    .ic-checklist__list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--ic-sp-3);
+      color: var(--ic-text);
+    }
+    .ic-checklist__list li span { display: block; }
+    .ic-checklist__list small { display: block; margin-top: 2px; color: var(--ic-text-faint); font-size: var(--ic-fs-100); }
+    .ic-check { flex: 0 0 auto; margin-top: 0.2em; }
+    .ic-check path { fill: none; stroke: var(--ic-accent); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .ic-check--lg path { stroke: var(--ic-ok); }
+
+    /* =====================================================================
+       10. MEMBERSHIP — spec-sheet comparison table (not a 3-card row)
+       ===================================================================== */
+    .ic-membership {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-md);
+      -webkit-overflow-scrolling: touch;
+    }
+    .ic-membership__table { width: 100%; min-width: 720px; border-collapse: collapse; }
+    .ic-membership__table th, .ic-membership__table td {
+      padding: var(--ic-sp-4) var(--ic-sp-5);
+      border-bottom: 1px solid var(--ic-border);
+      border-right: 1px solid var(--ic-border);
+      text-align: left;
+      vertical-align: top;
+    }
+    .ic-membership__table th:last-child, .ic-membership__table td:last-child { border-right: 0; }
+    .ic-membership__table tr:last-child th, .ic-membership__table tr:last-child td { border-bottom: 0; }
+    .ic-membership__table thead th {
+      background: var(--ic-bg-deep);
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-400);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+    }
+    .ic-membership__table thead th:first-child {
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.14em;
+      color: var(--ic-text-faint);
+      font-weight: 600;
+    }
+    .ic-membership__table tbody th {
+      background: var(--ic-surface);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ic-text-faint);
+      white-space: nowrap;
+    }
+    .ic-membership__table td { color: var(--ic-text-muted); font-size: var(--ic-fs-200); }
+    .ic-membership__table tbody tr:hover td, .ic-membership__table tbody tr:hover th { background: color-mix(in srgb, var(--ic-accent) 6%, transparent); }
+    .ic-membership__recommended { position: relative; }
+    .ic-membership__table thead th.ic-membership__recommended { color: var(--ic-accent); }
+    .ic-membership__flag {
+      display: inline-block;
+      margin-top: var(--ic-sp-1);
+      padding: 2px 8px;
+      background: var(--ic-accent);
+      color: var(--ic-on-accent);
+      border-radius: var(--ic-r-pill);
+      font-family: var(--ic-font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .ic-membership__price {
+      font-family: var(--ic-font-mono);
+      color: var(--ic-text-faint);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.04em;
+    }
+    .ic-membership__cta { margin-top: var(--ic-sp-6); display: flex; flex-wrap: wrap; gap: var(--ic-sp-3); align-items: center; }
+    .ic-membership__cta p { color: var(--ic-text-faint); font-size: var(--ic-fs-100); font-family: var(--ic-font-mono); letter-spacing: 0.04em; }
+
+    /* =====================================================================
+       11. CODE OF THE MAT — etiquette & safety rules
+       ===================================================================== */
+    .ic-conduct__list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--ic-sp-5) var(--ic-sp-6);
+      counter-reset: rule;
+    }
+    .ic-conduct__item {
+      display: flex;
+      gap: var(--ic-sp-4);
+      padding-bottom: var(--ic-sp-5);
+      border-bottom: 1px solid var(--ic-border);
+    }
+    .ic-conduct__num {
+      counter-increment: rule;
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      width: 32px; height: 32px;
+      border: 1px solid var(--ic-accent);
+      border-radius: var(--ic-r-sm);
+      color: var(--ic-accent);
+      font-family: var(--ic-font-mono);
+      font-weight: 700;
+      font-size: var(--ic-fs-200);
+    }
+    .ic-conduct__num::before { content: counter(rule, decimal-leading-zero); }
+    .ic-conduct__title {
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-400);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+    }
+    .ic-conduct__text { margin-top: var(--ic-sp-2); color: var(--ic-text-muted); font-size: var(--ic-fs-200); }
+
+    /* =====================================================================
+       12. TRIAL BOOKING FORM  (trial_class_booking_flow_v1)
+       ===================================================================== */
+    .ic-start__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(var(--ic-sp-6), 6vw, var(--ic-sp-9));
+      align-items: start;
+      max-width: var(--ic-maxw);
+      margin: 0 auto;
+    }
+    .ic-start__points { margin-top: var(--ic-sp-6); display: grid; gap: var(--ic-sp-4); }
+    .ic-start__points li { display: flex; align-items: flex-start; gap: var(--ic-sp-3); color: var(--ic-text-muted); }
+    .ic-start__next {
+      margin-top: var(--ic-sp-7);
+      padding: var(--ic-sp-5);
+      background: var(--ic-surface);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-md);
+    }
+    .ic-start__next h3 {
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ic-text-faint);
+      margin-bottom: var(--ic-sp-3);
+    }
+    .ic-start__next ol { display: grid; gap: var(--ic-sp-2); counter-reset: nextstep; }
+    .ic-start__next li {
+      counter-increment: nextstep;
+      display: flex;
+      gap: var(--ic-sp-3);
+      color: var(--ic-text-muted);
+      font-size: var(--ic-fs-200);
+    }
+    .ic-start__next li::before {
+      content: counter(nextstep) ".";
+      color: var(--ic-accent);
+      font-family: var(--ic-font-mono);
+      font-weight: 700;
+      flex: 0 0 auto;
+    }
+
+    .ic-form {
+      padding: clamp(var(--ic-sp-6), 4vw, var(--ic-sp-8));
+      background: var(--ic-surface);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-lg);
+      box-shadow: var(--ic-e-2);
+    }
+    .ic-form__title {
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-500);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+      margin-bottom: var(--ic-sp-2);
+    }
+    .ic-form__sub { color: var(--ic-text-faint); font-size: var(--ic-fs-100); font-family: var(--ic-font-mono); letter-spacing: 0.04em; margin-bottom: var(--ic-sp-5); }
+    .ic-field { margin-bottom: var(--ic-sp-5); }
+    .ic-fieldset { border: 0; padding: 0; margin-inline: 0; }
+    .ic-label {
+      display: block;
+      margin-bottom: var(--ic-sp-2);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ic-text-muted);
+    }
+    .ic-req { color: var(--ic-accent); }
+    .ic-optional { color: var(--ic-text-faint); text-transform: none; letter-spacing: 0; }
+    .ic-input {
+      width: 100%;
+      min-height: 48px;
+      padding: var(--ic-sp-3) var(--ic-sp-4);
+      background: var(--ic-bg-deep);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-sm);
+      color: var(--ic-text);
+      font-family: var(--ic-font-body);
+      font-size: var(--ic-fs-300);
+      transition: border-color var(--ic-dur-1) var(--ic-ease), box-shadow var(--ic-dur-1) var(--ic-ease);
+    }
+    .ic-input::placeholder { color: var(--ic-text-faint); }
+    .ic-input:hover { border-color: var(--ic-text-faint); }
+    .ic-input:focus-visible {
+      outline: none;
+      border-color: var(--ic-accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--ic-focus) 40%, transparent);
+    }
+    .ic-input:disabled { opacity: 0.5; cursor: not-allowed; }
+    .ic-textarea { min-height: 96px; resize: vertical; }
+    .ic-select-wrap { position: relative; }
+    .ic-select {
+      appearance: none;
+      -webkit-appearance: none;
+      padding-right: var(--ic-sp-7);
+    }
+    .ic-select__chev {
+      position: absolute;
+      right: var(--ic-sp-4); top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+    .ic-select__chev path { fill: none; stroke: var(--ic-text-muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* invalid state — set by JS */
+    .ic-input[aria-invalid="true"] { border-color: var(--ic-danger); }
+    .ic-input[aria-invalid="true"]:focus-visible { box-shadow: 0 0 0 3px color-mix(in srgb, var(--ic-danger) 35%, transparent); }
+    .ic-error {
+      display: flex;
+      align-items: center;
+      gap: var(--ic-sp-2);
+      margin-top: var(--ic-sp-2);
+      color: var(--ic-danger);
+      font-size: var(--ic-fs-200);
+    }
+    .ic-error::before { content: "!"; display: inline-grid; place-items: center; width: 16px; height: 16px; border: 1px solid currentColor; border-radius: 50%; font-size: 0.7em; font-weight: 700; flex: 0 0 auto; }
+
+    /* radios + checkbox */
+    .ic-radios { display: flex; flex-wrap: wrap; gap: var(--ic-sp-3); }
+    .ic-radio, .ic-checkbox {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: var(--ic-sp-2);
+      min-height: 44px;
+      align-items: center;
+    }
+    .ic-radio { padding: var(--ic-sp-2) var(--ic-sp-4); border: 1px solid var(--ic-border); border-radius: var(--ic-r-pill); transition: border-color var(--ic-dur-1) var(--ic-ease); }
+    .ic-radio:hover { border-color: var(--ic-text-faint); }
+    .ic-radio:has(input:checked) { border-color: var(--ic-accent); color: var(--ic-bone); }
+    .ic-radio input, .ic-checkbox input { width: 20px; height: 20px; accent-color: var(--ic-accent); flex: 0 0 auto; }
+    .ic-field--check .ic-checkbox { align-items: flex-start; }
+    .ic-field--check .ic-checkbox input { margin-top: 2px; }
+    .ic-checkbox span { font-size: var(--ic-fs-200); color: var(--ic-text-muted); line-height: 1.45; }
+
+    .ic-form__note { margin-top: var(--ic-sp-4); font-size: var(--ic-fs-200); color: var(--ic-text-faint); }
+    .ic-form__success, .ic-form__error {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--ic-sp-3);
+      margin-top: var(--ic-sp-5);
+      padding: var(--ic-sp-4);
+      border-radius: var(--ic-r-sm);
+      font-size: var(--ic-fs-200);
+    }
+    .ic-form__success {
+      background: color-mix(in srgb, var(--ic-ok) 12%, var(--ic-bg-deep));
+      border: 1px solid color-mix(in srgb, var(--ic-ok) 40%, transparent);
+      color: var(--ic-text);
+    }
+    .ic-form__error {
+      background: color-mix(in srgb, var(--ic-danger) 12%, var(--ic-bg-deep));
+      border: 1px solid color-mix(in srgb, var(--ic-danger) 40%, transparent);
+      color: var(--ic-text);
+    }
+    .ic-form__success[hidden], .ic-form__error[hidden] { display: none; }
+
+    /* =====================================================================
+       13. FAQ ACCORDION
+       ===================================================================== */
+    .ic-accordion { max-width: 880px; } /* border-top comes from the shared card-family rule, §15 */
+    .ic-accordion__item { border-bottom: 1px solid var(--ic-border); }
+    .ic-accordion__heading { margin: 0; }
+    .ic-accordion__trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--ic-sp-4);
+      min-height: 44px;
+      padding: var(--ic-sp-5) var(--ic-sp-2) var(--ic-sp-5) 0;
+      background: transparent;
+      border: 0;
+      text-align: left;
+      font-family: var(--ic-font-display);
+      font-size: var(--ic-fs-400);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      color: var(--ic-bone);
+      transition: color var(--ic-dur-1) var(--ic-ease);
+    }
+    .ic-accordion__trigger:hover { color: var(--ic-accent); }
+    .ic-accordion__icon {
+      flex: 0 0 auto;
+      transition: transform var(--ic-dur-2) var(--ic-ease);
+    }
+    .ic-accordion__icon path { fill: none; stroke: var(--ic-accent); stroke-width: 2; stroke-linecap: round; }
+    .ic-accordion__trigger[aria-expanded="true"] .ic-accordion__icon { transform: rotate(45deg); }
+    /* grid-rows expand — no magic numbers */
+    .ic-accordion__panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows var(--ic-dur-3) var(--ic-ease);
+    }
+    .ic-accordion__panel.is-open { grid-template-rows: 1fr; }
+    .ic-accordion__inner { overflow: hidden; min-height: 0; }
+    .ic-accordion__inner p {
+      padding-bottom: var(--ic-sp-5);
+      color: var(--ic-text-muted);
+      max-width: 68ch;
+    }
+    /* progressive enhancement: with JS off, panels remain readable (no is-open needed) */
+    .no-js .ic-accordion__panel { grid-template-rows: 1fr; }
+
+    /* =====================================================================
+       14. FOOTER
+       ===================================================================== */
+    .ic-footer {
+      position: relative;
+      background-color: var(--ic-bg-deep);
+      border-top: 1px solid var(--ic-border);
+      padding: clamp(var(--ic-sp-8), 8vw, var(--ic-sp-9)) var(--ic-gutter) var(--ic-sp-6);
+    }
+    .ic-footer__inner {
+      display: grid;
+      grid-template-columns: 1.2fr 2fr;
+      gap: clamp(var(--ic-sp-6), 6vw, var(--ic-sp-9));
+      max-width: var(--ic-maxw);
+      margin: 0 auto;
+    }
+    .ic-footer__tag { margin-top: var(--ic-sp-4); max-width: 36ch; color: var(--ic-text-muted); font-size: var(--ic-fs-200); }
+    .ic-footer__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--ic-sp-2);
+      margin-top: var(--ic-sp-5);
+      padding: var(--ic-sp-2) var(--ic-sp-3);
+      border: 1px solid var(--ic-border);
+      border-radius: var(--ic-r-sm);
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      color: var(--ic-text-faint);
+      letter-spacing: 0.04em;
+    }
+    .ic-footer__nav { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--ic-sp-5); }
+    .ic-footer__h {
+      font-family: var(--ic-font-mono);
+      font-size: var(--ic-fs-100);
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ic-text-faint);
+      margin-bottom: var(--ic-sp-4);
+    }
+    .ic-footer__nav ul { display: grid; gap: var(--ic-sp-3); }
+    .ic-footer__nav a {
+      color: var(--ic-text-muted);
+      font-size: var(--ic-fs-200);
+      transition: color var(--ic-dur-1) var(--ic-ease);
+    }
+    .ic-footer__nav a:hover, .ic-footer__nav a:focus-visible { color: var(--ic-bone); }
+    .ic-footer__contact li { color: var(--ic-text-faint); font-family: var(--ic-font-mono); font-size: var(--ic-fs-100); letter-spacing: 0.04em; }
+    .ic-footer__base {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--ic-sp-4);
+      max-width: var(--ic-maxw);
+      margin: var(--ic-sp-8) auto 0;
+      padding-top: var(--ic-sp-5);
+      border-top: 1px solid var(--ic-border);
+      color: var(--ic-text-faint);
+      font-size: var(--ic-fs-100);
+    }
+    .ic-footer__base-links { display: flex; flex-wrap: wrap; gap: var(--ic-sp-2) var(--ic-sp-5); }
+    .ic-footer__totop {
+      font-family: var(--ic-font-mono);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ic-text-muted);
+      border-bottom: 1px solid transparent;
+      transition: color var(--ic-dur-1) var(--ic-ease), border-color var(--ic-dur-1) var(--ic-ease);
+    }
+    .ic-footer__totop:hover { color: var(--ic-accent); border-color: var(--ic-accent); }
+
+    /* =====================================================================
+       15. CARD FAMILY — one resting-state signature, applied everywhere
+       ===================================================================== */
+    /* Every content card in the site — regardless of which section built
+       it — now rests with the same 3px copper top rail the timeline
+       already used. Cards that carry a *second* accent (featured coach,
+       "we provide" panel, program meta, membership header) get copper on
+       an adjacent edge too, which reads as the hero's taped corner
+       reduced to two accented sides — one motif, two intensities, never
+       a third invented pattern. Controls (tabs, buttons, inputs) are
+       deliberately excluded: they already carry their own state grammar
+       and doubling it here would blur "selected" against "resting". */
+    .ic-floor__zone,
+    .ic-coach,
+    .ic-checklist,
+    .ic-form,
+    .ic-start__next,
+    .ic-prog__meta,
+    .ic-matrix,
+    .ic-membership,
+    .ic-accordion {
+      border-top: 3px solid var(--ic-accent);
+    }
+
+    /* =====================================================================
+       MOBILE STICKY CTA  (mobile_sticky_trial_cta_v1)
+       ===================================================================== */
+    .ic-mobilecta {
+      display: none;
+      position: fixed;
+      left: var(--ic-sp-4);
+      right: var(--ic-sp-4);
+      bottom: var(--ic-sp-4);
+      z-index: 45;
+      align-items: center;
+      justify-content: center;
+      gap: var(--ic-sp-2);
+      min-height: 52px;
+      background: var(--ic-accent);
+      color: var(--ic-on-accent);
+      border-radius: var(--ic-r-md);
+      box-shadow: var(--ic-e-3);
+      font-family: var(--ic-font-mono);
+      font-weight: 700;
+      font-size: var(--ic-fs-100);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      transition: background var(--ic-dur-1) var(--ic-ease), transform var(--ic-dur-1) var(--ic-ease);
+    }
+    .ic-mobilecta:hover { background: var(--ic-accent-hover); }
+    .ic-mobilecta:active { transform: translateY(1px); }
+    .ic-mobilecta__arrow path { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* =====================================================================
+       RESPONSIVE  (mobile-first overrides at breakpoints)
+       ===================================================================== */
+    @media (max-width: 1180px) {
+      .ic-floor__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 1024px) {
+      .ic-prog { grid-template-columns: 1fr; }
+      .ic-footer__inner { grid-template-columns: 1fr; }
+      .ic-approach__grid { grid-template-columns: 1fr; gap: var(--ic-sp-5); }
+      .ic-coach--featured { grid-column: span 2; flex-direction: column; text-align: left; }
+    }
+
+    @media (max-width: 860px) {
+      :root { --ic-strip-h: 52px; }
+
+      /* nav collapses to toggle + slide-down menu */
+      .ic-nav__toggle { display: inline-flex; }
+      .ic-nav__menu {
+        position: absolute;
+        inset: calc(var(--ic-strip-h) + var(--ic-nav-h)) 0 auto 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        padding: var(--ic-sp-3) var(--ic-gutter) var(--ic-sp-5);
+        background: var(--ic-bg-deep);
+        border-bottom: 1px solid var(--ic-border);
+        box-shadow: var(--ic-e-2);
+        transform: translateY(-12px);
+        opacity: 0;
+        visibility: hidden;
+        transition: transform var(--ic-dur-2) var(--ic-ease), opacity var(--ic-dur-2) var(--ic-ease), visibility var(--ic-dur-2);
+      }
+      .ic-nav__menu.is-open { transform: translateY(0); opacity: 1; visibility: visible; }
+      .ic-nav__list { flex-direction: column; align-items: stretch; gap: 0; }
+      .ic-nav__list a { padding: var(--ic-sp-4) 0; border-bottom: 1px solid var(--ic-border); font-size: var(--ic-fs-200); }
+      .ic-nav__list a::after { display: none; }
+      .ic-nav__cta { margin-top: var(--ic-sp-4); }
+
+      .ic-hero { min-height: 0; }
+      .ic-hero__scrim {
+        background:
+          linear-gradient(180deg,
+            rgba(10, 9, 8, 0.9) 0%, rgba(10, 9, 8, 0.74) 34%,
+            rgba(10, 9, 8, 0.58) 60%, rgba(10, 9, 8, 0.86) 100%),
+          linear-gradient(100deg,
+            rgba(10, 9, 8, 0.75) 0%, rgba(10, 9, 8, 0.42) 58%, rgba(10, 9, 8, 0.24) 100%);
+      }
+      .ic-hero__facts { grid-template-columns: 1fr; gap: var(--ic-sp-4); width: 100%; }
+
+      .ic-timeline { grid-template-columns: 1fr; gap: var(--ic-sp-6); }
+      .ic-timeline__step:not(:last-child) .ic-timeline__node::after {
+        left: 20px; top: 40px;
+        width: 1px; height: calc(100% - 20px);
+        background: linear-gradient(180deg, var(--ic-accent), var(--ic-border));
+      }
+
+      .ic-roster { grid-template-columns: 1fr; }
+      .ic-coach--featured { grid-column: span 1; }
+      .ic-floor__grid { grid-template-columns: 1fr; }
+      .ic-facility__cols { grid-template-columns: 1fr; }
+      .ic-start__grid { grid-template-columns: 1fr; }
+      .ic-conduct__list { grid-template-columns: 1fr; }
+
+      .ic-matrix { overflow-x: hidden; }
+      .ic-matrix__table {
+        min-width: 0;
+        width: 100%;
+        table-layout: fixed;
+      }
+      .ic-matrix__table thead { display: none; }
+      .ic-matrix__table,
+      .ic-matrix__table tbody,
+      .ic-matrix__table tr,
+      .ic-matrix__table th,
+      .ic-matrix__table td {
+        display: block;
+        width: 100%;
+      }
+      .ic-matrix__table tbody tr {
+        padding: var(--ic-sp-3);
+        border-bottom: 1px solid var(--ic-border);
+      }
+      .ic-matrix__table tbody tr:last-child { border-bottom: 0; }
+      .ic-matrix__table tbody th,
+      .ic-matrix__table tbody td {
+        border: 0;
+        padding: 0;
+      }
+      .ic-matrix__table tbody th {
+        margin-bottom: var(--ic-sp-3);
+        white-space: normal;
+      }
+      .ic-matrix__table tbody td {
+        display: grid;
+        grid-template-columns: 3.4rem minmax(0, 1fr);
+        align-items: center;
+        gap: var(--ic-sp-2);
+      }
+      .ic-matrix__table tbody td + td { margin-top: var(--ic-sp-2); }
+      .ic-matrix__table tbody td::before {
+        font-family: var(--ic-font-mono);
+        font-size: var(--ic-fs-100);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--ic-text-faint);
+      }
+      .ic-matrix__table tbody td:nth-child(2)::before { content: "Mon"; }
+      .ic-matrix__table tbody td:nth-child(3)::before { content: "Tue"; }
+      .ic-matrix__table tbody td:nth-child(4)::before { content: "Wed"; }
+      .ic-matrix__table tbody td:nth-child(5)::before { content: "Thu"; }
+      .ic-matrix__table tbody td:nth-child(6)::before { content: "Fri"; }
+      .ic-matrix__table tbody td:nth-child(7)::before { content: "Sat"; }
+      .ic-cell {
+        min-width: 0;
+        width: auto;
+        text-align: left;
+      }
+
+      .ic-membership__table { min-width: 0; }
+
+      /* surface the mobile sticky CTA */
+      .ic-mobilecta { display: inline-flex; }
+      .ic-footer { padding-bottom: calc(var(--ic-sp-8) + 64px); }
+    }
+
+    @media (max-width: 640px) {
+      .ic-membership { overflow-x: hidden; }
+      .ic-membership__table { min-width: 0; width: 100%; table-layout: fixed; }
+      .ic-membership__table thead { display: none; }
+      .ic-membership__table, .ic-membership__table tbody, .ic-membership__table tr,
+      .ic-membership__table th, .ic-membership__table td { display: block; width: 100%; }
+      .ic-membership__table tbody tr { padding: var(--ic-sp-4) 0; border-bottom: 1px solid var(--ic-border); }
+      .ic-membership__table tbody tr:last-child { border-bottom: 0; }
+      .ic-membership__table tbody th { border: 0; padding: 0 0 var(--ic-sp-2); font-size: var(--ic-fs-200); color: var(--ic-accent); }
+      .ic-membership__table tbody td { border: 0; padding: var(--ic-sp-2) 0 var(--ic-sp-2) var(--ic-sp-4); border-left: 2px solid var(--ic-border); }
+      .ic-membership__table tbody td::before {
+        content: attr(data-col);
+        display: block;
+        font-family: var(--ic-font-mono);
+        font-size: var(--ic-fs-100);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ic-text-faint);
+        margin-bottom: 2px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .ic-tabs__tab { flex: 1 1 100%; }
+      .ic-roster, .ic-prog__meta { gap: var(--ic-sp-4); }
+      .ic-footer__nav { grid-template-columns: 1fr 1fr; }
+      .ic-footer__base { flex-direction: column; align-items: flex-start; }
+      .ic-approach { padding-left: var(--ic-gutter); padding-right: var(--ic-gutter); }
+    }
+
+    /* =====================================================================
+       MOBILE POLISH PASS — surgical, viewport-scoped only. Nothing above
+       this block was changed; every rule here is additive and only ever
+       matches at the narrow widths named. Desktop is untouched by
+       construction (all selectors already resolve differently there, or
+       the base rule stays display:none regardless of these overrides).
+       ===================================================================== */
+
+    /* Nav toggle: below ~350px the visible "Menu" label crowds the
+       wordmark enough to push the button past the viewport edge (verified:
+       clipped off-screen at 320px). Go icon-only there; aria-label already
+       carries the accessible name, so nothing is lost for assistive tech. */
+    @media (max-width: 349px) {
+      .ic-nav__toggle-text { display: none; }
+    }
+
+    /* Hero title: the fluid clamp's floor is one word too tight for the
+       accent line ("Learn to fight") below ~362px width, so it orphans
+       "fight" onto its own line (confirmed at 360×800). Only the floor
+       moves, and only in this narrow band — 362px and up keep the
+       original clamp untouched. */
+    @media (max-width: 361px) {
+      .ic-hero__title { font-size: clamp(2.15rem, 1.45rem + 5vw, 2.7rem); }
+    }
+
+    /* Schedule discipline filter chips: 40px resting height, under the
+       44px tap-target floor every other control on this page already
+       meets. Mobile-scoped bump only, so the desktop chip row (already
+       comfortably sized by mouse standards) is untouched. */
+    @media (max-width: 860px) {
+      .ic-schedfilter__chip { min-height: 44px; }
+    }
+
+    /* Mobile sticky CTA: it and the in-flow "Book a trial" controls (hero
+       actions; the booking form itself) say the same thing and, at the
+       hero on load and again inside the booking form, were both on
+       screen at once — the floating bar even sat over the form's own
+       field labels. JS below toggles .is-suppressed while either
+       original is in view; this just supplies the visual transition. */
+    .ic-mobilecta {
+      transition: background var(--ic-dur-1) var(--ic-ease),
+                  transform var(--ic-dur-1) var(--ic-ease),
+                  opacity var(--ic-dur-2) var(--ic-ease),
+                  visibility var(--ic-dur-2) var(--ic-ease);
+    }
+    .ic-mobilecta.is-suppressed {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* =====================================================================
+       REDUCED MOTION — full fallback
+       ===================================================================== */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+      /* ensure SVG draw-in is shown complete, not stuck mid-draw */
+      .ic-mat__zone--center, .ic-mat__axis { stroke-dashoffset: 0; }
+    }
+  </style>
 </head>
 <body>
   <a class="ic-skip" href="#main">Skip to content</a>
@@ -32,11 +1780,13 @@
       </button>
 
       <div class="ic-nav__menu" id="ic-nav-menu">
-        <ul class="ic-nav__list">
+        <ul class="ic-nav__list" data-scrollspy>
           <li><a href="#programs">Programs</a></li>
           <li><a href="#schedule">Schedule</a></li>
           <li><a href="#first-visit">First Visit</a></li>
           <li><a href="#coaches">Coaches</a></li>
+          <li><a href="#membership">Membership</a></li>
+          <li><a href="#faq">FAQ</a></li>
         </ul>
         <a class="ic-btn ic-btn--solid ic-nav__cta" href="#start">Start</a>
       </div>
@@ -48,24 +1798,94 @@
 
     <!-- ============================ 2. HERO ============================ -->
     <section class="ic-hero" aria-labelledby="ic-hero-title">
-      <!-- mat_zone_diagram_svg_v1 : bespoke mat-zone diagram, decorative -->
-      <svg class="ic-hero__mat" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-        <defs>
-          <pattern id="ic-matgrid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M60 0 H0 V60" fill="none" class="ic-mat__grid" />
-          </pattern>
-        </defs>
-        <rect width="600" height="600" fill="url(#ic-matgrid)" />
-        <rect x="60" y="60" width="480" height="480" rx="6" class="ic-mat__zone ic-mat__zone--outer" />
-        <circle cx="300" cy="300" r="150" class="ic-mat__zone ic-mat__zone--center" pathLength="100" />
-        <line x1="300" y1="150" x2="300" y2="450" class="ic-mat__axis" pathLength="100" />
-        <line x1="150" y1="300" x2="450" y2="300" class="ic-mat__axis" pathLength="100" />
-        <!-- taped corners -->
-        <path d="M60 96 V60 H96" class="ic-mat__tape" />
-        <path d="M504 60 H540 V96" class="ic-mat__tape" />
-        <path d="M540 504 V540 H504" class="ic-mat__tape" />
-        <path d="M96 540 H60 V504" class="ic-mat__tape" />
-      </svg>
+      <!-- hero_cage_floor_scene_svg_v1 : full-bleed bespoke scene — perspective
+           mat floor, a two-rail fight cage viewed close and low, three
+           screen-blended light shafts, hand-authored grain, and the mat-zone
+           motif re-grounded where the floor meets the cage. One SVG, one job. -->
+      <div class="ic-hero__scene" aria-hidden="true">
+        <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" focusable="false">
+          <defs>
+            <linearGradient id="ic-skygrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0a0908" />
+              <stop offset="100%" stop-color="#151311" />
+            </linearGradient>
+            <linearGradient id="ic-floorgrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1c1a17" />
+              <stop offset="100%" stop-color="#050504" />
+            </linearGradient>
+            <radialGradient id="ic-heroglow" cx="76%" cy="10%" r="72%">
+              <stop offset="0%" stop-color="#c98a52" stop-opacity="0.34" />
+              <stop offset="45%" stop-color="#b5713a" stop-opacity="0.13" />
+              <stop offset="100%" stop-color="#b5713a" stop-opacity="0" />
+            </radialGradient>
+            <linearGradient id="ic-beamgrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#ece4d6" stop-opacity="0.85" />
+              <stop offset="100%" stop-color="#ece4d6" stop-opacity="0" />
+            </linearGradient>
+            <pattern id="ic-meshpattern" width="16" height="16" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
+              <line x1="0" y1="0" x2="0" y2="16" stroke="rgba(197,138,82,0.3)" stroke-width="1.2" />
+            </pattern>
+            <filter id="ic-grainfilter" x="0" y="0" width="100%" height="100%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" result="ic-noise" />
+              <feColorMatrix in="ic-noise" type="matrix" values="0 0 0 0 0.93  0 0 0 0 0.89  0 0 0 0 0.84  0 0 0 0.6 0" />
+            </filter>
+          </defs>
+
+          <!-- base atmosphere -->
+          <rect class="ic-scene__sky" x="0" y="0" width="1600" height="900" />
+          <polygon class="ic-scene__floor-fill" points="0,900 1600,900 1400,520 200,520" />
+          <rect class="ic-scene__glow" x="0" y="0" width="1600" height="900" />
+
+          <!-- perspective mat-floor grid — one continuous floor under every zone -->
+          <g class="ic-scene__floor-lines">
+            <line x1="800" y1="520" x2="0" y2="900" />
+            <line x1="800" y1="520" x2="200" y2="900" />
+            <line x1="800" y1="520" x2="400" y2="900" />
+            <line x1="800" y1="520" x2="600" y2="900" />
+            <line class="is-strong" x1="800" y1="520" x2="800" y2="900" />
+            <line x1="800" y1="520" x2="1000" y2="900" />
+            <line x1="800" y1="520" x2="1200" y2="900" />
+            <line x1="800" y1="520" x2="1400" y2="900" />
+            <line x1="800" y1="520" x2="1600" y2="900" />
+            <line x1="57" y1="791" x2="1543" y2="791" />
+            <line x1="100" y1="710" x2="1500" y2="710" />
+            <line x1="133" y1="647" x2="1467" y2="647" />
+            <line class="is-strong" x1="160" y1="596" x2="1440" y2="596" />
+            <line x1="175" y1="568" x2="1425" y2="568" />
+          </g>
+
+          <!-- fight cage — close, low angle; centered so the rails stay inside
+               the visible crop window at every breakpoint (verified against
+               preserveAspectRatio="slice" math down to a 390px viewport) -->
+          <g class="ic-scene__cage">
+            <polygon class="ic-scene__cage-mesh-fill" points="1351,664 1145,923 855,923 649,664 649,296 855,37 1145,37 1351,296" />
+            <polygon class="ic-scene__cage-outer" points="1351,664 1145,923 855,923 649,664 649,296 855,37 1145,37 1351,296" />
+            <polygon class="ic-scene__cage-inner" points="1288,631 1119,844 881,844 712,631 712,329 881,116 1119,116 1288,329" />
+          </g>
+
+          <!-- hard light shafts, screen-blended so they only ever brighten -->
+          <g class="ic-scene__beams">
+            <polygon class="ic-scene__beam ic-scene__beam--soft" points="1400,-40 1560,-40 640,940 500,940" />
+            <polygon class="ic-scene__beam ic-scene__beam--hard" points="1140,-40 1230,-40 260,940 190,940" />
+            <polygon class="ic-scene__beam ic-scene__beam--thin" points="1660,60 1700,60 940,940 900,940" />
+          </g>
+
+          <!-- mat-zone motif: outer zone, center circle, crosshair, taped corners —
+               grounded where the floor meets the cage; the one animated element. -->
+          <rect x="550" y="630" width="300" height="220" rx="8" class="ic-mat__zone ic-mat__zone--outer" />
+          <circle cx="700" cy="740" r="95" class="ic-mat__zone ic-mat__zone--center" pathLength="100" />
+          <line x1="700" y1="645" x2="700" y2="835" class="ic-mat__axis" pathLength="100" />
+          <line x1="605" y1="740" x2="795" y2="740" class="ic-mat__axis" pathLength="100" />
+          <path d="M550 654 V630 H574" class="ic-mat__tape" />
+          <path d="M826 630 H850 V654" class="ic-mat__tape" />
+          <path d="M850 826 V850 H826" class="ic-mat__tape" />
+          <path d="M574 850 H550 V826" class="ic-mat__tape" />
+
+          <!-- hand-authored film grain — no raster asset, one feTurbulence filter -->
+          <rect class="ic-scene__grain" x="0" y="0" width="1600" height="900" filter="url(#ic-grainfilter)" />
+        </svg>
+      </div>
+      <div class="ic-hero__scrim" aria-hidden="true"></div>
 
       <div class="ic-hero__inner">
         <p class="ic-eyebrow">Adult &amp; teen combat-sports academy</p>
@@ -88,18 +1908,63 @@
       </div>
     </section>
 
-    <!-- ============================ 3. PROGRAM SELECTOR ============================ -->
+    <!-- ============================ 3. APPROACH STRIP ============================ -->
+    <section class="ic-approach" aria-labelledby="ic-approach-title">
+      <div class="ic-approach__inner">
+        <div class="ic-approach__head">
+          <p class="ic-eyebrow">The Iron Circuit standard</p>
+          <h2 id="ic-approach-title" class="ic-h2" style="font-size: var(--ic-fs-500);">Why the mat feels different here</h2>
+          <p class="ic-section__intro" style="font-size: var(--ic-fs-300);">Three things every member notices in their first week — before they notice anything else.</p>
+        </div>
+        <div class="ic-approach__grid">
+          <div class="ic-approach__item">
+            <div class="ic-icon-chip">
+              <svg class="ic-approach__icon" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+                <circle cx="17" cy="12" r="6" />
+                <path d="M6 28c0-6 5-10 11-10s11 4 11 10" />
+              </svg>
+            </div>
+            <h3 class="ic-approach__title">Beginner-first curriculum</h3>
+            <p class="ic-approach__text">Every track opens with a fundamentals on-ramp. Nobody is placed into live rounds before they know the movement.</p>
+          </div>
+          <div class="ic-approach__item">
+            <div class="ic-icon-chip">
+              <svg class="ic-approach__icon" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+                <path d="M6 17h8l3-9 4 18 3-9h4" />
+              </svg>
+            </div>
+            <h3 class="ic-approach__title">Coached intensity, not chaos</h3>
+            <p class="ic-approach__text">Every round has a coach watching pace and control. Effort is expected; recklessness is corrected on sight.</p>
+          </div>
+          <div class="ic-approach__item">
+            <div class="ic-icon-chip">
+              <svg class="ic-approach__icon" viewBox="0 0 34 34" aria-hidden="true" focusable="false">
+                <path d="M7 17l7 7 13-13" />
+              </svg>
+            </div>
+            <h3 class="ic-approach__title">Consent-based partner work</h3>
+            <p class="ic-approach__text">Tap early, ask before drilling something new, and any partner can pause a round. No exceptions, no ego.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 4. PROGRAM SELECTOR ============================ -->
     <!-- program_selector_tabs_v1 -->
     <section class="ic-section ic-programs" id="programs" aria-labelledby="ic-programs-title">
       <div class="ic-section__head">
         <p class="ic-kicker"><span class="ic-kicker__num">01</span> Programs</p>
-        <h2 id="ic-programs-title" class="ic-h2">Four tracks. One progression.</h2>
-        <p class="ic-section__intro">Pick where you want to start. Most members blend tracks once the fundamentals click.</p>
+        <h2 id="ic-programs-title" class="ic-h2">Five tracks. One progression.</h2>
+        <p class="ic-section__intro">Pick where you want to start. Most members blend tracks once the fundamentals click — MMA Fundamentals is where Striking and Grappling meet.</p>
       </div>
 
       <div class="ic-tabs" data-tabs>
         <div class="ic-tabs__list" role="tablist" aria-label="Training programs">
-          <button class="ic-tabs__tab" role="tab" id="tab-striking" aria-selected="true" aria-controls="panel-striking" type="button">
+          <button class="ic-tabs__tab" role="tab" id="tab-fundamentals" aria-selected="true" aria-controls="panel-fundamentals" type="button">
+            <span class="ic-tabs__tab-label">Fundamentals</span>
+            <span class="ic-tabs__tab-sub">Brand-new starters</span>
+          </button>
+          <button class="ic-tabs__tab" role="tab" id="tab-striking" aria-selected="false" aria-controls="panel-striking" tabindex="-1" type="button">
             <span class="ic-tabs__tab-label">Striking</span>
             <span class="ic-tabs__tab-sub">Boxing · Muay Thai</span>
           </button>
@@ -107,17 +1972,47 @@
             <span class="ic-tabs__tab-label">Grappling</span>
             <span class="ic-tabs__tab-sub">BJJ · Wrestling</span>
           </button>
+          <button class="ic-tabs__tab" role="tab" id="tab-mma" aria-selected="false" aria-controls="panel-mma" tabindex="-1" type="button">
+            <span class="ic-tabs__tab-label">MMA Fundamentals</span>
+            <span class="ic-tabs__tab-sub">Striking + grappling blend</span>
+          </button>
           <button class="ic-tabs__tab" role="tab" id="tab-youth" aria-selected="false" aria-controls="panel-youth" tabindex="-1" type="button">
             <span class="ic-tabs__tab-label">Youth</span>
             <span class="ic-tabs__tab-sub">Ages 14–17</span>
           </button>
-          <button class="ic-tabs__tab" role="tab" id="tab-fundamentals" aria-selected="false" aria-controls="panel-fundamentals" tabindex="-1" type="button">
-            <span class="ic-tabs__tab-label">Fundamentals</span>
-            <span class="ic-tabs__tab-sub">Brand-new starters</span>
-          </button>
         </div>
 
-        <div class="ic-tabs__panel" role="tabpanel" id="panel-striking" aria-labelledby="tab-striking" tabindex="0">
+        <div class="ic-tabs__panel" role="tabpanel" id="panel-fundamentals" aria-labelledby="tab-fundamentals" tabindex="0">
+          <div class="ic-prog">
+            <div class="ic-prog__body">
+              <h3 class="ic-prog__title">Fundamentals</h3>
+              <p>The on-ramp for people who have never trained. Low-pressure sessions that teach movement, terminology, and gym etiquette before you join the main floor.</p>
+              <ul class="ic-prog__list">
+                <li>No experience or fitness baseline assumed</li>
+                <li>Learn the warm-up, language, and safety rules</li>
+                <li>Clear path into Striking, Grappling, or MMA next</li>
+              </ul>
+              <div class="ic-prog__flow">
+                <p class="ic-prog__flow-title">Typical session shape</p>
+                <ol class="ic-prog__flow-list">
+                  <li>Mat orientation</li>
+                  <li>Guided warm-up</li>
+                  <li>Movement drilling</li>
+                  <li>Etiquette &amp; Q&amp;A</li>
+                  <li>Cool-down</li>
+                </ol>
+              </div>
+            </div>
+            <dl class="ic-prog__meta">
+              <div><dt>Format</dt><dd>Small group, 45 min</dd></div>
+              <div><dt>Contact</dt><dd>None to light</dd></div>
+              <div><dt>Gear</dt><dd>Just water &amp; athletic wear</dd></div>
+              <p class="ic-prog__meta-note">Most members spend one to two weeks here before choosing a track.</p>
+            </dl>
+          </div>
+        </div>
+
+        <div class="ic-tabs__panel" role="tabpanel" id="panel-striking" aria-labelledby="tab-striking" tabindex="0" hidden>
           <div class="ic-prog">
             <div class="ic-prog__body">
               <h3 class="ic-prog__title">Striking</h3>
@@ -127,11 +2022,22 @@
                 <li>Pad rounds, bag work, and clinch entries</li>
                 <li>Optional controlled sparring once fundamentals are solid</li>
               </ul>
+              <div class="ic-prog__flow">
+                <p class="ic-prog__flow-title">Typical round structure</p>
+                <ol class="ic-prog__flow-list">
+                  <li>Shadow warm-up</li>
+                  <li>Technique breakdown</li>
+                  <li>Pad rounds</li>
+                  <li>Bag work</li>
+                  <li>Mobility cool-down</li>
+                </ol>
+              </div>
             </div>
             <dl class="ic-prog__meta">
               <div><dt>Format</dt><dd>Group rounds, 60 min</dd></div>
               <div><dt>Contact</dt><dd>Scaled to your level</dd></div>
               <div><dt>Gear</dt><dd>Wraps &amp; gloves (loaners available)</dd></div>
+              <p class="ic-prog__meta-note">Muay Thai clinch entries are introduced once boxing footwork is consistent.</p>
             </dl>
           </div>
         </div>
@@ -146,11 +2052,52 @@
                 <li>Gi and no-gi options as you progress</li>
                 <li>Live rounds scaled to experience and consent</li>
               </ul>
+              <div class="ic-prog__flow">
+                <p class="ic-prog__flow-title">Typical round structure</p>
+                <ol class="ic-prog__flow-list">
+                  <li>Movement drilling</li>
+                  <li>Technique breakdown</li>
+                  <li>Positional sparring</li>
+                  <li>Live rounds (optional)</li>
+                  <li>Cool-down</li>
+                </ol>
+              </div>
             </div>
             <dl class="ic-prog__meta">
               <div><dt>Format</dt><dd>Group rounds, 75 min</dd></div>
               <div><dt>Contact</dt><dd>Controlled, position-led</dd></div>
               <div><dt>Gear</dt><dd>Rashguard or gi (ask at desk)</dd></div>
+              <p class="ic-prog__meta-note">New members start in positional rounds only — live rolling comes later, by choice.</p>
+            </dl>
+          </div>
+        </div>
+
+        <div class="ic-tabs__panel" role="tabpanel" id="panel-mma" aria-labelledby="tab-mma" tabindex="0" hidden>
+          <div class="ic-prog">
+            <div class="ic-prog__body">
+              <h3 class="ic-prog__title">MMA Fundamentals</h3>
+              <p>Where the tracks connect. Takedown entries, floor control, and transitions between striking range and the ground, built for members who already have some time on the mat.</p>
+              <ul class="ic-prog__list">
+                <li>Entry requires baseline time in Striking or Grappling first</li>
+                <li>Takedown entries, sprawls, and striking-to-grappling transitions</li>
+                <li>Round structure mirrors real bout pacing, at training intensity</li>
+              </ul>
+              <div class="ic-prog__flow">
+                <p class="ic-prog__flow-title">Typical round structure</p>
+                <ol class="ic-prog__flow-list">
+                  <li>Warm-up &amp; mobility</li>
+                  <li>Transition drilling</li>
+                  <li>Round-structured sparring</li>
+                  <li>Coach debrief</li>
+                  <li>Cool-down</li>
+                </ol>
+              </div>
+            </div>
+            <dl class="ic-prog__meta">
+              <div><dt>Format</dt><dd>Group rounds, 60 min</dd></div>
+              <div><dt>Contact</dt><dd>Moderate, coach-paced</dd></div>
+              <div><dt>Gear</dt><dd>Full kit — gloves, shin guards, mouthguard</dd></div>
+              <p class="ic-prog__meta-note">A coach confirms you're ready for this track before you join — ask at the desk.</p>
             </dl>
           </div>
         </div>
@@ -165,37 +2112,29 @@
                 <li>Discipline, focus, and conditioning built in</li>
                 <li>Guardian consent required to enroll</li>
               </ul>
+              <div class="ic-prog__flow">
+                <p class="ic-prog__flow-title">Typical session shape</p>
+                <ol class="ic-prog__flow-list">
+                  <li>Warm-up games</li>
+                  <li>Technique blocks</li>
+                  <li>Partner drilling</li>
+                  <li>Conditioning</li>
+                  <li>Cool-down &amp; recap</li>
+                </ol>
+              </div>
             </div>
             <dl class="ic-prog__meta">
               <div><dt>Format</dt><dd>Group rounds, 50 min</dd></div>
               <div><dt>Contact</dt><dd>Supervised, technical</dd></div>
               <div><dt>Gear</dt><dd>Guidance provided on enrollment</dd></div>
-            </dl>
-          </div>
-        </div>
-
-        <div class="ic-tabs__panel" role="tabpanel" id="panel-fundamentals" aria-labelledby="tab-fundamentals" tabindex="0" hidden>
-          <div class="ic-prog">
-            <div class="ic-prog__body">
-              <h3 class="ic-prog__title">Fundamentals</h3>
-              <p>The on-ramp for people who have never trained. Low-pressure sessions that teach movement, terminology, and gym etiquette before you join the main floor.</p>
-              <ul class="ic-prog__list">
-                <li>No experience or fitness baseline assumed</li>
-                <li>Learn the warm-up, language, and safety rules</li>
-                <li>Clear path into Striking or Grappling next</li>
-              </ul>
-            </div>
-            <dl class="ic-prog__meta">
-              <div><dt>Format</dt><dd>Small group, 45 min</dd></div>
-              <div><dt>Contact</dt><dd>None to light</dd></div>
-              <div><dt>Gear</dt><dd>Just water &amp; athletic wear</dd></div>
+              <p class="ic-prog__meta-note">Youth and adult classes never share the floor at the same time.</p>
             </dl>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============================ 4. CLASS SCHEDULE MATRIX ============================ -->
+    <!-- ============================ 5. CLASS SCHEDULE MATRIX ============================ -->
     <!-- class_schedule_matrix_v1 -->
     <section class="ic-section ic-schedule" id="schedule" aria-labelledby="ic-schedule-title">
       <div class="ic-section__head">
@@ -204,9 +2143,33 @@
         <p class="ic-section__intro">A representative weekly structure. Confirm current times and open mats at the front desk — ask about current availability.</p>
       </div>
 
+      <div class="ic-schedfilter" role="group" aria-label="Filter schedule by discipline" data-schedfilter>
+        <button class="ic-schedfilter__chip" type="button" data-filter="all" aria-pressed="true">
+          <span class="ic-schedfilter__sw" style="background: var(--ic-text-faint);" aria-hidden="true"></span> All
+        </button>
+        <button class="ic-schedfilter__chip" type="button" data-filter="strike" aria-pressed="false">
+          <span class="ic-schedfilter__sw" style="background: var(--ic-copper);" aria-hidden="true"></span> Striking
+        </button>
+        <button class="ic-schedfilter__chip" type="button" data-filter="grap" aria-pressed="false">
+          <span class="ic-schedfilter__sw" style="background: var(--ic-n-200);" aria-hidden="true"></span> Grappling
+        </button>
+        <button class="ic-schedfilter__chip" type="button" data-filter="fund" aria-pressed="false">
+          <span class="ic-schedfilter__sw" style="background: var(--ic-ok);" aria-hidden="true"></span> Fundamentals
+        </button>
+        <button class="ic-schedfilter__chip" type="button" data-filter="mma" aria-pressed="false">
+          <span class="ic-schedfilter__sw" style="background: var(--ic-bone);" aria-hidden="true"></span> MMA
+        </button>
+        <button class="ic-schedfilter__chip" type="button" data-filter="youth" aria-pressed="false">
+          <span class="ic-schedfilter__sw" style="background: var(--ic-red);" aria-hidden="true"></span> Youth
+        </button>
+        <button class="ic-schedfilter__chip" type="button" data-filter="open" aria-pressed="false">
+          <span class="ic-schedfilter__sw" style="background: var(--ic-text-muted);" aria-hidden="true"></span> Open Mat
+        </button>
+      </div>
+
       <div class="ic-matrix" role="region" aria-label="Weekly class schedule" tabindex="0">
         <table class="ic-matrix__table">
-          <caption class="ic-visually-hidden">Weekly class schedule by time block and day. Cells list the discipline running in that block.</caption>
+          <caption class="ic-visually-hidden">Weekly class schedule by time block and day. Cells list the discipline running in that block. Use the filter buttons above the table to highlight one discipline at a time.</caption>
           <thead>
             <tr>
               <th scope="col" class="ic-matrix__corner">Block</th>
@@ -221,38 +2184,47 @@
           <tbody>
             <tr>
               <th scope="row"><span class="ic-matrix__time">06:30</span><span class="ic-matrix__band">Morning</span></th>
-              <td><span class="ic-cell ic-cell--strike">Striking</span></td>
-              <td><span class="ic-cell ic-cell--grap">Grappling</span></td>
-              <td><span class="ic-cell ic-cell--strike">Striking</span></td>
-              <td><span class="ic-cell ic-cell--grap">Grappling</span></td>
-              <td><span class="ic-cell ic-cell--strike">Striking</span></td>
-              <td><span class="ic-cell ic-cell--open">Open Mat</span></td>
+              <td><span class="ic-cell ic-cell--strike" data-disc="strike">Striking</span></td>
+              <td><span class="ic-cell ic-cell--grap" data-disc="grap">Grappling</span></td>
+              <td><span class="ic-cell ic-cell--strike" data-disc="strike">Striking</span></td>
+              <td><span class="ic-cell ic-cell--grap" data-disc="grap">Grappling</span></td>
+              <td><span class="ic-cell ic-cell--strike" data-disc="strike">Striking</span></td>
+              <td><span class="ic-cell ic-cell--open" data-disc="open">Open Mat</span></td>
             </tr>
             <tr>
               <th scope="row"><span class="ic-matrix__time">12:00</span><span class="ic-matrix__band">Midday</span></th>
-              <td><span class="ic-cell ic-cell--fund">Fundamentals</span></td>
+              <td><span class="ic-cell ic-cell--fund" data-disc="fund">Fundamentals</span></td>
               <td class="ic-cell-empty"><span aria-hidden="true">—</span><span class="ic-visually-hidden">No class</span></td>
-              <td><span class="ic-cell ic-cell--fund">Fundamentals</span></td>
+              <td><span class="ic-cell ic-cell--fund" data-disc="fund">Fundamentals</span></td>
               <td class="ic-cell-empty"><span aria-hidden="true">—</span><span class="ic-visually-hidden">No class</span></td>
-              <td><span class="ic-cell ic-cell--fund">Fundamentals</span></td>
-              <td><span class="ic-cell ic-cell--strike">Striking</span></td>
+              <td><span class="ic-cell ic-cell--fund" data-disc="fund">Fundamentals</span></td>
+              <td><span class="ic-cell ic-cell--strike" data-disc="strike">Striking</span></td>
             </tr>
             <tr>
               <th scope="row"><span class="ic-matrix__time">17:30</span><span class="ic-matrix__band">Youth</span></th>
-              <td><span class="ic-cell ic-cell--youth">Youth</span></td>
-              <td><span class="ic-cell ic-cell--youth">Youth</span></td>
-              <td><span class="ic-cell ic-cell--youth">Youth</span></td>
-              <td><span class="ic-cell ic-cell--youth">Youth</span></td>
+              <td><span class="ic-cell ic-cell--youth" data-disc="youth">Youth</span></td>
+              <td><span class="ic-cell ic-cell--youth" data-disc="youth">Youth</span></td>
+              <td><span class="ic-cell ic-cell--youth" data-disc="youth">Youth</span></td>
+              <td><span class="ic-cell ic-cell--youth" data-disc="youth">Youth</span></td>
               <td class="ic-cell-empty"><span aria-hidden="true">—</span><span class="ic-visually-hidden">No class</span></td>
-              <td><span class="ic-cell ic-cell--grap">Grappling</span></td>
+              <td><span class="ic-cell ic-cell--grap" data-disc="grap">Grappling</span></td>
             </tr>
             <tr>
               <th scope="row"><span class="ic-matrix__time">19:00</span><span class="ic-matrix__band">Evening</span></th>
-              <td><span class="ic-cell ic-cell--grap">Grappling</span></td>
-              <td><span class="ic-cell ic-cell--strike">Striking</span></td>
-              <td><span class="ic-cell ic-cell--grap">Grappling</span></td>
-              <td><span class="ic-cell ic-cell--strike">Striking</span></td>
-              <td><span class="ic-cell ic-cell--strike">Striking</span></td>
+              <td><span class="ic-cell ic-cell--grap" data-disc="grap">Grappling</span></td>
+              <td><span class="ic-cell ic-cell--strike" data-disc="strike">Striking</span></td>
+              <td><span class="ic-cell ic-cell--grap" data-disc="grap">Grappling</span></td>
+              <td><span class="ic-cell ic-cell--strike" data-disc="strike">Striking</span></td>
+              <td><span class="ic-cell ic-cell--strike" data-disc="strike">Striking</span></td>
+              <td class="ic-cell-empty"><span aria-hidden="true">—</span><span class="ic-visually-hidden">No class</span></td>
+            </tr>
+            <tr>
+              <th scope="row"><span class="ic-matrix__time">20:15</span><span class="ic-matrix__band">Advanced</span></th>
+              <td class="ic-cell-empty"><span aria-hidden="true">—</span><span class="ic-visually-hidden">No class</span></td>
+              <td><span class="ic-cell ic-cell--mma" data-disc="mma">MMA</span></td>
+              <td class="ic-cell-empty"><span aria-hidden="true">—</span><span class="ic-visually-hidden">No class</span></td>
+              <td><span class="ic-cell ic-cell--mma" data-disc="mma">MMA</span></td>
+              <td class="ic-cell-empty"><span aria-hidden="true">—</span><span class="ic-visually-hidden">No class</span></td>
               <td class="ic-cell-empty"><span aria-hidden="true">—</span><span class="ic-visually-hidden">No class</span></td>
             </tr>
           </tbody>
@@ -262,18 +2234,20 @@
         <li><span class="ic-legend__sw ic-cell--strike" aria-hidden="true"></span> Striking</li>
         <li><span class="ic-legend__sw ic-cell--grap" aria-hidden="true"></span> Grappling</li>
         <li><span class="ic-legend__sw ic-cell--fund" aria-hidden="true"></span> Fundamentals</li>
+        <li><span class="ic-legend__sw ic-cell--mma" aria-hidden="true"></span> MMA</li>
         <li><span class="ic-legend__sw ic-cell--youth" aria-hidden="true"></span> Youth</li>
         <li><span class="ic-legend__sw ic-cell--open" aria-hidden="true"></span> Open Mat</li>
       </ul>
+      <p class="ic-matrix__note">The academy is closed Sundays for mat maintenance. MMA Fundamentals requires a coach sign-off — see the Programs section above.</p>
     </section>
 
-    <!-- ============================ 5. FIRST-WEEK ONBOARDING TIMELINE ============================ -->
+    <!-- ============================ 6. FIRST-WEEK ONBOARDING TIMELINE ============================ -->
     <!-- first_week_timeline_v1 -->
     <section class="ic-section ic-first" id="first-visit" aria-labelledby="ic-first-title">
       <div class="ic-section__head">
         <p class="ic-kicker"><span class="ic-kicker__num">03</span> First Visit</p>
-        <h2 id="ic-first-title" class="ic-h2">Your first week, mapped</h2>
-        <p class="ic-section__intro">Nobody gets thrown into sparring on day one. Here is how the first week actually goes.</p>
+        <h2 id="ic-first-title" class="ic-h2">Your first weeks, mapped</h2>
+        <p class="ic-section__intro">Nobody gets thrown into sparring on day one. Here is how the first month actually goes.</p>
       </div>
 
       <ol class="ic-timeline">
@@ -309,10 +2283,18 @@
             <p>A coach helps you choose Striking, Grappling, or both, and sets a simple weekly plan that fits your schedule and goals.</p>
           </div>
         </li>
+        <li class="ic-timeline__step ic-timeline__step--after">
+          <span class="ic-timeline__node" aria-hidden="true">5</span>
+          <div class="ic-timeline__card">
+            <p class="ic-timeline__tag">Weeks two through four</p>
+            <h3 class="ic-timeline__title">Build the rhythm</h3>
+            <p>You settle into your track, start recognizing faces on the mat, and a coach checks your pacing. This is where training turns into a habit.</p>
+          </div>
+        </li>
       </ol>
     </section>
 
-    <!-- ============================ 6. COACH ROSTER ============================ -->
+    <!-- ============================ 7. COACH ROSTER ============================ -->
     <!-- coach_roster_proof_safe_v1 -->
     <section class="ic-section ic-coaches" id="coaches" aria-labelledby="ic-coaches-title">
       <div class="ic-section__head">
@@ -322,6 +2304,21 @@
       </div>
 
       <ul class="ic-roster">
+        <li class="ic-coach ic-coach--featured">
+          <div class="ic-coach__portrait" aria-hidden="true">
+            <svg viewBox="0 0 100 100" width="100" height="100" focusable="false">
+              <rect width="100" height="100" rx="4" class="ic-coach__plate" />
+              <circle cx="50" cy="40" r="16" class="ic-coach__figure" />
+              <path d="M22 84 C22 64 78 64 78 84 Z" class="ic-coach__figure" />
+            </svg>
+          </div>
+          <div class="ic-coach__body">
+            <p class="ic-coach__role">Program Director &amp; Head Coach</p>
+            <h3 class="ic-coach__name">[COACH_NAME]</h3>
+            <p class="ic-coach__bio">[COACH_BIO — background across striking and grappling, and how long they have run the floor here. Add only verified detail.]</p>
+            <p class="ic-coach__cred">[VERIFIED_CREDENTIAL]</p>
+          </div>
+        </li>
         <li class="ic-coach">
           <div class="ic-coach__portrait" aria-hidden="true">
             <svg viewBox="0 0 100 100" width="100" height="100" focusable="false">
@@ -370,10 +2367,64 @@
       </ul>
     </section>
 
-    <!-- ============================ 7. FACILITY / GEAR CHECKLIST ============================ -->
-    <section class="ic-section ic-facility" id="facility" aria-labelledby="ic-facility-title">
+    <!-- ============================ 8. THE FLOOR — FACILITY ZONES ============================ -->
+    <section class="ic-section ic-floor" id="floor" aria-labelledby="ic-floor-title">
       <div class="ic-section__head">
-        <p class="ic-kicker"><span class="ic-kicker__num">05</span> Facility &amp; Gear</p>
+        <p class="ic-kicker"><span class="ic-kicker__num">05</span> The Floor</p>
+        <h2 id="ic-floor-title" class="ic-h2">Four zones, one mat</h2>
+        <p class="ic-section__intro">The training floor is laid out in defined zones so striking, grappling, and conditioning never collide mid-round.</p>
+      </div>
+
+      <div class="ic-floor__grid">
+        <div class="ic-floor__zone">
+          <svg class="ic-floor__icon" viewBox="0 0 200 100" aria-hidden="true" focusable="false">
+            <rect x="4" y="4" width="192" height="92" class="ic-floor__pad" />
+            <rect x="20" y="20" width="60" height="60" class="ic-floor__mark" />
+            <path d="M50 30 v40 M30 50 h40" class="ic-floor__mark" />
+            <circle cx="140" cy="50" r="18" class="ic-floor__mark" />
+          </svg>
+          <p class="ic-floor__num">Zone 01</p>
+          <h3 class="ic-floor__name">Striking Bay</h3>
+          <p class="ic-floor__desc">Bags, pads, and a taped ring line for boxing and Muay Thai rounds. Mirrors along the back wall for solo shadow work.</p>
+        </div>
+        <div class="ic-floor__zone">
+          <svg class="ic-floor__icon" viewBox="0 0 200 100" aria-hidden="true" focusable="false">
+            <rect x="4" y="4" width="192" height="92" class="ic-floor__pad" />
+            <circle cx="100" cy="50" r="38" class="ic-floor__mark" />
+            <circle cx="100" cy="50" r="18" class="ic-floor__mark" />
+          </svg>
+          <p class="ic-floor__num">Zone 02</p>
+          <h3 class="ic-floor__name">Grappling Mats</h3>
+          <p class="ic-floor__desc">Sprung matting sized for positional rounds and live rolling, with a clear engagement circle for BJJ and wrestling.</p>
+        </div>
+        <div class="ic-floor__zone">
+          <svg class="ic-floor__icon" viewBox="0 0 200 100" aria-hidden="true" focusable="false">
+            <rect x="4" y="4" width="192" height="92" class="ic-floor__pad" />
+            <path d="M20 70 h20 v-40 h20 v55 h20 v-30 h20 v45 h20 v-20 h20" class="ic-floor__mark" />
+          </svg>
+          <p class="ic-floor__num">Zone 03</p>
+          <h3 class="ic-floor__name">Conditioning Corner</h3>
+          <p class="ic-floor__desc">Sleds, ropes, and bodyweight stations for warm-ups and the conditioning work built into every class.</p>
+        </div>
+        <div class="ic-floor__zone">
+          <svg class="ic-floor__icon" viewBox="0 0 200 100" aria-hidden="true" focusable="false">
+            <rect x="4" y="4" width="192" height="92" class="ic-floor__pad" />
+            <rect x="24" y="24" width="28" height="52" class="ic-floor__mark" />
+            <rect x="60" y="24" width="28" height="52" class="ic-floor__mark" />
+            <rect x="96" y="24" width="28" height="52" class="ic-floor__mark" />
+            <rect x="132" y="24" width="28" height="52" class="ic-floor__mark" />
+          </svg>
+          <p class="ic-floor__num">Zone 04</p>
+          <h3 class="ic-floor__name">Recovery &amp; Cubbies</h3>
+          <p class="ic-floor__desc">Secure cubbies, a changing area, and space to stretch out after class before you head home.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================ 9. FACILITY / GEAR CHECKLIST ============================ -->
+    <section class="ic-section ic-facility" id="gear" aria-labelledby="ic-facility-title">
+      <div class="ic-section__head">
+        <p class="ic-kicker"><span class="ic-kicker__num">06</span> Gear</p>
         <h2 id="ic-facility-title" class="ic-h2">What to bring, what we provide</h2>
         <p class="ic-section__intro">Show up with the basics; we handle the rest. Loaner gear is available for trial sessions.</p>
       </div>
@@ -382,30 +2433,165 @@
         <div class="ic-checklist">
           <h3 class="ic-checklist__title">Bring this</h3>
           <ul class="ic-checklist__list">
-            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> Water bottle</li>
-            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> Athletic clothing you can move in</li>
-            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> A towel and clean training mindset</li>
-            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> Mouthguard, if you have one</li>
+            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> <span>Water bottle</span></li>
+            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> <span>Athletic clothing you can move in</span></li>
+            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> <span>A towel and clean training mindset</span></li>
+            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> <span>Mouthguard, if you have one</span></li>
+            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> <span>Hair tie or wrap<small>Keeps hair clear of your face for grappling and striking rounds alike.</small></span></li>
           </ul>
         </div>
         <div class="ic-checklist ic-checklist--alt">
           <h3 class="ic-checklist__title">We provide</h3>
           <ul class="ic-checklist__list">
-            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> Matted training floor with defined zones</li>
-            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> Loaner gloves and wraps for trials</li>
-            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> Bags, pads, and grappling space</li>
-            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> Changing area and secure cubbies</li>
+            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> <span>Matted training floor with defined zones</span></li>
+            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> <span>Loaner gloves and wraps for trials</span></li>
+            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> <span>Bags, pads, and grappling space</span></li>
+            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> <span>Changing area and secure cubbies</span></li>
+            <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> <span>Sanitized mats between every class<small>Mats are cleaned on a set rotation throughout the day.</small></span></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- ============================ 8. TRIAL BOOKING FLOW ============================ -->
+    <!-- ============================ 10. MEMBERSHIP ============================ -->
+    <section class="ic-section ic-membership-section" id="membership" aria-labelledby="ic-membership-title">
+      <div class="ic-section__head">
+        <p class="ic-kicker"><span class="ic-kicker__num">07</span> Membership</p>
+        <h2 id="ic-membership-title" class="ic-h2">Find your commitment level</h2>
+        <p class="ic-section__intro">Three ways to train, side by side. Exact pricing is confirmed at the front desk so you always see current rates, not a stale number on a webpage.</p>
+      </div>
+
+      <div class="ic-membership">
+        <table class="ic-membership__table">
+          <caption class="ic-visually-hidden">Membership comparison across Drop-In, Monthly Unlimited, and Youth Monthly plans.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Compare</th>
+              <th scope="col">Drop-In</th>
+              <th scope="col" class="ic-membership__recommended">Monthly Unlimited <span class="ic-membership__flag">Most common</span></th>
+              <th scope="col">Youth Monthly</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Best for</th>
+              <td data-col="Drop-In">Trying a single class or training while traveling</td>
+              <td data-col="Monthly Unlimited">Members training multiple times a week</td>
+              <td data-col="Youth Monthly">Teens (14–17) in the Youth track</td>
+            </tr>
+            <tr>
+              <th scope="row">Class access</th>
+              <td data-col="Drop-In">One class per visit</td>
+              <td data-col="Monthly Unlimited">Unlimited adult classes, any track</td>
+              <td data-col="Youth Monthly">Unlimited Youth-track classes</td>
+            </tr>
+            <tr>
+              <th scope="row">Programs included</th>
+              <td data-col="Drop-In">Fundamentals, Striking, or Grappling</td>
+              <td data-col="Monthly Unlimited">Fundamentals, Striking, Grappling, MMA</td>
+              <td data-col="Youth Monthly">Youth track only</td>
+            </tr>
+            <tr>
+              <th scope="row">Gear</th>
+              <td data-col="Drop-In">Loaner gear included</td>
+              <td data-col="Monthly Unlimited">Loaner gear for your first month</td>
+              <td data-col="Youth Monthly">Guidance provided on enrollment</td>
+            </tr>
+            <tr>
+              <th scope="row">Typical commitment</th>
+              <td data-col="Drop-In">None — pay per visit</td>
+              <td data-col="Monthly Unlimited">Month to month, cancel any time</td>
+              <td data-col="Youth Monthly">Month to month, guardian sign-off</td>
+            </tr>
+            <tr>
+              <th scope="row">Pricing</th>
+              <td data-col="Drop-In"><span class="ic-membership__price">Ask at the front desk</span></td>
+              <td data-col="Monthly Unlimited"><span class="ic-membership__price">Ask at the front desk</span></td>
+              <td data-col="Youth Monthly"><span class="ic-membership__price">Ask at the front desk</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ic-membership__cta">
+        <a class="ic-btn ic-btn--solid" href="#start">Start with a trial instead</a>
+        <p>No membership is required to book a trial session.</p>
+      </div>
+    </section>
+
+    <!-- ============================ 11. CODE OF THE MAT ============================ -->
+    <section class="ic-section ic-conduct" id="conduct" aria-labelledby="ic-conduct-title">
+      <div class="ic-section__head ic-section__head--wide">
+        <p class="ic-kicker"><span class="ic-kicker__num">08</span> Code of the Mat</p>
+        <h2 id="ic-conduct-title" class="ic-h2">Intensity without ego</h2>
+        <p class="ic-section__intro">Every member trains under the same rules, from the first trial session onward. This is what keeps the floor safe at any intensity.</p>
+      </div>
+
+      <ol class="ic-conduct__list">
+        <li class="ic-conduct__item">
+          <span class="ic-conduct__num" aria-hidden="true"></span>
+          <div>
+            <h3 class="ic-conduct__title">Bow in, bow out</h3>
+            <p class="ic-conduct__text">Acknowledge the mat and your coach at the start and end of every session. It sets the tone before anything physical happens.</p>
+          </div>
+        </li>
+        <li class="ic-conduct__item">
+          <span class="ic-conduct__num" aria-hidden="true"></span>
+          <div>
+            <h3 class="ic-conduct__title">Hygiene first</h3>
+            <p class="ic-conduct__text">Clean training gear, trimmed nails, no open cuts on the mat. Respect for your training partners starts here.</p>
+          </div>
+        </li>
+        <li class="ic-conduct__item">
+          <span class="ic-conduct__num" aria-hidden="true"></span>
+          <div>
+            <h3 class="ic-conduct__title">Tap early, tap often</h3>
+            <p class="ic-conduct__text">Tapping is not losing. It is how everyone in the room gets to train again tomorrow.</p>
+          </div>
+        </li>
+        <li class="ic-conduct__item">
+          <span class="ic-conduct__num" aria-hidden="true"></span>
+          <div>
+            <h3 class="ic-conduct__title">Ask before you drill something new</h3>
+            <p class="ic-conduct__text">Found a submission or strike you haven't drilled with this partner before? Ask first, every time.</p>
+          </div>
+        </li>
+        <li class="ic-conduct__item">
+          <span class="ic-conduct__num" aria-hidden="true"></span>
+          <div>
+            <h3 class="ic-conduct__title">No ego rounds</h3>
+            <p class="ic-conduct__text">Sparring is training, not a fight. If a coach calls a round down, it is down — no arguments.</p>
+          </div>
+        </li>
+        <li class="ic-conduct__item">
+          <span class="ic-conduct__num" aria-hidden="true"></span>
+          <div>
+            <h3 class="ic-conduct__title">Coach has final say</h3>
+            <p class="ic-conduct__text">On pace, on pairings, on when someone sits a round out. The coach's call is the call, every time.</p>
+          </div>
+        </li>
+        <li class="ic-conduct__item">
+          <span class="ic-conduct__num" aria-hidden="true"></span>
+          <div>
+            <h3 class="ic-conduct__title">New faces get room</h3>
+            <p class="ic-conduct__text">Training with someone new or a first-week beginner? Dial your intensity back, not theirs.</p>
+          </div>
+        </li>
+        <li class="ic-conduct__item">
+          <span class="ic-conduct__num" aria-hidden="true"></span>
+          <div>
+            <h3 class="ic-conduct__title">Leave the floor how you found it</h3>
+            <p class="ic-conduct__text">Wipe down, rack the pads, reset the zone. The next class starts on a clean mat.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- ============================ 12. TRIAL BOOKING FLOW ============================ -->
     <!-- trial_class_booking_flow_v1 -->
     <section class="ic-section ic-start" id="start" aria-labelledby="ic-start-title">
       <div class="ic-start__grid">
         <div class="ic-start__intro">
-          <p class="ic-kicker"><span class="ic-kicker__num">06</span> Start</p>
+          <p class="ic-kicker"><span class="ic-kicker__num">09</span> Start</p>
           <h2 id="ic-start-title" class="ic-h2">Book a trial session</h2>
           <p class="ic-section__intro">Tell us where you want to start and we will follow up to confirm a time. No commitment — just a first session.</p>
           <ul class="ic-start__points">
@@ -413,10 +2599,19 @@
             <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> Loaner gear provided for your trial</li>
             <li><svg class="ic-check" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg> We confirm details before you arrive</li>
           </ul>
+          <div class="ic-start__next">
+            <h3>What happens after you submit</h3>
+            <ol>
+              <li>A coach reviews your requested track and preferred time.</li>
+              <li>We follow up by email to confirm — or to offer the closest open slot.</li>
+              <li>You show up, get the floor tour, and train your first round.</li>
+            </ol>
+          </div>
         </div>
 
         <form class="ic-form" id="ic-trial-form" novalidate aria-labelledby="ic-form-title">
           <h3 id="ic-form-title" class="ic-form__title">Trial request</h3>
+          <p class="ic-form__sub">Fields marked * are required.</p>
 
           <div class="ic-field">
             <label class="ic-label" for="f-name">Full name <span class="ic-req" aria-hidden="true">*</span></label>
@@ -438,6 +2633,7 @@
                 <option value="fundamentals">Fundamentals (brand new)</option>
                 <option value="striking">Striking</option>
                 <option value="grappling">Grappling</option>
+                <option value="mma">MMA Fundamentals</option>
                 <option value="youth">Youth (14–17)</option>
                 <option value="unsure">Not sure yet — help me choose</option>
               </select>
@@ -457,7 +2653,7 @@
 
           <div class="ic-field">
             <label class="ic-label" for="f-notes">Anything we should know? <span class="ic-optional">(optional)</span></label>
-            <textarea class="ic-input ic-textarea" id="f-notes" name="notes" rows="3" autocomplete="off"></textarea>
+            <textarea class="ic-input ic-textarea" id="f-notes" name="notes" rows="3" autocomplete="off" placeholder="Old injuries, scheduling constraints, questions for a coach…"></textarea>
           </div>
 
           <div class="ic-field ic-field--check">
@@ -468,22 +2664,31 @@
             <p class="ic-error" id="f-consent-err" data-error-for="f-consent" hidden>Please confirm this so we can book you safely.</p>
           </div>
 
-          <button class="ic-btn ic-btn--solid ic-btn--block" type="submit">Request my trial</button>
+          <button class="ic-btn ic-btn--solid ic-btn--block" type="submit" id="ic-form-submit" aria-busy="false">
+            <span class="ic-spin" aria-hidden="true"></span>
+            <span class="ic-form-submit__label">Request my trial</span>
+          </button>
 
           <p class="ic-form__note">By submitting you agree we may contact you about your trial. We never share your details.</p>
 
-          <p class="ic-form__success" id="ic-form-success" role="status" hidden>
-            <svg class="ic-check ic-check--lg" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg>
-            Request received. We will follow up to confirm a time — ask about current availability if you need a fast start.
-          </p>
+          <div role="status" aria-live="polite">
+            <p class="ic-form__success" id="ic-form-success" hidden>
+              <svg class="ic-check ic-check--lg" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg>
+              <span>Request received. We will follow up to confirm a time — ask about current availability if you need a fast start.</span>
+            </p>
+            <p class="ic-form__error" id="ic-form-error" hidden>
+              <svg class="ic-check ic-check--lg" viewBox="0 0 16 16" width="20" height="20" aria-hidden="true" focusable="false" style="transform: rotate(45deg);"><path d="M8 2 V14 M2 8 H14" /></svg>
+              <span>Something needs a second look above. Fix the highlighted field and resubmit — nothing you typed was lost.</span>
+            </p>
+          </div>
         </form>
       </div>
     </section>
 
-    <!-- ============================ 9. FAQ ============================ -->
+    <!-- ============================ 13. FAQ ============================ -->
     <section class="ic-section ic-faq" id="faq" aria-labelledby="ic-faq-title">
       <div class="ic-section__head">
-        <p class="ic-kicker"><span class="ic-kicker__num">07</span> FAQ</p>
+        <p class="ic-kicker"><span class="ic-kicker__num">10</span> FAQ</p>
         <h2 id="ic-faq-title" class="ic-h2">Nervous? Read this first.</h2>
         <p class="ic-section__intro">The questions every beginner asks before walking in. Honest answers, no pressure.</p>
       </div>
@@ -558,11 +2763,67 @@
             </div>
           </div>
         </div>
+
+        <div class="ic-accordion__item">
+          <h3 class="ic-accordion__heading">
+            <button class="ic-accordion__trigger" type="button" aria-expanded="false" aria-controls="faq-p6" id="faq-q6">
+              I'm nervous about my body or fitness level. Will I be judged?
+              <svg class="ic-accordion__icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 3 V13 M3 8 H13" /></svg>
+            </button>
+          </h3>
+          <div class="ic-accordion__panel" id="faq-p6" role="region" aria-labelledby="faq-q6">
+            <div class="ic-accordion__inner">
+              <p>No. The Code of the Mat applies to everyone, and "no ego rounds" cuts both ways — nobody on the floor is there to judge a beginner. Most people remember their own first week too well to do that.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ic-accordion__item">
+          <h3 class="ic-accordion__heading">
+            <button class="ic-accordion__trigger" type="button" aria-expanded="false" aria-controls="faq-p7" id="faq-q7">
+              Do I have to spar?
+              <svg class="ic-accordion__icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 3 V13 M3 8 H13" /></svg>
+            </button>
+          </h3>
+          <div class="ic-accordion__panel" id="faq-p7" role="region" aria-labelledby="faq-q7">
+            <div class="ic-accordion__inner">
+              <p>No. Sparring and live rolling are optional in every adult track and only happen once your fundamentals are solid. Plenty of members train for months on drilling and positional work alone.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ic-accordion__item">
+          <h3 class="ic-accordion__heading">
+            <button class="ic-accordion__trigger" type="button" aria-expanded="false" aria-controls="faq-p8" id="faq-q8">
+              How many days a week should a beginner train?
+              <svg class="ic-accordion__icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 3 V13 M3 8 H13" /></svg>
+            </button>
+          </h3>
+          <div class="ic-accordion__panel" id="faq-p8" role="region" aria-labelledby="faq-q8">
+            <div class="ic-accordion__inner">
+              <p>Most beginners start with two sessions a week and build from there once the movements feel familiar and recovery keeps up. A coach can help you set a realistic weekly plan after your first sessions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="ic-accordion__item">
+          <h3 class="ic-accordion__heading">
+            <button class="ic-accordion__trigger" type="button" aria-expanded="false" aria-controls="faq-p9" id="faq-q9">
+              I have an old injury or a medical condition. What should I do?
+              <svg class="ic-accordion__icon" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M8 3 V13 M3 8 H13" /></svg>
+            </button>
+          </h3>
+          <div class="ic-accordion__panel" id="faq-p9" role="region" aria-labelledby="faq-q9">
+            <div class="ic-accordion__inner">
+              <p>Tell your coach before class, not after. Mention it in the notes field when you book your trial, too, so we can scale partner work around it from your very first session.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- ============================ 10. FOOTER ============================ -->
+  <!-- ============================ 14. FOOTER ============================ -->
   <footer class="ic-footer">
     <div class="ic-footer__inner">
       <div class="ic-footer__brand">
@@ -574,7 +2835,11 @@
           </svg>
           <span class="ic-brand__word">IRON<i>CIRCUIT</i></span>
         </a>
-        <p class="ic-footer__tag">Adult &amp; teen combat-sports academy. Striking, grappling, and MMA fundamentals.</p>
+        <p class="ic-footer__tag">Adult &amp; teen combat-sports academy. Striking, grappling, and MMA fundamentals, taught in structured rounds.</p>
+        <p class="ic-footer__badge">
+          <svg class="ic-check" viewBox="0 0 16 16" width="14" height="14" aria-hidden="true" focusable="false"><path d="M2 8 L6 12 L14 3" /></svg>
+          Proof-safe by policy — see Code of the Mat
+        </p>
       </div>
 
       <nav class="ic-footer__nav" aria-label="Footer">
@@ -584,13 +2849,22 @@
             <li><a href="#programs">Programs</a></li>
             <li><a href="#schedule">Schedule</a></li>
             <li><a href="#first-visit">First Visit</a></li>
+            <li><a href="#start">Book a trial</a></li>
           </ul>
         </div>
         <div>
           <h2 class="ic-footer__h">Academy</h2>
           <ul>
             <li><a href="#coaches">Coaches</a></li>
-            <li><a href="#facility">Facility &amp; Gear</a></li>
+            <li><a href="#floor">The Floor</a></li>
+            <li><a href="#conduct">Code of the Mat</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="ic-footer__h">Join</h2>
+          <ul>
+            <li><a href="#membership">Membership</a></li>
+            <li><a href="#gear">Gear &amp; Facility</a></li>
             <li><a href="#faq">FAQ</a></li>
           </ul>
         </div>
@@ -606,7 +2880,10 @@
     </div>
     <div class="ic-footer__base">
       <p>&copy; <span id="ic-year">2026</span> Iron Circuit Fight Academy (fictional). Reviews and credentials can be added after approval.</p>
-      <a class="ic-footer__totop" href="#top">Back to top</a>
+      <div class="ic-footer__base-links">
+        <a href="#conduct">Code of the Mat</a>
+        <a class="ic-footer__totop" href="#top">Back to top</a>
+      </div>
     </div>
   </footer>
 
@@ -616,6 +2893,284 @@
     <svg class="ic-mobilecta__arrow" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" focusable="false"><path d="M3 8 H13 M9 4 L13 8 L9 12" /></svg>
   </a>
 
-  <script src="script.js"></script>
+  <script>
+    /* Iron Circuit Fight Academy — progressive enhancement only.
+       Vanilla JS, no dependencies. Every behavior degrades gracefully:
+       with JS off the page is fully readable and the form posts natively. */
+    (function () {
+      "use strict";
+
+      // Mark JS available (drives accordion default-open fallback in CSS).
+      document.documentElement.classList.remove("no-js");
+
+      var prefersReduced = window.matchMedia
+        ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        : false;
+
+      /* ---------- Footer year ---------- */
+      var yearEl = document.getElementById("ic-year");
+      if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+      /* ---------- Sticky nav: elevate on scroll ---------- */
+      var header = document.querySelector(".ic-header");
+      if (header) {
+        var onScroll = function () {
+          header.setAttribute("data-elevate", window.scrollY > 8 ? "true" : "false");
+        };
+        onScroll();
+        window.addEventListener("scroll", onScroll, { passive: true });
+      }
+
+      /* ---------- Mobile nav toggle ---------- */
+      var toggle = document.querySelector(".ic-nav__toggle");
+      var menu = document.getElementById("ic-nav-menu");
+      if (toggle && menu) {
+        var setMenu = function (open) {
+          toggle.setAttribute("aria-expanded", String(open));
+          toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+          menu.classList.toggle("is-open", open);
+        };
+        toggle.addEventListener("click", function () {
+          setMenu(toggle.getAttribute("aria-expanded") !== "true");
+        });
+        // Close after choosing a link or pressing Escape.
+        menu.addEventListener("click", function (e) {
+          if (e.target.closest("a")) setMenu(false);
+        });
+        document.addEventListener("keydown", function (e) {
+          if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
+            setMenu(false);
+            toggle.focus();
+          }
+        });
+      }
+
+      /* ---------- Scrollspy: mark the nav link for the section in view ---------- */
+      var spyList = document.querySelector("[data-scrollspy]");
+      if (spyList && "IntersectionObserver" in window) {
+        var spyLinks = Array.prototype.slice.call(spyList.querySelectorAll('a[href^="#"]'));
+        var spySections = [];
+        spyLinks.forEach(function (a) {
+          var id = a.getAttribute("href").slice(1);
+          var section = document.getElementById(id);
+          if (section) spySections.push({ id: id, el: section, link: a });
+        });
+
+        var setActiveLink = function (id) {
+          spyLinks.forEach(function (a) {
+            var match = a.getAttribute("href") === "#" + id;
+            a.classList.toggle("is-active", match);
+            if (match) a.setAttribute("aria-current", "true");
+            else a.removeAttribute("aria-current");
+          });
+        };
+
+        var spyObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) setActiveLink(entry.target.id);
+            });
+          },
+          { rootMargin: "-120px 0px -55% 0px", threshold: 0 }
+        );
+        spySections.forEach(function (s) { spyObserver.observe(s.el); });
+      }
+
+      /* ---------- Program selector: ARIA tabs with roving focus ---------- */
+      document.querySelectorAll("[data-tabs]").forEach(function (group) {
+        var tabs = Array.prototype.slice.call(group.querySelectorAll('[role="tab"]'));
+        if (!tabs.length) return;
+
+        var activate = function (tab, setFocus) {
+          tabs.forEach(function (t) {
+            var selected = t === tab;
+            t.setAttribute("aria-selected", String(selected));
+            t.setAttribute("tabindex", selected ? "0" : "-1");
+            var panel = document.getElementById(t.getAttribute("aria-controls"));
+            if (panel) panel.hidden = !selected;
+          });
+          if (setFocus) tab.focus();
+        };
+
+        group.addEventListener("click", function (e) {
+          var tab = e.target.closest('[role="tab"]');
+          if (tab) activate(tab, false);
+        });
+
+        group.addEventListener("keydown", function (e) {
+          var idx = tabs.indexOf(document.activeElement);
+          if (idx < 0) return;
+          var next = null;
+          switch (e.key) {
+            case "ArrowRight":
+            case "ArrowDown": next = tabs[(idx + 1) % tabs.length]; break;
+            case "ArrowLeft":
+            case "ArrowUp": next = tabs[(idx - 1 + tabs.length) % tabs.length]; break;
+            case "Home": next = tabs[0]; break;
+            case "End": next = tabs[tabs.length - 1]; break;
+            default: return;
+          }
+          e.preventDefault();
+          activate(next, true);
+        });
+      });
+
+      /* ---------- FAQ accordion: disclosure pattern ---------- */
+      document.querySelectorAll("[data-accordion]").forEach(function (acc) {
+        acc.querySelectorAll(".ic-accordion__trigger").forEach(function (btn) {
+          var panel = document.getElementById(btn.getAttribute("aria-controls"));
+          if (!panel) return;
+          // Start collapsed (JS present). CSS keeps it open when JS is absent.
+          btn.setAttribute("aria-expanded", "false");
+          panel.classList.remove("is-open");
+          btn.addEventListener("click", function () {
+            var open = btn.getAttribute("aria-expanded") === "true";
+            btn.setAttribute("aria-expanded", String(!open));
+            // Under reduced motion the CSS transition is ~0ms, so the same
+            // class toggle simply snaps open/closed — no separate code path needed.
+            panel.classList.toggle("is-open", !open);
+          });
+        });
+      });
+
+      /* ---------- Schedule discipline filter: dim non-matching cells ---------- */
+      var schedFilter = document.querySelector("[data-schedfilter]");
+      var matrixEl = document.querySelector(".ic-matrix");
+      if (schedFilter && matrixEl) {
+        var chips = Array.prototype.slice.call(schedFilter.querySelectorAll(".ic-schedfilter__chip"));
+        var cells = Array.prototype.slice.call(matrixEl.querySelectorAll(".ic-cell"));
+
+        var applyFilter = function (disc) {
+          cells.forEach(function (cell) {
+            var matches = disc === "all" || cell.getAttribute("data-disc") === disc;
+            cell.classList.toggle("is-dim", !matches);
+          });
+        };
+
+        chips.forEach(function (chip) {
+          chip.addEventListener("click", function () {
+            chips.forEach(function (c) { c.setAttribute("aria-pressed", String(c === chip)); });
+            applyFilter(chip.getAttribute("data-filter"));
+          });
+        });
+      }
+
+      /* ---------- Trial booking form: inline validation + simulated async submit ---------- */
+      var form = document.getElementById("ic-trial-form");
+      if (form) {
+        var success = document.getElementById("ic-form-success");
+        var formError = document.getElementById("ic-form-error");
+        var submitBtn = document.getElementById("ic-form-submit");
+        var submitLabel = submitBtn ? submitBtn.querySelector(".ic-form-submit__label") : null;
+
+        var validators = {
+          name: function (f) { return f.value.trim() ? "" : f.dataset.msg; },
+          email: function (f) {
+            var v = f.value.trim();
+            if (!v) return "Enter your email so we can confirm.";
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "" : f.dataset.msg;
+          },
+          program: function (f) { return f.value ? "" : f.dataset.msg; },
+          consent: function (f) { return f.checked ? "" : f.dataset.msg; }
+        };
+
+        var fields = Array.prototype.slice
+          .call(form.querySelectorAll("[required]"))
+          .filter(function (f) { return validators[f.name]; });
+
+        // Seed each field's message from its paired error element.
+        fields.forEach(function (f) {
+          var err = form.querySelector('[data-error-for="' + f.id + '"]');
+          if (err) f.dataset.msg = err.textContent.trim();
+        });
+
+        var showError = function (field, msg) {
+          var err = form.querySelector('[data-error-for="' + field.id + '"]');
+          var bad = Boolean(msg);
+          field.setAttribute("aria-invalid", String(bad));
+          if (err) {
+            err.hidden = !bad;
+            if (bad) err.textContent = msg;
+          }
+          return bad;
+        };
+
+        var validateField = function (field) {
+          return showError(field, validators[field.name](field));
+        };
+
+        // Re-validate a field once it has been flagged, so errors clear as the user fixes them.
+        fields.forEach(function (f) {
+          var evt = f.type === "checkbox" || f.tagName === "SELECT" ? "change" : "blur";
+          f.addEventListener(evt, function () {
+            if (f.getAttribute("aria-invalid") === "true" || f.value) validateField(f);
+          });
+        });
+
+        var setLoading = function (loading) {
+          if (!submitBtn) return;
+          submitBtn.setAttribute("aria-busy", String(loading));
+          submitBtn.disabled = loading;
+          if (submitLabel) submitLabel.textContent = loading ? "Sending…" : "Request my trial";
+        };
+
+        form.addEventListener("submit", function (e) {
+          e.preventDefault(); // demo donor: never actually navigates away
+          if (success) success.hidden = true;
+          if (formError) formError.hidden = true;
+
+          var firstBad = null;
+          fields.forEach(function (f) {
+            if (validateField(f) && !firstBad) firstBad = f;
+          });
+
+          if (firstBad) {
+            // Error state: surface the summary banner and move focus to the first problem field.
+            if (formError) formError.hidden = false;
+            firstBad.focus(); // input is untouched, nothing the user typed is lost
+            return;
+          }
+
+          // Loading state: a real backend would be a network round trip here.
+          // This simulates that latency honestly instead of resolving instantly.
+          setLoading(true);
+          window.setTimeout(function () {
+            setLoading(false);
+            // Success state.
+            if (success) {
+              success.hidden = false;
+              success.setAttribute("tabindex", "-1");
+              success.focus();
+              success.scrollIntoView({ block: "nearest", behavior: prefersReduced ? "auto" : "smooth" });
+            }
+            form.reset();
+            fields.forEach(function (f) { f.setAttribute("aria-invalid", "false"); });
+          }, prefersReduced ? 0 : 650);
+        });
+      }
+
+      /* ---------- Mobile sticky CTA: suppress while a duplicate in-flow
+         "book a trial" control is already visible (hero actions, or the
+         booking form itself), so the two never compete or overlap.
+         No-op on desktop: the bar is display:none there regardless. ---------- */
+      var mobileCta = document.querySelector(".ic-mobilecta");
+      var ctaDupeTargets = [document.querySelector(".ic-hero__actions"), document.getElementById("start")]
+        .filter(Boolean);
+      if (mobileCta && ctaDupeTargets.length && "IntersectionObserver" in window) {
+        var visibleDupes = new Set();
+        var ctaObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) visibleDupes.add(entry.target);
+              else visibleDupes.delete(entry.target);
+            });
+            mobileCta.classList.toggle("is-suppressed", visibleDupes.size > 0);
+          },
+          { threshold: 0 }
+        );
+        ctaDupeTargets.forEach(function (t) { ctaObserver.observe(t); });
+      }
+    })();
+  </script>
 </body>
 </html>

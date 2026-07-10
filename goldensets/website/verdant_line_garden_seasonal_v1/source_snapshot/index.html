@@ -1,160 +1,2147 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Verdant Line Garden Co. | Seasonal Garden Care</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verdant Line Garden Co. | Seasonal Garden Care &amp; Planting Almanac</title>
+<meta name="description" content="Verdant Line Garden Co. — seasonal garden care, planting plans, soil and irrigation logic, and a published almanac of monthly cadence for homeowners.">
+<meta name="color-scheme" content="light">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23101510'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='34' fill='%23d7e87d' text-anchor='middle'%3EV%3C/text%3E%3C/svg%3E">
+<style>
+/* ============================================================
+   VERDANT LINE GARDEN CO. — design tokens
+   Paper-warm editorial almanac. Georgia display / Inter body.
+   ============================================================ */
+:root{
+  color-scheme: light;
+  /* ---- brand surface & ink ---- */
+  --paper: #f7f7f1;
+  --paper-2: #ecefe3;
+  --paper-3: #f1f2ea;
+  --ink: #182018;
+  --muted: #5f6d61;
+  --muted-2: #7c8a7c;
+  --line: #cfd8c5;
+  --input-border: #a9b79c;
+  --charcoal: #101510;
+  --white: #ffffff;
+
+  /* ---- accent family ---- */
+  --moss: #2e5c3d;
+  --moss-deep: #1f4029;
+  --fern: #6c8a49;
+  --lime: #d7e87d;
+  --clay: #b86f45;
+  --clay-deep: #8f5432;
+  --sky: #d9e7e4;
+
+  /* ---- semantic state colors (AA-checked against --paper) ---- */
+  --success: #2e5c3d;
+  --success-bg: rgba(108, 138, 73, .12);
+  --success-border: rgba(46, 92, 61, .35);
+  --error: #9a3b2b;
+  --error-bg: rgba(154, 59, 43, .08);
+  --error-border: rgba(154, 59, 43, .4);
+  --focus-ring: var(--moss);
+  --focus-ring-inverse: var(--lime);
+
+  /* ---- spacing scale (4px base) ---- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  /* ---- radius & elevation (3 elevations max) ---- */
+  --radius: 6px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+  --shadow-sm: 0 6px 18px rgba(22, 32, 20, .08);
+  --shadow-md: 0 14px 36px rgba(22, 32, 20, .1);
+  --shadow-lg: 0 22px 70px rgba(22, 32, 20, .12);
+
+  /* ---- type ---- */
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  /* ---- motion ---- */
+  --ease: cubic-bezier(.4, 0, .2, 1);
+  --dur-1: .16s;
+  --dur-2: .22s;
+  --dur-3: .32s;
+}
+
+*{ box-sizing: border-box; }
+
+html{
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body{
+  margin: 0;
+  min-width: 320px;
+  background:
+    linear-gradient(90deg, rgba(46, 92, 61, .05) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(180deg, rgba(46, 92, 61, .035) 1px, transparent 1px) 0 0 / 44px 44px,
+    var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.55;
+  overflow-x: hidden;
+}
+
+img, svg{ max-width: 100%; display: block; }
+
+a{ color: inherit; text-decoration: none; }
+
+button, input, textarea, select{ font: inherit; color: inherit; }
+
+button{ cursor: pointer; background: none; }
+
+ul{ margin: 0; padding: 0; list-style: none; }
+
+/* ---- focus-visible: moss ring on light surfaces, lime ring inside dark panels ---- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible{
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.wide-panel,
+.diagram-panel,
+.footer{
+  --focus-ring: var(--focus-ring-inverse);
+}
+
+::selection{ background: var(--lime); color: var(--charcoal); }
+
+.sr-only{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link{
+  position: fixed;
+  z-index: 100;
+  top: 10px;
+  left: 10px;
+  transform: translateY(-140%);
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  background: var(--charcoal);
+  color: var(--white);
+  font-weight: 700;
+  font-size: .92rem;
+  opacity: 0;
+  transition: transform var(--dur-2) var(--ease), opacity var(--dur-2) var(--ease);
+}
+
+.skip-link:focus{
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.site-shell{ min-height: 100vh; }
+
+main > section{ scroll-margin-top: 96px; }
+
+.section{
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: var(--space-16) 0;
+}
+
+.section-head{
+  max-width: 720px;
+  margin: 0 0 var(--space-8);
+}
+
+.eyebrow{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 14px;
+  color: var(--moss);
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.eyebrow::before{
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--moss);
+}
+
+h1, h2, h3, h4, p{ margin-top: 0; }
+
+h1, h2, h3{
+  font-family: var(--serif);
+  font-weight: 500;
+  line-height: 1.05;
+}
+
+h1{
+  max-width: 760px;
+  margin-bottom: var(--space-6);
+  font-size: clamp(2.6rem, 5.6vw + 1rem, 5.7rem);
+  line-height: .98;
+}
+
+h2{
+  max-width: 760px;
+  margin-bottom: var(--space-5);
+  font-size: clamp(2rem, 3.4vw + 1rem, 4.05rem);
+  line-height: 1;
+}
+
+h3{
+  margin-bottom: var(--space-2);
+  font-size: 1.15rem;
+  line-height: 1.25;
+}
+
+h4{
+  margin: 0 0 6px;
+  font-family: var(--sans);
+  font-size: .92rem;
+  font-weight: 800;
+}
+
+.lede{
+  max-width: 650px;
+  margin-bottom: 0;
+  color: var(--muted);
+  font-size: clamp(1rem, .3vw + .95rem, 1.14rem);
+}
+
+.tag-pill{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--moss);
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* ============================================================
+   BUTTONS & FORM CONTROLS — default / hover / focus-visible /
+   active / disabled states throughout.
+   ============================================================ */
+.button{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border: 1px solid var(--charcoal);
+  border-radius: var(--radius);
+  background: var(--charcoal);
+  color: var(--white);
+  font-weight: 800;
+  font-size: .96rem;
+  line-height: 1.1;
+  transition: transform var(--dur-2) var(--ease), background var(--dur-2) var(--ease),
+              color var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease),
+              box-shadow var(--dur-2) var(--ease);
+}
+
+.button:hover{
+  transform: translateY(-2px);
+  background: var(--moss);
+  border-color: var(--moss);
+}
+
+.button:active{
+  transform: translateY(0);
+  background: var(--moss-deep);
+  border-color: var(--moss-deep);
+}
+
+.button:disabled,
+.button[aria-disabled="true"]{
+  cursor: not-allowed;
+  transform: none;
+  background: var(--line);
+  border-color: var(--line);
+  color: var(--muted-2);
+}
+
+.button.secondary{
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.button.secondary:hover{
+  background: var(--white);
+  border-color: var(--moss);
+  color: var(--moss);
+}
+
+.button.secondary:active{
+  background: var(--paper-2);
+}
+
+.button.secondary:disabled{
+  background: transparent;
+  border-color: var(--line);
+  color: var(--muted-2);
+}
+
+.button.block{ width: 100%; }
+
+.button .spinner{
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+/* Spinner: rotation is a transform, so it stays inside the
+   transform/opacity-only motion contract. */
+.spinner-ring{
+  animation: spin 0.85s linear infinite;
+  transform-origin: 50% 50%;
+}
+
+@keyframes spin{
+  from{ transform: rotate(0deg); }
+  to{ transform: rotate(360deg); }
+}
+
+.is-loading .btn-label{ opacity: .001; position: absolute; }
+.is-loading{ position: relative; color: transparent !important; }
+.is-loading .spinner{
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  opacity: 1;
+}
+.spinner{ opacity: 0; transition: opacity var(--dur-1) var(--ease); }
+
+.field{
+  display: grid;
+  gap: 7px;
+}
+
+.field-row{
+  display: grid;
+  gap: var(--space-4);
+}
+
+@media (min-width: 480px){
+  .field-row.two-up{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.field label{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--moss);
+  font-size: .8rem;
+  font-weight: 900;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.field label .optional{
+  color: var(--muted-2);
+  font-size: .72rem;
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .86);
+  color: var(--ink);
+  transition: border-color var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease), background var(--dur-2) var(--ease);
+}
+
+.field input::placeholder,
+.field textarea::placeholder{ color: var(--muted-2); }
+
+.field input:hover,
+.field textarea:hover{ border-color: var(--moss); }
+
+.field input:disabled,
+.field textarea:disabled{
+  background: var(--paper-2);
+  color: var(--muted-2);
+  cursor: not-allowed;
+}
+
+.field textarea{
+  min-height: 118px;
+  resize: vertical;
+}
+
+.field.has-error input,
+.field.has-error textarea{
+  border-color: var(--error);
+  background: var(--error-bg);
+}
+
+.field.has-success input,
+.field.has-success textarea{
+  border-color: var(--success);
+}
+
+.field-msg{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 18px;
+  font-size: .82rem;
+  color: var(--muted);
+}
+
+.field-msg[data-tone="error"]{ color: var(--error); font-weight: 700; }
+.field-msg[data-tone="success"]{ color: var(--success); font-weight: 700; }
+.field-msg:empty{ display: none; }
+
+.field-msg svg{ width: 14px; height: 14px; flex: none; }
+
+.char-count{
+  font-size: .76rem;
+  color: var(--muted-2);
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.char-count[data-tone="error"]{ color: var(--error); }
+
+.checkbox-row{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 4px 2px;
+}
+
+.checkbox-row input[type="checkbox"]{
+  width: 20px;
+  height: 20px;
+  min-height: 0;
+  margin-top: 2px;
+  accent-color: var(--moss);
+  flex: none;
+}
+
+.checkbox-row label{
+  color: var(--ink);
+  font-size: .92rem;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.radio-card-group{
+  display: grid;
+  gap: 10px;
+}
+
+.radio-card{
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .7);
+  transition: border-color var(--dur-2) var(--ease), background var(--dur-2) var(--ease);
+}
+
+.radio-card:has(input:checked){
+  border-color: var(--moss);
+  background: var(--success-bg);
+}
+
+.radio-card:has(input:focus-visible){
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+.radio-card input{
+  width: 18px;
+  height: 18px;
+  min-height: 0;
+  margin-top: 2px;
+  accent-color: var(--moss);
+  flex: none;
+}
+
+.radio-card span{ display: block; }
+.radio-card strong{ display: block; font-size: .94rem; margin-bottom: 2px; }
+.radio-card small{ color: var(--muted); font-size: .82rem; }
+
+/* ============================================================
+   HEADER / NAV — sticky, with mobile drawer
+   ============================================================ */
+.topbar{
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  border-bottom: 1px solid rgba(207, 216, 197, .9);
+  background: rgba(247, 247, 241, .88);
+  backdrop-filter: blur(18px);
+  transition: box-shadow var(--dur-3) var(--ease);
+}
+
+.topbar.is-scrolled{ box-shadow: 0 8px 24px rgba(22, 32, 20, .08); }
+
+.nav{
+  position: relative;
+  width: min(1180px, calc(100% - 32px));
+  min-height: 70px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.brand{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: 1.02rem;
+  border-radius: 4px;
+}
+
+.brand-mark{
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--moss);
+  border-radius: 4px;
+  background: var(--charcoal);
+  color: var(--lime);
+  font-family: var(--serif);
+  flex: none;
+}
+
+.nav-links{
+  display: none;
+  align-items: center;
+  gap: 24px;
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.nav-links a{
+  position: relative;
+  padding: 8px 1px;
+  font-weight: 600;
+}
+
+.nav-links a::after{
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 2px;
+  height: 1.5px;
+  background: var(--moss);
+  transition: right var(--dur-2) var(--ease);
+}
+
+.nav-links a:hover{ color: var(--ink); }
+.nav-links a:hover::after,
+.nav-links a[aria-current="page"]::after{ right: 0; }
+.nav-links a[aria-current="page"]{ color: var(--ink); }
+
+.nav-actions{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-cta{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid var(--charcoal);
+  border-radius: var(--radius);
+  background: var(--charcoal);
+  color: var(--white);
+  font-weight: 800;
+  font-size: .92rem;
+  line-height: 1.1;
+  white-space: nowrap;
+  transition: transform var(--dur-2) var(--ease), background var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+}
+
+.nav-cta:hover{
+  transform: translateY(-2px);
+  background: var(--moss);
+  border-color: var(--moss);
+}
+
+.nav-cta:active{ transform: translateY(0); background: var(--moss-deep); }
+
+.nav-toggle{
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  flex: none;
+}
+
+.nav-toggle:hover{ border-color: var(--moss); }
+
+.nav-toggle svg{ width: 20px; height: 20px; }
+
+.nav-toggle .icon-close{ display: none; }
+.nav-toggle[aria-expanded="true"] .icon-open{ display: none; }
+.nav-toggle[aria-expanded="true"] .icon-close{ display: block; }
+
+.nav-drawer{
+  position: fixed;
+  inset: 70px 0 0 0;
+  /* .topbar has backdrop-filter, which makes it the containing block for
+     this fixed-position child — the inset bottom:0 then resolves against
+     .topbar's own (short) box instead of the viewport, collapsing the
+     drawer to a sliver. An explicit height sidesteps that and fills the
+     real remaining viewport below the header. */
+  height: calc(100vh - 70px);
+  height: calc(100dvh - 70px);
+  z-index: 39;
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: var(--space-6) var(--space-5) var(--space-8);
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  transform: translateY(-8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform var(--dur-3) var(--ease), opacity var(--dur-3) var(--ease), visibility 0s linear var(--dur-3);
+  overflow-y: auto;
+}
+
+.nav-drawer[data-open="true"]{
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  transition: transform var(--dur-3) var(--ease), opacity var(--dur-3) var(--ease), visibility 0s linear 0s;
+}
+
+.nav-drawer a{
+  padding: 16px 6px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--serif);
+  font-size: 1.4rem;
+}
+
+.nav-drawer .nav-cta{ margin-top: var(--space-4); justify-content: center; }
+
+@media (min-width: 860px){
+  .nav-links{ display: flex; }
+  .nav-toggle{ display: none; }
+  .nav-drawer{ display: none; }
+}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  position: relative;
+  width: min(1180px, calc(100% - 32px));
+  min-height: calc(100vh - 70px);
+  margin: 0 auto;
+  padding: var(--space-12) 0 var(--space-8);
+  display: grid;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.hero-copy{ position: relative; z-index: 2; }
+
+.hero-actions{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: var(--space-6) 0 0;
+}
+
+.hero-note{
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 12px;
+  max-width: 560px;
+  margin-top: var(--space-6);
+  color: var(--muted);
+  font-size: .94rem;
+}
+
+.hero-note span{
+  display: grid;
+  place-items: center;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--white);
+  color: var(--moss);
+  font-weight: 900;
+  font-size: .82rem;
+}
+
+.hero-meta{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: var(--space-6);
+}
+
+.plan-board{
+  position: relative;
+  min-height: 430px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .86), rgba(236, 239, 227, .72)),
+    radial-gradient(circle at 80% 18%, rgba(215, 232, 125, .6), transparent 32%);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+
+.plan-board svg{
+  width: 100%;
+  height: 100%;
+  min-height: 430px;
+  display: block;
+}
+
+.board-label{
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  right: 18px;
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid rgba(24, 32, 24, .12);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .86);
+  backdrop-filter: blur(12px);
+}
+
+.board-label strong{
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.board-label span{ color: var(--muted); font-size: .88rem; }
+
+/* ============================================================
+   TRUST RAIL
+   ============================================================ */
+.trust-rail{
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr;
+  background: rgba(255, 255, 255, .45);
+}
+
+.trust-item{
+  min-height: 96px;
+  padding: 20px 22px;
+  display: grid;
+  align-content: center;
+  gap: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.trust-item:last-child{ border-bottom: 0; }
+
+.trust-item .trust-icon{
+  width: 20px;
+  height: 20px;
+  color: var(--moss);
+}
+
+.trust-item span{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--moss);
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.trust-item strong{
+  font-family: var(--serif);
+  font-size: 1.28rem;
+  font-weight: 500;
+}
+
+@media (min-width: 720px){
+  .hero{ grid-template-columns: 1.02fr .98fr; }
+  .trust-rail{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .trust-item{ border-right: 1px solid var(--line); border-bottom: 0; }
+  .trust-item:last-child{ border-right: 0; }
+}
+
+@media (min-width: 1020px){
+  .section{ padding: var(--space-20) 0; }
+}
+
+@media (max-width: 520px){
+  .nav{ min-height: 64px; }
+  .nav-drawer{ inset: 64px 0 0 0; height: calc(100vh - 64px); height: calc(100dvh - 64px); }
+  .nav-cta{ min-height: 42px; padding-inline: 12px; font-size: .88rem; }
+  .hero{ min-height: auto; padding-top: var(--space-8); }
+  .button{ width: 100%; }
+}
+
+@media (max-width: 419px){
+  /* Common phone widths (390-414: iPhone 12-15, Pixel, many Android)
+     wrap "Verdant Line" onto two lines once the header CTA is also
+     shown — there simply isn't room for brand + CTA + toggle. Hiding
+     the header CTA here keeps the wordmark on one line; the drawer
+     keeps its own full-width "Book Walk-Through" CTA. */
+  .nav-actions .nav-cta{ display: none; }
+}
+
+/* ============================================================
+   SERVICES
+   ============================================================ */
+.split{ display: grid; gap: var(--space-8); }
+
+@media (min-width: 860px){
+  .split{ grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+}
+
+.service-stream{ display: grid; gap: var(--space-4); }
+
+.service-row{
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-5) 0;
+  border-top: 1px solid var(--line);
+}
+
+.service-row:last-child{ border-bottom: 1px solid var(--line); }
+
+.service-row em{
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--moss);
+  font-family: var(--serif);
+  font-style: normal;
+  font-size: 1.05rem;
+}
+
+.service-row h3{ display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+.service-row p{ margin-bottom: 0; color: var(--muted); }
+
+.service-row .tag-pill{
+  font-size: .68rem;
+  padding: 3px 10px;
+}
+
+/* ============================================================
+   SEASONAL ALMANAC — phase wheel + sticky filter + month grid
+   ============================================================ */
+.diagram-panel{
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--charcoal);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.diagram-panel p{ color: rgba(255, 255, 255, .72); }
+.diagram-panel .eyebrow{ color: rgba(255, 255, 255, .72); }
+.diagram-panel h3{
+  margin-bottom: 0;
+  color: var(--white);
+  font-family: var(--serif);
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.diagram-panel svg{ width: 100%; margin-top: var(--space-5); display: block; }
+
+.almanac-intro{
+  display: grid;
+  gap: var(--space-8);
+}
+
+@media (min-width: 860px){
+  .almanac-intro{ grid-template-columns: 1fr 1fr; align-items: center; }
+}
+
+.almanac-toolbar{
+  position: sticky;
+  top: 82px;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: var(--space-10);
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: rgba(247, 247, 241, .92);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+}
+
+.almanac-toolbar-label{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 4px;
+  color: var(--muted);
+  font-size: .78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+
+.chip{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: .88rem;
+  transition: background var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease), color var(--dur-2) var(--ease), transform var(--dur-2) var(--ease);
+}
+
+.chip:hover{ border-color: var(--moss); transform: translateY(-1px); }
+
+.chip[aria-pressed="true"]{
+  background: var(--charcoal);
+  border-color: var(--charcoal);
+  color: var(--white);
+}
+
+.chip .chip-count{
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 4px;
+  border-radius: var(--radius-pill);
+  background: rgba(24, 32, 24, .08);
+  font-size: .7rem;
+}
+
+.chip[aria-pressed="true"] .chip-count{ background: rgba(255, 255, 255, .18); }
+
+@media (max-width: 859px){
+  /* Below the desktop nav breakpoint the toolbar wraps to 2-3 rows,
+     which combined with the sticky header eats up to ~30% of a phone
+     viewport in permanent chrome while browsing the month grid. A
+     single scrollable row keeps the filters reachable without the
+     dead space, with an edge fade as the scroll affordance. */
+  .almanac-toolbar{
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-padding-inline: 12px;
+    mask-image: linear-gradient(to right, transparent, black 14px, black calc(100% - 14px), transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 14px, black calc(100% - 14px), transparent);
+  }
+  .almanac-toolbar-label,
+  .almanac-toolbar .chip{
+    flex: none;
+    white-space: nowrap;
+  }
+  .chip{ min-height: 44px; }
+}
+
+.month-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.month-card{
+  min-width: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--white);
+  transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease);
+}
+
+.month-card:hover{
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--moss);
+}
+
+.month-card[hidden]{ display: none; }
+
+.month-card-head{
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.month-card-head > div{ min-width: 0; }
+
+.month-card-head .month-index{
+  color: var(--muted-2);
+  font-size: .74rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+}
+
+.month-card h3{
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.month-card .tag-pill{ font-size: .64rem; padding: 3px 9px; }
+
+.month-card ul{ display: grid; gap: 7px; }
+
+.month-card li{
+  position: relative;
+  padding-left: 16px;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.45;
+}
+
+.month-card li::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--fern);
+}
+
+@media (min-width: 620px){
+  .month-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 960px){
+  .month-grid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 479px){
+  /* Every other filterable grid on this page (.plant-grid,
+     .material-notes) is single-column below 620px; .month-grid was
+     the one exception, forcing two ~160px columns that wrap almost
+     every heading and label onto 3 lines. Match the established
+     mobile-first pattern used elsewhere in the file. */
+  .month-grid{ grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   WAYS TO WORK TOGETHER — service tiers (no invented pricing)
+   ============================================================ */
+.tier-grid{
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+}
+
+.tier-card{
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  transition: transform var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
+}
+
+.tier-card:hover{ transform: translateY(-4px); box-shadow: var(--shadow-md); }
+
+.tier-card.is-featured{
+  border-color: var(--moss);
+  background: linear-gradient(160deg, rgba(215, 232, 125, .16), rgba(255, 255, 255, .9));
+}
+
+.tier-card.is-featured::before{
+  content: "Most requested";
+  position: absolute;
+  top: -13px;
+  left: var(--space-6);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--charcoal);
+  color: var(--lime);
+  font-size: .68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.tier-head strong{
+  display: block;
+  font-family: var(--serif);
+  font-size: 1.55rem;
+  font-weight: 500;
+}
+
+.tier-head span{
+  display: block;
+  margin-top: 4px;
+  color: var(--moss);
+  font-size: .82rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+
+.tier-card p{ color: var(--muted); margin-bottom: 0; }
+
+.tier-list{ display: grid; gap: 9px; }
+
+.tier-list li{
+  position: relative;
+  padding-left: 24px;
+  font-size: .92rem;
+  color: var(--ink);
+}
+
+.tier-list li svg{
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 16px;
+  height: 16px;
+  color: var(--moss);
+}
+
+.tier-card .button{ margin-top: 6px; }
+
+@media (min-width: 720px){
+  .tier-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ============================================================
+   COVERAGE — map panel + async area checker
+   ============================================================ */
+.wide-panel{
+  position: relative;
+  padding: var(--space-8);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--moss), #183723);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.wide-panel h2, .wide-panel p, .wide-panel h3{ position: relative; z-index: 2; }
+.wide-panel p{ color: rgba(255, 255, 255, .78); }
+.wide-panel .eyebrow{ color: var(--lime); }
+.wide-panel h3{ margin-bottom: 0; color: var(--white); font-size: 1.2rem; }
+.wide-panel .lede{ max-width: 620px; }
+
+.map-lines{
+  width: 100%;
+  min-height: 250px;
+  margin-top: var(--space-5);
+  display: block;
+}
+
+.coverage-layout{
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+}
+
+.coverage-list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: var(--space-4);
+}
+
+.coverage-list li{
+  padding: 6px 13px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: var(--radius-pill);
+  font-size: .82rem;
+  color: rgba(255, 255, 255, .88);
+}
+
+.checker{
+  padding: var(--space-6);
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: var(--radius-lg);
+  background: rgba(16, 21, 16, .32);
+  backdrop-filter: blur(6px);
+}
+
+.checker h3{
+  color: var(--white);
+  font-size: 1.1rem;
+}
+
+.checker-help{
+  margin: 0 0 var(--space-4);
+  color: rgba(255, 255, 255, .7);
+  font-size: .88rem;
+}
+
+.checker-form{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.checker-form .field{ flex: 1 1 220px; gap: 6px; }
+
+.checker-form label{
+  color: rgba(255, 255, 255, .82);
+  font-size: .76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.checker-form input{
+  background: rgba(255, 255, 255, .92);
+  border-color: transparent;
+}
+
+.checker-form .button{ align-self: flex-end; }
+
+.checker-result{
+  margin-top: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  display: none;
+  gap: 10px;
+  grid-template-columns: 22px 1fr;
+  font-size: .9rem;
+}
+
+.checker-result[data-visible="true"]{ display: grid; }
+
+.checker-result svg{ width: 22px; height: 22px; margin-top: 1px; }
+
+.checker-result strong{ display: block; margin-bottom: 2px; font-size: .96rem; }
+
+.checker-result[data-tone="success"]{
+  background: rgba(215, 232, 125, .16);
+  border-color: rgba(215, 232, 125, .4);
+  color: var(--white);
+}
+
+.checker-result[data-tone="success"] svg{ color: var(--lime); }
+
+.checker-result[data-tone="empty"]{
+  background: rgba(255, 255, 255, .08);
+  border-color: rgba(255, 255, 255, .22);
+  color: rgba(255, 255, 255, .88);
+}
+
+.checker-result[data-tone="empty"] svg{ color: rgba(255, 255, 255, .7); }
+
+.checker-result[data-tone="error"]{
+  background: rgba(237, 137, 117, .14);
+  border-color: rgba(237, 137, 117, .5);
+  color: #ffd9d0;
+}
+
+.checker-result[data-tone="error"] svg{ color: #f0a08e; }
+
+.checker-result p{ margin: 0; color: inherit; opacity: .88; }
+
+.checker-status{ position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+@media (min-width: 860px){
+  .coverage-layout{ grid-template-columns: 1fr 1fr; align-items: start; }
+}
+
+/* ============================================================
+   PLANTING PALETTE — filterable gallery
+   ============================================================ */
+.palette-toolbar{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: var(--space-8) 0 var(--space-6);
+}
+
+.plant-grid{
+  display: grid;
+  gap: var(--space-5);
+}
+
+.plant-card{
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .6);
+  display: grid;
+  gap: var(--space-4);
+  transition: transform var(--dur-2) var(--ease), background var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
+}
+
+.plant-card:hover{
+  transform: translateY(-4px);
+  background: var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.plant-card[hidden]{ display: none; }
+
+.plant-icon{
+  width: 100%;
+  height: 92px;
+  border-radius: var(--radius);
+  background: var(--paper-2);
+  display: grid;
+  place-items: center;
+}
+
+.plant-icon svg{ width: 56px; height: 56px; }
+
+.plant-card h3{
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.plant-card .latin{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--muted);
+  font-size: .84rem;
+}
+
+.plant-card p{ margin-bottom: 0; color: var(--muted); font-size: .92rem; }
+
+.plant-tags{ display: flex; flex-wrap: wrap; gap: 6px; }
+.plant-tags .tag-pill{ font-size: .66rem; padding: 3px 9px; }
+
+.palette-empty{
+  display: none;
+  place-items: center;
+  gap: 10px;
+  padding: var(--space-12) var(--space-6);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  color: var(--muted);
+}
+
+.palette-empty[data-visible="true"]{ display: grid; }
+.palette-empty svg{ width: 34px; height: 34px; margin: 0 auto; color: var(--muted-2); }
+.palette-empty strong{ font-family: var(--serif); font-size: 1.2rem; color: var(--ink); font-weight: 500; }
+.palette-empty .lede{ max-width: 440px; margin: 0 auto; }
+
+.material-notes{
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-10);
+}
+
+.palette-note{
+  min-height: 190px;
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .55);
+  display: grid;
+  align-content: space-between;
+  gap: var(--space-6);
+  transition: transform var(--dur-2) var(--ease), background var(--dur-2) var(--ease);
+}
+
+.palette-note:hover{ transform: translateY(-4px); background: var(--white); }
+
+.swatch{
+  height: 60px;
+  border: 1px solid rgba(24, 32, 24, .14);
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--fern), var(--lime));
+}
+
+.swatch.clay{ background: linear-gradient(90deg, var(--clay), #e2b981); }
+.swatch.sky{ background: linear-gradient(90deg, var(--sky), #f1f4e8); }
+
+.palette-note p{ margin-bottom: 0; color: var(--muted); }
+
+@media (min-width: 620px){
+  .plant-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 960px){
+  .plant-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .material-notes{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ============================================================
+   PROCESS
+   ============================================================ */
+.process{
+  counter-reset: step;
+  display: grid;
+  gap: 0;
+  margin-top: var(--space-8);
+  border-top: 1px solid var(--line);
+}
+
+.process-step{
+  counter-increment: step;
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.process-step::before{
+  content: counter(step, decimal-leading-zero);
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--moss);
+  border-radius: 50%;
+  color: var(--moss);
+  font-family: var(--serif);
+  font-size: .96rem;
+}
+
+.process-step p{ margin-bottom: 0; color: var(--muted); }
+
+@media (min-width: 720px){
+  .process-step{ grid-template-columns: 52px minmax(0, 1fr); align-items: start; gap: var(--space-5); }
+}
+
+/* ============================================================
+   GARDEN CARE GRID
+   ============================================================ */
+.care-grid{ display: grid; gap: var(--space-6); align-items: start; }
+
+@media (min-width: 860px){
+  .care-grid{ grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+
+.care-visual{
+  min-height: 340px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.care-visual svg{ width: 100%; min-height: 340px; display: block; }
+
+.care-list{ display: grid; gap: var(--space-4); }
+
+.care-list div{ padding: var(--space-4) 0; border-bottom: 1px solid var(--line); }
+
+.care-list p{ margin-bottom: 0; color: var(--muted); }
+
+/* ============================================================
+   SAMPLE NOTES — illustrative deliverable samples (not
+   testimonials / case-study claims)
+   ============================================================ */
+.note-grid{
+  display: grid;
+  gap: var(--space-5);
+  margin-top: var(--space-8);
+}
+
+.note-card{
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    repeating-linear-gradient(180deg, transparent 0 31px, rgba(46, 92, 61, .06) 31px 32px),
+    var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.note-card-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px dashed var(--line);
+}
+
+.note-card-head span{
+  font-family: var(--serif);
+  font-size: .82rem;
+  color: var(--muted-2);
+}
+
+.note-card h3{ font-size: 1.05rem; }
+
+.note-card p{ color: var(--muted); font-size: .92rem; margin-bottom: var(--space-3); }
+.note-card p:last-of-type{ margin-bottom: 0; }
+
+.note-card .tag-pill{ font-size: .64rem; padding: 3px 9px; margin-top: 4px; }
+
+.note-disclaimer{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--space-6);
+  color: var(--muted-2);
+  font-size: .82rem;
+}
+
+.note-disclaimer svg{ width: 16px; height: 16px; flex: none; }
+
+@media (min-width: 860px){
+  .note-grid{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ============================================================
+   FAQ — accessible disclosures
+   ============================================================ */
+.faq-list{
+  margin-top: var(--space-8);
+  border-top: 1px solid var(--line);
+}
+
+.faq-item{ border-bottom: 1px solid var(--line); }
+
+.faq-trigger{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-5) 4px;
+  text-align: left;
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.faq-trigger:hover{ color: var(--moss); }
+
+.faq-trigger .faq-icon{
+  flex: none;
+  width: 28px;
+  height: 28px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--moss);
+  transition: transform var(--dur-2) var(--ease), background var(--dur-2) var(--ease);
+}
+
+.faq-trigger .faq-icon svg{ width: 14px; height: 14px; }
+
+.faq-trigger[aria-expanded="true"] .faq-icon{
+  transform: rotate(45deg);
+  background: var(--moss);
+  color: var(--white);
+}
+
+.faq-panel{
+  padding: 0 4px var(--space-5);
+  max-width: 760px;
+}
+
+.faq-panel[hidden]{ display: none; }
+
+.faq-panel p{
+  color: var(--muted);
+  margin-bottom: 0;
+  animation: fade-in-up var(--dur-3) var(--ease);
+}
+
+@keyframes fade-in-up{
+  from{ opacity: 0; transform: translateY(-6px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   CONSULTATION FORM — full validation + async lifecycle
+   ============================================================ */
+.consult{
+  position: relative;
+  margin-bottom: var(--space-16);
+  padding: var(--space-8);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, .8), rgba(217, 231, 228, .62)),
+    var(--paper-2);
+  display: grid;
+  gap: var(--space-8);
+  overflow: hidden;
+}
+
+@media (min-width: 960px){
+  .consult{ grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr); gap: var(--space-10); }
+  .consult-intro{ position: sticky; top: 110px; align-self: start; }
+}
+
+.consult-form{ display: grid; gap: var(--space-4); position: relative; }
+
+.consult-form[data-state="loading"]{ opacity: .7; }
+
+.consult-form fieldset{
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.consult-form legend{
+  padding: 0 0 var(--space-2);
+  font-family: var(--serif);
+  font-size: 1.05rem;
+}
+
+.form-banner{
+  display: none;
+  align-items: flex-start;
+  gap: 10px;
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  border: 1px solid var(--error-border);
+  background: var(--error-bg);
+  color: var(--error);
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+.form-banner[data-visible="true"]{ display: flex; }
+.form-banner svg{ width: 18px; height: 18px; flex: none; margin-top: 1px; }
+
+.consult-success{
+  display: none;
+  grid-template-columns: 44px 1fr;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border: 1px solid var(--success-border);
+  border-radius: var(--radius-lg);
+  background: var(--success-bg);
+}
+
+.consult-success[data-visible="true"]{ display: grid; animation: fade-in-up var(--dur-3) var(--ease); }
+
+.consult-success .success-icon{
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--moss);
+  color: var(--white);
+}
+
+.consult-success .success-icon svg{ width: 22px; height: 22px; }
+
+.consult-success h3{ font-size: 1.3rem; margin-bottom: 8px; }
+.consult-success p{ color: var(--muted); margin-bottom: var(--space-4); }
+.consult-success p:last-of-type{ margin-bottom: 0; }
+
+.consult-form.is-hidden,
+.consult-intro.is-hidden{ display: none; }
+
+.form-foot{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+}
+
+.form-foot p{
+  margin: 0;
+  color: var(--muted-2);
+  font-size: .82rem;
+}
+
+/* ============================================================
+   FOOTER — expanded columns + almanac newsletter
+   ============================================================ */
+.footer{
+  border-top: 1px solid var(--line);
+  background: var(--charcoal);
+  color: var(--white);
+}
+
+.footer-top{
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: var(--space-16) 0 var(--space-10);
+  display: grid;
+  gap: var(--space-10);
+  border-bottom: 1px solid rgba(255, 255, 255, .12);
+}
+
+.footer-brand{ max-width: 340px; }
+
+.footer-brand .brand{ margin-bottom: var(--space-4); color: var(--white); }
+.footer-brand .brand-mark{ border-color: var(--lime); }
+.footer-brand p{ color: rgba(255, 255, 255, .68); font-size: .92rem; }
+
+.footer-social{
+  display: flex;
+  gap: 10px;
+  margin-top: var(--space-5);
+}
+
+.footer-social a{
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, .8);
+  transition: border-color var(--dur-2) var(--ease), color var(--dur-2) var(--ease), background var(--dur-2) var(--ease);
+}
+
+.footer-social a:hover{
+  border-color: var(--lime);
+  color: var(--lime);
+  background: rgba(215, 232, 125, .08);
+}
+
+.footer-social svg{ width: 17px; height: 17px; }
+
+.footer-cols{
+  display: grid;
+  gap: var(--space-8);
+}
+
+.footer-col h4{
+  color: rgba(255, 255, 255, .5);
+  font-size: .76rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-4);
+}
+
+.footer-col ul{ display: grid; gap: 11px; min-width: 0; }
+.footer-col li{ min-width: 0; }
+
+.footer-col a,
+.footer-col address{
+  display: block;
+  min-width: 0;
+  color: rgba(255, 255, 255, .78);
+  font-size: .92rem;
+  font-style: normal;
+  overflow-wrap: anywhere;
+}
+
+.footer-col a:hover{ color: var(--lime); }
+
+.footer-note-form{
+  display: grid;
+  gap: 10px;
+  margin-top: var(--space-3);
+}
+
+.footer-note-form label{
+  color: rgba(255, 255, 255, .55);
+  font-size: .76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+}
+
+.footer-note-row{ display: flex; gap: 8px; flex-wrap: wrap; }
+
+.footer-note-row input{
+  flex: 1 1 180px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .06);
+  color: var(--white);
+}
+
+.footer-note-row input::placeholder{ color: rgba(255, 255, 255, .45); }
+.footer-note-row input.has-error{ border-color: #f0a08e; background: rgba(237, 137, 117, .1); }
+
+.footer-note-row .button{
+  min-height: 44px;
+  border-color: var(--lime);
+  background: var(--lime);
+  color: var(--charcoal);
+}
+
+.footer-note-row .button:hover{ background: #c3d766; border-color: #c3d766; }
+
+.footer-note-msg{
+  min-height: 16px;
+  font-size: .8rem;
+  color: rgba(255, 255, 255, .6);
+}
+
+.footer-note-msg[data-tone="success"]{ color: var(--lime); font-weight: 700; }
+.footer-note-msg[data-tone="error"]{ color: #f0a08e; font-weight: 700; }
+
+.footer-bottom{
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: var(--space-6) 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  color: rgba(255, 255, 255, .5);
+  font-size: .82rem;
+}
+
+.footer-bottom .footer-legal{
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.footer-bottom a:hover{ color: var(--lime); }
+
+@media (min-width: 640px){
+  .footer-cols{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (min-width: 860px){
+  .footer-top{ grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); }
+  .footer-cols{ grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+/* ============================================================
+   BACK TO TOP
+   ============================================================ */
+.to-top{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 35;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--moss);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: translateY(10px) scale(.9);
+  visibility: hidden;
+  transition: opacity var(--dur-3) var(--ease), transform var(--dur-3) var(--ease), visibility 0s linear var(--dur-3);
+}
+
+.to-top[data-visible="true"]{
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  visibility: visible;
+  transition: opacity var(--dur-3) var(--ease), transform var(--dur-3) var(--ease), visibility 0s linear 0s;
+}
+
+.to-top:hover{ border-color: var(--moss); transform: translateY(-2px) scale(1); }
+.to-top svg{ width: 20px; height: 20px; }
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    scroll-behavior: auto !important;
+    transition-duration: .001ms !important;
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ============================================================
+   PRINT — keep the almanac legible on paper, literally
+   ============================================================ */
+@media print{
+  .topbar, .to-top, .nav-drawer, .skip-link{ display: none; }
+  body{ background: #fff; }
+}
+</style>
 </head>
 <body>
-  <div class="site-shell">
-    <header class="topbar">
-      <nav class="nav" aria-label="Primary navigation">
-        <a class="brand" href="#top" aria-label="Verdant Line Garden Co. home">
-          <span class="brand-mark" aria-hidden="true">V</span>
-          <span>Verdant Line</span>
-        </a>
-        <div class="nav-links">
-          <a href="#services">Services</a>
-          <a href="#seasons">Season Plan</a>
-          <a href="#process">Process</a>
-          <a href="#consult">Start</a>
-        </div>
+<a class="skip-link" href="#main">Skip to main content</a>
+<div class="site-shell" id="top">
+
+  <header class="topbar" id="topbar">
+    <nav class="nav" aria-label="Primary navigation">
+      <a class="brand" href="#top" aria-label="Verdant Line Garden Co. home">
+        <span class="brand-mark" aria-hidden="true">V</span>
+        <span>Verdant Line</span>
+      </a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#services">Services</a>
+        <a href="#seasons">Season Plan</a>
+        <a href="#coverage">Coverage</a>
+        <a href="#process">Process</a>
+        <a href="#faq">FAQ</a>
+      </div>
+
+      <div class="nav-actions">
         <a class="nav-cta" href="#consult">Book Walk-Through</a>
-      </nav>
-    </header>
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-drawer" aria-label="Open menu">
+          <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+    </nav>
 
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <p class="eyebrow">Garden care, planting plans, and outdoor refreshes</p>
-          <h1 id="hero-title">Gardens shaped with season, soil, and daily life in mind.</h1>
-          <p class="lede">Verdant Line helps homeowners turn tired beds, uneven planting, and maintenance drift into a garden that is easier to care for and better to live with.</p>
-          <div class="hero-actions">
-            <a class="button" href="#consult">Plan a Walk-Through</a>
-            <a class="button secondary" href="#services">View Garden Services</a>
+    <div class="nav-drawer" id="nav-drawer" data-open="false">
+      <a href="#services">Services</a>
+      <a href="#seasons">Season Plan</a>
+      <a href="#coverage">Coverage</a>
+      <a href="#process">Process</a>
+      <a href="#faq">FAQ</a>
+      <a href="#consult">Start a Request</a>
+      <a class="nav-cta" href="#consult">Book Walk-Through</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow">Garden care, planting plans, and outdoor refreshes</p>
+        <h1 id="hero-title">Gardens shaped with season, soil, and daily life in mind.</h1>
+        <p class="lede">Verdant Line helps homeowners turn tired beds, uneven planting, and maintenance drift into a garden that is easier to care for and better to live with.</p>
+        <div class="hero-actions">
+          <a class="button" href="#consult">Plan a Walk-Through</a>
+          <a class="button secondary" href="#services">View Garden Services</a>
+        </div>
+        <div class="hero-note">
+          <span aria-hidden="true">01</span>
+          <p>Every project starts with a garden walk-through, a short maintenance read, and a practical next-step plan before any work is scheduled.</p>
+        </div>
+        <div class="hero-meta">
+          <span class="tag-pill">Seasonal cadence, not one-off jobs</span>
+          <span class="tag-pill">Almanac-based scheduling</span>
+        </div>
+      </div>
+
+      <div class="plan-board" aria-label="Illustrated garden plan board">
+        <svg viewBox="0 0 620 520" role="img" aria-labelledby="plan-title plan-desc">
+          <title id="plan-title">Garden plan sketch</title>
+          <desc id="plan-desc">A vector garden plan with paths, beds, plant groupings, soil notes, and a patio edge.</desc>
+          <defs>
+            <pattern id="dot-grid" width="22" height="22" patternUnits="userSpaceOnUse">
+              <circle cx="2" cy="2" r="1.2" fill="#9bac8c"/>
+            </pattern>
+            <linearGradient id="bed-fill" x1="0" x2="1">
+              <stop offset="0" stop-color="#d7e87d"/>
+              <stop offset="1" stop-color="#6c8a49"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="620" height="520" fill="url(#dot-grid)" opacity=".35"/>
+          <path d="M66 416 C152 330 182 250 184 112" fill="none" stroke="#182018" stroke-width="2.5"/>
+          <path d="M208 438 C304 360 332 254 326 104" fill="none" stroke="#182018" stroke-width="2.5" stroke-dasharray="8 9"/>
+          <path d="M86 128 C178 64 290 78 344 158 C402 244 334 342 224 350 C118 358 44 246 86 128Z" fill="url(#bed-fill)" opacity=".5" stroke="#2e5c3d" stroke-width="2"/>
+          <path d="M386 132 L548 92 L554 224 L424 278 Z" fill="#d9e7e4" stroke="#182018" stroke-width="2"/>
+          <path d="M408 334 C470 296 550 318 572 388 C536 444 442 452 386 410 C358 388 364 356 408 334Z" fill="#f7f7f1" stroke="#b86f45" stroke-width="2"/>
+          <g fill="#2e5c3d">
+            <circle cx="132" cy="168" r="14"/>
+            <circle cx="172" cy="136" r="10"/>
+            <circle cx="226" cy="168" r="18"/>
+            <circle cx="270" cy="226" r="13"/>
+            <circle cx="172" cy="272" r="16"/>
+            <circle cx="236" cy="300" r="11"/>
+          </g>
+          <g fill="none" stroke="#b86f45" stroke-width="1.6">
+            <path d="M446 138 L510 122"/>
+            <path d="M436 174 L526 152"/>
+            <path d="M432 210 L530 184"/>
+            <path d="M424 246 L548 210"/>
+          </g>
+          <g fill="#182018">
+            <circle cx="476" cy="362" r="4"/>
+            <circle cx="502" cy="376" r="4"/>
+            <circle cx="458" cy="394" r="4"/>
+            <circle cx="526" cy="410" r="4"/>
+          </g>
+          <g font-family="Inter, sans-serif" font-size="13" fill="#5f6d61">
+            <text x="74" y="454">bed cleanup path</text>
+            <text x="384" y="78">patio edge</text>
+            <text x="386" y="318">soil reset zone</text>
+            <text x="72" y="88">perennial drift</text>
+          </g>
+        </svg>
+        <div class="board-label">
+          <strong>Plan before plants.</strong>
+          <span>Visual bed maps, care priorities, and seasonal sequencing keep the work clear.</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-rail" aria-label="Service principles">
+      <div class="trust-item">
+        <span><svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>First step</span>
+        <strong>Garden walk-through</strong>
+      </div>
+      <div class="trust-item">
+        <span><svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 10h16"/></svg>Scope</span>
+        <strong>Clear care priorities</strong>
+      </div>
+      <div class="trust-item">
+        <span><svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v5M12 16v5M3 12h5M16 12h5"/><circle cx="12" cy="12" r="3"/></svg>Method</span>
+        <strong>Season-aware work</strong>
+      </div>
+      <div class="trust-item">
+        <span><svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 19h16M7 15l3-4 3 3 4-6"/></svg>Output</span>
+        <strong>Readable next steps</strong>
+      </div>
+    </section>
+
+    <section class="section split" id="services" aria-labelledby="services-title">
+      <div>
+        <p class="eyebrow">Service clarity</p>
+        <h2 id="services-title">Garden work grouped by what your yard needs next.</h2>
+        <p class="lede">The service menu avoids generic bundles. Each lane is built around a homeowner problem: overgrown beds, thin planting, tired soil, uneven watering, and outdoor spaces that no longer feel intentional.</p>
+      </div>
+      <div class="service-stream">
+        <article class="service-row">
+          <em aria-hidden="true">A</em>
+          <div>
+            <h3>Seasonal bed reset <span class="tag-pill">Most requested</span></h3>
+            <p>Weeding, edge recovery, cutback, bed cleanup, and a tidy baseline before planting or ongoing maintenance.</p>
           </div>
-          <div class="hero-note">
-            <span aria-hidden="true">01</span>
-            <p>Every project starts with a garden walk-through, a short maintenance read, and a practical next-step plan before any work is scheduled.</p>
+        </article>
+        <article class="service-row">
+          <em aria-hidden="true">B</em>
+          <div>
+            <h3>Planting plan refresh</h3>
+            <p>Simple plant groupings, spacing notes, bloom rhythm, kitchen garden layout, and replacement ideas for beds that need direction.</p>
           </div>
-        </div>
-
-        <div class="plan-board" aria-label="Illustrated garden plan board">
-          <svg viewBox="0 0 620 520" role="img" aria-labelledby="plan-title plan-desc">
-            <title id="plan-title">Garden plan sketch</title>
-            <desc id="plan-desc">A vector garden plan with paths, beds, plant groupings, soil notes, and a patio edge.</desc>
-            <defs>
-              <pattern id="dot-grid" width="22" height="22" patternUnits="userSpaceOnUse">
-                <circle cx="2" cy="2" r="1.2" fill="#9bac8c"/>
-              </pattern>
-              <linearGradient id="bed-fill" x1="0" x2="1">
-                <stop offset="0" stop-color="#d7e87d"/>
-                <stop offset="1" stop-color="#6c8a49"/>
-              </linearGradient>
-            </defs>
-            <rect x="0" y="0" width="620" height="520" fill="url(#dot-grid)" opacity=".35"/>
-            <path d="M66 416 C152 330 182 250 184 112" fill="none" stroke="#182018" stroke-width="2.5"/>
-            <path d="M208 438 C304 360 332 254 326 104" fill="none" stroke="#182018" stroke-width="2.5" stroke-dasharray="8 9"/>
-            <path d="M86 128 C178 64 290 78 344 158 C402 244 334 342 224 350 C118 358 44 246 86 128Z" fill="url(#bed-fill)" opacity=".5" stroke="#2e5c3d" stroke-width="2"/>
-            <path d="M386 132 L548 92 L554 224 L424 278 Z" fill="#d9e7e4" stroke="#182018" stroke-width="2"/>
-            <path d="M408 334 C470 296 550 318 572 388 C536 444 442 452 386 410 C358 388 364 356 408 334Z" fill="#f7f7f1" stroke="#b86f45" stroke-width="2"/>
-            <g fill="#2e5c3d">
-              <circle cx="132" cy="168" r="14"/>
-              <circle cx="172" cy="136" r="10"/>
-              <circle cx="226" cy="168" r="18"/>
-              <circle cx="270" cy="226" r="13"/>
-              <circle cx="172" cy="272" r="16"/>
-              <circle cx="236" cy="300" r="11"/>
-            </g>
-            <g fill="none" stroke="#b86f45" stroke-width="1.6">
-              <path d="M446 138 L510 122"/>
-              <path d="M436 174 L526 152"/>
-              <path d="M432 210 L530 184"/>
-              <path d="M424 246 L548 210"/>
-            </g>
-            <g fill="#182018">
-              <circle cx="476" cy="362" r="4"/>
-              <circle cx="502" cy="376" r="4"/>
-              <circle cx="458" cy="394" r="4"/>
-              <circle cx="526" cy="410" r="4"/>
-            </g>
-            <g font-family="Inter, sans-serif" font-size="13" fill="#5f6d61">
-              <text x="74" y="454">bed cleanup path</text>
-              <text x="384" y="78">patio edge</text>
-              <text x="386" y="318">soil reset zone</text>
-              <text x="72" y="88">perennial drift</text>
-            </g>
-          </svg>
-          <div class="board-label">
-            <strong>Plan before plants.</strong>
-            <span>Visual bed maps, care priorities, and seasonal sequencing keep the work clear.</span>
+        </article>
+        <article class="service-row">
+          <em aria-hidden="true">C</em>
+          <div>
+            <h3>Soil and mulch preparation</h3>
+            <p>Soil amendment, mulch depth correction, drainage observations, and practical notes for healthier beds.</p>
           </div>
-        </div>
-      </section>
+        </article>
+        <article class="service-row">
+          <em aria-hidden="true">D</em>
+          <div>
+            <h3>Irrigation and watering audit</h3>
+            <p>Run-time checks, dry-spot mapping, drip and hose logic, and a watering rhythm that matches the season.</p>
+          </div>
+        </article>
+        <article class="service-row">
+          <em aria-hidden="true">E</em>
+          <div>
+            <h3>Pruning and structural shaping</h3>
+            <p>Dormant-season structure cuts, shrub renewal, hedge lines, and shaping that respects bloom timing.</p>
+          </div>
+        </article>
+        <article class="service-row">
+          <em aria-hidden="true">F</em>
+          <div>
+            <h3>Small outdoor refreshes</h3>
+            <p>Path edges, container groupings, entry beds, porch-side planting, and garden touchpoints that change the feel fast.</p>
+          </div>
+        </article>
+      </div>
+    </section>
 
-      <section class="trust-rail" aria-label="Service principles">
-        <div class="trust-item">
-          <span>First step</span>
-          <strong>Garden walk-through</strong>
-        </div>
-        <div class="trust-item">
-          <span>Scope</span>
-          <strong>Clear care priorities</strong>
-        </div>
-        <div class="trust-item">
-          <span>Method</span>
-          <strong>Season-aware work</strong>
-        </div>
-        <div class="trust-item">
-          <span>Output</span>
-          <strong>Readable next steps</strong>
-        </div>
-      </section>
-
-      <section class="section split" id="services" aria-labelledby="services-title">
+    <section class="section" id="seasons" aria-labelledby="seasons-title">
+      <div class="almanac-intro">
         <div>
-          <p class="eyebrow">Service clarity</p>
-          <h2 id="services-title">Garden work grouped by what your yard needs next.</h2>
-          <p class="lede">The service menu avoids generic bundles. Each lane is built around a homeowner problem: overgrown beds, thin planting, tired soil, and outdoor spaces that no longer feel intentional.</p>
-        </div>
-        <div class="service-stream">
-          <article class="service-row">
-            <em aria-hidden="true">A</em>
-            <div>
-              <h3>Seasonal bed reset</h3>
-              <p>Weeding, edge recovery, cutback, bed cleanup, and a tidy baseline before planting or ongoing maintenance.</p>
-            </div>
-          </article>
-          <article class="service-row">
-            <em aria-hidden="true">B</em>
-            <div>
-              <h3>Planting plan refresh</h3>
-              <p>Simple plant groupings, spacing notes, bloom rhythm, and replacement ideas for beds that need direction.</p>
-            </div>
-          </article>
-          <article class="service-row">
-            <em aria-hidden="true">C</em>
-            <div>
-              <h3>Soil and mulch preparation</h3>
-              <p>Soil amendment, mulch depth correction, drainage observations, and practical notes for healthier beds.</p>
-            </div>
-          </article>
-          <article class="service-row">
-            <em aria-hidden="true">D</em>
-            <div>
-              <h3>Small outdoor refreshes</h3>
-              <p>Path edges, container groupings, entry beds, porch-side planting, and garden touchpoints that change the feel fast.</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section split" id="seasons" aria-labelledby="seasons-title">
-        <div class="diagram-panel">
           <p class="eyebrow">Season board</p>
           <h2 id="seasons-title">The calendar decides the work, not a canned package.</h2>
-          <p>Garden care changes with temperature, growth pace, and plant stress. The plan stays flexible without becoming vague.</p>
+          <p class="lede">Garden care changes with temperature, growth pace, and plant stress. The plan below is published like an almanac page: twelve months of cadence, filterable by season, that stays flexible without becoming vague.</p>
+        </div>
+        <div class="diagram-panel">
+          <p class="eyebrow">Four working phases</p>
+          <h3>Reset, plant, manage, prepare — on repeat.</h3>
           <svg viewBox="0 0 560 320" role="img" aria-labelledby="season-title season-desc">
             <title id="season-title">Seasonal garden workflow</title>
             <desc id="season-desc">A circular seasonal diagram showing reset, plant, manage, and prepare phases.</desc>
@@ -176,202 +2163,1277 @@
             </g>
           </svg>
         </div>
-        <div class="season-band">
-          <div class="season-line">
-            <strong>Early season</strong>
-            <p>Clean edges, assess soil, remove winter debris, and map the first planting moves.</p>
-          </div>
-          <div class="season-line">
-            <strong>Peak growth</strong>
-            <p>Adjust watering notes, manage weeds, shape plantings, and protect bed structure.</p>
-          </div>
-          <div class="season-line">
-            <strong>Late season</strong>
-            <p>Cutback decisions, mulch checks, division notes, and preparation for the next cycle.</p>
-          </div>
-        </div>
-      </section>
+      </div>
 
-      <section class="section" id="coverage" aria-labelledby="coverage-title">
-        <div class="wide-panel">
-          <p class="eyebrow">Local fit</p>
-          <h2 id="coverage-title">A service-area conversation before a calendar promise.</h2>
-          <p class="lede">The first exchange confirms location, access, garden size, and the kind of care you need. No broad availability claims are made before the scope is known.</p>
-          <svg class="map-lines" viewBox="0 0 1060 300" role="img" aria-labelledby="map-title map-desc">
-            <title id="map-title">Service area logic map</title>
-            <desc id="map-desc">A stylized local map with lanes for access, garden scale, and seasonal timing.</desc>
-            <rect x="0" y="0" width="1060" height="300" fill="rgba(255,255,255,.04)"/>
-            <path d="M70 226 C170 130 268 118 366 170 C474 228 570 160 648 92 C738 16 878 74 990 36" fill="none" stroke="#d7e87d" stroke-width="3"/>
-            <path d="M42 76 C180 98 230 236 360 248 C504 262 522 94 676 124 C808 150 876 226 1018 202" fill="none" stroke="#d9e7e4" stroke-width="2" opacity=".8"/>
-            <path d="M118 28 L172 270 M304 26 L270 276 M484 24 L536 274 M716 24 L682 278 M908 28 L942 274" stroke="#ffffff" opacity=".16"/>
-            <g fill="#ffffff">
-              <circle cx="366" cy="170" r="7"/>
-              <circle cx="648" cy="92" r="7"/>
-              <circle cx="676" cy="124" r="7"/>
-              <circle cx="360" cy="248" r="7"/>
-            </g>
-            <g font-family="Inter, sans-serif" font-size="14" fill="#ffffff" opacity=".8">
-              <text x="74" y="260">access</text>
-              <text x="430" y="72">garden scale</text>
-              <text x="790" y="250">season timing</text>
-            </g>
-          </svg>
-        </div>
-      </section>
+      <div class="almanac-toolbar" role="group" aria-label="Filter the almanac by season">
+        <span class="almanac-toolbar-label">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          Almanac view
+        </span>
+        <button type="button" class="chip" data-season-filter="all" aria-pressed="true">All months <span class="chip-count">12</span></button>
+        <button type="button" class="chip" data-season-filter="spring" aria-pressed="false">Spring <span class="chip-count">3</span></button>
+        <button type="button" class="chip" data-season-filter="summer" aria-pressed="false">Summer <span class="chip-count">3</span></button>
+        <button type="button" class="chip" data-season-filter="fall" aria-pressed="false">Fall <span class="chip-count">3</span></button>
+        <button type="button" class="chip" data-season-filter="winter" aria-pressed="false">Winter <span class="chip-count">3</span></button>
+      </div>
 
-      <section class="section" aria-labelledby="palette-title">
-        <p class="eyebrow">Material feel</p>
-        <h2 id="palette-title">Planting direction that feels composed, not crowded.</h2>
-        <p class="lede">The visual system is built around texture, spacing, and restraint: fewer scattered choices, clearer groupings, and stronger edges.</p>
-        <div class="palette">
-          <article class="palette-note">
-            <div class="swatch"></div>
+      <div class="month-grid" id="month-grid" aria-live="polite">
+        <article class="month-card" data-season="winter">
+          <div class="month-card-head">
             <div>
-              <h3>Layered greens</h3>
-              <p>Evergreen structure, soft seasonal color, and repeated planting shapes for a quieter bed.</p>
+              <span class="month-index">01 · Dormant</span>
+              <h3>January</h3>
             </div>
-          </article>
-          <article class="palette-note">
-            <div class="swatch clay"></div>
-            <div>
-              <h3>Warm hard edges</h3>
-              <p>Path, pot, mulch, and border choices that make plantings feel intentional without becoming formal.</p>
-            </div>
-          </article>
-          <article class="palette-note">
-            <div class="swatch sky"></div>
-            <div>
-              <h3>Open breathing room</h3>
-              <p>Negative space, better spacing, and access lines so maintenance does not fight the design.</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section split" id="process" aria-labelledby="process-title">
-        <div>
-          <p class="eyebrow">Working method</p>
-          <h2 id="process-title">A clear path from messy bed to maintained garden.</h2>
-          <p class="lede">The process is intentionally plain-spoken: look closely, decide what matters, do the work in the right order, and leave the owner with care notes.</p>
-        </div>
-        <div class="process" aria-label="Garden service process">
-          <article class="process-step">
-            <div>
-              <h3>Walk the garden</h3>
-              <p>Read sunlight, access, water behavior, bed condition, and current plant health.</p>
-            </div>
-          </article>
-          <article class="process-step">
-            <div>
-              <h3>Set the priority</h3>
-              <p>Separate urgent cleanup from planting ideas, soil work, and future refresh options.</p>
-            </div>
-          </article>
-          <article class="process-step">
-            <div>
-              <h3>Work in sequence</h3>
-              <p>Clean, prepare, plant, mulch, and shape so each step supports the next one.</p>
-            </div>
-          </article>
-          <article class="process-step">
-            <div>
-              <h3>Leave care notes</h3>
-              <p>Share maintenance observations and simple next steps for the coming season.</p>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="section care-grid" aria-labelledby="care-title">
-        <div class="care-visual">
-          <svg viewBox="0 0 560 420" role="img" aria-labelledby="care-visual-title care-visual-desc">
-            <title id="care-visual-title">Layered garden bed cross-section</title>
-            <desc id="care-visual-desc">A vector cross-section showing soil, roots, mulch, plants, and pruning lines.</desc>
-            <rect width="560" height="420" fill="#fff"/>
-            <path d="M0 300 C96 278 138 310 220 292 C326 268 402 312 560 272 L560 420 L0 420Z" fill="#b86f45" opacity=".22"/>
-            <path d="M0 334 C110 308 178 350 288 322 C398 296 458 340 560 314 L560 420 L0 420Z" fill="#2e5c3d" opacity=".18"/>
-            <path d="M70 294 C80 220 130 188 168 142" fill="none" stroke="#2e5c3d" stroke-width="6" stroke-linecap="round"/>
-            <path d="M188 294 C194 230 232 188 270 152" fill="none" stroke="#6c8a49" stroke-width="6" stroke-linecap="round"/>
-            <path d="M332 286 C338 224 382 194 428 154" fill="none" stroke="#2e5c3d" stroke-width="6" stroke-linecap="round"/>
-            <g fill="#6c8a49">
-              <ellipse cx="156" cy="150" rx="42" ry="18" transform="rotate(-26 156 150)"/>
-              <ellipse cx="112" cy="188" rx="38" ry="16" transform="rotate(20 112 188)"/>
-              <ellipse cx="270" cy="154" rx="44" ry="17" transform="rotate(-14 270 154)"/>
-              <ellipse cx="424" cy="156" rx="48" ry="18" transform="rotate(18 424 156)"/>
-              <ellipse cx="380" cy="204" rx="42" ry="16" transform="rotate(-24 380 204)"/>
-            </g>
-            <g fill="none" stroke="#b86f45" stroke-width="2" opacity=".8">
-              <path d="M76 312 C104 342 138 346 168 386"/>
-              <path d="M188 312 C218 344 228 366 252 394"/>
-              <path d="M332 308 C372 336 398 362 422 396"/>
-            </g>
-            <g font-family="Inter, sans-serif" font-size="13" fill="#5f6d61">
-              <text x="34" y="54">prune line</text>
-              <path d="M106 62 L154 132" stroke="#5f6d61"/>
-              <text x="360" y="62">plant spacing</text>
-              <path d="M402 70 L426 132" stroke="#5f6d61"/>
-              <text x="34" y="390">mulch and soil layer</text>
-            </g>
-          </svg>
-        </div>
-        <div>
-          <p class="eyebrow">Maintenance intelligence</p>
-          <h2 id="care-title">Care notes that make the garden easier after the crew leaves.</h2>
-          <div class="care-list">
-            <div>
-              <h3>What to water first</h3>
-              <p>New plantings, stressed beds, and container groupings get the clearest notes.</p>
-            </div>
-            <div>
-              <h3>What to leave alone</h3>
-              <p>Some plants need time, not more handling. The notes call that out.</p>
-            </div>
-            <div>
-              <h3>What to revisit</h3>
-              <p>Drainage concerns, thinning areas, and future planting windows are kept visible.</p>
-            </div>
+            <span class="tag-pill">Reset</span>
           </div>
-        </div>
-      </section>
+          <ul>
+            <li>Structural pruning on dormant trees and shrubs</li>
+            <li>Tool sharpening, cleaning, and inventory</li>
+            <li>Bed-edge planning for the season ahead</li>
+          </ul>
+        </article>
+        <article class="month-card" data-season="winter">
+          <div class="month-card-head">
+            <div>
+              <span class="month-index">02 · Dormant</span>
+              <h3>February</h3>
+            </div>
+            <span class="tag-pill">Reset</span>
+          </div>
+          <ul>
+            <li>Late dormant-pruning window before bud break</li>
+            <li>Early bed cleanup on workable, mild days</li>
+            <li>Soil test review and compost turning</li>
+          </ul>
+        </article>
+        <article class="month-card" data-season="spring">
+          <div class="month-card-head">
+            <div>
+              <span class="month-index">03 · Prepare</span>
+              <h3>March</h3>
+            </div>
+            <span class="tag-pill">Prepare</span>
+          </div>
+          <ul>
+            <li>Clear winter debris and matted leaf litter</li>
+            <li>Cut back ornamental grasses and perennials</li>
+            <li>Top-dress beds with compost, direct-sow cool crops</li>
+          </ul>
+        </article>
+        <article class="month-card" data-season="spring">
+          <div class="month-card-head">
+            <div>
+              <span class="month-index">04 · Prepare</span>
+              <h3>April</h3>
+            </div>
+            <span class="tag-pill">Prepare</span>
+          </div>
+          <ul>
+            <li>Divide crowded perennials before new growth hardens</li>
+            <li>Edge and mulch beds ahead of the planting push</li>
+            <li>Irrigation lines checked and run-tested</li>
+          </ul>
+        </article>
+        <article class="month-card" data-season="spring">
+          <div class="month-card-head">
+            <div>
+              <span class="month-index">05 · Plant</span>
+              <h3>May</h3>
+            </div>
+            <span class="tag-pill">Plant</span>
+          </div>
+          <ul>
+            <li>Main planting window for the season</li>
+            <li>Staking and support for new, tender growth</li>
+            <li>First rounds of deadheading begin</li>
+          </ul>
+        </article>
+        <article class="month-card" data-season="summer">
+          <div class="month-card-head">
+            <div>
+              <span class="month-index">06 · Peak growth</span>
+              <h3>June</h3>
+            </div>
+            <span class="tag-pill">Manage</span>
+          </div>
+          <ul>
+            <li>Deep, infrequent watering rhythm begins</li>
+            <li>Shape spring-flowering shrubs right after bloom</li>
+            <li>Weed on a tight, weekly cycle</li>
+          </ul>
+        </article>
+        <article class="month-card" data-season="summer">
+          <div class="month-card-head">
+            <div>
+              <span class="month-index">07 · Peak growth</span>
+              <h3>July</h3>
+            </div>
+            <span class="tag-pill">Manage</span>
+          </div>
+          <ul>
+            <li>Midsummer deadheading to hold bloom cycles</li>
+            <li>Monitor drought stress, adjust run-times</li>
+            <li>Light shaping only — no hard cuts in heat</li>
+          </ul>
+        </article>
+        <article class="month-card" data-season="summer">
+          <div class="month-card-head">
+            <div>
+              <span class="month-index">08 · Peak growth</span>
+              <h3>August</h3>
+            </div>
+            <span class="tag-pill">Manage</span>
+          </div>
+          <ul>
+            <li>Continued deadheading and watering discipline</li>
+            <li>Watch for late-summer reseeding weeds</li>
+            <li>Plan fall bed edits and order bulbs</li>
+          </ul>
+        </article>
+        <article class="month-card" data-season="fall">
+          <div class="month-card-head">
+            <div>
+              <span class="month-index">09 · Transition</span>
+              <h3>September</h3>
+            </div>
+            <span class="tag-pill">Manage</span>
+          </div>
+          <ul>
+            <li>Cutback of spent summer perennials begins</li>
+            <li>Divide and transplant as heat breaks</li>
+            <li>Overseed thin turf edges bordering beds</li>
+          </ul>
+        </article>
+        <article class="month-card" data-season="fall">
+          <div class="month-card-head">
+            <div>
+              <span class="month-index">10 · Late season</span>
+              <h3>October</h3>
+            </div>
+            <span class="tag-pill">Prepare</span>
+          </div>
+          <ul>
+            <li>Primary bulb-planting window</li>
+            <li>Leaf and debris management on a steady cycle</li>
+            <li>Mulch refresh before the first hard frost</li>
+          </ul>
+        </article>
+        <article class="month-card" data-season="fall">
+          <div class="month-card-head">
+            <div>
+              <span class="month-index">11 · Late season</span>
+              <h3>November</h3>
+            </div>
+            <span class="tag-pill">Prepare</span>
+          </div>
+          <ul>
+            <li>Final cutback and full bed cleanup</li>
+            <li>Protect tender plants ahead of frost</li>
+            <li>Winterize containers and irrigation lines</li>
+          </ul>
+        </article>
+        <article class="month-card" data-season="winter">
+          <div class="month-card-head">
+            <div>
+              <span class="month-index">12 · Dormant</span>
+              <h3>December</h3>
+            </div>
+            <span class="tag-pill">Reset</span>
+          </div>
+          <ul>
+            <li>Structural review of woody plants at rest</li>
+            <li>Dormant-season planning session</li>
+            <li>Tool storage, sharpening, and season-ahead notes</li>
+          </ul>
+        </article>
+      </div>
+    </section>
 
-      <section class="section consult" id="consult" aria-labelledby="consult-title">
-        <div>
-          <p class="eyebrow">Start with the garden in front of you</p>
-          <h2 id="consult-title">Request a walk-through and a practical next-step plan.</h2>
-          <p class="lede">Share what feels off in the garden, what you want to keep, and how hands-on you want the care to be. The first conversation stays focused on fit and scope.</p>
-        </div>
-        <form class="consult-form" aria-label="Garden walk-through request">
-          <div class="field">
-            <label for="name">Name</label>
-            <input id="name" name="name" autocomplete="name">
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" name="email" type="email" autocomplete="email">
-          </div>
-          <div class="field">
-            <label for="garden">Garden notes</label>
-            <textarea id="garden" name="garden"></textarea>
-          </div>
-          <button class="button" type="button">Prepare Request</button>
-        </form>
-      </section>
-    </main>
+    <section class="section" id="tiers" aria-labelledby="tiers-title">
+      <div class="section-head">
+        <p class="eyebrow">Ways to work together</p>
+        <h2 id="tiers-title">Match the cadence to how the garden actually behaves.</h2>
+        <p class="lede">No hardscape builds, no capital projects — this is ongoing care. Pick the rhythm that fits, and it can change as the garden changes.</p>
+      </div>
 
-    <footer class="footer">
-      <div class="footer-inner">
-        <div>
-          <strong>Verdant Line Garden Co.</strong>
-          <p>Seasonal garden care, planting plans, bed cleanup, pruning, soil preparation, and small outdoor refreshes.</p>
-        </div>
-        <div class="footer-links" aria-label="Footer navigation">
-          <a href="#services">Services</a>
-          <a href="#seasons">Season Plan</a>
-          <a href="#process">Process</a>
-          <a href="#consult">Start</a>
+      <div class="tier-grid">
+        <article class="tier-card">
+          <div class="tier-head">
+            <strong>Seasonal Reset</strong>
+            <span>One-time visit</span>
+          </div>
+          <p>For a garden that needs a clean baseline before anything else — a single, focused visit.</p>
+          <ul class="tier-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>Full bed weeding and edge recovery</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>Cutback and seasonal debris removal</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>Written care notes for the next 60 days</li>
+          </ul>
+          <a class="button secondary block" href="#consult">Start with a reset</a>
+        </article>
+
+        <article class="tier-card is-featured">
+          <div class="tier-head">
+            <strong>Ongoing Care</strong>
+            <span>Recurring visits</span>
+          </div>
+          <p>Scheduled visits through the growing season, timed to the almanac rather than a fixed script.</p>
+          <ul class="tier-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>Everything in Seasonal Reset</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>Recurring maintenance visits, cadence set together</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>Watering and irrigation checks each visit</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>Priority scheduling around weather windows</li>
+          </ul>
+          <a class="button block" href="#consult">Set an ongoing cadence</a>
+        </article>
+
+        <article class="tier-card">
+          <div class="tier-head">
+            <strong>Full Season Partner</strong>
+            <span>Spring through fall</span>
+          </div>
+          <p>The complete cadence — planting, management, and prepare phases handled as one continuous plan.</p>
+          <ul class="tier-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>Everything in Ongoing Care</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>Planting plan refresh included each spring</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>Written notes delivered after every visit</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>First look at late-season and dormant planning</li>
+          </ul>
+          <a class="button secondary block" href="#consult">Ask about full-season care</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="coverage" aria-labelledby="coverage-title">
+      <div class="wide-panel">
+        <p class="eyebrow">Local fit</p>
+        <h2 id="coverage-title">A service-area conversation before a calendar promise.</h2>
+        <p class="lede">The first exchange confirms location, access, garden size, and the kind of care you need. No broad availability claims are made before the scope is known.</p>
+
+        <svg class="map-lines" viewBox="0 0 1060 300" role="img" aria-labelledby="map-title map-desc">
+          <title id="map-title">Service area logic map</title>
+          <desc id="map-desc">A stylized local map with lanes for access, garden scale, and seasonal timing.</desc>
+          <rect x="0" y="0" width="1060" height="300" fill="rgba(255,255,255,.04)"/>
+          <path d="M70 226 C170 130 268 118 366 170 C474 228 570 160 648 92 C738 16 878 74 990 36" fill="none" stroke="#d7e87d" stroke-width="3"/>
+          <path d="M42 76 C180 98 230 236 360 248 C504 262 522 94 676 124 C808 150 876 226 1018 202" fill="none" stroke="#d9e7e4" stroke-width="2" opacity=".8"/>
+          <path d="M118 28 L172 270 M304 26 L270 276 M484 24 L536 274 M716 24 L682 278 M908 28 L942 274" stroke="#ffffff" opacity=".16"/>
+          <g fill="#ffffff">
+            <circle cx="366" cy="170" r="7"/>
+            <circle cx="648" cy="92" r="7"/>
+            <circle cx="676" cy="124" r="7"/>
+            <circle cx="360" cy="248" r="7"/>
+          </g>
+          <g font-family="Inter, sans-serif" font-size="14" fill="#ffffff" opacity=".8">
+            <text x="74" y="260">access</text>
+            <text x="430" y="72">garden scale</text>
+            <text x="790" y="250">season timing</text>
+          </g>
+        </svg>
+
+        <div class="coverage-layout">
+          <div>
+            <h3>Neighborhoods on the standard loop</h3>
+            <p>These areas are on the regular seasonal route. Just outside the list? Ask — routes are revisited every season.</p>
+            <ul class="coverage-list">
+              <li>Ashgrove</li>
+              <li>Millrace</li>
+              <li>Cedar Hollow</li>
+              <li>Thistlewood</li>
+              <li>North Fen</li>
+              <li>Copper Bend</li>
+              <li>Larkspur Crossing</li>
+              <li>Old Mill District</li>
+            </ul>
+          </div>
+
+          <div class="checker" role="group" aria-labelledby="checker-title">
+            <h3 id="checker-title">Check your neighborhood</h3>
+            <p class="checker-help">Type a neighborhood name from the list — this is a quick local check, not a booking.</p>
+            <form class="checker-form" id="checker-form" novalidate>
+              <div class="field">
+                <label for="checker-input">Neighborhood or area</label>
+                <input id="checker-input" name="area" type="text" placeholder="e.g. Cedar Hollow" autocomplete="off">
+              </div>
+              <button class="button" type="submit" id="checker-submit">
+                <span class="btn-label">Check coverage</span>
+                <svg class="spinner" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle class="spinner-ring" cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="42" stroke-dashoffset="14"/></svg>
+              </button>
+            </form>
+            <div class="checker-result" id="checker-result" data-tone="success">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg>
+              <div>
+                <strong id="checker-result-title">&nbsp;</strong>
+                <p id="checker-result-body">&nbsp;</p>
+              </div>
+            </div>
+            <p class="checker-status sr-only" id="checker-status" role="status" aria-live="polite"></p>
+          </div>
         </div>
       </div>
-    </footer>
-  </div>
+    </section>
+
+    <section class="section" id="palette" aria-labelledby="palette-title">
+      <div class="section-head">
+        <p class="eyebrow">Material feel</p>
+        <h2 id="palette-title">Planting direction that feels composed, not crowded.</h2>
+        <p class="lede">The visual system is built around texture, spacing, and restraint: fewer scattered choices, clearer groupings, and stronger edges. Below is a working sample of the plant palette, filterable by the role each plant plays in a bed.</p>
+      </div>
+
+      <div class="palette-toolbar" role="group" aria-label="Filter the planting palette by bed role">
+        <button type="button" class="chip" data-plant-filter="all" aria-pressed="true">All plants <span class="chip-count">8</span></button>
+        <button type="button" class="chip" data-plant-filter="structure" aria-pressed="false">Structure <span class="chip-count">2</span></button>
+        <button type="button" class="chip" data-plant-filter="color" aria-pressed="false">Seasonal color <span class="chip-count">3</span></button>
+        <button type="button" class="chip" data-plant-filter="groundcover" aria-pressed="false">Groundcover <span class="chip-count">2</span></button>
+        <button type="button" class="chip" data-plant-filter="edging" aria-pressed="false">Edging <span class="chip-count">1</span></button>
+        <button type="button" class="chip" data-plant-filter="winter" aria-pressed="false">Winter interest <span class="chip-count">0</span></button>
+      </div>
+
+      <div class="plant-grid" id="plant-grid" aria-live="polite">
+        <article class="plant-card" data-role="structure">
+          <div class="plant-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#2e5c3d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M32 8 L44 26 H38 L48 40 H40 L50 54 H14 L24 40 H16 L26 26 H20 Z" fill="#6c8a49" opacity=".5"/>
+              <path d="M32 54 V60"/>
+            </svg>
+          </div>
+          <h3>Boxwood Border <span class="latin">Buxus</span></h3>
+          <p>Evergreen structure for bed edges and repeated shapes that hold form through winter.</p>
+          <div class="plant-tags">
+            <span class="tag-pill">Structure</span>
+            <span class="tag-pill">Full sun · part shade</span>
+          </div>
+        </article>
+
+        <article class="plant-card" data-role="color">
+          <div class="plant-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#b86f45" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M32 58 V32"/>
+              <circle cx="32" cy="22" r="16" fill="#d9e7e4" stroke="#2e5c3d"/>
+              <circle cx="24" cy="18" r="3" fill="#f7f7f1"/>
+              <circle cx="34" cy="12" r="3" fill="#f7f7f1"/>
+              <circle cx="42" cy="20" r="3" fill="#f7f7f1"/>
+              <circle cx="30" cy="28" r="3" fill="#f7f7f1"/>
+            </svg>
+          </div>
+          <h3>Panicle Hydrangea <span class="latin">Hydrangea paniculata</span></h3>
+          <p>Large summer-to-fall bloom heads that shift tone as the season cools.</p>
+          <div class="plant-tags">
+            <span class="tag-pill">Seasonal color</span>
+            <span class="tag-pill">Full sun</span>
+          </div>
+        </article>
+
+        <article class="plant-card" data-role="color">
+          <div class="plant-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#6c8a49" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M20 56 C20 40 24 30 24 18"/>
+              <path d="M32 56 C32 38 30 26 30 12"/>
+              <path d="M44 56 C44 40 40 30 40 18"/>
+              <g stroke="#b86f45">
+                <path d="M22 20 l4 -3M22 26 l4 -3M28 14 l4 -3M28 20 l4 -3M38 20 l4 -3M38 26 l4 -3"/>
+              </g>
+            </svg>
+          </div>
+          <h3>Catmint Drift <span class="latin">Nepeta</span></h3>
+          <p>Long spring-into-summer bloom spikes in a soft repeated drift; pollinators favor it.</p>
+          <div class="plant-tags">
+            <span class="tag-pill">Seasonal color</span>
+            <span class="tag-pill">Full sun</span>
+          </div>
+        </article>
+
+        <article class="plant-card" data-role="groundcover">
+          <div class="plant-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#2e5c3d" stroke-width="1.6" aria-hidden="true">
+              <path d="M6 44 Q16 34 26 44 T46 44 T64 44" />
+              <g fill="#6c8a49" stroke="none">
+                <circle cx="12" cy="42" r="2.4"/><circle cx="20" cy="46" r="2.4"/><circle cx="28" cy="40" r="2.4"/>
+                <circle cx="36" cy="46" r="2.4"/><circle cx="44" cy="40" r="2.4"/><circle cx="52" cy="46" r="2.4"/>
+              </g>
+            </svg>
+          </div>
+          <h3>Creeping Thyme <span class="latin">Thymus</span></h3>
+          <p>Low, fragrant mat that softens paver joints and path edges without overtaking them.</p>
+          <div class="plant-tags">
+            <span class="tag-pill">Groundcover</span>
+            <span class="tag-pill">Full sun</span>
+          </div>
+        </article>
+
+        <article class="plant-card" data-role="groundcover">
+          <div class="plant-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#2e5c3d" stroke-width="2" stroke-linejoin="round" aria-hidden="true">
+              <path d="M32 50 C18 46 14 34 22 24 C26 34 30 38 32 50Z" fill="#6c8a49" opacity=".55"/>
+              <path d="M32 50 C46 46 50 34 42 24 C38 34 34 38 32 50Z" fill="#d9e7e4" opacity=".7"/>
+              <path d="M32 50 V56"/>
+            </svg>
+          </div>
+          <h3>Hosta Shade Bed <span class="latin">Hosta</span></h3>
+          <p>Broad, layered leaf texture that carries a low-light bed without needing bloom color.</p>
+          <div class="plant-tags">
+            <span class="tag-pill">Groundcover</span>
+            <span class="tag-pill">Full shade</span>
+          </div>
+        </article>
+
+        <article class="plant-card" data-role="structure">
+          <div class="plant-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#b86f45" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <path d="M32 58 C30 44 26 34 18 20"/>
+              <path d="M32 58 C32 42 32 30 32 10"/>
+              <path d="M32 58 C34 44 38 34 46 20"/>
+              <path d="M32 58 C31 40 29 28 24 14" stroke="#6c8a49"/>
+              <path d="M32 58 C33 40 35 28 40 14" stroke="#6c8a49"/>
+            </svg>
+          </div>
+          <h3>Dwarf Fountain Grass <span class="latin">Pennisetum</span></h3>
+          <p>Movement and texture through the season; left standing for late-season interest.</p>
+          <div class="plant-tags">
+            <span class="tag-pill">Structure</span>
+            <span class="tag-pill">Full sun</span>
+          </div>
+        </article>
+
+        <article class="plant-card" data-role="edging">
+          <div class="plant-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#2e5c3d" stroke-width="1.8" aria-hidden="true">
+              <path d="M6 50 H58" stroke="#b86f45"/>
+              <path d="M14 50 C12 40 14 32 12 22"/>
+              <path d="M22 50 C20 40 22 32 20 22"/>
+              <path d="M30 50 C28 40 30 32 28 22"/>
+              <path d="M38 50 C36 40 38 32 36 22"/>
+              <path d="M46 50 C44 40 46 32 44 22"/>
+            </svg>
+          </div>
+          <h3>Liriope Edging <span class="latin">Liriope</span></h3>
+          <p>Strappy, low grass-like clumps that hold a clean line along beds and walkways.</p>
+          <div class="plant-tags">
+            <span class="tag-pill">Edging</span>
+            <span class="tag-pill">Part shade</span>
+          </div>
+        </article>
+
+        <article class="plant-card" data-role="color">
+          <div class="plant-icon">
+            <svg viewBox="0 0 64 64" fill="none" stroke="#b86f45" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M32 58 V30"/>
+              <g fill="#d7e87d" stroke="#8a6a2c">
+                <circle cx="32" cy="18" r="4"/>
+                <ellipse cx="32" cy="6" rx="4" ry="7"/>
+                <ellipse cx="32" cy="30" rx="4" ry="7" transform="rotate(180 32 30)"/>
+                <ellipse cx="20" cy="18" rx="7" ry="4"/>
+                <ellipse cx="44" cy="18" rx="7" ry="4"/>
+                <ellipse cx="23" cy="10" rx="6" ry="4" transform="rotate(-45 23 10)"/>
+                <ellipse cx="41" cy="10" rx="6" ry="4" transform="rotate(45 41 10)"/>
+                <ellipse cx="23" cy="26" rx="6" ry="4" transform="rotate(45 23 26)"/>
+                <ellipse cx="41" cy="26" rx="6" ry="4" transform="rotate(-45 41 26)"/>
+              </g>
+            </svg>
+          </div>
+          <h3>Black-Eyed Susan <span class="latin">Rudbeckia</span></h3>
+          <p>Reliable late-summer color that self-sows lightly and reads well in loose drifts.</p>
+          <div class="plant-tags">
+            <span class="tag-pill">Seasonal color</span>
+            <span class="tag-pill">Full sun</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="palette-empty" id="palette-empty" data-visible="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3v6M12 21c-4-3-7-7-7-11a7 7 0 0114 0c0 4-3 8-7 11Z"/></svg>
+        <strong>Nothing tagged for winter interest yet</strong>
+        <p class="lede">This sample palette focuses on the growing season. Ask during a walk-through and evergreen and bark-interest options can be added to the plan.</p>
+      </div>
+
+      <div class="material-notes">
+        <article class="palette-note">
+          <div class="swatch"></div>
+          <div>
+            <h3>Layered greens</h3>
+            <p>Evergreen structure, soft seasonal color, and repeated planting shapes for a quieter bed.</p>
+          </div>
+        </article>
+        <article class="palette-note">
+          <div class="swatch clay"></div>
+          <div>
+            <h3>Warm hard edges</h3>
+            <p>Path, pot, mulch, and border choices that make plantings feel intentional without becoming formal.</p>
+          </div>
+        </article>
+        <article class="palette-note">
+          <div class="swatch sky"></div>
+          <div>
+            <h3>Open breathing room</h3>
+            <p>Negative space, better spacing, and access lines so maintenance does not fight the design.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section split" id="process" aria-labelledby="process-title">
+      <div>
+        <p class="eyebrow">Working method</p>
+        <h2 id="process-title">A clear path from messy bed to maintained garden.</h2>
+        <p class="lede">The process is intentionally plain-spoken: look closely, decide what matters, do the work in the right order, and leave the owner with care notes.</p>
+      </div>
+      <div class="process" aria-label="Garden service process">
+        <article class="process-step">
+          <div>
+            <h3>Walk the garden</h3>
+            <p>Read sunlight, access, water behavior, bed condition, and current plant health.</p>
+          </div>
+        </article>
+        <article class="process-step">
+          <div>
+            <h3>Set the priority</h3>
+            <p>Separate urgent cleanup from planting ideas, soil work, and future refresh options.</p>
+          </div>
+        </article>
+        <article class="process-step">
+          <div>
+            <h3>Work in sequence</h3>
+            <p>Clean, prepare, plant, mulch, and shape so each step supports the next one.</p>
+          </div>
+        </article>
+        <article class="process-step">
+          <div>
+            <h3>Leave care notes</h3>
+            <p>Share maintenance observations and simple next steps for the coming season.</p>
+          </div>
+        </article>
+        <article class="process-step">
+          <div>
+            <h3>Revisit on cadence</h3>
+            <p>Ongoing and full-season plans return on a set rhythm so notes stay current, not one-and-done.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section care-grid" aria-labelledby="care-title">
+      <div class="care-visual">
+        <svg viewBox="0 0 560 420" role="img" aria-labelledby="care-visual-title care-visual-desc">
+          <title id="care-visual-title">Layered garden bed cross-section</title>
+          <desc id="care-visual-desc">A vector cross-section showing soil, roots, mulch, plants, and pruning lines.</desc>
+          <rect width="560" height="420" fill="#fff"/>
+          <path d="M0 300 C96 278 138 310 220 292 C326 268 402 312 560 272 L560 420 L0 420Z" fill="#b86f45" opacity=".22"/>
+          <path d="M0 334 C110 308 178 350 288 322 C398 296 458 340 560 314 L560 420 L0 420Z" fill="#2e5c3d" opacity=".18"/>
+          <path d="M70 294 C80 220 130 188 168 142" fill="none" stroke="#2e5c3d" stroke-width="6" stroke-linecap="round"/>
+          <path d="M188 294 C194 230 232 188 270 152" fill="none" stroke="#6c8a49" stroke-width="6" stroke-linecap="round"/>
+          <path d="M332 286 C338 224 382 194 428 154" fill="none" stroke="#2e5c3d" stroke-width="6" stroke-linecap="round"/>
+          <g fill="#6c8a49">
+            <ellipse cx="156" cy="150" rx="42" ry="18" transform="rotate(-26 156 150)"/>
+            <ellipse cx="112" cy="188" rx="38" ry="16" transform="rotate(20 112 188)"/>
+            <ellipse cx="270" cy="154" rx="44" ry="17" transform="rotate(-14 270 154)"/>
+            <ellipse cx="424" cy="156" rx="48" ry="18" transform="rotate(18 424 156)"/>
+            <ellipse cx="380" cy="204" rx="42" ry="16" transform="rotate(-24 380 204)"/>
+          </g>
+          <g fill="none" stroke="#b86f45" stroke-width="2" opacity=".8">
+            <path d="M76 312 C104 342 138 346 168 386"/>
+            <path d="M188 312 C218 344 228 366 252 394"/>
+            <path d="M332 308 C372 336 398 362 422 396"/>
+          </g>
+          <g font-family="Inter, sans-serif" font-size="13" fill="#5f6d61">
+            <text x="34" y="54">prune line</text>
+            <path d="M106 62 L154 132" stroke="#5f6d61"/>
+            <text x="360" y="62">plant spacing</text>
+            <path d="M402 70 L426 132" stroke="#5f6d61"/>
+            <text x="34" y="390">mulch and soil layer</text>
+          </g>
+        </svg>
+      </div>
+      <div>
+        <p class="eyebrow">Maintenance intelligence</p>
+        <h2 id="care-title">Care notes that make the garden easier after the crew leaves.</h2>
+        <div class="care-list">
+          <div>
+            <h3>What to water first</h3>
+            <p>New plantings, stressed beds, and container groupings get the clearest notes.</p>
+          </div>
+          <div>
+            <h3>What to leave alone</h3>
+            <p>Some plants need time, not more handling. The notes call that out.</p>
+          </div>
+          <div>
+            <h3>What to revisit</h3>
+            <p>Drainage concerns, thinning areas, and future planting windows are kept visible.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="notes" aria-labelledby="notes-title">
+      <div class="section-head">
+        <p class="eyebrow">What you receive</p>
+        <h2 id="notes-title">A sample of the notes you actually get.</h2>
+        <p class="lede">These are illustrative samples of the note format left after a visit — not client case studies. They show what the handoff looks like, not a specific outcome claim.</p>
+      </div>
+      <div class="note-grid">
+        <article class="note-card">
+          <div class="note-card-head">
+            <span class="tag-pill">Sample note</span>
+            <span>Spring reset</span>
+          </div>
+          <h3>Bed near the east fence line</h3>
+          <p>Cutback complete; three perennial clumps flagged for spring division. Edge reset with a clean bevel line.</p>
+          <p>Soil reads compacted along the drip edge — plan to top-dress with compost before mulch goes down.</p>
+        </article>
+        <article class="note-card">
+          <div class="note-card-head">
+            <span class="tag-pill">Sample note</span>
+            <span>Soil &amp; mulch</span>
+          </div>
+          <h3>Front border, south exposure</h3>
+          <p>Mulch depth corrected to a consistent two inches, pulled back from stems. Drainage improved after the swale re-cut.</p>
+          <p>Watch the corner bed — afternoon sun is drying it faster than the rest of the run.</p>
+        </article>
+        <article class="note-card">
+          <div class="note-card-head">
+            <span class="tag-pill">Sample note</span>
+            <span>Late season handoff</span>
+          </div>
+          <h3>Container grouping, entry walk</h3>
+          <p>Tender plantings moved for winter; irrigation line capped and drained. Containers cleaned and stacked.</p>
+          <p>Next spring: revisit spacing on the left grouping — it read crowded by midsummer.</p>
+        </article>
+      </div>
+      <p class="note-disclaimer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+        Sample format only. Every note is written from that garden's actual walk-through.
+      </p>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="section-head">
+        <p class="eyebrow">Common questions</p>
+        <h2 id="faq-title">Before you request a walk-through.</h2>
+        <p class="lede">The short version of what most homeowners ask before the first visit.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3>
+            <button class="faq-trigger" type="button" id="faq-trigger-1" aria-expanded="false" aria-controls="faq-panel-1">
+              How does the first walk-through work?
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            </button>
+          </h3>
+          <div class="faq-panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1" hidden>
+            <p>A short on-site visit to read sunlight, access, soil, and current plant health. You leave with a plain-spoken read of priorities and a next-step plan — no work is scheduled during the walk-through itself.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-trigger" type="button" id="faq-trigger-2" aria-expanded="false" aria-controls="faq-panel-2">
+              Do you work with existing gardens or only new installs?
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            </button>
+          </h3>
+          <div class="faq-panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2" hidden>
+            <p>Mostly existing gardens — beds that have drifted, thinned, or outgrown their upkeep. This is ongoing seasonal care, not capital hardscape or design-build work, so most visits start from what is already planted.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-trigger" type="button" id="faq-trigger-3" aria-expanded="false" aria-controls="faq-panel-3">
+              What if my garden only needs seasonal help, not year-round care?
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            </button>
+          </h3>
+          <div class="faq-panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3" hidden>
+            <p>That is what the Seasonal Reset tier is for — a single focused visit with no ongoing commitment. Some homeowners book one reset per season and nothing in between; both are normal.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-trigger" type="button" id="faq-trigger-4" aria-expanded="false" aria-controls="faq-panel-4">
+              Is there a minimum garden size or contract length?
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            </button>
+          </h3>
+          <div class="faq-panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4" hidden>
+            <p>No fixed minimum. Small entry beds and container groupings are worked into the route the same as full beds — the walk-through is what sets the actual scope, not a general size rule.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-trigger" type="button" id="faq-trigger-5" aria-expanded="false" aria-controls="faq-panel-5">
+              What happens if the weather delays scheduled work?
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            </button>
+          </h3>
+          <div class="faq-panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5" hidden>
+            <p>Weather is read against the season board, not a fixed calendar date. A delayed visit moves to the next workable window, and ongoing-care clients are told before it happens, not after.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-trigger" type="button" id="faq-trigger-6" aria-expanded="false" aria-controls="faq-panel-6">
+              Do you supply plants, or work with what is already there?
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            </button>
+          </h3>
+          <div class="faq-panel" id="faq-panel-6" role="region" aria-labelledby="faq-trigger-6" hidden>
+            <p>Both. A planting plan refresh can introduce new groupings from the sample palette, or work entirely with existing plant stock — the walk-through notes make clear which beds need which approach.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <h3>
+            <button class="faq-trigger" type="button" id="faq-trigger-7" aria-expanded="false" aria-controls="faq-panel-7">
+              How is pricing structured?
+              <span class="faq-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></span>
+            </button>
+          </h3>
+          <div class="faq-panel" id="faq-panel-7" role="region" aria-labelledby="faq-trigger-7" hidden>
+            <p>Scope-based, set after the walk-through against one of the three cadences — Seasonal Reset, Ongoing Care, or Full Season Partner. No number is quoted before the garden has actually been seen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section consult" id="consult" aria-labelledby="consult-title">
+      <div class="consult-intro">
+        <p class="eyebrow">Start with the garden in front of you</p>
+        <h2 id="consult-title">Request a walk-through and a practical next-step plan.</h2>
+        <p class="lede">Share what feels off in the garden, what you want to keep, and how hands-on you want the care to be. The first conversation stays focused on fit and scope.</p>
+      </div>
+
+      <div>
+        <div class="form-banner" id="consult-banner" role="alert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+          <span id="consult-banner-text">Please fix the highlighted fields before sending the request.</span>
+        </div>
+
+        <form class="consult-form" id="consult-form" aria-label="Garden walk-through request" novalidate>
+          <fieldset>
+            <legend class="sr-only">Contact details</legend>
+            <div class="field-row two-up">
+              <div class="field" id="field-name">
+                <label for="name">Name</label>
+                <input id="name" name="name" autocomplete="name" required aria-required="true" aria-describedby="name-msg">
+                <p class="field-msg" id="name-msg" data-tone=""></p>
+              </div>
+              <div class="field" id="field-email">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required aria-required="true" aria-describedby="email-msg">
+                <p class="field-msg" id="email-msg" data-tone=""></p>
+              </div>
+            </div>
+            <div class="field" id="field-area">
+              <label for="area">Neighborhood or area <span class="optional">optional</span></label>
+              <input id="area" name="area" autocomplete="address-level2" placeholder="e.g. Millrace">
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>How hands-on should the care be?</legend>
+            <div class="radio-card-group" role="radiogroup" aria-label="Preferred cadence">
+              <label class="radio-card">
+                <input type="radio" name="cadence" value="reset">
+                <span><strong>Seasonal Reset</strong><small>One focused visit to start</small></span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="cadence" value="ongoing" checked>
+                <span><strong>Ongoing Care</strong><small>Recurring visits through the season</small></span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="cadence" value="full-season">
+                <span><strong>Full Season Partner</strong><small>Spring-through-fall complete cadence</small></span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="cadence" value="not-sure">
+                <span><strong>Not sure yet</strong><small>Talk it through at the walk-through</small></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend class="sr-only">Garden notes</legend>
+            <div class="field" id="field-garden">
+              <label for="garden">Garden notes<span class="char-count" id="garden-count">0 / 500</span></label>
+              <textarea id="garden" name="garden" required aria-required="true" aria-describedby="garden-msg" placeholder="What feels off right now, what you want to keep, and anything time-sensitive."></textarea>
+              <p class="field-msg" id="garden-msg" data-tone=""></p>
+            </div>
+            <div class="checkbox-row">
+              <input type="checkbox" id="consent-text" name="consent-text">
+              <label for="consent-text">It's fine to text me about scheduling instead of only email.</label>
+            </div>
+          </fieldset>
+
+          <div class="form-foot">
+            <button class="button" type="submit" id="consult-submit">
+              <span class="btn-label">Prepare Request</span>
+              <svg class="spinner" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle class="spinner-ring" cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="42" stroke-dashoffset="14"/></svg>
+            </button>
+            <p>No payment or contract at this step — just scope and fit.</p>
+          </div>
+          <p class="sr-only" role="status" aria-live="polite" id="consult-status"></p>
+        </form>
+
+        <div class="consult-success" id="consult-success">
+          <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 12l6 6L20 6"/></svg></div>
+          <div>
+            <h3>Request prepared.</h3>
+            <p id="consult-success-summary">Notes are ready to send. A short reply usually follows within two working days to set the walk-through window.</p>
+            <button class="button secondary" type="button" id="consult-reset">Start another request</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="brand" href="#top" aria-label="Verdant Line Garden Co. home">
+          <span class="brand-mark" aria-hidden="true">V</span>
+          <span>Verdant Line</span>
+        </a>
+        <p>Seasonal garden care, planting plans, bed cleanup, pruning, soil preparation, irrigation checks, and small outdoor refreshes — read from the calendar, not a canned package.</p>
+
+        <form class="footer-note-form" id="newsletter-form" novalidate>
+          <label for="newsletter-email">Get the next almanac note by email</label>
+          <div class="footer-note-row">
+            <input id="newsletter-email" name="newsletter-email" type="email" placeholder="you@email.com" aria-describedby="newsletter-msg">
+            <button class="button" type="submit" id="newsletter-submit">
+              <span class="btn-label">Subscribe</span>
+              <svg class="spinner" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle class="spinner-ring" cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="42" stroke-dashoffset="14"/></svg>
+            </button>
+          </div>
+          <p class="footer-note-msg" id="newsletter-msg" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="footer-social" aria-label="Verdant Line elsewhere">
+          <a href="#top" aria-label="Verdant Line on the field journal (placeholder link)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg>
+          </a>
+          <a href="#top" aria-label="Verdant Line photo notes (placeholder link)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><circle cx="12" cy="12" r="3.5"/></svg>
+          </a>
+          <a href="#top" aria-label="Verdant Line mailing list (placeholder link)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#seasons">Season plan</a></li>
+            <li><a href="#coverage">Coverage</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Get started</h4>
+          <ul>
+            <li><a href="#consult">Book a walk-through</a></li>
+            <li><a href="#tiers">Ways to work together</a></li>
+            <li><a href="#notes">Sample notes</a></li>
+            <li><a href="#palette">Planting palette</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Reach the studio</h4>
+          <ul>
+            <li><address>142 Fernhollow Lane<br>Ashgrove</address></li>
+            <li><a href="tel:+15550142001">(555) 014-2001</a></li>
+            <li><a href="mailto:hello@verdantlinegarden.example">hello@verdantlinegarden.example</a></li>
+            <li>Walk-throughs booked Tue–Sat</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <span id="year">2026</span> Verdant Line Garden Co. Seasonal garden care &amp; planting almanac.</span>
+      <div class="footer-legal">
+        <a href="#top">Back to top</a>
+        <a href="#consult">Request a walk-through</a>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ------------------------------------------------------------
+     Footer year
+     ------------------------------------------------------------ */
+  var yearEl = document.getElementById("year");
+  if (yearEl) { yearEl.textContent = String(new Date().getFullYear()); }
+
+  /* ------------------------------------------------------------
+     Sticky header shadow-on-scroll + back-to-top visibility
+     ------------------------------------------------------------ */
+  var topbar = document.getElementById("topbar");
+  var toTop = document.getElementById("to-top");
+  var scrollTicking = false;
+
+  function onScrollFrame(){
+    var y = window.scrollY || document.documentElement.scrollTop;
+    if (topbar) { topbar.classList.toggle("is-scrolled", y > 8); }
+    if (toTop) { toTop.setAttribute("data-visible", y > 600 ? "true" : "false"); }
+    scrollTicking = false;
+  }
+
+  window.addEventListener("scroll", function(){
+    if (!scrollTicking){
+      window.requestAnimationFrame(onScrollFrame);
+      scrollTicking = true;
+    }
+  }, { passive: true });
+  onScrollFrame();
+
+  if (toTop){
+    toTop.addEventListener("click", function(){
+      window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Mobile nav drawer
+     ------------------------------------------------------------ */
+  var navToggle = document.getElementById("nav-toggle");
+  var navDrawer = document.getElementById("nav-drawer");
+
+  function setDrawer(open){
+    if (!navToggle || !navDrawer) { return; }
+    navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+    navToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    navDrawer.setAttribute("data-open", open ? "true" : "false");
+    document.body.style.overflow = open ? "hidden" : "";
+    if (open){
+      var firstLink = navDrawer.querySelector("a");
+      if (firstLink) { firstLink.focus(); }
+    }
+  }
+
+  if (navToggle && navDrawer){
+    navToggle.addEventListener("click", function(){
+      setDrawer(navToggle.getAttribute("aria-expanded") !== "true");
+    });
+
+    navDrawer.querySelectorAll("a").forEach(function(link){
+      link.addEventListener("click", function(){ setDrawer(false); });
+    });
+
+    document.addEventListener("keydown", function(evt){
+      if (evt.key === "Escape" && navToggle.getAttribute("aria-expanded") === "true"){
+        setDrawer(false);
+        navToggle.focus();
+      }
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Generic single-select chip filter helper
+     Used for: almanac season filter, plant palette filter
+     ------------------------------------------------------------ */
+  function wireChipFilter(opts){
+    var chips = document.querySelectorAll(opts.chipSelector);
+    var cards = document.querySelectorAll(opts.cardSelector);
+    var emptyEl = opts.emptyEl ? document.getElementById(opts.emptyEl) : null;
+
+    if (!chips.length || !cards.length) { return; }
+
+    function applyFilter(value){
+      var visibleCount = 0;
+      cards.forEach(function(card){
+        var match = value === "all" || card.getAttribute(opts.cardDataAttr) === value;
+        card.hidden = !match;
+        if (match) { visibleCount++; }
+      });
+      if (emptyEl){
+        emptyEl.setAttribute("data-visible", visibleCount === 0 ? "true" : "false");
+      }
+    }
+
+    chips.forEach(function(chip){
+      chip.addEventListener("click", function(){
+        chips.forEach(function(c){ c.setAttribute("aria-pressed", "false"); });
+        chip.setAttribute("aria-pressed", "true");
+        applyFilter(chip.getAttribute(opts.chipDataAttr));
+      });
+    });
+  }
+
+  wireChipFilter({
+    chipSelector: "[data-season-filter]",
+    chipDataAttr: "data-season-filter",
+    cardSelector: "#month-grid .month-card",
+    cardDataAttr: "data-season",
+    emptyEl: null
+  });
+
+  wireChipFilter({
+    chipSelector: "[data-plant-filter]",
+    chipDataAttr: "data-plant-filter",
+    cardSelector: "#plant-grid .plant-card",
+    cardDataAttr: "data-role",
+    emptyEl: "palette-empty"
+  });
+
+  /* ------------------------------------------------------------
+     FAQ disclosures
+     ------------------------------------------------------------ */
+  document.querySelectorAll(".faq-trigger").forEach(function(trigger){
+    trigger.addEventListener("click", function(){
+      var expanded = trigger.getAttribute("aria-expanded") === "true";
+      var panel = document.getElementById(trigger.getAttribute("aria-controls"));
+      trigger.setAttribute("aria-expanded", expanded ? "false" : "true");
+      if (panel) { panel.hidden = expanded; }
+    });
+  });
+
+  /* ------------------------------------------------------------
+     Coverage checker — simulated async lookup
+     states: (default) -> error (empty input) / loading -> success / empty (no match)
+     ------------------------------------------------------------ */
+  var COVERED_AREAS = ["ashgrove", "millrace", "cedar hollow", "thistlewood", "north fen", "copper bend", "larkspur crossing", "old mill district"];
+
+  var checkerForm = document.getElementById("checker-form");
+  var checkerInput = document.getElementById("checker-input");
+  var checkerSubmit = document.getElementById("checker-submit");
+  var checkerResult = document.getElementById("checker-result");
+  var checkerResultTitle = document.getElementById("checker-result-title");
+  var checkerResultBody = document.getElementById("checker-result-body");
+  var checkerStatus = document.getElementById("checker-status");
+
+  function setButtonLoading(btn, loading){
+    if (!btn) { return; }
+    btn.classList.toggle("is-loading", loading);
+    btn.disabled = loading;
+  }
+
+  function showCheckerResult(tone, title, body){
+    if (!checkerResult) { return; }
+    checkerResult.setAttribute("data-tone", tone);
+    checkerResult.setAttribute("data-visible", "true");
+    var iconPaths = {
+      success: '<path d="M4 12l6 6L20 6"/>',
+      empty: '<circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/>',
+      error: '<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/>'
+    };
+    var svg = checkerResult.querySelector("svg");
+    if (svg) { svg.innerHTML = iconPaths[tone] || iconPaths.error; }
+    if (checkerResultTitle) { checkerResultTitle.textContent = title; }
+    if (checkerResultBody) { checkerResultBody.textContent = body; }
+    if (checkerStatus) { checkerStatus.textContent = title + ". " + body; }
+  }
+
+  if (checkerForm){
+    checkerForm.addEventListener("submit", function(evt){
+      evt.preventDefault();
+      var raw = (checkerInput.value || "").trim();
+
+      if (!raw){
+        showCheckerResult("error", "Add a neighborhood first.", "Type a neighborhood or postal-code area, then check again.");
+        checkerInput.focus();
+        return;
+      }
+
+      setButtonLoading(checkerSubmit, true);
+      if (checkerStatus) { checkerStatus.textContent = "Checking coverage…"; }
+      checkerResult.setAttribute("data-visible", "false");
+
+      window.setTimeout(function(){
+        setButtonLoading(checkerSubmit, false);
+        var needle = raw.toLowerCase();
+        var matched = COVERED_AREAS.filter(function(area){
+          return area.indexOf(needle) !== -1 || needle.indexOf(area) !== -1;
+        })[0];
+
+        if (matched){
+          var pretty = matched.replace(/\b\w/g, function(c){ return c.toUpperCase(); });
+          showCheckerResult("success", pretty + " is on the standard loop.", "This area is visited on the regular seasonal route. Use the request form below to set a walk-through window.");
+        } else {
+          showCheckerResult("empty", "Not on the standard loop yet.", "Routes are revisited every season — send a request anyway and it will be read against the nearest active route.");
+        }
+      }, 700);
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Consultation form — validation + simulated submit lifecycle
+     ------------------------------------------------------------ */
+  var consultForm = document.getElementById("consult-form");
+  var consultBanner = document.getElementById("consult-banner");
+  var consultSubmit = document.getElementById("consult-submit");
+  var consultSuccess = document.getElementById("consult-success");
+  var consultReset = document.getElementById("consult-reset");
+  var consultStatus = document.getElementById("consult-status");
+  var gardenField = document.getElementById("garden");
+  var gardenCount = document.getElementById("garden-count");
+  var MAX_GARDEN_CHARS = 500;
+
+  var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function setFieldState(fieldId, msgId, tone, message){
+    var field = document.getElementById(fieldId);
+    var msg = document.getElementById(msgId);
+    var input = field ? field.querySelector("input, textarea") : null;
+    if (field){
+      field.classList.remove("has-error", "has-success");
+      if (tone) { field.classList.add(tone === "error" ? "has-error" : "has-success"); }
+    }
+    if (input) { input.setAttribute("aria-invalid", tone === "error" ? "true" : "false"); }
+    if (msg){
+      msg.textContent = message || "";
+      msg.setAttribute("data-tone", tone || "");
+    }
+  }
+
+  function updateGardenCount(){
+    if (!gardenField || !gardenCount) { return; }
+    var len = gardenField.value.length;
+    gardenCount.textContent = len + " / " + MAX_GARDEN_CHARS;
+    gardenCount.setAttribute("data-tone", len > MAX_GARDEN_CHARS ? "error" : "");
+  }
+
+  if (gardenField){
+    gardenField.addEventListener("input", updateGardenCount);
+    updateGardenCount();
+  }
+
+  if (consultForm){
+    consultForm.addEventListener("submit", function(evt){
+      evt.preventDefault();
+
+      var nameInput = document.getElementById("name");
+      var emailInput = document.getElementById("email");
+      var firstInvalid = null;
+
+      setFieldState("field-name", "name-msg", "", "");
+      setFieldState("field-email", "email-msg", "", "");
+      setFieldState("field-garden", "garden-msg", "", "");
+      if (consultBanner) { consultBanner.setAttribute("data-visible", "false"); }
+
+      if (!nameInput.value.trim()){
+        setFieldState("field-name", "name-msg", "error", "Add your name so the notes have somewhere to go.");
+        firstInvalid = firstInvalid || nameInput;
+      }
+
+      if (!emailInput.value.trim()){
+        setFieldState("field-email", "email-msg", "error", "Add an email address.");
+        firstInvalid = firstInvalid || emailInput;
+      } else if (!EMAIL_RE.test(emailInput.value.trim())){
+        setFieldState("field-email", "email-msg", "error", "That email address doesn't look complete.");
+        firstInvalid = firstInvalid || emailInput;
+      }
+
+      var gardenVal = gardenField.value.trim();
+      if (!gardenVal){
+        setFieldState("field-garden", "garden-msg", "error", "Add a few notes about the garden first.");
+        firstInvalid = firstInvalid || gardenField;
+      } else if (gardenVal.length > MAX_GARDEN_CHARS){
+        setFieldState("field-garden", "garden-msg", "error", "Trim this to " + MAX_GARDEN_CHARS + " characters so it fits one printed note card.");
+        firstInvalid = firstInvalid || gardenField;
+      }
+
+      if (firstInvalid){
+        if (consultBanner) { consultBanner.setAttribute("data-visible", "true"); }
+        if (consultStatus) { consultStatus.textContent = "The request has errors that need fixing."; }
+        firstInvalid.focus();
+        return;
+      }
+
+      setButtonLoading(consultSubmit, true);
+      consultForm.setAttribute("aria-busy", "true");
+      if (consultStatus) { consultStatus.textContent = "Sending request…"; }
+
+      window.setTimeout(function(){
+        setButtonLoading(consultSubmit, false);
+        consultForm.setAttribute("aria-busy", "false");
+        consultForm.classList.add("is-hidden");
+        if (consultSuccess){
+          consultSuccess.setAttribute("data-visible", "true");
+          var summary = document.getElementById("consult-success-summary");
+          if (summary){
+            summary.textContent = "Notes for " + nameInput.value.trim() + " are ready to send. A short reply usually follows within two working days to set the walk-through window.";
+          }
+        }
+        if (consultStatus) { consultStatus.textContent = "Request prepared."; }
+      }, 900);
+    });
+  }
+
+  if (consultReset){
+    consultReset.addEventListener("click", function(){
+      consultForm.reset();
+      updateGardenCount();
+      setFieldState("field-name", "name-msg", "", "");
+      setFieldState("field-email", "email-msg", "", "");
+      setFieldState("field-garden", "garden-msg", "", "");
+      consultForm.classList.remove("is-hidden");
+      if (consultSuccess) { consultSuccess.setAttribute("data-visible", "false"); }
+      var nameInput = document.getElementById("name");
+      if (nameInput) { nameInput.focus(); }
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Footer almanac newsletter — validation + simulated submit
+     ------------------------------------------------------------ */
+  var newsletterForm = document.getElementById("newsletter-form");
+  var newsletterInput = document.getElementById("newsletter-email");
+  var newsletterSubmit = document.getElementById("newsletter-submit");
+  var newsletterMsg = document.getElementById("newsletter-msg");
+
+  if (newsletterForm){
+    newsletterForm.addEventListener("submit", function(evt){
+      evt.preventDefault();
+      var val = (newsletterInput.value || "").trim();
+
+      newsletterInput.classList.remove("has-error");
+      newsletterMsg.setAttribute("data-tone", "");
+
+      if (!val){
+        newsletterInput.classList.add("has-error");
+        newsletterMsg.setAttribute("data-tone", "error");
+        newsletterMsg.textContent = "Add an email first.";
+        newsletterInput.focus();
+        return;
+      }
+      if (!EMAIL_RE.test(val)){
+        newsletterInput.classList.add("has-error");
+        newsletterMsg.setAttribute("data-tone", "error");
+        newsletterMsg.textContent = "That doesn't look like a full email address.";
+        newsletterInput.focus();
+        return;
+      }
+
+      setButtonLoading(newsletterSubmit, true);
+      newsletterMsg.setAttribute("data-tone", "");
+      newsletterMsg.textContent = "Adding you to the list…";
+
+      window.setTimeout(function(){
+        setButtonLoading(newsletterSubmit, false);
+        newsletterMsg.setAttribute("data-tone", "success");
+        newsletterMsg.textContent = "You're on the list for the next seasonal note.";
+        newsletterForm.reset();
+      }, 650);
+    });
+  }
+
+})();
+</script>
 </body>
 </html>

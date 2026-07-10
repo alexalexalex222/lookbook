@@ -1,0 +1,49 @@
+{
+  "pack_id": "solace_medical_spa_macon_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "solace-medical-spa-macon"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "calm",
+    "clinical",
+    "premium",
+    "light",
+    "serene"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "sticky_nav",
+    "cta_treatment",
+    "trust_rail",
+    "headline_hierarchy",
+    "light_precision"
+  ],
+  "supports_tasks": [
+    "med_spa_homepage",
+    "wellness_clinic_landing",
+    "local_service_homepage"
+  ],
+  "anti_patterns": [
+    "generic_saas"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1400,
+  "confidence_score": 4,
+  "example_ids": []
+}

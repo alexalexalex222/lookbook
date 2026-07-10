@@ -1,0 +1,17 @@
+{
+  "pack_id": "hale_winslow_legal_dossier_v1",
+  "role": "anchor",
+  "family": "website.professional_services",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["hale-winslow-columbus"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["dark", "high-contrast", "premium", "authoritative", "editorial", "restrained"],
+  "surfaces": ["homepage", "hero", "landing", "section"],
+  "motif_tags": ["hero_shell", "split_hero", "headline_hierarchy", "dark_texture", "verdict_dossier_card", "verdict_ledger_rows", "proof_cards", "cta_treatment"],
+  "supports_tasks": ["personal_injury_law_firm_homepage", "mass_tort_litigation_landing", "plaintiff_firm_homepage", "high_stakes_litigation_website", "verdict_driven_law_firm_page"],
+  "anti_patterns": ["corporate business-counsel restraint (use sterling_rowe_legal_business_v1 instead)", "warm parchment archive framing (use foster_quinn_legal_docket_v1 instead)", "ambulance-chaser billboard clutter"],
+  "screenshot_paths": [],
+  "token_budget_hint": 800,
+  "confidence_score": 4,
+  "example_ids": []
+}

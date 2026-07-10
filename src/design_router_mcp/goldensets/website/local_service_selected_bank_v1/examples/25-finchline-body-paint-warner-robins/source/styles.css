@@ -1,9 +1,10 @@
-/* === DESIGN SYSTEM: Action Shot Mist (Robin's Body & Paint) === */
+/* === DESIGN SYSTEM: Action Shot Mist (Finchline Body & Paint) === */
 :root {
     --bg-base: #030303;
     /* Absolute OLED Black */
     --text-primary: #FFFFFF;
-    --text-muted: rgba(255, 255, 255, 0.4);
+    /* 0.55 keeps the hush but clears AA contrast on the OLED black */
+    --text-muted: rgba(255, 255, 255, 0.55);
 
     --accent-red: #D91A2A;
     /* Cherry metallic red */
@@ -50,10 +51,14 @@ body {
 .spray-mist {
     width: 100%;
     height: 100vh;
-    background-image: url('spray_bg.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    /* Pure-CSS spray-booth atmosphere: layered cherry mist clouds and a wet-coat sheen */
+    background:
+        radial-gradient(ellipse 30% 22% at 76% 38%, rgba(255, 180, 185, 0.12), transparent 65%),
+        radial-gradient(ellipse 52% 44% at 72% 44%, rgba(217, 26, 42, 0.42), rgba(217, 26, 42, 0.16) 45%, transparent 72%),
+        radial-gradient(ellipse 34% 30% at 84% 62%, rgba(217, 26, 42, 0.26), transparent 68%),
+        radial-gradient(ellipse 46% 38% at 58% 26%, rgba(122, 8, 20, 0.45), transparent 70%),
+        linear-gradient(215deg, transparent 52%, rgba(255, 255, 255, 0.04) 60%, transparent 70%),
+        var(--bg-base);
     /* Create depth by scaling it slightly */
     transform: scale(1.02);
     animation: slow-drift 30s ease-in-out infinite alternate;
@@ -139,10 +144,19 @@ body {
     color: var(--text-muted);
     text-decoration: none;
     transition: color 0.3s ease;
+    /* Enlarged hit area without shifting the layout */
+    padding: 12px 4px;
+    margin: -12px -4px;
 }
 
 .nav-links a:hover {
     color: var(--text-primary);
+}
+
+.nav-links a:focus-visible {
+    color: var(--text-primary);
+    outline: 2px solid var(--accent-red);
+    outline-offset: 4px;
 }
 
 /* === HERO CONTENT === */
@@ -283,6 +297,39 @@ body {
     transform: translateX(5px);
 }
 
+.btn-primary:focus-visible {
+    border-color: var(--accent-red);
+    box-shadow: 0 0 30px var(--accent-glow);
+    outline: 2px solid var(--accent-red);
+    outline-offset: 4px;
+}
+
+/* Quiet phone escape hatch under the primary CTA */
+.hero-call {
+    display: inline-block;
+    margin: 24px 0 0 40px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 1px solid var(--frame-border);
+    transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.hero-call:hover {
+    color: var(--text-primary);
+    border-bottom-color: var(--accent-red);
+}
+
+.hero-call:focus-visible {
+    color: var(--text-primary);
+    outline: 2px solid var(--accent-red);
+    outline-offset: 4px;
+}
+
 /* === ANIMATIONS === */
 @keyframes slow-drift {
     0% {
@@ -318,10 +365,6 @@ body {
         padding-left: 6vw;
     }
 
-    .hero-bg-layer .spray-mist {
-        background-position: right 30% center;
-    }
-
     .hero-title {
         font-size: 2.5rem;
     }
@@ -340,5 +383,26 @@ body {
     .btn-primary {
         margin-left: 20px;
         padding: 16px 32px;
+    }
+
+    .hero-call {
+        margin-left: 20px;
+    }
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+
+    .spray-mist,
+    .icon-wrapper {
+        animation: none;
+    }
+
+    .nav-links a,
+    .btn-primary,
+    .btn-primary::before,
+    .btn-text,
+    .hero-call {
+        transition: none;
     }
 }

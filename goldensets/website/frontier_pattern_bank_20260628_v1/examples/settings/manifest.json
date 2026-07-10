@@ -1,0 +1,34 @@
+{
+  "pack_id": "aperture_settings_appshell_v1",
+  "role": "anchor",
+  "family": "website.saas_dashboard",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["settings"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["light", "professional", "precise", "minimal", "restrained", "practical", "trustworthy"],
+  "surfaces": ["dashboard", "section", "full_site"],
+  "motif_tags": [
+    "sidebar_nav",
+    "command_surface",
+    "headline_hierarchy",
+    "settings_panel_group",
+    "toggle_control_row",
+    "segmented_control",
+    "master_detail_nav"
+  ],
+  "supports_tasks": [
+    "settings_page",
+    "account_preferences_panel",
+    "app_configuration_screen",
+    "saas_admin_settings"
+  ],
+  "anti_patterns": [
+    "marketing hero framing on a settings surface",
+    "decorative toggles with no real state change",
+    "analytics charts or KPI stats (this is preferences, not a metrics dashboard)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1400,
+  "confidence_score": 4,
+  "example_ids": []
+}

@@ -1,0 +1,37 @@
+{
+  "pack_id": "cedarbrook_dental_editorial_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["cedarbrook-dental-associates-athens"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["clinical", "editorial", "refined", "calm", "light", "serif", "warm-neutral"],
+  "surfaces": ["homepage", "hero", "landing", "section"],
+  "motif_tags": [
+    "hero_shell",
+    "split_hero",
+    "headline_hierarchy",
+    "faq_disclosure",
+    "process_timeline",
+    "stats_strip",
+    "proof_cards",
+    "booking_flow",
+    "service_area_shell",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "dental_practice_homepage",
+    "clinic_homepage",
+    "clinical_beauty_website",
+    "editorial_treatment_page"
+  ],
+  "anti_patterns": [
+    "industrial dark tone",
+    "cold clinical sterility",
+    "influencer beauty gloss"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 2000,
+  "confidence_score": 4,
+  "example_ids": []
+}

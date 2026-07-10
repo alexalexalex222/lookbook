@@ -1,0 +1,52 @@
+{
+  "pack_id": "strata_sql_browser_v1",
+  "role": "anchor",
+  "family": "website.saas_dashboard",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "db-browser"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "technical",
+    "developer",
+    "data-dense",
+    "precise",
+    "professional"
+  ],
+  "surfaces": [
+    "dashboard",
+    "section"
+  ],
+  "motif_tags": [
+    "sidebar_nav",
+    "code_block",
+    "specification_table",
+    "command_surface",
+    "dashboard_panel",
+    "data_terminal",
+    "microcopy"
+  ],
+  "supports_tasks": [
+    "sql_browser_tool_ui",
+    "database_admin_dashboard",
+    "developer_query_console",
+    "data_explorer_interface"
+  ],
+  "anti_patterns": [
+    "marketing hero/pricing framing (this is a bare dev-tool screen)",
+    "fabricated real customer database contents",
+    "fake live production data claims"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1300,
+  "confidence_score": 4,
+  "example_ids": []
+}

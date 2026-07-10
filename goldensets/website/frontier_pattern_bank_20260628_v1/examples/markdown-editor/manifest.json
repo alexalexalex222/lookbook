@@ -1,0 +1,56 @@
+{
+  "pack_id": "markdown_editor_v1",
+  "role": "anchor",
+  "family": "website.interactive_experience",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "markdown-editor"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "warm",
+    "editorial",
+    "calm",
+    "restrained",
+    "premium",
+    "quiet",
+    "serif"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section",
+    "full_site"
+  ],
+  "motif_tags": [
+    "editorial_serif",
+    "code_block",
+    "microcopy",
+    "callout_box",
+    "split_pane_editor",
+    "live_preview_pane",
+    "toolbar_header"
+  ],
+  "supports_tasks": [
+    "markdown_editor_tool",
+    "writing_studio_app",
+    "content_editor_with_live_preview",
+    "docs_authoring_tool"
+  ],
+  "anti_patterns": [
+    "multi-section marketing padding",
+    "fake user testimonials or file history",
+    "copying exact toolbar icon set"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1100,
+  "confidence_score": 4,
+  "example_ids": []
+}

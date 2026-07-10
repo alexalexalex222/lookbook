@@ -1,0 +1,52 @@
+{
+  "pack_id": "aperture_file_manager_blue_v1",
+  "role": "anchor",
+  "family": "website.productivity_app",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "file-manager"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "light",
+    "precise",
+    "minimal",
+    "professional",
+    "calm",
+    "blue",
+    "restrained"
+  ],
+  "surfaces": [
+    "dashboard",
+    "full_site"
+  ],
+  "motif_tags": [
+    "three_pane_shell",
+    "sidebar_nav",
+    "detail_inspector_panel",
+    "command_surface",
+    "empty_state_illustration",
+    "specification_table"
+  ],
+  "supports_tasks": [
+    "file_manager_app_shell",
+    "cloud_storage_browser_interface",
+    "desktop_style_file_browser",
+    "productivity_saas_app_shell"
+  ],
+  "anti_patterns": [
+    "marketing landing page for a cloud-storage product",
+    "real filesystem contents (this is resettable sample data)",
+    "dark developer-tool file browser (this is light, cool-blue, not dark)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1400,
+  "confidence_score": 4,
+  "example_ids": []
+}

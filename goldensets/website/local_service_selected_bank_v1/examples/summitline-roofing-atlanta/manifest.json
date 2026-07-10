@@ -1,0 +1,55 @@
+{
+  "pack_id": "summitline_roofing_graphite_ember_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "summitline-roofing-atlanta"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "dark",
+    "technical",
+    "architectural",
+    "industrial",
+    "high-contrast"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "technical_manifest",
+    "specification_table",
+    "equipment_diagram",
+    "stats_strip",
+    "process_timeline",
+    "material_showcase",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "roofing_homepage",
+    "storm_damage_landing",
+    "architectural_roofing_landing",
+    "homepage_polish"
+  ],
+  "anti_patterns": [
+    "generic asphalt-shingle catalog page",
+    "budget storm-chaser popup layout",
+    "coastal historic-preservation roofing brand"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 900,
+  "confidence_score": 4,
+  "example_ids": []
+}

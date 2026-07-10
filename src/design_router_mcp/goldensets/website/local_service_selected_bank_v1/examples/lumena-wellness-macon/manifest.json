@@ -1,0 +1,17 @@
+{
+  "pack_id": "lumena_wellness_aurora_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["lumena-wellness-macon"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["premium", "beauty", "calm", "light", "editorial", "restrained"],
+  "surfaces": ["homepage", "hero", "landing", "section"],
+  "motif_tags": ["hero_shell", "split_hero", "aurora_gradient_scene", "trust_rail", "proof_cards", "faq_disclosure", "booking_flow", "headline_hierarchy"],
+  "supports_tasks": ["medical_wellness_spa_homepage", "iv_therapy_and_weight_loss_landing", "wellness_studio_homepage", "medspa_homepage", "clinical_beauty_website"],
+  "anti_patterns": ["physician-clinic obsidian aesthetic (see aurelia_medspa_editorial_v1)", "mobile-only concierge delivery framing (see silverwave_medspa_concierge_v1)", "waxing-only beauty-bar service menu (see velvet_fig_beauty_editorial_v1)"],
+  "screenshot_paths": [],
+  "token_budget_hint": 1700,
+  "confidence_score": 4,
+  "example_ids": []
+}

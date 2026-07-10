@@ -1,0 +1,146 @@
+"""Method-skill channel tests for the Golden Book knowledge router.
+
+The skill channel is OPTIONAL garnish: it must never change which playbooks are
+picked, never flip an abstain decision, and must render correctly per mode.
+These tests guard those invariants; the original 9 playbook tests in
+test_knowledge_router.py are untouched.
+"""
+import json
+
+import pytest
+
+from design_router_mcp.knowledge_router import KnowledgeRouter, default_root, validate_knowledge_router
+
+CORPUS_ROOT = default_root()
+
+pytestmark = pytest.mark.skipif(
+    not (CORPUS_ROOT / "playbooks").is_dir()
+    or not (CORPUS_ROOT / "skills").is_dir()
+    or not (CORPUS_ROOT / "bench" / "BRIEFS.jsonl").is_file(),
+    reason=f"Golden Book corpus (with skills/) not present at {CORPUS_ROOT}",
+)
+
+B27_BRIEF = (
+    "Our agent browses the web and reads emails. "
+    "Design its defenses before we let it act on what it reads."
+)
+B09_BRIEF = (
+    "Design the REST resources for a project-management tool: projects, tasks, "
+    "task comments, and an archive action. Give paths, methods, and naming."
+)
+NONSENSE_BRIEF = "purple elephant sandwich orchestra"
+
+# Playbook picks / abstain as they were BEFORE the skill channel existed. The
+# skill channel must leave these byte-identical.
+PRE_SKILL_PLAYBOOK_STATE = {
+    B27_BRIEF: {
+        "picks": [("llm-security-and-injection", 0.2965), ("rag-and-retrieval-design", 0.2636)],
+        "abstain": None,
+    },
+    B09_BRIEF: {
+        "picks": [("rest-api-resource-design", 0.4452), ("incident-response-and-postmortems", 0.3553)],
+        "abstain": None,
+    },
+    NONSENSE_BRIEF: {"picks": [], "abstain": True},
+}
+
+
+@pytest.fixture(scope="module")
+def router() -> KnowledgeRouter:
+    return KnowledgeRouter()
+
+
+# (a) — the 58 skills load as a separate channel.
+def test_skill_channel_loads_all_skills(router):
+    assert len(router.skill_docs) == 58
+    assert len(router._skill_meta) == 58
+
+
+# (b) — playbook picks and abstain are BYTE-IDENTICAL with the skill channel on,
+# across 3 representative briefs including the nonsense-abstain one.
+@pytest.mark.parametrize("brief", list(PRE_SKILL_PLAYBOOK_STATE))
+def test_skill_channel_does_not_disturb_playbook_picks_or_abstain(router, brief):
+    result = router.route(brief, k=2)
+    expected = PRE_SKILL_PLAYBOOK_STATE[brief]
+    got_picks = [(name, score) for name, score in result["picks"]]
+    assert got_picks == expected["picks"], f"playbook picks changed for {brief!r}"
+    assert result.get("abstain") == expected["abstain"], f"abstain flipped for {brief!r}"
+
+
+# (c) — a brief that should pick a skill does. b27 (agent reads untrusted web +
+# email) unambiguously warrants prompt-injection-defense.
+def test_brief_that_warrants_a_skill_gets_it(router):
+    result = router.route(B27_BRIEF, k=2)
+    names = [n for n, _ in result["skill_picks"]]
+    assert "prompt-injection-defense" in names
+
+
+# A pure API-shape brief gets NO skill garnish (skills are optional).
+def test_api_shape_brief_gets_no_skill(router):
+    result = router.route(B09_BRIEF, k=2)
+    assert result["skill_picks"] == []
+
+
+def test_skill_picks_never_exceed_two(router):
+    lines = (CORPUS_ROOT / "bench" / "BRIEFS.jsonl").read_text(encoding="utf-8").splitlines()
+    for b in map(json.loads, filter(None, lines)):
+        result = router.route(b["brief"], k=2)
+        assert len(result["skill_picks"]) <= 2, f"{b['id']}: >2 skill picks"
+
+
+# (d) — in micro mode a picked skill contributes only H1 + framing + pointer,
+# never its procedural body (which uses `## N.` headings).
+def test_micro_mode_skill_is_h1_framing_pointer_only(router):
+    packet = router.resolve(B27_BRIEF, mode="micro", k=2)["packet"]
+    assert "## Method skills" in packet
+    assert "Full skill: skills/prompt-injection-defense.md" in packet
+    skill_section = packet.split("## Method skills", 1)[1]
+    # The prompt-injection-defense body has numbered `## 1.`-style sections; none
+    # of those may leak into the micro packet.
+    assert "## 1." not in skill_section
+    assert "## Worked example" not in skill_section
+    # Framing sentence is present (the "what this is for" paragraph).
+    assert "retrieved content is DATA" in skill_section
+
+
+# compact mode DOES include the full skill body (procedural sections present).
+def test_compact_mode_skill_includes_full_body(router):
+    packet = router.resolve(B27_BRIEF, mode="compact", k=2)["packet"]
+    skill_section = packet.split("## Method skills", 1)[1]
+    assert "## 1." in skill_section  # procedural section headings present
+
+
+def test_abstained_brief_has_empty_packet_regardless_of_skills(router):
+    resolved = router.resolve(NONSENSE_BRIEF)
+    assert resolved.get("abstain") is True
+    assert resolved["packet"] == ""
+
+
+# (e) — determinism: identical calls yield identical results, skill_picks included.
+def test_skill_channel_is_deterministic(router):
+    for brief in (B27_BRIEF, B09_BRIEF, NONSENSE_BRIEF):
+        first = router.resolve(brief, mode="compact", k=2)
+        second = router.resolve(brief, mode="compact", k=2)
+        assert first == second
+        assert first["skill_picks"] == second["skill_picks"]
+
+
+# (4) — validate tool reports the skill count (58) and a canned skill route.
+def test_validate_reports_skill_count_and_canned_skill_route():
+    checks = validate_knowledge_router()
+    assert checks["skill_count"] == 58
+    assert checks["canned_skill_routes"] is True
+    assert checks["all_pass"] is True
+
+
+# (5) — the packet header (topics + framing) is prepended ahead of both the
+# playbook content and the "## Method skills" section; the skill channel must
+# not disturb the header, and the header must not disturb the skill channel.
+def test_header_precedes_playbook_and_skill_sections(router):
+    result = router.resolve(B27_BRIEF, mode="compact", k=2)
+    packet = result["packet"]
+    assert packet.startswith("Routed topics (")
+    header_idx = packet.find("REFERENCE MATERIAL")
+    skills_idx = packet.find("## Method skills")
+    assert header_idx != -1
+    assert skills_idx == -1 or header_idx < skills_idx

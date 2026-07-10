@@ -1,0 +1,51 @@
+{
+  "pack_id": "rolodex_contacts_dashboard_v1",
+  "role": "anchor",
+  "family": "website.productivity_app",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "contacts"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "warm",
+    "calm",
+    "restrained",
+    "refined",
+    "professional",
+    "trustworthy"
+  ],
+  "surfaces": [
+    "dashboard",
+    "section"
+  ],
+  "motif_tags": [
+    "sidebar_nav",
+    "dashboard_panel",
+    "toc_rail",
+    "tabs_panel",
+    "headline_hierarchy",
+    "microcopy"
+  ],
+  "supports_tasks": [
+    "crm_contacts_dashboard",
+    "address_book_app_ui",
+    "master_detail_list_interface",
+    "team_directory_app"
+  ],
+  "anti_patterns": [
+    "marketing hero/CTA framing (this is a bare in-app screen, not a landing page)",
+    "fabricated real personal data presented as production PII",
+    "cold enterprise-blue SaaS palette (this design is warm/paper-toned)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1300,
+  "confidence_score": 4,
+  "example_ids": []
+}

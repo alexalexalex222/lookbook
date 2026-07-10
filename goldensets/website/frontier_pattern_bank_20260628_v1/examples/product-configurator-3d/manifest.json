@@ -1,0 +1,56 @@
+{
+  "pack_id": "product_configurator_3d_v1",
+  "role": "anchor",
+  "family": "website.product_detail",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "product-configurator-3d"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "luxury",
+    "premium",
+    "warm-metal",
+    "restrained",
+    "high-contrast",
+    "studio"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section",
+    "full_site"
+  ],
+  "motif_tags": [
+    "product_hero",
+    "material_showcase",
+    "instrument_control",
+    "interactive_stage",
+    "pricing_panel",
+    "product_3d_viewer",
+    "swatch_selector"
+  ],
+  "supports_tasks": [
+    "product_configurator_tool",
+    "3d_product_customizer",
+    "luxury_watch_product_page",
+    "build_your_own_product_flow"
+  ],
+  "anti_patterns": [
+    "invented performance measurements or real pricing",
+    "generic e-commerce grid",
+    "copying exact product object or material names"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1600,
+  "confidence_score": 4,
+  "example_ids": []
+}

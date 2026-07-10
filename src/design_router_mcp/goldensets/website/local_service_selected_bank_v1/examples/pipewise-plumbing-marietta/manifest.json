@@ -1,0 +1,17 @@
+{
+  "pack_id": "pipewise_plumbing_telemetry_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["pipewise-plumbing-marietta"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["premium", "technical", "trustworthy", "practical", "field-service", "precise"],
+  "surfaces": ["homepage", "hero", "landing", "section"],
+  "motif_tags": ["hero_shell", "split_hero", "telemetry_hud", "diagnostic_panel", "stats_strip", "process_timeline", "trust_rail", "cta_treatment"],
+  "supports_tasks": ["plumbing_company_homepage", "field_service_diagnostic_page", "emergency_dispatch_landing", "trade_service_quote_flow", "tactical_ops_service_website"],
+  "anti_patterns": ["calm proof-safe diagnostic framing (see clear_ridge_water_works_field_blue_v1)", "invented licensing/certification claims taken as literal fact", "soft SaaS dashboard aesthetic"],
+  "screenshot_paths": [],
+  "token_budget_hint": 1400,
+  "confidence_score": 4,
+  "example_ids": []
+}

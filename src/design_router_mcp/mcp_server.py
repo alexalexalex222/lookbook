@@ -38,6 +38,45 @@ def _default_repo_root() -> Path:
     return Path.cwd().resolve()
 
 
+def log_knowledge_route(result: dict[str, Any], brief: str, mode: str, k: int,
+                        user_message: str) -> None:
+    """Append one routing event to <corpus>/telemetry/ROUTES.jsonl.
+
+    This ledger is the corpus's content flywheel: abstains and low-confidence
+    routes accumulate here from REAL usage, and mining it answers "which
+    chapter should the book grow next" with evidence instead of opinion.
+    Serving-path only (the router library stays pure), append-only, and never
+    allowed to break a route — any failure is swallowed.
+    """
+    try:
+        from datetime import datetime, timezone
+
+        from .knowledge_router import default_root
+
+        lane = result.get("lane_inference") or {}
+        event = {
+            "ts": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "brief": brief[:400],
+            "user_message_supplied": bool(user_message),
+            "mode": mode,
+            "k": k,
+            "abstain": bool(result.get("abstain")),
+            "reason": (result.get("reason") or "")[:120],
+            "picks": result.get("picks", []),
+            "skill_picks": result.get("skill_picks", []),
+            "confidence": result.get("confidence"),
+            "semantic_reranked": bool(lane.get("semantic_reranked")),
+            "semantic_rescued": lane.get("semantic_rescued"),
+            "closest_topics": result.get("top5", [])[:3],
+        }
+        tdir = default_root() / "telemetry"
+        tdir.mkdir(parents=True, exist_ok=True)
+        with open(tdir / "ROUTES.jsonl", "a", encoding="utf-8") as fh:
+            fh.write(json.dumps(event, ensure_ascii=False) + "\n")
+    except Exception:
+        pass
+
+
 def _load_fastmcp() -> type[FastMCP]:
     try:
         from mcp.server.fastmcp import FastMCP
@@ -181,6 +220,18 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
     @server.tool(name="validate_design_router", description="Validate repo root, rules, index, manifests, and source paths.")
     def tool_validate_design_router() -> str:
         return json.dumps(validate_design_router(resolved), indent=2)
+
+    @server.tool(name="resolve_knowledge_context", description="Route an engineering brief (backend/APIs/databases/reliability/agents/LLM/security/browser-automation/computer-use) to a Golden Book knowledge packet: distilled playbooks + micro cards + method skills. HOW TO CALL: write the brief in concrete action words describing what the system DOES (click, drive, charge, queue, retry, upload) — abstract audit-style summaries route poorly — and ALWAYS pass the user's original message VERBATIM as user_message (summaries strip the words that route). Returns picks, confidence, skill_picks, abstain flag, and the packet — APPLY the packet per its USE CONTRACT header line. If abstain=true, do NOT silently proceed without the book: follow the returned retry_guide (nearest chapters as symptom lines + exactly how to re-call). mode: micro (16k contexts) | compact (default) | standard.")
+    def tool_resolve_knowledge_context(brief: str, mode: str = "compact", k: int = 2, user_message: str = "") -> str:
+        from .knowledge_router import KnowledgeRouter
+        result = KnowledgeRouter().resolve(brief, mode=mode, k=k, user_message=user_message)
+        log_knowledge_route(result, brief, mode, k, user_message)
+        return json.dumps(result, indent=2)
+
+    @server.tool(name="validate_knowledge_router", description="Validate the Golden Book knowledge corpus: root exists, playbook/micro/skill counts, canned route and abstain checks.")
+    def tool_validate_knowledge_router() -> str:
+        from .knowledge_router import validate_knowledge_router
+        return json.dumps(validate_knowledge_router(), indent=2)
 
     return server
 

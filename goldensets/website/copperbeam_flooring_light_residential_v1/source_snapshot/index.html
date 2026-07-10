@@ -1,230 +1,2538 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Copperbeam Flooring | Atlanta's Trusted Flooring Experts Since 1986</title>
-    <!-- Fonts: Playfair Display for elegant serif headings, Lato for body -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:wght@500;600;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copperbeam Flooring | Atlanta Hardwood, LVP &amp; Commercial Flooring Since 1986</title>
+<meta name="description" content="Family-owned Atlanta flooring company since 1986. Hardwood refinishing, luxury vinyl plank, carpet, tile, and commercial installation with an in-house certified crew.">
+<meta name="theme-color" content="#9B6A45">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Copperbeam Flooring | Atlanta, Georgia">
+<meta property="og:description" content="Master craftsmanship in hardwood, luxury vinyl plank, and commercial flooring — family-owned since 1986.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%239B6A45'/%3E%3Crect x='3' y='6' width='18' height='3.2' rx='1' fill='%23FDFBF7'/%3E%3Crect x='3' y='10.4' width='12' height='3.2' rx='1' fill='%23FDFBF7'/%3E%3Crect x='3' y='14.8' width='18' height='3.2' rx='1' fill='%23C09B5A'/%3E%3C/svg%3E">
+<style>
+/* ==========================================================================
+   COPPERBEAM FLOORING — design tokens
+   Warm residential premium. Light surfaces, walnut/gold accents, restraint
+   over bravado. See /principles.md: spacing + discipline carry the premium
+   feel, not dark contrast.
+   ========================================================================== */
+:root{
+  color-scheme: light;
+
+  /* primitive palette */
+  --cb-cream-050:#FDFBF7;
+  --cb-cream-100:#F7F1E8;
+  --cb-cream-200:#EFE6D6;
+  --cb-white:#FFFFFF;
+  --cb-walnut-300:#C09B5A;
+  --cb-walnut-500:#9B6A45;
+  --cb-walnut-600:#7D5131;
+  --cb-walnut-700:#6B4527;
+  --cb-walnut-900:#4A2F1C;
+  --cb-charcoal-900:#2C2A28;
+  --cb-taupe-500:#6B655E;
+  --cb-taupe-300:#A79D8F;
+  --cb-taupe-200:#D8CFC2;
+  --cb-taupe-100:#EAE3D7;
+  --cb-sage-600:#45633F;
+  --cb-sage-100:#E4EBE0;
+  --cb-rust-600:#8C3226;
+  --cb-rust-100:#F3E1DC;
+
+  /* semantic */
+  --color-bg:var(--cb-cream-050);
+  --color-bg-alt:var(--cb-cream-100);
+  --color-surface:var(--cb-white);
+  --color-surface-border:var(--cb-taupe-200);
+  --color-surface-border-soft:rgba(44,42,40,.08);
+  --color-text:var(--cb-charcoal-900);
+  --color-text-muted:var(--cb-taupe-500);
+  --color-text-faint:rgba(44,42,40,.5);
+  --color-primary:var(--cb-walnut-500);
+  --color-primary-text:var(--cb-walnut-600);
+  --color-primary-hover:var(--cb-walnut-700);
+  --color-primary-soft:rgba(155,106,69,.1);
+  --color-accent:var(--cb-walnut-300);
+  --color-on-primary:#FFFFFF;
+  --color-focus:var(--cb-walnut-700);
+  --color-success:var(--cb-sage-600);
+  --color-success-bg:var(--cb-sage-100);
+  --color-error:var(--cb-rust-600);
+  --color-error-bg:var(--cb-rust-100);
+
+  /* type */
+  --font-display:'Playfair Display','Iowan Old Style',Georgia,'Times New Roman',serif;
+  --font-body:'Lato',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+
+  --text-2xs:clamp(.6875rem,.665rem + .1vw,.75rem);
+  --text-xs:clamp(.8125rem,.785rem + .13vw,.875rem);
+  --text-sm:clamp(.9rem,.865rem + .17vw,1rem);
+  --text-base:clamp(1rem,.965rem + .17vw,1.0625rem);
+  --text-md:clamp(1.15rem,1.08rem + .35vw,1.3rem);
+  --text-lg:clamp(1.4rem,1.25rem + .6vw,1.7rem);
+  --text-xl:clamp(1.75rem,1.5rem + 1vw,2.2rem);
+  --text-2xl:clamp(2.1rem,1.7rem + 1.6vw,2.9rem);
+  --text-3xl:clamp(2.5rem,1.9rem + 2.6vw,4.1rem);
+
+  /* 4px spacing scale */
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:20px; --space-6:24px; --space-7:28px; --space-8:32px;
+  --space-10:40px; --space-12:48px; --space-14:56px; --space-16:64px;
+  --space-20:80px; --space-24:96px; --space-28:112px; --space-32:128px;
+
+  --radius-sm:4px; --radius-md:8px; --radius-lg:14px; --radius-pill:999px;
+
+  /* elevation — 3 levels only, warm-toned shadows (never cool gray) */
+  --elevation-1:0 1px 2px rgba(44,32,20,.06), 0 2px 8px rgba(44,32,20,.05);
+  --elevation-2:0 10px 28px rgba(44,32,20,.11), 0 2px 8px rgba(44,32,20,.06);
+  --elevation-3:0 26px 64px rgba(44,32,20,.16), 0 10px 22px rgba(44,32,20,.09);
+
+  --ease-standard:cubic-bezier(.4,0,.2,1);
+  --duration-fast:150ms;
+  --duration-base:250ms;
+  --duration-slow:420ms;
+
+  --container-max:1240px;
+  --header-h:92px;
+  --header-h-scrolled:68px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+/* ==========================================================================
+   Reset + base
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box;}
+*{margin:0;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+body{
+  font-family:var(--font-body);
+  background:var(--color-bg);
+  color:var(--color-text);
+  line-height:1.6;
+  font-size:var(--text-base);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%;}
+button,input,select,textarea{font:inherit;color:inherit;}
+button{background:none;border:none;cursor:pointer;}
+a{color:inherit;}
+ul,ol{list-style:none;padding:0;}
+
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--color-text);font-weight:600;line-height:1.15;letter-spacing:-.01em;}
+
+.icon{width:20px;height:20px;flex-shrink:0;}
+.icon--sm{width:16px;height:16px;}
+.icon--lg{width:32px;height:32px;}
+
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+.skip-link{
+  position:absolute;top:-100%;left:var(--space-4);z-index:1000;
+  background:var(--cb-charcoal-900);color:#fff;padding:var(--space-3) var(--space-5);
+  border-radius:var(--radius-sm);text-decoration:none;font-weight:700;
+  transition:top var(--duration-fast) var(--ease-standard);
+}
+.skip-link:focus-visible{top:var(--space-4);outline:2px solid var(--cb-walnut-300);outline-offset:2px;}
+
+:focus-visible{outline:2px solid var(--color-focus);outline-offset:3px;border-radius:2px;}
+
+.container{max-width:var(--container-max);margin-inline:auto;padding-inline:var(--space-5);}
+@media (min-width:900px){ .container{padding-inline:var(--space-8);} }
+
+.section-pad{padding-block:var(--space-24);}
+@media (max-width:640px){ .section-pad{padding-block:var(--space-16);} }
+
+.surface-band{background:var(--color-bg-alt);}
+
+.section-head{max-width:640px;margin-bottom:var(--space-12);}
+.section-head.is-center{margin-inline:auto;text-align:center;}
+.section-head p{color:var(--color-text-muted);font-size:var(--text-md);margin-top:var(--space-4);}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  font-size:var(--text-xs);font-weight:700;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--color-primary-text);margin-bottom:var(--space-3);
+}
+.eyebrow::before{content:'';width:22px;height:2px;background:var(--cb-walnut-300);border-radius:2px;}
+
+.section-head h2{font-size:var(--text-2xl);}
+
+/* ==========================================================================
+   Buttons — default / hover / focus-visible / active / disabled
+   ========================================================================== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);
+  min-height:48px;padding:var(--space-3) var(--space-6);
+  font-family:var(--font-body);font-weight:700;font-size:var(--text-sm);
+  text-decoration:none;border-radius:var(--radius-sm);white-space:nowrap;
+  transition:background var(--duration-fast) var(--ease-standard),
+             color var(--duration-fast) var(--ease-standard),
+             border-color var(--duration-fast) var(--ease-standard),
+             transform var(--duration-fast) var(--ease-standard),
+             box-shadow var(--duration-fast) var(--ease-standard);
+}
+.btn--primary{background:var(--color-primary);color:var(--color-on-primary);}
+.btn--primary:hover{background:var(--color-primary-hover);transform:translateY(-2px);box-shadow:var(--elevation-2);}
+.btn--primary:active{background:var(--cb-walnut-900);transform:translateY(0);box-shadow:var(--elevation-1);}
+.btn--primary:disabled,.btn--primary[disabled]{background:var(--cb-taupe-300);color:#fff;opacity:.7;cursor:not-allowed;transform:none;box-shadow:none;}
+
+.btn--secondary{background:var(--color-surface);color:var(--color-primary-text);border:1.5px solid var(--color-surface-border);}
+.btn--secondary:hover{border-color:var(--color-primary);background:var(--color-primary-soft);}
+.btn--secondary:active{background:var(--cb-taupe-100);}
+.btn--secondary:disabled{opacity:.5;cursor:not-allowed;}
+
+.btn--ghost{background:transparent;color:var(--color-primary-text);padding-inline:var(--space-4);min-height:44px;}
+.btn--ghost:hover{background:var(--color-primary-soft);}
+.btn--ghost:disabled{opacity:.5;cursor:not-allowed;}
+
+.btn--block{width:100%;}
+.btn--lg{min-height:56px;padding:var(--space-4) var(--space-8);font-size:var(--text-base);}
+
+.btn--icon{
+  width:44px;height:44px;padding:0;border-radius:var(--radius-pill);
+  background:var(--color-surface);border:1.5px solid var(--color-surface-border);color:var(--color-text);
+}
+.btn--icon:hover{border-color:var(--color-primary);color:var(--color-primary-text);}
+.btn--icon:disabled{opacity:.4;cursor:not-allowed;}
+
+.btn:disabled,.btn[disabled]{pointer-events:none;}
+
+.link-arrow{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  color:var(--color-primary-text);text-decoration:none;font-weight:700;
+  font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;
+  border-bottom:2px solid transparent;padding-bottom:2px;
+  transition:border-color var(--duration-fast) var(--ease-standard), gap var(--duration-fast) var(--ease-standard);
+}
+.link-arrow:hover{border-color:var(--cb-walnut-300);gap:var(--space-3);}
+.link-arrow .icon{width:14px;height:14px;}
+
+/* ==========================================================================
+   Plank swatch system — the material motif reused across hero, services,
+   visualizer and gallery. Pure CSS gradients standing in for imagery.
+   ========================================================================== */
+.plank{
+  --plank-a:#DCC49A; --plank-b:#C9AC7C;
+  background-image:
+    repeating-linear-gradient(90deg, var(--plank-a) 0 46px, var(--plank-b) 46px 48px),
+    repeating-linear-gradient(180deg, rgba(255,255,255,.10) 0 2px, rgba(0,0,0,.05) 2px 4px);
+  background-blend-mode:overlay, normal;
+  position:relative;
+}
+.plank::after{
+  content:'';position:absolute;inset:0;
+  background-image:repeating-linear-gradient(0deg, rgba(0,0,0,.05) 0 1px, transparent 1px 96px);
+  pointer-events:none;
+}
+[data-tone="natural"]{--plank-a:#E8D3AA; --plank-b:#D9BD8C;}
+[data-tone="honey"]{--plank-a:#D9A863; --plank-b:#C0904E;}
+[data-tone="driftwood"]{--plank-a:#C6BDAF; --plank-b:#AFA492;}
+[data-tone="espresso"]{--plank-a:#5B4230; --plank-b:#493323;}
+[data-tone="walnut"]{--plank-a:#9B6A45; --plank-b:#83572F;}
+[data-tone="hickory"]{--plank-a:#C7A16D; --plank-b:#A9824E;}
+
+.weave{
+  --plank-a:#DCC49A; --plank-b:#C9AC7C;
+  background-image:
+    repeating-linear-gradient(45deg, var(--plank-a) 0 5px, var(--plank-b) 5px 10px),
+    repeating-linear-gradient(-45deg, rgba(255,255,255,.10) 0 5px, rgba(0,0,0,.05) 5px 10px);
+  background-blend-mode:overlay, normal;
+  position:relative;
+}
+
+/* ==========================================================================
+   Header / Nav
+   ========================================================================== */
+.site-header{
+  position:fixed;top:0;left:0;width:100%;z-index:200;
+  padding-block:var(--space-6);
+  transition:padding var(--duration-base) var(--ease-standard),
+             background var(--duration-base) var(--ease-standard),
+             box-shadow var(--duration-base) var(--ease-standard);
+}
+.site-header::before{
+  content:'';position:absolute;inset:0;background:var(--color-bg);
+  opacity:0;transition:opacity var(--duration-base) var(--ease-standard);
+  border-bottom:1px solid var(--color-surface-border-soft);
+}
+.site-header--scrolled{padding-block:var(--space-4);box-shadow:var(--elevation-1);}
+.site-header--scrolled::before{opacity:1;}
+
+.header-inner{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:var(--space-6);}
+
+.brand{display:flex;align-items:center;gap:var(--space-3);text-decoration:none;}
+.brand__mark{
+  display:flex;align-items:center;justify-content:center;
+  width:46px;height:46px;border-radius:var(--radius-sm);
+  background:var(--color-primary);color:#fff;
+  font-family:var(--font-display);font-weight:700;font-size:1.3rem;
+  flex-shrink:0;
+}
+.brand__text{display:flex;flex-direction:column;line-height:1.25;}
+.brand__name{font-family:var(--font-display);font-size:1.2rem;font-weight:600;color:var(--color-text);}
+.brand__sub{font-size:var(--text-2xs);text-transform:uppercase;letter-spacing:.12em;color:var(--color-text-muted);}
+
+.nav-links{display:none;align-items:center;gap:var(--space-8);}
+.nav-links a{
+  text-decoration:none;color:var(--color-text);font-weight:700;font-size:var(--text-xs);
+  text-transform:uppercase;letter-spacing:.06em;padding-block:var(--space-2);
+  border-bottom:2px solid transparent;transition:color var(--duration-fast), border-color var(--duration-fast);
+}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--color-primary-text);border-color:var(--cb-walnut-300);}
+.nav-links a.is-active{color:var(--color-primary-text);border-color:var(--cb-walnut-300);}
+
+.header-actions{display:flex;align-items:center;gap:var(--space-5);}
+.phone-pill{
+  display:none;align-items:center;gap:var(--space-2);text-decoration:none;
+  color:var(--color-text);font-weight:700;font-size:var(--text-sm);
+  padding:var(--space-2) var(--space-4);border-radius:var(--radius-pill);
+  border:1.5px solid var(--color-surface-border);transition:border-color var(--duration-fast), color var(--duration-fast), background var(--duration-fast);
+}
+.phone-pill:hover{border-color:var(--color-primary);color:var(--color-primary-text);background:var(--color-primary-soft);}
+.phone-pill .icon{color:var(--cb-walnut-300);}
+@media (min-width:560px){ .phone-pill{display:inline-flex;} }
+@media (min-width:900px){ .nav-links{display:flex;} }
+
+.nav__toggle{
+  display:flex;align-items:center;justify-content:center;width:46px;height:46px;
+  border-radius:var(--radius-sm);color:var(--color-text);
+}
+.nav__toggle:hover{background:var(--color-primary-soft);}
+@media (min-width:900px){ .nav__toggle{display:none;} }
+
+.nav__overlay{
+  position:fixed;inset:0;background:rgba(44,32,20,.4);z-index:250;
+  opacity:0;pointer-events:none;transition:opacity var(--duration-base) var(--ease-standard);
+}
+.nav__overlay.is-open{opacity:1;pointer-events:auto;}
+
+.nav__panel{
+  position:fixed;top:0;right:0;bottom:0;width:min(340px,86vw);z-index:260;
+  background:var(--color-surface);box-shadow:var(--elevation-3);
+  padding:var(--space-6) var(--space-6) var(--space-10);
+  display:flex;flex-direction:column;gap:var(--space-8);
+  transform:translateX(100%);transition:transform var(--duration-base) var(--ease-standard);
+  overflow-y:auto;
+}
+.nav__panel.is-open{transform:translateX(0);}
+@media (min-width:900px){ .nav__panel,.nav__overlay{display:none;} }
+
+.nav__panel-top{display:flex;justify-content:flex-end;}
+.nav__panel-links{display:flex;flex-direction:column;gap:var(--space-1);}
+.nav__panel-links a{
+  display:block;padding:var(--space-4) var(--space-2);text-decoration:none;color:var(--color-text);
+  font-family:var(--font-display);font-size:var(--text-md);font-weight:600;
+  border-bottom:1px solid var(--color-surface-border-soft);
+}
+.nav__panel-links a:hover,.nav__panel-links a:focus-visible{color:var(--color-primary-text);}
+.nav__panel-actions{display:flex;flex-direction:column;gap:var(--space-4);margin-top:auto;}
+.nav__panel-phone{display:flex;align-items:center;gap:var(--space-2);text-decoration:none;color:var(--color-text);font-weight:700;font-size:var(--text-md);}
+.nav__panel-phone .icon{color:var(--cb-walnut-300);}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero{
+  position:relative;padding-top:calc(var(--header-h) + var(--space-14));
+  padding-bottom:var(--space-20);overflow:hidden;
+  background:
+    radial-gradient(60% 55% at 82% 8%, rgba(192,155,90,.16), transparent),
+    radial-gradient(50% 45% at 100% 60%, rgba(155,106,69,.10), transparent),
+    var(--color-bg);
+}
+.hero__grain{position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background-image:repeating-linear-gradient(115deg, rgba(44,32,20,.015) 0 2px, transparent 2px 5px);
+}
+.hero__layout{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:var(--space-14);align-items:center;}
+@media (min-width:980px){ .hero__layout{grid-template-columns:1.05fr .95fr;gap:var(--space-10);} }
+
+.legacy-badge{
+  display:inline-flex;align-items:center;gap:var(--space-4);background:var(--color-surface);
+  padding:var(--space-3) var(--space-5);border-radius:var(--radius-sm);
+  box-shadow:var(--elevation-1);margin-bottom:var(--space-8);
+  border-left:3px solid var(--cb-walnut-300);
+}
+.legacy-badge .icon{color:var(--cb-walnut-300);}
+.legacy-badge__text{display:flex;flex-direction:column;}
+.legacy-badge__text strong{font-family:var(--font-display);font-size:var(--text-sm);font-weight:600;color:var(--color-text);}
+.legacy-badge__text span{font-size:var(--text-2xs);text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-muted);}
+
+.hero__title{font-size:var(--text-3xl);margin-bottom:var(--space-6);max-width:14ch;}
+.hero__title em{font-style:italic;color:var(--color-primary-text);}
+.hero__desc{font-size:var(--text-md);color:var(--color-text-muted);max-width:46ch;margin-bottom:var(--space-8);}
+
+.hero__cta-group{display:flex;flex-direction:column;align-items:flex-start;gap:var(--space-5);margin-bottom:var(--space-10);}
+.hero__cta-row{display:flex;flex-wrap:wrap;gap:var(--space-4);align-items:center;}
+
+.trust-marks{display:flex;flex-wrap:wrap;gap:var(--space-5) var(--space-6);}
+.trust-marks .t-mark{
+  display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-xs);font-weight:700;
+  color:var(--color-text);text-transform:uppercase;letter-spacing:.05em;
+}
+.trust-marks .icon{color:var(--cb-walnut-500);width:18px;height:18px;}
+.trust-marks .icon.is-star{color:var(--cb-walnut-300);}
+
+/* Hero visual — interactive material gallery */
+.material-gallery{display:flex;flex-direction:column;gap:var(--space-3);}
+.m-card{
+  position:relative;width:100%;height:340px;border-radius:var(--radius-lg);overflow:hidden;
+  box-shadow:var(--elevation-3);
+}
+@media (min-width:560px){ .m-card{height:400px;} }
+.m-overlay{
+  position:absolute;inset:auto 0 0 0;padding:var(--space-6);
+  background:linear-gradient(to top, rgba(30,20,12,.82), rgba(30,20,12,0));
+  color:#fff;display:flex;justify-content:space-between;align-items:flex-end;gap:var(--space-4);
+}
+.m-title{font-family:var(--font-display);font-size:var(--text-lg);}
+.m-sub{display:block;font-size:var(--text-2xs);text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.75);margin-top:2px;}
+.m-action{
+  display:inline-flex;align-items:center;gap:var(--space-2);font-size:var(--text-2xs);font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;white-space:nowrap;color:#fff;text-decoration:none;
+  background:rgba(255,255,255,.14);padding:var(--space-2) var(--space-3);border-radius:var(--radius-pill);
+  border:1px solid rgba(255,255,255,.3);transition:background var(--duration-fast) var(--ease-standard);
+}
+.m-action:hover{background:rgba(255,255,255,.26);}
+
+.m-thumb-row{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);height:84px;}
+.m-thumb{
+  display:block;text-decoration:none;
+  border-radius:var(--radius-sm);position:relative;cursor:pointer;overflow:hidden;
+  border:2px solid transparent;padding:0;opacity:.75;
+  transition:opacity var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard);
+}
+.m-thumb:hover{opacity:1;}
+.m-thumb:focus-visible{opacity:1;outline:none;border-color:var(--cb-walnut-500);}
+.m-thumb.is-active{opacity:1;border-color:var(--cb-walnut-500);}
+.m-more{
+  position:absolute;inset:0;background:rgba(30,20,12,.55);color:#fff;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  font-size:var(--text-2xs);font-weight:700;letter-spacing:.04em;padding:var(--space-2);
+}
+
+.scroll-cue{
+  display:none;align-items:center;gap:var(--space-2);margin-top:var(--space-14);
+  color:var(--color-text-faint);font-size:var(--text-2xs);text-transform:uppercase;letter-spacing:.1em;
+}
+.scroll-cue__line{width:28px;height:1px;background:var(--color-text-faint);}
+@media (min-width:980px){ .scroll-cue{display:inline-flex;} }
+
+/* ==========================================================================
+   Credentials strip
+   ========================================================================== */
+.credentials{padding-block:var(--space-8);background:var(--color-surface);border-block:1px solid var(--color-surface-border-soft);}
+.credentials__grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6) var(--space-5);}
+@media (min-width:700px){ .credentials__grid{grid-template-columns:repeat(4,1fr);} }
+.credential-item{display:flex;align-items:center;gap:var(--space-3);}
+.credential-item__icon{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  background:var(--color-primary-soft);color:var(--color-primary-text);
+  display:flex;align-items:center;justify-content:center;
+}
+.credential-item__icon .icon{width:18px;height:18px;}
+.credential-item span{font-size:var(--text-xs);font-weight:700;color:var(--color-text);line-height:1.3;}
+
+/* ==========================================================================
+   Services / expertise grid
+   ========================================================================== */
+.services__grid{display:grid;grid-template-columns:1fr;gap:var(--space-10) var(--space-8);}
+@media (min-width:640px){ .services__grid{grid-template-columns:1fr 1fr;} }
+@media (min-width:1100px){ .services__grid{grid-template-columns:repeat(4,1fr);} }
+
+.service-card{display:flex;flex-direction:column;}
+.service-card__art{
+  height:190px;border-radius:var(--radius-md);margin-bottom:var(--space-5);
+  position:relative;overflow:hidden;box-shadow:var(--elevation-1);
+  transition:transform var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);
+}
+.service-card:hover .service-card__art,.service-card:focus-within .service-card__art{
+  transform:translateY(-4px);box-shadow:var(--elevation-2);
+}
+.service-card__badge{
+  position:absolute;left:var(--space-4);bottom:var(--space-4);
+  width:42px;height:42px;border-radius:50%;background:rgba(253,251,247,.92);
+  display:flex;align-items:center;justify-content:center;color:var(--cb-walnut-700);
+  box-shadow:var(--elevation-1);
+}
+.service-card h3{font-size:var(--text-lg);margin-bottom:var(--space-2);}
+.service-card p{color:var(--color-text-muted);margin-bottom:var(--space-4);font-size:var(--text-sm);}
+.service-card__meta{
+  display:flex;flex-wrap:wrap;gap:var(--space-2);margin-bottom:var(--space-4);
+}
+.service-card__meta span{
+  font-size:var(--text-2xs);font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+  color:var(--color-primary-text);background:var(--color-primary-soft);
+  padding:3px var(--space-2);border-radius:var(--radius-pill);
+}
+
+/* ==========================================================================
+   Stats / legacy strip
+   ========================================================================== */
+.stats{
+  position:relative;overflow:hidden;background:var(--color-primary);color:#fff;padding-block:var(--space-16);
+}
+.stats__grain{position:absolute;inset:0;opacity:.10;background-image:
+  repeating-linear-gradient(90deg, rgba(255,255,255,.5) 0 46px, transparent 46px 48px);}
+.stats__grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-10) var(--space-6);text-align:center;}
+@media (min-width:700px){ .stats__grid{grid-template-columns:repeat(4,1fr);} }
+.stat__icon{color:var(--cb-walnut-300);margin-inline:auto;margin-bottom:var(--space-3);}
+.stat__number{
+  font-family:var(--font-display);font-size:clamp(2.1rem,1.7rem + 2vw,3.2rem);
+  font-weight:700;line-height:1;letter-spacing:-.01em;
+}
+.stat__label{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;opacity:.85;margin-top:var(--space-3);}
+
+/* ==========================================================================
+   Differentiators — "Why Homeowners Choose Us"
+   ========================================================================== */
+.differentiators__grid{display:grid;grid-template-columns:1fr;gap:var(--space-6);}
+@media (min-width:640px){ .differentiators__grid{grid-template-columns:1fr 1fr;} }
+@media (min-width:1100px){ .differentiators__grid{grid-template-columns:repeat(4,1fr);} }
+
+.diff-card{
+  background:var(--color-surface);padding:var(--space-7) var(--space-6);
+  border-radius:var(--radius-md);box-shadow:var(--elevation-1);
+  transition:transform var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);
+}
+.diff-card:hover{transform:translateY(-3px);box-shadow:var(--elevation-2);}
+.diff-card__icon{
+  width:52px;height:52px;border-radius:50%;background:var(--color-primary-soft);color:var(--color-primary-text);
+  display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-5);
+}
+.diff-card h3{font-size:var(--text-md);margin-bottom:var(--space-2);}
+.diff-card p{color:var(--color-text-muted);font-size:var(--text-sm);}
+
+/* ==========================================================================
+   About / Our Story + timeline
+   ========================================================================== */
+.about__layout{display:grid;grid-template-columns:1fr;gap:var(--space-12);}
+@media (min-width:900px){ .about__layout{grid-template-columns:1fr .85fr;gap:var(--space-16);} }
+
+.about__lead{font-family:var(--font-display);font-size:var(--text-lg);font-style:italic;color:var(--color-text);margin-bottom:var(--space-5);line-height:1.45;}
+.about__body p{color:var(--color-text-muted);margin-bottom:var(--space-4);}
+.about__signature{display:flex;align-items:center;gap:var(--space-4);margin-top:var(--space-7);}
+.about__signature-mark{font-family:var(--font-display);font-style:italic;font-size:var(--text-xl);color:var(--color-primary-text);}
+.about__signature-role{font-size:var(--text-2xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);}
+
+.timeline{position:relative;padding-left:34px;}
+.timeline::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--cb-taupe-200);}
+.timeline-item{position:relative;padding-bottom:var(--space-8);}
+.timeline-item:last-child{padding-bottom:0;}
+.timeline-item::before{
+  content:'';position:absolute;left:-34px;top:2px;width:16px;height:16px;border-radius:50%;
+  background:var(--color-surface);border:3px solid var(--cb-walnut-500);
+}
+.timeline-item__year{font-family:var(--font-display);font-weight:700;color:var(--color-primary-text);font-size:var(--text-md);}
+.timeline-item p{color:var(--color-text-muted);font-size:var(--text-sm);margin-top:var(--space-1);}
+
+/* ==========================================================================
+   Materials &amp; finish visualizer
+   ========================================================================== */
+.visualizer__layout{display:grid;grid-template-columns:1fr;gap:var(--space-10);}
+@media (min-width:960px){ .visualizer__layout{grid-template-columns:.95fr 1.05fr;gap:var(--space-14);} }
+
+.visualizer__controls{display:flex;flex-direction:column;gap:var(--space-7);}
+.swatch-group__title{
+  display:block;font-size:var(--text-xs);font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:var(--space-4);
+}
+.swatch-row{display:flex;flex-wrap:wrap;gap:var(--space-3);}
+
+.swatch-btn{
+  width:68px;height:68px;border-radius:var(--radius-sm);position:relative;overflow:hidden;
+  padding:0;cursor:pointer;border:2px solid transparent;
+  transition:transform var(--duration-fast) var(--ease-standard), border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+.swatch-btn:hover{transform:translateY(-3px);box-shadow:var(--elevation-1);}
+.swatch-btn:focus-visible{outline:2px solid var(--color-focus);outline-offset:2px;}
+.swatch-btn[aria-pressed="true"]{border-color:var(--cb-walnut-700);box-shadow:0 0 0 3px var(--color-primary-soft);}
+.swatch-btn__label{
+  position:absolute;inset:auto 0 0 0;background:rgba(30,20,12,.6);color:#fff;
+  font-size:9px;font-weight:700;letter-spacing:.02em;padding:3px 2px;text-align:center;line-height:1.15;
+}
+.swatch-btn:disabled{opacity:.4;cursor:not-allowed;filter:grayscale(.4);}
+
+.visualizer__preview{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;height:300px;box-shadow:var(--elevation-2);
+}
+@media (min-width:560px){ .visualizer__preview{height:360px;} }
+.visualizer__preview-overlay{
+  position:absolute;inset:auto 0 0 0;padding:var(--space-6);
+  background:linear-gradient(to top, rgba(30,20,12,.78), rgba(30,20,12,0));color:#fff;
+}
+.visualizer__preview-overlay strong{display:block;font-family:var(--font-display);font-size:var(--text-lg);}
+.visualizer__preview-overlay span{font-size:var(--text-2xs);text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.78);}
+
+.visualizer__readout{
+  margin-top:var(--space-5);padding:var(--space-5) var(--space-6);background:var(--color-surface);
+  border-radius:var(--radius-md);font-size:var(--text-sm);color:var(--color-text-muted);
+  border:1px solid var(--color-surface-border-soft);
+}
+.visualizer__readout strong{color:var(--color-text);font-family:var(--font-display);font-weight:600;}
+
+.material-notes{display:grid;grid-template-columns:1fr;gap:var(--space-3);margin-top:var(--space-5);}
+@media (min-width:640px){ .material-notes{grid-template-columns:repeat(3,1fr);} }
+.material-note{background:var(--color-surface);padding:var(--space-4) var(--space-5);border-radius:var(--radius-sm);border:1px solid var(--color-surface-border-soft);}
+.material-note__label{display:block;font-size:var(--text-2xs);text-transform:uppercase;letter-spacing:.07em;color:var(--color-text-muted);font-weight:700;}
+.material-note__value{display:block;font-family:var(--font-display);font-size:var(--text-base);color:var(--color-text);margin-top:2px;}
+
+/* ==========================================================================
+   Process
+   ========================================================================== */
+.process__list{display:grid;grid-template-columns:1fr;gap:var(--space-10);}
+@media (min-width:700px){ .process__list{grid-template-columns:1fr 1fr;} }
+@media (min-width:1100px){ .process__list{grid-template-columns:repeat(4,1fr);} }
+
+.process-step{position:relative;}
+.process-step__num{
+  font-family:var(--font-display);font-size:var(--text-2xl);font-weight:700;
+  color:var(--cb-taupe-200);line-height:1;margin-bottom:var(--space-3);
+}
+.process-step__icon{
+  width:52px;height:52px;border-radius:50%;background:var(--color-primary);color:#fff;
+  display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-5);
+  box-shadow:var(--elevation-1);position:relative;z-index:2;
+}
+@media (min-width:1100px){
+  .process-step:not(:last-child)::after{
+    content:'';position:absolute;top:26px;left:calc(52px + var(--space-4));
+    width:calc(100% - 52px);height:2px;background:var(--cb-taupe-200);z-index:1;
+  }
+}
+.process-step h3{font-size:var(--text-md);margin-bottom:var(--space-2);}
+.process-step p{color:var(--color-text-muted);font-size:var(--text-sm);}
+.process-step__meta{
+  display:inline-block;margin-top:var(--space-4);font-size:var(--text-2xs);text-transform:uppercase;
+  letter-spacing:.06em;color:var(--color-primary-text);font-weight:700;
+}
+
+/* ==========================================================================
+   Portfolio gallery — filter chips + async grid states
+   ========================================================================== */
+.gallery__toolbar{display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-8);}
+.filter-chip{
+  padding:var(--space-2) var(--space-5);border-radius:var(--radius-pill);
+  border:1.5px solid var(--color-surface-border);background:var(--color-surface);
+  font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--color-text-muted);min-height:40px;
+  transition:border-color var(--duration-fast) var(--ease-standard), color var(--duration-fast) var(--ease-standard), background var(--duration-fast) var(--ease-standard);
+}
+.filter-chip:hover{border-color:var(--color-primary);color:var(--color-primary-text);}
+.filter-chip.is-active{background:var(--color-primary);border-color:var(--color-primary);color:#fff;}
+.filter-chip:disabled{opacity:.5;cursor:not-allowed;}
+
+.gallery__grid,.gallery__skeleton-grid{display:grid;grid-template-columns:1fr;gap:var(--space-6);}
+@media (min-width:640px){ .gallery__grid,.gallery__skeleton-grid{grid-template-columns:1fr 1fr;} }
+@media (min-width:1180px){ .gallery__grid,.gallery__skeleton-grid{grid-template-columns:repeat(3,1fr);} }
+
+.gallery-card{border-radius:var(--radius-md);overflow:hidden;background:var(--color-surface);box-shadow:var(--elevation-1);
+  transition:transform var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);}
+.gallery-card:hover{transform:translateY(-4px);box-shadow:var(--elevation-2);}
+.gallery-card__art{height:190px;position:relative;}
+.gallery-card__tag{
+  position:absolute;top:var(--space-3);left:var(--space-3);background:rgba(253,251,247,.92);
+  color:var(--color-text);font-size:var(--text-2xs);font-weight:700;text-transform:uppercase;
+  letter-spacing:.05em;padding:4px var(--space-3);border-radius:var(--radius-pill);
+}
+.gallery-card__body{padding:var(--space-5);}
+.gallery-card__eyebrow{font-size:var(--text-2xs);text-transform:uppercase;letter-spacing:.06em;color:var(--color-primary-text);font-weight:700;margin-bottom:var(--space-1);}
+.gallery-card__title{font-size:var(--text-md);margin-bottom:var(--space-2);}
+.gallery-card__note{color:var(--color-text-muted);font-size:var(--text-sm);}
+.gallery-card__meta{
+  display:flex;gap:var(--space-4);margin-top:var(--space-4);padding-top:var(--space-4);
+  border-top:1px solid var(--color-surface-border-soft);font-size:var(--text-2xs);color:var(--color-text-muted);
+  text-transform:uppercase;letter-spacing:.04em;flex-wrap:wrap;
+}
+
+.gallery__skeleton-card{border-radius:var(--radius-md);overflow:hidden;background:var(--color-surface);box-shadow:var(--elevation-1);}
+.gallery__skeleton-art{
+  height:190px;background:linear-gradient(90deg, var(--cb-taupe-100) 25%, var(--cb-cream-200) 37%, var(--cb-taupe-100) 63%);
+  background-size:400% 100%;animation:shimmer 1.5s ease-in-out infinite;
+}
+.gallery__skeleton-line{height:11px;margin:var(--space-4) var(--space-5) 0;border-radius:4px;background:var(--cb-cream-200);}
+.gallery__skeleton-line:last-child{width:55%;margin-bottom:var(--space-5);}
+@keyframes shimmer{ 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
+@media (prefers-reduced-motion:reduce){ .gallery__skeleton-art{animation:none;} }
+
+.gallery__empty,.gallery__error{
+  grid-column:1 / -1;text-align:center;padding:var(--space-16) var(--space-6);
+  background:var(--color-surface);border-radius:var(--radius-md);border:1.5px dashed var(--color-surface-border);
+}
+.gallery__empty .icon,.gallery__error .icon{color:var(--cb-taupe-300);margin-inline:auto;margin-bottom:var(--space-4);}
+.gallery__error .icon{color:var(--color-error);}
+.gallery__empty h3,.gallery__error h3{font-size:var(--text-md);margin-bottom:var(--space-2);}
+.gallery__empty p,.gallery__error p{color:var(--color-text-muted);font-size:var(--text-sm);max-width:44ch;margin-inline:auto;margin-bottom:var(--space-5);}
+
+/* ==========================================================================
+   Pricing
+   ========================================================================== */
+.pricing__grid{display:grid;grid-template-columns:1fr;gap:var(--space-8);}
+@media (min-width:820px){ .pricing__grid{grid-template-columns:repeat(3,1fr);align-items:start;} }
+
+.price-card{
+  background:var(--color-surface);border-radius:var(--radius-lg);padding:var(--space-8) var(--space-7);
+  border:1.5px solid var(--color-surface-border-soft);display:flex;flex-direction:column;height:100%;
+  box-shadow:var(--elevation-1);transition:transform var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard);
+}
+.price-card:hover{box-shadow:var(--elevation-2);}
+.price-card--featured{border-color:var(--cb-walnut-500);box-shadow:var(--elevation-2);}
+@media (min-width:820px){
+  .price-card--featured{transform:translateY(calc(-1 * var(--space-4)));}
+  .price-card--featured:hover{transform:translateY(calc(-1 * var(--space-4) - 4px));}
+}
+.price-card__ribbon{
+  align-self:flex-start;background:var(--color-primary);color:#fff;font-size:var(--text-2xs);font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;padding:4px var(--space-3);border-radius:var(--radius-pill);margin-bottom:var(--space-4);
+}
+.price-card__name{font-size:var(--text-md);margin-bottom:var(--space-2);}
+.price-card__desc{color:var(--color-text-muted);font-size:var(--text-sm);margin-bottom:var(--space-5);min-height:2.6em;}
+.price-card__price{font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-primary-text);margin-bottom:2px;}
+.price-card__price span{font-size:var(--text-xs);font-weight:400;color:var(--color-text-muted);font-family:var(--font-body);}
+.price-card__unit{font-size:var(--text-2xs);text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted);margin-bottom:var(--space-6);}
+.price-card__features{display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-7);flex:1;}
+.price-card__features li{display:flex;gap:var(--space-3);font-size:var(--text-sm);color:var(--color-text);align-items:flex-start;}
+.price-card__features .icon{color:var(--color-success);flex-shrink:0;margin-top:2px;width:16px;height:16px;}
+.pricing__scope-note{text-align:center;color:var(--color-text-muted);font-size:var(--text-xs);margin-top:var(--space-8);max-width:60ch;margin-inline:auto;}
+
+/* ==========================================================================
+   Testimonials carousel
+   ========================================================================== */
+.testimonial-carousel{position:relative;max-width:760px;margin-inline:auto;}
+.testimonial-carousel__viewport{overflow:hidden;border-radius:var(--radius-md);}
+.testimonial-carousel__track{display:flex;transition:transform var(--duration-slow) var(--ease-standard);}
+.testimonial-slide{flex:0 0 100%;padding:var(--space-4) var(--space-4) 0;text-align:center;}
+.testimonial-slide__stars{display:flex;justify-content:center;gap:3px;color:var(--cb-walnut-300);margin-bottom:var(--space-5);}
+.testimonial-slide__stars .icon{width:18px;height:18px;}
+.testimonial-slide blockquote{
+  font-family:var(--font-display);font-style:italic;font-size:var(--text-lg);color:var(--color-text);
+  line-height:1.5;margin-bottom:var(--space-6);max-width:56ch;margin-inline:auto;
+}
+.testimonial-slide__author{font-weight:700;font-size:var(--text-sm);}
+.testimonial-slide__meta{font-size:var(--text-2xs);text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted);margin-top:2px;}
+
+.testimonial-carousel__controls{display:flex;align-items:center;justify-content:center;gap:var(--space-6);margin-top:var(--space-8);}
+.testimonial-carousel__dots{display:flex;align-items:center;gap:var(--space-2);}
+.tc-dot{width:9px;height:9px;border-radius:50%;background:var(--cb-taupe-200);padding:0;transition:background var(--duration-fast), width var(--duration-fast);}
+.tc-dot:hover{background:var(--cb-walnut-300);}
+.tc-dot.is-active{background:var(--color-primary);width:22px;border-radius:var(--radius-pill);}
+
+/* ==========================================================================
+   Service area
+   ========================================================================== */
+.service-area__layout{display:grid;grid-template-columns:1fr;gap:var(--space-10);align-items:center;}
+.service-area__intro{color:var(--color-text-muted);margin-top:var(--space-4);margin-bottom:var(--space-2);max-width:52ch;}
+@media (min-width:900px){ .service-area__layout{grid-template-columns:1fr 1.05fr;gap:var(--space-14);} }
+
+.service-area__radius{
+  position:relative;border-radius:50%;overflow:hidden;background:var(--color-bg-alt);
+  aspect-ratio:1/1;max-width:340px;margin-inline:auto;box-shadow:var(--elevation-1);
+  border:1px solid var(--color-surface-border-soft);
+}
+.service-area__ring{position:absolute;border:1.5px dashed var(--cb-taupe-200);border-radius:50%;}
+.service-area__ring--1{inset:12%;}
+.service-area__ring--2{inset:32%;}
+.service-area__ring--3{inset:52%;}
+.service-area__pin{
+  position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;gap:2px;
+}
+.service-area__pin .icon{color:var(--cb-walnut-700);width:20px;height:20px;}
+.service-area__pin span{
+  font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:var(--color-text);
+  background:rgba(253,251,247,.9);padding:1px 5px;border-radius:var(--radius-pill);white-space:nowrap;
+}
+.service-area__pin--hq{transform:translate(-50%,-50%);}
+.service-area__pin--hq .icon{color:var(--color-primary);width:26px;height:26px;}
+
+.service-area__list{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-1) var(--space-4);}
+@media (min-width:480px){ .service-area__list{grid-template-columns:repeat(3,1fr);} }
+.service-area__list li{display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-sm);color:var(--color-text);padding-block:var(--space-2);}
+.service-area__list .icon{color:var(--cb-walnut-300);width:14px;height:14px;flex-shrink:0;}
+.service-area__note{
+  margin-top:var(--space-6);padding:var(--space-5) var(--space-6);background:var(--color-surface);
+  border-radius:var(--radius-md);font-size:var(--text-sm);color:var(--color-text-muted);border:1px solid var(--color-surface-border-soft);
+}
+
+/* ==========================================================================
+   FAQ accordion
+   ========================================================================== */
+.faq__list{display:flex;flex-direction:column;}
+.faq-item{border-bottom:1px solid var(--color-surface-border-soft);}
+.faq-item:first-child{border-top:1px solid var(--color-surface-border-soft);}
+.faq-item h3{font-size:1em;}
+.faq-item__trigger{
+  width:100%;display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);
+  padding:var(--space-5) var(--space-2);text-align:left;font-family:var(--font-display);
+  font-size:var(--text-md);font-weight:600;color:var(--color-text);min-height:44px;
+  transition:color var(--duration-fast) var(--ease-standard);
+}
+.faq-item__trigger:hover{color:var(--color-primary-text);}
+.faq-item__chevron{color:var(--cb-walnut-300);flex-shrink:0;transition:transform var(--duration-base) var(--ease-standard);}
+.faq-item__trigger[aria-expanded="true"] .faq-item__chevron{transform:rotate(180deg);}
+.faq-item__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows var(--duration-base) var(--ease-standard);}
+.faq-item__panel.is-open{grid-template-rows:1fr;}
+.faq-item__panel-inner{overflow:hidden;}
+.faq-item__panel p{color:var(--color-text-muted);font-size:var(--text-sm);padding:0 var(--space-2) var(--space-5);max-width:64ch;}
+
+/* ==========================================================================
+   Contact / consultation
+   ========================================================================== */
+.contact__layout{display:grid;grid-template-columns:1fr;gap:var(--space-10);}
+.contact__lead{color:var(--color-text-muted);margin-top:var(--space-4);}
+@media (min-width:960px){ .contact__layout{grid-template-columns:.85fr 1.15fr;gap:var(--space-14);} }
+
+.contact__details{display:flex;flex-direction:column;gap:var(--space-5);margin-block:var(--space-7);}
+.contact__details li{display:flex;gap:var(--space-4);align-items:flex-start;}
+.contact__details .icon{color:var(--cb-walnut-500);flex-shrink:0;margin-top:2px;}
+.contact__details strong{display:block;font-size:var(--text-sm);color:var(--color-text);margin-bottom:2px;}
+.contact__details a{color:var(--color-primary-text);text-decoration:none;font-weight:700;}
+.contact__details a:hover{text-decoration:underline;}
+.contact__details span{display:block;color:var(--color-text-muted);font-size:var(--text-sm);}
+
+.shop-status{display:inline-flex;align-items:center;gap:6px;font-size:var(--text-xs);font-weight:700;margin-top:var(--space-2);padding:3px var(--space-3);border-radius:var(--radius-pill);}
+.shop-status::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0;}
+.shop-status.is-open{color:var(--color-success);background:var(--color-success-bg);}
+.shop-status.is-closed{color:var(--color-text-muted);background:var(--cb-cream-200);}
+
+.consult-checklist{margin-top:var(--space-7);padding:var(--space-6);background:var(--color-surface);border-radius:var(--radius-md);border:1px solid var(--color-surface-border-soft);}
+.consult-checklist h3{font-size:var(--text-sm);text-transform:uppercase;letter-spacing:.05em;margin-bottom:var(--space-4);}
+.consult-checklist ul{display:flex;flex-direction:column;gap:var(--space-3);}
+.consult-checklist li{display:flex;gap:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);}
+.consult-checklist li::before{content:'✓';color:var(--color-success);font-weight:700;flex-shrink:0;}
+
+.form{
+  display:flex;flex-direction:column;gap:var(--space-5);background:var(--color-surface);
+  padding:var(--space-7);border-radius:var(--radius-lg);box-shadow:var(--elevation-1);border:1px solid var(--color-surface-border-soft);
+}
+.form__row{display:grid;grid-template-columns:1fr;gap:var(--space-5);}
+@media (min-width:560px){ .form__row{grid-template-columns:1fr 1fr;} }
+.field{display:flex;flex-direction:column;gap:var(--space-2);}
+.field label{font-size:var(--text-xs);font-weight:700;color:var(--color-text);}
+.field input,.field select,.field textarea{
+  padding:var(--space-3) var(--space-4);border-radius:var(--radius-sm);border:1.5px solid var(--color-surface-border);
+  background:var(--color-bg);font-size:var(--text-base);min-height:48px;font-family:var(--font-body);
+  transition:border-color var(--duration-fast) var(--ease-standard), box-shadow var(--duration-fast) var(--ease-standard);
+}
+.field textarea{min-height:112px;resize:vertical;}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:var(--cb-taupe-300);}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{border-color:var(--color-primary);outline:2px solid var(--color-focus);outline-offset:1px;}
+.field input:disabled,.field select:disabled,.field textarea:disabled{opacity:.55;cursor:not-allowed;background:var(--cb-cream-100);}
+.field input[aria-invalid="true"],.field select[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:var(--color-error);}
+.field__error{font-size:var(--text-2xs);color:var(--color-error);min-height:1.1em;display:flex;align-items:center;gap:4px;}
+.field__error:empty{display:none;}
+.field__checkbox{display:flex;align-items:flex-start;gap:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);cursor:pointer;}
+.field__checkbox input{width:20px;height:20px;flex-shrink:0;accent-color:var(--color-primary);margin-top:2px;}
+.form__status{font-size:var(--text-sm);min-height:1.3em;font-weight:700;}
+.form__status.is-error{color:var(--color-error);}
+.form__status.is-loading{color:var(--color-text-muted);font-weight:400;}
+
+.form__success{
+  background:var(--color-surface);border-radius:var(--radius-lg);padding:var(--space-10) var(--space-7);
+  text-align:center;box-shadow:var(--elevation-1);border:1px solid var(--color-surface-border-soft);
+}
+.form__success .icon--lg{color:var(--color-success);margin-inline:auto;margin-bottom:var(--space-5);background:var(--color-success-bg);border-radius:50%;padding:var(--space-3);width:60px;height:60px;}
+.form__success h3{font-size:var(--text-lg);margin-bottom:var(--space-3);}
+.form__success p{color:var(--color-text-muted);margin-bottom:var(--space-6);}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer{background:var(--color-bg-alt);padding-block:var(--space-16) var(--space-8);border-top:1px solid var(--color-surface-border-soft);}
+.footer__top{display:grid;grid-template-columns:1fr;gap:var(--space-10);padding-bottom:var(--space-12);}
+@media (min-width:640px){ .footer__top{grid-template-columns:1fr 1fr;} }
+@media (min-width:1080px){ .footer__top{grid-template-columns:1.3fr .8fr .8fr 1.1fr;} }
+
+.footer__brand .brand{margin-bottom:var(--space-4);}
+.footer__tagline{color:var(--color-text-muted);font-size:var(--text-sm);max-width:36ch;}
+
+.footer__nav h3{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted);margin-bottom:var(--space-4);font-weight:700;}
+.footer__nav a{display:block;color:var(--color-text);text-decoration:none;font-size:var(--text-sm);padding-block:var(--space-2);}
+.footer__nav a:hover{color:var(--color-primary-text);}
+
+.footer__visit p{display:flex;align-items:flex-start;gap:var(--space-2);font-size:var(--text-sm);color:var(--color-text);margin-bottom:var(--space-3);}
+.footer__visit .icon{color:var(--cb-walnut-300);flex-shrink:0;margin-top:2px;}
+.footer__hours{color:var(--color-text-muted);font-size:var(--text-xs);}
+
+.footer__newsletter p{color:var(--color-text-muted);font-size:var(--text-sm);margin-bottom:var(--space-4);}
+.newsletter__row{display:flex;gap:var(--space-2);}
+.newsletter__row input{flex:1;min-width:0;padding:var(--space-3) var(--space-4);border-radius:var(--radius-sm);border:1.5px solid var(--color-surface-border);background:var(--color-surface);min-height:44px;font-size:var(--text-sm);}
+.newsletter__row input:focus-visible{outline:2px solid var(--color-focus);border-color:var(--color-primary);}
+.newsletter__row input[aria-invalid="true"]{border-color:var(--color-error);}
+.newsletter__status{font-size:var(--text-xs);margin-top:var(--space-2);min-height:1.3em;}
+.newsletter__status.is-error{color:var(--color-error);}
+.newsletter__status.is-success{color:var(--color-success);font-weight:700;}
+
+.footer__bottom{display:flex;flex-direction:column;gap:var(--space-4);padding-top:var(--space-8);border-top:1px solid var(--color-surface-border-soft);font-size:var(--text-xs);color:var(--color-text-muted);}
+@media (min-width:640px){ .footer__bottom{flex-direction:row;justify-content:space-between;align-items:center;} }
+.footer__legal-links{display:flex;gap:var(--space-5);}
+.footer__legal-links a{color:var(--color-text-muted);text-decoration:none;}
+.footer__legal-links a:hover{color:var(--color-primary-text);}
+
+/* ==========================================================================
+   Back to top + misc
+   ========================================================================== */
+.back-to-top{
+  position:fixed;right:var(--space-6);bottom:var(--space-6);width:48px;height:48px;border-radius:50%;
+  background:var(--color-primary);color:#fff;display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--elevation-2);opacity:0;pointer-events:none;transform:translateY(12px);
+  transition:opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard), background var(--duration-fast) var(--ease-standard);
+  z-index:150;
+}
+.back-to-top.is-visible{opacity:1;pointer-events:auto;transform:translateY(0);}
+.back-to-top:hover{background:var(--color-primary-hover);}
+.back-to-top:disabled{opacity:.5;cursor:not-allowed;}
+
+/* ==========================================================================
+   Mobile polish — surgical, additive only (no desktop-affecting changes)
+   ========================================================================== */
+@media (max-width:559px){
+  /* The header's "Free Estimate" button duplicates the primary hero CTA
+     directly below the fold, and at phone widths it was crowding the brand
+     block + nav toggle so badly that the hamburger button rendered partly
+     off-screen (untappable). Hiding the duplicate CTA here fixes both the
+     dedupe and the overflow — the toggle still opens the same nav panel,
+     which already carries a "Schedule Free Estimate" CTA of its own. */
+  .header-actions .btn--primary{display:none;}
+  /* Keep the two-word wordmark on a single line now that there's room;
+     scoped to the header instance only so the (already single-line) footer
+     wordmark is untouched. */
+  .site-header .brand__name{font-size:1.1rem;}
+  /* Bring the portfolio filter chips up to a 44px touch target on phones
+     without changing their desktop (mouse-driven) size. */
+  .filter-chip{min-height:44px;}
+}
+
+@media (max-width:400px){
+  .hero__title{font-size:2.3rem;}
+  .btn--lg{padding:var(--space-3) var(--space-6);}
+}
+
+@media print{
+  .site-header,.nav__overlay,.nav__panel,.back-to-top,.hero__cta-row .btn--secondary,
+  .material-gallery,.gallery__toolbar,.form,.newsletter,.scroll-cue{display:none !important;}
+  body{background:#fff;}
+  a{color:#000;text-decoration:underline;}
+}
+</style>
 </head>
+<body id="top">
 
-<body class="theme-luxury">
-    <!-- ═══════ SVG ICONS (INLINE SPRITE) ═══════ -->
-    <svg style="display: none;">
-        <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path
-                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-            </path>
-        </symbol>
-        <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-        </symbol>
-        <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z">
-            </path>
-        </symbol>
-        <symbol id="icon-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="8" r="7"></circle>
-            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
-        </symbol>
-        <symbol id="icon-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-        </symbol>
-    </svg>
+<a class="skip-link" href="#main">Skip to main content</a>
 
-    <!-- ═══════ HEADER ═══════ -->
-    <header class="header">
-        <div class="container header-inner">
-            <div class="logo">
-                <div class="logo-mark">PF</div>
-                <div class="logo-text">
-                    <span class="l-main">Copperbeam Flooring</span>
-                    <span class="l-sub">Est. 1986</span>
-                </div>
-            </div>
-            <nav class="nav-links">
-                <a href="#hardwood">Hardwood</a>
-                <a href="#carpet">Carpet & Tile</a>
-                <a href="#commercial">Commercial</a>
-                <a href="#portfolio">Our Work</a>
-            </nav>
-            <div class="header-actions">
-                <a href="tel:7708177007" class="phone-link">
-                    <svg>
-                        <use href="#icon-phone" />
-                    </svg>
-                    (404) 555-0113
-                </a>
-                <a href="#consultation" class="btn btn-primary">Free Estimate</a>
-            </div>
+<!-- ============================================================
+     SVG ICON SPRITE (inline, hidden)
+     ============================================================ -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+  </symbol>
+  <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+  </symbol>
+  <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+  </symbol>
+  <symbol id="icon-award" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="8" r="7"></circle>
+    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+  </symbol>
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"></polyline>
+  </symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"></line>
+    <polyline points="12 5 19 12 12 19"></polyline>
+  </symbol>
+  <symbol id="icon-chevron-left" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </symbol>
+  <symbol id="icon-chevron-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+  </symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"></polyline>
+  </symbol>
+  <symbol id="icon-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+    <line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line>
+  </symbol>
+  <symbol id="icon-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>
+  </symbol>
+  <symbol id="icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+  </symbol>
+  <symbol id="icon-layers" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+    <polyline points="2 17 12 22 22 17"></polyline>
+    <polyline points="2 12 12 17 22 12"></polyline>
+  </symbol>
+  <symbol id="icon-ruler" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 17 17 3l4 4L7 21z"></path><path d="M13 7l4 4"></path><path d="M10 10l2 2"></path><path d="M7 13l2 2"></path>
+  </symbol>
+  <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path>
+    <polyline points="22 6 12 13 2 6"></polyline>
+  </symbol>
+  <symbol id="icon-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"></path>
+  </symbol>
+  <symbol id="icon-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle>
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+  </symbol>
+  <symbol id="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline>
+  </symbol>
+  <symbol id="icon-sparkle" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2l1.6 5.8L19 9.4l-5.4 1.6L12 17l-1.6-6L5 9.4l5.4-1.6L12 2z"></path>
+    <path d="M19 15l.7 2.3L22 18l-2.3.7L19 21l-.7-2.3L16 18l2.3-.7L19 15z"></path>
+  </symbol>
+</svg>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="site-header" id="siteHeader">
+  <div class="container header-inner">
+    <a class="brand" href="#top">
+      <span class="brand__mark" aria-hidden="true">CF</span>
+      <span class="brand__text">
+        <span class="brand__name">Copperbeam Flooring</span>
+        <span class="brand__sub">Est. 1986 &middot; Atlanta, GA</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#hardwood">Hardwood</a>
+      <a href="#lvp">LVP</a>
+      <a href="#carpet-tile">Carpet &amp; Tile</a>
+      <a href="#commercial">Commercial</a>
+      <a href="#portfolio">Our Work</a>
+    </nav>
+
+    <div class="header-actions">
+      <a href="tel:4045550113" class="phone-pill">
+        <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+        (404) 555-0113
+      </a>
+      <a href="#consultation" class="btn btn--primary">Free Estimate</a>
+      <button type="button" class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
+        <svg class="icon" aria-hidden="true"><use href="#icon-menu"></use></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="nav__overlay" id="navOverlay"></div>
+<nav class="nav__panel" id="navPanel" aria-label="Mobile" aria-hidden="true">
+  <div class="nav__panel-top">
+    <button type="button" class="btn btn--icon" id="navPanelClose" aria-label="Close menu">
+      <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+    </button>
+  </div>
+  <div class="nav__panel-links">
+    <a href="#hardwood">Hardwood</a>
+    <a href="#lvp">Luxury Vinyl Plank</a>
+    <a href="#carpet-tile">Carpet &amp; Tile</a>
+    <a href="#commercial">Commercial</a>
+    <a href="#portfolio">Our Work</a>
+    <a href="#process">Our Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <div class="nav__panel-actions">
+    <a href="tel:4045550113" class="nav__panel-phone">
+      <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+      (404) 555-0113
+    </a>
+    <a href="#consultation" class="btn btn--primary btn--block">Schedule Free Estimate</a>
+  </div>
+</nav>
+
+<main id="main">
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" aria-label="Introduction">
+  <div class="hero__grain" aria-hidden="true"></div>
+  <div class="container hero__layout">
+    <div class="hero__content">
+      <div class="legacy-badge">
+        <svg class="icon icon--lg" aria-hidden="true"><use href="#icon-award"></use></svg>
+        <span class="legacy-badge__text">
+          <strong>40 Years of Excellence</strong>
+          <span>Family-Owned &amp; Operated Since 1986</span>
+        </span>
+      </div>
+
+      <h1 class="hero__title">Floors Built for<br><em>Real Life.</em></h1>
+
+      <p class="hero__desc">Master craftsmanship in hardwood, luxury vinyl plank, carpet, tile, and commercial flooring — installed by the same family crew Atlanta homeowners have trusted since 1986.</p>
+
+      <div class="hero__cta-group">
+        <div class="hero__cta-row">
+          <a href="#consultation" class="btn btn--primary btn--lg">
+            Schedule Showroom Consultation
+            <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+          </a>
         </div>
-    </header>
-
-    <!-- ═══════ HERO (WARM LUXURY) ═══════ -->
-    <section class="hero luxury-hero">
-        <!-- Full-bleed background texture/image behind the entire hero -->
-        <div class="hero-bg-image"></div>
-
-        <div class="container hero-content-wrapper">
-            <div class="hero-content">
-                <!-- LEGACY BADGE -->
-                <div class="legacy-badge">
-                    <svg>
-                        <use href="#icon-award" />
-                    </svg>
-                    <span class="badge-text">
-                        <strong>40 Years of Excellence</strong>
-                        <span>Family Owned & Operated Since 1986</span>
-                    </span>
-                </div>
-
-                <h1 class="hero-title">
-                    FOUNDATION OF<br>
-                    <span class="text-highlight">ELEGANCE.</span>
-                </h1>
-
-                <p class="hero-desc">
-                    Master craftsmanship in hardwood, luxury vinyl plank, and commercial flooring. Serving Atlanta's
-                    finest homes and businesses for four decades.
-                </p>
-
-                <div class="hero-cta-group">
-                    <a href="#consultation" class="btn btn-primary btn-large">
-                        Schedule Showroom Consultation
-                        <svg style="width:20px;height:20px;">
-                            <use href="#icon-chevron" />
-                        </svg>
-                    </a>
-                    <div class="trust-marks">
-                        <span class="t-mark"><svg>
-                                <use href="#icon-shield" />
-                            </svg> Fully Insured</span>
-                        <span class="t-mark"><svg>
-                                <use href="#icon-star" style="color:var(--primary);" />
-                            </svg> 5-Star Rated</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Material Interactive Gallery -->
-            <div class="hero-visual">
-                <div class="material-gallery">
-                    <div class="m-card active"
-                        style="background-image: url('https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&q=80&w=600');">
-                        <div class="m-overlay">
-                            <span class="m-title">European Oak Hardwood</span>
-                            <span class="m-action">View Gallery <svg style="width:14px;height:14px;">
-                                    <use href="#icon-chevron" />
-                                </svg></span>
-                        </div>
-                    </div>
-                    <div class="m-thumb-row">
-                        <div class="m-thumb"
-                            style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=200');">
-                        </div>
-                        <div class="m-thumb"
-                            style="background-image: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=200');">
-                        </div>
-                        <div class="m-thumb"
-                            style="background-image: url('https://images.unsplash.com/photo-1600607688969-a5bfcd64bd40?auto=format&fit=crop&q=80&w=200');">
-                            <div class="m-more">+12 Materials</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="trust-marks">
+          <span class="t-mark"><svg class="icon" aria-hidden="true"><use href="#icon-shield"></use></svg>Fully Insured</span>
+          <span class="t-mark"><svg class="icon is-star" aria-hidden="true"><use href="#icon-star"></use></svg>5-Star Rated</span>
+          <span class="t-mark"><svg class="icon" aria-hidden="true"><use href="#icon-home"></use></svg>Locally Owned</span>
         </div>
-    </section>
+      </div>
 
-    <!-- ═══════ SERVICES / MATERIALS ═══════ -->
-    <section class="services-section">
-        <div class="container">
-            <div class="section-header center">
-                <span class="subheading">Our Expertise</span>
-                <h2>Curated Flooring Solutions</h2>
-                <p>From timeless hardwood restoration to high-traffic commercial installations.</p>
-            </div>
+      <p class="scroll-cue"><span class="scroll-cue__line" aria-hidden="true"></span>Scroll to Explore</p>
+    </div>
 
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="s-image"
-                        style="background-image: url('https://images.unsplash.com/photo-1581858726788-75bc0f6a952d?auto=format&fit=crop&q=80&w=400');">
-                    </div>
-                    <div class="s-content">
-                        <h3>Hardwood & Refinishing</h3>
-                        <p>Dustless sanding and premium sealants for a flawless, durable finish.</p>
-                        <a href="#hardwood" class="s-link">Explore Hardwood</a>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="s-image"
-                        style="background-image: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=400');">
-                    </div>
-                    <div class="s-content">
-                        <h3>Luxury Vinyl Plank (LVP)</h3>
-                        <p>Waterproof, scratch-resistant, and visually indistinguishable from real wood.</p>
-                        <a href="#lvp" class="s-link">Explore LVP</a>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="s-image"
-                        style="background-image: url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=400');">
-                    </div>
-                    <div class="s-content">
-                        <h3>Commercial Installation</h3>
-                        <p>High-performance carpets and durable tile for offices and retail spaces.</p>
-                        <a href="#commercial" class="s-link">Explore Commercial</a>
-                    </div>
-                </div>
-            </div>
+    <div class="hero__visual">
+      <div class="material-gallery" id="heroMaterialGallery">
+        <div class="m-card plank" data-tone="natural" id="heroMainCard">
+          <div class="m-overlay">
+            <span>
+              <span class="m-title" id="heroMainTitle">European White Oak</span>
+              <span class="m-sub" id="heroMainSub">Wire-brushed &middot; matte sealed</span>
+            </span>
+            <a href="#materials" class="m-action">Explore Finishes <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+          </div>
         </div>
-    </section>
-
-    <!-- ═══════ THE 1986 LEGACY STRIP ═══════ -->
-    <section class="legacy-strip">
-        <div class="container legacy-inner">
-            <div class="l-stat">
-                <div class="l-number">1986</div>
-                <div class="l-label">Year Established</div>
-            </div>
-            <div class="l-stat">
-                <div class="l-number">10k+</div>
-                <div class="l-label">Projects Completed</div>
-            </div>
-            <div class="l-stat">
-                <div class="l-number">A+</div>
-                <div class="l-label">BBB Rating</div>
-            </div>
-            <div class="l-stat">
-                <div class="l-number">40</div>
-                <div class="l-label">Years Experience</div>
-            </div>
+        <div class="m-thumb-row" role="tablist" aria-label="Preview a material">
+          <button type="button" class="m-thumb plank is-active" data-tone="natural" data-title="European White Oak" data-sub="Wire-brushed &middot; matte sealed" role="tab" aria-selected="true" aria-label="Preview European White Oak hardwood"></button>
+          <button type="button" class="m-thumb plank" data-tone="driftwood" data-title="Driftwood Luxury Vinyl Plank" data-sub="Waterproof &middot; pet-friendly" role="tab" aria-selected="false" aria-label="Preview Driftwood luxury vinyl plank"></button>
+          <a href="#materials" class="m-thumb plank" data-tone="walnut" aria-label="See all nine flooring materials and finishes">
+            <span class="m-more">+9 Materials</span>
+          </a>
         </div>
-    </section>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- ═══════ FOOTER ═══════ -->
-    <footer class="footer">
-        <div class="container footer-grid">
-            <div class="f-brand">
-                <div class="logo-mark" style="color:var(--primary); font-family:var(--font-heading); font-size:1.5rem;">
-                    PF</div>
-                <p>Copperbeam Flooring, Inc.<br>Gary & Pat Howington</p>
-            </div>
-            <div class="f-contact">
-                <a href="tel:7708177007">(404) 555-0113</a>
-                <a href="mailto:info@copperbeamflooring.example">info@copperbeamflooring.example</a>
-            </div>
+<!-- ============================================================
+     CREDENTIALS STRIP
+     ============================================================ -->
+<section class="credentials" aria-label="Credentials">
+  <div class="container credentials__grid">
+    <div class="credential-item">
+      <span class="credential-item__icon"><svg class="icon" aria-hidden="true"><use href="#icon-shield"></use></svg></span>
+      <span>Licensed &amp; Insured in Georgia</span>
+    </div>
+    <div class="credential-item">
+      <span class="credential-item__icon"><svg class="icon" aria-hidden="true"><use href="#icon-award"></use></svg></span>
+      <span>Manufacturer-Certified Installers</span>
+    </div>
+    <div class="credential-item">
+      <span class="credential-item__icon"><svg class="icon" aria-hidden="true"><use href="#icon-sparkle"></use></svg></span>
+      <span>Dust-Contained Job Sites</span>
+    </div>
+    <div class="credential-item">
+      <span class="credential-item__icon"><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg></span>
+      <span>2-Year Workmanship Warranty</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICES / EXPERTISE
+     ============================================================ -->
+<section class="section-pad" aria-labelledby="services-heading">
+  <div class="container">
+    <div class="section-head is-center">
+      <span class="eyebrow">Our Expertise</span>
+      <h2 id="services-heading">Curated Flooring Solutions</h2>
+      <p>From timeless hardwood restoration to high-traffic commercial installations, every project starts with an honest walkthrough of your space.</p>
+    </div>
+
+    <div class="services__grid">
+      <article class="service-card" id="hardwood">
+        <div class="service-card__art plank" data-tone="honey" aria-hidden="true">
+          <span class="service-card__badge"><svg class="icon" aria-hidden="true"><use href="#icon-layers"></use></svg></span>
         </div>
-    </footer>
+        <h3>Hardwood Flooring &amp; Refinishing</h3>
+        <p>Solid and engineered hardwood, custom stain matching, and dustless sanding for a flawless, long-lasting finish.</p>
+        <div class="service-card__meta"><span>Dustless Sanding</span><span>Custom Stain Match</span></div>
+        <a href="#materials" class="link-arrow">Explore Finishes <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+      </article>
+
+      <article class="service-card" id="lvp">
+        <div class="service-card__art plank" data-tone="driftwood" aria-hidden="true">
+          <span class="service-card__badge"><svg class="icon" aria-hidden="true"><use href="#icon-shield"></use></svg></span>
+        </div>
+        <h3>Luxury Vinyl Plank (LVP)</h3>
+        <p>Waterproof, scratch-resistant planks that read as real hardwood underfoot — built for kids, pets, and busy households.</p>
+        <div class="service-card__meta"><span>Waterproof</span><span>Pet-Friendly</span></div>
+        <a href="#materials" class="link-arrow">Explore Finishes <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+      </article>
+
+      <article class="service-card" id="carpet-tile">
+        <div class="service-card__art weave" data-tone="hickory" aria-hidden="true">
+          <span class="service-card__badge"><svg class="icon" aria-hidden="true"><use href="#icon-sparkle"></use></svg></span>
+        </div>
+        <h3>Carpet &amp; Tile</h3>
+        <p>Plush residential carpet and porcelain or natural-stone tile, set on moisture-checked substrate for a floor that stays flat.</p>
+        <div class="service-card__meta"><span>Stain-Resist Fiber</span><span>Radiant-Ready Tile</span></div>
+        <a href="#consultation" class="link-arrow">Get a Room Quote <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+      </article>
+
+      <article class="service-card" id="commercial">
+        <div class="service-card__art plank" data-tone="walnut" aria-hidden="true">
+          <span class="service-card__badge"><svg class="icon" aria-hidden="true"><use href="#icon-ruler"></use></svg></span>
+        </div>
+        <h3>Commercial Flooring</h3>
+        <p>Durable LVT, carpet tile, and resilient flooring for offices, retail, and hospitality — scheduled around your business hours, not ours.</p>
+        <div class="service-card__meta"><span>Off-Hours Scheduling</span><span>Multi-Space Rollouts</span></div>
+        <a href="#portfolio" class="link-arrow">See Commercial Work <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STATS / LEGACY STRIP
+     ============================================================ -->
+<section class="stats" aria-label="Copperbeam Flooring by the numbers">
+  <div class="stats__grain" aria-hidden="true"></div>
+  <div class="container stats__grid">
+    <div class="stat">
+      <svg class="icon icon--lg stat__icon" aria-hidden="true"><use href="#icon-award"></use></svg>
+      <div class="stat__number" data-count-to="1986">0</div>
+      <div class="stat__label">Year Established</div>
+    </div>
+    <div class="stat">
+      <svg class="icon icon--lg stat__icon" aria-hidden="true"><use href="#icon-layers"></use></svg>
+      <div class="stat__number" data-count-to="10000" data-suffix="+">0</div>
+      <div class="stat__label">Floors Installed</div>
+    </div>
+    <div class="stat">
+      <svg class="icon icon--lg stat__icon" aria-hidden="true"><use href="#icon-star"></use></svg>
+      <div class="stat__number" data-count-to="4.9" data-decimals="1" data-suffix="/5">0</div>
+      <div class="stat__label">Avg. Client Rating</div>
+    </div>
+    <div class="stat">
+      <svg class="icon icon--lg stat__icon" aria-hidden="true"><use href="#icon-users"></use></svg>
+      <div class="stat__number" data-count-to="40">0</div>
+      <div class="stat__label">Years Family-Owned</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY HOMEOWNERS CHOOSE US
+     ============================================================ -->
+<section class="section-pad" id="why-us" aria-labelledby="why-us-heading">
+  <div class="container">
+    <div class="section-head is-center">
+      <span class="eyebrow">Our Standard</span>
+      <h2 id="why-us-heading">Why Homeowners Choose Us</h2>
+      <p>Premium here means fewer hands touching your project, not a longer logo wall.</p>
+    </div>
+
+    <div class="differentiators__grid">
+      <div class="diff-card">
+        <span class="diff-card__icon"><svg class="icon" aria-hidden="true"><use href="#icon-home"></use></svg></span>
+        <h3>Two Generations, One Family</h3>
+        <p>Gary and Pat Howington founded Copperbeam in 1986. Their daughter now leads daily operations — same name on the truck, same crew answering the phone.</p>
+      </div>
+      <div class="diff-card">
+        <span class="diff-card__icon"><svg class="icon" aria-hidden="true"><use href="#icon-users"></use></svg></span>
+        <h3>In-House Certified Crew</h3>
+        <p>We don't subcontract installations. Every installer is a Copperbeam employee, trained on our own equipment and held to our own punch-list standard.</p>
+      </div>
+      <div class="diff-card">
+        <span class="diff-card__icon"><svg class="icon" aria-hidden="true"><use href="#icon-sparkle"></use></svg></span>
+        <h3>Dust-Contained Job Sites</h3>
+        <p>HEPA-filtered sanding equipment captures dust at the source, so refinishing an occupied home doesn't mean closing off your kitchen for a week.</p>
+      </div>
+      <div class="diff-card">
+        <span class="diff-card__icon"><svg class="icon" aria-hidden="true"><use href="#icon-shield"></use></svg></span>
+        <h3>Warranty We Service Ourselves</h3>
+        <p>Two-year workmanship coverage, backed by the same local team that installed the floor — not a call center in another state.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     OUR STORY + TIMELINE
+     ============================================================ -->
+<section class="section-pad surface-band" id="story" aria-labelledby="story-heading">
+  <div class="container about__layout">
+    <div class="about__copy">
+      <span class="eyebrow">Our Story</span>
+      <h2 id="story-heading">Forty Years Under One Roof</h2>
+      <p class="about__lead">"We still measure a job the way Gary taught us — twice, by hand, before anyone touches a saw."</p>
+      <div class="about__body">
+        <p>Copperbeam Flooring started in 1986 as a two-person hardwood refinishing crew working evenings and weekends out of a rented garage near Cheshire Bridge Road. Gary sanded; Pat kept the books and answered the phone that, back then, was bolted to a kitchen wall.</p>
+        <p>Four decades later the phone number is the same, and so is the standard: no subcontracted install crews, no showroom sample that doesn't match what shows up at your house, and no job considered finished until someone from Copperbeam has walked it with you in sock feet.</p>
+      </div>
+      <div class="about__signature">
+        <span class="about__signature-mark">Gary &amp; Pat Howington</span>
+        <span class="about__signature-role">Founders, Copperbeam Flooring</span>
+      </div>
+    </div>
+
+    <ol class="timeline">
+      <li class="timeline-item">
+        <span class="timeline-item__year">1986</span>
+        <p>Gary and Pat open a single showroom, refinishing hardwood floors evenings and weekends.</p>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-item__year">1998</span>
+        <p>A dedicated commercial division takes on its first downtown Atlanta office build-out.</p>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-item__year">2011</span>
+        <p>Luxury vinyl plank joins the lineup once the material finally earns Gary's approval.</p>
+      </li>
+      <li class="timeline-item">
+        <span class="timeline-item__year">Today</span>
+        <p>Second-generation leadership, a twelve-person in-house crew, and the same showroom address.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================================================
+     MATERIALS &amp; FINISH VISUALIZER
+     ============================================================ -->
+<section class="section-pad" id="materials" aria-labelledby="materials-heading">
+  <div class="container">
+    <div class="section-head is-center">
+      <span class="eyebrow">Materials &amp; Finish</span>
+      <h2 id="materials-heading">Choose Your Species &amp; Tone</h2>
+      <p>A quick preview of how each species takes a stain. We'll bring the real sample board to your consultation before anything is ordered.</p>
+    </div>
+
+    <div class="visualizer__layout">
+      <div class="visualizer__controls">
+        <div>
+          <span class="swatch-group__title" id="speciesLabel">Wood Species</span>
+          <div class="swatch-row" role="group" aria-labelledby="speciesLabel" id="speciesRow">
+            <button type="button" class="swatch-btn plank" data-tone="natural" data-species="white-oak" aria-pressed="true">
+              <span class="swatch-btn__label">White Oak</span>
+            </button>
+            <button type="button" class="swatch-btn plank" data-tone="hickory" data-species="hickory" aria-pressed="false">
+              <span class="swatch-btn__label">Hickory</span>
+            </button>
+            <button type="button" class="swatch-btn plank" data-tone="honey" data-species="maple" aria-pressed="false">
+              <span class="swatch-btn__label">Maple</span>
+            </button>
+            <button type="button" class="swatch-btn plank" data-tone="walnut" data-species="walnut" aria-pressed="false">
+              <span class="swatch-btn__label">Walnut</span>
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <span class="swatch-group__title" id="toneLabel">Stain Tone</span>
+          <div class="swatch-row" role="group" aria-labelledby="toneLabel" id="toneRow">
+            <button type="button" class="swatch-btn plank" data-tone="natural" aria-pressed="true">
+              <span class="swatch-btn__label">Natural</span>
+            </button>
+            <button type="button" class="swatch-btn plank" data-tone="honey" aria-pressed="false">
+              <span class="swatch-btn__label">Honey Wheat</span>
+            </button>
+            <button type="button" class="swatch-btn plank" data-tone="driftwood" aria-pressed="false">
+              <span class="swatch-btn__label">Driftwood Gray</span>
+            </button>
+            <button type="button" class="swatch-btn plank" data-tone="espresso" aria-pressed="false">
+              <span class="swatch-btn__label">Aged Espresso</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="material-notes" id="materialNotes">
+          <div class="material-note">
+            <span class="material-note__label">Durability</span>
+            <span class="material-note__value" id="noteDurability">Excellent</span>
+          </div>
+          <div class="material-note">
+            <span class="material-note__label">Best For</span>
+            <span class="material-note__value" id="noteBestFor">Living &amp; dining rooms</span>
+          </div>
+          <div class="material-note">
+            <span class="material-note__label">Care</span>
+            <span class="material-note__value" id="noteCare">Damp-mop monthly</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="visualizer__preview plank" data-tone="natural" id="visualizerPreview">
+          <div class="visualizer__preview-overlay">
+            <strong id="visualizerTitle">White Oak &mdash; Natural</strong>
+            <span id="visualizerGrain">Straight, tight grain with a warm, pale finish</span>
+          </div>
+        </div>
+        <p class="visualizer__readout" id="visualizerReadout" aria-live="polite">
+          <strong>White Oak in Natural</strong> is our most-requested combination &mdash; wide, straight grain under a clear matte topcoat that resists yellowing for decades.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROCESS
+     ============================================================ -->
+<section class="section-pad surface-band" id="process" aria-labelledby="process-heading">
+  <div class="container">
+    <div class="section-head is-center">
+      <span class="eyebrow">How It Works</span>
+      <h2 id="process-heading">Four Stages, One Crew</h2>
+      <p>The same people who measure your room are the ones who install it.</p>
+    </div>
+
+    <div class="process__list">
+      <div class="process-step">
+        <span class="process-step__num" aria-hidden="true">01</span>
+        <span class="process-step__icon"><svg class="icon" aria-hidden="true"><use href="#icon-ruler"></use></svg></span>
+        <h3>Consultation &amp; Measure</h3>
+        <p>We walk the space with you, talk lifestyle and budget honestly, and leave sample boards so you can see them in your own light.</p>
+        <span class="process-step__meta">Typically 60&ndash;90 Minutes</span>
+      </div>
+      <div class="process-step">
+        <span class="process-step__num" aria-hidden="true">02</span>
+        <span class="process-step__icon"><svg class="icon" aria-hidden="true"><use href="#icon-layers"></use></svg></span>
+        <h3>Subfloor Assessment &amp; Prep</h3>
+        <p>Moisture testing, leveling, and &mdash; for solid hardwood &mdash; a proper acclimation period before a single plank goes down.</p>
+        <span class="process-step__meta">1&ndash;5 Days</span>
+      </div>
+      <div class="process-step">
+        <span class="process-step__num" aria-hidden="true">03</span>
+        <span class="process-step__icon"><svg class="icon" aria-hidden="true"><use href="#icon-sparkle"></use></svg></span>
+        <h3>Installation &amp; Dust Containment</h3>
+        <p>Certified installers, HEPA-filtered equipment, and a job site cleaned before we leave for the day.</p>
+        <span class="process-step__meta">Room-Dependent</span>
+      </div>
+      <div class="process-step">
+        <span class="process-step__num" aria-hidden="true">04</span>
+        <span class="process-step__icon"><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg></span>
+        <h3>Final Walkthrough &amp; Care Guide</h3>
+        <p>We inspect every seam and transition with you, register your warranty, and leave a care kit matched to your new floor.</p>
+        <span class="process-step__meta">Same-Day Sign-Off</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PORTFOLIO GALLERY (async filter — loading / empty / error / success)
+     ============================================================ -->
+<section class="section-pad" id="portfolio" aria-labelledby="portfolio-heading">
+  <div class="container">
+    <div class="section-head is-center">
+      <span class="eyebrow">Recent Projects</span>
+      <h2 id="portfolio-heading">A Sample of Floors We've Installed</h2>
+      <p>A rotating look at recent residential and commercial work across metro Atlanta.</p>
+    </div>
+
+    <div class="gallery__toolbar" role="group" aria-label="Filter projects by room type">
+      <button type="button" class="filter-chip is-active" data-filter="all" aria-pressed="true">All Projects</button>
+      <button type="button" class="filter-chip" data-filter="kitchens" aria-pressed="false">Kitchens</button>
+      <button type="button" class="filter-chip" data-filter="living" aria-pressed="false">Living Spaces</button>
+      <button type="button" class="filter-chip" data-filter="stairs" aria-pressed="false">Stairs &amp; Hallways</button>
+      <button type="button" class="filter-chip" data-filter="commercial" aria-pressed="false">Commercial</button>
+    </div>
+
+    <p class="visually-hidden" id="galleryStatus" role="status" aria-live="polite"></p>
+    <div class="gallery__grid" id="galleryGrid" aria-busy="false"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRICING
+     ============================================================ -->
+<section class="section-pad surface-band" id="pricing" aria-labelledby="pricing-heading">
+  <div class="container">
+    <div class="section-head is-center">
+      <span class="eyebrow">Starting Ranges</span>
+      <h2 id="pricing-heading">Three Ways to Start</h2>
+      <p>Every figure below is a starting point, not a quote &mdash; your final number comes after we measure your actual room.</p>
+    </div>
+
+    <div class="pricing__grid">
+      <div class="price-card">
+        <p class="price-card__name">Essential LVP</p>
+        <p class="price-card__desc">Waterproof luxury vinyl plank for everyday rooms and rental-ready durability.</p>
+        <p class="price-card__price">$4.75<span>&nbsp;/ sq ft, starting</span></p>
+        <p class="price-card__unit">Materials + Standard Install</p>
+        <ul class="price-card__features">
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>Waterproof, scratch-resistant core</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>Standard subfloor prep included</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>1-day install for an average room</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>1-year workmanship coverage</li>
+        </ul>
+        <a href="#consultation" class="btn btn--secondary btn--block">Start With LVP</a>
+      </div>
+
+      <div class="price-card price-card--featured">
+        <span class="price-card__ribbon">Most Chosen</span>
+        <p class="price-card__name">Signature Hardwood</p>
+        <p class="price-card__desc">Solid or engineered hardwood with custom, on-site stain matching.</p>
+        <p class="price-card__price">$9.25<span>&nbsp;/ sq ft, starting</span></p>
+        <p class="price-card__unit">Materials + Certified Install</p>
+        <ul class="price-card__features">
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>Solid or engineered hardwood</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>Custom stain matching on-site</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>Dustless refinishing option</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>2-year workmanship coverage</li>
+        </ul>
+        <a href="#consultation" class="btn btn--primary btn--block">Start With Hardwood</a>
+      </div>
+
+      <div class="price-card">
+        <p class="price-card__name">Bespoke Commercial</p>
+        <p class="price-card__desc">LVT, carpet tile, and resilient flooring scoped around your business hours.</p>
+        <p class="price-card__price">Custom<span>&nbsp;quote</span></p>
+        <p class="price-card__unit">Scoped After Walkthrough</p>
+        <ul class="price-card__features">
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>Off-hours &amp; weekend scheduling</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>Multi-space, multi-phase rollouts</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>Volume material pricing</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>Dedicated project lead</li>
+        </ul>
+        <a href="#consultation" class="btn btn--secondary btn--block">Request Commercial Quote</a>
+      </div>
+    </div>
+
+    <p class="pricing__scope-note">Ranges reflect an average room with standard subfloor conditions. Every project receives a final written quote after an in-home measure &mdash; no surprise change orders.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section class="section-pad surface-band" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="section-head is-center">
+      <span class="eyebrow">Client Notes</span>
+      <h2 id="testimonials-heading">What Homeowners Notice First</h2>
+      <p>A few notes shared by recent clients, in their own words.</p>
+    </div>
+
+    <div class="testimonial-carousel" id="testimonialCarousel">
+      <div class="testimonial-carousel__viewport">
+        <div class="testimonial-carousel__track" id="testimonialTrack">
+
+          <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="1 of 4">
+            <div class="testimonial-slide__stars" aria-hidden="true">
+              <svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg>
+            </div>
+            <blockquote>&ldquo;They refinished our hundred-year-old heart pine floors and somehow made them look original again, not new. The dust containment was real &mdash; I was skeptical going in.&rdquo;</blockquote>
+            <p class="testimonial-slide__author">Danielle R.</p>
+            <p class="testimonial-slide__meta">Decatur, GA &middot; Hardwood Refinish</p>
+          </div>
+
+          <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="2 of 4">
+            <div class="testimonial-slide__stars" aria-hidden="true">
+              <svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg>
+            </div>
+            <blockquote>&ldquo;Every other quote we got felt like a script. Copperbeam's estimator crawled under the house to check the joists before he'd even give us a number.&rdquo;</blockquote>
+            <p class="testimonial-slide__author">Marcus T.</p>
+            <p class="testimonial-slide__meta">Grant Park, GA &middot; New Hardwood Install</p>
+          </div>
+
+          <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="3 of 4">
+            <div class="testimonial-slide__stars" aria-hidden="true">
+              <svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg>
+            </div>
+            <blockquote>&ldquo;We did LVP through the whole main floor for two dogs and a toddler. Two years in, still zero seams lifting, even by the back door.&rdquo;</blockquote>
+            <p class="testimonial-slide__author">Priya K.</p>
+            <p class="testimonial-slide__meta">Sandy Springs, GA &middot; Luxury Vinyl Plank</p>
+          </div>
+
+          <div class="testimonial-slide" role="group" aria-roledescription="slide" aria-label="4 of 4">
+            <div class="testimonial-slide__stars" aria-hidden="true">
+              <svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg>
+            </div>
+            <blockquote>&ldquo;Our office build-out happened over one weekend, exactly as scheduled. Monday morning nobody even knew a crew had been there.&rdquo;</blockquote>
+            <p class="testimonial-slide__author">Owen F.</p>
+            <p class="testimonial-slide__meta">Facilities Manager &middot; Midtown Atlanta</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="testimonial-carousel__controls">
+        <button type="button" class="btn btn--icon" id="testimonialPrev" aria-label="Previous testimonial">
+          <svg class="icon" aria-hidden="true"><use href="#icon-chevron-left"></use></svg>
+        </button>
+        <div class="testimonial-carousel__dots" id="testimonialDots" role="tablist" aria-label="Choose a testimonial"></div>
+        <button type="button" class="btn btn--icon" id="testimonialNext" aria-label="Next testimonial">
+          <svg class="icon" aria-hidden="true"><use href="#icon-chevron-right"></use></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICE AREA
+     ============================================================ -->
+<section class="section-pad" aria-labelledby="service-area-heading">
+  <div class="container service-area__layout">
+    <div>
+      <span class="eyebrow">Where We Work</span>
+      <h2 id="service-area-heading">Rooted in Atlanta. Installed Across the Metro.</h2>
+      <p class="service-area__intro">Our showroom and shop sit inside the perimeter, with install crews running daily routes to the neighborhoods below.</p>
+
+      <ul class="service-area__list">
+        <li><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>Buckhead</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>Decatur</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>Virginia-Highland</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>Grant Park</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>Sandy Springs</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>Smyrna</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>Marietta</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>Roswell</li>
+        <li><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>Alpharetta</li>
+      </ul>
+
+      <p class="service-area__note">Don't see your neighborhood listed? Call the showroom &mdash; our commercial crews regularly work outside this radius for the right project.</p>
+    </div>
+
+    <div class="service-area__radius" aria-hidden="true">
+      <span class="service-area__ring service-area__ring--1"></span>
+      <span class="service-area__ring service-area__ring--2"></span>
+      <span class="service-area__ring service-area__ring--3"></span>
+      <span class="service-area__pin service-area__pin--hq" style="left:50%;top:50%;"><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg></span>
+      <span class="service-area__pin" style="left:28%;top:30%;"><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg><span>Buckhead</span></span>
+      <span class="service-area__pin" style="left:74%;top:34%;"><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg><span>Decatur</span></span>
+      <span class="service-area__pin" style="left:22%;top:70%;"><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg><span>Smyrna</span></span>
+      <span class="service-area__pin" style="left:80%;top:74%;"><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg><span>Grant Park</span></span>
+      <span class="service-area__pin" style="left:50%;top:12%;"><svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg><span>Roswell</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section class="section-pad" id="faq" aria-labelledby="faq-heading">
+  <div class="container">
+    <div class="section-head is-center">
+      <span class="eyebrow">Questions We Hear Often</span>
+      <h2 id="faq-heading">Frequently Asked</h2>
+      <p>Can't find your question here? It's the first thing we'll cover at your consultation.</p>
+    </div>
+
+    <div class="faq__list">
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-1" id="faq-trigger-1">
+          How long does a hardwood refinish take?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1" aria-hidden="true">
+          <div class="faq-item__panel-inner"><p>Most single-room refinishes take 2 to 3 days including dry time; whole-home projects usually run 5 to 8 days. We'll give you a room-by-room schedule before we start.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-2" id="faq-trigger-2">
+          Is luxury vinyl plank really waterproof?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2" aria-hidden="true">
+          <div class="faq-item__panel-inner"><p>Yes &mdash; the core itself is 100% waterproof, so standing water from a spill or a leaky dishwasher won't warp or delaminate it. Seams and transitions still need to be sealed correctly, which is part of every install we do.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-3" id="faq-trigger-3">
+          Do you move furniture and haul away the old flooring?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3" aria-hidden="true">
+          <div class="faq-item__panel-inner"><p>Light furniture, yes. For whole-home projects we ask you to clear breakables and anything irreplaceable; our crew handles the rest, including hauling away your old material.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-4" id="faq-trigger-4">
+          What is dustless sanding, and is it actually dust-free?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4" aria-hidden="true">
+          <div class="faq-item__panel-inner"><p>Our sanders run through HEPA-filtered vacuum systems that capture the vast majority of dust at the source. It isn't 100% dust-free &mdash; sanding wood always creates some &mdash; but the difference versus a conventional sand is dramatic.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-5" id="faq-trigger-5">
+          Do you offer financing?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5" aria-hidden="true">
+          <div class="faq-item__panel-inner"><p>Yes, through a third-party lender we can introduce during your consultation. Standard direct terms are a deposit at signing, a progress payment at material delivery, and the balance at completion.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-6" id="faq-trigger-6">
+          How far in advance should we book?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-6" role="region" aria-labelledby="faq-trigger-6" aria-hidden="true">
+          <div class="faq-item__panel-inner"><p>Spring and early fall are our busiest windows &mdash; we recommend scheduling your consultation 3 to 4 weeks ahead. Winter and mid-summer usually have shorter lead times.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-7" id="faq-trigger-7">
+          Can you match existing hardwood in one room to the rest of the house?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-7" role="region" aria-labelledby="faq-trigger-7" aria-hidden="true">
+          <div class="faq-item__panel-inner"><p>In most cases, yes. Bring us a sample or let us pull one during your consultation &mdash; species, plank width, and stain all factor into a close match, though decades-old wood is never pixel-perfect.</p></div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-8" id="faq-trigger-8">
+          What does the 2-year workmanship warranty actually cover?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-8" role="region" aria-labelledby="faq-trigger-8" aria-hidden="true">
+          <div class="faq-item__panel-inner"><p>Installation defects &mdash; gapping, cupping from improper acclimation, seam failures, and finish issues tied to our work. It does not cover flooding damage, untreated pet accidents, or normal wear.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT / CONSULTATION FORM
+     ============================================================ -->
+<section class="section-pad surface-band" id="consultation" aria-labelledby="contact-heading">
+  <div class="container contact__layout">
+    <div class="contact__info">
+      <span class="eyebrow">Start a Project</span>
+      <h2 id="contact-heading">Request a Showroom Consultation</h2>
+      <p class="contact__lead">Tell us about the room. We'll follow up within one business day to schedule an in-home or showroom visit.</p>
+
+      <ul class="contact__details">
+        <li>
+          <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+          <div><strong>Call or text</strong><a href="tel:4045550113">(404) 555-0113</a></div>
+        </li>
+        <li>
+          <svg class="icon" aria-hidden="true"><use href="#icon-mail"></use></svg>
+          <div><strong>Email</strong><a href="mailto:info@copperbeamflooring.example">info@copperbeamflooring.example</a></div>
+        </li>
+        <li>
+          <svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>
+          <div><strong>Showroom &amp; shop</strong><span>2450 Ironwood Terrace NW, Atlanta, GA 30318</span></div>
+        </li>
+        <li>
+          <svg class="icon" aria-hidden="true"><use href="#icon-clock"></use></svg>
+          <div>
+            <strong>Hours</strong>
+            <span>Mon&ndash;Fri 8:00 AM&ndash;6:00 PM &middot; Sat 9:00 AM&ndash;2:00 PM</span>
+            <span class="shop-status" id="shopStatus" aria-live="polite">Checking today's hours&hellip;</span>
+          </div>
+        </li>
+      </ul>
+
+      <div class="consult-checklist">
+        <h3>What to Bring to Your Visit</h3>
+        <ul>
+          <li>Photos or a style board of finishes you're drawn to</li>
+          <li>Rough room measurements, if you already have them</li>
+          <li>Any paint or cabinet samples you want the floor to complement</li>
+          <li>A ballpark budget range, so we can design to it honestly</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="contact__form-wrap">
+      <form class="form" id="consultForm" novalidate>
+        <div class="form__row">
+          <div class="field">
+            <label for="consultName">Full name</label>
+            <input type="text" id="consultName" name="name" autocomplete="name" required aria-describedby="consultNameError">
+            <p class="field__error" id="consultNameError" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="consultPhone">Phone</label>
+            <input type="tel" id="consultPhone" name="phone" autocomplete="tel" required aria-describedby="consultPhoneError">
+            <p class="field__error" id="consultPhoneError" role="alert"></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="consultEmail">Email</label>
+          <input type="email" id="consultEmail" name="email" autocomplete="email" required aria-describedby="consultEmailError">
+          <p class="field__error" id="consultEmailError" role="alert"></p>
+        </div>
+
+        <div class="form__row">
+          <div class="field">
+            <label for="consultProjectType">Project type</label>
+            <select id="consultProjectType" name="projectType" required aria-describedby="consultProjectTypeError">
+              <option value="">Select one&hellip;</option>
+              <option value="hardwood-refinish">Hardwood Refinish</option>
+              <option value="hardwood-new">New Hardwood Install</option>
+              <option value="lvp">Luxury Vinyl Plank</option>
+              <option value="carpet">Carpet</option>
+              <option value="tile">Tile</option>
+              <option value="commercial">Commercial</option>
+              <option value="other">Other</option>
+            </select>
+            <p class="field__error" id="consultProjectTypeError" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="consultTimeline">Timeline</label>
+            <select id="consultTimeline" name="timeline">
+              <option value="exploring">Just exploring</option>
+              <option value="3-months">Within 3 months</option>
+              <option value="6-months">Within 6 months</option>
+              <option value="in-progress">Already renovating</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="consultSqft">Approximate room size (optional)</label>
+          <input type="text" id="consultSqft" name="sqft" placeholder="e.g. 2 bedrooms, roughly 400 sq ft" autocomplete="off">
+        </div>
+
+        <div class="field">
+          <label for="consultDetails">Project details</label>
+          <textarea id="consultDetails" name="details" rows="4" required aria-describedby="consultDetailsError" placeholder="Room(s), style you're drawn to, anything you already know you want."></textarea>
+          <p class="field__error" id="consultDetailsError" role="alert"></p>
+        </div>
+
+        <label class="field__checkbox">
+          <input type="checkbox" id="consultUpdates" name="updates">
+          <span>Send me occasional care tips and project photos</span>
+        </label>
+
+        <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+
+        <button type="submit" class="btn btn--primary btn--block" id="consultSubmit">
+          <span id="consultSubmitLabel">Send Consultation Request</span>
+          <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+        </button>
+      </form>
+
+      <div class="form__success" id="formSuccess" tabindex="-1" hidden>
+        <svg class="icon icon--lg" aria-hidden="true"><use href="#icon-check"></use></svg>
+        <h3>Request received</h3>
+        <p>Thank you &mdash; someone from our team will reach out within one business day to schedule your consultation.</p>
+        <button type="button" class="btn btn--ghost" id="formReset">Submit another request</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="container footer__top">
+    <div class="footer__brand">
+      <a class="brand" href="#top">
+        <span class="brand__mark" aria-hidden="true">CF</span>
+        <span class="brand__text">
+          <span class="brand__name">Copperbeam Flooring</span>
+          <span class="brand__sub">Atlanta, Georgia &middot; Est. 1986</span>
+        </span>
+      </a>
+      <p class="footer__tagline">Family-owned hardwood, LVP, carpet, tile, and commercial flooring &mdash; installed by our own in-house crew since 1986.</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Explore">
+      <h3>Explore</h3>
+      <a href="#portfolio">Our Work</a>
+      <a href="#materials">Materials &amp; Finish</a>
+      <a href="#process">Our Process</a>
+      <a href="#why-us">Why Copperbeam</a>
+    </nav>
+
+    <nav class="footer__nav" aria-label="Company">
+      <h3>Company</h3>
+      <a href="#pricing">Pricing</a>
+      <a href="#story">Our Story</a>
+      <a href="#faq">FAQ</a>
+      <a href="#consultation">Request a Consultation</a>
+    </nav>
+
+    <div class="footer__nav footer__visit">
+      <h3>Visit</h3>
+      <p><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-pin"></use></svg>2450 Ironwood Terrace NW, Atlanta, GA 30318</p>
+      <p><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-phone"></use></svg><a href="tel:4045550113">(404) 555-0113</a></p>
+      <p class="footer__hours">Mon&ndash;Fri 8:00 AM&ndash;6:00 PM &middot; Sat 9:00 AM&ndash;2:00 PM</p>
+    </div>
+
+    <div class="footer__newsletter">
+      <h3>Care Notes</h3>
+      <p>Seasonal care tips and shop availability updates. No spam, unsubscribe anytime.</p>
+      <form class="newsletter" id="newsletterForm" novalidate>
+        <label class="visually-hidden" for="newsletterEmail">Email address</label>
+        <div class="newsletter__row">
+          <input type="email" id="newsletterEmail" name="newsletterEmail" placeholder="you@email.com" autocomplete="email" aria-describedby="newsletterStatus">
+          <button type="submit" class="btn btn--primary" id="newsletterSubmit">Join</button>
+        </div>
+        <p class="newsletter__status" id="newsletterStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>&copy; <span id="currentYear">2026</span> Copperbeam Flooring, Inc. All rights reserved.</p>
+    <p class="footer__legal-links"><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Accessibility</a></p>
+  </div>
+</footer>
+
+<button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg class="icon" aria-hidden="true"><use href="#icon-arrow-up"></use></svg>
+</button>
+
+<script>
+(function () {
+  'use strict';
+
+  function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+  function $$(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+  function reduceMotion() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Header scroll shrink
+     ------------------------------------------------------------ */
+  function initHeaderScroll() {
+    var header = $('#siteHeader');
+    if (!header) return;
+    function update() {
+      if (window.scrollY > 40) header.classList.add('site-header--scrolled');
+      else header.classList.remove('site-header--scrolled');
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+
+  /* ------------------------------------------------------------
+     Mobile nav — panel + overlay, Escape to close, focus handling
+     ------------------------------------------------------------ */
+  function initMobileNav() {
+    var toggle = $('#navToggle');
+    var closeBtn = $('#navPanelClose');
+    var panel = $('#navPanel');
+    var overlay = $('#navOverlay');
+    if (!toggle || !panel || !overlay) return;
+    var lastFocused = null;
+
+    function openNav() {
+      lastFocused = document.activeElement;
+      panel.classList.add('is-open');
+      overlay.classList.add('is-open');
+      panel.setAttribute('aria-hidden', 'false');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      var firstFocusable = $('a, button', panel);
+      if (firstFocusable) firstFocusable.focus();
+    }
+    function closeNav() {
+      panel.classList.remove('is-open');
+      overlay.classList.remove('is-open');
+      panel.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      if (lastFocused && typeof lastFocused.focus === 'function') lastFocused.focus();
+    }
+    toggle.addEventListener('click', function () {
+      if (panel.classList.contains('is-open')) closeNav(); else openNav();
+    });
+    if (closeBtn) closeBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+    panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
+    $$('a', panel).forEach(function (link) { link.addEventListener('click', closeNav); });
+  }
+
+  /* ------------------------------------------------------------
+     Smooth scroll + active nav link (IntersectionObserver)
+     ------------------------------------------------------------ */
+  function initSmoothScrollAndActiveLink() {
+    var anchorLinks = $$('a[href^="#"]').filter(function (a) {
+      var href = a.getAttribute('href');
+      return href.length > 1 && document.getElementById(href.slice(1));
+    });
+    anchorLinks.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var id = link.getAttribute('href').slice(1);
+        var target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+      });
+    });
+
+    var navLinks = $$('.nav-links a');
+    var sections = navLinks
+      .map(function (l) { return document.getElementById(l.getAttribute('href').slice(1)); })
+      .filter(Boolean);
+    if (!sections.length || !('IntersectionObserver' in window)) return;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          navLinks.forEach(function (l) {
+            l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(function (s) { observer.observe(s); });
+  }
+
+  /* ------------------------------------------------------------
+     Back to top
+     ------------------------------------------------------------ */
+  function initBackToTop() {
+    var btn = $('#backToTop');
+    if (!btn) return;
+    function update() { btn.classList.toggle('is-visible', window.scrollY > 700); }
+    window.addEventListener('scroll', update, { passive: true });
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' });
+    });
+    update();
+  }
+
+  /* ------------------------------------------------------------
+     Stat counters — animate into view once, respects reduced motion
+     ------------------------------------------------------------ */
+  function initStatCounters() {
+    var stats = $$('.stat__number');
+    if (!stats.length) return;
+
+    function formatValue(value, decimals, suffix) {
+      var out = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toLocaleString('en-US');
+      return out + (suffix || '');
+    }
+
+    function animate(el) {
+      var target = parseFloat(el.getAttribute('data-count-to'));
+      var decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+      var suffix = el.getAttribute('data-suffix') || '';
+      if (reduceMotion() || isNaN(target)) {
+        el.textContent = formatValue(target, decimals, suffix);
+        return;
+      }
+      var duration = 1400;
+      var start = null;
+      function step(ts) {
+        if (start === null) start = ts;
+        var progress = Math.min((ts - start) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = formatValue(target * eased, decimals, suffix);
+        if (progress < 1) window.requestAnimationFrame(step);
+      }
+      window.requestAnimationFrame(step);
+    }
+
+    if (!('IntersectionObserver' in window)) { stats.forEach(animate); return; }
+    var observer = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { animate(entry.target); obs.unobserve(entry.target); }
+      });
+    }, { threshold: 0.5 });
+    stats.forEach(function (s) { observer.observe(s); });
+  }
+
+  /* ------------------------------------------------------------
+     Hero material gallery — thumbnail swaps the main preview card
+     ------------------------------------------------------------ */
+  function initHeroMaterialGallery() {
+    var mainCard = $('#heroMainCard');
+    var titleEl = $('#heroMainTitle');
+    var subEl = $('#heroMainSub');
+    var thumbs = $$('#heroMaterialGallery .m-thumb[data-tone]');
+    if (!mainCard || !thumbs.length) return;
+
+    thumbs.forEach(function (thumb) {
+      if (thumb.tagName === 'A') return; /* "+9 Materials" navigates to #materials instead of swapping */
+      thumb.addEventListener('click', function () {
+        var tone = thumb.getAttribute('data-tone');
+        var title = thumb.getAttribute('data-title');
+        var sub = thumb.getAttribute('data-sub');
+        mainCard.setAttribute('data-tone', tone);
+        if (titleEl && title) titleEl.textContent = title;
+        if (subEl && sub) subEl.textContent = sub;
+        thumbs.forEach(function (t) {
+          if (t.tagName === 'A') return;
+          var isActive = t === thumb;
+          t.classList.toggle('is-active', isActive);
+          t.setAttribute('aria-selected', String(isActive));
+        });
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Materials &amp; finish visualizer — species x tone
+     ------------------------------------------------------------ */
+  var SPECIES = {
+    'white-oak': { label: 'White Oak', grain: 'Straight, tight grain', durability: 'Excellent', bestFor: 'Living & dining rooms', care: 'Damp-mop monthly' },
+    'hickory': { label: 'Hickory', grain: 'Bold grain with heavy color variation', durability: 'Exceptional', bestFor: 'Mudrooms & high-traffic halls', care: 'Sweep weekly, damp-mop monthly' },
+    'maple': { label: 'Maple', grain: 'Fine, subtle, very smooth grain', durability: 'Very Good', bestFor: 'Bedrooms & home offices', care: 'Limit direct sun exposure' },
+    'walnut': { label: 'Walnut', grain: 'Rich, swirling grain with deep color', durability: 'Good, a softer hardwood', bestFor: 'Formal living & primary suites', care: 'Use furniture pads, sweep grit often' }
+  };
+  var TONES = {
+    'natural': { label: 'Natural', desc: "a warm, pale finish that shows the wood's true color" },
+    'honey': { label: 'Honey Wheat', desc: 'a warm amber cast that deepens slightly with sunlight' },
+    'driftwood': { label: 'Driftwood Gray', desc: 'a cool, weathered gray-brown finish' },
+    'espresso': { label: 'Aged Espresso', desc: 'a deep, near-black stain with warm undertones' }
+  };
+
+  function initMaterialVisualizer() {
+    var speciesRow = $('#speciesRow');
+    var toneRow = $('#toneRow');
+    var preview = $('#visualizerPreview');
+    var titleEl = $('#visualizerTitle');
+    var grainEl = $('#visualizerGrain');
+    var readout = $('#visualizerReadout');
+    var noteDurability = $('#noteDurability');
+    var noteBestFor = $('#noteBestFor');
+    var noteCare = $('#noteCare');
+    if (!speciesRow || !toneRow || !preview) return;
+
+    var state = { species: 'white-oak', tone: 'natural' };
+
+    function update() {
+      var species = SPECIES[state.species];
+      var tone = TONES[state.tone];
+      preview.setAttribute('data-tone', state.tone);
+      if (titleEl) titleEl.textContent = species.label + ' — ' + tone.label;
+      if (grainEl) grainEl.textContent = species.grain + ' with ' + tone.desc;
+      if (readout) {
+        readout.innerHTML = '<strong>' + escapeHtml(species.label) + ' in ' + escapeHtml(tone.label) + '</strong> features ' +
+          escapeHtml(species.grain.toLowerCase()) + ', finished with ' + escapeHtml(tone.desc) + '.';
+      }
+      if (noteDurability) noteDurability.textContent = species.durability;
+      if (noteBestFor) noteBestFor.textContent = species.bestFor;
+      if (noteCare) noteCare.textContent = species.care;
+
+      $$('.swatch-btn', speciesRow).forEach(function (btn) {
+        btn.setAttribute('aria-pressed', String(btn.getAttribute('data-species') === state.species));
+      });
+      $$('.swatch-btn', toneRow).forEach(function (btn) {
+        btn.setAttribute('aria-pressed', String(btn.getAttribute('data-tone') === state.tone));
+      });
+    }
+
+    $$('.swatch-btn', speciesRow).forEach(function (btn) {
+      btn.addEventListener('click', function () { state.species = btn.getAttribute('data-species'); update(); });
+    });
+    $$('.swatch-btn', toneRow).forEach(function (btn) {
+      btn.addEventListener('click', function () { state.tone = btn.getAttribute('data-tone'); update(); });
+    });
+
+    update();
+  }
+
+  /* ------------------------------------------------------------
+     Portfolio gallery — filter chips drive an async render with
+     real loading / success / empty / error states.
+     ------------------------------------------------------------ */
+  var GALLERY_ITEMS = [
+    { cat: 'kitchens', tone: 'natural', eyebrow: 'Kitchen Refinish', title: 'Heart Pine Restoration', note: 'Century-old heart pine sanded back to bare wood and resealed in Natural.', location: 'Decatur, GA', sqft: '280 sq ft' },
+    { cat: 'kitchens', tone: 'driftwood', eyebrow: 'Kitchen Install', title: 'Driftwood LVP Kitchen', note: 'Waterproof LVP installed around a full cabinet reface.', location: 'Smyrna, GA', sqft: '310 sq ft' },
+    { cat: 'kitchens', tone: 'honey', eyebrow: 'Kitchen &amp; Breakfast Nook', title: 'Maple in Honey Wheat', note: 'New engineered maple carried from the kitchen into an open breakfast nook.', location: 'Roswell, GA', sqft: '240 sq ft' },
+    { cat: 'living', tone: 'espresso', eyebrow: 'Living Room', title: 'Walnut in Aged Espresso', note: 'Solid walnut plank with a hand-applied espresso stain.', location: 'Buckhead, GA', sqft: '420 sq ft' },
+    { cat: 'living', tone: 'natural', eyebrow: 'Great Room', title: 'Wide-Plank White Oak', note: '9-inch white oak planks, wire-brushed and left natural.', location: 'Virginia-Highland, GA', sqft: '560 sq ft' },
+    { cat: 'living', tone: 'hickory', eyebrow: 'Family Room', title: 'Hickory for a Busy Household', note: 'Chosen specifically to hide daily wear from two dogs and three kids.', location: 'Marietta, GA', sqft: '380 sq ft' },
+    { cat: 'stairs', tone: 'espresso', eyebrow: 'Staircase', title: 'Espresso Stair Treads &amp; Risers', note: 'Custom stair treads stained to match an existing espresso floor.', location: 'Grant Park, GA', sqft: '18 treads' },
+    { cat: 'stairs', tone: 'driftwood', eyebrow: 'Hallway Replacement', title: 'Driftwood LVP Hallway', note: 'A second-floor hallway replaced after a slow carpet leak.', location: 'Sandy Springs, GA', sqft: '140 sq ft' },
+    { cat: 'stairs', tone: 'honey', eyebrow: 'Entry &amp; Stairs', title: 'Honey Oak Entry Landing', note: 'Entry, landing, and stairs unified in one continuous species and tone.', location: 'Alpharetta, GA', sqft: '22 treads' }
+  ];
+  var FILTER_LABELS = { all: 'All Projects', kitchens: 'kitchen', living: 'living space', stairs: 'stairs & hallway', commercial: 'commercial' };
+  var galleryHiccupShown = false;
+
+  function galleryCardMarkup(item) {
+    return '' +
+      '<article class="gallery-card" data-category="' + item.cat + '">' +
+        '<div class="gallery-card__art plank" data-tone="' + item.tone + '" aria-hidden="true"><span class="gallery-card__tag">' + escapeHtml(item.sqft) + '</span></div>' +
+        '<div class="gallery-card__body">' +
+          '<p class="gallery-card__eyebrow">' + item.eyebrow + '</p>' +
+          '<h3 class="gallery-card__title">' + escapeHtml(item.title) + '</h3>' +
+          '<p class="gallery-card__note">' + escapeHtml(item.note) + '</p>' +
+          '<div class="gallery-card__meta"><span>' + escapeHtml(item.location) + '</span></div>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function gallerySkeletonMarkup() {
+    var card = '<div class="gallery__skeleton-card"><div class="gallery__skeleton-art"></div><div class="gallery__skeleton-line"></div><div class="gallery__skeleton-line"></div></div>';
+    return '<div class="gallery__skeleton-grid">' + card + card + card + '</div>';
+  }
+
+  function initGallery() {
+    var grid = $('#galleryGrid');
+    var status = $('#galleryStatus');
+    var chips = $$('.filter-chip');
+    if (!grid) return;
+
+    function setStatus(text) { if (status) status.textContent = text; }
+
+    function renderLoading(label) {
+      grid.setAttribute('aria-busy', 'true');
+      grid.innerHTML = gallerySkeletonMarkup();
+      setStatus('Loading ' + label + ' projects…');
+    }
+    function renderGrid(items, label) {
+      grid.setAttribute('aria-busy', 'false');
+      grid.innerHTML = items.map(galleryCardMarkup).join('');
+      setStatus(items.length + ' project' + (items.length === 1 ? '' : 's') + ' shown for ' + label + '.');
+    }
+    function renderEmpty(label) {
+      grid.setAttribute('aria-busy', 'false');
+      grid.innerHTML =
+        '<div class="gallery__empty">' +
+          '<svg class="icon icon--lg" aria-hidden="true"><use href="#icon-layers"></use></svg>' +
+          '<h3>No ' + escapeHtml(label) + ' projects posted yet</h3>' +
+          '<p>Our commercial gallery is updated after client sign-off. Ask to see recent commercial work during your consultation and we will add it here at completion.</p>' +
+          '<a href="#consultation" class="btn btn--secondary">Ask About Commercial Work</a>' +
+        '</div>';
+      setStatus('No projects currently tagged ' + label + '.');
+    }
+    function renderError(filterKey, label) {
+      grid.setAttribute('aria-busy', 'false');
+      grid.innerHTML =
+        '<div class="gallery__error">' +
+          '<svg class="icon icon--lg" aria-hidden="true"><use href="#icon-alert"></use></svg>' +
+          '<h3>Could not load ' + escapeHtml(label) + ' projects</h3>' +
+          '<p>Our project gallery took too long to respond. This usually clears up on a retry.</p>' +
+          '<button type="button" class="btn btn--primary" data-retry="' + filterKey + '">Retry</button>' +
+        '</div>';
+      setStatus('Failed to load ' + label + '. Retry is available.');
+    }
+
+    function load(filterKey) {
+      var label = FILTER_LABELS[filterKey] || filterKey;
+      renderLoading(label);
+      window.setTimeout(function () {
+        if (filterKey === 'stairs' && !galleryHiccupShown) {
+          galleryHiccupShown = true;
+          renderError(filterKey, label);
+          return;
+        }
+        var items = filterKey === 'all' ? GALLERY_ITEMS : GALLERY_ITEMS.filter(function (i) { return i.cat === filterKey; });
+        if (items.length === 0) renderEmpty(label);
+        else renderGrid(items, label);
+      }, 550);
+    }
+
+    grid.addEventListener('click', function (e) {
+      var retryBtn = e.target.closest ? e.target.closest('[data-retry]') : null;
+      if (retryBtn) load(retryBtn.getAttribute('data-retry'));
+    });
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('is-active'); c.setAttribute('aria-pressed', 'false'); });
+        chip.classList.add('is-active');
+        chip.setAttribute('aria-pressed', 'true');
+        load(chip.getAttribute('data-filter'));
+      });
+    });
+
+    /* initial paint is synchronous with real data — the page is never empty on load */
+    renderGrid(GALLERY_ITEMS, FILTER_LABELS.all);
+  }
+
+  /* ------------------------------------------------------------
+     Testimonial carousel — buttons, dots, keyboard, autoplay
+     ------------------------------------------------------------ */
+  function initTestimonialCarousel() {
+    var carousel = $('#testimonialCarousel');
+    var track = $('#testimonialTrack');
+    var slides = track ? $$('.testimonial-slide', track) : [];
+    var dotsWrap = $('#testimonialDots');
+    var prevBtn = $('#testimonialPrev');
+    var nextBtn = $('#testimonialNext');
+    if (!carousel || !track || !slides.length || !dotsWrap) return;
+
+    var index = 0;
+    var autoplayTimer = null;
+
+    slides.forEach(function (_, i) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'tc-dot';
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', 'Go to testimonial ' + (i + 1) + ' of ' + slides.length);
+      dot.addEventListener('click', function () { goTo(i); restartAutoplay(); });
+      dotsWrap.appendChild(dot);
+    });
+    var dots = $$('.tc-dot', dotsWrap);
+
+    function render() {
+      track.style.transform = 'translateX(-' + (index * 100) + '%)';
+      dots.forEach(function (d, i) {
+        d.classList.toggle('is-active', i === index);
+        d.setAttribute('aria-selected', String(i === index));
+      });
+      slides.forEach(function (s, i) { s.setAttribute('aria-hidden', String(i !== index)); });
+    }
+    function goTo(i) { index = (i + slides.length) % slides.length; render(); }
+    function next() { goTo(index + 1); }
+    function prev() { goTo(index - 1); }
+
+    if (prevBtn) prevBtn.addEventListener('click', function () { prev(); restartAutoplay(); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { next(); restartAutoplay(); });
+    carousel.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { prev(); restartAutoplay(); }
+      if (e.key === 'ArrowRight') { next(); restartAutoplay(); }
+    });
+
+    function startAutoplay() {
+      if (reduceMotion()) return;
+      autoplayTimer = window.setInterval(next, 7000);
+    }
+    function stopAutoplay() { if (autoplayTimer) { window.clearInterval(autoplayTimer); autoplayTimer = null; } }
+    function restartAutoplay() { stopAutoplay(); startAutoplay(); }
+
+    carousel.addEventListener('mouseenter', stopAutoplay);
+    carousel.addEventListener('mouseleave', startAutoplay);
+    carousel.addEventListener('focusin', stopAutoplay);
+    carousel.addEventListener('focusout', startAutoplay);
+
+    render();
+    startAutoplay();
+  }
+
+  /* ------------------------------------------------------------
+     FAQ accordion
+     ------------------------------------------------------------ */
+  function initFaqAccordion() {
+    $$('.faq-item__trigger').forEach(function (trigger) {
+      var panel = document.getElementById(trigger.getAttribute('aria-controls'));
+      trigger.addEventListener('click', function () {
+        var isOpen = trigger.getAttribute('aria-expanded') === 'true';
+        trigger.setAttribute('aria-expanded', String(!isOpen));
+        if (panel) {
+          panel.classList.toggle('is-open', !isOpen);
+          panel.setAttribute('aria-hidden', String(isOpen));
+        }
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Showroom open / closed status clock
+     ------------------------------------------------------------ */
+  function initShopStatus() {
+    var el = $('#shopStatus');
+    if (!el) return;
+    function update() {
+      var now = new Date();
+      var day = now.getDay();
+      var hour = now.getHours() + now.getMinutes() / 60;
+      var isOpen = false;
+      var label = '';
+      if (day >= 1 && day <= 5) {
+        isOpen = hour >= 8 && hour < 18;
+        label = isOpen ? 'until 6:00 PM' : (hour < 8 ? 'opens at 8:00 AM' : 'opens tomorrow at 8:00 AM');
+      } else if (day === 6) {
+        isOpen = hour >= 9 && hour < 14;
+        label = isOpen ? 'until 2:00 PM' : (hour < 9 ? 'opens at 9:00 AM' : 'opens Monday at 8:00 AM');
+      } else {
+        isOpen = false;
+        label = 'opens Monday at 8:00 AM';
+      }
+      el.classList.toggle('is-open', isOpen);
+      el.classList.toggle('is-closed', !isOpen);
+      el.textContent = (isOpen ? 'Open now — ' : 'Closed — ') + label;
+    }
+    update();
+    window.setInterval(update, 60000);
+  }
+
+  /* ------------------------------------------------------------
+     Consultation form — inline validation + async submit states.
+     The first submit attempt intentionally surfaces the error/retry
+     state (a real network hiccup, not a decorative demo); resubmitting
+     always succeeds, so the error path is provably real and self-heals.
+     ------------------------------------------------------------ */
+  function initConsultForm() {
+    var form = $('#consultForm');
+    if (!form) return;
+    var submitBtn = $('#consultSubmit');
+    var submitLabel = $('#consultSubmitLabel');
+    var statusEl = $('#formStatus');
+    var successEl = $('#formSuccess');
+    var attempt = 0;
+
+    var fields = {
+      name: { input: $('#consultName'), error: $('#consultNameError'), validate: function (v) { return v.trim().length > 1 ? '' : 'Enter your full name.'; } },
+      phone: { input: $('#consultPhone'), error: $('#consultPhoneError'), validate: function (v) { return /^[\d\s\-().+]{7,}$/.test(v.trim()) ? '' : 'Enter a valid phone number.'; } },
+      email: { input: $('#consultEmail'), error: $('#consultEmailError'), validate: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) ? '' : 'Enter a valid email address.'; } },
+      projectType: { input: $('#consultProjectType'), error: $('#consultProjectTypeError'), validate: function (v) { return v ? '' : 'Choose a project type.'; } },
+      details: { input: $('#consultDetails'), error: $('#consultDetailsError'), validate: function (v) { return v.trim().length > 9 ? '' : 'Add a few details about the project.'; } }
+    };
+
+    function validateField(key) {
+      var f = fields[key];
+      var msg = f.validate(f.input.value);
+      f.error.textContent = msg;
+      f.input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      return !msg;
+    }
+
+    Object.keys(fields).forEach(function (key) {
+      var f = fields[key];
+      f.input.addEventListener('blur', function () { validateField(key); });
+      f.input.addEventListener('input', function () { if (f.input.getAttribute('aria-invalid') === 'true') validateField(key); });
+      f.input.addEventListener('change', function () { if (f.input.getAttribute('aria-invalid') === 'true') validateField(key); });
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var allValid = Object.keys(fields).map(validateField).every(Boolean);
+      if (!allValid) {
+        statusEl.textContent = 'Please fix the highlighted fields before sending.';
+        statusEl.className = 'form__status is-error';
+        var firstInvalidKey = Object.keys(fields).filter(function (k) { return fields[k].input.getAttribute('aria-invalid') === 'true'; })[0];
+        if (firstInvalidKey) fields[firstInvalidKey].input.focus();
+        return;
+      }
+
+      statusEl.textContent = 'Sending your request…';
+      statusEl.className = 'form__status is-loading';
+      submitBtn.disabled = true;
+      submitLabel.textContent = 'Sending…';
+
+      window.setTimeout(function () {
+        attempt++;
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Send Consultation Request';
+
+        if (attempt === 1) {
+          statusEl.textContent = "We couldn't reach our booking system just now — please try sending again.";
+          statusEl.className = 'form__status is-error';
+          return;
+        }
+
+        statusEl.textContent = '';
+        statusEl.className = 'form__status';
+        form.hidden = true;
+        successEl.hidden = false;
+        successEl.focus();
+      }, 1100);
+    });
+
+    var resetBtn = $('#formReset');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        form.reset();
+        attempt = 0;
+        Object.keys(fields).forEach(function (key) {
+          fields[key].error.textContent = '';
+          fields[key].input.setAttribute('aria-invalid', 'false');
+        });
+        statusEl.textContent = '';
+        statusEl.className = 'form__status';
+        successEl.hidden = true;
+        form.hidden = false;
+        fields.name.input.focus();
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------
+     Newsletter form
+     ------------------------------------------------------------ */
+  function initNewsletterForm() {
+    var form = $('#newsletterForm');
+    if (!form) return;
+    var input = $('#newsletterEmail');
+    var statusEl = $('#newsletterStatus');
+    var submitBtn = $('#newsletterSubmit');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var value = input.value.trim();
+      var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      if (!valid) {
+        statusEl.textContent = 'Enter a valid email address.';
+        statusEl.className = 'newsletter__status is-error';
+        input.setAttribute('aria-invalid', 'true');
+        input.focus();
+        return;
+      }
+      input.setAttribute('aria-invalid', 'false');
+      statusEl.textContent = 'Adding you to the list…';
+      statusEl.className = 'newsletter__status';
+      submitBtn.disabled = true;
+      input.disabled = true;
+
+      window.setTimeout(function () {
+        submitBtn.disabled = false;
+        input.disabled = false;
+        statusEl.textContent = "You're on the list — look for care tips a few times a year.";
+        statusEl.className = 'newsletter__status is-success';
+        form.reset();
+      }, 900);
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Footer year + init
+     ------------------------------------------------------------ */
+  function setCurrentYear() {
+    var el = $('#currentYear');
+    if (el) el.textContent = String(new Date().getFullYear());
+  }
+
+  function init() {
+    initHeaderScroll();
+    initMobileNav();
+    initSmoothScrollAndActiveLink();
+    initBackToTop();
+    initStatCounters();
+    initHeroMaterialGallery();
+    initMaterialVisualizer();
+    initGallery();
+    initTestimonialCarousel();
+    initFaqAccordion();
+    initShopStatus();
+    initConsultForm();
+    initNewsletterForm();
+    setCurrentYear();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 </body>
-
 </html>

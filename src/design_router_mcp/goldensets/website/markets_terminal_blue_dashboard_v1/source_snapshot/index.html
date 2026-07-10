@@ -1,19 +1,15 @@
-<html lang="en"><head>
-    <script type="module">import { injectIntoGlobalHook } from "/@react-refresh";
-injectIntoGlobalHook(window);
-window.$RefreshReg$ = () => {};
-window.$RefreshSig$ = () => (type) => type;</script>
-
-    <script type="module" src="/@vite/client"></script>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="color-scheme" content="dark">
-    <meta name="theme-color" content="#07090c">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <meta name="description" content="TAPE — a real-time cross-asset markets intelligence terminal. Live price, depth, and order flow across crypto, metals, energy, and equity-index markets.">
-    <title>TAPE — Markets Intelligence Terminal</title>
-  <style type="text/css" data-vite-dev-id="tape-terminal/src/styles/terminal.css">/* ============================================================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#07090c">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48cmVjdCB4PSIwLjUiIHk9IjAuNSIgd2lkdGg9IjMxIiBoZWlnaHQ9IjMxIiByeD0iNy41IiBmaWxsPSIjMGUxMzFiIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4xMCkiLz48bGluZSB4MT0iMTEiIHkxPSI2LjUiIHgyPSIxMSIgeTI9IjI1LjUiIHN0cm9rZT0iIzFmYzc3ZCIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48cmVjdCB4PSI4LjQiIHk9IjExIiB3aWR0aD0iNS4yIiBoZWlnaHQ9IjkuNSIgcng9IjEuMiIgZmlsbD0iIzFmYzc3ZCIvPjxsaW5lIHgxPSIyMSIgeTE9IjguNSIgeDI9IjIxIiB5Mj0iMjciIHN0cm9rZT0iI2Y2NDY1ZCIgc3Ryb2tlLXdpZHRoPSIxLjQiLz48cmVjdCB4PSIxOC40IiB5PSIxMy41IiB3aWR0aD0iNS4yIiBoZWlnaHQ9IjkiIHJ4PSIxLjIiIGZpbGw9IiNmNjQ2NWQiLz48L3N2Zz4=">
+<meta name="description" content="TAPE — a real-time cross-asset markets intelligence terminal. Live price, depth, and order flow across crypto, metals, energy, and equity-index markets.">
+<title>TAPE — Markets Intelligence Terminal</title>
+<style>
+/* ============================================================================
    TAPE terminal surface. One sheet so the whole dense layout tunes together.
    Regions are separated by a 1px "grout" (the grid gap over a hairline bg),
    the way a real multi-pane terminal reads.
@@ -873,7 +869,8 @@ window.$RefreshSig$ = () => (type) => type;</script>
 .mpanel .chart {
   height: 100%;
 }
-</style><style type="text/css" data-vite-dev-id="tape-terminal/src/styles/landing.css">/* ============================================================================
+
+/* ============================================================================
    TAPE — product site. Marketing surface: generous whitespace and fluid type,
    the deliberate counterpoint to the terminal's density. Same tokens throughout.
    ============================================================================ */
@@ -1594,152 +1591,10 @@ window.$RefreshSig$ = () => (type) => type;</script>
     height: 320px;
   }
 }
-</style><style type="text/css" data-vite-dev-id="tape-terminal/src/styles/global.css">/* ============================================================================
+
+/* ============================================================================
    TAPE — global base
    ============================================================================ */
-
-/* inter-cyrillic-ext-wght-normal */
-
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/.pnpm/@fontsource-variable+inter@5.2.8/node_modules/@fontsource-variable/inter/files/inter-cyrillic-ext-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
-}
-
-/* inter-cyrillic-wght-normal */
-
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/.pnpm/@fontsource-variable+inter@5.2.8/node_modules/@fontsource-variable/inter/files/inter-cyrillic-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
-}
-
-/* inter-greek-ext-wght-normal */
-
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/.pnpm/@fontsource-variable+inter@5.2.8/node_modules/@fontsource-variable/inter/files/inter-greek-ext-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+1F00-1FFF;
-}
-
-/* inter-greek-wght-normal */
-
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/.pnpm/@fontsource-variable+inter@5.2.8/node_modules/@fontsource-variable/inter/files/inter-greek-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
-}
-
-/* inter-vietnamese-wght-normal */
-
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/.pnpm/@fontsource-variable+inter@5.2.8/node_modules/@fontsource-variable/inter/files/inter-vietnamese-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
-}
-
-/* inter-latin-ext-wght-normal */
-
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/.pnpm/@fontsource-variable+inter@5.2.8/node_modules/@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-
-/* inter-latin-wght-normal */
-
-@font-face {
-  font-family: 'Inter Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 900;
-  src: url(/node_modules/.pnpm/@fontsource-variable+inter@5.2.8/node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
-
-/* jetbrains-mono-cyrillic-ext-wght-normal */
-
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/.pnpm/@fontsource-variable+jetbrains-mono@5.2.8/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-cyrillic-ext-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0460-052F,U+1C80-1C8A,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;
-}
-
-/* jetbrains-mono-cyrillic-wght-normal */
-
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/.pnpm/@fontsource-variable+jetbrains-mono@5.2.8/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-cyrillic-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
-}
-
-/* jetbrains-mono-greek-wght-normal */
-
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/.pnpm/@fontsource-variable+jetbrains-mono@5.2.8/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-greek-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0370-0377,U+037A-037F,U+0384-038A,U+038C,U+038E-03A1,U+03A3-03FF;
-}
-
-/* jetbrains-mono-vietnamese-wght-normal */
-
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/.pnpm/@fontsource-variable+jetbrains-mono@5.2.8/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-vietnamese-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;
-}
-
-/* jetbrains-mono-latin-ext-wght-normal */
-
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/.pnpm/@fontsource-variable+jetbrains-mono@5.2.8/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-ext-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
-}
-
-/* jetbrains-mono-latin-wght-normal */
-
-@font-face {
-  font-family: 'JetBrains Mono Variable';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 100 800;
-  src: url(/node_modules/.pnpm/@fontsource-variable+jetbrains-mono@5.2.8/node_modules/@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2) format('woff2-variations');
-  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
-}
 
 /* ============================================================================
    TAPE — Design tokens
@@ -2153,11 +2008,333 @@ svg {
     scroll-behavior: auto !important;
   }
 }
-</style></head>
-  <body>
+
+
+/* ---- Self-contained packaging addition ----------------------------------
+   Smooth in-page scrolling for the nav anchors and the JS-driven "open the
+   terminal" jumps below. The reduced-motion block above already forces this
+   back to `auto`, so this line is what that override exists to override. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ---- Mobile polish (surgical, mobile-scoped only) ------------------------
+   Desktop is untouched below 621px and up; nothing here changes layout,
+   content, or visual identity above the existing 620px breakpoint. */
+@media (max-width: 620px) {
+  /* .preview-chart already declares `height: 300px` here, but it inherits
+     `flex: 1 1 0%` from the base rule. Inside `.preview-body`'s auto-height
+     column stack that flex-basis wins over the explicit height, so the
+     canvas wrapper (flex:1; min-height:0) collapses to 0px and the "live"
+     chart never has room to draw -- the mobile screenshot in this pack shows
+     exactly that empty panel. `flex: none` lets the declared 300px govern,
+     which is what the rule was already trying to do. */
+  .preview-chart {
+    flex: none;
+  }
+
+  /* The nav CTA and the secondary hero CTA render a few px under the 44px
+     tap-target floor at this width; give them a floor without touching
+     their (already fine) padding, sizing, or the desktop nav. */
+  .ln-nav .btn-sm,
+  .ln-hero-cta .btn {
+    min-height: 44px;
+  }
+}
+
+</style>
+</head>
+<body>
+
     <div id="root"><div class="route-fade"><div class="landing"><a href="#main" class="skip-link">Skip to content</a><header class="ln-nav "><div class="ln-nav-inner"><a class="ln-nav-brand" aria-label="TAPE home" href="/"><span style="display: inline-flex; align-items: center; gap: 10px;"><svg width="26" height="26" viewBox="0 0 32 32" role="img" aria-label="TAPE" style="flex: 0 0 auto;"><rect x="0.5" y="0.5" width="31" height="31" rx="7.5" fill="#0e131b" stroke="rgba(255,255,255,0.10)"></rect><line x1="11" y1="6.5" x2="11" y2="25.5" stroke="var(--up)" stroke-width="1.4"></line><rect x="8.4" y="11" width="5.2" height="9.5" rx="1.2" fill="var(--up)"></rect><line x1="21" y1="8.5" x2="21" y2="27" stroke="var(--down)" stroke-width="1.4"></line><rect x="18.4" y="13.5" width="5.2" height="9" rx="1.2" fill="var(--down)"></rect></svg><span style="font-family: var(--font-ui); font-weight: 700; font-size: 16.12px; letter-spacing: 0.16em; color: var(--text-max); padding-left: 1px;">TAPE</span></span></a><nav class="ln-nav-links" aria-label="Sections"><a href="#capabilities">Capabilities</a><a href="#preview">Terminal</a><a href="#coverage">Coverage</a></nav><a class="btn btn-primary btn-sm" href="/terminal">Open terminal <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><path d="m13 6 6 6-6 6"></path></svg></a></div></header><main id="main"><section class="ln-hero"><div class="ln-hero-grid" aria-hidden="true"></div><div class="ln-hero-inner"><div class="ln-hero-copy"><span class="ln-eyebrow"><span class="ln-eyebrow-dot" aria-hidden="true"></span> Markets intelligence terminal</span><h1 class="ln-h1">Read the tape.<br>Trust the screen.</h1><p class="ln-lede">Real-time price, depth, and order flow across crypto, metals, energy, and equity-index markets — one terminal, built to be read at a glance and trusted with size.</p><div class="ln-hero-cta"><a class="btn btn-primary" href="/terminal">Open the terminal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><path d="m13 6 6 6-6 6"></path></svg></a><a href="#coverage" class="btn btn-ghost">Explore coverage</a></div><p class="ln-hero-note">Live market data via the Crypto.com Exchange public feed · no account required</p></div><div class="ln-hero-board"><div class="liveboard"><div class="lb-head"><span class="lb-head-title label">Live markets</span><span style="display: inline-flex; align-items: center; gap: 6px;"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: var(--up); box-shadow: 0 0 0 3px color-mix(in srgb, var(--up) 18%, transparent); flex: 0 0 auto;"></span></span></div><div class="lb-rows"><button class="lb-row" title="Open Bitcoin in the terminal"><span class="lb-id"><span class="lb-ticker">BTC</span><span class="lb-name">Bitcoin</span></span><span class="lb-spark"><svg width="72" height="26" viewBox="0 0 72 26" preserveAspectRatio="none" aria-hidden="true" style="display: block;"><defs><linearGradient id=":r1:" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--up)" stop-opacity="0.22"></stop><stop offset="100%" stop-color="var(--up)" stop-opacity="0"></stop></linearGradient></defs><polygon points="0,26 0.0,15.8 0.8,17.1 1.5,16.8 2.3,15.5 3.0,15.2 3.8,15.2 4.5,15.1 5.3,15.2 6.1,15.3 6.8,15.6 7.6,16.1 8.3,17.4 9.1,18.5 9.9,20.6 10.6,20.0 11.4,18.3 12.1,19.0 12.9,20.6 13.6,19.7 14.4,20.2 15.2,19.0 15.9,19.8 16.7,20.4 17.4,23.4 18.2,23.5 18.9,21.7 19.7,19.7 20.5,17.9 21.2,18.1 22.0,18.1 22.7,11.1 23.5,12.4 24.3,11.5 25.0,12.1 25.8,12.1 26.5,12.6 27.3,14.7 28.0,16.7 28.8,14.5 29.6,15.5 30.3,17.5 31.1,17.5 31.8,17.5 32.6,17.6 33.3,16.3 34.1,14.6 34.9,15.0 35.6,14.7 36.4,14.9 37.1,15.1 37.9,16.0 38.7,17.1 39.4,17.2 40.2,15.2 40.9,14.7 41.7,14.8 42.4,15.2 43.2,14.2 44.0,15.4 44.7,14.7 45.5,15.6 46.2,15.4 47.0,16.0 47.7,15.9 48.5,15.8 49.3,15.1 50.0,15.4 50.8,16.3 51.5,15.8 52.3,14.2 53.1,13.7 53.8,11.4 54.6,11.1 55.3,10.1 56.1,8.3 56.8,7.2 57.6,6.5 58.4,6.6 59.1,7.9 59.9,4.1 60.6,2.5 61.4,5.1 62.1,8.2 62.9,8.8 63.7,8.1 64.4,7.2 65.2,7.5 65.9,7.3 66.7,9.4 67.5,10.4 68.2,10.8 69.0,11.8 69.7,10.5 70.5,10.8 71.2,12.2 72.0,12.7 72,26" fill="url(#:r1:)" stroke="none"></polygon><polyline points="0.0,15.8 0.8,17.1 1.5,16.8 2.3,15.5 3.0,15.2 3.8,15.2 4.5,15.1 5.3,15.2 6.1,15.3 6.8,15.6 7.6,16.1 8.3,17.4 9.1,18.5 9.9,20.6 10.6,20.0 11.4,18.3 12.1,19.0 12.9,20.6 13.6,19.7 14.4,20.2 15.2,19.0 15.9,19.8 16.7,20.4 17.4,23.4 18.2,23.5 18.9,21.7 19.7,19.7 20.5,17.9 21.2,18.1 22.0,18.1 22.7,11.1 23.5,12.4 24.3,11.5 25.0,12.1 25.8,12.1 26.5,12.6 27.3,14.7 28.0,16.7 28.8,14.5 29.6,15.5 30.3,17.5 31.1,17.5 31.8,17.5 32.6,17.6 33.3,16.3 34.1,14.6 34.9,15.0 35.6,14.7 36.4,14.9 37.1,15.1 37.9,16.0 38.7,17.1 39.4,17.2 40.2,15.2 40.9,14.7 41.7,14.8 42.4,15.2 43.2,14.2 44.0,15.4 44.7,14.7 45.5,15.6 46.2,15.4 47.0,16.0 47.7,15.9 48.5,15.8 49.3,15.1 50.0,15.4 50.8,16.3 51.5,15.8 52.3,14.2 53.1,13.7 53.8,11.4 54.6,11.1 55.3,10.1 56.1,8.3 56.8,7.2 57.6,6.5 58.4,6.6 59.1,7.9 59.9,4.1 60.6,2.5 61.4,5.1 62.1,8.2 62.9,8.8 63.7,8.1 64.4,7.2 65.2,7.5 65.9,7.3 66.7,9.4 67.5,10.4 68.2,10.8 69.0,11.8 69.7,10.5 70.5,10.8 71.2,12.2 72.0,12.7" fill="none" stroke="var(--up)" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></polyline></svg></span><span class="lb-last mono flash-down" style="border-radius: var(--r-xs);">64,406.4</span><span class="mono" style="display: inline-flex; align-items: center; gap: 4px; color: var(--up); background: var(--up-soft); padding: 2px 5px; border-radius: var(--r-sm); font-size: var(--fs-xs); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums;"><span style="font-size: 0.7em; transform: translateY(0.5px);">▲</span>+0.61%</span></button><button class="lb-row" title="Open Ethereum in the terminal"><span class="lb-id"><span class="lb-ticker">ETH</span><span class="lb-name">Ethereum</span></span><span class="lb-spark"><svg width="72" height="26" viewBox="0 0 72 26" preserveAspectRatio="none" aria-hidden="true" style="display: block;"><defs><linearGradient id=":r3:" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--up)" stop-opacity="0.22"></stop><stop offset="100%" stop-color="var(--up)" stop-opacity="0"></stop></linearGradient></defs><polygon points="0,26 0.0,17.4 0.8,18.5 1.5,17.8 2.3,15.3 3.0,15.0 3.8,14.6 4.5,15.3 5.3,15.1 6.1,15.3 6.8,16.0 7.6,16.3 8.3,17.2 9.1,19.2 9.9,22.4 10.6,21.1 11.4,19.3 12.1,20.0 12.9,20.6 13.6,21.1 14.4,21.1 15.2,20.2 15.9,21.9 16.7,21.4 17.4,23.5 18.2,23.4 18.9,21.7 19.7,19.4 20.5,17.8 21.2,17.4 22.0,17.7 22.7,9.9 23.5,12.3 24.3,12.5 25.0,13.4 25.8,13.1 26.5,12.7 27.3,14.5 28.0,16.1 28.8,14.6 29.6,15.1 30.3,16.5 31.1,15.9 31.8,15.2 32.6,16.0 33.3,15.0 34.1,14.5 34.9,14.3 35.6,14.3 36.4,14.5 37.1,14.2 37.9,14.7 38.7,15.2 39.4,15.1 40.2,12.3 40.9,11.1 41.7,11.3 42.4,11.7 43.2,10.1 44.0,11.7 44.7,10.8 45.5,11.3 46.2,11.0 47.0,11.6 47.7,11.5 48.5,11.7 49.3,10.7 50.0,11.3 50.8,11.4 51.5,10.9 52.3,10.0 53.1,9.8 53.8,6.6 54.6,5.4 55.3,6.0 56.1,5.6 56.8,6.4 57.6,6.5 58.4,6.4 59.1,6.3 59.9,3.5 60.6,2.5 61.4,5.4 62.1,9.1 62.9,9.7 63.7,9.3 64.4,9.0 65.2,9.5 65.9,9.3 66.7,12.2 67.5,13.0 68.2,13.0 69.0,14.1 69.7,13.6 70.5,13.1 71.2,15.3 72.0,15.2 72,26" fill="url(#:r3:)" stroke="none"></polygon><polyline points="0.0,17.4 0.8,18.5 1.5,17.8 2.3,15.3 3.0,15.0 3.8,14.6 4.5,15.3 5.3,15.1 6.1,15.3 6.8,16.0 7.6,16.3 8.3,17.2 9.1,19.2 9.9,22.4 10.6,21.1 11.4,19.3 12.1,20.0 12.9,20.6 13.6,21.1 14.4,21.1 15.2,20.2 15.9,21.9 16.7,21.4 17.4,23.5 18.2,23.4 18.9,21.7 19.7,19.4 20.5,17.8 21.2,17.4 22.0,17.7 22.7,9.9 23.5,12.3 24.3,12.5 25.0,13.4 25.8,13.1 26.5,12.7 27.3,14.5 28.0,16.1 28.8,14.6 29.6,15.1 30.3,16.5 31.1,15.9 31.8,15.2 32.6,16.0 33.3,15.0 34.1,14.5 34.9,14.3 35.6,14.3 36.4,14.5 37.1,14.2 37.9,14.7 38.7,15.2 39.4,15.1 40.2,12.3 40.9,11.1 41.7,11.3 42.4,11.7 43.2,10.1 44.0,11.7 44.7,10.8 45.5,11.3 46.2,11.0 47.0,11.6 47.7,11.5 48.5,11.7 49.3,10.7 50.0,11.3 50.8,11.4 51.5,10.9 52.3,10.0 53.1,9.8 53.8,6.6 54.6,5.4 55.3,6.0 56.1,5.6 56.8,6.4 57.6,6.5 58.4,6.4 59.1,6.3 59.9,3.5 60.6,2.5 61.4,5.4 62.1,9.1 62.9,9.7 63.7,9.3 64.4,9.0 65.2,9.5 65.9,9.3 66.7,12.2 67.5,13.0 68.2,13.0 69.0,14.1 69.7,13.6 70.5,13.1 71.2,15.3 72.0,15.2" fill="none" stroke="var(--up)" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></polyline></svg></span><span class="lb-last mono flash-up" style="border-radius: var(--r-xs);">1,732.48</span><span class="mono" style="display: inline-flex; align-items: center; gap: 4px; color: var(--up); background: var(--up-soft); padding: 2px 5px; border-radius: var(--r-sm); font-size: var(--fs-xs); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums;"><span style="font-size: 0.7em; transform: translateY(0.5px);">▲</span>+0.46%</span></button><button class="lb-row" title="Open Gold in the terminal"><span class="lb-id"><span class="lb-ticker">XAU</span><span class="lb-name">Gold</span></span><span class="lb-spark"><svg width="72" height="26" viewBox="0 0 72 26" preserveAspectRatio="none" aria-hidden="true" style="display: block;"><defs><linearGradient id=":r5:" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--up)" stop-opacity="0.22"></stop><stop offset="100%" stop-color="var(--up)" stop-opacity="0"></stop></linearGradient></defs><polygon points="0,26 0.0,16.3 0.8,16.3 1.5,16.3 2.3,16.3 3.0,16.3 3.8,16.3 4.5,15.9 5.3,15.9 6.1,16.6 6.8,16.3 7.6,16.3 8.3,16.3 9.1,16.3 9.9,18.1 10.6,18.1 11.4,18.1 12.1,18.3 12.9,20.3 13.6,20.1 14.4,19.5 15.2,19.0 15.9,17.3 16.7,18.8 17.4,22.2 18.2,23.5 18.9,17.3 19.7,16.3 20.5,12.8 21.2,5.5 22.0,3.1 22.7,3.1 23.5,5.5 24.3,7.3 25.0,9.0 25.8,8.9 26.5,7.3 27.3,8.8 28.0,11.2 28.8,11.3 29.6,11.6 30.3,13.6 31.1,13.4 31.8,13.2 32.6,12.5 33.3,11.0 34.1,9.8 34.9,7.3 35.6,7.5 36.4,7.6 37.1,7.2 37.9,6.5 38.7,5.1 39.4,6.3 40.2,6.0 40.9,6.6 41.7,7.8 42.4,8.7 43.2,8.5 44.0,8.9 44.7,9.0 45.5,6.9 46.2,4.4 47.0,3.9 47.7,3.1 48.5,3.0 49.3,2.5 50.0,2.8 50.8,2.8 51.5,4.0 52.3,3.5 53.1,4.6 53.8,4.1 54.6,4.1 55.3,3.8 56.1,3.6 56.8,4.5 57.6,6.4 58.4,7.3 59.1,9.3 59.9,7.6 60.6,5.3 61.4,4.8 62.1,7.5 62.9,8.2 63.7,5.9 64.4,6.6 65.2,9.2 65.9,11.2 66.7,14.4 67.5,12.9 68.2,11.2 69.0,10.1 69.7,8.6 70.5,9.6 71.2,9.6 72.0,11.4 72,26" fill="url(#:r5:)" stroke="none"></polygon><polyline points="0.0,16.3 0.8,16.3 1.5,16.3 2.3,16.3 3.0,16.3 3.8,16.3 4.5,15.9 5.3,15.9 6.1,16.6 6.8,16.3 7.6,16.3 8.3,16.3 9.1,16.3 9.9,18.1 10.6,18.1 11.4,18.1 12.1,18.3 12.9,20.3 13.6,20.1 14.4,19.5 15.2,19.0 15.9,17.3 16.7,18.8 17.4,22.2 18.2,23.5 18.9,17.3 19.7,16.3 20.5,12.8 21.2,5.5 22.0,3.1 22.7,3.1 23.5,5.5 24.3,7.3 25.0,9.0 25.8,8.9 26.5,7.3 27.3,8.8 28.0,11.2 28.8,11.3 29.6,11.6 30.3,13.6 31.1,13.4 31.8,13.2 32.6,12.5 33.3,11.0 34.1,9.8 34.9,7.3 35.6,7.5 36.4,7.6 37.1,7.2 37.9,6.5 38.7,5.1 39.4,6.3 40.2,6.0 40.9,6.6 41.7,7.8 42.4,8.7 43.2,8.5 44.0,8.9 44.7,9.0 45.5,6.9 46.2,4.4 47.0,3.9 47.7,3.1 48.5,3.0 49.3,2.5 50.0,2.8 50.8,2.8 51.5,4.0 52.3,3.5 53.1,4.6 53.8,4.1 54.6,4.1 55.3,3.8 56.1,3.6 56.8,4.5 57.6,6.4 58.4,7.3 59.1,9.3 59.9,7.6 60.6,5.3 61.4,4.8 62.1,7.5 62.9,8.2 63.7,5.9 64.4,6.6 65.2,9.2 65.9,11.2 66.7,14.4 67.5,12.9 68.2,11.2 69.0,10.1 69.7,8.6 70.5,9.6 71.2,9.6 72.0,11.4" fill="none" stroke="var(--up)" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></polyline></svg></span><span class="lb-last mono flash-up" style="border-radius: var(--r-xs);">4,179.42</span><span class="mono" style="display: inline-flex; align-items: center; gap: 4px; color: var(--up); background: var(--up-soft); padding: 2px 5px; border-radius: var(--r-sm); font-size: var(--fs-xs); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums;"><span style="font-size: 0.7em; transform: translateY(0.5px);">▲</span>+0.38%</span></button><button class="lb-row" title="Open Silver in the terminal"><span class="lb-id"><span class="lb-ticker">XAG</span><span class="lb-name">Silver</span></span><span class="lb-spark"><svg width="72" height="26" viewBox="0 0 72 26" preserveAspectRatio="none" aria-hidden="true" style="display: block;"><defs><linearGradient id=":r7:" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--up)" stop-opacity="0.22"></stop><stop offset="100%" stop-color="var(--up)" stop-opacity="0"></stop></linearGradient></defs><polygon points="0,26 0.0,18.5 0.8,20.9 1.5,20.6 2.3,20.5 3.0,20.4 3.8,21.7 4.5,21.2 5.3,21.2 6.1,21.5 6.8,21.6 7.6,21.6 8.3,21.7 9.1,21.7 9.9,21.4 10.6,20.7 11.4,21.0 12.1,22.6 12.9,23.5 13.6,22.1 14.4,21.7 15.2,20.1 15.9,19.5 16.7,20.5 17.4,22.6 18.2,23.4 18.9,18.4 19.7,17.1 20.5,14.7 21.2,7.4 22.0,2.5 22.7,5.0 23.5,9.2 24.3,10.5 25.0,10.1 25.8,11.0 26.5,10.9 27.3,12.7 28.0,13.4 28.8,12.2 29.6,13.4 30.3,14.3 31.1,13.0 31.8,13.9 32.6,13.9 33.3,13.8 34.1,12.7 34.9,10.8 35.6,7.0 36.4,6.5 37.1,5.3 37.9,5.2 38.7,4.8 39.4,4.6 40.2,4.7 40.9,5.0 41.7,6.8 42.4,7.8 43.2,9.8 44.0,10.8 44.7,9.9 45.5,8.1 46.2,7.3 47.0,6.5 47.7,6.0 48.5,6.0 49.3,5.0 50.0,5.5 50.8,6.4 51.5,6.6 52.3,5.1 53.1,5.8 53.8,6.8 54.6,6.0 55.3,6.8 56.1,6.4 56.8,7.3 57.6,8.0 58.4,2.8 59.1,5.8 59.9,5.6 60.6,5.5 61.4,5.8 62.1,9.9 62.9,10.1 63.7,9.4 64.4,9.2 65.2,11.6 65.9,14.0 66.7,14.3 67.5,16.3 68.2,14.4 69.0,14.7 69.7,13.3 70.5,14.2 71.2,15.3 72.0,17.1 72,26" fill="url(#:r7:)" stroke="none"></polygon><polyline points="0.0,18.5 0.8,20.9 1.5,20.6 2.3,20.5 3.0,20.4 3.8,21.7 4.5,21.2 5.3,21.2 6.1,21.5 6.8,21.6 7.6,21.6 8.3,21.7 9.1,21.7 9.9,21.4 10.6,20.7 11.4,21.0 12.1,22.6 12.9,23.5 13.6,22.1 14.4,21.7 15.2,20.1 15.9,19.5 16.7,20.5 17.4,22.6 18.2,23.4 18.9,18.4 19.7,17.1 20.5,14.7 21.2,7.4 22.0,2.5 22.7,5.0 23.5,9.2 24.3,10.5 25.0,10.1 25.8,11.0 26.5,10.9 27.3,12.7 28.0,13.4 28.8,12.2 29.6,13.4 30.3,14.3 31.1,13.0 31.8,13.9 32.6,13.9 33.3,13.8 34.1,12.7 34.9,10.8 35.6,7.0 36.4,6.5 37.1,5.3 37.9,5.2 38.7,4.8 39.4,4.6 40.2,4.7 40.9,5.0 41.7,6.8 42.4,7.8 43.2,9.8 44.0,10.8 44.7,9.9 45.5,8.1 46.2,7.3 47.0,6.5 47.7,6.0 48.5,6.0 49.3,5.0 50.0,5.5 50.8,6.4 51.5,6.6 52.3,5.1 53.1,5.8 53.8,6.8 54.6,6.0 55.3,6.8 56.1,6.4 56.8,7.3 57.6,8.0 58.4,2.8 59.1,5.8 59.9,5.6 60.6,5.5 61.4,5.8 62.1,9.9 62.9,10.1 63.7,9.4 64.4,9.2 65.2,11.6 65.9,14.0 66.7,14.3 67.5,16.3 68.2,14.4 69.0,14.7 69.7,13.3 70.5,14.2 71.2,15.3 72.0,17.1" fill="none" stroke="var(--up)" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></polyline></svg></span><span class="lb-last mono flash-up" style="border-radius: var(--r-xs);">65.155</span><span class="mono" style="display: inline-flex; align-items: center; gap: 4px; color: var(--up); background: var(--up-soft); padding: 2px 5px; border-radius: var(--r-sm); font-size: var(--fs-xs); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums;"><span style="font-size: 0.7em; transform: translateY(0.5px);">▲</span>+0.23%</span></button><button class="lb-row" title="Open WTI Crude in the terminal"><span class="lb-id"><span class="lb-ticker">CL</span><span class="lb-name">WTI Crude</span></span><span class="lb-spark"><svg width="72" height="26" viewBox="0 0 72 26" preserveAspectRatio="none" aria-hidden="true" style="display: block;"><defs><linearGradient id=":r9:" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--down)" stop-opacity="0.22"></stop><stop offset="100%" stop-color="var(--down)" stop-opacity="0"></stop></linearGradient></defs><polygon points="0,26 0.0,6.5 0.8,6.3 1.5,6.3 2.3,5.9 3.0,4.4 3.8,5.0 4.5,5.2 5.3,5.6 6.1,5.2 6.8,5.9 7.6,6.0 8.3,5.8 9.1,7.7 9.9,8.0 10.6,7.7 11.4,4.2 12.1,2.5 12.9,9.0 13.6,9.3 14.4,10.2 15.2,9.7 15.9,9.6 16.7,9.2 17.4,9.3 18.2,9.3 18.9,9.5 19.7,11.0 20.5,10.4 21.2,11.9 22.0,13.7 22.7,16.2 23.5,15.8 24.3,15.6 25.0,16.2 25.8,16.3 26.5,17.5 27.3,16.9 28.0,15.9 28.8,15.7 29.6,15.7 30.3,16.0 31.1,16.3 31.8,16.3 32.6,16.6 33.3,16.7 34.1,17.1 34.9,17.2 35.6,17.0 36.4,17.1 37.1,17.5 37.9,17.8 38.7,17.0 39.4,17.0 40.2,16.6 40.9,16.6 41.7,15.6 42.4,16.2 43.2,15.0 44.0,16.6 44.7,17.3 45.5,17.3 46.2,16.7 47.0,17.6 47.7,17.3 48.5,17.4 49.3,17.4 50.0,17.1 50.8,17.3 51.5,17.4 52.3,17.3 53.1,17.3 53.8,17.8 54.6,18.3 55.3,18.6 56.1,19.6 56.8,19.7 57.6,19.7 58.4,19.9 59.1,20.5 59.9,22.1 60.6,22.1 61.4,22.4 62.1,21.9 62.9,20.7 63.7,21.8 64.4,23.3 65.2,22.5 65.9,23.5 66.7,23.1 67.5,22.8 68.2,22.5 69.0,22.2 69.7,22.5 70.5,22.3 71.2,22.9 72.0,22.3 72,26" fill="url(#:r9:)" stroke="none"></polygon><polyline points="0.0,6.5 0.8,6.3 1.5,6.3 2.3,5.9 3.0,4.4 3.8,5.0 4.5,5.2 5.3,5.6 6.1,5.2 6.8,5.9 7.6,6.0 8.3,5.8 9.1,7.7 9.9,8.0 10.6,7.7 11.4,4.2 12.1,2.5 12.9,9.0 13.6,9.3 14.4,10.2 15.2,9.7 15.9,9.6 16.7,9.2 17.4,9.3 18.2,9.3 18.9,9.5 19.7,11.0 20.5,10.4 21.2,11.9 22.0,13.7 22.7,16.2 23.5,15.8 24.3,15.6 25.0,16.2 25.8,16.3 26.5,17.5 27.3,16.9 28.0,15.9 28.8,15.7 29.6,15.7 30.3,16.0 31.1,16.3 31.8,16.3 32.6,16.6 33.3,16.7 34.1,17.1 34.9,17.2 35.6,17.0 36.4,17.1 37.1,17.5 37.9,17.8 38.7,17.0 39.4,17.0 40.2,16.6 40.9,16.6 41.7,15.6 42.4,16.2 43.2,15.0 44.0,16.6 44.7,17.3 45.5,17.3 46.2,16.7 47.0,17.6 47.7,17.3 48.5,17.4 49.3,17.4 50.0,17.1 50.8,17.3 51.5,17.4 52.3,17.3 53.1,17.3 53.8,17.8 54.6,18.3 55.3,18.6 56.1,19.6 56.8,19.7 57.6,19.7 58.4,19.9 59.1,20.5 59.9,22.1 60.6,22.1 61.4,22.4 62.1,21.9 62.9,20.7 63.7,21.8 64.4,23.3 65.2,22.5 65.9,23.5 66.7,23.1 67.5,22.8 68.2,22.5 69.0,22.2 69.7,22.5 70.5,22.3 71.2,22.9 72.0,22.3" fill="none" stroke="var(--down)" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></polyline></svg></span><span class="lb-last mono flash-up" style="border-radius: var(--r-xs);">73.789</span><span class="mono" style="display: inline-flex; align-items: center; gap: 4px; color: var(--down); background: var(--down-soft); padding: 2px 5px; border-radius: var(--r-sm); font-size: var(--fs-xs); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums;"><span style="font-size: 0.7em; transform: translateY(0.5px);">▼</span>-6.01%</span></button><button class="lb-row" title="Open S&amp;P 500 in the terminal"><span class="lb-id"><span class="lb-ticker">SPY</span><span class="lb-name">S&amp;P 500</span></span><span class="lb-spark"><svg width="72" height="26" viewBox="0 0 72 26" preserveAspectRatio="none" aria-hidden="true" style="display: block;"><defs><linearGradient id=":rb:" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="var(--up)" stop-opacity="0.22"></stop><stop offset="100%" stop-color="var(--up)" stop-opacity="0"></stop></linearGradient></defs><polygon points="0,26 0.0,15.4 0.8,15.4 1.5,15.4 2.3,18.7 3.0,17.5 3.8,18.7 4.5,16.7 5.3,16.7 6.1,16.7 6.8,16.7 7.6,16.7 8.3,16.7 9.1,16.7 9.9,16.7 10.6,16.7 11.4,16.7 12.1,16.4 12.9,18.6 13.6,15.4 14.4,15.3 15.2,15.5 15.9,18.1 16.7,18.1 17.4,22.0 18.2,23.5 18.9,17.8 19.7,17.8 20.5,14.9 21.2,14.9 22.0,11.9 22.7,11.3 23.5,11.5 24.3,12.4 25.0,12.8 25.8,12.8 26.5,14.9 27.3,14.9 28.0,16.2 28.8,16.2 29.6,15.2 30.3,17.2 31.1,17.2 31.8,17.2 32.6,17.2 33.3,17.2 34.1,14.2 34.9,14.2 35.6,14.2 36.4,14.2 37.1,14.2 37.9,9.4 38.7,10.0 39.4,10.0 40.2,7.6 40.9,6.7 41.7,7.0 42.4,7.0 43.2,9.2 44.0,9.5 44.7,9.5 45.5,9.5 46.2,9.5 47.0,9.5 47.7,9.5 48.5,9.5 49.3,9.5 50.0,9.5 50.8,9.5 51.5,8.9 52.3,6.8 53.1,7.3 53.8,7.1 54.6,7.5 55.3,5.5 56.1,4.2 56.8,4.2 57.6,4.2 58.4,3.0 59.1,3.0 59.9,3.0 60.6,3.0 61.4,3.0 62.1,2.5 62.9,12.2 63.7,15.7 64.4,15.7 65.2,15.0 65.9,14.8 66.7,14.5 67.5,15.9 68.2,15.9 69.0,15.9 69.7,13.1 70.5,13.1 71.2,13.7 72.0,13.7 72,26" fill="url(#:rb:)" stroke="none"></polygon><polyline points="0.0,15.4 0.8,15.4 1.5,15.4 2.3,18.7 3.0,17.5 3.8,18.7 4.5,16.7 5.3,16.7 6.1,16.7 6.8,16.7 7.6,16.7 8.3,16.7 9.1,16.7 9.9,16.7 10.6,16.7 11.4,16.7 12.1,16.4 12.9,18.6 13.6,15.4 14.4,15.3 15.2,15.5 15.9,18.1 16.7,18.1 17.4,22.0 18.2,23.5 18.9,17.8 19.7,17.8 20.5,14.9 21.2,14.9 22.0,11.9 22.7,11.3 23.5,11.5 24.3,12.4 25.0,12.8 25.8,12.8 26.5,14.9 27.3,14.9 28.0,16.2 28.8,16.2 29.6,15.2 30.3,17.2 31.1,17.2 31.8,17.2 32.6,17.2 33.3,17.2 34.1,14.2 34.9,14.2 35.6,14.2 36.4,14.2 37.1,14.2 37.9,9.4 38.7,10.0 39.4,10.0 40.2,7.6 40.9,6.7 41.7,7.0 42.4,7.0 43.2,9.2 44.0,9.5 44.7,9.5 45.5,9.5 46.2,9.5 47.0,9.5 47.7,9.5 48.5,9.5 49.3,9.5 50.0,9.5 50.8,9.5 51.5,8.9 52.3,6.8 53.1,7.3 53.8,7.1 54.6,7.5 55.3,5.5 56.1,4.2 56.8,4.2 57.6,4.2 58.4,3.0 59.1,3.0 59.9,3.0 60.6,3.0 61.4,3.0 62.1,2.5 62.9,12.2 63.7,15.7 64.4,15.7 65.2,15.0 65.9,14.8 66.7,14.5 67.5,15.9 68.2,15.9 69.0,15.9 69.7,13.1 70.5,13.1 71.2,13.7 72.0,13.7" fill="none" stroke="var(--up)" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke"></polyline></svg></span><span class="lb-last mono flash-up" style="border-radius: var(--r-xs);">744.74</span><span class="mono" style="display: inline-flex; align-items: center; gap: 4px; color: var(--up); background: var(--up-soft); padding: 2px 5px; border-radius: var(--r-sm); font-size: var(--fs-xs); font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums;"><span style="font-size: 0.7em; transform: translateY(0.5px);">▲</span>+0.07%</span></button></div><div class="lb-foot mono"><span>37 updates/s</span><span class="lb-foot-src">Crypto.com Exchange</span></div></div></div></div><div class="ln-stats"><div class="ln-stat"><span class="ln-stat-v mono">18</span><span class="ln-stat-l">instruments wired live</span></div><div class="ln-stat"><span class="ln-stat-v mono">4</span><span class="ln-stat-l">asset classes</span></div><div class="ln-stat"><span class="ln-stat-v mono">6</span><span class="ln-stat-l">chart timeframes</span></div><div class="ln-stat"><span class="ln-stat-v mono">24 / 7</span><span class="ln-stat-l">streaming, auto-reconnect</span></div></div></section><div class="ln-tape-strip"><div class="tape" role="marquee" aria-label="Live market tape"><div class="tape-track"><div class="tape-seq"><button class="tape-item is-active" title="Bitcoin · BTCUSD-PERP"><span class="tape-sym">BTC</span><span class="tape-last mono">64,406.4</span><span class="tape-chg mono u-up">+0.61%</span></button><button class="tape-item " title="Ethereum · ETHUSD-PERP"><span class="tape-sym">ETH</span><span class="tape-last mono">1,732.48</span><span class="tape-chg mono u-up">+0.46%</span></button><button class="tape-item " title="Solana · SOLUSD-PERP"><span class="tape-sym">SOL</span><span class="tape-last mono">72.77</span><span class="tape-chg mono u-down">-1.72%</span></button><button class="tape-item " title="XRP · XRPUSD-PERP"><span class="tape-sym">XRP</span><span class="tape-last mono">1.1337</span><span class="tape-chg mono u-down">-0.60%</span></button><button class="tape-item " title="Dogecoin · DOGEUSD-PERP"><span class="tape-sym">DOGE</span><span class="tape-last mono">0.082993</span><span class="tape-chg mono u-down">-0.27%</span></button><button class="tape-item " title="Cardano · ADAUSD-PERP"><span class="tape-sym">ADA</span><span class="tape-last mono">0.15872</span><span class="tape-chg mono u-down">-1.48%</span></button><button class="tape-item " title="Sui · SUIUSD-PERP"><span class="tape-sym">SUI</span><span class="tape-last mono">0.71912</span><span class="tape-chg mono u-up">+1.55%</span></button><button class="tape-item " title="Litecoin · LTCUSD-PERP"><span class="tape-sym">LTC</span><span class="tape-last mono">44.754</span><span class="tape-chg mono u-down">-1.08%</span></button><button class="tape-item " title="Gold · XAUUSD-PERP"><span class="tape-sym">XAU</span><span class="tape-last mono">4,179.42</span><span class="tape-chg mono u-up">+0.38%</span></button><button class="tape-item " title="Silver · XAGUSD-PERP"><span class="tape-sym">XAG</span><span class="tape-last mono">65.155</span><span class="tape-chg mono u-up">+0.23%</span></button><button class="tape-item " title="Platinum · XPTUSD-PERP"><span class="tape-sym">XPT</span><span class="tape-last mono">1,669.19</span><span class="tape-chg mono u-down">-0.65%</span></button><button class="tape-item " title="Palladium · XPDUSD-PERP"><span class="tape-sym">XPD</span><span class="tape-last mono">1,258.66</span><span class="tape-chg mono u-up">+1.15%</span></button><button class="tape-item " title="WTI Crude · CLUSD-PERP"><span class="tape-sym">CL</span><span class="tape-last mono">73.789</span><span class="tape-chg mono u-down">-6.01%</span></button><button class="tape-item " title="Natural Gas · NATGASUSD-PERP"><span class="tape-sym">NG</span><span class="tape-last mono">3.3082</span><span class="tape-chg mono u-up">+1.88%</span></button><button class="tape-item " title="S&amp;P 500 · SPYUSD-PERP"><span class="tape-sym">SPY</span><span class="tape-last mono">744.74</span><span class="tape-chg mono u-up">+0.07%</span></button><button class="tape-item " title="Nasdaq 100 · QQQUSD-PERP"><span class="tape-sym">QQQ</span><span class="tape-last mono">736.52</span><span class="tape-chg mono u-down">-0.26%</span></button><button class="tape-item " title="NVIDIA · NVDAUSD-PERP"><span class="tape-sym">NVDA</span><span class="tape-last mono">209.45</span><span class="tape-chg mono u-down">-0.06%</span></button><button class="tape-item " title="Intel · INTCUSD-PERP"><span class="tape-sym">INTC</span><span class="tape-last mono">140.82</span><span class="tape-chg mono u-up">+1.81%</span></button></div><div class="tape-seq" aria-hidden="true"><button class="tape-item is-active" title="Bitcoin · BTCUSD-PERP"><span class="tape-sym">BTC</span><span class="tape-last mono">64,406.4</span><span class="tape-chg mono u-up">+0.61%</span></button><button class="tape-item " title="Ethereum · ETHUSD-PERP"><span class="tape-sym">ETH</span><span class="tape-last mono">1,732.48</span><span class="tape-chg mono u-up">+0.46%</span></button><button class="tape-item " title="Solana · SOLUSD-PERP"><span class="tape-sym">SOL</span><span class="tape-last mono">72.77</span><span class="tape-chg mono u-down">-1.72%</span></button><button class="tape-item " title="XRP · XRPUSD-PERP"><span class="tape-sym">XRP</span><span class="tape-last mono">1.1337</span><span class="tape-chg mono u-down">-0.60%</span></button><button class="tape-item " title="Dogecoin · DOGEUSD-PERP"><span class="tape-sym">DOGE</span><span class="tape-last mono">0.082993</span><span class="tape-chg mono u-down">-0.27%</span></button><button class="tape-item " title="Cardano · ADAUSD-PERP"><span class="tape-sym">ADA</span><span class="tape-last mono">0.15872</span><span class="tape-chg mono u-down">-1.48%</span></button><button class="tape-item " title="Sui · SUIUSD-PERP"><span class="tape-sym">SUI</span><span class="tape-last mono">0.71912</span><span class="tape-chg mono u-up">+1.55%</span></button><button class="tape-item " title="Litecoin · LTCUSD-PERP"><span class="tape-sym">LTC</span><span class="tape-last mono">44.754</span><span class="tape-chg mono u-down">-1.08%</span></button><button class="tape-item " title="Gold · XAUUSD-PERP"><span class="tape-sym">XAU</span><span class="tape-last mono">4,179.42</span><span class="tape-chg mono u-up">+0.38%</span></button><button class="tape-item " title="Silver · XAGUSD-PERP"><span class="tape-sym">XAG</span><span class="tape-last mono">65.155</span><span class="tape-chg mono u-up">+0.23%</span></button><button class="tape-item " title="Platinum · XPTUSD-PERP"><span class="tape-sym">XPT</span><span class="tape-last mono">1,669.19</span><span class="tape-chg mono u-down">-0.65%</span></button><button class="tape-item " title="Palladium · XPDUSD-PERP"><span class="tape-sym">XPD</span><span class="tape-last mono">1,258.66</span><span class="tape-chg mono u-up">+1.15%</span></button><button class="tape-item " title="WTI Crude · CLUSD-PERP"><span class="tape-sym">CL</span><span class="tape-last mono">73.789</span><span class="tape-chg mono u-down">-6.01%</span></button><button class="tape-item " title="Natural Gas · NATGASUSD-PERP"><span class="tape-sym">NG</span><span class="tape-last mono">3.3082</span><span class="tape-chg mono u-up">+1.88%</span></button><button class="tape-item " title="S&amp;P 500 · SPYUSD-PERP"><span class="tape-sym">SPY</span><span class="tape-last mono">744.74</span><span class="tape-chg mono u-up">+0.07%</span></button><button class="tape-item " title="Nasdaq 100 · QQQUSD-PERP"><span class="tape-sym">QQQ</span><span class="tape-last mono">736.52</span><span class="tape-chg mono u-down">-0.26%</span></button><button class="tape-item " title="NVIDIA · NVDAUSD-PERP"><span class="tape-sym">NVDA</span><span class="tape-last mono">209.45</span><span class="tape-chg mono u-down">-0.06%</span></button><button class="tape-item " title="Intel · INTCUSD-PERP"><span class="tape-sym">INTC</span><span class="tape-last mono">140.82</span><span class="tape-chg mono u-up">+1.81%</span></button></div></div></div></div><section class="ln-section" id="capabilities"><div class="ln-section-head"><div class="reveal "><span class="ln-kicker">Capabilities</span><h2 class="ln-h2">Everything the desk reads, in one surface.</h2><p class="ln-section-lede">Each panel is engineered for the one thing a trader needs from it — and nothing that gets in the way.</p></div></div><div class="ln-bento"><div class="reveal ln-card ln-card--feature"><span class="ln-card-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="14" y2="6"></line><line x1="3" y1="10" x2="19" y2="10"></line><line x1="3" y1="14" x2="9" y2="14"></line><line x1="3" y1="18" x2="16" y2="18"></line><line x1="21" y1="3" x2="21" y2="21" opacity="0.5"></line></svg></span><h3 class="ln-card-title">The order book, alive</h3><p class="ln-card-body">Live bids and asks with cumulative depth, bid/ask imbalance, and the spread in basis points — the resting liquidity, not a summary of it.</p></div><div class="reveal ln-card "><span class="ln-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v13a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3Z"></path><line x1="8" y1="9" x2="16" y2="9"></line><line x1="8" y1="13" x2="13" y2="13"></line></svg></span><h3 class="ln-card-title">Every print</h3><p class="ln-card-body">Time &amp; sales streaming trade-by-trade, each tagged by aggressor side, with size bars that surface the blocks.</p></div><div class="reveal ln-card "><span class="ln-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 21 8l-9 5-9-5Z"></path><path d="m3 13 9 5 9-5" opacity="0.55"></path></svg></span><h3 class="ln-card-title">One tape, every market</h3><p class="ln-card-body">Crypto, precious metals, energy, and equity-index perpetuals in a single watchlist — switch in one keystroke.</p></div><div class="reveal ln-card "><span class="ln-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="7" y1="3" x2="7" y2="21"></line><rect x="4.5" y="8" width="5" height="8" rx="1"></rect><line x1="17" y1="3" x2="17" y2="21"></line><rect x="14.5" y="6" width="5" height="6" rx="1"></rect></svg></span><h3 class="ln-card-title">Candles &amp; volume</h3><p class="ln-card-body">Six timeframes, a crosshair that reads OHLC anywhere, and a live last-print line — rendered on canvas for a steady frame.</p></div><div class="reveal ln-card "><span class="ln-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2"></path><path d="M16 4h2a2 2 0 0 1 2 2v2"></path><path d="M20 16v2a2 2 0 0 1-2 2h-2"></path><path d="M8 20H6a2 2 0 0 1-2-2v-2"></path><line x1="3.5" y1="12" x2="20.5" y2="12"></line></svg></span><h3 class="ln-card-title">Built for the glance</h3><p class="ln-card-body">Tabular numerals that never jiggle, instant tick flashes, and a layout that holds its hierarchy under pressure. Density without noise.</p></div><div class="reveal ln-card "><span class="ln-card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2-6 4 14 2-8h6"></path></svg></span><h3 class="ln-card-title">Honest by design</h3><p class="ln-card-body">Real data only. When the stream drops, the screen freezes the last true value and flags it stale — it never invents a tick.</p></div></div></section><section class="ln-section ln-preview-section" id="preview"><div class="ln-section-head"><div class="reveal "><span class="ln-kicker">The terminal</span><h2 class="ln-h2">Not a screenshot. The actual feed.</h2><p class="ln-section-lede">This is the live order book and chart, streaming right now — the same panels you open below.</p></div></div><div class="reveal ln-preview-wrap"><div class="preview" aria-label="Live terminal preview"><div class="preview-chrome"><span class="preview-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="preview-title mono">TAPE · BTC<span class="preview-title-sub">BTCUSD-PERP</span></span><span style="display: inline-flex; align-items: center; gap: 6px;"><span aria-hidden="true" style="width: 7px; height: 7px; border-radius: 50%; background: var(--up); box-shadow: 0 0 0 3px color-mix(in srgb, var(--up) 18%, transparent); flex: 0 0 auto;"></span></span></div><div class="preview-body"><div class="preview-chart"><div class="chart"><div class="chart-toolbar"><div class="chart-tf" role="tablist" aria-label="Timeframe"><button role="tab" aria-selected="false" class="chart-tf-btn ">1m</button><button role="tab" aria-selected="true" class="chart-tf-btn is-active">5m</button><button role="tab" aria-selected="false" class="chart-tf-btn ">15m</button><button role="tab" aria-selected="false" class="chart-tf-btn ">1H</button><button role="tab" aria-selected="false" class="chart-tf-btn ">4H</button><button role="tab" aria-selected="false" class="chart-tf-btn ">1D</button></div><div class="chart-meta"><span class="chart-hint">scroll zoom · drag pan</span><span class="label">Candles</span><span class="mono chart-meta-val">300</span></div></div><div class="chart-canvas-wrap"><canvas class="chart-canvas" width="846" height="434" style="width: 846px; height: 434px;"></canvas></div></div></div><div class="preview-book"><section class="panel ob" aria-label="Order book"><div class="panel-head"><span class="panel-title">Order Book</span><span class="ob-depth-label label">depth 24</span></div><div class="ob-cols"><span class="label">Price</span><span class="label" style="text-align: right;">Size · BTC</span><span class="label" style="text-align: right;">Total</span></div><div class="ob-body"><div class="ob-side ob-ask"><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 9.76319%;"></span><span class="ob-price mono u-down">64,402.7</span><span class="ob-size mono">0.1377</span><span class="ob-total mono">0.14</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 21.8165%;"></span><span class="ob-price mono u-down">64,402.8</span><span class="ob-size mono">0.1700</span><span class="ob-total mono">0.31</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 25.3616%;"></span><span class="ob-price mono u-down">64,403.0</span><span class="ob-size mono">0.0500</span><span class="ob-total mono">0.36</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 25.475%;"></span><span class="ob-price mono u-down">64,404.3</span><span class="ob-size mono">0.0016</span><span class="ob-total mono">0.36</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 26.8009%;"></span><span class="ob-price mono u-down">64,404.4</span><span class="ob-size mono">0.0187</span><span class="ob-total mono">0.38</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 34.0045%;"></span><span class="ob-price mono u-down">64,404.5</span><span class="ob-size mono">0.1016</span><span class="ob-total mono">0.48</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 43.2218%;"></span><span class="ob-price mono u-down">64,404.6</span><span class="ob-size mono">0.1300</span><span class="ob-total mono">0.61</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 48.1849%;"></span><span class="ob-price mono u-down">64,405.0</span><span class="ob-size mono">0.0700</span><span class="ob-total mono">0.68</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 48.192%;"></span><span class="ob-price mono u-down">64,405.6</span><span class="ob-size mono">0.0001</span><span class="ob-total mono">0.68</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 51.0281%;"></span><span class="ob-price mono u-down">64,406.2</span><span class="ob-size mono">0.0400</span><span class="ob-total mono">0.72</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 54.5732%;"></span><span class="ob-price mono u-down">64,406.4</span><span class="ob-size mono">0.0500</span><span class="ob-total mono">0.77</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 57.8134%;"></span><span class="ob-price mono u-down">64,406.6</span><span class="ob-size mono">0.0457</span><span class="ob-total mono">0.82</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 63.3154%;"></span><span class="ob-price mono u-down">64,407.7</span><span class="ob-size mono">0.0776</span><span class="ob-total mono">0.89</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 63.9535%;"></span><span class="ob-price mono u-down">64,407.8</span><span class="ob-size mono">0.0090</span><span class="ob-total mono">0.9</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 68.0233%;"></span><span class="ob-price mono u-down">64,409.0</span><span class="ob-size mono">0.0574</span><span class="ob-total mono">0.96</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 68.6614%;"></span><span class="ob-price mono u-down">64,409.1</span><span class="ob-size mono">0.0090</span><span class="ob-total mono">0.97</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 69.9872%;"></span><span class="ob-price mono u-down">64,409.7</span><span class="ob-size mono">0.0187</span><span class="ob-total mono">0.99</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 70.2567%;"></span><span class="ob-price mono u-down">64,409.9</span><span class="ob-size mono">0.0038</span><span class="ob-total mono">0.99</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 75.7374%;"></span><span class="ob-price mono u-down">64,410.0</span><span class="ob-size mono">0.0773</span><span class="ob-total mono">1.07</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 94.0868%;"></span><span class="ob-price mono u-down">64,410.1</span><span class="ob-size mono">0.2588</span><span class="ob-total mono">1.33</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 94.7249%;"></span><span class="ob-price mono u-down">64,410.4</span><span class="ob-size mono">0.0090</span><span class="ob-total mono">1.34</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 95.363%;"></span><span class="ob-price mono u-down">64,411.6</span><span class="ob-size mono">0.0090</span><span class="ob-total mono">1.34</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 96.0011%;"></span><span class="ob-price mono u-down">64,412.9</span><span class="ob-size mono">0.0090</span><span class="ob-total mono">1.35</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 96.0082%;"></span><span class="ob-price mono u-down">64,413.0</span><span class="ob-size mono">0.0001</span><span class="ob-total mono">1.35</span></div></div><div class="ob-spread"><span class="ob-last mono flash-down" style="border-radius: var(--r-xs);"><span class="u-up">64,406.4</span></span><span class="ob-spread-meta mono"><span class="label">SPREAD</span>0.1 · 0.0bp</span></div><div class="ob-side ob-bid"><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 8.51531%;"></span><span class="ob-price mono u-up">64,402.6</span><span class="ob-size mono">0.1201</span><span class="ob-total mono">0.12</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 11.3514%;"></span><span class="ob-price mono u-up">64,402.4</span><span class="ob-size mono">0.0400</span><span class="ob-total mono">0.16</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 18.4416%;"></span><span class="ob-price mono u-up">64,402.0</span><span class="ob-size mono">0.1000</span><span class="ob-total mono">0.26</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 26.652%;"></span><span class="ob-price mono u-up">64,401.4</span><span class="ob-size mono">0.1158</span><span class="ob-total mono">0.38</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 29.2045%;"></span><span class="ob-price mono u-up">64,401.3</span><span class="ob-size mono">0.0360</span><span class="ob-total mono">0.41</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 51.8931%;"></span><span class="ob-price mono u-up">64,401.0</span><span class="ob-size mono">0.3200</span><span class="ob-total mono">0.73</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 54.0201%;"></span><span class="ob-price mono u-up">64,400.7</span><span class="ob-size mono">0.0300</span><span class="ob-total mono">0.76</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 54.6583%;"></span><span class="ob-price mono u-up">64,400.0</span><span class="ob-size mono">0.0090</span><span class="ob-total mono">0.77</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 54.6937%;"></span><span class="ob-price mono u-up">64,399.1</span><span class="ob-size mono">0.0005</span><span class="ob-total mono">0.77</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 55.3318%;"></span><span class="ob-price mono u-up">64,398.8</span><span class="ob-size mono">0.0090</span><span class="ob-total mono">0.78</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 55.3673%;"></span><span class="ob-price mono u-up">64,398.5</span><span class="ob-size mono">0.0005</span><span class="ob-total mono">0.78</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 55.6367%;"></span><span class="ob-price mono u-up">64,398.1</span><span class="ob-size mono">0.0038</span><span class="ob-total mono">0.78</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 55.6438%;"></span><span class="ob-price mono u-up">64,398.0</span><span class="ob-size mono">0.0001</span><span class="ob-total mono">0.78</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 56.2819%;"></span><span class="ob-price mono u-up">64,397.5</span><span class="ob-size mono">0.0090</span><span class="ob-total mono">0.79</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 65.4141%;"></span><span class="ob-price mono u-up">64,396.8</span><span class="ob-size mono">0.1288</span><span class="ob-total mono">0.92</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 65.6835%;"></span><span class="ob-price mono u-up">64,396.4</span><span class="ob-size mono">0.0038</span><span class="ob-total mono">0.93</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 85.5715%;"></span><span class="ob-price mono u-up">64,396.2</span><span class="ob-size mono">0.2805</span><span class="ob-total mono">1.21</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 85.5786%;"></span><span class="ob-price mono u-up">64,395.4</span><span class="ob-size mono">0.0001</span><span class="ob-total mono">1.21</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 85.848%;"></span><span class="ob-price mono u-up">64,395.1</span><span class="ob-size mono">0.0038</span><span class="ob-total mono">1.21</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 86.4861%;"></span><span class="ob-price mono u-up">64,394.9</span><span class="ob-size mono">0.0090</span><span class="ob-total mono">1.22</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 92.9453%;"></span><span class="ob-price mono u-up">64,394.8</span><span class="ob-size mono">0.0911</span><span class="ob-total mono">1.31</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 97.0009%;"></span><span class="ob-price mono u-up">64,394.3</span><span class="ob-size mono">0.0572</span><span class="ob-total mono">1.37</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 97.639%;"></span><span class="ob-price mono u-up">64,393.6</span><span class="ob-size mono">0.0090</span><span class="ob-total mono">1.38</span></div><div class="ob-row"><span class="ob-depth" aria-hidden="true" style="width: 100%;"></span><span class="ob-price mono u-up">64,392.3</span><span class="ob-size mono">0.0333</span><span class="ob-total mono">1.41</span></div></div></div></section></div></div></div></div><div class="ln-preview-cta"><a class="btn btn-primary" href="/terminal">Open the full terminal <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><path d="m13 6 6 6-6 6"></path></svg></a></div></section><section class="ln-section" id="coverage"><div class="ln-section-head"><div class="reveal "><span class="ln-kicker">Coverage</span><h2 class="ln-h2">Four markets. One watchlist.</h2><p class="ln-section-lede">Every instrument below is streaming live. Click any to open it in the terminal.</p></div></div><div class="ln-coverage"><div class="reveal cov-col"><div class="cov-col-head"><span class="cov-col-title">Crypto</span><span class="cov-col-blurb">Digital assets</span></div><div class="cov-rows"><button class="cov-row"><span class="cov-ticker">BTC</span><span class="cov-name">Bitcoin</span><span class="cov-last mono">64,406.4</span><span class="cov-chg mono u-up">+0.61%</span></button><button class="cov-row"><span class="cov-ticker">ETH</span><span class="cov-name">Ethereum</span><span class="cov-last mono">1,732.48</span><span class="cov-chg mono u-up">+0.46%</span></button><button class="cov-row"><span class="cov-ticker">SOL</span><span class="cov-name">Solana</span><span class="cov-last mono">72.77</span><span class="cov-chg mono u-down">-1.72%</span></button><button class="cov-row"><span class="cov-ticker">XRP</span><span class="cov-name">XRP</span><span class="cov-last mono">1.1337</span><span class="cov-chg mono u-down">-0.60%</span></button><button class="cov-row"><span class="cov-ticker">DOGE</span><span class="cov-name">Dogecoin</span><span class="cov-last mono">0.082993</span><span class="cov-chg mono u-down">-0.27%</span></button><button class="cov-row"><span class="cov-ticker">ADA</span><span class="cov-name">Cardano</span><span class="cov-last mono">0.15872</span><span class="cov-chg mono u-down">-1.48%</span></button><button class="cov-row"><span class="cov-ticker">SUI</span><span class="cov-name">Sui</span><span class="cov-last mono">0.71912</span><span class="cov-chg mono u-up">+1.55%</span></button><button class="cov-row"><span class="cov-ticker">LTC</span><span class="cov-name">Litecoin</span><span class="cov-last mono">44.754</span><span class="cov-chg mono u-down">-1.08%</span></button></div></div><div class="reveal cov-col"><div class="cov-col-head"><span class="cov-col-title">Metals</span><span class="cov-col-blurb">Precious metals</span></div><div class="cov-rows"><button class="cov-row"><span class="cov-ticker">XAU</span><span class="cov-name">Gold</span><span class="cov-last mono">4,179.42</span><span class="cov-chg mono u-up">+0.38%</span></button><button class="cov-row"><span class="cov-ticker">XAG</span><span class="cov-name">Silver</span><span class="cov-last mono">65.155</span><span class="cov-chg mono u-up">+0.23%</span></button><button class="cov-row"><span class="cov-ticker">XPT</span><span class="cov-name">Platinum</span><span class="cov-last mono">1,669.19</span><span class="cov-chg mono u-down">-0.65%</span></button><button class="cov-row"><span class="cov-ticker">XPD</span><span class="cov-name">Palladium</span><span class="cov-last mono">1,258.66</span><span class="cov-chg mono u-up">+1.15%</span></button></div></div><div class="reveal cov-col"><div class="cov-col-head"><span class="cov-col-title">Energy</span><span class="cov-col-blurb">Commodities</span></div><div class="cov-rows"><button class="cov-row"><span class="cov-ticker">CL</span><span class="cov-name">WTI Crude</span><span class="cov-last mono">73.789</span><span class="cov-chg mono u-down">-6.01%</span></button><button class="cov-row"><span class="cov-ticker">NG</span><span class="cov-name">Natural Gas</span><span class="cov-last mono">3.3082</span><span class="cov-chg mono u-up">+1.88%</span></button></div></div><div class="reveal cov-col"><div class="cov-col-head"><span class="cov-col-title">Equity</span><span class="cov-col-blurb">Index &amp; single-name</span></div><div class="cov-rows"><button class="cov-row"><span class="cov-ticker">SPY</span><span class="cov-name">S&amp;P 500</span><span class="cov-last mono">744.74</span><span class="cov-chg mono u-up">+0.07%</span></button><button class="cov-row"><span class="cov-ticker">QQQ</span><span class="cov-name">Nasdaq 100</span><span class="cov-last mono">736.52</span><span class="cov-chg mono u-down">-0.26%</span></button><button class="cov-row"><span class="cov-ticker">NVDA</span><span class="cov-name">NVIDIA</span><span class="cov-last mono">209.45</span><span class="cov-chg mono u-down">-0.06%</span></button><button class="cov-row"><span class="cov-ticker">INTC</span><span class="cov-name">Intel</span><span class="cov-last mono">140.82</span><span class="cov-chg mono u-up">+1.81%</span></button></div></div></div></section><section class="ln-cta"><div class="reveal ln-cta-inner"><h2 class="ln-cta-title">The market is moving. Open the screen.</h2><p class="ln-cta-sub">No sign-up, no paywall. The live terminal is one click away.</p><a class="btn btn-primary btn-lg" href="/terminal">Open the terminal <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><path d="m13 6 6 6-6 6"></path></svg></a></div></section></main><footer class="ln-footer"><div class="ln-footer-inner"><div class="ln-footer-brand"><span style="display: inline-flex; align-items: center; gap: 10px;"><svg width="26" height="26" viewBox="0 0 32 32" role="img" aria-label="TAPE" style="flex: 0 0 auto;"><rect x="0.5" y="0.5" width="31" height="31" rx="7.5" fill="#0e131b" stroke="rgba(255,255,255,0.10)"></rect><line x1="11" y1="6.5" x2="11" y2="25.5" stroke="var(--up)" stroke-width="1.4"></line><rect x="8.4" y="11" width="5.2" height="9.5" rx="1.2" fill="var(--up)"></rect><line x1="21" y1="8.5" x2="21" y2="27" stroke="var(--down)" stroke-width="1.4"></line><rect x="18.4" y="13.5" width="5.2" height="9" rx="1.2" fill="var(--down)"></rect></svg><span style="font-family: var(--font-ui); font-weight: 700; font-size: 16.12px; letter-spacing: 0.16em; color: var(--text-max); padding-left: 1px;">TAPE</span></span><p class="ln-footer-blurb">A real-time, cross-asset markets intelligence terminal. Price, depth, and order flow — read at a glance.</p></div><div class="ln-footer-col"><span class="ln-footer-col-title">Product</span><a href="/terminal">Terminal</a><a href="#capabilities">Capabilities</a><a href="#preview">Live preview</a><a href="#coverage">Coverage</a></div><div class="ln-footer-col"><span class="ln-footer-col-title">Markets</span><a href="#coverage">Crypto</a><a href="#coverage">Metals</a><a href="#coverage">Energy</a><a href="#coverage">Equity</a></div><div class="ln-footer-col"><span class="ln-footer-col-title">Data</span><a href="https://exchange-docs.crypto.com/" target="_blank" rel="noopener noreferrer">Crypto.com Exchange API</a><span class="ln-footer-muted">Public market feed</span><span class="ln-footer-muted">REST + WebSocket</span></div></div><div class="ln-footer-fine"><span>© 2026 TAPE</span><span class="ln-footer-disc">Market data is provided for informational purposes via the Crypto.com Exchange public API and may be delayed or unavailable. Not investment advice.</span></div></footer></div></div></div>
     <noscript>TAPE is a live market terminal and requires JavaScript.</noscript>
-    <script type="module" src="/src/main.tsx?t=1782149162612"></script>
-  
+    
+<script>
+(function () {
+  'use strict';
 
-</body></html>
+  function reducedMotion() {
+    return window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+  function scrollBehavior() {
+    return reducedMotion() ? 'auto' : 'smooth';
+  }
+
+  /* ---- Nav: translucent/blurred once the page is scrolled --------------- */
+  var nav = document.querySelector('.ln-nav');
+  function syncNavScroll() {
+    if (!nav) return;
+    if (window.scrollY > 8) nav.classList.add('is-scrolled');
+    else nav.classList.remove('is-scrolled');
+  }
+  syncNavScroll();
+  window.addEventListener('scroll', syncNavScroll, { passive: true });
+
+  /* ---- "Open the terminal" CTAs ------------------------------------------
+     The full /terminal app isn't part of this single-page build, so every
+     link that points at it lands on the one real terminal surface this page
+     has: the live preview panel. This mirrors the page's own nav, whose
+     "Terminal" link already points at #preview. */
+  var preview = document.getElementById('preview');
+  function goToPreview(e) {
+    if (!preview) return;
+    e.preventDefault();
+    preview.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+  }
+  document.querySelectorAll('a[href="/terminal"]').forEach(function (a) {
+    a.addEventListener('click', goToPreview);
+  });
+
+  /* Brand mark "home" link: this single page IS "/", so just go to the top. */
+  var brand = document.querySelector('.ln-nav-brand');
+  if (brand) {
+    brand.addEventListener('click', function (e) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: scrollBehavior() });
+    });
+  }
+
+  /* Watchlist-style rows ("Open X in the terminal") jump to the live preview. */
+  document.querySelectorAll('.lb-row, .cov-row').forEach(function (row) {
+    row.addEventListener('click', function () {
+      if (preview) preview.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+    });
+  });
+
+  /* Ticker tape: selecting an instrument highlights it in both looped
+     sequences and opens the preview, same affordance as the watchlist rows. */
+  document.querySelectorAll('.tape-item').forEach(function (item) {
+    item.addEventListener('click', function () {
+      var sym = item.querySelector('.tape-sym');
+      var label = sym ? sym.textContent : null;
+      document.querySelectorAll('.tape-item').forEach(function (t) {
+        var s = t.querySelector('.tape-sym');
+        var match = label !== null && s && s.textContent === label;
+        t.classList.toggle('is-active', match);
+      });
+      if (preview) preview.scrollIntoView({ behavior: scrollBehavior(), block: 'start' });
+    });
+  });
+
+  /* ---- Chart timeframe tabs + canvas candlestick/volume renderer -------- */
+  var canvas = document.querySelector('.chart-canvas');
+  var tfButtons = Array.prototype.slice.call(document.querySelectorAll('.chart-tf-btn'));
+  var candlesMeta = document.querySelector('.chart-meta-val');
+  var UP = '#1fc77d';
+  var DOWN = '#f6465d';
+  var ANCHOR_PRICE = 64406.4; /* keeps the chart in sync with the BTC price already printed on the page */
+
+  var CANDLE_COUNT = { '1m': 180, '5m': 300, '15m': 220, '1H': 160, '4H': 120, '1D': 90 };
+  var SEED = { '1m': 11, '5m': 52, '15m': 153, '1H': 601, '4H': 402, '1D': 101 };
+
+  function mulberry32(seed) {
+    return function () {
+      seed |= 0;
+      seed = (seed + 0x6d2b79f5) | 0;
+      var t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  function generateCandles(n, seed) {
+    var rand = mulberry32(seed);
+    var candles = [];
+    var price = 64300 + rand() * 220;
+    for (var i = 0; i < n; i++) {
+      var open = price;
+      var drift = (rand() - 0.5) * 90;
+      var close = Math.max(1, open + drift);
+      var high = Math.max(open, close) + rand() * 40;
+      var low = Math.max(0.01, Math.min(open, close) - rand() * 40);
+      var vol = rand() * 3 + 0.1;
+      candles.push({ open: open, close: close, high: high, low: low, vol: vol });
+      price = close;
+    }
+    var shift = ANCHOR_PRICE - candles[candles.length - 1].close;
+    candles.forEach(function (c) {
+      c.open += shift;
+      c.close += shift;
+      c.high += shift;
+      c.low += shift;
+    });
+    return candles;
+  }
+
+  function fmt(n) {
+    return n.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  }
+
+  function drawSegments(ctx, x, y, segments) {
+    ctx.textAlign = 'left';
+    var cx = x;
+    segments.forEach(function (seg) {
+      ctx.fillStyle = seg.color;
+      ctx.font = seg.font || '10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+      ctx.fillText(seg.text, cx, y);
+      cx += ctx.measureText(seg.text).width;
+    });
+  }
+
+  function renderChart(tf) {
+    if (!canvas) return;
+    var wrap = canvas.parentElement;
+    if (!wrap) return;
+    var rect = wrap.getBoundingClientRect();
+    var w = Math.max(1, Math.round(rect.width));
+    var h = Math.max(1, Math.round(rect.height));
+    var dpr = window.devicePixelRatio || 1;
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    canvas.style.width = w + 'px';
+    canvas.style.height = h + 'px';
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    var n = CANDLE_COUNT[tf] || 300;
+    var candles = generateCandles(n, SEED[tf] || 52);
+
+    var padTop = 24, padBottom = 22, padRight = 60, padLeft = 8;
+    var volH = Math.round((h - padTop - padBottom) * 0.2);
+    var chartH = h - padTop - padBottom - volH - 6;
+    if (chartH < 20) { chartH = Math.max(20, h - padTop - padBottom); volH = 0; }
+
+    var hi = -Infinity, lo = Infinity, maxVol = 0;
+    candles.forEach(function (c) {
+      if (c.high > hi) hi = c.high;
+      if (c.low < lo) lo = c.low;
+      if (c.vol > maxVol) maxVol = c.vol;
+    });
+    var hiTrue = hi, loTrue = lo;
+    var span = (hi - lo) || 1;
+    hi += span * 0.08;
+    lo -= span * 0.08;
+    span = hi - lo;
+
+    var plotW = Math.max(1, w - padLeft - padRight);
+    var cw = plotW / n;
+
+    /* grid + price axis */
+    ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    ctx.fillStyle = '#5d6a7e';
+    ctx.textBaseline = 'middle';
+    var steps = 4;
+    for (var s = 0; s <= steps; s++) {
+      var y = padTop + (chartH * s) / steps;
+      ctx.beginPath();
+      ctx.moveTo(padLeft, Math.round(y) + 0.5);
+      ctx.lineTo(w - padRight, Math.round(y) + 0.5);
+      ctx.stroke();
+      ctx.font = '10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+      ctx.textAlign = 'left';
+      ctx.fillText(fmt(hi - (span * s) / steps), w - padRight + 6, y);
+    }
+
+    /* candles + volume */
+    for (var i = 0; i < n; i++) {
+      var c = candles[i];
+      var x = padLeft + i * cw;
+      var cx = x + cw / 2;
+      var up = c.close >= c.open;
+      var color = up ? UP : DOWN;
+      var yHigh = padTop + ((hi - c.high) / span) * chartH;
+      var yLow = padTop + ((hi - c.low) / span) * chartH;
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(cx, yHigh);
+      ctx.lineTo(cx, yLow);
+      ctx.stroke();
+      var yOpen = padTop + ((hi - c.open) / span) * chartH;
+      var yClose = padTop + ((hi - c.close) / span) * chartH;
+      var bodyTop = Math.min(yOpen, yClose);
+      var bodyH = Math.max(1, Math.abs(yClose - yOpen));
+      ctx.fillStyle = color;
+      ctx.fillRect(x + cw * 0.15, bodyTop, Math.max(1, cw * 0.7), bodyH);
+
+      if (volH > 0) {
+        var barH = (c.vol / maxVol) * volH;
+        ctx.globalAlpha = 0.5;
+        ctx.fillRect(x + cw * 0.15, h - padBottom - barH, Math.max(1, cw * 0.7), barH);
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    /* last-price dashed line + tag */
+    var last = candles[n - 1];
+    var prev = candles[n - 2] || last;
+    var lastColor = last.close >= last.open ? UP : DOWN;
+    var yLast = padTop + ((hi - last.close) / span) * chartH;
+    ctx.save();
+    ctx.strokeStyle = lastColor;
+    ctx.setLineDash([3, 3]);
+    ctx.beginPath();
+    ctx.moveTo(padLeft, Math.round(yLast) + 0.5);
+    ctx.lineTo(w - padRight, Math.round(yLast) + 0.5);
+    ctx.stroke();
+    ctx.restore();
+    ctx.fillStyle = lastColor;
+    ctx.fillRect(w - padRight, yLast - 7, padRight - 4, 14);
+    ctx.fillStyle = '#07090c';
+    ctx.textAlign = 'left';
+    ctx.font = '600 10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    ctx.fillText(fmt(last.close), w - padRight + 4, yLast + 1);
+
+    /* OHLC + volume readout */
+    var chgPct = ((last.close - prev.close) / prev.close) * 100;
+    var chgTxt = (chgPct >= 0 ? '+' : '') + chgPct.toFixed(2) + '%';
+    var gray = '#8794a6';
+    var hiLine = '10px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace';
+    drawSegments(ctx, padLeft, 10, [
+      { text: 'O ', color: gray, font: hiLine },
+      { text: fmt(candles[0].open) + '  ', color: '#aab6c6', font: hiLine },
+      { text: 'H ', color: gray, font: hiLine },
+      { text: fmt(hiTrue) + '  ', color: '#aab6c6', font: hiLine },
+      { text: 'L ', color: gray, font: hiLine },
+      { text: fmt(loTrue) + '  ', color: '#aab6c6', font: hiLine },
+      { text: 'C ', color: gray, font: hiLine },
+      { text: fmt(last.close) + ' ', color: lastColor, font: hiLine },
+      { text: chgTxt + '  ', color: lastColor, font: hiLine },
+      { text: 'Vol ', color: gray, font: hiLine },
+      { text: last.vol.toFixed(2), color: '#aab6c6', font: hiLine }
+    ]);
+
+    if (candlesMeta) candlesMeta.textContent = String(n);
+  }
+
+  var activeTf = '5m';
+  tfButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      tfButtons.forEach(function (b) {
+        b.classList.remove('is-active');
+        b.setAttribute('aria-selected', 'false');
+      });
+      btn.classList.add('is-active');
+      btn.setAttribute('aria-selected', 'true');
+      activeTf = btn.textContent.trim();
+      renderChart(activeTf);
+    });
+  });
+
+  if (canvas) {
+    var redraw = function () { renderChart(activeTf); };
+    if (document.readyState === 'complete') {
+      requestAnimationFrame(redraw);
+    } else {
+      window.addEventListener('load', function () { requestAnimationFrame(redraw); });
+    }
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(redraw, 120);
+    });
+    window.addEventListener('orientationchange', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(redraw, 120);
+    });
+  }
+})();
+</script>
+</body>
+</html>

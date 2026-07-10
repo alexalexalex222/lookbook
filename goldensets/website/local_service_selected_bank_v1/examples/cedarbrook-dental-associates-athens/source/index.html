@@ -16,8 +16,32 @@
     --champagne: #C0A483;
     --champagne-light: #DFD0C0;
     --champagne-hover: #A88B68;
+    /* AA ink variants: same hue families, darkened for text on ivory */
+    --champagne-ink: #8A6B44;
+    --champagne-deep: #AD8A5F;
+    --sea-glass-ink: #587467;
     --deep-slate: #242E32;
     --soft-slate: #66757A;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible {
+    outline: 2px solid var(--sea-glass-ink);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 
   body {
@@ -86,7 +110,7 @@
   }
 
   .main-nav a:hover {
-    color: var(--champagne);
+    color: var(--champagne-ink);
   }
 
   /* Main Content */
@@ -102,7 +126,7 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: var(--sea-glass);
+    color: var(--sea-glass-ink);
     font-weight: 500;
     margin-bottom: 2.5rem;
   }
@@ -127,7 +151,7 @@
 
   h1 i {
     font-style: italic;
-    color: var(--champagne);
+    color: var(--champagne-deep);
     font-weight: 300;
   }
 
@@ -150,7 +174,7 @@
     align-items: center;
     justify-content: center;
     background-color: var(--champagne);
-    color: #fff;
+    color: var(--deep-slate);
     text-decoration: none;
     padding: 1.2rem 2.8rem;
     border-radius: 50px;
@@ -190,7 +214,7 @@
   }
 
   .btn-text:hover {
-    color: var(--sea-glass);
+    color: var(--sea-glass-ink);
   }
 
   .btn-text:hover::after {
@@ -262,11 +286,14 @@
     height: 100%;
     position: relative;
     z-index: 2;
-    background-color: var(--sea-glass);
-    background-image: linear-gradient(135deg, rgba(142, 172, 160, 0.3), rgba(192, 164, 131, 0.1)), url('https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600');
-    background-size: cover;
-    background-position: center;
+    background-color: var(--sea-glass-light);
     animation: slowPan 30s ease-in-out infinite alternate;
+  }
+
+  .image-inner svg {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
   .overlay-card {
@@ -335,7 +362,7 @@
   }
 
   .phone-link {
-    color: var(--champagne);
+    color: var(--champagne-ink);
     font-family: 'Outfit', sans-serif;
     text-decoration: none;
     font-size: 0.9rem;
@@ -348,9 +375,9 @@
   }
 
   .phone-link:hover {
-    background-color: var(--champagne);
-    color: #fff;
-    border-color: var(--champagne);
+    background-color: var(--champagne-ink);
+    color: var(--ivory);
+    border-color: var(--champagne-ink);
   }
 
   /* Responsive Design */
@@ -421,16 +448,16 @@
 </head>
 <body>
 
-<div class="hero-container">
-  
+<section class="hero-container" aria-label="Welcome to Cedarbrook Dental Associates">
+
   <!-- Left Content -->
   <div class="split-left">
     <header>
       <div class="logo">Cedarbrook Dental<br>Associates</div>
-      <nav class="main-nav">
-        <a href="#">Our Practice</a>
-        <a href="#">Treatments</a>
-        <a href="#">Patient Info</a>
+      <nav class="main-nav" aria-label="Primary">
+        <a href="#philosophy">Our Practice</a>
+        <a href="#treatments">Treatments</a>
+        <a href="#visit">Patient Info</a>
       </nav>
       <div class="header-contact">
         <a href="tel:+17065550143" class="phone-link">706.555.0143</a>
@@ -440,16 +467,16 @@
     <div class="content">
       <div class="badge">Athens, Georgia</div>
       <h1>Generations of gentle,<br><i>refined care.</i></h1>
-      <p>Since 1976, we’ve practiced dentistry with a quiet dedication to comfort and clinical excellence. Dr. Erin Caldwell and our long-tenured team welcome your family to a higher standard of care.</p>
+      <p>Since 1972, we’ve practiced dentistry with a quiet dedication to comfort and clinical excellence. Dr. Erin Caldwell and our long-tenured team welcome your family to a higher standard of care.</p>
       
       <div class="actions">
-        <a href="#" class="btn-primary">Request an Appointment</a>
-        <a href="#" class="btn-text">Meet Dr. Lindsey</a>
+        <a href="#appointment" class="btn-primary">Request an Appointment</a>
+        <a href="#philosophy" class="btn-text">Meet Dr. Caldwell</a>
       </div>
     </div>
 
     <div class="footer-note">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-hidden="true" focusable="false">
         <path d="M12 21s-7.5-6.818-7.5-12a7.5 7.5 0 0 1 15 0c0 5.182-7.5 12-7.5 12z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         <circle cx="12" cy="9" r="2.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
@@ -460,17 +487,75 @@
   <!-- Right Visual -->
   <div class="split-right">
     <div class="image-wrapper">
-      <div class="image-inner"></div>
+      <div class="image-inner">
+        <svg viewBox="0 0 900 1160" preserveAspectRatio="xMidYMid slice" role="img" aria-labelledby="cbHeroScene">
+          <title id="cbHeroScene">Illustration of the Cedarbrook reception room: an arched window with morning light, a potted plant, and a calm lounge chair</title>
+          <defs>
+            <linearGradient id="cbWall" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#EFF3F0"/>
+              <stop offset="0.55" stop-color="#DFE9E3"/>
+              <stop offset="1" stop-color="#CFDFD6"/>
+            </linearGradient>
+            <linearGradient id="cbGlow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#F8ECDB"/>
+              <stop offset="0.6" stop-color="#ECDABF"/>
+              <stop offset="1" stop-color="#DFC9A6"/>
+            </linearGradient>
+            <linearGradient id="cbFloor" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#EAE5D9"/>
+              <stop offset="1" stop-color="#DBD4C4"/>
+            </linearGradient>
+          </defs>
+          <rect width="900" height="1160" fill="url(#cbWall)"/>
+          <rect y="880" width="900" height="280" fill="url(#cbFloor)"/>
+          <path d="M0 880 H900" stroke="#B9C9C1" stroke-width="2"/>
+          <!-- arched window -->
+          <path d="M316 852 V424 a194 194 0 0 1 388 0 V852 Z" fill="#FDFDFB"/>
+          <path d="M330 840 V424 a180 180 0 0 1 360 0 V840 Z" fill="url(#cbGlow)"/>
+          <path d="M330 758 q84 -50 176 -18 q98 32 184 -8 V840 H330 Z" fill="#B4C7BC" opacity="0.75"/>
+          <path d="M330 798 q124 -38 244 -4 q66 16 116 6 V840 H330 Z" fill="#9DB5A8" opacity="0.85"/>
+          <circle cx="566" cy="464" r="56" fill="#EDD9B4"/>
+          <path d="M510 246 V840 M330 618 H690" stroke="#FDFDFB" stroke-width="7" opacity="0.9" fill="none"/>
+          <!-- pendant light -->
+          <rect x="176" y="0" width="3" height="218" fill="#8A6B44" opacity="0.6"/>
+          <path d="M132 262 a46 46 0 0 1 92 0 Z" fill="#C0A483"/>
+          <circle cx="178" cy="274" r="7" fill="#F7EBDA"/>
+          <!-- wall ring artwork -->
+          <circle cx="800" cy="330" r="52" fill="none" stroke="#C0A483" stroke-width="2" opacity="0.55"/>
+          <circle cx="800" cy="330" r="34" fill="none" stroke="#C0A483" stroke-width="1.5" opacity="0.35"/>
+          <!-- potted plant -->
+          <ellipse cx="188" cy="1008" rx="118" ry="18" fill="#24343A" opacity="0.08"/>
+          <path d="M186 872 C180 780 176 706 148 642" stroke="#5E7A6E" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M188 872 C194 776 200 712 236 656" stroke="#587467" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M190 872 C190 800 190 744 192 700" stroke="#6E8B7E" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <ellipse cx="146" cy="628" rx="17" ry="54" transform="rotate(-26 146 628)" fill="#587467"/>
+          <ellipse cx="240" cy="642" rx="16" ry="50" transform="rotate(24 240 642)" fill="#6E8B7E"/>
+          <ellipse cx="192" cy="682" rx="15" ry="46" transform="rotate(-4 192 682)" fill="#4E6A5E"/>
+          <rect x="112" y="866" width="152" height="24" rx="8" fill="#B9976C"/>
+          <path d="M122 890 h132 l-14 114 h-104 Z" fill="#C8A87F"/>
+          <!-- lounge chair -->
+          <ellipse cx="742" cy="1032" rx="168" ry="24" fill="#24343A" opacity="0.10"/>
+          <path d="M660 1002 v-172 a106 106 0 0 1 106 -106 h18 a46 46 0 0 1 46 46 v232 Z" fill="#5E7A6E"/>
+          <rect x="638" y="906" width="216" height="52" rx="26" fill="#6E8B7E"/>
+          <rect x="700" y="844" width="82" height="66" rx="18" fill="#DFC9A6" transform="rotate(-8 741 877)"/>
+          <rect x="672" y="1000" width="10" height="34" rx="4" fill="#8A6B44"/>
+          <rect x="822" y="1000" width="10" height="34" rx="4" fill="#8A6B44"/>
+          <!-- drifting motes -->
+          <circle cx="94" cy="380" r="5" fill="#C0A483" opacity="0.35"/>
+          <circle cx="130" cy="452" r="3" fill="#C0A483" opacity="0.3"/>
+          <circle cx="70" cy="520" r="4" fill="#8EACA0" opacity="0.35"/>
+        </svg>
+      </div>
       <div class="image-border"></div>
     </div>
-    
+
     <div class="overlay-card">
-      <div class="stars">
-        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-        <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+      <div class="stars" role="img" aria-label="Rated five stars">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
       </div>
       <p>“A beautifully calming environment with a team that truly knows our family. Dentistry as it should be.”</p>
       <div class="author">
@@ -479,7 +564,7 @@
     </div>
   </div>
 
-</div>
+</section>
 
 
 
@@ -516,15 +601,15 @@
     box-shadow: 0 20px 40px rgba(36, 46, 50, 0.05);
   }
 
-  .philosophy-image img {
+  .philosophy-image svg {
     width: 100%;
     height: auto;
     display: block;
     border-radius: 24px;
     transition: transform 0.8s ease;
   }
-  
-  .philosophy-image:hover img {
+
+  .philosophy-image:hover svg {
     transform: scale(1.03);
   }
 
@@ -539,7 +624,7 @@
     font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.15em;
-    color: var(--sea-glass);
+    color: var(--sea-glass-ink);
     font-weight: 500;
     margin-bottom: 1.5rem;
   }
@@ -669,7 +754,7 @@
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--champagne);
+    color: var(--champagne-ink);
     text-decoration: none;
     font-weight: 500;
     transition: gap 0.3s ease;
@@ -751,9 +836,10 @@
     flex: 1;
     position: relative;
   }
-  
-  .environment-image img {
+
+  .environment-image svg {
     width: 100%;
+    height: auto;
     border-radius: 200px 32px 32px 200px;
     display: block;
   }
@@ -814,7 +900,7 @@
   }
 
   .footer-links a:hover {
-    color: var(--champagne);
+    color: var(--champagne-ink);
   }
 
   .footer-contact p {
@@ -824,7 +910,7 @@
   }
 
   .footer-contact a {
-    color: var(--champagne);
+    color: var(--champagne-ink);
     text-decoration: none;
     font-size: 1.2rem;
     font-family: 'Cormorant Garamond', serif;
@@ -845,6 +931,507 @@
     font-size: 0.85rem;
   }
 
+  /* Patient Voices */
+  .voices-section {
+    background-color: var(--ivory);
+    padding: 8rem 4rem;
+  }
+
+  .voices-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .voices-header {
+    text-align: center;
+    margin-bottom: 4.5rem;
+  }
+
+  .voices-header .section-label {
+    justify-content: center;
+  }
+
+  .voices-header .section-label::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background-color: var(--sea-glass);
+  }
+
+  .voices-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    color: var(--deep-slate);
+    margin: 0;
+  }
+
+  .voices-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+
+  .voice-card {
+    background: var(--ivory);
+    border: 1px solid rgba(142, 172, 160, 0.25);
+    border-radius: 24px;
+    padding: 3rem 2.5rem 2.5rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
+  }
+
+  .voice-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--champagne);
+    box-shadow: 0 20px 40px rgba(36, 46, 50, 0.06);
+  }
+
+  .voice-card .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    line-height: 0.6;
+    color: var(--champagne);
+    margin-bottom: 1.5rem;
+  }
+
+  .voice-card blockquote {
+    margin: 0 0 2rem 0;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--deep-slate);
+    flex-grow: 1;
+  }
+
+  .voice-card figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    border-top: 1px solid var(--ivory-dark);
+    padding-top: 1.25rem;
+  }
+
+  .voice-card cite {
+    font-style: normal;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--deep-slate);
+    font-weight: 500;
+  }
+
+  .voice-card figcaption span {
+    font-size: 0.85rem;
+    color: var(--soft-slate);
+    font-weight: 300;
+  }
+
+  /* First Visit / Process */
+  .visit-section {
+    background-color: var(--ivory-dark);
+    padding: 8rem 4rem;
+  }
+
+  .visit-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .visit-header {
+    max-width: 560px;
+    margin-bottom: 4.5rem;
+  }
+
+  .visit-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    font-weight: 400;
+    color: var(--deep-slate);
+    margin: 0 0 1.5rem 0;
+  }
+
+  .visit-header p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--soft-slate);
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .visit-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem;
+    counter-reset: visit;
+  }
+
+  .visit-step {
+    position: relative;
+    padding-top: 2rem;
+  }
+
+  .visit-step::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, var(--champagne) 0%, rgba(192, 164, 131, 0.15) 100%);
+  }
+
+  .visit-step .step-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--champagne-ink);
+    display: block;
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+
+  .visit-step h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--deep-slate);
+    margin: 0 0 0.75rem 0;
+  }
+
+  .visit-step p {
+    font-size: 0.98rem;
+    line-height: 1.7;
+    color: var(--soft-slate);
+    font-weight: 300;
+    margin: 0;
+  }
+
+  /* Service Area */
+  .area-section {
+    background-color: var(--sea-glass-light);
+    padding: 6rem 4rem;
+  }
+
+  .area-container {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .area-container .section-label {
+    justify-content: center;
+  }
+
+  .area-container .section-label::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background-color: var(--sea-glass);
+  }
+
+  .area-container h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--deep-slate);
+    margin: 0 0 1.5rem 0;
+  }
+
+  .area-container > p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--deep-slate);
+    font-weight: 300;
+    max-width: 640px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .area-places {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .area-places li {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--sea-glass-ink);
+    font-weight: 500;
+    border: 1px solid rgba(88, 116, 103, 0.35);
+    border-radius: 40px;
+    padding: 0.55rem 1.3rem;
+    background: rgba(253, 253, 251, 0.55);
+  }
+
+  /* FAQ */
+  .faq-section {
+    background-color: var(--ivory);
+    padding: 8rem 4rem;
+  }
+
+  .faq-container {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+
+  .faq-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .faq-header .section-label {
+    justify-content: center;
+  }
+
+  .faq-header .section-label::after {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 1px;
+    background-color: var(--sea-glass);
+  }
+
+  .faq-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    color: var(--deep-slate);
+    margin: 0;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(102, 117, 122, 0.18);
+  }
+
+  .faq-item:first-of-type {
+    border-top: 1px solid rgba(102, 117, 122, 0.18);
+  }
+
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.75rem 0.5rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.55rem;
+    font-weight: 500;
+    color: var(--deep-slate);
+    transition: color 0.3s ease;
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item summary:hover {
+    color: var(--champagne-ink);
+  }
+
+  .faq-item summary::after {
+    content: '+';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--champagne-ink);
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item[open] summary::after {
+    transform: rotate(45deg);
+  }
+
+  .faq-item p {
+    margin: 0;
+    padding: 0 0.5rem 1.75rem;
+    max-width: 660px;
+    font-size: 1.02rem;
+    line-height: 1.8;
+    color: var(--soft-slate);
+    font-weight: 300;
+  }
+
+  /* Appointment */
+  .appointment-section {
+    background-color: var(--deep-slate);
+    padding: 8rem 4rem;
+  }
+
+  .appointment-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 5rem;
+    align-items: flex-start;
+  }
+
+  .appointment-intro {
+    flex: 1;
+    color: var(--ivory);
+  }
+
+  .appointment-intro .section-label {
+    color: var(--sea-glass-light);
+  }
+
+  .appointment-intro .section-label::before {
+    background-color: var(--sea-glass-light);
+  }
+
+  .appointment-intro h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    font-weight: 400;
+    margin: 0 0 1.5rem 0;
+    color: var(--ivory);
+  }
+
+  .appointment-intro h2 i {
+    font-style: italic;
+    color: var(--champagne);
+    font-weight: 300;
+  }
+
+  .appointment-intro p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(253, 253, 251, 0.8);
+    font-weight: 300;
+    margin: 0 0 2.5rem 0;
+  }
+
+  .appointment-direct {
+    border-top: 1px solid rgba(253, 253, 251, 0.12);
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .appointment-direct span {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(253, 253, 251, 0.6);
+  }
+
+  .appointment-direct a {
+    color: var(--champagne);
+    text-decoration: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-style: italic;
+    width: fit-content;
+  }
+
+  .appointment-direct a:hover {
+    color: var(--champagne-light);
+  }
+
+  .appointment-form {
+    flex: 1.1;
+    background: var(--ivory);
+    border-radius: 24px;
+    padding: 3rem;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .form-field label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--deep-slate);
+    font-weight: 500;
+  }
+
+  .form-field .hint {
+    font-size: 0.82rem;
+    color: var(--soft-slate);
+    font-weight: 300;
+  }
+
+  .form-field input,
+  .form-field select,
+  .form-field textarea {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    color: var(--deep-slate);
+    background: var(--ivory-dark);
+    border: 1px solid rgba(102, 117, 122, 0.25);
+    border-radius: 12px;
+    padding: 0.9rem 1.1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-field textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+
+  .form-field input:focus,
+  .form-field select:focus,
+  .form-field textarea:focus {
+    border-color: var(--sea-glass-ink);
+    box-shadow: 0 0 0 3px rgba(88, 116, 103, 0.15);
+    outline: none;
+  }
+
+  .form-field input:focus-visible,
+  .form-field select:focus-visible,
+  .form-field textarea:focus-visible {
+    outline: 2px solid var(--sea-glass-ink);
+    outline-offset: 1px;
+  }
+
+  .appointment-form button {
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    border: none;
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .form-note {
+    margin: 1.25rem 0 0;
+    font-size: 0.85rem;
+    color: var(--soft-slate);
+    font-weight: 300;
+    text-align: center;
+  }
+
   /* Responsive Adjustments */
   @media (max-width: 1024px) {
     .philosophy-container,
@@ -852,13 +1439,33 @@
       flex-direction: column;
       gap: 3rem;
     }
-    
+
     .services-grid {
       grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .footer-container {
       grid-template-columns: repeat(2, 1fr);
+    }
+
+    .voices-grid {
+      grid-template-columns: 1fr;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    .visit-steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .appointment-container {
+      flex-direction: column;
+      gap: 3.5rem;
+    }
+
+    .appointment-form {
+      width: 100%;
+      box-sizing: border-box;
     }
   }
 
@@ -866,51 +1473,153 @@
     .philosophy-section,
     .services-section,
     .environment-section,
+    .voices-section,
+    .visit-section,
+    .faq-section,
+    .appointment-section,
     .site-footer {
-      padding: 4rem 2rem;
+      padding: 4rem 1.5rem;
+    }
+
+    .area-section {
+      padding: 3.5rem 1.5rem;
     }
 
     .philosophy-content h2,
     .services-header h2,
-    .environment-content h2 {
+    .environment-content h2,
+    .voices-header h2,
+    .visit-header h2,
+    .faq-header h2,
+    .appointment-intro h2 {
       font-size: 2.5rem;
+    }
+
+    .area-container h2 {
+      font-size: 2.2rem;
     }
 
     .services-grid {
       grid-template-columns: 1fr;
     }
-    
+
+    .visit-steps {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .environment-stats {
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .form-row {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .appointment-form {
+      padding: 2rem 1.5rem;
+    }
+
+    .faq-item summary {
+      font-size: 1.3rem;
+    }
+
     .footer-container {
       grid-template-columns: 1fr;
       gap: 2.5rem;
     }
-    
-    .environment-image img {
+
+    .environment-image svg {
       border-radius: 40px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    h1 {
+      font-size: 2.7rem;
+    }
+
+    .split-left {
+      padding: 2rem 1.25rem;
+    }
+
+    .overlay-card {
+      padding: 1.75rem;
+    }
+
+    .overlay-card p {
+      font-size: 1.2rem;
     }
   }
 </style>
 
-<section class="lower-fold-section philosophy-section">
+<section id="philosophy" class="lower-fold-section philosophy-section" aria-labelledby="philosophy-heading">
   <div class="philosophy-container">
     <div class="philosophy-image">
-      <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&q=80&w=800" alt="Comfortable, modern dental treatment room">
+      <svg viewBox="0 0 800 620" role="img" aria-labelledby="cbPhilScene">
+        <title id="cbPhilScene">Illustration of a calm treatment room: an arched window, folded linens, and an apothecary jar on a warm counter</title>
+        <defs>
+          <linearGradient id="cbPhilWall" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#FBFAF6"/>
+            <stop offset="1" stop-color="#F0EDE4"/>
+          </linearGradient>
+          <linearGradient id="cbPhilGlow" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F8ECDB"/>
+            <stop offset="1" stop-color="#E3CDA9"/>
+          </linearGradient>
+        </defs>
+        <rect width="800" height="620" fill="url(#cbPhilWall)"/>
+        <rect y="505" width="800" height="115" fill="#E7E2D4"/>
+        <path d="M0 505 H800" stroke="#CBC4B2" stroke-width="2"/>
+        <!-- arched window -->
+        <path d="M70 505 V210 a110 110 0 0 1 220 0 V505 Z" fill="#FDFDFB"/>
+        <path d="M82 493 V214 a98 98 0 0 1 196 0 V493 Z" fill="url(#cbPhilGlow)"/>
+        <path d="M82 440 q52 -28 104 -8 q52 20 92 -4 V493 H82 Z" fill="#9DB5A8" opacity="0.8"/>
+        <circle cx="180" cy="272" r="34" fill="#EDD9B4"/>
+        <path d="M180 116 V493 M82 356 H278" stroke="#FDFDFB" stroke-width="5" fill="none" opacity="0.9"/>
+        <!-- wall rings -->
+        <circle cx="520" cy="170" r="42" fill="none" stroke="#C0A483" stroke-width="2" opacity="0.5"/>
+        <circle cx="520" cy="170" r="27" fill="none" stroke="#C0A483" stroke-width="1.5" opacity="0.32"/>
+        <!-- counter -->
+        <ellipse cx="560" cy="520" rx="230" ry="14" fill="#24343A" opacity="0.07"/>
+        <rect x="340" y="392" width="430" height="18" rx="4" fill="#DFC9A6"/>
+        <rect x="352" y="410" width="406" height="95" fill="#EFEBDF"/>
+        <path d="M452 410 V505 M552 410 V505 M652 410 V505" stroke="#DBD4C2" stroke-width="2"/>
+        <!-- folded linens -->
+        <rect x="380" y="376" width="110" height="16" rx="8" fill="#B4C7BC"/>
+        <rect x="384" y="360" width="102" height="16" rx="8" fill="#9DB5A8"/>
+        <rect x="388" y="344" width="94" height="16" rx="8" fill="#8EACA0"/>
+        <!-- apothecary jar -->
+        <rect x="560" y="322" width="54" height="70" rx="14" fill="#E2EBE7" stroke="#8EACA0" stroke-width="2"/>
+        <circle cx="587" cy="316" r="9" fill="#C0A483"/>
+        <circle cx="578" cy="368" r="6" fill="#FDFDFB"/>
+        <circle cx="594" cy="356" r="6" fill="#FDFDFB"/>
+        <circle cx="586" cy="380" r="6" fill="#FDFDFB"/>
+        <!-- potted sprig -->
+        <rect x="680" y="360" width="44" height="32" rx="8" fill="#C8A87F"/>
+        <path d="M702 360 C700 330 692 312 678 298" stroke="#587467" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M702 360 C706 332 714 316 726 304" stroke="#6E8B7E" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <ellipse cx="676" cy="292" rx="9" ry="20" transform="rotate(-30 676 292)" fill="#587467"/>
+        <ellipse cx="728" cy="298" rx="8" ry="18" transform="rotate(28 728 298)" fill="#6E8B7E"/>
+      </svg>
     </div>
     <div class="philosophy-content">
       <div class="section-label">Our Philosophy</div>
-      <h2>Dentistry defined by grace and precision.</h2>
+      <h2 id="philosophy-heading">Dentistry defined by grace and precision.</h2>
       <p>We believe that exceptional clinical care should be delivered in an atmosphere of complete tranquility. From the moment you step into our practice, every detail is considered to ensure your comfort and peace of mind.</p>
-      <p>Dr. Lindsey and our dedicated team combine decades of foundational experience with modern, gentle techniques. We listen deeply, plan meticulously, and treat conservatively, ensuring your smile remains healthy and beautiful for a lifetime.</p>
-      <a href="#" class="btn-text" style="margin-top: 1rem; display: inline-block;">Learn About Our Approach</a>
+      <p>Dr. Caldwell and our dedicated team combine decades of foundational experience with modern, gentle techniques. We listen deeply, plan meticulously, and treat conservatively, ensuring your smile remains healthy and beautiful for a lifetime.</p>
+      <a href="#visit" class="btn-text" style="margin-top: 1rem; display: inline-block;">Learn About Our Approach</a>
     </div>
   </div>
 </section>
 
-<section class="lower-fold-section services-section">
+<section id="treatments" class="lower-fold-section services-section" aria-labelledby="treatments-heading">
   <div class="services-container">
     <div class="services-header">
       <div class="section-label">Clinical Excellence</div>
-      <h2>Comprehensive Care</h2>
+      <h2 id="treatments-heading">Comprehensive Care</h2>
     </div>
     
     <div class="services-grid">
@@ -953,11 +1662,11 @@
   </div>
 </section>
 
-<section class="lower-fold-section environment-section">
+<section id="legacy" class="lower-fold-section environment-section" aria-labelledby="legacy-heading">
   <div class="environment-container">
     <div class="environment-content">
       <div class="section-label">A Legacy of Trust</div>
-      <h2>Rooted in the Athens community since 1976.</h2>
+      <h2 id="legacy-heading">Rooted in the Athens community since 1972.</h2>
       <p>For nearly fifty years, Cedarbrook Dental Associates has been a cornerstone of care for generations of families. Our practice was built on a foundation of integrity, and we continue that legacy today by providing unhurried, deeply personalized attention to every patient.</p>
       
       <div class="environment-stats">
@@ -976,39 +1685,260 @@
       </div>
     </div>
     <div class="environment-image">
-      <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&q=80&w=800" alt="Cedarbrook Dental Associates Practice Details">
+      <svg viewBox="0 0 800 960" role="img" aria-labelledby="cbLegacyScene">
+        <title id="cbLegacyScene">Illustration of a magnolia branch in a tall vase on a plinth, drawn in champagne line work on deep slate</title>
+        <defs>
+          <linearGradient id="cbLegacyBg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2C3B42"/>
+            <stop offset="1" stop-color="#1D2529"/>
+          </linearGradient>
+        </defs>
+        <rect width="800" height="960" fill="url(#cbLegacyBg)"/>
+        <text x="400" y="330" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-size="200" fill="#C0A483" opacity="0.1">1972</text>
+        <circle cx="640" cy="190" r="112" fill="none" stroke="#C0A483" stroke-width="1.5" opacity="0.2"/>
+        <circle cx="640" cy="190" r="84" fill="none" stroke="#C0A483" stroke-width="1.5" opacity="0.16"/>
+        <circle cx="640" cy="190" r="58" fill="none" stroke="#C0A483" stroke-width="1.5" opacity="0.12"/>
+        <!-- plinth -->
+        <ellipse cx="400" cy="906" rx="190" ry="18" fill="#000000" opacity="0.2"/>
+        <rect x="284" y="744" width="232" height="18" rx="3" fill="#33424A"/>
+        <path d="M284 744 H516" stroke="#C0A483" stroke-width="1.5" opacity="0.4"/>
+        <rect x="300" y="762" width="200" height="138" fill="#2E3B41"/>
+        <!-- vase -->
+        <ellipse cx="400" cy="680" rx="52" ry="62" fill="#2E3B41" stroke="#C0A483" stroke-width="1.5"/>
+        <rect x="386" y="588" width="28" height="44" rx="8" fill="#2E3B41" stroke="#C0A483" stroke-width="1.5"/>
+        <rect x="378" y="578" width="44" height="12" rx="6" fill="#2E3B41" stroke="#C0A483" stroke-width="1.5"/>
+        <path d="M376 744 h48 l-8 -20 h-32 Z" fill="#2E3B41" stroke="#C0A483" stroke-width="1.5"/>
+        <!-- branches -->
+        <path d="M400 582 C382 520 336 478 302 438" stroke="#C0A483" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M400 582 C404 508 418 448 432 392" stroke="#C0A483" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M400 582 C424 536 470 508 498 478" stroke="#C0A483" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M414 500 C438 486 452 484 468 486" stroke="#C0A483" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- leaves -->
+        <ellipse cx="366" cy="512" rx="10" ry="24" transform="rotate(-38 366 512)" fill="#8EACA0" opacity="0.7"/>
+        <ellipse cx="422" cy="470" rx="9" ry="22" transform="rotate(14 422 470)" fill="#8EACA0" opacity="0.6"/>
+        <ellipse cx="466" cy="512" rx="9" ry="22" transform="rotate(42 466 512)" fill="#8EACA0" opacity="0.7"/>
+        <!-- blossoms -->
+        <g transform="translate(302 432)">
+          <ellipse rx="15" ry="26" transform="rotate(-40)" fill="#FDFDFB" opacity="0.95"/>
+          <ellipse rx="15" ry="26" transform="rotate(40)" fill="#F5F4F0" opacity="0.95"/>
+          <ellipse rx="13" ry="24" fill="#FDFDFB"/>
+          <circle r="7" fill="#C0A483"/>
+        </g>
+        <g transform="translate(434 386)">
+          <ellipse rx="16" ry="28" transform="rotate(-42)" fill="#FDFDFB" opacity="0.95"/>
+          <ellipse rx="16" ry="28" transform="rotate(42)" fill="#F5F4F0" opacity="0.95"/>
+          <ellipse rx="14" ry="26" fill="#FDFDFB"/>
+          <circle r="8" fill="#C0A483"/>
+        </g>
+        <g transform="translate(500 474)">
+          <ellipse rx="13" ry="22" transform="rotate(-38)" fill="#FDFDFB" opacity="0.92"/>
+          <ellipse rx="13" ry="22" transform="rotate(38)" fill="#F5F4F0" opacity="0.92"/>
+          <ellipse rx="11" ry="20" fill="#FDFDFB"/>
+          <circle r="6" fill="#C0A483"/>
+        </g>
+        <ellipse cx="470" cy="488" rx="7" ry="12" transform="rotate(30 470 488)" fill="#DFD0C0"/>
+        <ellipse cx="372" cy="466" rx="6" ry="11" transform="rotate(-24 372 466)" fill="#DFD0C0"/>
+      </svg>
     </div>
+  </div>
+</section>
+
+<section id="voices" class="lower-fold-section voices-section" aria-labelledby="voices-heading">
+  <div class="voices-container">
+    <div class="voices-header">
+      <div class="section-label">Patient Voices</div>
+      <h2 id="voices-heading">Cared for, generation after generation</h2>
+    </div>
+    <div class="voices-grid">
+      <figure class="voice-card">
+        <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>After years of dental anxiety, I found a practice that never rushes me. My crown was placed in one calm, unhurried visit &mdash; and it fits perfectly.</blockquote>
+        <figcaption>
+          <cite>Margaret H.</cite>
+          <span>Patient since 2019</span>
+        </figcaption>
+      </figure>
+      <figure class="voice-card">
+        <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>Dr. Caldwell rebuilt my front tooth after a cycling fall. Months later, even I forget which one it is.</blockquote>
+        <figcaption>
+          <cite>Daniel R.</cite>
+          <span>Restorative patient</span>
+        </figcaption>
+      </figure>
+      <figure class="voice-card">
+        <div class="quote-mark" aria-hidden="true">&ldquo;</div>
+        <blockquote>Both of my children ask when they get to go back. That has never once happened at a dentist before.</blockquote>
+        <figcaption>
+          <cite>Alicia T.</cite>
+          <span>Mother of two patients</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section id="visit" class="lower-fold-section visit-section" aria-labelledby="visit-heading">
+  <div class="visit-container">
+    <div class="visit-header">
+      <div class="section-label">What to Expect</div>
+      <h2 id="visit-heading">Your first visit, considered.</h2>
+      <p>New patients are welcomed the way houseguests are &mdash; unhurried, informed, and never handed a clipboard at the door. Here is how the first ninety minutes unfold.</p>
+    </div>
+    <div class="visit-steps">
+      <div class="visit-step">
+        <span class="step-number" aria-hidden="true">01</span>
+        <h3>A warm welcome</h3>
+        <p>Your paperwork is completed ahead of time, so your visit begins with a tour of the practice and a quiet conversation about your history and hopes.</p>
+      </div>
+      <div class="visit-step">
+        <span class="step-number" aria-hidden="true">02</span>
+        <h3>A gentle, thorough exam</h3>
+        <p>Digital imaging, an oral cancer screening, and a careful look at every tooth and the health of your gums &mdash; explained as we go, in plain language.</p>
+      </div>
+      <div class="visit-step">
+        <span class="step-number" aria-hidden="true">03</span>
+        <h3>A conservative plan</h3>
+        <p>Dr. Caldwell walks you through findings and options, always favoring the least invasive path. Fees are discussed openly before anything is scheduled.</p>
+      </div>
+      <div class="visit-step">
+        <span class="step-number" aria-hidden="true">04</span>
+        <h3>Care at your rhythm</h3>
+        <p>We set a recall cadence suited to your health, not a quota &mdash; and the same familiar faces greet you at every visit thereafter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="service-area" class="lower-fold-section area-section" aria-labelledby="area-heading">
+  <div class="area-container">
+    <div class="section-label">Where We Serve</div>
+    <h2 id="area-heading">At home in Athens, Georgia</h2>
+    <p>From our practice on Hawthorne Avenue, we care for families from every corner of Athens and the surrounding Northeast Georgia communities &mdash; often three generations of the same household.</p>
+    <ul class="area-places">
+      <li>Athens</li>
+      <li>Greater Clarke County</li>
+      <li>Surrounding Communities</li>
+      <li>University Families</li>
+    </ul>
+  </div>
+</section>
+
+<section id="faq" class="lower-fold-section faq-section" aria-labelledby="faq-heading">
+  <div class="faq-container">
+    <div class="faq-header">
+      <div class="section-label">Common Questions</div>
+      <h2 id="faq-heading">Answers, before you ask</h2>
+    </div>
+    <details class="faq-item">
+      <summary>Are you accepting new patients?</summary>
+      <p>Yes. New families are welcomed year-round. We will request your records from your previous practice on your behalf and reserve a full ninety minutes for your first visit.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do you work with dental insurance?</summary>
+      <p>We file claims with most PPO dental plans and provide a written estimate before any treatment begins, so there are no surprises. Our coordinator is glad to verify your benefits before you visit.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What if I&rsquo;m anxious about dental visits?</summary>
+      <p>You are in good company &mdash; many of our most loyal patients arrived anxious. Appointments are never stacked, noise-dampening headphones are always available, and nitrous oxide can be arranged for treatment visits.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Do you see children?</summary>
+      <p>From the first tooth onward. Early visits are short, gentle, and centered on making the chair feel ordinary &mdash; many of our younger patients are the third generation of their family here.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What happens in a dental emergency?</summary>
+      <p>Call us first at 706.555.0143. We hold same-day time in the schedule for urgent needs, and our answering service can reach the on-call clinician after hours.</p>
+    </details>
+  </div>
+</section>
+
+<section id="appointment" class="lower-fold-section appointment-section" aria-labelledby="appointment-heading">
+  <div class="appointment-container">
+    <div class="appointment-intro">
+      <div class="section-label">Request an Appointment</div>
+      <h2 id="appointment-heading">Begin with a <i>conversation.</i></h2>
+      <p>Tell us a little about yourself and the care you are looking for. Our coordinator will reply within one business day to find a time that suits your family.</p>
+      <div class="appointment-direct">
+        <span>Prefer to reach us directly?</span>
+        <a href="tel:+17065550143">706.555.0143</a>
+        <a href="mailto:care@cedarbrookdental.example">care@cedarbrookdental.example</a>
+      </div>
+    </div>
+    <form class="appointment-form" action="#" method="post">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="apt-name">Full name</label>
+          <input type="text" id="apt-name" name="name" autocomplete="name" required>
+        </div>
+        <div class="form-field">
+          <label for="apt-phone">Phone</label>
+          <input type="tel" id="apt-phone" name="phone" autocomplete="tel" required>
+          <span class="hint">We confirm appointments by phone.</span>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="apt-email">Email</label>
+        <input type="email" id="apt-email" name="email" autocomplete="email" required>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="apt-timing">Preferred days</label>
+          <select id="apt-timing" name="timing">
+            <option>Weekday mornings</option>
+            <option>Weekday afternoons</option>
+            <option>First available</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label for="apt-type">Visit type</label>
+          <select id="apt-type" name="visit-type">
+            <option>New patient exam</option>
+            <option>Cleaning &amp; check-up</option>
+            <option>Cosmetic consultation</option>
+            <option>Something urgent</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="apt-notes">Anything we should know?</label>
+        <textarea id="apt-notes" name="notes"></textarea>
+        <span class="hint">Anxieties, insurance questions, little ones coming along &mdash; all welcome here.</span>
+      </div>
+      <button type="submit" class="btn-primary">Request an Appointment</button>
+      <p class="form-note">No obligation &mdash; we will simply reach out to talk through timing.</p>
+    </form>
   </div>
 </section>
 
 <footer class="lower-fold-section site-footer">
   <div class="footer-container">
     <div class="footer-brand">
-      <div class="logo" style="font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; line-height: 1.1; font-weight: 500; letter-spacing: 0.02em; color: var(--deep-slate); text-transform: uppercase;">Cedarbrook Dental<br>Associates</div>
+      <div class="logo">Cedarbrook Dental<br>Associates</div>
       <p>A beautifully calming environment with a team that truly knows your family. Dentistry as it should be.</p>
-      <a href="#" class="btn-primary" style="padding: 0.8rem 1.8rem; font-size: 0.8rem; margin-top: 1rem;">Schedule Visit</a>
+      <a href="#appointment" class="btn-primary" style="padding: 0.8rem 1.8rem; font-size: 0.8rem; margin-top: 1rem;">Schedule Visit</a>
     </div>
-    
+
     <div class="footer-nav">
       <h4 class="footer-heading">Practice</h4>
       <ul class="footer-links">
-        <li><a href="#">About Dr. Lindsey</a></li>
-        <li><a href="#">Meet the Team</a></li>
-        <li><a href="#">Office Tour</a></li>
-        <li><a href="#">Patient Reviews</a></li>
+        <li><a href="#philosophy">About Dr. Caldwell</a></li>
+        <li><a href="#legacy">Our Legacy</a></li>
+        <li><a href="#voices">Patient Voices</a></li>
+        <li><a href="#faq">Common Questions</a></li>
       </ul>
     </div>
-    
+
     <div class="footer-nav">
       <h4 class="footer-heading">Services</h4>
       <ul class="footer-links">
-        <li><a href="#">Preventative Care</a></li>
-        <li><a href="#">Cosmetic Dentistry</a></li>
-        <li><a href="#">Restorative Care</a></li>
-        <li><a href="#">New Patients</a></li>
+        <li><a href="#treatments">Preventative Care</a></li>
+        <li><a href="#treatments">Cosmetic Dentistry</a></li>
+        <li><a href="#treatments">Restorative Care</a></li>
+        <li><a href="#visit">New Patients</a></li>
       </ul>
     </div>
-    
+
     <div class="footer-contact">
       <h4 class="footer-heading">Contact & Location</h4>
       <p>Hawthorne Avenue</p>
@@ -1017,6 +1947,7 @@
       <p>Mon-Thu: 8:00am - 5:00pm</p>
       <p>Friday: By Appointment</p>
       <a href="tel:+17065550143">706.555.0143</a>
+      <a href="mailto:care@cedarbrookdental.example">care@cedarbrookdental.example</a>
     </div>
   </div>
   

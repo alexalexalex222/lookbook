@@ -1,6 +1,5 @@
 # 22 Voltway Electric Savannah
 
-- preview: `screenshots/22-voltway-electric-savannah_desktop_preview.png`
 - strength_tags: `hero_treatment`, `dark_contrast`, `cta_placement`, `industrial_tone`
 - motif_tags: `hero_shell`, `cta_treatment`, `dark_texture`, `high_contrast_blocking`
 - good when the task needs a high-energy dark hero with more technical aggression.

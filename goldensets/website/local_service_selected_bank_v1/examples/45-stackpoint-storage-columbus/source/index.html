@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stackpoint Storage Solutions | Columbus Secure Logistics</title>
+    <title>Stackpoint Storage | Secure Climate-Controlled Storage in Columbus, GA</title>
+    <meta name="description" content="Stackpoint Storage — secure, climate-controlled storage units in Columbus, GA. Reserve a vault: (706) 555-0145 or rentals@stackpointstorage.example.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Jura:wght@400;600;700&display=swap" rel="stylesheet">
@@ -11,7 +12,7 @@
 </head>
 <body>
 
-    <svg style="display: none;">
+    <svg style="display: none;" aria-hidden="true">
         <symbol id="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
@@ -26,10 +27,10 @@
         <header class="utility-nav">
             <div class="nav-container">
                 <div class="brand">
-                    <svg class="brand-icon"><use href="#icon-lock"></use></svg>
-                    <span class="brand-text">STACKPOINT STORAGE LOGISTICS</span>
+                    <svg class="brand-icon" aria-hidden="true" focusable="false"><use href="#icon-lock"></use></svg>
+                    <span class="brand-text">STACKPOINT STORAGE</span>
                 </div>
-                
+
                 <div class="nav-actions">
                     <div class="status-badge">
                         <span class="status-dot"></span>
@@ -40,30 +41,35 @@
         </header>
 
         <main class="hero-split">
-            
+
             <div class="hero-content">
                 <div class="content-wrapper">
                     <div class="location-tag">COLUMBUS, GA FACILITY</div>
-                    
+
                     <h1 class="main-heading">
                         SECURE.<br>
                         ISOLATE.<br>
                         <span class="text-accent">PRESERVE.</span>
                     </h1>
-                    
+
                     <p class="lead-text">
                         Military-grade climate control and impenetrable steel architecture. We don't just store assets; we preserve legacies.
                     </p>
-                    
+
                     <div class="action-dock">
-                        <a href="tel:(706)555-0145" class="btn btn-primary">
+                        <a href="#" class="btn btn-primary">
                             RESERVE A VAULT
-                            <svg class="icon-small"><use href="#icon-chevron"></use></svg>
+                            <svg class="icon-small" aria-hidden="true" focusable="false"><use href="#icon-chevron"></use></svg>
                         </a>
                         <a href="tel:(706)555-0145" class="btn btn-secondary">
                             CALL FACILITY: (706) 555-0145
                         </a>
                     </div>
+
+                    <p class="contact-line">
+                        <span class="contact-label">UNIT RENTALS</span>
+                        <a href="mailto:rentals@stackpointstorage.example" class="contact-link">rentals@stackpointstorage.example</a>
+                    </p>
 
                     <div class="feature-list">
                         <div class="feature-item">
@@ -83,9 +89,88 @@
             </div>
 
             <div class="hero-visual">
-                <div class="image-mask">
-                    <div class="overlay-gradient"></div>
-                </div>
+                <svg class="vault-scene" viewBox="0 0 1600 900" preserveAspectRatio="xMaxYMid slice" aria-hidden="true" focusable="false">
+                    <defs>
+                        <linearGradient id="sp-wall" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#1a2228"/>
+                            <stop offset="1" stop-color="#0b1014"/>
+                        </linearGradient>
+                        <radialGradient id="sp-door" cx="0.42" cy="0.38" r="0.75">
+                            <stop offset="0" stop-color="#3d4952"/>
+                            <stop offset="0.7" stop-color="#232c33"/>
+                            <stop offset="1" stop-color="#161d23"/>
+                        </radialGradient>
+                        <linearGradient id="sp-sheen" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0" stop-color="#E0E5E9" stop-opacity="0.05"/>
+                            <stop offset="1" stop-color="#E0E5E9" stop-opacity="0"/>
+                        </linearGradient>
+                    </defs>
+
+                    <rect width="1600" height="900" fill="url(#sp-wall)"/>
+
+                    <!-- Steel wall panels -->
+                    <rect width="170" height="900" fill="#05070a" opacity="0.25"/>
+                    <rect x="430" width="260" height="900" fill="#E0E5E9" opacity="0.02"/>
+                    <g stroke="#05070a" stroke-width="3" opacity="0.8">
+                        <line x1="170" y1="0" x2="170" y2="900"/>
+                        <line x1="430" y1="0" x2="430" y2="900"/>
+                        <line x1="690" y1="0" x2="690" y2="900"/>
+                        <line x1="1500" y1="0" x2="1500" y2="900"/>
+                        <line x1="0" y1="210" x2="700" y2="210"/>
+                        <line x1="0" y1="690" x2="700" y2="690"/>
+                    </g>
+                    <rect width="1600" height="300" fill="url(#sp-sheen)"/>
+
+                    <!-- Vault door assembly -->
+                    <circle cx="1080" cy="460" r="378" fill="#0a0f13"/>
+                    <circle cx="1080" cy="460" r="352" fill="none" stroke="#2b353d" stroke-width="26"/>
+                    <g fill="#37424b" stroke="#0a0f13" stroke-width="3">
+                        <circle cx="1432" cy="460" r="11"/>
+                        <circle cx="1384.8" cy="636" r="11"/>
+                        <circle cx="1256" cy="764.8" r="11"/>
+                        <circle cx="1080" cy="812" r="11"/>
+                        <circle cx="904" cy="764.8" r="11"/>
+                        <circle cx="775.2" cy="636" r="11"/>
+                        <circle cx="728" cy="460" r="11"/>
+                        <circle cx="775.2" cy="284" r="11"/>
+                        <circle cx="904" cy="155.2" r="11"/>
+                        <circle cx="1080" cy="108" r="11"/>
+                        <circle cx="1256" cy="155.2" r="11"/>
+                        <circle cx="1384.8" cy="284" r="11"/>
+                    </g>
+                    <circle cx="1080" cy="460" r="310" fill="url(#sp-door)"/>
+                    <circle cx="1080" cy="460" r="310" fill="none" stroke="#05070a" stroke-width="6" opacity="0.8"/>
+                    <circle cx="1080" cy="460" r="252" fill="none" stroke="#FF5A00" stroke-width="10" opacity="0.12"/>
+                    <circle cx="1080" cy="460" r="252" fill="none" stroke="#FF5A00" stroke-width="3" opacity="0.85"/>
+
+                    <!-- Locking lugs -->
+                    <g fill="#222b32">
+                        <rect x="1066" y="152" width="28" height="54" rx="4"/>
+                        <rect x="1066" y="714" width="28" height="54" rx="4"/>
+                        <rect x="772" y="446" width="54" height="28" rx="4"/>
+                        <rect x="1334" y="446" width="54" height="28" rx="4"/>
+                    </g>
+
+                    <!-- Handle wheel -->
+                    <circle cx="1080" cy="460" r="206" fill="none" stroke="#0a0f13" stroke-width="14"/>
+                    <circle cx="1080" cy="460" r="148" fill="none" stroke="#4b575f" stroke-width="14"/>
+                    <circle cx="1080" cy="460" r="148" fill="none" stroke="#05070a" stroke-width="3" opacity="0.6"/>
+                    <g stroke="#39444d" stroke-width="13" stroke-linecap="round">
+                        <line x1="1080" y1="460" x2="1221" y2="460"/>
+                        <line x1="1080" y1="460" x2="1150.5" y2="582.1"/>
+                        <line x1="1080" y1="460" x2="1009.5" y2="582.1"/>
+                        <line x1="1080" y1="460" x2="939" y2="460"/>
+                        <line x1="1080" y1="460" x2="1009.5" y2="337.9"/>
+                        <line x1="1080" y1="460" x2="1150.5" y2="337.9"/>
+                    </g>
+                    <circle cx="1080" cy="460" r="36" fill="#2b353d" stroke="#4b575f" stroke-width="3"/>
+                    <circle cx="1080" cy="460" r="10" fill="#12181C"/>
+
+                    <!-- Status light -->
+                    <circle cx="1080" cy="238" r="16" fill="#00FF66" opacity="0.12"/>
+                    <circle cx="1080" cy="238" r="6" fill="#00FF66" opacity="0.9"/>
+                </svg>
+                <div class="image-mask"></div>
             </div>
 
         </main>

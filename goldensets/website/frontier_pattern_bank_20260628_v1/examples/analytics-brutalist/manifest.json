@@ -1,0 +1,55 @@
+{
+  "pack_id": "analytics_brutalist_dashboard_v1",
+  "role": "anchor",
+  "family": "website.saas_dashboard",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "analytics-brutalist"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "brutalist",
+    "high-contrast",
+    "light",
+    "technical",
+    "data-dense",
+    "precise"
+  ],
+  "surfaces": [
+    "dashboard",
+    "hero",
+    "full_site",
+    "section"
+  ],
+  "motif_tags": [
+    "dashboard_panel",
+    "high_contrast_blocking",
+    "stats_strip",
+    "linked_chart_grid",
+    "filter_chip_rail",
+    "data_table_module",
+    "headline_hierarchy",
+    "cta_treatment"
+  ],
+  "supports_tasks": [
+    "retail_analytics_crossfilter_dashboard",
+    "neo_brutalist_dashboard_page",
+    "ecommerce_operations_dashboard",
+    "data_exploration_tool_ui"
+  ],
+  "anti_patterns": [
+    "soft dark-glass SaaS console styling",
+    "warm cream editorial ledger framing",
+    "muted low-contrast corporate dashboards"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1400,
+  "confidence_score": 4,
+  "example_ids": []
+}

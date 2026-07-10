@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -18,6 +19,8 @@ from .schemas import (
     RouteResolution,
     ScoreBreakdown,
 )
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -153,6 +156,13 @@ class DesignRouter:
             request_bias += 5
         if normalized.prefers_editorial_mode and "editorial" in manifest.tones:
             request_bias += 5
+        if normalized.prefers_dark_mode:
+            if "dark" in manifest.tones or "dark_texture" in manifest.motif_tags:
+                request_bias += 5
+            if "light" in manifest.tones and "beauty" in manifest.tones:
+                request_bias -= 12
+            if manifest.pack_id in {"velvet_fig_beauty_editorial_v1", "aurelia_medspa_editorial_v1"}:
+                request_bias -= 12
         if normalized.avoids_dark_mode and ("dark" in manifest.tones or "dark_texture" in manifest.motif_tags):
             request_bias -= 12
         if normalized.avoids_industrial_mode and ("industrial" in manifest.tones or "industrial_frame" in manifest.motif_tags):
@@ -198,11 +208,14 @@ class DesignRouter:
         )
 
     def _pick_anchor(self, request: DesignContextRequest, normalized) -> _ScoredRecord:
+        return self._rank_anchors(request, normalized)[0]
+
+    def _rank_anchors(self, request: DesignContextRequest, normalized) -> list[_ScoredRecord]:
         candidates = [_ScoredRecord(record, self._score_record(request, normalized, record)) for record in self.index.anchors]
         if not candidates:
             raise ValueError("No anchor packs are available. Expected at least one goldensets/**/manifest.json with role='anchor'.")
         candidates.sort(key=lambda item: (-item.score.total, item.record.manifest.token_budget_hint, item.record.manifest.pack_id))
-        return candidates[0]
+        return candidates
 
     def _effective_donor_first(self, request: DesignContextRequest, normalized) -> bool:
         if request.donor_selection_mode == "site_donor_first_v1":
@@ -462,7 +475,39 @@ class DesignRouter:
 
     def route(self, request: DesignContextRequest) -> RouteResolution:
         normalized = normalize_request(request, self.rules)
-        anchor = self._pick_anchor(request, normalized)
+        ranked_anchors = self._rank_anchors(request, normalized)
+        anchor = ranked_anchors[0]
+        # Multi-pattern routing: keep the strongest runner-up anchors so the packet
+        # can surface alternative pattern sources, not just the single winner.
+        anchor_alternatives = [
+            {
+                "pack_id": item.record.manifest.pack_id,
+                "score": item.score.total,
+                "family": item.record.manifest.family,
+                "motif_tags": list(item.record.manifest.motif_tags[:6]),
+                "tones": list(item.record.manifest.tones[:4]),
+                "supports_tasks": list(item.record.manifest.supports_tasks[:3]),
+            }
+            for item in ranked_anchors[1:4]
+            if item.score.total > 0
+        ]
+        if normalized.specialty_service_class is None and (
+            request.surface.startswith("website") or "local" in request.surface or request.layout_mode == "homepage"
+        ):
+            scored = ranked_anchors
+            top_total = scored[0].score.total if scored else 0
+            tied = [
+                f"{item.record.manifest.pack_id}={item.score.total}"
+                for item in scored
+                if item.score.total == top_total
+            ][:8]
+            logger.warning(
+                "design router unrouted: vertical=None for website/local-service request; "
+                "top tied anchors: %s; picked=%s; task_preview=%r",
+                ", ".join(tied) if tied else "(none)",
+                anchor.record.manifest.pack_id,
+                (request.task or "")[:160],
+            )
         hero_record = self._pick_hero_reference_record(anchor, normalized)
         support = self._pick_support_bank(request, normalized)
         selected_examples, starvation_meta = self._pick_support_examples(request, normalized, anchor.record, hero_record, support.record if support else None)
@@ -473,6 +518,34 @@ class DesignRouter:
         max_code_chars = 14000 if include_full else (6500 if effective_mode in {"standard", "expanded"} else 4200)
         max_atoms = budget.max_snippets
         selected_shared_atoms = self._select_shared_atoms(request, normalized, mode=effective_mode)
+
+        # Full-build mode: when full code is requested and the mode's budget allows it,
+        # carry the COMPLETE anchor source (untruncated) so the builder model sees the
+        # real quality bar instead of clipped snippets. Skips stale sibling stylesheets
+        # when the primary HTML is already self-contained.
+        anchor_full_source: list[dict[str, Any]] = []
+        if include_full:
+            pack_dir = anchor.record.pack_dir
+            paths = list(anchor.record.manifest.source_paths)
+            texts: dict[str, str] = {}
+            for rel in paths:
+                fp = pack_dir / rel
+                if fp.is_file():
+                    try:
+                        texts[rel] = fp.read_text(encoding="utf-8", errors="replace")
+                    except OSError:
+                        continue
+            html_rels = [rel for rel in texts if rel.endswith(".html")]
+            primary_html = next((rel for rel in html_rels if rel.endswith("index.html")), html_rels[0] if html_rels else None)
+            # self-contained = inline <style> present and no local stylesheet link -> sibling css is stale
+            self_contained = False
+            if primary_html:
+                head = texts[primary_html]
+                self_contained = ("<style" in head) and ('rel="stylesheet"' not in head and "rel='stylesheet'" not in head)
+            for rel, text in texts.items():
+                if self_contained and rel != primary_html:
+                    continue
+                anchor_full_source.append({"path": rel, "chars": len(text), "text": text})
 
         anchor_pack = self.store.get_pack(anchor.record.manifest.pack_id, include_full=include_full, max_code_chars=max_code_chars, max_atoms=max_atoms)
         hero_pack = None
@@ -507,5 +580,7 @@ class DesignRouter:
                 "include_full_code": include_full,
                 "donor_starvation": starvation_meta,
                 "mechanical_donor_ids": [selection.example_id for selection in selected_examples if selection.ux_role_match],
+                "anchor_alternatives": anchor_alternatives,
+                "anchor_full_source": anchor_full_source,
             },
         )

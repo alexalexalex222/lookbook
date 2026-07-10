@@ -1,0 +1,55 @@
+{
+  "pack_id": "terraverde_ecoscapes_split_estate_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "terraverde-ecoscapes-macon"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "architectural",
+    "natural",
+    "editorial",
+    "restrained",
+    "light-with-dark-panels"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "split_hero",
+    "headline_hierarchy",
+    "cta_treatment",
+    "stats_strip",
+    "material_showcase",
+    "numbered_principles",
+    "precision_spec_module"
+  ],
+  "supports_tasks": [
+    "landscape_architecture_homepage",
+    "estate_grounds_design_landing",
+    "split_light_dark_hero_landscape_page",
+    "hardscaping_studio_website"
+  ],
+  "anti_patterns": [
+    "dark full-bleed folio landscape layout",
+    "continuous light warm landscape page",
+    "generic lawn care template"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1000,
+  "confidence_score": 4,
+  "example_ids": []
+}

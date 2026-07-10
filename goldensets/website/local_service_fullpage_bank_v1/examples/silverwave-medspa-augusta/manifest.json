@@ -1,0 +1,55 @@
+{
+  "pack_id": "silverwave_medspa_mobile_navy_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "silverwave-medspa-augusta"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "beauty",
+    "editorial",
+    "refined",
+    "light",
+    "clinical"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "split_hero",
+    "cta_treatment",
+    "trust_rail",
+    "headline_hierarchy",
+    "material_showcase",
+    "process_timeline",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "medspa_homepage",
+    "mobile_concierge_service_landing",
+    "clinical_beauty_website",
+    "editorial_treatment_page"
+  ],
+  "anti_patterns": [
+    "dark obsidian editorial medspa",
+    "brick-and-mortar-only clinic framing",
+    "generic influencer beauty landing page"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 800,
+  "confidence_score": 3,
+  "example_ids": []
+}

@@ -4,9 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ridgecap Roofing Services | Commercial Slate & Storm Protection Gainesville</title>
+    <title>Ridgecap Roofing Services | Commercial Slate & Storm Protection in Gainesville, GA</title>
+    <meta name="description"
+        content="Ridgecap Roofing Services — commercial slate roofing and storm fortification in Gainesville, GA. 24-hour storm line: (770) 555-0134.">
     <link rel="stylesheet" href="styles.css">
     <!-- Using Outfit for a highly structural, bold, modern, premium aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
 </head>
 
@@ -14,7 +18,13 @@
 
     <header class="site-nav">
         <div class="logo">
-            <span class="logo-icon">⬢</span> PROOF
+            <svg class="logo-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 2.5 20.2 7.25v9.5L12 21.5 3.8 16.75v-9.5Z" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linejoin="round" />
+                <path d="M7.4 14.3 12 9.7l4.6 4.6" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            RIDGECAP
         </div>
         <nav class="nav-links">
             <a href="#">Commercial</a>
@@ -25,7 +35,78 @@
     </header>
 
     <main class="hero-section">
-        <div class="background-armor"></div>
+        <div class="background-armor">
+            <svg class="storm-scene" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true"
+                focusable="false">
+                <defs>
+                    <linearGradient id="rc-sky" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#27313d" />
+                        <stop offset="0.55" stop-color="#171d25" />
+                        <stop offset="1" stop-color="#0f1319" />
+                    </linearGradient>
+                    <radialGradient id="rc-glow" gradientUnits="userSpaceOnUse" cx="1150" cy="290" r="500">
+                        <stop offset="0" stop-color="#ffaa00" stop-opacity="0.1" />
+                        <stop offset="1" stop-color="#ffaa00" stop-opacity="0" />
+                    </radialGradient>
+                    <linearGradient id="rc-roof-main" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0" stop-color="#2b3642" />
+                        <stop offset="1" stop-color="#1b232c" />
+                    </linearGradient>
+                    <clipPath id="rc-roof-clip">
+                        <polygon points="900,470 1250,470 1420,700 760,700" />
+                    </clipPath>
+                </defs>
+
+                <rect width="1600" height="900" fill="url(#rc-sky)" />
+
+                <!-- Storm cloud bands -->
+                <ellipse cx="620" cy="95" rx="520" ry="85" fill="#232d38" opacity="0.28" />
+                <ellipse cx="1120" cy="150" rx="430" ry="75" fill="#2c3745" opacity="0.3" />
+                <ellipse cx="1450" cy="250" rx="310" ry="60" fill="#33404f" opacity="0.22" />
+                <ellipse cx="890" cy="235" rx="360" ry="55" fill="#1d252e" opacity="0.45" />
+                <rect width="1600" height="900" fill="url(#rc-glow)" />
+
+                <!-- Lightning strike -->
+                <path d="M1210 110 L1158 300 L1198 300 L1128 505" fill="none" stroke="#ffaa00" stroke-width="10"
+                    stroke-linejoin="round" opacity="0.06" />
+                <path d="M1210 110 L1158 300 L1198 300 L1128 505" fill="none" stroke="#ffaa00" stroke-width="3"
+                    stroke-linejoin="round" opacity="0.3" />
+
+                <!-- Distant rooflines -->
+                <polygon points="0,790 130,706 260,790 350,730 470,790 1600,790 1600,900 0,900" fill="#12171e" />
+                <polygon points="1380,640 1500,520 1600,620 1600,900 1380,900" fill="#161c24" />
+
+                <!-- Mid roof -->
+                <polygon points="430,600 640,600 740,740 330,740" fill="#1a212a" />
+                <line x1="430" y1="600" x2="640" y2="600" stroke="#ffaa00" stroke-width="3" opacity="0.4" />
+                <rect x="330" y="740" width="410" height="160" fill="#0e1319" />
+
+                <!-- Main slate roof with amber ridge cap -->
+                <polygon points="900,470 1250,470 1420,700 760,700" fill="url(#rc-roof-main)" />
+                <g clip-path="url(#rc-roof-clip)" stroke="#0d1117" stroke-width="2" opacity="0.55">
+                    <line x1="700" y1="506" x2="1480" y2="506" />
+                    <line x1="700" y1="538" x2="1480" y2="538" />
+                    <line x1="700" y1="570" x2="1480" y2="570" />
+                    <line x1="700" y1="602" x2="1480" y2="602" />
+                    <line x1="700" y1="634" x2="1480" y2="634" />
+                    <line x1="700" y1="666" x2="1480" y2="666" />
+                </g>
+                <line x1="900" y1="470" x2="760" y2="700" stroke="#323e4b" stroke-width="2" />
+                <line x1="1250" y1="470" x2="1420" y2="700" stroke="#323e4b" stroke-width="2" />
+                <rect x="1270" y="380" width="64" height="220" fill="#1a212a" />
+                <rect x="1262" y="368" width="80" height="18" fill="#232c36" />
+                <line x1="900" y1="470" x2="1250" y2="470" stroke="#ffaa00" stroke-width="10" opacity="0.15" />
+                <line x1="900" y1="470" x2="1250" y2="470" stroke="#ffaa00" stroke-width="5" opacity="0.9" />
+
+                <!-- Facility wall -->
+                <rect x="700" y="700" width="900" height="200" fill="#10151b" />
+                <line x1="760" y1="700" x2="1420" y2="700" stroke="#ffaa00" stroke-width="2" opacity="0.18" />
+                <rect x="980" y="742" width="26" height="92" fill="#ffaa00" opacity="0.08" />
+                <rect x="1060" y="742" width="26" height="92" fill="#ffaa00" opacity="0.08" />
+                <rect x="1140" y="742" width="26" height="92" fill="#ffaa00" opacity="0.08" />
+                <rect y="860" width="1600" height="40" fill="#0d1117" />
+            </svg>
+        </div>
         <div class="ambient-rain-overlay"></div>
 
         <div class="content-container">
@@ -43,6 +124,13 @@
                     <a href="#" class="btn-primary">Execute Storm Audit</a>
                     <a href="#" class="btn-secondary">View Defenses</a>
                 </div>
+
+                <p class="dispatch-line">
+                    <span class="dispatch-label">24hr Storm Line</span>
+                    <a href="tel:(770)555-0134" class="dispatch-phone">(770) 555-0134</a>
+                    <span class="dispatch-divider" aria-hidden="true"></span>
+                    <a href="mailto:quotes@ridgecaproofing.example" class="dispatch-email">quotes@ridgecaproofing.example</a>
+                </p>
 
                 <div class="trust-metrics">
                     <div class="trust-item">

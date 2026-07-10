@@ -1,0 +1,52 @@
+{
+  "pack_id": "spark_code_playground_v1",
+  "role": "anchor",
+  "family": "website.saas_dashboard",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "code-playground"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "technical",
+    "developer",
+    "precise",
+    "minimal",
+    "professional"
+  ],
+  "surfaces": [
+    "dashboard",
+    "section"
+  ],
+  "motif_tags": [
+    "code_block",
+    "tabs_panel",
+    "command_surface",
+    "dashboard_panel",
+    "instrument_control",
+    "microcopy",
+    "interactive_stage"
+  ],
+  "supports_tasks": [
+    "code_playground_interface",
+    "developer_tool_dashboard",
+    "live_preview_editor_demo",
+    "in_browser_ide_landing"
+  ],
+  "anti_patterns": [
+    "marketing hero/pricing framing (this is a bare in-app tool shell, not a landing page)",
+    "fabricated user files or projects presented as real accounts",
+    "decorative non-functional toolbar controls"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1600,
+  "confidence_score": 4,
+  "example_ids": []
+}

@@ -1,0 +1,33 @@
+{
+  "pack_id": "querycraft_sql_builder_v1",
+  "role": "anchor",
+  "family": "website.developer_tool",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["sql-builder"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["light", "technical", "precise", "professional", "data-dense", "restrained"],
+  "surfaces": ["dashboard", "section", "full_site"],
+  "motif_tags": [
+    "code_block",
+    "command_surface",
+    "specification_table",
+    "filter_condition_builder",
+    "query_preview_panel",
+    "empty_state_prompt"
+  ],
+  "supports_tasks": [
+    "sql_query_builder_tool",
+    "no_code_database_tool",
+    "internal_admin_tool",
+    "data_filtering_workspace"
+  ],
+  "anti_patterns": [
+    "marketing SaaS homepage framing",
+    "raw SQL-only interface with no visual builder",
+    "fabricated real customer or production data"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1400,
+  "confidence_score": 4,
+  "example_ids": []
+}

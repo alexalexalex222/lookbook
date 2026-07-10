@@ -1,0 +1,54 @@
+{
+  "pack_id": "nimbus_command_palette_v1",
+  "role": "anchor",
+  "family": "website.saas_dashboard",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "command-palette"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "professional",
+    "technical",
+    "developer",
+    "light",
+    "precise",
+    "minimal"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "command_surface",
+    "headline_hierarchy",
+    "stats_strip",
+    "cta_treatment",
+    "sidebar_nav",
+    "microcopy"
+  ],
+  "supports_tasks": [
+    "saas_feature_landing_page",
+    "command_palette_product_demo",
+    "developer_tool_landing_page",
+    "productivity_app_homepage"
+  ],
+  "anti_patterns": [
+    "fake customer logos or testimonials",
+    "invented pricing tiers",
+    "non-functional decorative command list (must feel wired to real actions)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1300,
+  "confidence_score": 4,
+  "example_ids": []
+}

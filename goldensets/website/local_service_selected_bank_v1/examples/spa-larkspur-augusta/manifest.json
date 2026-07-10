@@ -1,0 +1,55 @@
+{
+  "pack_id": "spa_larkspur_indigo_gold_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "spa-larkspur-augusta"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "dark",
+    "editorial",
+    "clinical",
+    "refined",
+    "luxury"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "glass_panel",
+    "headline_hierarchy",
+    "cta_treatment",
+    "process_timeline",
+    "numbered_principles",
+    "trust_rail",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "medspa_homepage",
+    "hormone_wellness_clinic_landing",
+    "editorial_treatment_page",
+    "clinical_beauty_website"
+  ],
+  "anti_patterns": [
+    "generic luxury mush",
+    "light clinical wellness spa",
+    "residential contractor framing"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1200,
+  "confidence_score": 4,
+  "example_ids": []
+}

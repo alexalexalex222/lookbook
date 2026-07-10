@@ -1,0 +1,56 @@
+{
+  "pack_id": "mind_map_v1",
+  "role": "anchor",
+  "family": "website.interactive_experience",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "mind-map"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "minimal",
+    "interactive",
+    "studio",
+    "precise",
+    "technical",
+    "premium"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section",
+    "full_site"
+  ],
+  "motif_tags": [
+    "interactive_stage",
+    "motion_surface",
+    "minimal_centerpiece",
+    "node_link_diagram",
+    "spatial_canvas",
+    "canvas_minimap",
+    "keyboard_shortcut_help"
+  ],
+  "supports_tasks": [
+    "mind_mapping_tool",
+    "node_diagram_app",
+    "brainstorm_canvas_interface",
+    "visual_outline_tool"
+  ],
+  "anti_patterns": [
+    "multi-section marketing padding",
+    "fake collaborator cursors or comments",
+    "copying exact node taxonomy"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1200,
+  "confidence_score": 4,
+  "example_ids": []
+}

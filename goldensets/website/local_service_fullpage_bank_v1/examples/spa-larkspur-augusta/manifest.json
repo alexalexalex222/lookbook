@@ -1,0 +1,55 @@
+{
+  "pack_id": "spa_larkspur_glass_indigo_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "spa-larkspur-augusta"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "dark",
+    "beauty",
+    "clinical",
+    "refined",
+    "luxury"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "glass_panel",
+    "cta_treatment",
+    "trust_rail",
+    "process_timeline",
+    "proof_cards",
+    "headline_hierarchy",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "medspa_homepage",
+    "longevity_wellness_clinic_landing",
+    "hormone_optimization_clinic_page",
+    "dark_glass_panel_medspa_hero"
+  ],
+  "anti_patterns": [
+    "light ivory medspa template",
+    "mobile/at-home delivered service framing",
+    "generic luxury mush"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1200,
+  "confidence_score": 4,
+  "example_ids": []
+}

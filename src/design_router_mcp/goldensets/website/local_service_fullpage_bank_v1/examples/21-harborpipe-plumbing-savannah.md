@@ -1,6 +1,5 @@
 # 21 Harborpipe Plumbing Savannah
 
-- preview: `screenshots/21-harborpipe-plumbing-savannah_desktop_preview.png`
 - strength_tags: `light_clarity`, `premium_spacing`, `navigation_clarity`, `headline_hierarchy`, `service_grid`, `trust_expansion`
 - motif_tags: `hero_shell`, `headline_hierarchy`, `light_precision`, `sticky_nav`
 - good when the task needs calmer premium clarity and a more refined light-surface composition.

@@ -1,10 +1,10 @@
 # 19 Oakline Cabinets Columbus
 
-- preview: `screenshots/19-oakline-cabinets-columbus_desktop_preview.png`
 - strength_tags: `hero_treatment`, `premium_spacing`, `dark_contrast`, `headline_hierarchy`, `portfolio_section`, `consultation_block`
 - motif_tags: `hero_shell`, `headline_hierarchy`, `dark_texture`, `high_contrast_blocking`
 - good when the task needs premium dark hero weight with cleaner luxury spacing.
 - source preference: use the upgraded `v2-gemini-readme-hero-upgrade` variant for any deeper reference.
+- hero backdrop is a bespoke inline-SVG cabinetry scene — zero raster dependencies.
 
 ## Below-Fold Direction
 

@@ -1,0 +1,17 @@
+{
+  "pack_id": "gatewood_fence_atelier_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["gatewood-fence-marietta"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["premium", "craftsmanship", "warm", "editorial", "natural", "restrained"],
+  "surfaces": ["homepage", "hero", "landing", "section"],
+  "motif_tags": ["hero_shell", "split_hero", "material_showcase", "process_timeline", "proof_cards", "service_map", "faq_disclosure", "form_intake"],
+  "supports_tasks": ["fence_company_homepage", "outdoor_structure_website", "gate_and_fence_landing", "craftsmanship_service_layout", "estate_perimeter_website"],
+  "anti_patterns": ["template feel", "irrelevant stock imagery", "soft SaaS gradients"],
+  "screenshot_paths": [],
+  "token_budget_hint": 900,
+  "confidence_score": 4,
+  "example_ids": []
+}

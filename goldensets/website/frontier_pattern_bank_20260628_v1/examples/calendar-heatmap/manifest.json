@@ -1,0 +1,54 @@
+{
+  "pack_id": "cadence_activity_heatmap_v1",
+  "role": "anchor",
+  "family": "website.editorial_analytics",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "calendar-heatmap"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "warm",
+    "editorial",
+    "minimal",
+    "precise",
+    "green-accent",
+    "calm"
+  ],
+  "surfaces": [
+    "dashboard",
+    "hero",
+    "full_site",
+    "section"
+  ],
+  "motif_tags": [
+    "contribution_heatmap_grid",
+    "stats_strip",
+    "cream_contrast_band",
+    "command_surface",
+    "headline_hierarchy",
+    "dashboard_panel",
+    "analytics_panel_grid"
+  ],
+  "supports_tasks": [
+    "activity_contribution_tracker",
+    "annual_personal_analytics_report",
+    "github_style_heatmap_page",
+    "habit_tracking_dashboard"
+  ],
+  "anti_patterns": [
+    "dark SaaS product dashboard chrome",
+    "financial candlestick chart styling",
+    "fabricated activity statistics presented as real user data"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1400,
+  "confidence_score": 4,
+  "example_ids": []
+}

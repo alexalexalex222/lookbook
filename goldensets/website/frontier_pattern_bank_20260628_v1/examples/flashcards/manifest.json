@@ -1,0 +1,51 @@
+{
+  "pack_id": "lantern_flashcards_warm_v1",
+  "role": "anchor",
+  "family": "website.productivity_app",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "flashcards"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "warm",
+    "calm",
+    "quiet",
+    "restrained",
+    "light",
+    "warm-neutral"
+  ],
+  "surfaces": [
+    "dashboard",
+    "full_site"
+  ],
+  "motif_tags": [
+    "sidebar_nav",
+    "interactive_stage",
+    "empty_state_illustration",
+    "microcopy",
+    "keyboard_shortcut_rail",
+    "stats_strip"
+  ],
+  "supports_tasks": [
+    "spaced_repetition_study_app",
+    "flashcard_review_interface",
+    "learning_app_shell",
+    "edtech_product_interface"
+  ],
+  "anti_patterns": [
+    "marketing landing page for a study app",
+    "real academic content or user progress data (decks are fictional demo data)",
+    "dark gamified quiz UI (this is warm and calm, not game-like)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1400,
+  "confidence_score": 4,
+  "example_ids": []
+}

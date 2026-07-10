@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gatewood Fence Co. Co. | Crafted Property Design</title>
+  <title>Gatewood Fence Co. | Crafted Property Design</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +18,7 @@
             charcoal: '#222222',
             brass: '#b89f65',
             'brass-dark': '#9b8351',
+            'brass-ink': '#7a663c',
           },
           fontFamily: {
             serif: ['"Cormorant Garamond"', 'serif'],
@@ -47,26 +48,113 @@
       mix-blend-mode: overlay;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    summary:focus-visible {
+      outline: 2px solid #9b8351;
+      outline-offset: 3px;
+    }
+    details.gw-faq summary { list-style: none; }
+    details.gw-faq summary::-webkit-details-marker { display: none; }
+    details.gw-faq summary::after {
+      content: '+';
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      font-weight: 300;
+      line-height: 1;
+      color: #7a663c;
+      flex-shrink: 0;
+      transition: transform 0.3s ease;
+    }
+    details.gw-faq[open] summary::after { transform: rotate(45deg); }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
   </style>
 </head>
 <body class="font-sans antialiased selection:bg-brass selection:text-charcoal relative">
   <div class="grain-overlay"></div>
 
   <nav class="absolute top-0 left-0 w-full z-50 px-8 md:px-16 lg:px-24 py-10 flex justify-between items-center text-canvas mix-blend-difference">
-    <div class="font-serif text-2xl md:text-3xl tracking-wide uppercase">M&C Fence</div>
+    <div class="font-serif text-2xl md:text-3xl tracking-wide uppercase">Gatewood Fence</div>
     <div class="hidden md:flex gap-10 uppercase tracking-widest text-[10px] sm:text-xs font-medium">
       <a href="#atelier" class="hover:text-brass transition-colors duration-300">Atelier</a>
       <a href="#materials" class="hover:text-brass transition-colors duration-300">Materials</a>
       <a href="#expertise" class="hover:text-brass transition-colors duration-300">Expertise</a>
       <a href="#process" class="hover:text-brass transition-colors duration-300">Process</a>
     </div>
-    <a href="#" class="hidden md:inline-block border border-canvas/30 px-6 py-3 uppercase tracking-widest text-xs hover:bg-canvas hover:text-charcoal transition-colors duration-300">Consultation</a>
+    <a href="#commission" class="hidden md:inline-block border border-canvas/30 px-6 py-3 uppercase tracking-widest text-xs hover:bg-canvas hover:text-charcoal transition-colors duration-300">Consultation</a>
   </nav>
 
   <!-- Hero Section -->
   <header class="h-screen w-full relative flex flex-col justify-end pb-24 px-8 md:px-16 lg:px-24">
     <div class="absolute inset-0 z-0 bg-charcoal">
-      <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80" class="w-full h-full object-cover object-center opacity-70 mix-blend-luminosity" alt="Premium outdoor property" />
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" class="w-full h-full opacity-80" role="img" aria-labelledby="gwHeroScene">
+        <title id="gwHeroScene">Dusk illustration of a horizontal cedar fence line and lantern-lit entry gate on a Marietta ridge</title>
+        <defs>
+          <linearGradient id="gwSky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#46484f"/>
+            <stop offset="0.55" stop-color="#2e3037"/>
+            <stop offset="1" stop-color="#1d1f24"/>
+          </linearGradient>
+          <linearGradient id="gwGround" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#191b1f"/>
+            <stop offset="1" stop-color="#0f1013"/>
+          </linearGradient>
+        </defs>
+        <rect width="1600" height="900" fill="url(#gwSky)"/>
+        <circle cx="1180" cy="180" r="110" fill="#ffffff" opacity="0.06"/>
+        <circle cx="1180" cy="180" r="64" fill="#d9d4c6" opacity="0.9"/>
+        <circle cx="240" cy="120" r="2.5" fill="#d9d4c6" opacity="0.6"/>
+        <circle cx="420" cy="220" r="2" fill="#d9d4c6" opacity="0.45"/>
+        <circle cx="700" cy="90" r="2" fill="#d9d4c6" opacity="0.5"/>
+        <circle cx="920" cy="260" r="2.5" fill="#d9d4c6" opacity="0.4"/>
+        <circle cx="1420" cy="120" r="2" fill="#d9d4c6" opacity="0.55"/>
+        <circle cx="1520" cy="330" r="2" fill="#d9d4c6" opacity="0.4"/>
+        <!-- ridgelines -->
+        <path d="M0 470 Q220 408 440 438 T880 448 T1300 420 T1600 446 V560 H0 Z" fill="#26282e"/>
+        <path d="M0 520 Q260 480 560 508 T1120 516 T1600 496 V620 H0 Z" fill="#1c1e23"/>
+        <rect y="560" width="1600" height="340" fill="url(#gwGround)"/>
+        <!-- receding horizontal-slat fence -->
+        <polygon points="0,470 1520,610 1520,624 0,519" fill="#665d4e" opacity="0.92"/>
+        <polygon points="0,528 1520,626 1520,640 0,577" fill="#57503f" opacity="0.92"/>
+        <polygon points="0,586 1520,643 1520,657 0,635" fill="#5e564a" opacity="0.92"/>
+        <polygon points="0,644 1520,659 1520,673 0,693" fill="#544c3e" opacity="0.92"/>
+        <polygon points="0,702 1520,676 1520,690 0,751" fill="#5e564a" opacity="0.92"/>
+        <polygon points="0,760 1520,692 1520,706 0,810" fill="#4e4739" opacity="0.92"/>
+        <!-- posts -->
+        <rect x="52" y="452" width="26" height="372" fill="#3a352c"/>
+        <rect x="48" y="444" width="34" height="10" fill="#2e2a23"/>
+        <path d="M48 446 h34" stroke="#b89f65" stroke-width="2" opacity="0.6"/>
+        <rect x="892" y="536" width="17" height="230" fill="#3a352c"/>
+        <rect x="889" y="530" width="23" height="8" fill="#2e2a23"/>
+        <rect x="1136" y="562" width="14" height="188" fill="#3a352c"/>
+        <rect x="1354" y="584" width="12" height="152" fill="#3a352c"/>
+        <!-- entry gate feature -->
+        <rect x="336" y="380" width="58" height="428" fill="#2c2a26"/>
+        <rect x="328" y="366" width="74" height="18" fill="#38352f"/>
+        <rect x="606" y="400" width="54" height="392" fill="#2c2a26"/>
+        <rect x="598" y="386" width="70" height="17" fill="#38352f"/>
+        <path d="M394 500 Q500 448 606 512" stroke="#1a1b1e" stroke-width="10" fill="none"/>
+        <path d="M400 512 V760 M428 500 V764 M456 492 V768 M484 488 V772 M512 486 V776 M540 488 V778 M568 494 V782 M596 502 V786" stroke="#1a1b1e" stroke-width="7"/>
+        <circle cx="500" cy="560" r="26" fill="none" stroke="#1a1b1e" stroke-width="6"/>
+        <!-- lanterns -->
+        <circle cx="365" cy="352" r="26" fill="#b89f65" opacity="0.22"/>
+        <circle cx="365" cy="352" r="9" fill="#e8d9ae" opacity="0.95"/>
+        <circle cx="633" cy="372" r="24" fill="#b89f65" opacity="0.22"/>
+        <circle cx="633" cy="372" r="8" fill="#e8d9ae" opacity="0.95"/>
+        <ellipse cx="500" cy="812" rx="240" ry="30" fill="#b89f65" opacity="0.05"/>
+        <!-- foreground grass -->
+        <path d="M40 900 q10 -46 4 -70 M76 900 q-8 -38 2 -62 M120 900 q12 -30 6 -54 M1480 900 q-10 -34 -2 -58 M1530 900 q8 -28 2 -50" stroke="#0c0d10" stroke-width="5" fill="none" stroke-linecap="round"/>
+      </svg>
       <div class="absolute inset-0 bg-gradient-to-b from-charcoal/80 via-transparent to-charcoal/90"></div>
     </div>
     <div class="relative z-10 text-canvas max-w-5xl">
@@ -76,7 +164,7 @@
       </div>
       <h1 class="font-serif text-6xl md:text-8xl lg:text-9xl leading-[0.9] mb-10 text-balance font-light">The architecture<br>of the outdoors.</h1>
       <div class="flex flex-col sm:flex-row gap-8 items-start sm:items-center">
-        <a href="#" class="bg-brass text-charcoal px-10 py-5 uppercase tracking-[0.2em] text-xs font-bold hover:bg-white transition-colors duration-500">Commission a Project</a>
+        <a href="#commission" class="bg-brass text-charcoal px-10 py-5 uppercase tracking-[0.2em] text-xs font-bold hover:bg-white transition-colors duration-500">Commission a Project</a>
         <div class="border-l border-white/20 pl-8">
           <p class="font-sans text-sm tracking-wide text-canvas/70 uppercase">Serving Marietta, Woodstock, Alpharetta</p>
           <p class="font-serif text-xl italic text-canvas/90 mt-1">& the Northern Atlanta area.</p>
@@ -88,6 +176,7 @@
   <!-- Statement Section -->
   <section id="atelier" class="py-32 px-8 md:px-16 lg:px-24 bg-canvas text-charcoal border-b border-charcoal/10">
     <div class="max-w-5xl mx-auto text-center">
+      <h2 class="sr-only">The Gatewood philosophy</h2>
       <p class="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight font-light text-balance">
         We believe the perimeter of your property is its first impression. We design and build structural boundaries that unite <span class="italic text-cedar">architectural form</span> with <span class="italic text-brass-dark">unyielding function</span>.
       </p>
@@ -102,7 +191,8 @@
   </section>
 
   <!-- Social Proof / Credentials Section -->
-  <section class="py-24 px-8 md:px-16 lg:px-24 bg-[#ebe8de] text-charcoal relative overflow-hidden">
+  <section id="proof" class="py-24 px-8 md:px-16 lg:px-24 bg-[#ebe8de] text-charcoal relative overflow-hidden">
+    <h2 class="sr-only">Client words &amp; credentials</h2>
     <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
       <div class="lg:w-1/2 relative">
         <svg class="absolute -top-10 -left-6 md:-left-10 w-24 h-24 md:w-32 md:h-32 text-brass opacity-20" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true"><path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L9.352 4zm16.512 0c-4.896 3.456-8.352 9.12-8.352 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z"></path></svg>
@@ -117,22 +207,45 @@
       </div>
       <div class="lg:w-1/2 grid grid-cols-2 gap-4 md:gap-8 w-full">
         <div class="border border-charcoal/10 p-6 md:p-8 text-center bg-canvas/60">
-          <span class="block font-serif text-4xl md:text-5xl text-brass mb-2 font-light">35+</span>
+          <span class="block font-serif text-4xl md:text-5xl text-brass-ink mb-2 font-light">35+</span>
           <span class="block font-sans text-[10px] md:text-xs uppercase tracking-widest text-charcoal/60">Years of Mastery</span>
         </div>
         <div class="border border-charcoal/10 p-6 md:p-8 text-center bg-canvas/60">
-          <span class="block font-serif text-4xl md:text-5xl text-brass mb-2 font-light">A+</span>
-          <span class="block font-sans text-[10px] md:text-xs uppercase tracking-widest text-charcoal/60">BBB Rating</span>
+          <span class="block font-serif text-4xl md:text-5xl text-brass-ink mb-2 font-light">A+</span>
+          <span class="block font-sans text-[10px] md:text-xs uppercase tracking-widest text-charcoal/60">Client Rating</span>
         </div>
         <div class="border border-charcoal/10 p-6 md:p-8 text-center bg-canvas/60">
-          <span class="block font-serif text-4xl md:text-5xl text-brass mb-2 font-light">10k+</span>
+          <span class="block font-serif text-4xl md:text-5xl text-brass-ink mb-2 font-light">1,200+</span>
           <span class="block font-sans text-[10px] md:text-xs uppercase tracking-widest text-charcoal/60">Projects Built</span>
         </div>
         <div class="border border-charcoal/10 p-6 md:p-8 text-center bg-canvas/60">
-          <span class="block font-serif text-4xl md:text-5xl text-brass mb-2 font-light">100%</span>
-          <span class="block font-sans text-[10px] md:text-xs uppercase tracking-widest text-charcoal/60">Guaranteed</span>
+          <span class="block font-serif text-4xl md:text-5xl text-brass-ink mb-2 font-light">5 yr</span>
+          <span class="block font-sans text-[10px] md:text-xs uppercase tracking-widest text-charcoal/60">Workmanship Warranty</span>
         </div>
       </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto mt-16 pt-16 border-t border-charcoal/10 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      <figure class="border border-charcoal/10 bg-canvas/60 p-8 md:p-10">
+        <blockquote class="font-serif text-xl md:text-2xl leading-snug font-light mb-8 text-balance">"They marked the utilities, pulled the county permit, and set 240 feet of horizontal cedar in three days. The cleanest job site we have ever had."</blockquote>
+        <figcaption class="flex items-center gap-4">
+          <span class="w-8 h-[1px] bg-cedar"></span>
+          <span>
+            <span class="block font-sans font-bold text-xs uppercase tracking-widest text-charcoal">Elena P.</span>
+            <span class="block font-serif italic text-charcoal/70">Woodstock, GA</span>
+          </span>
+        </figcaption>
+      </figure>
+      <figure class="border border-charcoal/10 bg-canvas/60 p-8 md:p-10">
+        <blockquote class="font-serif text-xl md:text-2xl leading-snug font-light mb-8 text-balance">"The driveway gate is the first thing guests comment on. Four years in, it still swings true and latches like the day it was hung."</blockquote>
+        <figcaption class="flex items-center gap-4">
+          <span class="w-8 h-[1px] bg-cedar"></span>
+          <span>
+            <span class="block font-sans font-bold text-xs uppercase tracking-widest text-charcoal">Marcus D.</span>
+            <span class="block font-serif italic text-charcoal/70">Marietta, GA</span>
+          </span>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
@@ -155,33 +268,162 @@
         
         <div class="lg:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20">
           <!-- Material 1 -->
-          <div class="group cursor-pointer">
+          <div class="group">
             <div class="aspect-[3/4] overflow-hidden mb-6 bg-stone-200">
-              <img src="https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out grayscale hover:grayscale-0" alt="Wood fencing" />
+              <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" class="w-full h-full group-hover:scale-105 transition-transform duration-1000 ease-out grayscale group-hover:grayscale-0" role="img" aria-labelledby="gwMatWood">
+                <title id="gwMatWood">Close illustration of horizontal cedar fence boards with visible grain</title>
+                <rect width="600" height="800" fill="#7d5238"/>
+                <g>
+                  <rect x="0" y="8" width="600" height="80" fill="#9a6b4a"/>
+                  <rect x="0" y="96" width="600" height="80" fill="#8a5f42"/>
+                  <rect x="0" y="184" width="600" height="80" fill="#a4744f"/>
+                  <rect x="0" y="272" width="600" height="80" fill="#916847"/>
+                  <rect x="0" y="360" width="600" height="80" fill="#9d6f4b"/>
+                  <rect x="0" y="448" width="600" height="80" fill="#855c40"/>
+                  <rect x="0" y="536" width="600" height="80" fill="#a06f4a"/>
+                  <rect x="0" y="624" width="600" height="80" fill="#8e6344"/>
+                  <rect x="0" y="712" width="600" height="80" fill="#97694a"/>
+                </g>
+                <g stroke="#5f4530" stroke-width="2" fill="none" opacity="0.35">
+                  <path d="M0 40 q150 10 300 2 t300 6"/>
+                  <path d="M0 66 q180 -8 340 0 t260 -4"/>
+                  <path d="M0 130 q140 8 300 0 t300 6"/>
+                  <path d="M0 222 q170 -10 320 -2 t280 6"/>
+                  <path d="M0 306 q150 8 310 2 t290 -4"/>
+                  <path d="M0 396 q160 -8 320 0 t280 4"/>
+                  <path d="M0 486 q140 10 300 2 t300 -6"/>
+                  <path d="M0 572 q180 -6 330 0 t270 4"/>
+                  <path d="M0 662 q150 8 310 0 t290 6"/>
+                  <path d="M0 748 q160 -8 320 -2 t280 6"/>
+                </g>
+                <g stroke="#5f4530" fill="none" opacity="0.45">
+                  <ellipse cx="210" cy="224" rx="18" ry="8" stroke-width="3"/>
+                  <ellipse cx="210" cy="224" rx="8" ry="3.5" stroke-width="2"/>
+                  <ellipse cx="452" cy="576" rx="15" ry="7" stroke-width="3"/>
+                  <ellipse cx="452" cy="576" rx="6" ry="3" stroke-width="2"/>
+                </g>
+                <polygon points="0,0 600,0 600,180 0,330" fill="#ffffff" opacity="0.06"/>
+                <rect y="640" width="600" height="160" fill="#2c1d12" opacity="0.18"/>
+              </svg>
             </div>
             <h3 class="font-serif text-3xl mb-3">Warm Cedar & Wood</h3>
             <p class="text-sm opacity-70 leading-relaxed font-light">Classic, organic privacy that ages gracefully with your landscape. From traditional picket enclosures to modern horizontal architectural builds.</p>
           </div>
           <!-- Material 2 -->
-          <div class="group cursor-pointer md:mt-24">
+          <div class="group md:mt-24">
             <div class="aspect-[3/4] overflow-hidden mb-6 bg-stone-200">
-              <img src="https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out grayscale hover:grayscale-0" alt="Ornamental iron and steel" />
+              <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" class="w-full h-full group-hover:scale-105 transition-transform duration-1000 ease-out grayscale group-hover:grayscale-0" role="img" aria-labelledby="gwMatSteel">
+                <title id="gwMatSteel">Illustration of ornamental steel pickets with spear finials against a pale sky</title>
+                <defs>
+                  <linearGradient id="gwSteelSky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color="#dad7ce"/>
+                    <stop offset="1" stop-color="#c2beb2"/>
+                  </linearGradient>
+                  <g id="gwPicket">
+                    <path d="M0 -48 L15 0 H-15 Z" fill="#26262a"/>
+                    <rect x="-11" y="2" width="22" height="12" fill="#1c1c20"/>
+                    <rect x="-7" y="0" width="14" height="570" fill="#26262a"/>
+                    <rect x="-7" y="0" width="4" height="570" fill="#3c3c44"/>
+                  </g>
+                </defs>
+                <rect width="600" height="800" fill="url(#gwSteelSky)"/>
+                <path d="M0 690 q160 -34 320 -16 t280 8 V800 H0 Z" fill="#a9a496"/>
+                <use href="#gwPicket" x="62" y="198"/>
+                <use href="#gwPicket" x="134" y="198"/>
+                <use href="#gwPicket" x="206" y="198"/>
+                <use href="#gwPicket" x="278" y="198"/>
+                <use href="#gwPicket" x="350" y="198"/>
+                <use href="#gwPicket" x="422" y="198"/>
+                <use href="#gwPicket" x="494" y="198"/>
+                <use href="#gwPicket" x="566" y="198"/>
+                <rect y="252" width="600" height="20" fill="#1f1f23"/>
+                <rect y="252" width="600" height="4" fill="#3c3c44"/>
+                <rect y="600" width="600" height="20" fill="#1f1f23"/>
+                <rect y="600" width="600" height="4" fill="#3c3c44"/>
+                <g stroke="#1f1f23" stroke-width="5" fill="none">
+                  <circle cx="98" cy="316" r="22"/>
+                  <circle cx="242" cy="316" r="22"/>
+                  <circle cx="386" cy="316" r="22"/>
+                  <circle cx="530" cy="316" r="22"/>
+                </g>
+                <polygon points="0,0 600,0 600,150 0,280" fill="#ffffff" opacity="0.08"/>
+              </svg>
             </div>
             <h3 class="font-serif text-3xl mb-3">Ornamental Steel</h3>
             <p class="text-sm opacity-70 leading-relaxed font-light">Architectural elegance offering uncompromised security. Finished in matte charcoal and wrought iron styling for estate perimeters.</p>
           </div>
           <!-- Material 3 -->
-          <div class="group cursor-pointer">
+          <div class="group">
             <div class="aspect-[3/4] overflow-hidden mb-6 bg-stone-200">
-              <img src="https://images.unsplash.com/photo-1622353198083-d53c6e9a6e1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out grayscale hover:grayscale-0" alt="Premium Vinyl" />
+              <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" class="w-full h-full group-hover:scale-105 transition-transform duration-1000 ease-out grayscale group-hover:grayscale-0" role="img" aria-labelledby="gwMatVinyl">
+                <title id="gwMatVinyl">Illustration of clean white vinyl privacy panels with a cap rail and leaf shadows</title>
+                <rect width="600" height="800" fill="#e6e3da"/>
+                <rect y="700" width="600" height="100" fill="#a3a08c"/>
+                <rect y="210" width="600" height="490" fill="#f7f5ef"/>
+                <g stroke="#dedacd" stroke-width="3">
+                  <path d="M150 210 V700 M250 210 V700 M350 210 V700 M450 210 V700 M550 210 V700"/>
+                </g>
+                <rect y="176" width="600" height="36" fill="#efece2"/>
+                <rect y="212" width="600" height="6" fill="#d8d4c6"/>
+                <rect x="36" y="140" width="64" height="560" fill="#f3f1e9"/>
+                <path d="M24 140 h88 l-12 -22 h-64 Z" fill="#e9e6da"/>
+                <path d="M36 140 V700 M100 140 V700" stroke="#dedacd" stroke-width="2"/>
+                <g stroke="#222222" fill="none" opacity="0.07" stroke-linecap="round">
+                  <path d="M210 300 q70 44 150 34 q90 -14 160 44" stroke-width="24"/>
+                  <path d="M260 400 q80 30 150 16 q70 -14 130 30" stroke-width="14"/>
+                  <path d="M180 480 q60 36 140 28 q90 -10 170 36" stroke-width="9"/>
+                </g>
+                <polygon points="0,0 600,0 600,140 0,260" fill="#ffffff" opacity="0.15"/>
+              </svg>
             </div>
             <h3 class="font-serif text-3xl mb-3">Architectural Vinyl</h3>
             <p class="text-sm opacity-70 leading-relaxed font-light">Pristine lines and enduring color. A low-maintenance, immaculate boundary that maintains its structured aesthetic season after season.</p>
           </div>
           <!-- Material 4 -->
-          <div class="group cursor-pointer md:mt-24">
+          <div class="group md:mt-24">
             <div class="aspect-[3/4] overflow-hidden mb-6 bg-stone-200">
-              <img src="https://images.unsplash.com/photo-1517581177682-a085bb7ffb15?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out grayscale hover:grayscale-0" alt="Aluminum fencing" />
+              <svg viewBox="0 0 600 800" preserveAspectRatio="xMidYMid slice" class="w-full h-full group-hover:scale-105 transition-transform duration-1000 ease-out grayscale group-hover:grayscale-0" role="img" aria-labelledby="gwMatAlum">
+                <title id="gwMatAlum">Illustration of a slim aluminum picket fence reflected in pool water</title>
+                <rect width="600" height="800" fill="#dcd9cf"/>
+                <rect y="520" width="600" height="40" fill="#cfc8b8"/>
+                <rect y="560" width="600" height="240" fill="#8fa6a4"/>
+                <g stroke="#ffffff" stroke-width="3" fill="none" opacity="0.3">
+                  <path d="M0 620 q80 -10 160 0 t160 0 t160 0 t160 0"/>
+                  <path d="M0 690 q100 10 200 0 t200 0 t200 0"/>
+                  <path d="M0 754 q90 -8 180 0 t180 0 t180 0"/>
+                </g>
+                <rect x="16" y="258" width="16" height="264" fill="#1e1e22"/>
+                <circle cx="24" cy="250" r="10" fill="#1e1e22"/>
+                <rect x="568" y="258" width="16" height="264" fill="#1e1e22"/>
+                <circle cx="576" cy="250" r="10" fill="#1e1e22"/>
+                <rect x="16" y="284" width="568" height="12" fill="#1e1e22"/>
+                <rect x="16" y="472" width="568" height="12" fill="#1e1e22"/>
+                <g fill="#1e1e22">
+                  <rect x="72" y="284" width="7" height="236"/>
+                  <rect x="124" y="284" width="7" height="236"/>
+                  <rect x="176" y="284" width="7" height="236"/>
+                  <rect x="228" y="284" width="7" height="236"/>
+                  <rect x="280" y="284" width="7" height="236"/>
+                  <rect x="332" y="284" width="7" height="236"/>
+                  <rect x="384" y="284" width="7" height="236"/>
+                  <rect x="436" y="284" width="7" height="236"/>
+                  <rect x="488" y="284" width="7" height="236"/>
+                  <rect x="540" y="284" width="7" height="236"/>
+                </g>
+                <g fill="#1e1e22" opacity="0.15">
+                  <rect x="72" y="560" width="7" height="90"/>
+                  <rect x="124" y="560" width="7" height="82"/>
+                  <rect x="176" y="560" width="7" height="90"/>
+                  <rect x="228" y="560" width="7" height="80"/>
+                  <rect x="280" y="560" width="7" height="92"/>
+                  <rect x="332" y="560" width="7" height="82"/>
+                  <rect x="384" y="560" width="7" height="90"/>
+                  <rect x="436" y="560" width="7" height="80"/>
+                  <rect x="488" y="560" width="7" height="88"/>
+                  <rect x="540" y="560" width="7" height="84"/>
+                </g>
+                <polygon points="0,0 600,0 600,120 0,230" fill="#ffffff" opacity="0.1"/>
+              </svg>
             </div>
             <h3 class="font-serif text-3xl mb-3">Refined Aluminum</h3>
             <p class="text-sm opacity-70 leading-relaxed font-light">Lightweight, rust-proof structure ideal for pool enclosures and varied terrain. Modernist appeal with robust longevity.</p>
@@ -286,7 +528,7 @@
           </div>
           <h2 class="font-serif text-5xl md:text-7xl leading-[1.05] font-light">Our recent commissions.</h2>
         </div>
-        <a href="#" class="inline-flex items-center gap-4 text-charcoal tracking-[0.15em] uppercase text-xs font-bold hover:text-brass transition-colors duration-300">
+        <a href="#" class="inline-flex items-center gap-4 text-charcoal tracking-[0.15em] uppercase text-xs font-bold hover:text-brass-ink transition-colors duration-300">
           <span>View Full Portfolio</span>
           <span class="w-8 h-[1px] bg-charcoal"></span>
         </a>
@@ -294,22 +536,153 @@
     </div>
 
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="aspect-square relative overflow-hidden group cursor-pointer bg-stone-200">
-        <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Custom horizontal wood privacy fence" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
+      <div class="aspect-square relative overflow-hidden group bg-stone-200">
+        <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" class="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" role="img" aria-labelledby="gwPortCedar">
+          <title id="gwPortCedar">Illustration of a horizontal cedar privacy fence in front of a gabled Roswell home</title>
+          <defs>
+            <linearGradient id="gwPortSky1" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#dad7ce"/>
+              <stop offset="1" stop-color="#c6c2b6"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="800" fill="url(#gwPortSky1)"/>
+          <!-- house -->
+          <rect x="460" y="200" width="40" height="100" fill="#4a463f"/>
+          <path d="M120 300 L340 168 L560 300 V524 H120 Z" fill="#55504a"/>
+          <path d="M100 306 L340 162 L580 306" stroke="#3f3b36" stroke-width="14" fill="none"/>
+          <rect x="184" y="340" width="64" height="76" fill="#c6c2b6"/>
+          <rect x="420" y="340" width="64" height="76" fill="#c6c2b6"/>
+          <path d="M216 340 V416 M184 378 H248 M452 340 V416 M420 378 H484" stroke="#55504a" stroke-width="5"/>
+          <!-- tree -->
+          <rect x="652" y="330" width="20" height="200" fill="#4a453d"/>
+          <circle cx="662" cy="280" r="78" fill="#565248"/>
+          <circle cx="606" cy="326" r="52" fill="#504c42"/>
+          <circle cx="716" cy="324" r="48" fill="#5c584c"/>
+          <!-- horizontal cedar fence -->
+          <rect y="524" width="800" height="46" fill="#9a6b4a"/>
+          <rect y="576" width="800" height="46" fill="#8a5f42"/>
+          <rect y="628" width="800" height="46" fill="#a4744f"/>
+          <rect y="680" width="800" height="46" fill="#916847"/>
+          <rect y="732" width="800" height="46" fill="#9d6f4b"/>
+          <g stroke="#5f4530" stroke-width="2" fill="none" opacity="0.3">
+            <path d="M0 546 q200 8 400 0 t400 6"/>
+            <path d="M0 600 q220 -8 420 0 t380 -4"/>
+            <path d="M0 652 q200 8 400 2 t400 -6"/>
+            <path d="M0 704 q210 -8 410 0 t390 4"/>
+            <path d="M0 754 q200 6 400 0 t400 6"/>
+          </g>
+          <rect x="104" y="510" width="30" height="280" fill="#6e4c33"/>
+          <rect x="98" y="500" width="42" height="12" fill="#5a3e2a"/>
+          <rect x="384" y="510" width="30" height="280" fill="#6e4c33"/>
+          <rect x="378" y="500" width="42" height="12" fill="#5a3e2a"/>
+          <rect x="664" y="510" width="30" height="280" fill="#6e4c33"/>
+          <rect x="658" y="500" width="42" height="12" fill="#5a3e2a"/>
+          <rect y="782" width="800" height="18" fill="#3b3833"/>
+        </svg>
         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
           <p class="text-canvas font-serif text-3xl">Horizontal Cedar</p>
           <p class="text-brass uppercase tracking-widest text-[10px] mt-2">Roswell, GA</p>
         </div>
       </div>
-      <div class="aspect-square relative overflow-hidden group cursor-pointer bg-stone-200">
-        <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Ornamental iron driveway gate" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
+      <div class="aspect-square relative overflow-hidden group bg-stone-200">
+        <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" class="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" role="img" aria-labelledby="gwPortGate">
+          <title id="gwPortGate">Illustration of an arched iron estate gate between lantern-topped masonry pillars</title>
+          <defs>
+            <linearGradient id="gwPortSky2" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#cfccc2"/>
+              <stop offset="1" stop-color="#b1ada1"/>
+            </linearGradient>
+          </defs>
+          <rect width="800" height="800" fill="url(#gwPortSky2)"/>
+          <!-- hedges -->
+          <rect x="-40" y="420" width="240" height="220" rx="60" fill="#3f443c"/>
+          <rect x="600" y="420" width="240" height="220" rx="60" fill="#3f443c"/>
+          <!-- pillars -->
+          <rect x="190" y="280" width="80" height="360" fill="#6e675c"/>
+          <rect x="178" y="262" width="104" height="22" fill="#7d766a"/>
+          <rect x="178" y="622" width="104" height="18" fill="#5f584d"/>
+          <path d="M190 340 H270 M190 400 H270 M190 460 H270 M190 520 H270 M190 580 H270" stroke="#5f584d" stroke-width="3"/>
+          <rect x="530" y="280" width="80" height="360" fill="#6e675c"/>
+          <rect x="518" y="262" width="104" height="22" fill="#7d766a"/>
+          <rect x="518" y="622" width="104" height="18" fill="#5f584d"/>
+          <path d="M530 340 H610 M530 400 H610 M530 460 H610 M530 520 H610 M530 580 H610" stroke="#5f584d" stroke-width="3"/>
+          <!-- lanterns -->
+          <rect x="216" y="212" width="28" height="40" fill="#26262a"/>
+          <path d="M212 212 h36 l-18 -18 Z" fill="#26262a"/>
+          <circle cx="230" cy="232" r="6" fill="#e8d9ae"/>
+          <rect x="556" y="212" width="28" height="40" fill="#26262a"/>
+          <path d="M552 212 h36 l-18 -18 Z" fill="#26262a"/>
+          <circle cx="570" cy="232" r="6" fill="#e8d9ae"/>
+          <!-- gate -->
+          <path d="M270 366 Q400 300 530 366" stroke="#26262a" stroke-width="10" fill="none"/>
+          <path d="M286 358 V636 M310 348 V636 M334 340 V636 M358 334 V636 M382 330 V636 M400 328 V636 M418 330 V636 M442 334 V636 M466 340 V636 M490 348 V636 M514 358 V636" stroke="#26262a" stroke-width="6"/>
+          <rect x="270" y="470" width="260" height="10" fill="#26262a"/>
+          <rect x="270" y="626" width="260" height="10" fill="#26262a"/>
+          <circle cx="400" cy="420" r="30" fill="none" stroke="#26262a" stroke-width="6"/>
+          <circle cx="400" cy="420" r="15" fill="none" stroke="#26262a" stroke-width="4"/>
+          <!-- drive & ground -->
+          <rect y="640" width="800" height="160" fill="#55524a"/>
+          <path d="M270 640 H530 L660 800 H140 Z" fill="#43403a"/>
+          <path d="M400 640 L400 800 M330 640 L262 800 M470 640 L538 800" stroke="#3a3731" stroke-width="3" opacity="0.6"/>
+        </svg>
         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
           <p class="text-canvas font-serif text-3xl">Estate Entry Gate</p>
           <p class="text-brass uppercase tracking-widest text-[10px] mt-2">Milton, GA</p>
         </div>
       </div>
-      <div class="aspect-square relative overflow-hidden group cursor-pointer bg-stone-200 md:col-span-2 lg:col-span-1">
-        <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Aluminum pool enclosure fence" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" />
+      <div class="aspect-square relative overflow-hidden group bg-stone-200 md:col-span-2 lg:col-span-1">
+        <svg viewBox="0 0 800 800" preserveAspectRatio="xMidYMid slice" class="w-full h-full grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" role="img" aria-labelledby="gwPortPool">
+          <title id="gwPortPool">Illustration of an aluminum pool perimeter fence with loungers beside the water</title>
+          <rect width="800" height="800" fill="#cfc8b8"/>
+          <!-- aluminum fence line -->
+          <rect x="30" y="100" width="14" height="180" fill="#202024"/>
+          <circle cx="37" cy="92" r="9" fill="#202024"/>
+          <rect x="393" y="100" width="14" height="180" fill="#202024"/>
+          <circle cx="400" cy="92" r="9" fill="#202024"/>
+          <rect x="756" y="100" width="14" height="180" fill="#202024"/>
+          <circle cx="763" cy="92" r="9" fill="#202024"/>
+          <rect x="30" y="112" width="740" height="10" fill="#202024"/>
+          <rect x="30" y="252" width="740" height="10" fill="#202024"/>
+          <g fill="#202024">
+            <rect x="86" y="112" width="6" height="150"/>
+            <rect x="130" y="112" width="6" height="150"/>
+            <rect x="174" y="112" width="6" height="150"/>
+            <rect x="218" y="112" width="6" height="150"/>
+            <rect x="262" y="112" width="6" height="150"/>
+            <rect x="306" y="112" width="6" height="150"/>
+            <rect x="350" y="112" width="6" height="150"/>
+            <rect x="450" y="112" width="6" height="150"/>
+            <rect x="494" y="112" width="6" height="150"/>
+            <rect x="538" y="112" width="6" height="150"/>
+            <rect x="582" y="112" width="6" height="150"/>
+            <rect x="626" y="112" width="6" height="150"/>
+            <rect x="670" y="112" width="6" height="150"/>
+            <rect x="714" y="112" width="6" height="150"/>
+          </g>
+          <!-- loungers -->
+          <rect x="120" y="392" width="180" height="26" rx="13" fill="#6b6154"/>
+          <rect x="108" y="330" width="30" height="80" rx="12" fill="#6b6154" transform="rotate(-24 123 370)"/>
+          <rect x="140" y="418" width="10" height="22" fill="#55503f"/>
+          <rect x="270" y="418" width="10" height="22" fill="#55503f"/>
+          <rect x="380" y="392" width="180" height="26" rx="13" fill="#6b6154"/>
+          <rect x="368" y="330" width="30" height="80" rx="12" fill="#6b6154" transform="rotate(-24 383 370)"/>
+          <rect x="400" y="418" width="10" height="22" fill="#55503f"/>
+          <rect x="530" y="418" width="10" height="22" fill="#55503f"/>
+          <!-- potted plant -->
+          <path d="M660 396 h64 l-10 60 h-44 Z" fill="#8a5f42"/>
+          <path d="M692 396 C688 356 676 332 656 314 M692 396 C696 352 708 330 728 316 M692 396 C692 348 692 330 692 312" stroke="#3f443c" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <!-- pool -->
+          <rect y="470" width="800" height="330" fill="#87a2a0"/>
+          <rect y="464" width="800" height="10" fill="#efece3"/>
+          <g stroke="#ffffff" stroke-width="4" fill="none" opacity="0.28">
+            <path d="M0 540 q100 -12 200 0 t200 0 t200 0 t200 0"/>
+            <path d="M0 620 q120 12 240 0 t240 0 t240 0"/>
+            <path d="M0 700 q100 -10 200 0 t200 0 t200 0 t200 0"/>
+            <path d="M0 764 q120 10 240 0 t240 0 t240 0"/>
+          </g>
+          <path d="M600 452 V560 M644 452 V560" stroke="#e8e6de" stroke-width="8" fill="none"/>
+          <path d="M600 480 H644 M600 516 H644" stroke="#e8e6de" stroke-width="6"/>
+        </svg>
         <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
           <p class="text-canvas font-serif text-3xl">Pool Perimeter</p>
           <p class="text-brass uppercase tracking-widest text-[10px] mt-2">Marietta, GA</p>
@@ -318,10 +691,186 @@
     </div>
   </section>
 
+  <!-- Service Area -->
+  <section id="service-area" class="py-32 px-8 md:px-16 lg:px-24 bg-[#ebe8de] text-charcoal">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+      <div>
+        <div class="flex items-center gap-4 mb-6">
+          <span class="w-8 h-[1px] bg-cedar"></span>
+          <p class="text-cedar tracking-[0.2em] uppercase text-xs font-bold">Where We Build</p>
+        </div>
+        <h2 class="font-serif text-5xl md:text-6xl leading-[1.05] font-light mb-8">Marietta is home.<br/>The line extends.</h2>
+        <p class="text-lg opacity-80 leading-relaxed font-light mb-10 max-w-xl">Our crews leave the Marietta yard each morning and build across the surrounding northwest metro &mdash; from established in-town lots to new acreage on the county line. If your property is within an hour of our yard, we will walk it with you.</p>
+        <ul class="flex flex-wrap gap-3 text-xs uppercase tracking-widest font-medium">
+          <li class="border border-charcoal/20 px-5 py-3 bg-canvas/60">Marietta</li>
+          <li class="border border-charcoal/20 px-5 py-3 bg-canvas/60">Woodstock</li>
+          <li class="border border-charcoal/20 px-5 py-3 bg-canvas/60">Alpharetta</li>
+          <li class="border border-charcoal/20 px-5 py-3 bg-canvas/60">Northern Atlanta Area</li>
+        </ul>
+      </div>
+      <div class="border border-charcoal/10 bg-canvas p-6 md:p-10">
+        <svg viewBox="0 0 600 520" class="w-full h-auto" role="img" aria-labelledby="gwPlat">
+          <title id="gwPlat">Stylized plat drawing of a property with its fence line marked in brass</title>
+          <rect width="600" height="520" fill="#f3f0e8"/>
+          <!-- property boundary -->
+          <path d="M90 90 L520 70 L540 380 L300 460 L70 400 Z" fill="none" stroke="#222222" stroke-width="2" stroke-dasharray="10 8" opacity="0.55"/>
+          <!-- fence line -->
+          <path d="M90 90 L520 70 L540 380" fill="none" stroke="#9b8351" stroke-width="4"/>
+          <g fill="#7a663c">
+            <circle cx="90" cy="90" r="6"/>
+            <circle cx="198" cy="85" r="4"/>
+            <circle cx="306" cy="80" r="4"/>
+            <circle cx="414" cy="75" r="4"/>
+            <circle cx="520" cy="70" r="6"/>
+            <circle cx="527" cy="173" r="4"/>
+            <circle cx="533" cy="276" r="4"/>
+            <circle cx="540" cy="380" r="6"/>
+          </g>
+          <!-- gate mark -->
+          <path d="M296 82 a22 22 0 0 1 22 20" fill="none" stroke="#7a663c" stroke-width="2.5"/>
+          <!-- house footprint -->
+          <rect x="230" y="200" width="150" height="110" fill="none" stroke="#222222" stroke-width="2.5" opacity="0.7"/>
+          <path d="M230 200 L305 160 L380 200" fill="none" stroke="#222222" stroke-width="2.5" opacity="0.7"/>
+          <!-- drive -->
+          <path d="M305 310 L305 452" stroke="#222222" stroke-width="2" opacity="0.4" stroke-dasharray="2 6"/>
+          <!-- trees -->
+          <circle cx="150" cy="320" r="26" fill="none" stroke="#222222" stroke-width="2" opacity="0.35"/>
+          <circle cx="452" cy="330" r="20" fill="none" stroke="#222222" stroke-width="2" opacity="0.35"/>
+          <!-- compass -->
+          <circle cx="510" cy="452" r="34" fill="none" stroke="#222222" stroke-width="2" opacity="0.7"/>
+          <path d="M510 428 L518 452 L510 446 L502 452 Z" fill="#965a3e"/>
+          <text x="510" y="420" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="600" fill="#222222" opacity="0.75">N</text>
+          <!-- measure label -->
+          <text x="300" y="52" text-anchor="middle" font-family="Manrope, sans-serif" font-size="14" letter-spacing="2" fill="#7a663c">240 LF &mdash; HORIZONTAL CEDAR</text>
+          <text x="66" y="498" font-family="Manrope, sans-serif" font-size="12" letter-spacing="2" fill="#222222" opacity="0.5">SITE PLAN &middot; MARIETTA, GA</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="py-32 px-8 md:px-16 lg:px-24 bg-canvas text-charcoal">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex items-center gap-4 mb-6">
+        <span class="w-8 h-[1px] bg-cedar"></span>
+        <p class="text-cedar tracking-[0.2em] uppercase text-xs font-bold">Straight Answers</p>
+      </div>
+      <h2 class="font-serif text-4xl md:text-6xl leading-[1.05] font-light mb-16">Commission questions, answered.</h2>
+
+      <details class="gw-faq border-t border-charcoal/15">
+        <summary class="flex justify-between items-center gap-8 py-7 cursor-pointer font-serif text-2xl font-light">What does a new fence cost?</summary>
+        <p class="pb-8 opacity-70 font-light leading-relaxed max-w-2xl">Fencing is priced by the linear foot and varies with material, terrain, and gate work &mdash; cedar, steel, vinyl, and aluminum each carry different rates. After a site walk you receive a written, fixed quote; the number we sign is the number you pay.</p>
+      </details>
+      <details class="gw-faq border-t border-charcoal/15">
+        <summary class="flex justify-between items-center gap-8 py-7 cursor-pointer font-serif text-2xl font-light">How long does installation take?</summary>
+        <p class="pb-8 opacity-70 font-light leading-relaxed max-w-2xl">Most residential builds are completed in two to four working days once permits and HOA approval are in hand. Scheduling typically runs two to three weeks out; we confirm your dates in writing before we break ground.</p>
+      </details>
+      <details class="gw-faq border-t border-charcoal/15">
+        <summary class="flex justify-between items-center gap-8 py-7 cursor-pointer font-serif text-2xl font-light">Do you handle HOA approvals and permits?</summary>
+        <p class="pb-8 opacity-70 font-light leading-relaxed max-w-2xl">Yes. We prepare the drawings, submit to your HOA and municipality, and schedule utility marking before any post hole is dug. It is part of the commission, not an upcharge.</p>
+      </details>
+      <details class="gw-faq border-t border-charcoal/15">
+        <summary class="flex justify-between items-center gap-8 py-7 cursor-pointer font-serif text-2xl font-light">What about property lines?</summary>
+        <p class="pb-8 opacity-70 font-light leading-relaxed max-w-2xl">We build from your recorded survey or plat. If you do not have one, we can coordinate a licensed surveyor before layout &mdash; a fence set on the wrong line is a problem we refuse to build.</p>
+      </details>
+      <details class="gw-faq border-t border-charcoal/15">
+        <summary class="flex justify-between items-center gap-8 py-7 cursor-pointer font-serif text-2xl font-light">What maintenance will my fence need?</summary>
+        <p class="pb-8 opacity-70 font-light leading-relaxed max-w-2xl">Cedar benefits from re-sealing every two to three years; ornamental steel and aluminum need little beyond an occasional wash; vinyl asks only for a rinse. We leave every client a one-page care sheet for their material.</p>
+      </details>
+      <details class="gw-faq border-t border-b border-charcoal/15">
+        <summary class="flex justify-between items-center gap-8 py-7 cursor-pointer font-serif text-2xl font-light">Is the work under warranty?</summary>
+        <p class="pb-8 opacity-70 font-light leading-relaxed max-w-2xl">Every build carries our five-year workmanship warranty on posts, rails, and gates, alongside the manufacturer warranties on material. If a gate sags or a post moves, we come back and make it right.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- Commission / Estimate Form -->
+  <section id="commission" class="py-32 px-8 md:px-16 lg:px-24 bg-charcoal text-canvas">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-16 lg:gap-24">
+      <div class="lg:col-span-2">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="w-8 h-[1px] bg-brass"></span>
+          <p class="text-brass tracking-[0.2em] uppercase text-xs font-bold">Begin the Commission</p>
+        </div>
+        <h2 class="font-serif text-4xl md:text-6xl leading-[1.05] font-light mb-8">Request a site visit &amp; estimate.</h2>
+        <p class="opacity-70 leading-relaxed font-light mb-12">Tell us about the property and the boundary you have in mind. We walk the line with you, talk materials honestly, and deliver a written fixed quote within two business days of the visit.</p>
+        <div class="border-t border-white/10 pt-8 flex flex-col gap-3">
+          <span class="text-xs uppercase tracking-widest text-canvas/60">Prefer to talk it through?</span>
+          <a href="tel:7705550154" class="font-serif italic text-2xl text-brass hover:text-canvas transition-colors">(770) 555-0154</a>
+          <a href="mailto:quotes@gatewoodfence.example" class="font-light text-sm tracking-wide text-canvas/80 hover:text-brass transition-colors">quotes@gatewoodfence.example</a>
+        </div>
+      </div>
+      <form class="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-9" action="#" method="post">
+        <div class="flex flex-col gap-3">
+          <label for="gw-name" class="text-xs uppercase tracking-widest font-medium text-canvas/70">Full name</label>
+          <input type="text" id="gw-name" name="name" autocomplete="name" required class="bg-transparent border-b border-canvas/30 focus:border-brass py-3 text-canvas font-light outline-none transition-colors"/>
+        </div>
+        <div class="flex flex-col gap-3">
+          <label for="gw-phone" class="text-xs uppercase tracking-widest font-medium text-canvas/70">Phone</label>
+          <input type="tel" id="gw-phone" name="phone" autocomplete="tel" required class="bg-transparent border-b border-canvas/30 focus:border-brass py-3 text-canvas font-light outline-none transition-colors"/>
+          <span class="text-xs font-light text-canvas/50">We call once to schedule the site walk.</span>
+        </div>
+        <div class="flex flex-col gap-3">
+          <label for="gw-email" class="text-xs uppercase tracking-widest font-medium text-canvas/70">Email</label>
+          <input type="email" id="gw-email" name="email" autocomplete="email" required class="bg-transparent border-b border-canvas/30 focus:border-brass py-3 text-canvas font-light outline-none transition-colors"/>
+        </div>
+        <div class="flex flex-col gap-3">
+          <label for="gw-city" class="text-xs uppercase tracking-widest font-medium text-canvas/70">Property city</label>
+          <input type="text" id="gw-city" name="city" autocomplete="address-level2" class="bg-transparent border-b border-canvas/30 focus:border-brass py-3 text-canvas font-light outline-none transition-colors"/>
+        </div>
+        <div class="flex flex-col gap-3">
+          <label for="gw-material" class="text-xs uppercase tracking-widest font-medium text-canvas/70">Material direction</label>
+          <select id="gw-material" name="material" class="bg-charcoal border-b border-canvas/30 focus:border-brass py-3 text-canvas font-light outline-none transition-colors">
+            <option>Warm cedar &amp; wood</option>
+            <option>Ornamental steel</option>
+            <option>Architectural vinyl</option>
+            <option>Refined aluminum</option>
+            <option>Undecided &mdash; advise me</option>
+          </select>
+        </div>
+        <div class="flex flex-col gap-3">
+          <label for="gw-length" class="text-xs uppercase tracking-widest font-medium text-canvas/70">Approximate length</label>
+          <input type="text" id="gw-length" name="length" class="bg-transparent border-b border-canvas/30 focus:border-brass py-3 text-canvas font-light outline-none transition-colors"/>
+          <span class="text-xs font-light text-canvas/50">A rough guess in feet is plenty &mdash; we measure on site.</span>
+        </div>
+        <div class="flex flex-col gap-3 md:col-span-2">
+          <label for="gw-notes" class="text-xs uppercase tracking-widest font-medium text-canvas/70">Notes on the project</label>
+          <textarea id="gw-notes" name="notes" rows="4" class="bg-transparent border-b border-canvas/30 focus:border-brass py-3 text-canvas font-light outline-none transition-colors resize-y"></textarea>
+          <span class="text-xs font-light text-canvas/50">Slopes, pets, pool code, gate automation &mdash; anything the crew should know.</span>
+        </div>
+        <div class="md:col-span-2 flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-2">
+          <button type="submit" class="bg-brass text-charcoal px-12 py-5 uppercase tracking-[0.2em] text-xs font-bold hover:bg-canvas transition-colors duration-500">Request the Estimate</button>
+          <p class="text-xs font-light text-canvas/50 max-w-xs">No pressure and no phone maze &mdash; one estimator, start to finish.</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
   <!-- Call to Action -->
   <section class="relative py-40 bg-cedar text-canvas overflow-hidden">
-    <div class="absolute inset-0 z-0 mix-blend-multiply opacity-40">
-      <img src="https://images.unsplash.com/photo-1599583151528-76504a713e2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80" class="w-full h-full object-cover object-center grayscale" alt="Wood texture background" />
+    <div class="absolute inset-0 z-0 mix-blend-multiply opacity-40" aria-hidden="true">
+      <svg viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid slice" class="w-full h-full" focusable="false">
+        <g stroke="#241712" fill="none" opacity="0.55" stroke-linecap="round">
+          <path d="M-20 40 q220 10 420 2 t420 6 t420 -4 t420 6" stroke-width="5"/>
+          <path d="M-20 92 q260 -12 440 -2 t400 8 t400 -6 t420 4" stroke-width="3"/>
+          <path d="M-20 148 q200 14 420 4 t420 -8 t420 8 t420 -4" stroke-width="7"/>
+          <path d="M-20 210 q240 -10 430 0 t410 8 t400 -8 t420 6" stroke-width="4"/>
+          <path d="M-20 262 q220 12 420 2 t420 -6 t420 8 t420 -6" stroke-width="6"/>
+          <path d="M-20 318 q260 -14 440 -4 t400 10 t400 -8 t420 4" stroke-width="3"/>
+          <path d="M-20 376 q200 10 420 2 t420 -6 t420 8 t420 -2" stroke-width="8"/>
+          <path d="M-20 434 q240 -12 430 -2 t410 8 t400 -6 t420 4" stroke-width="4"/>
+          <path d="M-20 490 q220 14 420 4 t420 -8 t420 6 t420 -4" stroke-width="6"/>
+          <path d="M-20 548 q260 -10 440 0 t400 6 t400 -8 t420 6" stroke-width="3"/>
+        </g>
+        <g stroke="#241712" fill="none" opacity="0.5">
+          <ellipse cx="430" cy="210" rx="36" ry="14" stroke-width="6"/>
+          <ellipse cx="430" cy="210" rx="16" ry="6" stroke-width="4"/>
+          <path d="M320 206 q60 -14 74 2 M466 214 q60 12 130 2" stroke-width="4"/>
+          <ellipse cx="1180" cy="430" rx="30" ry="12" stroke-width="5"/>
+          <ellipse cx="1180" cy="430" rx="13" ry="5" stroke-width="3"/>
+          <path d="M1080 426 q54 -12 70 2 M1210 436 q56 10 120 0" stroke-width="3"/>
+        </g>
+      </svg>
     </div>
     <div class="relative z-10 max-w-4xl mx-auto px-8 md:px-16 text-center">
       <h2 class="font-serif text-6xl md:text-8xl mb-8 font-light leading-none">Begin your build.</h2>
@@ -338,30 +887,32 @@
     <div class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start lg:items-center gap-10">
       
       <div class="flex flex-col gap-2">
-        <span class="text-canvas text-2xl font-serif italic mb-2">Gatewood Fence Co. Co.</span>
-        <span class="font-light text-sm tracking-wide">4985 Deen Rd, Marietta, GA 30066</span>
+        <span class="text-canvas text-2xl font-serif italic mb-2">Gatewood Fence Co.</span>
+        <span class="font-light text-sm tracking-wide">2140 Ledgestone Way, Marietta, GA 30066</span>
         <a href="tel:7705550154" class="font-light text-sm tracking-wide hover:text-brass transition-colors">(770) 555-0154</a>
+        <a href="mailto:quotes@gatewoodfence.example" class="font-light text-sm tracking-wide hover:text-brass transition-colors">quotes@gatewoodfence.example</a>
+        <span class="font-light text-sm tracking-wide mt-2">Mon&ndash;Fri 7:30am&ndash;5:30pm &middot; Sat by appointment</span>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 text-xs uppercase tracking-widest font-medium">
         <div class="flex flex-col gap-4">
-          <a href="#" class="hover:text-canvas transition-colors">Residential</a>
-          <a href="#" class="hover:text-canvas transition-colors">Commercial</a>
+          <a href="#expertise" class="hover:text-canvas transition-colors">Residential</a>
+          <a href="#expertise" class="hover:text-canvas transition-colors">Commercial</a>
         </div>
         <div class="flex flex-col gap-4">
-          <a href="#" class="hover:text-canvas transition-colors">Repairs</a>
-          <a href="#" class="hover:text-canvas transition-colors">Gates</a>
+          <a href="#expertise" class="hover:text-canvas transition-colors">Repairs</a>
+          <a href="#materials" class="hover:text-canvas transition-colors">Gates</a>
         </div>
         <div class="flex flex-col gap-4">
-          <a href="#" class="text-brass hover:text-canvas transition-colors">Contact Us</a>
-          <a href="#" class="hover:text-canvas transition-colors">Main Website</a>
+          <a href="#commission" class="text-brass hover:text-canvas transition-colors">Contact Us</a>
+          <a href="#service-area" class="hover:text-canvas transition-colors">Service Area</a>
         </div>
       </div>
 
     </div>
-    
+
     <div class="max-w-7xl mx-auto mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-xs font-light tracking-wider">
-      <p>&copy; 2026 Gatewood Fence Co. Co. All rights reserved.</p>
+      <p>&copy; 2026 Gatewood Fence Co. All rights reserved.</p>
       <p>Crafted for Marietta & Beyond.</p>
     </div>
   </footer>

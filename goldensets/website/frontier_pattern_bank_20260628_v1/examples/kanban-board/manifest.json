@@ -1,0 +1,56 @@
+{
+  "pack_id": "kanban_board_v1",
+  "role": "anchor",
+  "family": "website.productivity_app",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "kanban-board"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "light",
+    "professional",
+    "minimal",
+    "precise",
+    "restrained",
+    "trustworthy",
+    "practical"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section",
+    "dashboard"
+  ],
+  "motif_tags": [
+    "dashboard_panel",
+    "kanban_columns",
+    "drag_drop_card",
+    "card_board_layout",
+    "empty_state_pattern",
+    "app_toolbar",
+    "microcopy"
+  ],
+  "supports_tasks": [
+    "kanban_board_app",
+    "project_management_dashboard",
+    "task_tracker_interface",
+    "agile_sprint_board"
+  ],
+  "anti_patterns": [
+    "marketing hero storytelling",
+    "analytics-heavy data dashboard",
+    "fabricated user avatars or real customer data"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1100,
+  "confidence_score": 4,
+  "example_ids": []
+}

@@ -1,88 +1,2857 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Oakline Custom Cabinets | Columbus Luxury Woodworkers</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oakline Custom Cabinets | Custom Cabinetry &amp; Millwork, Columbus GA</title>
+<meta name="description" content="Custom cabinetry and architectural millwork built in our Columbus, Georgia shop — kitchens, built-ins, and vanities designed and installed with room-fit precision.">
+<meta name="theme-color" content="#1A110D">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Oakline Custom Cabinets | Columbus, GA">
+<meta property="og:description" content="Bespoke cabinetry and architectural millwork, built in-shop for the exact room it lives in.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='5' fill='%231A110D'/%3E%3Ccircle cx='12' cy='12' r='7.2' fill='none' stroke='%23D4AF37' stroke-width='1.6'/%3E%3Cpolygon points='14.3,9.7 13.1,12.9 9.9,14.1 11.1,10.9' fill='%23D4AF37'/%3E%3C/svg%3E">
+<style>
+/* ==========================================================================
+   OAKLINE CUSTOM CABINETS — design tokens
+   ========================================================================== */
+:root{
+  color-scheme: dark;
+
+  /* primitive palette */
+  --oak-espresso-950:#120C08;
+  --oak-espresso-900:#1A110D;
+  --oak-walnut-800:#2C1E16;
+  --oak-walnut-700:#3B2A1F;
+  --oak-walnut-600:#4A3627;
+  --oak-brass-300:#F0C75E;
+  --oak-brass-500:#D4AF37;
+  --oak-brass-600:#C5A017;
+  --oak-cream-050:#FDFBF7;
+  --oak-taupe-200:#C9BFB6;
+  --oak-taupe-300:#A3968B;
+  --oak-sage-400:#8FBF6F;
+  --oak-sage-700:#3E6B34;
+  --oak-terracotta-400:#E2725B;
+  --oak-terracotta-700:#9A3B2C;
+
+  /* semantic tokens */
+  --color-bg:var(--oak-espresso-900);
+  --color-bg-alt:var(--oak-espresso-950);
+  --color-surface:var(--oak-walnut-800);
+  --color-surface-raised:var(--oak-walnut-700);
+  --color-surface-border:rgba(212,175,55,0.18);
+  --color-surface-border-strong:rgba(212,175,55,0.4);
+  --color-text:var(--oak-cream-050);
+  --color-text-muted:var(--oak-taupe-300);
+  --color-text-faint:rgba(253,251,247,0.55);
+  --color-accent:var(--oak-brass-500);
+  --color-accent-hover:var(--oak-brass-600);
+  --color-accent-soft:rgba(212,175,55,0.12);
+  --color-accent-contrast:var(--oak-espresso-900);
+  --color-focus:var(--oak-brass-300);
+  --color-success:var(--oak-sage-400);
+  --color-success-bg:var(--oak-sage-700);
+  --color-error:var(--oak-terracotta-400);
+  --color-error-bg:var(--oak-terracotta-700);
+
+  /* type */
+  --font-display:'Playfair Display','Iowan Old Style',Georgia,'Times New Roman',serif;
+  --font-base:'Lato',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  --font-mono:'Courier New',Courier,monospace;
+
+  --text-xs:clamp(.75rem,.72rem + .15vw,.8125rem);
+  --text-sm:clamp(.875rem,.84rem + .15vw,.9375rem);
+  --text-base:clamp(1rem,.97rem + .15vw,1.0625rem);
+  --text-md:clamp(1.125rem,1.05rem + .3vw,1.25rem);
+  --text-lg:clamp(1.35rem,1.2rem + .6vw,1.65rem);
+  --text-xl:clamp(1.7rem,1.45rem + 1vw,2.2rem);
+  --text-2xl:clamp(2.15rem,1.75rem + 1.6vw,3.1rem);
+  --text-3xl:clamp(2.6rem,1.95rem + 2.8vw,4.6rem);
+
+  /* 4px spacing scale */
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px;
+  --space-5:20px; --space-6:24px; --space-7:28px; --space-8:32px;
+  --space-10:40px; --space-12:48px; --space-14:56px; --space-16:64px;
+  --space-20:80px; --space-24:96px; --space-28:112px; --space-32:128px;
+
+  --radius-sm:4px; --radius-md:8px; --radius-lg:16px; --radius-pill:999px;
+
+  /* elevation — 3 levels only */
+  --elevation-1:0 1px 2px rgba(8,5,3,.4), 0 2px 8px rgba(8,5,3,.3);
+  --elevation-2:0 8px 24px rgba(8,5,3,.45), 0 2px 6px rgba(8,5,3,.35);
+  --elevation-3:0 24px 64px rgba(8,5,3,.55), 0 8px 20px rgba(8,5,3,.4);
+
+  --ease-standard:cubic-bezier(.4,0,.2,1);
+  --duration-fast:150ms;
+  --duration-base:250ms;
+  --duration-slow:450ms;
+
+  --container-max:1240px;
+  --header-h:84px;
+  --header-h-scrolled:64px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+
+/* ==========================================================================
+   Reset + base
+   ========================================================================== */
+*,*::before,*::after{box-sizing:border-box;}
+*{margin:0;}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;}
+@media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+body{
+  font-family:var(--font-base);
+  font-size:var(--text-base);
+  background:var(--color-bg);
+  color:var(--color-text);
+  line-height:1.6;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+body.no-scroll{overflow:hidden;}
+img,svg{display:block;max-width:100%;}
+button,input,select,textarea{font:inherit;color:inherit;}
+button{background:none;border:none;}
+a{color:inherit;}
+ul,ol{list-style:none;padding:0;}
+table{border-collapse:collapse;width:100%;}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;line-height:1.15;}
+p{max-width:65ch;}
+
+.container{
+  max-width:var(--container-max);
+  margin-inline:auto;
+  padding-inline:var(--space-5);
+}
+@media (min-width:900px){ .container{padding-inline:var(--space-8);} }
+
+main{display:block;}
+section{position:relative;}
+
+/* focus + a11y utilities */
+:focus{outline:none;}
+:focus-visible{outline:2px solid var(--color-focus);outline-offset:3px;border-radius:2px;}
+
+.visually-hidden{
+  position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;
+}
+
+.skip-link{
+  position:fixed;left:var(--space-4);top:-100px;z-index:1000;
+  background:var(--color-accent);color:var(--color-accent-contrast);
+  padding:var(--space-3) var(--space-5);border-radius:var(--radius-md);
+  font-weight:700;text-decoration:none;
+  transition:top var(--duration-fast) var(--ease-standard);
+}
+.skip-link:focus-visible{top:var(--space-4);outline:2px solid var(--color-text);outline-offset:2px;}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  font-size:var(--text-xs);font-weight:700;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--color-accent);
+}
+.eyebrow::before{
+  content:'';width:22px;height:1px;background:var(--color-accent);display:inline-block;
+}
+
+.section-head{max-width:640px;margin-bottom:var(--space-12);}
+.section-head h2{font-size:var(--text-2xl);margin-top:var(--space-3);}
+.section-head p{color:var(--color-text-muted);margin-top:var(--space-4);font-size:var(--text-md);}
+.section-head--center{margin-inline:auto;text-align:center;}
+.section-head--center .eyebrow::before{display:none;}
+
+.section-pad{padding-block:var(--space-24);}
+@media (max-width:640px){ .section-pad{padding-block:var(--space-16);} }
+
+.surface-band{background:var(--color-surface);}
+.surface-band-alt{background:var(--color-bg-alt);}
+
+/* buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:var(--space-2);
+  font-family:var(--font-base);font-weight:700;font-size:var(--text-sm);
+  letter-spacing:.08em;text-transform:uppercase;text-decoration:none;
+  padding:var(--space-4) var(--space-8);border-radius:var(--radius-pill);
+  border:1px solid transparent;cursor:pointer;min-height:44px;white-space:nowrap;
+  transition:background-color var(--duration-base) var(--ease-standard),
+             color var(--duration-base) var(--ease-standard),
+             border-color var(--duration-base) var(--ease-standard),
+             transform var(--duration-fast) var(--ease-standard),
+             opacity var(--duration-base) var(--ease-standard);
+  -webkit-tap-highlight-color:transparent;
+}
+.btn svg{width:18px;height:18px;flex-shrink:0;}
+.btn:active{transform:translateY(1px) scale(.99);}
+.btn:disabled,.btn[disabled]{opacity:.5;cursor:not-allowed;pointer-events:none;}
+.btn--primary{background:var(--color-accent);color:var(--color-accent-contrast);}
+.btn--primary:hover{background:var(--oak-cream-050);}
+.btn--secondary{background:transparent;color:var(--color-text);border-color:rgba(253,251,247,.35);}
+.btn--secondary:hover{border-color:var(--color-accent);color:var(--color-accent);}
+.btn--ghost{background:transparent;color:var(--color-accent);border-color:var(--color-surface-border-strong);padding:var(--space-3) var(--space-6);}
+.btn--ghost:hover{background:var(--color-accent-soft);}
+.btn--block{width:100%;}
+.btn--icon{padding:var(--space-3);border-radius:var(--radius-pill);min-width:44px;}
+.btn.is-loading{position:relative;color:transparent !important;}
+.btn.is-loading::after{
+  content:'';position:absolute;width:18px;height:18px;border-radius:50%;
+  border:2px solid currentColor;border-top-color:transparent;color:var(--color-accent-contrast);
+  animation:btn-spin .7s linear infinite;
+}
+.btn--secondary.is-loading::after,.btn--ghost.is-loading::after{color:var(--color-accent);}
+@keyframes btn-spin{ to{ transform:rotate(360deg);} }
+
+/* icon sprite host icons */
+.icon{width:20px;height:20px;flex-shrink:0;}
+
+/* ==========================================================================
+   Header / Nav
+   ========================================================================== */
+.site-header{
+  position:fixed;top:0;left:0;width:100%;z-index:200;
+  padding-block:var(--space-6);
+  transition:padding var(--duration-base) var(--ease-standard),
+             background-color var(--duration-base) var(--ease-standard),
+             box-shadow var(--duration-base) var(--ease-standard);
+}
+.site-header.is-scrolled{
+  padding-block:var(--space-3);
+  background:rgba(20,13,9,.92);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  box-shadow:var(--elevation-1);
+  border-bottom:1px solid var(--color-surface-border);
+}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:var(--space-6);}
+
+.brand{display:inline-flex;align-items:center;gap:var(--space-3);text-decoration:none;}
+.brand__mark{width:34px;height:34px;color:var(--color-accent);flex-shrink:0;}
+.brand__text{display:flex;flex-direction:column;line-height:1.15;}
+.brand__name{
+  font-family:var(--font-display);font-size:var(--text-md);font-weight:600;
+  color:var(--color-text);letter-spacing:.04em;text-transform:uppercase;
+}
+.brand__sub{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--color-text-muted);}
+
+.nav__links{display:none;align-items:center;gap:var(--space-8);}
+.nav__link{
+  position:relative;font-size:var(--text-sm);text-decoration:none;color:var(--color-text);
+  text-transform:uppercase;letter-spacing:.12em;font-weight:400;padding:var(--space-2) 0;
+  transition:color var(--duration-base) var(--ease-standard);
+}
+.nav__link::after{
+  content:'';position:absolute;left:0;right:100%;bottom:-2px;height:1px;background:var(--color-accent);
+  transition:right var(--duration-base) var(--ease-standard);
+}
+.nav__link:hover{color:var(--color-accent);}
+.nav__link:hover::after,.nav__link.is-active::after{right:0;}
+.nav__link.is-active{color:var(--color-accent);}
+
+.nav__actions{display:flex;align-items:center;gap:var(--space-4);}
+.phone-pill{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  background:var(--color-accent);color:var(--color-accent-contrast);
+  padding:10px var(--space-6);border-radius:var(--radius-pill);
+  font-weight:700;font-size:var(--text-sm);letter-spacing:.03em;text-decoration:none;
+  min-height:44px;
+  transition:transform var(--duration-base) var(--ease-standard),background-color var(--duration-base) var(--ease-standard);
+}
+.phone-pill:hover{transform:translateY(-2px);background:var(--oak-cream-050);}
+.phone-pill:active{transform:translateY(0);}
+.phone-pill svg{width:17px;height:17px;}
+.phone-pill__label{display:none;}
+@media (min-width:560px){ .phone-pill__label{display:inline;} }
+
+.nav__toggle{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:var(--radius-md);color:var(--color-text);
+  border:1px solid var(--color-surface-border);
+}
+.nav__toggle:hover{border-color:var(--color-surface-border-strong);color:var(--color-accent);}
+.nav__toggle .icon-close{display:none;}
+.nav__toggle[aria-expanded="true"] .icon-menu{display:none;}
+.nav__toggle[aria-expanded="true"] .icon-close{display:block;}
+
+.nav__overlay{
+  position:fixed;inset:0;background:rgba(10,6,4,.6);z-index:210;
+  opacity:0;pointer-events:none;transition:opacity var(--duration-base) var(--ease-standard);
+}
+.nav__overlay.is-open{opacity:1;pointer-events:auto;}
+
+.nav__panel{
+  position:fixed;top:0;right:0;bottom:0;width:min(340px,86vw);z-index:220;
+  background:var(--color-bg-alt);border-left:1px solid var(--color-surface-border);
+  padding:var(--space-8) var(--space-6);display:flex;flex-direction:column;gap:var(--space-8);
+  transform:translateX(100%);transition:transform var(--duration-slow) var(--ease-standard);
+  overflow-y:auto;
+}
+.nav__panel.is-open{transform:translateX(0);}
+.nav__panel-links{display:flex;flex-direction:column;gap:var(--space-1);}
+.nav__panel-links a{
+  padding:var(--space-4) var(--space-2);font-size:var(--text-md);text-decoration:none;
+  color:var(--color-text);border-bottom:1px solid var(--color-surface-border);
+  min-height:44px;display:flex;align-items:center;
+}
+.nav__panel-links a:hover,.nav__panel-links a:focus-visible{color:var(--color-accent);}
+.nav__panel-close{align-self:flex-end;}
+
+@media (min-width:900px){
+  .nav__links{display:flex;}
+  .nav__toggle{display:none;}
+}
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+.hero{
+  position:relative;
+  padding-top:calc(var(--header-h) + var(--space-16));
+  padding-bottom:var(--space-20);
+  min-height:min(860px,100svh);
+  display:flex;align-items:center;
+  overflow:hidden;
+  background:var(--color-bg);
+}
+.hero__scene{position:absolute;inset:0;z-index:0;}
+.hero__scene svg{width:100%;height:100%;}
+.hero__overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to right, rgba(18,12,8,.97) 0%, rgba(18,12,8,.9) 38%, rgba(18,12,8,.55) 70%, rgba(18,12,8,.25) 100%);
+}
+.hero__layout{
+  position:relative;z-index:2;
+  display:flex;flex-direction:column;gap:var(--space-12);
+}
+.hero__content{max-width:600px;}
+.hero__badge{
+  display:inline-flex;align-items:center;gap:var(--space-3);
+  margin-bottom:var(--space-6);padding:var(--space-2) var(--space-4);
+  background:rgba(255,255,255,.05);border:1px solid var(--color-surface-border-strong);
+  border-radius:var(--radius-pill);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.hero__stars{display:flex;gap:2px;color:var(--color-accent);}
+.hero__stars svg{width:14px;height:14px;}
+.hero__badge span:last-child{font-size:var(--text-xs);font-weight:700;letter-spacing:.05em;color:var(--color-text);}
+.hero__title{
+  font-size:var(--text-3xl);line-height:1.08;font-weight:500;color:var(--color-text);
+  margin-bottom:var(--space-6);
+}
+.hero__title em{color:var(--color-accent);font-style:italic;font-weight:400;}
+.hero__lead{
+  font-size:var(--text-md);color:var(--color-text-muted);margin-bottom:var(--space-8);
+  font-weight:300;line-height:1.7;max-width:480px;
+}
+.hero__actions{display:flex;flex-wrap:wrap;gap:var(--space-4);}
+
+.hero__stack{display:flex;flex-direction:column;gap:var(--space-5);max-width:420px;}
+.showcase-card{
+  background:rgba(20,13,9,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--color-surface-border);border-left:3px solid var(--color-accent);
+  padding:var(--space-6) var(--space-6) var(--space-6) var(--space-5);
+  border-radius:var(--radius-sm);box-shadow:var(--elevation-2);
+  transition:transform var(--duration-slow) var(--ease-standard), border-color var(--duration-base) var(--ease-standard);
+}
+.showcase-card:hover{transform:translateX(-6px);border-left-color:var(--oak-brass-300);}
+.showcase-card--bottom{background:rgba(44,30,22,.78);}
+.showcase-card__label{
+  font-family:var(--font-display);font-style:italic;font-size:var(--text-lg);
+  color:var(--color-accent);margin-bottom:var(--space-2);
+}
+.showcase-card__body{font-size:var(--text-sm);color:rgba(253,251,247,.85);font-weight:300;line-height:1.6;}
+
+@media (min-width:900px){
+  .hero__layout{flex-direction:row;justify-content:space-between;align-items:center;gap:var(--space-10);}
+  .hero__content{flex:1 1 55%;}
+  .hero__stack{flex:1 1 38%;}
+}
+
+/* ==========================================================================
+   Stats rail
+   ========================================================================== */
+.stats{padding-block:var(--space-16);border-block:1px solid var(--color-surface-border);}
+.stats__grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-8) var(--space-6);
+}
+.stats__item{text-align:center;}
+.stats__value{
+  font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-accent);
+  font-weight:600;line-height:1;margin-bottom:var(--space-2);
+}
+.stats__value span{font-size:.5em;color:var(--color-text-muted);margin-left:2px;}
+.stats__label{font-size:var(--text-xs);color:var(--color-text-muted);letter-spacing:.02em;max-width:22ch;margin-inline:auto;}
+@media (min-width:700px){ .stats__grid{grid-template-columns:repeat(4,1fr);} }
+
+/* ==========================================================================
+   Credentials strip
+   ========================================================================== */
+.credentials{padding-block:var(--space-6);background:var(--color-bg-alt);border-bottom:1px solid var(--color-surface-border);}
+.credentials__row{
+  display:flex;flex-wrap:wrap;gap:var(--space-5) var(--space-8);justify-content:center;
+}
+.credentials__item{
+  display:flex;align-items:center;gap:var(--space-2);font-size:var(--text-xs);
+  color:var(--color-text-muted);letter-spacing:.01em;text-align:center;
+}
+.credentials__item svg{color:var(--color-success);flex-shrink:0;width:16px;height:16px;}
+
+/* ==========================================================================
+   Gallery / Portfolio
+   ========================================================================== */
+.gallery__filters{
+  display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-8);
+}
+.filter-chip{
+  padding:var(--space-2) var(--space-5);min-height:40px;border-radius:var(--radius-pill);
+  border:1px solid var(--color-surface-border-strong);color:var(--color-text-muted);
+  font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  cursor:pointer;transition:all var(--duration-base) var(--ease-standard);
+}
+.filter-chip:hover{color:var(--color-text);border-color:var(--color-accent);}
+.filter-chip.is-active{background:var(--color-accent);color:var(--color-accent-contrast);border-color:var(--color-accent);}
+.filter-chip:disabled{opacity:.45;cursor:not-allowed;}
+
+.gallery__viewport{position:relative;min-height:200px;}
+.gallery__grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-6);
+}
+.gallery-card{
+  background:var(--color-bg-alt);border:1px solid var(--color-surface-border);border-radius:var(--radius-md);
+  overflow:hidden;box-shadow:var(--elevation-1);
+  transition:transform var(--duration-base) var(--ease-standard), box-shadow var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard);
+}
+.gallery-card:hover{transform:translateY(-4px);border-color:var(--color-surface-border-strong);box-shadow:var(--elevation-2);}
+.gallery-card__art{aspect-ratio:16/10;background:var(--oak-walnut-800);}
+.gallery-card__art svg{width:100%;height:100%;}
+.gallery-card__body{padding:var(--space-5);}
+.gallery-card__eyebrow{font-size:var(--text-xs);color:var(--color-accent);letter-spacing:.04em;margin-bottom:var(--space-2);text-transform:uppercase;}
+.gallery-card__title{font-size:var(--text-md);margin-bottom:var(--space-2);}
+.gallery-card__note{font-size:var(--text-sm);color:var(--color-text-muted);}
+
+.gallery__skeleton-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--space-6);}
+.gallery__skeleton-card{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--color-surface-border);}
+.gallery__skeleton-art{aspect-ratio:16/10;background:linear-gradient(100deg,var(--oak-walnut-800) 30%,var(--oak-walnut-700) 50%,var(--oak-walnut-800) 70%);background-size:200% 100%;animation:shimmer 1.4s ease-in-out infinite;}
+.gallery__skeleton-line{height:12px;margin:var(--space-4) var(--space-5) 0;border-radius:3px;background:var(--oak-walnut-700);}
+.gallery__skeleton-line + .gallery__skeleton-line{margin-top:var(--space-3);width:70%;}
+.gallery__skeleton-card > .gallery__skeleton-line:last-child{margin-bottom:var(--space-5);}
+@keyframes shimmer{ 0%{background-position:200% 0;} 100%{background-position:-200% 0;} }
+
+.gallery__empty,.gallery__error{
+  text-align:center;padding:var(--space-16) var(--space-6);
+  border:1px dashed var(--color-surface-border-strong);border-radius:var(--radius-md);
+}
+.gallery__empty svg,.gallery__error svg{width:32px;height:32px;margin-inline:auto;margin-bottom:var(--space-4);color:var(--color-text-muted);}
+.gallery__error svg{color:var(--color-error);}
+.gallery__empty h3,.gallery__error h3{font-size:var(--text-md);margin-bottom:var(--space-2);}
+.gallery__empty p,.gallery__error p{color:var(--color-text-muted);max-width:44ch;margin-inline:auto;margin-bottom:var(--space-5);}
+
+@media (min-width:640px){ .gallery__grid,.gallery__skeleton-grid{grid-template-columns:repeat(2,1fr);} }
+@media (min-width:900px){ .gallery__grid,.gallery__skeleton-grid{grid-template-columns:repeat(3,1fr);} }
+@media (min-width:1180px){ .gallery__grid,.gallery__skeleton-grid{grid-template-columns:repeat(4,1fr);} }
+
+/* ==========================================================================
+   The Oakline Standard — comparison table
+   ========================================================================== */
+.table-scroll{overflow-x:auto;border-radius:var(--radius-md);border:1px solid var(--color-surface-border);}
+.compare{min-width:640px;font-size:var(--text-sm);}
+.compare caption{text-align:left;}
+.compare th,.compare td{padding:var(--space-4) var(--space-5);text-align:left;border-bottom:1px solid var(--color-surface-border);}
+.compare thead th{
+  font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);
+  background:var(--color-bg-alt);font-weight:700;
+}
+.compare thead th.compare__col--oakline{color:var(--color-accent);}
+.compare tbody th{font-weight:700;color:var(--color-text);white-space:nowrap;}
+.compare tbody tr:last-child td,.compare tbody tr:last-child th{border-bottom:none;}
+.compare tbody tr:hover td,.compare tbody tr:hover th{background:rgba(212,175,55,.04);}
+.compare td.compare__col--oakline{color:var(--color-text);background:var(--color-accent-soft);}
+.compare td.compare__col--oakline svg{color:var(--color-success);margin-right:var(--space-2);vertical-align:-3px;}
+.compare td:not(.compare__col--oakline){color:var(--color-text-faint);}
+.icon--sm{width:16px;height:16px;}
+
+/* ==========================================================================
+   About / shop story
+   ========================================================================== */
+.about__layout{display:grid;grid-template-columns:1fr;gap:var(--space-10);align-items:center;}
+.about__layout > *{min-width:0;}
+.about__art{display:flex;justify-content:center;}
+.about__art svg{width:100%;max-width:260px;}
+.about h2{margin:var(--space-3) 0 var(--space-5);font-size:var(--text-2xl);}
+.about__content > p{color:var(--color-text-muted);margin-bottom:var(--space-4);}
+.about__values{display:flex;flex-direction:column;gap:var(--space-4);margin-top:var(--space-6);}
+.about__values li{
+  padding-left:var(--space-5);border-left:2px solid var(--color-surface-border-strong);
+  font-size:var(--text-sm);color:var(--color-text-muted);
+}
+.about__values strong{display:block;color:var(--color-text);font-family:var(--font-display);font-size:var(--text-md);font-weight:600;margin-bottom:2px;}
+@media (min-width:860px){ .about__layout{grid-template-columns:.8fr 1.2fr;} }
+
+/* ==========================================================================
+   Materials &amp; visualizer
+   ========================================================================== */
+.materials__layout{display:grid;grid-template-columns:1fr;gap:var(--space-12);align-items:start;}
+.materials__layout > *{min-width:0;}
+.materials__intro .eyebrow{margin-bottom:var(--space-3);}
+.materials__intro h2{margin-bottom:var(--space-4);}
+.materials__intro > p{color:var(--color-text-muted);margin-bottom:var(--space-8);}
+
+.swatch-group{margin-bottom:var(--space-7);}
+.swatch-group__title{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.1em;color:var(--color-text-muted);margin-bottom:var(--space-3);font-family:var(--font-base);font-weight:700;}
+.swatch-group__row{display:flex;flex-wrap:wrap;gap:var(--space-3);}
+.swatch{
+  display:inline-flex;align-items:center;gap:var(--space-2);
+  padding:var(--space-2) var(--space-4) var(--space-2) var(--space-2);
+  border:1px solid var(--color-surface-border-strong);border-radius:var(--radius-pill);
+  min-height:44px;cursor:pointer;background:var(--color-bg-alt);
+  font-size:var(--text-xs);color:var(--color-text-muted);
+  transition:border-color var(--duration-base) var(--ease-standard), color var(--duration-base) var(--ease-standard), background var(--duration-base) var(--ease-standard);
+}
+.swatch__chip{width:26px;height:26px;border-radius:50%;background:var(--swatch-color);border:1px solid rgba(255,255,255,.25);flex-shrink:0;}
+.swatch:hover{color:var(--color-text);border-color:var(--color-accent);}
+.swatch[aria-pressed="true"]{background:var(--color-accent-soft);border-color:var(--color-accent);color:var(--color-text);}
+.swatch[aria-pressed="true"] .swatch__chip{box-shadow:0 0 0 2px var(--color-bg-alt),0 0 0 3px var(--color-accent);}
+
+.visualizer__readout{
+  margin-top:var(--space-6);padding:var(--space-5);background:var(--color-bg-alt);
+  border-left:3px solid var(--color-accent);border-radius:var(--radius-sm);
+  font-size:var(--text-sm);color:var(--color-text-muted);line-height:1.7;
+}
+.visualizer__readout strong{color:var(--color-text);}
+
+.materials__visual{
+  display:flex;align-items:center;justify-content:center;
+  background:var(--color-bg-alt);border:1px solid var(--color-surface-border);
+  border-radius:var(--radius-lg);padding:var(--space-8);box-shadow:var(--elevation-2);
+}
+.visualizer{width:100%;max-width:400px;border-radius:var(--radius-sm);overflow:hidden;}
+.visualizer__face,.visualizer__pull{transition:fill var(--duration-base) var(--ease-standard);}
+
+.material-notes{
+  display:grid;grid-template-columns:1fr;gap:var(--space-6);margin-top:var(--space-16);
+  padding-top:var(--space-12);border-top:1px solid var(--color-surface-border);
+}
+.material-note svg{color:var(--color-accent);margin-bottom:var(--space-3);}
+.material-note h3{font-size:var(--text-md);margin-bottom:var(--space-2);}
+.material-note p{color:var(--color-text-muted);font-size:var(--text-sm);}
+@media (min-width:700px){ .material-notes{grid-template-columns:repeat(3,1fr);} }
+@media (min-width:960px){ .materials__layout{grid-template-columns:1fr 1fr;} }
+
+/* ==========================================================================
+   Process
+   ========================================================================== */
+.process__list{
+  display:grid;grid-template-columns:1fr;gap:var(--space-8);counter-reset:step;
+}
+.process__step{
+  position:relative;padding:var(--space-8) var(--space-6);text-align:left;
+  background:var(--color-bg-alt);border:1px solid var(--color-surface-border);border-radius:var(--radius-md);
+}
+.process__index{
+  display:block;font-family:var(--font-display);font-size:var(--text-xs);letter-spacing:.1em;
+  color:var(--color-text-faint);margin-bottom:var(--space-4);
+}
+.process__icon{width:28px;height:28px;color:var(--color-accent);margin-bottom:var(--space-4);}
+.process__step h3{font-size:var(--text-md);margin-bottom:var(--space-3);}
+.process__step p{color:var(--color-text-muted);font-size:var(--text-sm);margin-bottom:var(--space-4);}
+.process__meta{
+  display:inline-block;font-size:var(--text-xs);font-weight:700;letter-spacing:.05em;
+  color:var(--color-accent);text-transform:uppercase;
+}
+@media (min-width:700px){ .process__list{grid-template-columns:repeat(2,1fr);} }
+@media (min-width:1100px){
+  .process__list{grid-template-columns:repeat(4,1fr);}
+  .process__step::after{
+    content:'';position:absolute;top:var(--space-8);right:calc(-1 * var(--space-8) + 2px);
+    width:calc(var(--space-8) - 4px);height:1px;background:var(--color-surface-border-strong);
+  }
+  .process__step:last-child::after{display:none;}
+}
+
+/* ==========================================================================
+   Pricing
+   ========================================================================== */
+.pricing__toggle{
+  display:inline-flex;gap:2px;padding:3px;background:var(--color-bg-alt);
+  border:1px solid var(--color-surface-border-strong);border-radius:var(--radius-pill);
+  margin-inline:auto;margin-bottom:var(--space-4);
+}
+.pricing__toggle{display:flex;justify-content:center;width:max-content;margin-inline:auto;}
+.pricing__scope-btn{
+  padding:var(--space-2) var(--space-6);min-height:40px;border-radius:var(--radius-pill);
+  font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--color-text-muted);cursor:pointer;transition:all var(--duration-base) var(--ease-standard);
+}
+.pricing__scope-btn:hover{color:var(--color-text);}
+.pricing__scope-btn.is-active{background:var(--color-accent);color:var(--color-accent-contrast);}
+.pricing__scope-note{text-align:center;color:var(--color-text-muted);font-size:var(--text-sm);max-width:52ch;margin-inline:auto;margin-bottom:var(--space-12);}
+
+.pricing__grid{display:grid;grid-template-columns:1fr;gap:var(--space-6);}
+.price-card{
+  min-width:0;
+  background:var(--color-bg-alt);border:1px solid var(--color-surface-border);border-radius:var(--radius-md);
+  padding:var(--space-8);display:flex;flex-direction:column;position:relative;
+  transition:transform var(--duration-base) var(--ease-standard), border-color var(--duration-base) var(--ease-standard);
+}
+.price-card:hover{transform:translateY(-4px);border-color:var(--color-surface-border-strong);}
+.price-card--featured{border-color:var(--color-accent);box-shadow:var(--elevation-2);}
+.price-card__badge{
+  position:absolute;top:calc(-1 * var(--space-3));left:var(--space-6);
+  background:var(--color-accent);color:var(--color-accent-contrast);
+  font-size:var(--text-xs);font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  padding:var(--space-1) var(--space-4);border-radius:var(--radius-pill);
+}
+.price-card h3{font-size:var(--text-lg);margin-bottom:var(--space-2);}
+.price-card__desc{color:var(--color-text-muted);font-size:var(--text-sm);margin-bottom:var(--space-5);}
+.price-card__price{font-family:var(--font-display);font-size:var(--text-xl);color:var(--color-accent);margin-bottom:var(--space-6);}
+.price-card__list{display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-8);flex-grow:1;}
+.price-card__list li{display:flex;align-items:flex-start;gap:var(--space-2);font-size:var(--text-sm);color:var(--color-text-muted);}
+.price-card__list svg{color:var(--color-success);flex-shrink:0;margin-top:3px;}
+.pricing__disclaimer{text-align:center;color:var(--color-text-faint);font-size:var(--text-xs);max-width:60ch;margin:var(--space-10) auto 0;}
+@media (min-width:820px){ .pricing__grid{grid-template-columns:repeat(3,1fr);} .price-card--featured{transform:translateY(-var(--space-4));} .price-card--featured:hover{transform:translateY(calc(-1 * var(--space-4) - 4px));} }
+
+/* ==========================================================================
+   Testimonials
+   ========================================================================== */
+.testimonial-carousel{max-width:760px;margin-inline:auto;}
+.testimonial-carousel__viewport{overflow:hidden;border-radius:var(--radius-md);}
+.testimonial-carousel__track{display:flex;transition:transform var(--duration-slow) var(--ease-standard);}
+.testimonial-card{
+  flex:0 0 100%;background:var(--color-bg-alt);border:1px solid var(--color-surface-border);
+  border-radius:var(--radius-md);padding:var(--space-10) var(--space-8);text-align:center;
+}
+.testimonial-card blockquote{
+  font-family:var(--font-display);font-style:italic;font-size:var(--text-lg);line-height:1.5;
+  color:var(--color-text);margin-bottom:var(--space-6);
+}
+.testimonial-card blockquote::before{content:'\201C';color:var(--color-accent);}
+.testimonial-card blockquote::after{content:'\201D';color:var(--color-accent);}
+.testimonial-card figcaption{display:flex;align-items:center;justify-content:center;gap:var(--space-3);font-size:var(--text-sm);}
+.testimonial-card__avatar{
+  display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;
+  border-radius:50%;background:var(--color-accent-soft);color:var(--color-accent);
+  font-weight:700;font-size:var(--text-xs);flex-shrink:0;
+}
+.testimonial-card figcaption small{display:block;color:var(--color-text-muted);font-weight:400;}
+.testimonial-carousel__controls{display:flex;align-items:center;justify-content:center;gap:var(--space-5);margin-top:var(--space-6);}
+.testimonial-carousel__dots{display:flex;gap:var(--space-2);}
+.testimonial__dot{
+  width:9px;height:9px;border-radius:50%;background:var(--color-surface-border-strong);
+  min-height:auto;padding:0;cursor:pointer;transition:background var(--duration-base) var(--ease-standard),transform var(--duration-base) var(--ease-standard);
+}
+.testimonial__dot.is-active{background:var(--color-accent);transform:scale(1.3);}
+
+/* ==========================================================================
+   Service area
+   ========================================================================== */
+.service-area__layout{display:grid;grid-template-columns:1fr;gap:var(--space-12);align-items:center;}
+.service-area__layout > *{min-width:0;}
+.service-area h2{margin:var(--space-3) 0 var(--space-4);font-size:var(--text-2xl);}
+.service-area p{color:var(--color-text-muted);margin-bottom:var(--space-6);}
+.service-area__list{display:flex;flex-direction:column;gap:var(--space-3);margin-bottom:var(--space-6);}
+.service-area__list li{display:flex;align-items:center;gap:var(--space-3);font-size:var(--text-sm);}
+.service-area__list svg{color:var(--color-accent);flex-shrink:0;}
+.service-area__note{font-size:var(--text-sm);color:var(--color-text-faint);font-style:italic;margin-bottom:0;}
+.service-area__radar{display:flex;justify-content:center;}
+.service-area__radar svg{width:100%;max-width:340px;}
+.radar__ping{transform-origin:180px 180px;animation:radar-ping 2.4s ease-out infinite;}
+@keyframes radar-ping{
+  0%{transform:scale(1);opacity:.7;}
+  100%{transform:scale(2.1);opacity:0;}
+}
+@media (min-width:900px){ .service-area__layout{grid-template-columns:1.1fr 1fr;} }
+
+/* ==========================================================================
+   FAQ
+   ========================================================================== */
+.faq__list{display:flex;flex-direction:column;gap:var(--space-3);}
+.faq-item{border:1px solid var(--color-surface-border);border-radius:var(--radius-md);background:var(--color-bg-alt);overflow:hidden;}
+.faq-item h3{font-family:var(--font-base);font-size:1em;}
+.faq-item__trigger{
+  width:100%;display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);
+  padding:var(--space-5) var(--space-6);text-align:left;cursor:pointer;min-height:44px;
+  font-size:var(--text-md);font-weight:700;color:var(--color-text);
+}
+.faq-item__trigger:hover{color:var(--color-accent);}
+.faq-item__chevron{color:var(--color-accent);flex-shrink:0;transition:transform var(--duration-base) var(--ease-standard);}
+.faq-item__trigger[aria-expanded="true"] .faq-item__chevron{transform:rotate(180deg);}
+.faq-item__panel{
+  max-height:0;overflow:hidden;padding-inline:var(--space-6);
+  transition:max-height var(--duration-slow) var(--ease-standard), padding var(--duration-slow) var(--ease-standard);
+}
+.faq-item__panel p{color:var(--color-text-muted);font-size:var(--text-sm);padding-bottom:var(--space-5);}
+.faq-item__panel.is-open{padding-top:0;}
+
+/* ==========================================================================
+   Contact / consultation form
+   ========================================================================== */
+.contact__layout{display:grid;grid-template-columns:1fr;gap:var(--space-12);}
+.contact__info,.contact__form-wrap{min-width:0;}
+.contact h2{margin:var(--space-3) 0 var(--space-4);}
+.contact__info > p{color:var(--color-text-muted);margin-bottom:var(--space-8);}
+.contact__details{display:flex;flex-direction:column;gap:var(--space-5);}
+.contact__details li{display:flex;align-items:flex-start;gap:var(--space-4);}
+.contact__details svg{color:var(--color-accent);flex-shrink:0;margin-top:2px;}
+.contact__details strong{display:block;font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.06em;color:var(--color-text-muted);margin-bottom:2px;}
+.contact__details a{color:var(--color-text);text-decoration:none;}
+.contact__details a:hover{color:var(--color-accent);}
+.contact__details span{color:var(--color-text);font-size:var(--text-sm);}
+.contact__details div{display:flex;flex-direction:column;gap:2px;}
+.shop-status{display:inline-flex;align-items:center;gap:6px;margin-top:var(--space-1);font-size:var(--text-xs) !important;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--color-text-muted) !important;}
+.shop-status::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--color-text-faint);flex-shrink:0;}
+.shop-status.is-open{color:var(--color-success) !important;}
+.shop-status.is-open::before{background:var(--color-success);}
+.shop-status.is-closed{color:var(--color-text-muted) !important;}
+.shop-status.is-closed::before{background:var(--color-text-faint);}
+
+.consult-checklist{
+  margin-top:var(--space-8);padding:var(--space-6);background:var(--color-bg-alt);
+  border:1px solid var(--color-surface-border);border-radius:var(--radius-md);
+}
+.consult-checklist h3{
+  font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;
+  color:var(--color-accent);margin-bottom:var(--space-4);font-family:var(--font-base);
+}
+.consult-checklist ul{display:flex;flex-direction:column;gap:var(--space-3);}
+.consult-checklist li{
+  padding-left:var(--space-5);position:relative;font-size:var(--text-sm);color:var(--color-text-muted);
+}
+.consult-checklist li::before{
+  content:'';position:absolute;left:2px;top:8px;width:5px;height:5px;border-radius:50%;background:var(--color-accent);
+}
+
+.contact__form-wrap{position:relative;}
+.form{
+  background:var(--color-bg-alt);border:1px solid var(--color-surface-border);border-radius:var(--radius-lg);
+  padding:var(--space-8);display:flex;flex-direction:column;gap:var(--space-5);box-shadow:var(--elevation-2);
+}
+.form__row{display:grid;grid-template-columns:1fr;gap:var(--space-5);}
+.field{display:flex;flex-direction:column;gap:var(--space-2);}
+.field label{font-size:var(--text-xs);font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--color-text-muted);}
+.field input,.field select,.field textarea{
+  background:var(--color-bg);border:1px solid var(--color-surface-border-strong);border-radius:var(--radius-sm);
+  padding:var(--space-3) var(--space-4);min-height:44px;color:var(--color-text);
+  transition:border-color var(--duration-base) var(--ease-standard), background var(--duration-base) var(--ease-standard);
+}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23D4AF37' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right var(--space-3) center;background-size:16px;padding-right:var(--space-10);}
+.field textarea{resize:vertical;min-height:110px;}
+.field input:hover,.field select:hover,.field textarea:hover{border-color:var(--color-accent);}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{border-color:var(--color-accent);outline:2px solid var(--color-focus);outline-offset:1px;}
+.field input:disabled,.field select:disabled,.field textarea:disabled{opacity:.5;cursor:not-allowed;}
+.field input[aria-invalid="true"],.field select[aria-invalid="true"],.field textarea[aria-invalid="true"]{border-color:var(--color-error);}
+.field__error{font-size:var(--text-xs);color:var(--color-error);min-height:1em;}
+.field__checkbox{display:flex;align-items:flex-start;gap:var(--space-3);font-size:var(--text-sm);color:var(--color-text-muted);cursor:pointer;}
+.field__checkbox input{width:18px;height:18px;min-height:auto;accent-color:var(--color-accent);flex-shrink:0;margin-top:2px;}
+
+.form__status{font-size:var(--text-sm);min-height:1.2em;font-weight:700;}
+.form__status--pending{color:var(--color-text-muted);}
+.form__status--error{color:var(--color-error);}
+.form__status--success{color:var(--color-success);}
+
+.form__success{
+  background:var(--color-bg-alt);border:1px solid var(--color-success);border-radius:var(--radius-lg);
+  padding:var(--space-10) var(--space-8);text-align:center;box-shadow:var(--elevation-2);
+}
+.form__success svg{color:var(--color-success);width:40px;height:40px;margin-inline:auto;margin-bottom:var(--space-4);}
+.form__success h3{font-size:var(--text-lg);margin-bottom:var(--space-3);}
+.form__success p{color:var(--color-text-muted);margin-inline:auto;margin-bottom:var(--space-6);}
+
+@media (min-width:560px){ .form__row{grid-template-columns:1fr 1fr;} }
+@media (min-width:960px){ .contact__layout{grid-template-columns:.85fr 1.15fr;} }
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+.site-footer{background:var(--color-bg-alt);border-top:1px solid var(--color-surface-border);padding-top:var(--space-20);}
+.footer__top{
+  display:grid;grid-template-columns:1fr;gap:var(--space-10);padding-bottom:var(--space-14);
+}
+.footer__top > *{min-width:0;}
+.footer__brand .brand__name{font-size:var(--text-md);}
+.footer__tagline{color:var(--color-text-muted);font-size:var(--text-sm);margin-top:var(--space-4);max-width:34ch;}
+.footer__nav h3{font-size:var(--text-xs);text-transform:uppercase;letter-spacing:.08em;color:var(--color-text-muted);margin-bottom:var(--space-4);font-family:var(--font-base);}
+.footer__nav{display:flex;flex-direction:column;gap:var(--space-3);}
+.footer__nav a{color:var(--color-text);text-decoration:none;font-size:var(--text-sm);}
+.footer__nav a:hover{color:var(--color-accent);}
+.footer__visit p{display:flex;align-items:flex-start;gap:var(--space-3);font-size:var(--text-sm);color:var(--color-text);margin-bottom:var(--space-3);}
+.footer__visit svg{color:var(--color-accent);flex-shrink:0;margin-top:2px;}
+.footer__visit a{color:var(--color-text);text-decoration:none;}
+.footer__visit a:hover{color:var(--color-accent);}
+.footer__hours{color:var(--color-text-muted) !important;font-size:var(--text-xs) !important;}
+.footer__newsletter p{color:var(--color-text-muted);font-size:var(--text-sm);margin-bottom:var(--space-4);}
+.newsletter__row{display:flex;gap:var(--space-2);}
+.newsletter__row input{
+  flex:1;min-width:0;background:var(--color-bg);border:1px solid var(--color-surface-border-strong);
+  border-radius:var(--radius-sm);padding:var(--space-3) var(--space-4);min-height:44px;color:var(--color-text);
+}
+.newsletter__row input:focus-visible{outline:2px solid var(--color-focus);outline-offset:1px;border-color:var(--color-accent);}
+.newsletter__row input[aria-invalid="true"]{border-color:var(--color-error);}
+.newsletter__row .btn{padding-inline:var(--space-6);}
+.newsletter__status{font-size:var(--text-xs);margin-top:var(--space-2);min-height:1.4em;font-weight:700;}
+.newsletter__status--error{color:var(--color-error);}
+.newsletter__status--pending{color:var(--color-text-muted);}
+.newsletter__status--success{color:var(--color-success);}
+
+.footer__bottom{
+  display:flex;flex-direction:column;gap:var(--space-3);padding-block:var(--space-6);
+  border-top:1px solid var(--color-surface-border);font-size:var(--text-xs);color:var(--color-text-faint);
+}
+.footer__legal-links{display:flex;gap:var(--space-5);}
+.footer__legal-links a{color:var(--color-text-faint);text-decoration:none;}
+.footer__legal-links a:hover{color:var(--color-accent);}
+
+@media (min-width:640px){ .footer__top{grid-template-columns:1fr 1fr;} }
+@media (min-width:1080px){
+  .footer__top{grid-template-columns:1.4fr .8fr .8fr 1fr 1.1fr;}
+  .footer__bottom{flex-direction:row;justify-content:space-between;}
+}
+
+/* ==========================================================================
+   Back to top
+   ========================================================================== */
+.back-to-top{
+  position:fixed;right:var(--space-5);bottom:var(--space-5);z-index:150;
+  width:48px;height:48px;border-radius:50%;
+  background:var(--color-accent);color:var(--color-accent-contrast);
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--elevation-2);
+  opacity:0;transform:translateY(12px);pointer-events:none;
+  transition:opacity var(--duration-base) var(--ease-standard), transform var(--duration-base) var(--ease-standard), background var(--duration-base) var(--ease-standard);
+}
+.back-to-top.is-visible{opacity:1;transform:translateY(0);pointer-events:auto;}
+.back-to-top:hover{background:var(--oak-cream-050);}
+.back-to-top .icon{transform:rotate(-90deg);}
+
+/* ==========================================================================
+   Mobile polish (surgical, mobile-scoped only — desktop untouched)
+   ========================================================================== */
+.table-scroll-hint{display:none;}
+
+@media (max-width:640px){
+  /* Header brand was wrapping to 3 lines + a 2-line sub at mobile widths,
+     ballooning header height to 130-145px and crowding the hero. Tighten
+     the header row and drop the decorative sub-line; brand name still
+     wraps to 2 lines but the block reads as a composed lockup, not a stack. */
+  .site-header{padding-block:var(--space-4);}
+  .site-header .brand{gap:var(--space-2);}
+  .site-header .brand__mark{width:28px;height:28px;}
+  .site-header .brand__sub{display:none;}
+  .site-header .brand__name{font-size:1rem;letter-spacing:.02em;}
+  .nav__actions{gap:var(--space-3);}
+  .phone-pill{padding:10px var(--space-4);}
+
+  /* Credentials strip: flex-wrap + justify-center produced a jagged,
+     off-center stack once each item dropped to its own line. Run it as a
+     clean left-aligned single column instead. */
+  .credentials__row{flex-direction:column;align-items:flex-start;gap:var(--space-4);}
+  .credentials__item{text-align:left;}
+
+  /* Comparison table (.compare) is min-width:640 inside an overflow-x:auto
+     wrapper with zero visual cue — third column was fully hidden and the
+     second column's text was clipped at the container edge. Add a scroll
+     hint + a right-edge fade so the affordance is visible, not implied. */
+  .table-scroll{position:relative;}
+  .table-scroll::after{
+    content:'';position:absolute;top:0;right:0;bottom:0;width:28px;
+    background:linear-gradient(to right, transparent, var(--color-bg) 88%);
+    pointer-events:none;
+  }
+  .table-scroll-hint{
+    display:flex;align-items:center;gap:var(--space-2);
+    font-size:var(--text-xs);color:var(--color-text-muted);letter-spacing:.02em;
+    margin-bottom:var(--space-3);
+  }
+
+  /* Two interactive controls sat at 40px, under the design system's own
+     44px minimum used everywhere else (.btn, .swatch, .faq-item__trigger). */
+  .filter-chip{min-height:44px;}
+  .pricing__scope-btn{min-height:44px;}
+}
+
+/* ==========================================================================
+   Small-screen refinements
+   ========================================================================== */
+@media (max-width:400px){
+  .hero__actions{flex-direction:column;align-items:stretch;}
+  .hero__actions .btn{width:100%;}
+  .pricing__toggle{width:100%;}
+  .pricing__scope-btn{flex:1;}
+  .testimonial-card{padding:var(--space-8) var(--space-5);}
+}
+
+/* ==========================================================================
+   Print — pricing &amp; standard sections are the two clients actually print
+   ========================================================================== */
+@media print{
+  .site-header,.nav__overlay,.nav__panel,.back-to-top,.hero__scene,.hero__overlay,
+  .gallery__filters,.testimonial-carousel__controls,.site-footer .footer__newsletter,
+  .skip-link,.credentials{ display:none !important; }
+  body{background:#fff;color:#111;}
+  .hero{padding-top:var(--space-8);min-height:0;background:#fff;}
+  .hero__title,.hero__lead,section h2,section h3{color:#111;}
+  section{background:#fff !important;}
+  .compare td.compare__col--oakline{background:#f2f2f2;color:#111;}
+  .btn,.filter-chip,.swatch,.faq-item__trigger{display:none !important;}
+  .faq-item__panel{max-height:none !important;}
+  a[href]::after{content:" (" attr(href) ")";font-size:.8em;}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "Oakline Custom Cabinets",
+  "description": "Custom cabinetry and architectural millwork built in-shop for kitchens, built-ins, and vanities across the Chattahoochee Valley.",
+  "telephone": "+1-706-555-0119",
+  "priceRange": "$$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "4180 Armour Road",
+    "addressLocality": "Columbus",
+    "addressRegion": "GA",
+    "postalCode": "31904",
+    "addressCountry": "US"
+  },
+  "areaServed": ["Columbus GA", "Phenix City AL", "Opelika AL", "Fortson GA", "Midland GA", "LaGrange GA", "Pine Mountain GA"],
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "17:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Saturday"], "opens": "By appointment", "closes": "By appointment" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "How long does a full kitchen project take, start to finish?", "acceptedAnswer": { "@type": "Answer", "text": "Most kitchens run 8 to 10 weeks from signed drawings to final walkthrough — 2 to 3 weeks of shop build, plus install and punch-list time." } },
+    { "@type": "Question", "name": "Do you build in-house, or install pre-made boxes?", "acceptedAnswer": { "@type": "Answer", "text": "Every box, door, and drawer is built in our Columbus shop. We do not resell modular cabinet lines." } },
+    { "@type": "Question", "name": "What wood species and finishes can I choose from?", "acceptedAnswer": { "@type": "Answer", "text": "White oak, walnut, soft maple, and rift-sawn oak are our most-requested species, plus any studio-mixed paint color." } },
+    { "@type": "Question", "name": "Is financing or a payment schedule available?", "acceptedAnswer": { "@type": "Answer", "text": "Yes. Standard terms are a deposit at signed drawings, a progress payment at shop-build start, and the balance at install." } },
+    { "@type": "Question", "name": "What is the difference between semi-custom and full-custom cabinetry?", "acceptedAnswer": { "@type": "Answer", "text": "Semi-custom starts from standard box sizes. Full-custom, which is all we build, starts from your room's actual measurements." } },
+    { "@type": "Question", "name": "Do you handle demo, electrical, or plumbing, or only the cabinetry?", "acceptedAnswer": { "@type": "Answer", "text": "We handle cabinetry, installation, and finish carpentry, and coordinate directly with your electrician and plumber." } },
+    { "@type": "Question", "name": "What does the warranty actually cover?", "acceptedAnswer": { "@type": "Answer", "text": "Five years on box and face-frame construction, plus the manufacturer's lifetime mechanism warranty on soft-close hardware." } },
+    { "@type": "Question", "name": "What if I only need one or two cabinets repaired or replaced?", "acceptedAnswer": { "@type": "Answer", "text": "We take small repair and single-cabinet jobs when our shop schedule allows, though full kitchens get priority booking." } }
+  ]
+}
+</script>
 </head>
+<body class="theme-oakline">
+<a class="skip-link" href="#main">Skip to main content</a>
 
-<body class="theme-luxury">
-    <!-- ═══════ HEADER ═══════ -->
-    <header>
-        <div class="container header-inner">
-            <div class="brand">
-                <svg class="compass-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
-                </svg>
-                <div class="logo-text">OAKLINE Custom Cabinets</div>
-            </div>
-            <nav class="nav-links">
-                <a href="#portfolio">Our Portfolio</a>
-                <a href="#process">The Process</a>
-                <a href="tel:7065550119" class="header-phone-pill">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                    <span>CALL: (706) 555-0119</span>
-                </a>
-            </nav>
+<!-- ============================================================
+     Reusable icon sprite (defined once, referenced via <use>)
+     ============================================================ -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="icon-compass" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"></circle>
+    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+  </symbol>
+  <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor">
+    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+  </symbol>
+  <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+  </symbol>
+  <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+  </symbol>
+  <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+  </symbol>
+  <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+  </symbol>
+  <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="6 9 12 15 18 9"></polyline>
+  </symbol>
+  <symbol id="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="20 6 9 17 4 12"></polyline>
+  </symbol>
+  <symbol id="icon-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12.5"></line><circle cx="12" cy="16" r="0.6" fill="currentColor" stroke="none"></circle>
+  </symbol>
+  <symbol id="icon-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>
+  </symbol>
+  <symbol id="icon-pencil" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="rotate(45 12 12)"><rect x="9" y="4" width="6" height="13" rx="1"></rect><polygon points="9,17 15,17 12,21"></polygon></g>
+  </symbol>
+  <symbol id="icon-swatch" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="7.5" height="7.5" rx="1"></rect><rect x="13.5" y="3" width="7.5" height="7.5" rx="1"></rect>
+    <rect x="3" y="13.5" width="7.5" height="7.5" rx="1"></rect><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="1"></rect>
+  </symbol>
+  <symbol id="icon-tool" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <g transform="rotate(45 12 12)"><rect x="10.2" y="2.5" width="3.6" height="9.5" rx="1.2"></rect><rect x="7.5" y="10.5" width="9" height="4.4" rx="1.2"></rect></g>
+  </symbol>
+  <symbol id="icon-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="7" cy="14" r="3.4"></circle><line x1="9.4" y1="11.6" x2="19" y2="2"></line>
+    <line x1="15" y1="6" x2="17.2" y2="8.2"></line><line x1="17.6" y1="3.4" x2="19.6" y2="5.4"></line>
+  </symbol>
+
+  <!-- detailed room-art glyphs used on portfolio cards: filled shaker construction, not schematic outlines -->
+  <symbol id="room-kitchen" viewBox="0 0 320 200">
+    <rect x="0" y="0" width="320" height="200" fill="#180F0A"></rect>
+    <rect x="18" y="22" width="80" height="70" rx="2" fill="url(#gOakV)" stroke="#0D0805" stroke-width="1.3"></rect>
+    <rect x="30" y="32" width="56" height="50" rx="1" fill="#000000" opacity="0.16"></rect>
+    <rect x="108" y="22" width="80" height="70" rx="2" fill="url(#gOakV)" stroke="#0D0805" stroke-width="1.3"></rect>
+    <rect x="120" y="32" width="56" height="50" rx="1" fill="#000000" opacity="0.16"></rect>
+    <rect x="198" y="22" width="80" height="70" rx="2" fill="url(#gOakV)" stroke="#0D0805" stroke-width="1.3"></rect>
+    <rect x="210" y="32" width="56" height="50" rx="1" fill="#000000" opacity="0.16"></rect>
+    <g fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5">
+      <rect x="48" y="80" width="20" height="3.4" rx="1.7"></rect>
+      <rect x="138" y="80" width="20" height="3.4" rx="1.7"></rect>
+      <rect x="228" y="80" width="20" height="3.4" rx="1.7"></rect>
+    </g>
+    <rect x="10" y="96" width="300" height="10" fill="url(#gQuartzV)" stroke="#0F0A07" stroke-width="1"></rect>
+    <rect x="10" y="96" width="300" height="1.6" fill="#FFFFFF" opacity="0.3"></rect>
+    <rect x="30" y="120" width="230" height="52" rx="2" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="1.3"></rect>
+    <line x1="115" y1="122" x2="115" y2="170" stroke="#020100" stroke-width="1.2" stroke-opacity="0.6"></line>
+    <line x1="200" y1="122" x2="200" y2="170" stroke="#020100" stroke-width="1.2" stroke-opacity="0.6"></line>
+    <g fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5">
+      <rect x="65" y="143" width="18" height="3.2" rx="1.6"></rect>
+      <rect x="148" y="143" width="18" height="3.2" rx="1.6"></rect>
+      <rect x="220" y="143" width="18" height="3.2" rx="1.6"></rect>
+    </g>
+    <rect x="30" y="176" width="230" height="6" fill="#020100" opacity="0.5"></rect>
+    <line x1="160" y1="94" x2="160" y2="96" stroke="#D4AF37" stroke-width="1.4"></line>
+    <circle cx="160" cy="88" r="10" fill="#D4AF37" fill-opacity="0.18"></circle>
+    <path d="M150,76 L170,76 L165,90 L155,90 Z" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.8"></path>
+    <ellipse cx="160" cy="89" rx="4" ry="1.4" fill="#FBE7B0" opacity="0.85"></ellipse>
+  </symbol>
+  <symbol id="room-builtin" viewBox="0 0 320 200">
+    <rect x="0" y="0" width="320" height="200" fill="#180F0A"></rect>
+    <rect x="24" y="16" width="272" height="168" rx="2" fill="url(#gOakV)" stroke="#0D0805" stroke-width="1.3"></rect>
+    <rect x="24" y="70" width="272" height="4" fill="#020100" opacity="0.4"></rect>
+    <rect x="24" y="126" width="272" height="4" fill="#020100" opacity="0.4"></rect>
+    <line x1="112" y1="16" x2="112" y2="184" stroke="#020100" stroke-width="1.4" stroke-opacity="0.5"></line>
+    <line x1="208" y1="16" x2="208" y2="184" stroke="#020100" stroke-width="1.4" stroke-opacity="0.5"></line>
+    <g opacity="0.9">
+      <rect x="34" y="30" width="10" height="34" fill="#9A3B2C"></rect>
+      <rect x="46" y="24" width="10" height="40" fill="#3E6B34"></rect>
+      <rect x="58" y="34" width="10" height="30" fill="#C9BFB6"></rect>
+      <rect x="70" y="28" width="10" height="36" fill="#4A3627"></rect>
+      <rect x="220" y="86" width="16" height="30" rx="1" fill="#2C1E16" stroke="#D4AF37" stroke-width="0.6"></rect>
+      <rect x="240" y="90" width="46" height="22" rx="1" fill="#3B2A1F" stroke="#D4AF37" stroke-width="0.6"></rect>
+      <rect x="122" y="146" width="66" height="26" rx="1" fill="#2C1E16" stroke="#D4AF37" stroke-width="0.6"></rect>
+    </g>
+    <rect x="24" y="66" width="272" height="3" fill="#000000" opacity="0.3"></rect>
+    <rect x="24" y="122" width="272" height="3" fill="#000000" opacity="0.3"></rect>
+    <rect x="24" y="180" width="272" height="4" fill="#000000" opacity="0.35"></rect>
+  </symbol>
+  <symbol id="room-vanity" viewBox="0 0 320 200">
+    <rect x="0" y="0" width="320" height="200" fill="#180F0A"></rect>
+    <ellipse cx="160" cy="56" rx="47" ry="35" fill="#2A3038" stroke="url(#gBrassV)" stroke-width="4"></ellipse>
+    <ellipse cx="146" cy="42" rx="16" ry="22" fill="#4A5560" opacity="0.4"></ellipse>
+    <rect x="60" y="118" width="200" height="20" rx="2" fill="url(#gQuartzV)" stroke="#0F0A07" stroke-width="1.2"></rect>
+    <rect x="60" y="118" width="200" height="2" fill="#FFFFFF" opacity="0.3"></rect>
+    <ellipse cx="160" cy="122" rx="22" ry="7" fill="#0F0A07" opacity="0.5"></ellipse>
+    <ellipse cx="160" cy="120.5" rx="20" ry="6" fill="#E8E2D8"></ellipse>
+    <path d="M160 104 q0 -14 14 -14" fill="none" stroke="url(#gBrassV)" stroke-width="3.4" stroke-linecap="round"></path>
+    <circle cx="174" cy="90" r="2.6" fill="url(#gBrassV)"></circle>
+    <rect x="66" y="140" width="188" height="48" rx="2" fill="url(#gOakV)" stroke="#0D0805" stroke-width="1.3"></rect>
+    <rect x="76" y="148" width="80" height="32" rx="1" fill="#000000" opacity="0.15"></rect>
+    <rect x="164" y="148" width="80" height="32" rx="1" fill="#000000" opacity="0.15"></rect>
+    <line x1="160" y1="140" x2="160" y2="188" stroke="#020100" stroke-width="1.3" stroke-opacity="0.5"></line>
+    <ellipse cx="118" cy="164" rx="4.5" ry="5" fill="#000000" opacity="0.25"></ellipse>
+    <circle cx="118" cy="164" r="3.2" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.4"></circle>
+    <ellipse cx="202" cy="164" rx="4.5" ry="5" fill="#000000" opacity="0.25"></ellipse>
+    <circle cx="202" cy="164" r="3.2" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.4"></circle>
+    <rect x="66" y="190" width="188" height="6" fill="#020100" opacity="0.45"></rect>
+  </symbol>
+  <symbol id="room-closet" viewBox="0 0 320 200">
+    <rect x="0" y="0" width="320" height="200" fill="#180F0A"></rect>
+    <rect x="22" y="30" width="182" height="5" rx="2.5" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5"></rect>
+    <g fill="#4A3627" stroke="#D4AF37" stroke-width="0.6" stroke-opacity="0.6">
+      <path d="M48 35 v14 l11 24 h-22 l11 -24 z"></path>
+      <path d="M96 35 v14 l11 24 h-22 l11 -24 z"></path>
+      <path d="M144 35 v14 l11 24 h-22 l11 -24 z"></path>
+    </g>
+    <line x1="48" y1="35" x2="48" y2="30" stroke="#D4AF37" stroke-width="0.6"></line>
+    <line x1="96" y1="35" x2="96" y2="30" stroke="#D4AF37" stroke-width="0.6"></line>
+    <line x1="144" y1="35" x2="144" y2="30" stroke="#D4AF37" stroke-width="0.6"></line>
+    <rect x="216" y="18" width="80" height="166" rx="2" fill="url(#gOakV)" stroke="#0D0805" stroke-width="1.3"></rect>
+    <rect x="216" y="64" width="80" height="4" fill="#020100" opacity="0.4"></rect>
+    <rect x="216" y="110" width="80" height="4" fill="#020100" opacity="0.4"></rect>
+    <rect x="216" y="146" width="80" height="4" fill="#020100" opacity="0.4"></rect>
+    <ellipse cx="286" cy="42" rx="5" ry="5.4" fill="#000000" opacity="0.22"></ellipse>
+    <circle cx="286" cy="42" r="3" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.4"></circle>
+    <ellipse cx="286" cy="88" rx="5" ry="5.4" fill="#000000" opacity="0.22"></ellipse>
+    <circle cx="286" cy="88" r="3" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.4"></circle>
+    <rect x="216" y="180" width="80" height="4" fill="#000000" opacity="0.35"></rect>
+  </symbol>
+  <symbol id="room-sideboard" viewBox="0 0 320 200">
+    <rect x="0" y="0" width="320" height="200" fill="#180F0A"></rect>
+    <rect x="40" y="68" width="240" height="82" rx="2" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="1.3"></rect>
+    <rect x="52" y="78" width="60" height="62" rx="1" fill="url(#gWalnutPanel)"></rect>
+    <path d="M52.5 139.5 L52.5 78.5 L111.5 78.5" fill="none" stroke="#020100" stroke-width="1.3" stroke-opacity="0.5"></path>
+    <path d="M52.5 139.5 L111.5 139.5 L111.5 78.5" fill="none" stroke="#F0C77E" stroke-width="0.9" stroke-opacity="0.28"></path>
+    <rect x="208" y="78" width="60" height="62" rx="1" fill="url(#gWalnutPanel)"></rect>
+    <path d="M208.5 139.5 L208.5 78.5 L267.5 78.5" fill="none" stroke="#020100" stroke-width="1.3" stroke-opacity="0.5"></path>
+    <path d="M208.5 139.5 L267.5 139.5 L267.5 78.5" fill="none" stroke="#F0C77E" stroke-width="0.9" stroke-opacity="0.28"></path>
+    <rect x="120" y="78" width="80" height="62" rx="1" fill="url(#gWalnutPanel)"></rect>
+    <line x1="160" y1="80" x2="160" y2="138" stroke="#020100" stroke-width="1" stroke-opacity="0.4"></line>
+    <ellipse cx="82" cy="109" rx="5.4" ry="16" fill="#000000" opacity="0.3"></ellipse>
+    <rect x="79" y="93" width="5" height="32" rx="2.5" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5"></rect>
+    <ellipse cx="238" cy="109" rx="5.4" ry="16" fill="#000000" opacity="0.3"></ellipse>
+    <rect x="235" y="93" width="5" height="32" rx="2.5" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5"></rect>
+    <ellipse cx="146" cy="97" rx="16" ry="4" fill="#000000" opacity="0.25"></ellipse>
+    <rect x="140" y="94" width="12" height="5" rx="2.5" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.4"></rect>
+    <rect x="168" y="94" width="12" height="5" rx="2.5" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.4"></rect>
+    <rect x="36" y="62" width="248" height="8" rx="1.5" fill="url(#gQuartzV)" stroke="#0F0A07" stroke-width="1"></rect>
+    <rect x="36" y="62" width="248" height="1.6" fill="#FFFFFF" opacity="0.3"></rect>
+    <ellipse cx="160" cy="172" rx="118" ry="8" fill="#000000" opacity="0.32"></ellipse>
+    <path d="M50,150 L44,172 L58,172 L56,150 Z" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="0.8"></path>
+    <path d="M270,150 L276,172 L262,172 L264,150 Z" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="0.8"></path>
+  </symbol>
+</svg>
+
+<!-- ============================================================
+     HEADER / NAV
+     ============================================================ -->
+<header class="site-header" id="siteHeader">
+  <div class="container nav-inner">
+    <a class="brand" href="#top">
+      <svg class="brand__mark" aria-hidden="true"><use href="#icon-compass"></use></svg>
+      <span class="brand__text">
+        <span class="brand__name">Oakline Custom Cabinets</span>
+        <span class="brand__sub">Columbus, Georgia · Est. shop-built</span>
+      </span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      <a class="nav__link" href="#portfolio">Portfolio</a>
+      <a class="nav__link" href="#standard">The Standard</a>
+      <a class="nav__link" href="#materials">Materials</a>
+      <a class="nav__link" href="#process">Process</a>
+      <a class="nav__link" href="#pricing">Pricing</a>
+      <a class="nav__link" href="#faq">FAQ</a>
+    </nav>
+
+    <div class="nav__actions">
+      <a href="tel:7065550119" class="phone-pill">
+        <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+        <span class="phone-pill__label">(706) 555-0119</span>
+      </a>
+      <button type="button" class="nav__toggle" id="navToggle" aria-expanded="false" aria-controls="navPanel" aria-label="Open menu">
+        <svg class="icon icon-menu" aria-hidden="true"><use href="#icon-menu"></use></svg>
+        <svg class="icon icon-close" aria-hidden="true"><use href="#icon-close"></use></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="nav__overlay" id="navOverlay"></div>
+<nav class="nav__panel" id="navPanel" aria-label="Mobile">
+  <button type="button" class="btn btn--icon nav__panel-close" id="navPanelClose" aria-label="Close menu">
+    <svg class="icon" aria-hidden="true"><use href="#icon-close"></use></svg>
+  </button>
+  <div class="nav__panel-links">
+    <a href="#portfolio">Portfolio</a>
+    <a href="#standard">The Oakline Standard</a>
+    <a href="#materials">Materials</a>
+    <a href="#process">Process</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Request a Consultation</a>
+  </div>
+  <a href="tel:7065550119" class="btn btn--primary btn--block">
+    <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+    (706) 555-0119
+  </a>
+</nav>
+
+<main id="main">
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section class="hero" aria-label="Introduction">
+  <div class="hero__scene" aria-hidden="true">
+    <svg viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" focusable="false">
+      <defs>
+        <radialGradient id="heroGlow" cx="74%" cy="32%" r="62%">
+          <stop offset="0%" stop-color="#D4AF37" stop-opacity="0.24"/>
+          <stop offset="55%" stop-color="#D4AF37" stop-opacity="0.07"/>
+          <stop offset="100%" stop-color="#D4AF37" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="heroSoftGlow" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="14"/>
+        </filter>
+        <filter id="heroBlurSm" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="2.2"/>
+        </filter>
+        <filter id="heroBlurMd" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="7"/>
+        </filter>
+
+        <!-- material gradients — the same species/finish language used across the page -->
+        <linearGradient id="gOakV" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E7C08A"/>
+          <stop offset="24%" stop-color="#CE9F5E"/>
+          <stop offset="50%" stop-color="#B98A4C"/>
+          <stop offset="74%" stop-color="#A87940"/>
+          <stop offset="100%" stop-color="#8F6835"/>
+        </linearGradient>
+        <linearGradient id="gOakPanel" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#C08A4E"/>
+          <stop offset="45%" stop-color="#A87940"/>
+          <stop offset="100%" stop-color="#84602D"/>
+        </linearGradient>
+        <linearGradient id="gWalnutV" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5C4128"/>
+          <stop offset="32%" stop-color="#3F2C1B"/>
+          <stop offset="68%" stop-color="#2C1E16"/>
+          <stop offset="100%" stop-color="#190F09"/>
+        </linearGradient>
+        <linearGradient id="gWalnutPanel" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3F2C1B"/>
+          <stop offset="50%" stop-color="#2C1E16"/>
+          <stop offset="100%" stop-color="#150D08"/>
+        </linearGradient>
+        <linearGradient id="gBrassV" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#F7DA95"/>
+          <stop offset="32%" stop-color="#E0B85A"/>
+          <stop offset="64%" stop-color="#C79A3A"/>
+          <stop offset="100%" stop-color="#946E1C"/>
+        </linearGradient>
+        <linearGradient id="gQuartzV" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#E8E2D8"/>
+          <stop offset="30%" stop-color="#D2C9BB"/>
+          <stop offset="65%" stop-color="#BAAD9B"/>
+          <stop offset="100%" stop-color="#A0937F"/>
+        </linearGradient>
+
+        <!-- shaker wall door: stile/rail frame, recessed panel, brass bar pull near the bottom edge -->
+        <symbol id="hd-door" viewBox="0 0 124 214">
+          <rect x="3" y="4" width="124" height="214" rx="2" fill="#070402" opacity="0.4" filter="url(#heroBlurSm)"/>
+          <rect x="0" y="0" width="124" height="214" rx="2" fill="url(#gOakV)" stroke="#140D09" stroke-width="1.3"/>
+          <g stroke="#6B4B29" stroke-opacity="0.4" stroke-width="0.6">
+            <line x1="16" y1="6" x2="108" y2="6"/>
+            <line x1="16" y1="10.5" x2="108" y2="10.5"/>
+            <line x1="16" y1="203.5" x2="108" y2="203.5"/>
+            <line x1="16" y1="208" x2="108" y2="208"/>
+          </g>
+          <g stroke="#6B4B29" stroke-opacity="0.32" stroke-width="0.6">
+            <line x1="5" y1="20" x2="5" y2="194"/>
+            <line x1="9.5" y1="20" x2="9.5" y2="194"/>
+            <line x1="114.5" y1="20" x2="114.5" y2="194"/>
+            <line x1="119" y1="20" x2="119" y2="194"/>
+          </g>
+          <rect x="14.5" y="15.5" width="95" height="183" rx="1.5" fill="#0B0704"/>
+          <rect x="16" y="17" width="92" height="180" rx="1" fill="url(#gOakPanel)"/>
+          <path d="M16.5 196.5 L16.5 17.5 L107.5 17.5" fill="none" stroke="#080502" stroke-width="1.6" stroke-opacity="0.55" stroke-linejoin="round"/>
+          <path d="M16.5 196.5 L107.5 196.5 L107.5 17.5" fill="none" stroke="#F0C77E" stroke-width="1" stroke-opacity="0.3" stroke-linejoin="round"/>
+          <ellipse cx="101.5" cy="196" rx="5" ry="2.4" fill="#050301" opacity="0.4"/>
+          <rect x="98.5" y="164" width="5" height="30" rx="2.5" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5"/>
+          <rect x="99.6" y="166" width="1.2" height="26" rx="0.6" fill="#FBE7B0" opacity="0.55"/>
+        </symbol>
+
+        <!-- shaker base door: same construction, taller panel, pull near the top edge -->
+        <symbol id="hd-doortall" viewBox="0 0 124 250">
+          <rect x="3" y="4" width="124" height="250" rx="2" fill="#070402" opacity="0.4" filter="url(#heroBlurSm)"/>
+          <rect x="0" y="0" width="124" height="250" rx="2" fill="url(#gOakV)" stroke="#140D09" stroke-width="1.3"/>
+          <g stroke="#6B4B29" stroke-opacity="0.4" stroke-width="0.6">
+            <line x1="16" y1="6" x2="108" y2="6"/>
+            <line x1="16" y1="10.5" x2="108" y2="10.5"/>
+            <line x1="16" y1="239.5" x2="108" y2="239.5"/>
+            <line x1="16" y1="244" x2="108" y2="244"/>
+          </g>
+          <g stroke="#6B4B29" stroke-opacity="0.32" stroke-width="0.6">
+            <line x1="5" y1="20" x2="5" y2="230"/>
+            <line x1="9.5" y1="20" x2="9.5" y2="230"/>
+            <line x1="114.5" y1="20" x2="114.5" y2="230"/>
+            <line x1="119" y1="20" x2="119" y2="230"/>
+          </g>
+          <rect x="14.5" y="15.5" width="95" height="219" rx="1.5" fill="#0B0704"/>
+          <rect x="16" y="17" width="92" height="216" rx="1" fill="url(#gOakPanel)"/>
+          <path d="M16.5 232.5 L16.5 17.5 L107.5 17.5" fill="none" stroke="#080502" stroke-width="1.6" stroke-opacity="0.55" stroke-linejoin="round"/>
+          <path d="M16.5 232.5 L107.5 232.5 L107.5 17.5" fill="none" stroke="#F0C77E" stroke-width="1" stroke-opacity="0.3" stroke-linejoin="round"/>
+          <ellipse cx="101.5" cy="35" rx="5" ry="2.4" fill="#050301" opacity="0.4"/>
+          <rect x="98.5" y="26" width="5" height="30" rx="2.5" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5"/>
+          <rect x="99.6" y="28" width="1.2" height="26" rx="0.6" fill="#FBE7B0" opacity="0.55"/>
+        </symbol>
+
+        <!-- graduated 3-drawer stack: each box independently shaded, separated by reveal lines -->
+        <symbol id="hd-drawers" viewBox="0 0 124 250">
+          <rect x="3" y="4" width="124" height="250" rx="2" fill="#070402" opacity="0.4" filter="url(#heroBlurSm)"/>
+          <rect x="0" y="0" width="124" height="250" rx="2" fill="#140D09"/>
+          <rect x="2" y="2" width="120" height="68" rx="1.5" fill="url(#gOakV)" stroke="#0E0906" stroke-width="1"/>
+          <path d="M10 4 H114" stroke="#080502" stroke-width="1" stroke-opacity="0.4"/>
+          <path d="M10 66 H114" stroke="#F0C77E" stroke-width="0.8" stroke-opacity="0.28"/>
+          <ellipse cx="62" cy="53" rx="17" ry="2.6" fill="#050301" opacity="0.35"/>
+          <rect x="45" y="50" width="34" height="5" rx="2.5" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5"/>
+          <rect x="47" y="51" width="30" height="1.2" rx="0.6" fill="#FBE7B0" opacity="0.5"/>
+          <rect x="2" y="73" width="120" height="82" rx="1.5" fill="url(#gOakV)" stroke="#0E0906" stroke-width="1"/>
+          <path d="M10 75 H114" stroke="#080502" stroke-width="1" stroke-opacity="0.4"/>
+          <path d="M10 153 H114" stroke="#F0C77E" stroke-width="0.8" stroke-opacity="0.28"/>
+          <ellipse cx="62" cy="114" rx="17" ry="2.6" fill="#050301" opacity="0.35"/>
+          <rect x="45" y="111" width="34" height="5" rx="2.5" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5"/>
+          <rect x="47" y="112" width="30" height="1.2" rx="0.6" fill="#FBE7B0" opacity="0.5"/>
+          <rect x="2" y="158" width="120" height="90" rx="1.5" fill="url(#gOakV)" stroke="#0E0906" stroke-width="1"/>
+          <path d="M10 160 H114" stroke="#080502" stroke-width="1" stroke-opacity="0.4"/>
+          <path d="M10 246 H114" stroke="#F0C77E" stroke-width="0.8" stroke-opacity="0.28"/>
+          <ellipse cx="62" cy="203" rx="17" ry="2.6" fill="#050301" opacity="0.35"/>
+          <rect x="45" y="200" width="34" height="5" rx="2.5" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5"/>
+          <rect x="47" y="201" width="30" height="1.2" rx="0.6" fill="#FBE7B0" opacity="0.5"/>
+        </symbol>
+      </defs>
+
+      <rect x="0" y="0" width="1200" height="800" fill="url(#heroGlow)"/>
+      <rect x="0" y="0" width="1200" height="620" fill="#1D130D" opacity="0.35"/>
+
+      <!-- tiled range wall, visible behind the hood -->
+      <g stroke="#D4AF37" stroke-opacity="0.07" stroke-width="1">
+        <line x1="780" y1="180" x2="780" y2="316"/>
+        <line x1="820" y1="180" x2="820" y2="316"/>
+        <line x1="860" y1="180" x2="860" y2="316"/>
+        <line x1="900" y1="180" x2="900" y2="316"/>
+        <line x1="940" y1="180" x2="940" y2="316"/>
+        <line x1="770" y1="220" x2="960" y2="220"/>
+        <line x1="770" y1="260" x2="960" y2="260"/>
+      </g>
+
+      <!-- crown / light-rail cap above the wall run -->
+      <rect x="580" y="76" width="556" height="12" rx="1.5" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="1"/>
+      <rect x="580" y="86" width="556" height="2" fill="#D4AF37" fill-opacity="0.55"/>
+      <rect x="580" y="88" width="556" height="10" fill="#050301" opacity="0.3" filter="url(#heroBlurSm)"/>
+
+      <!-- upper cabinet run -->
+      <use href="#hd-door" x="610" y="88"/>
+      <use href="#hd-door" x="742" y="88"/>
+      <use href="#hd-door" x="1006" y="88"/>
+
+      <!-- range hood, the wall run's focal point -->
+      <ellipse cx="871" cy="185" rx="132" ry="16" fill="#020100" opacity="0.4" filter="url(#heroBlurMd)"/>
+      <rect x="845" y="0" width="50" height="74" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="1.2"/>
+      <g stroke="#6B4B29" stroke-opacity="0.25" stroke-width="0.7">
+        <line x1="856" y1="4" x2="856" y2="72"/>
+        <line x1="884" y1="4" x2="884" y2="72"/>
+      </g>
+      <path d="M771,178 L806,70 L936,70 L971,178 Z" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="1.4"/>
+      <path d="M806,70 L936,70 L925,84 L817,84 Z" fill="#000000" opacity="0.22"/>
+      <g stroke="#6B4B29" stroke-opacity="0.22" stroke-width="0.8">
+        <line x1="826" y1="86" x2="815" y2="172"/>
+        <line x1="871" y1="82" x2="871" y2="174"/>
+        <line x1="916" y1="86" x2="927" y2="172"/>
+      </g>
+      <rect x="765" y="170" width="212" height="11" rx="2" fill="url(#gBrassV)" stroke="#5C4315" stroke-width="0.6"/>
+      <rect x="765" y="170" width="212" height="2.4" fill="#FBE7B0" opacity="0.5"/>
+      <line x1="825" y1="176" x2="917" y2="176" stroke="#1B120B" stroke-width="1.4" stroke-opacity="0.6"/>
+
+      <!-- countertop -->
+      <rect x="580" y="318" width="556" height="16" fill="url(#gQuartzV)" stroke="#0F0A07" stroke-width="1.2"/>
+      <rect x="580" y="318" width="556" height="2" fill="#F5F0E8" fill-opacity="0.5"/>
+      <g fill="none" stroke-linecap="round">
+        <path d="M600 326 q46 -6 92 0 t92 0 t92 0 t92 0 t92 0" stroke="#8C8071" stroke-width="1" opacity="0.55"/>
+        <path d="M600 327 q46 -6 92 0 t92 0 t92 0 t92 0 t92 0" stroke="#F1ECE3" stroke-width="0.6" opacity="0.4"/>
+        <path d="M620 330 q30 4 60 0 t60 0 t60 0 t60 0 t60 0 t60 0" stroke="#8C8071" stroke-width="0.7" opacity="0.35"/>
+      </g>
+      <rect x="580" y="334" width="556" height="10" fill="#020100" opacity="0.32" filter="url(#heroBlurSm)"/>
+
+      <!-- lower cabinet run -->
+      <use href="#hd-doortall" x="610" y="350"/>
+      <use href="#hd-drawers" x="742" y="350"/>
+      <use href="#hd-doortall" x="874" y="350"/>
+      <use href="#hd-drawers" x="1006" y="350"/>
+
+      <!-- toe kick -->
+      <rect x="580" y="600" width="556" height="16" fill="#050301" opacity="0.55"/>
+
+      <!-- island, foreground — contrasting walnut-and-brass finish -->
+      <ellipse cx="705" cy="726" rx="230" ry="20" fill="#020100" opacity="0.45" filter="url(#heroBlurMd)"/>
+      <rect x="498" y="540" width="416" height="20" rx="2" fill="url(#gQuartzV)" stroke="#0F0A07" stroke-width="1.2"/>
+      <rect x="498" y="540" width="416" height="2.4" fill="#F5F0E8" fill-opacity="0.5"/>
+      <path d="M888,556 L916,548 L916,700 L888,708 Z" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="1.1"/>
+      <rect x="500" y="560" width="388" height="154" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="1.4"/>
+
+      <rect x="516" y="578" width="140" height="122" rx="1.5" fill="#0B0704"/>
+      <rect x="519" y="581" width="134" height="116" rx="1" fill="url(#gWalnutPanel)"/>
+      <path d="M519.5 696.5 L519.5 581.5 L652.5 581.5" fill="none" stroke="#020100" stroke-width="1.6" stroke-opacity="0.55"/>
+      <path d="M519.5 696.5 L652.5 696.5 L652.5 581.5" fill="none" stroke="#F0C77E" stroke-width="1" stroke-opacity="0.3"/>
+      <ellipse cx="641" cy="639" rx="5.5" ry="17" fill="#050301" opacity="0.35"/>
+      <rect x="628" y="622" width="5" height="34" rx="2.5" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5"/>
+      <rect x="629.2" y="625" width="1.2" height="28" rx="0.6" fill="#FBE7B0" opacity="0.5"/>
+
+      <rect x="676" y="578" width="196" height="58" rx="1.5" fill="url(#gWalnutV)" stroke="#0E0906" stroke-width="1"/>
+      <path d="M684 580 H864" stroke="#020100" stroke-width="1" stroke-opacity="0.5"/>
+      <path d="M684 634 H864" stroke="#F0C77E" stroke-width="0.8" stroke-opacity="0.25"/>
+      <ellipse cx="774" cy="607" rx="20" ry="3" fill="#020100" opacity="0.4"/>
+      <rect x="752" y="604" width="44" height="5.5" rx="2.75" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5"/>
+      <rect x="676" y="642" width="196" height="58" rx="1.5" fill="url(#gWalnutV)" stroke="#0E0906" stroke-width="1"/>
+      <path d="M684 644 H864" stroke="#020100" stroke-width="1" stroke-opacity="0.5"/>
+      <path d="M684 698 H864" stroke="#F0C77E" stroke-width="0.8" stroke-opacity="0.25"/>
+      <ellipse cx="774" cy="671" rx="20" ry="3" fill="#020100" opacity="0.4"/>
+      <rect x="752" y="668" width="44" height="5.5" rx="2.75" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="0.5"/>
+
+      <g fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="1">
+        <polygon points="508,714 530,714 508,690"/>
+        <polygon points="880,714 858,714 880,690"/>
+      </g>
+
+      <!-- pendant lights over the island -->
+      <g>
+        <circle cx="600" cy="360" r="5" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="1"/>
+        <line x1="600" y1="365" x2="600" y2="438" stroke="#5C4315" stroke-width="1.4"/>
+        <circle cx="600" cy="463" r="36" fill="#D4AF37" fill-opacity="0.16" filter="url(#heroSoftGlow)"/>
+        <path d="M584,438 L616,438 L610,460 L590,460 Z" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="1"/>
+        <path d="M590,460 L610,460 L607,464 L593,464 Z" fill="#1D130D"/>
+        <ellipse cx="600" cy="462" rx="8" ry="2.6" fill="#FBE7B0" opacity="0.85"/>
+
+        <circle cx="700" cy="360" r="5" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="1"/>
+        <line x1="700" y1="365" x2="700" y2="438" stroke="#5C4315" stroke-width="1.4"/>
+        <circle cx="700" cy="463" r="36" fill="#D4AF37" fill-opacity="0.16" filter="url(#heroSoftGlow)"/>
+        <path d="M684,438 L716,438 L710,460 L690,460 Z" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="1"/>
+        <path d="M690,460 L710,460 L707,464 L693,464 Z" fill="#1D130D"/>
+        <ellipse cx="700" cy="462" rx="8" ry="2.6" fill="#FBE7B0" opacity="0.85"/>
+
+        <circle cx="800" cy="360" r="5" fill="url(#gWalnutV)" stroke="#0D0805" stroke-width="1"/>
+        <line x1="800" y1="365" x2="800" y2="438" stroke="#5C4315" stroke-width="1.4"/>
+        <circle cx="800" cy="463" r="36" fill="#D4AF37" fill-opacity="0.16" filter="url(#heroSoftGlow)"/>
+        <path d="M784,438 L816,438 L810,460 L790,460 Z" fill="url(#gBrassV)" stroke="#4E3A12" stroke-width="1"/>
+        <path d="M790,460 L810,460 L807,464 L793,464 Z" fill="#1D130D"/>
+        <ellipse cx="800" cy="462" rx="8" ry="2.6" fill="#FBE7B0" opacity="0.85"/>
+      </g>
+
+      <!-- floor plane -->
+      <rect x="0" y="756" width="1200" height="44" fill="url(#gWalnutV)" opacity="0.5"/>
+    </svg>
+  </div>
+  <div class="hero__overlay" aria-hidden="true"></div>
+
+  <div class="container hero__layout">
+    <div class="hero__content">
+      <div class="hero__badge">
+        <span class="hero__stars" aria-hidden="true">
+          <svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg><svg class="icon"><use href="#icon-star"></use></svg>
+        </span>
+        <span>Trusted by 200+ Columbus-area homeowners</span>
+      </div>
+
+      <h1 class="hero__title">Cabinetry, drawn<br>for the room <em>it lives in.</em></h1>
+
+      <p class="hero__lead">Every box, face frame, and finish is built in our Columbus shop for the exact walls it's going into — not assembled from a catalog and trimmed to fit.</p>
+
+      <div class="hero__actions">
+        <a href="#contact" class="btn btn--primary">
+          Request Design Consultation
+          <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+        </a>
+        <a href="#portfolio" class="btn btn--secondary">Review Our Portfolio</a>
+      </div>
+    </div>
+
+    <aside class="hero__stack" aria-label="What sets Oakline apart">
+      <article class="showcase-card showcase-card--top">
+        <p class="showcase-card__label">Finish, sampled first</p>
+        <p class="showcase-card__body">Warm white oak, smoked walnut, and hand-mixed paint colors, sampled against your own cabinet doors before we build.</p>
+      </article>
+      <article class="showcase-card showcase-card--bottom">
+        <p class="showcase-card__label">Joinery that outlasts trends</p>
+        <p class="showcase-card__body">Hand-fit dovetail drawers, mortise-and-tenon face frames, and soft-close hardware rated for daily use, not showroom use.</p>
+      </article>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================
+     TRUST / STATS RAIL
+     ============================================================ -->
+<section class="stats section-pad" aria-label="Oakline by the numbers">
+  <div class="container stats__grid">
+    <div class="stats__item">
+      <p class="stats__value">18<span>yrs</span></p>
+      <p class="stats__label">Building cabinetry across the Chattahoochee Valley</p>
+    </div>
+    <div class="stats__item">
+      <p class="stats__value">640<span>+</span></p>
+      <p class="stats__label">Kitchens, built-ins &amp; vanities completed in-shop</p>
+    </div>
+    <div class="stats__item">
+      <p class="stats__value">4.9<span>/5</span></p>
+      <p class="stats__label">Average client walkthrough rating</p>
+    </div>
+    <div class="stats__item">
+      <p class="stats__value">Zero</p>
+      <p class="stats__label">Particleboard boxes ever installed</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CREDENTIALS STRIP
+     ============================================================ -->
+<section class="credentials" aria-label="Licensing and guild affiliations">
+  <div class="container credentials__row">
+    <div class="credentials__item">
+      <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+      <span>Licensed &amp; insured Georgia home-improvement contractor</span>
+    </div>
+    <div class="credentials__item">
+      <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+      <span>Custom Woodwork Guild — member shop</span>
+    </div>
+    <div class="credentials__item">
+      <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+      <span>Architectural Millwork Alliance — certified partner</span>
+    </div>
+    <div class="credentials__item">
+      <svg class="icon" aria-hidden="true"><use href="#icon-check"></use></svg>
+      <span>5-year structural warranty on every build</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PORTFOLIO / GALLERY
+     ============================================================ -->
+<section class="gallery section-pad surface-band" id="portfolio" aria-labelledby="portfolio-heading">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Recent Shopwork</span>
+      <h2 id="portfolio-heading">A Sample of Rooms We've Built</h2>
+      <p>Every project starts as a drawing, not a display model. Filter by room type to see recent work in that category.</p>
+    </div>
+
+    <div class="gallery__filters" role="group" aria-label="Filter portfolio by category">
+      <button type="button" class="filter-chip is-active" data-filter="all" aria-pressed="true">All Work</button>
+      <button type="button" class="filter-chip" data-filter="kitchens" aria-pressed="false">Kitchens</button>
+      <button type="button" class="filter-chip" data-filter="built-ins" aria-pressed="false">Built-Ins &amp; Libraries</button>
+      <button type="button" class="filter-chip" data-filter="vanities" aria-pressed="false">Bath Vanities</button>
+      <button type="button" class="filter-chip" data-filter="storage" aria-pressed="false">Closets &amp; Storage</button>
+      <button type="button" class="filter-chip" data-filter="furniture" aria-pressed="false">Custom Furniture</button>
+      <button type="button" class="filter-chip" data-filter="whole-home" aria-pressed="false">Whole-Home Projects</button>
+    </div>
+
+    <p class="gallery__status visually-hidden" id="galleryStatus" role="status" aria-live="polite"></p>
+    <div class="gallery__viewport">
+      <div class="gallery__grid" id="galleryGrid" aria-busy="false"></div>
+    </div>
+
+    <noscript>
+      <div class="gallery__grid">
+        <article class="gallery-card"><div class="gallery-card__body"><p class="gallery-card__eyebrow">White oak shaker · aged brass</p><h3 class="gallery-card__title">Rigdon Park Kitchen</h3><p class="gallery-card__note">Full gut kitchen, 34 linear ft, painted island contrast.</p></div></article>
+        <article class="gallery-card"><div class="gallery-card__body"><p class="gallery-card__eyebrow">Smoked walnut</p><h3 class="gallery-card__title">Wynnton Library Built-In</h3><p class="gallery-card__note">Floor-to-ceiling library wall with a hidden rolling ladder track.</p></div></article>
+        <article class="gallery-card"><div class="gallery-card__body"><p class="gallery-card__eyebrow">Painted sage · marble</p><h3 class="gallery-card__title">Green Island Hills Primary Vanity</h3><p class="gallery-card__note">Furniture-style vanity with an open toe-kick shelf.</p></div></article>
+        <article class="gallery-card"><div class="gallery-card__body"><p class="gallery-card__eyebrow">Painted ink · brushed nickel</p><h3 class="gallery-card__title">Midtown Bungalow Kitchen</h3><p class="gallery-card__note">Narrow galley kitchen reworked for a full-height pantry wall.</p></div></article>
+        <article class="gallery-card"><div class="gallery-card__body"><p class="gallery-card__eyebrow">Rift-sawn white oak</p><h3 class="gallery-card__title">Bibb City Mudroom Storage</h3><p class="gallery-card__note">Built-in lockers and bench seating off the back entry.</p></div></article>
+        <article class="gallery-card"><div class="gallery-card__body"><p class="gallery-card__eyebrow">White oak</p><h3 class="gallery-card__title">Overlook Reading Nook</h3><p class="gallery-card__note">Window-seat bookcase with hidden storage drawers below.</p></div></article>
+        <article class="gallery-card"><div class="gallery-card__body"><p class="gallery-card__eyebrow">Painted ink</p><h3 class="gallery-card__title">Cascade Hills Walk-In Closet</h3><p class="gallery-card__note">Island dresser with felt-lined jewelry drawers.</p></div></article>
+        <article class="gallery-card"><div class="gallery-card__body"><p class="gallery-card__eyebrow">Smoked walnut</p><h3 class="gallery-card__title">Heritage Hill Dining Sideboard</h3><p class="gallery-card__note">Freestanding sideboard matched to an existing dining table.</p></div></article>
+      </div>
+    </noscript>
+  </div>
+</section>
+<!-- ============================================================
+     THE OAKLINE STANDARD — construction comparison
+     ============================================================ -->
+<section class="standard section-pad" id="standard" aria-labelledby="standard-heading">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">The Oakline Standard</span>
+      <h2 id="standard-heading">Built Different, By Design</h2>
+      <p>Cabinetry is graded on what's behind the door. Here's what we build with, compared to what most "custom" shops start from.</p>
+    </div>
+
+    <p class="table-scroll-hint">Swipe to see the full comparison &rarr;</p>
+    <div class="table-scroll">
+      <table class="compare">
+        <caption class="visually-hidden">Comparison of Oakline construction methods against typical big-box custom cabinetry</caption>
+        <thead>
+          <tr>
+            <th scope="col">Build element</th>
+            <th scope="col" class="compare__col--oakline">The Oakline Standard</th>
+            <th scope="col">Typical Big-Box "Custom"</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Box construction</th>
+            <td class="compare__col--oakline"><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>3/4&quot; maple plywood, dado-and-glue assembly</td>
+            <td>1/2&quot; particleboard, stapled and glued</td>
+          </tr>
+          <tr>
+            <th scope="row">Drawer joinery</th>
+            <td class="compare__col--oakline"><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Hand-fit through-dovetail, solid maple sides</td>
+            <td>Doweled or stapled butt joints</td>
+          </tr>
+          <tr>
+            <th scope="row">Face frame</th>
+            <td class="compare__col--oakline"><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Solid hardwood, mortise-and-tenon</td>
+            <td>Printed laminate over particleboard</td>
+          </tr>
+          <tr>
+            <th scope="row">Hardware</th>
+            <td class="compare__col--oakline"><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Soft-close hinges &amp; slides, lifetime mechanism warranty</td>
+            <td>Standard friction hinges, 1-year warranty</td>
+          </tr>
+          <tr>
+            <th scope="row">Finish process</th>
+            <td class="compare__col--oakline"><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Hand-rubbed, multi-coat conversion varnish</td>
+            <td>Single-pass sprayed lacquer</td>
+          </tr>
+          <tr>
+            <th scope="row">Shop drawings</th>
+            <td class="compare__col--oakline"><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Room-measured shop drawings before a board is cut</td>
+            <td>Stock modular sizes, trimmed on-site</td>
+          </tr>
+          <tr>
+            <th scope="row">Drawer glides</th>
+            <td class="compare__col--oakline"><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Full-extension, 100-lb rated undermount glides</td>
+            <td>Side-mount glides, partial extension</td>
+          </tr>
+          <tr>
+            <th scope="row">Warranty</th>
+            <td class="compare__col--oakline"><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>5-year structural, lifetime on hardware mechanisms</td>
+            <td>1-year limited, hardware excluded</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT / SHOP STORY
+     ============================================================ -->
+<section class="about section-pad surface-band" aria-labelledby="about-heading">
+  <div class="container about__layout">
+    <div class="about__art" aria-hidden="true">
+      <svg viewBox="0 0 240 240" focusable="false">
+        <circle cx="120" cy="120" r="112" fill="none" stroke="#D4AF37" stroke-opacity="0.15" stroke-width="1"></circle>
+        <g stroke="#D4AF37" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+          <g transform="translate(34,54)">
+            <rect x="0" y="18" width="132" height="32" rx="14"></rect>
+            <circle cx="26" cy="10" r="9"></circle>
+            <path d="M96 10 q22 -6 30 12"></path>
+            <line x1="58" y1="50" x2="50" y2="64"></line>
+          </g>
+          <g transform="translate(30,118) rotate(-10)">
+            <rect x="0" y="0" width="64" height="13" rx="6"></rect>
+            <rect x="64" y="2.5" width="9" height="8" fill="#D4AF37" stroke="none"></rect>
+            <polygon points="73,1.5 102,6.5 73,11.5"></polygon>
+          </g>
+          <g transform="translate(128,142)">
+            <rect x="0" y="0" width="80" height="9"></rect>
+            <rect x="0" y="0" width="9" height="54"></rect>
+          </g>
+        </g>
+      </svg>
+    </div>
+    <div class="about__content">
+      <span class="eyebrow">Who's Building It</span>
+      <h2 id="about-heading">A Shop of Eleven, Not a Franchise of Thousands</h2>
+      <p>Oakline started in a two-car garage with a single table saw and a waiting list built entirely on referrals. Eighteen years later we're still a small shop on purpose — eleven woodworkers, one in-house designer, and a policy against subcontracting the work we put our name on.</p>
+      <p>If your project is on our floor, one of us is the one who built it. That's the whole model.</p>
+      <ul class="about__values">
+        <li><strong>We draw before we cut.</strong> Every project gets a full shop-drawing approval before any material is touched.</li>
+        <li><strong>We say no on purpose.</strong> We take on what our current schedule can build well, not everything that calls.</li>
+        <li><strong>We fix what we build.</strong> If a drawer sticks in year three, the person who built it is who shows up.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     MATERIALS &amp; FINISHES — interactive visualizer
+     ============================================================ -->
+<section class="materials section-pad surface-band" id="materials" aria-labelledby="materials-heading">
+  <div class="container materials__layout">
+    <div class="materials__intro">
+      <span class="eyebrow">Materials &amp; Finishes</span>
+      <h2 id="materials-heading">Choose Your Materials</h2>
+      <p>Every finish is sampled against your actual cabinet doors before we commit a shop order. Try a few combinations here to see how door and hardware finishes work together.</p>
+
+      <div class="swatch-group">
+        <h3 class="swatch-group__title">Door finish</h3>
+        <div class="swatch-group__row" role="group" aria-label="Choose a door finish">
+          <button type="button" class="swatch" data-swatch-group="door" data-swatch="rift-oak" aria-pressed="true" style="--swatch-color:#C79A5B;">
+            <span class="swatch__chip" aria-hidden="true"></span><span>Rift-Sawn White Oak</span>
+          </button>
+          <button type="button" class="swatch" data-swatch-group="door" data-swatch="smoked-walnut" aria-pressed="false" style="--swatch-color:#4A3627;">
+            <span class="swatch__chip" aria-hidden="true"></span><span>Smoked Walnut</span>
+          </button>
+          <button type="button" class="swatch" data-swatch-group="door" data-swatch="painted-sage" aria-pressed="false" style="--swatch-color:#7C8B6C;">
+            <span class="swatch__chip" aria-hidden="true"></span><span>Painted Sage</span>
+          </button>
+          <button type="button" class="swatch" data-swatch-group="door" data-swatch="painted-ink" aria-pressed="false" style="--swatch-color:#20242B;">
+            <span class="swatch__chip" aria-hidden="true"></span><span>Painted Ink</span>
+          </button>
         </div>
-    </header>
+      </div>
 
-    <!-- ═══════ HERO ═══════ -->
-    <section class="hero-luxury">
-        <div class="hero-overlay"></div>
-        <div class="container hero-layout">
-
-            <div class="hero-content">
-                <div class="trust-badge">
-                    <div class="stars">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                    </div>
-                    <span>#1 Rated Custom Cabinet Maker in Columbus</span>
-                </div>
-                <h1>
-                    Bespoke Cabinetry.<br>
-                    <i>Uncompromising Quality.</i>
-                </h1>
-                <p>Elevate your home with masterfully constructed, custom-designed woodwork that seamlessly
-                    blends architectural beauty with daily function.</p>
-
-                <div class="cta-group">
-                    <a href="#contact" class="btn btn-large btn-gold">Request Design Consultation</a>
-                </div>
-
-            </div>
-
-            <!-- Feature Highlight Stack -->
-            <div class="hero-visual-stack">
-                <div class="luxury-highlight top-card">
-                    <div class="lh-box">
-                        <span class="lh-title">Precision Millwork</span>
-                        <span class="lh-desc">Every edge, joint, and finish is executed with obsessive attention to detail. No pre-fabs. Just pure carpentry.</span>
-                    </div>
-                </div>
-                <div class="luxury-highlight bottom-card">
-                    <div class="lh-box">
-                        <span class="lh-title">Premium Materials</span>
-                        <span class="lh-desc">Sourcing only the finest hardwoods and architectural-grade hardware for a lifetime of elegance.</span>
-                    </div>
-                </div>
-            </div>
-
+      <div class="swatch-group">
+        <h3 class="swatch-group__title">Hardware finish</h3>
+        <div class="swatch-group__row" role="group" aria-label="Choose a hardware finish">
+          <button type="button" class="swatch" data-swatch-group="hardware" data-swatch="aged-brass" aria-pressed="true" style="--swatch-color:#C7A24A;">
+            <span class="swatch__chip" aria-hidden="true"></span><span>Aged Brass</span>
+          </button>
+          <button type="button" class="swatch" data-swatch-group="hardware" data-swatch="matte-black" aria-pressed="false" style="--swatch-color:#2B2B2B;">
+            <span class="swatch__chip" aria-hidden="true"></span><span>Matte Black</span>
+          </button>
+          <button type="button" class="swatch" data-swatch-group="hardware" data-swatch="brushed-nickel" aria-pressed="false" style="--swatch-color:#B9BEC2;">
+            <span class="swatch__chip" aria-hidden="true"></span><span>Brushed Nickel</span>
+          </button>
         </div>
-    </section>
+      </div>
+
+      <div class="swatch-group">
+        <h3 class="swatch-group__title">Countertop surface</h3>
+        <div class="swatch-group__row" role="group" aria-label="Choose a countertop surface">
+          <button type="button" class="swatch" data-swatch-group="surface" data-swatch="honed-quartz" aria-pressed="true" style="--swatch-color:#C9BFB6;">
+            <span class="swatch__chip" aria-hidden="true"></span><span>Honed Quartz</span>
+          </button>
+          <button type="button" class="swatch" data-swatch-group="surface" data-swatch="carrara-marble" aria-pressed="false" style="--swatch-color:#E7E4DE;">
+            <span class="swatch__chip" aria-hidden="true"></span><span>Carrara-Style Marble</span>
+          </button>
+          <button type="button" class="swatch" data-swatch-group="surface" data-swatch="butcher-block" aria-pressed="false" style="--swatch-color:#B08655;">
+            <span class="swatch__chip" aria-hidden="true"></span><span>Butcher Block</span>
+          </button>
+        </div>
+      </div>
+
+      <p class="visualizer__readout" id="visualizerReadout" aria-live="polite">
+        <strong>Rift-Sawn White Oak</strong> door with <strong>Aged Brass</strong> hardware and a <strong>Honed Quartz</strong> counter. Vertical straight grain, warm honey tone, clear matte topcoat.
+      </p>
+    </div>
+
+    <div class="materials__visual">
+      <svg class="visualizer" viewBox="0 0 400 340" role="img" aria-labelledby="visualizerTitle">
+        <title id="visualizerTitle">Preview of a cabinet elevation in the selected door and hardware finish</title>
+        <defs>
+          <filter id="visShadow" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="2.4"></feGaussianBlur>
+          </filter>
+        </defs>
+        <rect x="0" y="0" width="400" height="340" fill="#1A110D"></rect>
+
+        <!-- upper-left door: recessed panel + knob -->
+        <rect x="42" y="27" width="150" height="150" rx="2" fill="#020100" opacity="0.35" filter="url(#visShadow)"></rect>
+        <rect x="40" y="24" width="150" height="150" rx="2" class="visualizer__face" fill="#C79A5B" stroke="#0F0A07" stroke-width="1.5"></rect>
+        <rect x="56" y="40" width="118" height="118" rx="1" fill="#000000" opacity="0.14"></rect>
+        <path d="M56.5 157.5 L56.5 40.5 L173.5 40.5" fill="none" stroke="#050301" stroke-width="1.4" stroke-opacity="0.5"></path>
+        <path d="M56.5 157.5 L173.5 157.5 L173.5 40.5" fill="none" stroke="#FBE7B0" stroke-width="1" stroke-opacity="0.3"></path>
+        <ellipse cx="165" cy="99" rx="6" ry="6.6" fill="#000000" opacity="0.22"></ellipse>
+        <circle class="visualizer__pull" cx="165" cy="99" r="4" fill="#C7A24A"></circle>
+        <circle cx="163.4" cy="97.2" r="1.3" fill="#FFFFFF" opacity="0.5"></circle>
+
+        <!-- upper-right door: recessed panel + bar pull -->
+        <rect x="212" y="27" width="150" height="90" rx="2" fill="#020100" opacity="0.35" filter="url(#visShadow)"></rect>
+        <rect x="210" y="24" width="150" height="90" rx="2" class="visualizer__face" fill="#C79A5B" stroke="#0F0A07" stroke-width="1.5"></rect>
+        <rect x="226" y="36" width="118" height="66" rx="1" fill="#000000" opacity="0.14"></rect>
+        <path d="M226.5 101.5 L226.5 36.5 L343.5 36.5" fill="none" stroke="#050301" stroke-width="1.4" stroke-opacity="0.5"></path>
+        <path d="M226.5 101.5 L343.5 101.5 L343.5 36.5" fill="none" stroke="#FBE7B0" stroke-width="1" stroke-opacity="0.3"></path>
+        <ellipse cx="285" cy="68" rx="17" ry="4.5" fill="#000000" opacity="0.2"></ellipse>
+        <rect class="visualizer__pull" x="270" y="66" width="30" height="4" rx="2" fill="#C7A24A"></rect>
+        <rect x="272" y="66.6" width="26" height="1" rx="0.5" fill="#FFFFFF" opacity="0.45"></rect>
+
+        <!-- upper-right drawer: flat front, reveal lines -->
+        <rect x="212" y="125" width="150" height="52" rx="2" fill="#020100" opacity="0.3" filter="url(#visShadow)"></rect>
+        <rect x="210" y="122" width="150" height="52" rx="2" class="visualizer__face" fill="#C79A5B" stroke="#0F0A07" stroke-width="1.5"></rect>
+        <path d="M218 126 H354" stroke="#050301" stroke-width="1" stroke-opacity="0.35"></path>
+        <path d="M218 170 H354" stroke="#FBE7B0" stroke-width="0.8" stroke-opacity="0.25"></path>
+        <ellipse cx="285" cy="148" rx="17" ry="4.5" fill="#000000" opacity="0.2"></ellipse>
+        <rect class="visualizer__pull" x="270" y="146" width="30" height="4" rx="2" fill="#C7A24A"></rect>
+        <rect x="272" y="146.6" width="26" height="1" rx="0.5" fill="#FFFFFF" opacity="0.45"></rect>
+
+        <!-- countertop: veining + top light edge + contact shadow -->
+        <rect x="30" y="182" width="340" height="20" fill="#000000" opacity="0.28" filter="url(#visShadow)"></rect>
+        <rect class="visualizer__counter" x="30" y="182" width="340" height="20" fill="#C9BFB6"></rect>
+        <rect x="30" y="182" width="340" height="2.4" fill="#FFFFFF" opacity="0.28"></rect>
+        <path class="visualizer__counter-vein" d="M40 191 q28 -7 56 0 t56 0 t56 0 t56 0 t56 0 t40 0" stroke="#a89e93" stroke-width="1" fill="none" opacity="0.6"></path>
+        <path d="M40 193 q28 -5 56 0 t56 0 t56 0 t56 0 t56 0 t40 0" stroke="#000000" stroke-width="0.6" fill="none" opacity="0.14"></path>
+
+        <!-- lower-left door: recessed panel + knob -->
+        <rect x="42" y="213" width="150" height="110" rx="2" fill="#020100" opacity="0.35" filter="url(#visShadow)"></rect>
+        <rect x="40" y="210" width="150" height="110" rx="2" class="visualizer__face" fill="#C79A5B" stroke="#0F0A07" stroke-width="1.5"></rect>
+        <rect x="56" y="224" width="118" height="82" rx="1" fill="#000000" opacity="0.14"></rect>
+        <path d="M56.5 305.5 L56.5 224.5 L173.5 224.5" fill="none" stroke="#050301" stroke-width="1.4" stroke-opacity="0.5"></path>
+        <path d="M56.5 305.5 L173.5 305.5 L173.5 224.5" fill="none" stroke="#FBE7B0" stroke-width="1" stroke-opacity="0.3"></path>
+        <ellipse cx="165" cy="265" rx="6" ry="6.6" fill="#000000" opacity="0.22"></ellipse>
+        <circle class="visualizer__pull" cx="165" cy="265" r="4" fill="#C7A24A"></circle>
+        <circle cx="163.4" cy="263.2" r="1.3" fill="#FFFFFF" opacity="0.5"></circle>
+
+        <!-- lower-right drawer pair: flat fronts, reveal lines -->
+        <rect x="212" y="213" width="150" height="53" rx="2" fill="#020100" opacity="0.3" filter="url(#visShadow)"></rect>
+        <rect x="210" y="210" width="150" height="53" rx="2" class="visualizer__face" fill="#C79A5B" stroke="#0F0A07" stroke-width="1.5"></rect>
+        <path d="M218 214 H354" stroke="#050301" stroke-width="1" stroke-opacity="0.35"></path>
+        <path d="M218 259 H354" stroke="#FBE7B0" stroke-width="0.8" stroke-opacity="0.25"></path>
+        <ellipse cx="285" cy="235" rx="17" ry="4.5" fill="#000000" opacity="0.2"></ellipse>
+        <rect class="visualizer__pull" x="270" y="233" width="30" height="4" rx="2" fill="#C7A24A"></rect>
+        <rect x="272" y="233.6" width="26" height="1" rx="0.5" fill="#FFFFFF" opacity="0.45"></rect>
+
+        <rect x="212" y="270" width="150" height="53" rx="2" fill="#020100" opacity="0.3" filter="url(#visShadow)"></rect>
+        <rect x="210" y="267" width="150" height="53" rx="2" class="visualizer__face" fill="#C79A5B" stroke="#0F0A07" stroke-width="1.5"></rect>
+        <path d="M218 271 H354" stroke="#050301" stroke-width="1" stroke-opacity="0.35"></path>
+        <path d="M218 316 H354" stroke="#FBE7B0" stroke-width="0.8" stroke-opacity="0.25"></path>
+        <ellipse cx="285" cy="292" rx="17" ry="4.5" fill="#000000" opacity="0.2"></ellipse>
+        <rect class="visualizer__pull" x="270" y="290" width="30" height="4" rx="2" fill="#C7A24A"></rect>
+        <rect x="272" y="290.6" width="26" height="1" rx="0.5" fill="#FFFFFF" opacity="0.45"></rect>
+      </svg>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="material-notes">
+      <article class="material-note">
+        <svg class="icon" aria-hidden="true"><use href="#icon-swatch"></use></svg>
+        <h3>Hardwoods</h3>
+        <p>White oak, walnut, soft maple, and rift-sawn oak, plus studio-mixed paint on any door style.</p>
+      </article>
+      <article class="material-note">
+        <svg class="icon" aria-hidden="true"><use href="#icon-swatch"></use></svg>
+        <h3>Surfaces</h3>
+        <p>Quartz, marble, and butcher block counters, fabricated by partner shops we've worked with for years.</p>
+      </article>
+      <article class="material-note">
+        <svg class="icon" aria-hidden="true"><use href="#icon-swatch"></use></svg>
+        <h3>Hardware</h3>
+        <p>Brass, matte black, and brushed nickel in stock; leather and reclaimed pulls available on request.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROCESS
+     ============================================================ -->
+<section class="process section-pad" id="process" aria-labelledby="process-heading">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">How It Comes Together</span>
+      <h2 id="process-heading">Four Stages, One Shop</h2>
+      <p>Every project moves through the same disciplined sequence — no subcontracted installers, no separate box supplier.</p>
+    </div>
+
+    <ol class="process__list">
+      <li class="process__step">
+        <span class="process__index">01</span>
+        <svg class="process__icon" aria-hidden="true"><use href="#icon-pencil"></use></svg>
+        <h3>Design Consultation</h3>
+        <p>We walk your space, talk through how you actually use the room, and take real measurements — not a phone estimate.</p>
+        <span class="process__meta">Week 1</span>
+      </li>
+      <li class="process__step">
+        <span class="process__index">02</span>
+        <svg class="process__icon" aria-hidden="true"><use href="#icon-swatch"></use></svg>
+        <h3>Material Selection &amp; Shop Drawings</h3>
+        <p>Finish samples against your cabinets, hardware decisions, and a full drawing set you approve before we cut anything.</p>
+        <span class="process__meta">Weeks 2–3</span>
+      </li>
+      <li class="process__step">
+        <span class="process__index">03</span>
+        <svg class="process__icon" aria-hidden="true"><use href="#icon-tool"></use></svg>
+        <h3>Shop Build</h3>
+        <p>Every box, drawer, and door is built and pre-fit in our Columbus shop before it ever reaches your house.</p>
+        <span class="process__meta">Weeks 4–8</span>
+      </li>
+      <li class="process__step">
+        <span class="process__index">04</span>
+        <svg class="process__icon" aria-hidden="true"><use href="#icon-key"></use></svg>
+        <h3>Install &amp; Walkthrough</h3>
+        <p>Careful install, hardware adjustment, and a final walkthrough before we call a project finished.</p>
+        <span class="process__meta">Week 9</span>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRICING
+     ============================================================ -->
+<section class="pricing section-pad surface-band" id="pricing" aria-labelledby="pricing-heading">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">Project Investment</span>
+      <h2 id="pricing-heading">Three Ways to Start</h2>
+      <p>Ranges reflect recent projects of each scope. Your exact number is confirmed in writing after your design consultation.</p>
+    </div>
+
+    <div class="pricing__toggle" role="group" aria-label="View pricing by project scope">
+      <button type="button" class="pricing__scope-btn is-active" data-scope="room" aria-pressed="true">Single Room</button>
+      <button type="button" class="pricing__scope-btn" data-scope="home" aria-pressed="false">Whole Home</button>
+    </div>
+    <p class="pricing__scope-note" id="pricingScopeNote">Ranges below reflect a single kitchen or bath. Whole-home projects are quoted after your consultation.</p>
+
+    <div class="pricing__grid">
+      <article class="price-card">
+        <h3>Refined Refresh</h3>
+        <p class="price-card__desc">Cabinet refacing for a room that just needs a new face.</p>
+        <p class="price-card__price">Starting at $18,500</p>
+        <ul class="price-card__list">
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Existing box reused where sound</li>
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>New doors &amp; drawer fronts, any finish</li>
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Updated brass or nickel hardware</li>
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>3–4 week turnaround</li>
+        </ul>
+        <a href="#contact" class="btn btn--secondary btn--block">Start Here</a>
+      </article>
+
+      <article class="price-card price-card--featured">
+        <p class="price-card__badge">Most Common</p>
+        <h3>Full Kitchen Build</h3>
+        <p class="price-card__desc">Full custom construction, floor to ceiling.</p>
+        <p class="price-card__price">Starting at $42,000</p>
+        <ul class="price-card__list">
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Full custom box &amp; face frame construction</li>
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Hand-fit dovetail drawers throughout</li>
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Soft-close hardware, every door &amp; drawer</li>
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>One dedicated project lead, start to finish</li>
+        </ul>
+        <a href="#contact" class="btn btn--primary btn--block">Start Here</a>
+      </article>
+
+      <article class="price-card">
+        <h3>Whole-Home Millwork</h3>
+        <p class="price-card__desc">Kitchen, built-ins, vanities, and closets, unified.</p>
+        <p class="price-card__price">Starting at $95,000</p>
+        <ul class="price-card__list">
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Kitchen + built-ins + vanities + closets</li>
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>One unified material palette, every room</li>
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Direct collaboration with your architect</li>
+          <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-check"></use></svg>Phased install scheduling</li>
+        </ul>
+        <a href="#contact" class="btn btn--secondary btn--block">Start Here</a>
+      </article>
+    </div>
+    <p class="pricing__disclaimer">Final investment is shaped by room count, material selection, and site conditions, and is always confirmed in writing after your design consultation.</p>
+  </div>
+</section>
+<!-- ============================================================
+     TESTIMONIALS
+     ============================================================ -->
+<section class="testimonials section-pad" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="section-head section-head--center">
+      <span class="eyebrow">From Recent Walkthroughs</span>
+      <h2 id="testimonials-heading">What Clients Notice First</h2>
+    </div>
+
+    <div class="testimonial-carousel">
+      <div class="testimonial-carousel__viewport">
+        <div class="testimonial-carousel__track" id="testimonialTrack">
+          <figure class="testimonial-card">
+            <blockquote>They measured our kitchen four times before they ever cut a board. The dovetail drawers alone are worth the price difference from what we were quoted elsewhere.</blockquote>
+            <figcaption><span class="testimonial-card__avatar" aria-hidden="true">ST</span><span>Sarah &amp; Marcus T. <small>Green Island Hills</small></span></figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote>The library built-in was a drawing on paper for three weeks before it was ever a board in the shop. That patience shows in how it fits the room.</blockquote>
+            <figcaption><span class="testimonial-card__avatar" aria-hidden="true">DR</span><span>David R. <small>Midtown Columbus</small></span></figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote>Our vanity was designed around a mirror we already owned. Small detail, but it told us they were actually listening.</blockquote>
+            <figcaption><span class="testimonial-card__avatar" aria-hidden="true">PN</span><span>Priya N. <small>Bibb City</small></span></figcaption>
+          </figure>
+          <figure class="testimonial-card">
+            <blockquote>Every hardware decision was sampled on our actual doors before we signed off. Nothing about the process felt rushed or generic.</blockquote>
+            <figcaption><span class="testimonial-card__avatar" aria-hidden="true">AF</span><span>The Alvarez Family <small>Wynnton</small></span></figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="testimonial-carousel__controls">
+        <button type="button" class="btn btn--icon" id="testimonialPrev" aria-label="Previous testimonial">
+          <svg class="icon" aria-hidden="true" style="transform:rotate(180deg)"><use href="#icon-arrow-right"></use></svg>
+        </button>
+        <div class="testimonial-carousel__dots" id="testimonialDots" role="tablist" aria-label="Choose a testimonial"></div>
+        <button type="button" class="btn btn--icon" id="testimonialNext" aria-label="Next testimonial">
+          <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SERVICE AREA
+     ============================================================ -->
+<section class="service-area section-pad surface-band" aria-labelledby="service-area-heading">
+  <div class="container service-area__layout">
+    <div>
+      <span class="eyebrow">Shop &amp; Service Radius</span>
+      <h2 id="service-area-heading">Built in Columbus. Installed Across the Valley.</h2>
+      <p>Our shop and showroom sit in Columbus, Georgia. Most installs stay within about 40 miles of the shop, so drive time never eats into build time.</p>
+      <ul class="service-area__list">
+        <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-pin"></use></svg>Columbus, GA — shop &amp; showroom</li>
+        <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-pin"></use></svg>Phenix City &amp; Opelika, AL</li>
+        <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-pin"></use></svg>Fortson &amp; Midland, GA</li>
+        <li><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-pin"></use></svg>LaGrange &amp; Pine Mountain, GA</li>
+      </ul>
+      <p class="service-area__note">Outside this radius? Ask — we occasionally take projects further out for the right scope.</p>
+    </div>
+    <div class="service-area__radar" aria-hidden="true">
+      <svg viewBox="0 0 360 360" focusable="false">
+        <circle cx="180" cy="180" r="160" fill="none" stroke="#D4AF37" stroke-opacity="0.16" stroke-width="1"></circle>
+        <circle cx="180" cy="180" r="110" fill="none" stroke="#D4AF37" stroke-opacity="0.22" stroke-width="1"></circle>
+        <circle cx="180" cy="180" r="60" fill="none" stroke="#D4AF37" stroke-opacity="0.3" stroke-width="1"></circle>
+        <line x1="180" y1="20" x2="180" y2="340" stroke="#D4AF37" stroke-opacity="0.1"></line>
+        <line x1="20" y1="180" x2="340" y2="180" stroke="#D4AF37" stroke-opacity="0.1"></line>
+        <circle cx="180" cy="180" r="7" fill="#D4AF37"></circle>
+        <circle class="radar__ping" cx="180" cy="180" r="14" fill="none" stroke="#D4AF37" stroke-width="1"></circle>
+        <circle cx="120" cy="120" r="4" fill="#F0C75E"></circle>
+        <circle cx="255" cy="140" r="4" fill="#F0C75E"></circle>
+        <circle cx="95" cy="230" r="4" fill="#F0C75E"></circle>
+        <circle cx="250" cy="255" r="4" fill="#F0C75E"></circle>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FAQ
+     ============================================================ -->
+<section class="faq section-pad" id="faq" aria-labelledby="faq-heading">
+  <div class="container faq__layout">
+    <div class="section-head">
+      <span class="eyebrow">Questions We Hear Often</span>
+      <h2 id="faq-heading">Frequently Asked</h2>
+      <p>Can't find your question here? It's the first thing we'll cover in your design consultation.</p>
+    </div>
+
+    <div class="faq__list">
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-1" id="faq-trigger-1">
+          How long does a full kitchen project take, start to finish?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-1" role="region" aria-labelledby="faq-trigger-1" aria-hidden="true">
+          <p>Most kitchens run 8 to 10 weeks from signed drawings to final walkthrough — 2 to 3 weeks of shop build, plus install and punch-list time. Bathroom vanities and built-ins are usually faster.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-2" id="faq-trigger-2">
+          Do you build in-house, or install pre-made boxes?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-2" role="region" aria-labelledby="faq-trigger-2" aria-hidden="true">
+          <p>Every box, door, and drawer is built in our Columbus shop. We do not resell modular cabinet lines — if it has the Oakline name on the drawing, it was built on our floor.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-3" id="faq-trigger-3">
+          What wood species and finishes can I choose from?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-3" role="region" aria-labelledby="faq-trigger-3" aria-hidden="true">
+          <p>White oak, walnut, soft maple, and rift-sawn oak are our most-requested species, plus any studio-mixed paint color. Bring a reference — fabric, tile, an old photo — and we'll match direction, not just color.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-4" id="faq-trigger-4">
+          Is financing or a payment schedule available?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-4" role="region" aria-labelledby="faq-trigger-4" aria-hidden="true">
+          <p>Yes. Standard terms are a deposit at signed drawings, a progress payment at shop-build start, and the balance at install. Extended schedules are available for whole-home projects — ask during your consultation.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-5" id="faq-trigger-5">
+          What's the difference between semi-custom and full-custom cabinetry?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-5" role="region" aria-labelledby="faq-trigger-5" aria-hidden="true">
+          <p>Semi-custom starts from standard box sizes with some finish flexibility. Full-custom, which is all we build, starts from your room's actual measurements, with no filler panels or size compromises.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-6" id="faq-trigger-6">
+          Do you handle demo, electrical, or plumbing, or only the cabinetry?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-6" role="region" aria-labelledby="faq-trigger-6" aria-hidden="true">
+          <p>We handle cabinetry, installation, and finish carpentry. For full kitchen remodels we coordinate directly with your electrician, plumber, and countertop fabricator so nothing gets scheduled out of order.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-7" id="faq-trigger-7">
+          What does the warranty actually cover?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-7" role="region" aria-labelledby="faq-trigger-7" aria-hidden="true">
+          <p>Five years on box and face-frame construction — no warping, no joint failure. Soft-close hinges and slides carry the manufacturer's lifetime mechanism warranty, which we register on your behalf at install.</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3><button type="button" class="faq-item__trigger" aria-expanded="false" aria-controls="faq-panel-8" id="faq-trigger-8">
+          What if I only need one or two cabinets repaired or replaced?
+          <svg class="icon faq-item__chevron" aria-hidden="true"><use href="#icon-chevron-down"></use></svg>
+        </button></h3>
+        <div class="faq-item__panel" id="faq-panel-8" role="region" aria-labelledby="faq-trigger-8" aria-hidden="true">
+          <p>We take small repair and single-cabinet jobs when our shop schedule allows, though full kitchens and built-ins get priority booking. Call the shop directly — we will give you an honest read on timing before you commit to anything.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT / CONSULTATION FORM
+     ============================================================ -->
+<section class="contact section-pad surface-band" id="contact" aria-labelledby="contact-heading">
+  <div class="container contact__layout">
+    <div class="contact__info">
+      <span class="eyebrow">Start a Project</span>
+      <h2 id="contact-heading">Request a Design Consultation</h2>
+      <p>Tell us about the room. We'll follow up within one business day to schedule an in-home or shop visit.</p>
+
+      <ul class="contact__details">
+        <li>
+          <svg class="icon" aria-hidden="true"><use href="#icon-phone"></use></svg>
+          <div><strong>Call or text</strong><a href="tel:7065550119">(706) 555-0119</a></div>
+        </li>
+        <li>
+          <svg class="icon" aria-hidden="true"><use href="#icon-pin"></use></svg>
+          <div><strong>Shop &amp; showroom</strong><span>4180 Armour Road, Columbus, GA 31904</span></div>
+        </li>
+        <li>
+          <svg class="icon" aria-hidden="true"><use href="#icon-key"></use></svg>
+          <div>
+            <strong>Hours</strong>
+            <span>Mon–Fri 8:00–5:00 · Sat &amp; consultations by appointment</span>
+            <span class="shop-status" id="shopStatus" aria-live="polite">Checking today's hours…</span>
+          </div>
+        </li>
+      </ul>
+
+      <div class="consult-checklist">
+        <h3>What to Bring to Your Visit</h3>
+        <ul>
+          <li>Photos or a Pinterest board of styles you're drawn to</li>
+          <li>Rough room measurements, if you already have them</li>
+          <li>Model numbers for any appliances you've already purchased</li>
+          <li>A ballpark budget range, so we can design to it honestly</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="contact__form-wrap">
+      <form class="form" id="consultForm" novalidate>
+        <div class="form__row">
+          <div class="field">
+            <label for="consultName">Full name</label>
+            <input type="text" id="consultName" name="name" autocomplete="name" required aria-describedby="consultNameError">
+            <p class="field__error" id="consultNameError" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="consultPhone">Phone</label>
+            <input type="tel" id="consultPhone" name="phone" autocomplete="tel" required aria-describedby="consultPhoneError">
+            <p class="field__error" id="consultPhoneError" role="alert"></p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="consultEmail">Email</label>
+          <input type="email" id="consultEmail" name="email" autocomplete="email" required aria-describedby="consultEmailError">
+          <p class="field__error" id="consultEmailError" role="alert"></p>
+        </div>
+
+        <div class="form__row">
+          <div class="field">
+            <label for="consultProjectType">Project type</label>
+            <select id="consultProjectType" name="projectType" required aria-describedby="consultProjectTypeError">
+              <option value="">Select one…</option>
+              <option value="kitchen">Kitchen</option>
+              <option value="vanity">Bathroom Vanity</option>
+              <option value="builtin">Built-Ins &amp; Library</option>
+              <option value="closet">Closet System</option>
+              <option value="whole-home">Whole-Home</option>
+              <option value="other">Other</option>
+            </select>
+            <p class="field__error" id="consultProjectTypeError" role="alert"></p>
+          </div>
+          <div class="field">
+            <label for="consultTimeline">Timeline</label>
+            <select id="consultTimeline" name="timeline">
+              <option value="exploring">Just exploring</option>
+              <option value="3-months">Within 3 months</option>
+              <option value="6-months">Within 6 months</option>
+              <option value="renovating">Already renovating</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="consultDetails">Project details</label>
+          <textarea id="consultDetails" name="details" rows="4" required aria-describedby="consultDetailsError" placeholder="Room size, style you're drawn to, anything you already know you want."></textarea>
+          <p class="field__error" id="consultDetailsError" role="alert"></p>
+        </div>
+
+        <label class="field__checkbox">
+          <input type="checkbox" id="consultUpdates" name="updates">
+          <span>Send me occasional project photos and shop availability updates</span>
+        </label>
+
+        <p class="form__status" id="formStatus" role="status" aria-live="polite"></p>
+
+        <button type="submit" class="btn btn--primary btn--block" id="consultSubmit">
+          Send Consultation Request
+          <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+        </button>
+      </form>
+
+      <div class="form__success" id="formSuccess" tabindex="-1" hidden>
+        <svg class="icon icon--lg" aria-hidden="true"><use href="#icon-check"></use></svg>
+        <h3>Request received</h3>
+        <p>Thank you — someone from our design team will reach out within one business day to schedule your consultation.</p>
+        <button type="button" class="btn btn--ghost" id="formReset">Submit another request</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <div class="container footer__top">
+    <div class="footer__brand">
+      <a class="brand" href="#top">
+        <svg class="brand__mark" aria-hidden="true"><use href="#icon-compass"></use></svg>
+        <span class="brand__text">
+          <span class="brand__name">Oakline Custom Cabinets</span>
+          <span class="brand__sub">Columbus, Georgia · Est. shop-built</span>
+        </span>
+      </a>
+      <p class="footer__tagline">Custom cabinetry and architectural millwork, built in-shop for the exact room it lives in.</p>
+    </div>
+
+    <nav class="footer__nav" aria-label="Explore">
+      <h3>Explore</h3>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#standard">The Oakline Standard</a>
+      <a href="#materials">Materials</a>
+      <a href="#process">Our Process</a>
+    </nav>
+
+    <nav class="footer__nav" aria-label="Studio">
+      <h3>Studio</h3>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Request a Consultation</a>
+    </nav>
+
+    <div class="footer__nav footer__visit">
+      <h3>Visit</h3>
+      <p><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-pin"></use></svg>4180 Armour Road, Columbus, GA 31904</p>
+      <p><svg class="icon icon--sm" aria-hidden="true"><use href="#icon-phone"></use></svg><a href="tel:7065550119">(706) 555-0119</a></p>
+      <p class="footer__hours">Mon–Fri 8:00 AM–5:00 PM · Sat &amp; consultations by appointment</p>
+    </div>
+
+    <div class="footer__newsletter">
+      <h3>Shop Notes</h3>
+      <p>Occasional project photos and shop availability updates. No spam, unsubscribe anytime.</p>
+      <form class="newsletter" id="newsletterForm" novalidate>
+        <label class="visually-hidden" for="newsletterEmail">Email address</label>
+        <div class="newsletter__row">
+          <input type="email" id="newsletterEmail" name="newsletterEmail" placeholder="you@email.com" autocomplete="email">
+          <button type="submit" class="btn btn--primary" id="newsletterSubmit">Join</button>
+        </div>
+        <p class="newsletter__status" id="newsletterStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <div class="container footer__bottom">
+    <p>&copy; <span id="currentYear">2026</span> Oakline Custom Cabinets. All rights reserved.</p>
+    <p class="footer__legal-links"><a href="#top">Privacy</a><a href="#top">Terms</a><a href="#top">Accessibility</a></p>
+  </div>
+</footer>
+
+<button type="button" class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg class="icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
+</button>
+
+<script>
+(function () {
+  'use strict';
+
+  function $(sel, ctx) { return (ctx || document).querySelector(sel); }
+  function $$(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }
+  function reduceMotion() { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; }
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Header scroll state
+     ------------------------------------------------------------ */
+  function initHeaderScroll() {
+    var header = $('#siteHeader');
+    if (!header) return;
+    var ticking = false;
+    function update() {
+      header.classList.toggle('is-scrolled', window.scrollY > 24);
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { window.requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+    update();
+  }
+
+  /* ------------------------------------------------------------
+     Mobile nav panel
+     ------------------------------------------------------------ */
+  function initMobileNav() {
+    var toggle = $('#navToggle');
+    var panel = $('#navPanel');
+    var overlay = $('#navOverlay');
+    var closeBtn = $('#navPanelClose');
+    if (!toggle || !panel || !overlay) return;
+
+    function openNav() {
+      panel.classList.add('is-open');
+      overlay.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('no-scroll');
+      var firstLink = $('a, button', panel);
+      if (firstLink) firstLink.focus();
+    }
+    function closeNav() {
+      panel.classList.remove('is-open');
+      overlay.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('no-scroll');
+      toggle.focus();
+    }
+    toggle.addEventListener('click', function () {
+      var isOpen = panel.classList.contains('is-open');
+      if (isOpen) { closeNav(); } else { openNav(); }
+    });
+    if (closeBtn) closeBtn.addEventListener('click', closeNav);
+    overlay.addEventListener('click', closeNav);
+    panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeNav(); });
+    $$('a', panel).forEach(function (link) { link.addEventListener('click', closeNav); });
+  }
+
+  /* ------------------------------------------------------------
+     Smooth scroll + active nav link tracking
+     ------------------------------------------------------------ */
+  function initSmoothScrollAndActiveLink() {
+    var anchorLinks = $$('a[href^="#"]').filter(function (a) {
+      var href = a.getAttribute('href');
+      return href && href.length > 1;
+    });
+    anchorLinks.forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        var id = link.getAttribute('href').slice(1);
+        var target = document.getElementById(id);
+        if (!target) return;
+        e.preventDefault();
+        target.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+        target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      });
+    });
+
+    var navLinks = $$('.nav__link[href^="#"]');
+    if (!navLinks.length || !('IntersectionObserver' in window)) return;
+    var sections = navLinks
+      .map(function (l) { return document.getElementById(l.getAttribute('href').slice(1)); })
+      .filter(Boolean);
+    if (!sections.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          navLinks.forEach(function (l) {
+            l.classList.toggle('is-active', l.getAttribute('href') === '#' + id);
+          });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+    sections.forEach(function (s) { observer.observe(s); });
+  }
+
+  /* ------------------------------------------------------------
+     Back to top
+     ------------------------------------------------------------ */
+  function initBackToTop() {
+    var btn = $('#backToTop');
+    if (!btn) return;
+    var footer = $('.site-footer');
+    var formSubmit = $('#consultForm button[type="submit"]');
+    var tailTargets = [footer, formSubmit].filter(Boolean);
+    function collidesWithPageTail() {
+      // Mobile only: two in-flow CTAs end up passing through the same
+      // bottom-right corner this fixed FAB occupies, both at points where
+      // scroll naturally comes to rest rather than mid-scroll coincidence —
+      // the consultation form's submit button (last field before the
+      // footer) and the footer itself (newsletter "Join" + nav links, end
+      // of page). Hide the FAB rather than let it sit on top of either.
+      // Desktop's layout never puts them in the same spot, so this is a
+      // no-op above the breakpoint.
+      if (!tailTargets.length || window.innerWidth > 640) return false;
+      var a = btn.getBoundingClientRect();
+      return tailTargets.some(function (el) {
+        var b = el.getBoundingClientRect();
+        return !(a.right < b.left || a.left > b.right || a.bottom < b.top || a.top > b.bottom);
+      });
+    }
+    function update() {
+      var shouldShow = window.scrollY > window.innerHeight * 0.6 && !collidesWithPageTail();
+      btn.classList.toggle('is-visible', shouldShow);
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduceMotion() ? 'auto' : 'smooth' });
+    });
+    update();
+  }
+
+  /* ------------------------------------------------------------
+     Portfolio gallery — data-driven, simulated async states
+     ------------------------------------------------------------ */
+  var GALLERY_ITEMS = [
+    { cat: 'kitchens', room: 'room-kitchen', eyebrow: 'White oak shaker · aged brass', title: 'Rigdon Park Kitchen', note: 'Full gut kitchen, 34 linear ft, painted island contrast.' },
+    { cat: 'built-ins', room: 'room-builtin', eyebrow: 'Smoked walnut', title: 'Wynnton Library Built-In', note: 'Floor-to-ceiling library wall with a hidden rolling ladder track.' },
+    { cat: 'vanities', room: 'room-vanity', eyebrow: 'Painted sage · marble', title: 'Green Island Hills Primary Vanity', note: 'Furniture-style vanity with an open toe-kick shelf.' },
+    { cat: 'kitchens', room: 'room-kitchen', eyebrow: 'Painted ink · brushed nickel', title: 'Midtown Bungalow Kitchen', note: 'Narrow galley kitchen reworked for a full-height pantry wall.' },
+    { cat: 'storage', room: 'room-closet', eyebrow: 'Rift-sawn white oak', title: 'Bibb City Mudroom Storage', note: 'Built-in lockers and bench seating off the back entry.' },
+    { cat: 'built-ins', room: 'room-builtin', eyebrow: 'White oak', title: 'Overlook Reading Nook', note: 'Window-seat bookcase with hidden storage drawers below.' },
+    { cat: 'storage', room: 'room-closet', eyebrow: 'Painted ink', title: 'Cascade Hills Walk-In Closet', note: 'Island dresser with felt-lined jewelry drawers.' },
+    { cat: 'furniture', room: 'room-sideboard', eyebrow: 'Smoked walnut', title: 'Heritage Hill Dining Sideboard', note: 'Freestanding sideboard matched to an existing dining table.' }
+  ];
+  var FILTER_LABELS = {
+    all: 'All Work', kitchens: 'Kitchens', 'built-ins': 'Built-Ins & Libraries',
+    vanities: 'Bath Vanities', storage: 'Closets & Storage', furniture: 'Custom Furniture',
+    'whole-home': 'Whole-Home Projects'
+  };
+  var galleryHiccupShown = {};
+
+  function cardMarkup(item) {
+    return '' +
+      '<article class="gallery-card" data-category="' + item.cat + '">' +
+        '<div class="gallery-card__art" aria-hidden="true"><svg viewBox="0 0 320 200"><use href="#' + item.room + '"></use></svg></div>' +
+        '<div class="gallery-card__body">' +
+          '<p class="gallery-card__eyebrow">' + escapeHtml(item.eyebrow) + '</p>' +
+          '<h3 class="gallery-card__title">' + escapeHtml(item.title) + '</h3>' +
+          '<p class="gallery-card__note">' + escapeHtml(item.note) + '</p>' +
+        '</div>' +
+      '</article>';
+  }
+
+  function skeletonMarkup() {
+    var card = '<div class="gallery__skeleton-card"><div class="gallery__skeleton-art"></div><div class="gallery__skeleton-line"></div><div class="gallery__skeleton-line"></div></div>';
+    return '<div class="gallery__skeleton-grid">' + card + card + card + card + '</div>';
+  }
+
+  function initGallery() {
+    var grid = $('#galleryGrid');
+    var status = $('#galleryStatus');
+    var chips = $$('.filter-chip');
+    if (!grid) return;
+
+    function setStatus(text) { if (status) status.textContent = text; }
+
+    function renderLoading(label) {
+      grid.setAttribute('aria-busy', 'true');
+      grid.innerHTML = skeletonMarkup();
+      setStatus('Loading ' + label + ' projects…');
+    }
+
+    function renderGrid(items, label) {
+      grid.setAttribute('aria-busy', 'false');
+      grid.innerHTML = items.map(cardMarkup).join('');
+      setStatus(items.length + ' project' + (items.length === 1 ? '' : 's') + ' shown for ' + label + '.');
+    }
+
+    function renderEmpty(label) {
+      grid.setAttribute('aria-busy', 'false');
+      grid.innerHTML =
+        '<div class="gallery__empty">' +
+          '<svg class="icon" aria-hidden="true"><use href="#icon-swatch"></use></svg>' +
+          '<h3>No ' + escapeHtml(label) + ' posted yet</h3>' +
+          '<p>We keep this filter open for upcoming whole-home projects. Ask about one during your consultation and we will add it here at completion.</p>' +
+          '<a href="#contact" class="btn btn--secondary">Start a Whole-Home Project</a>' +
+        '</div>';
+      setStatus('No projects currently tagged ' + label + '.');
+    }
+
+    function renderError(filterKey, label) {
+      grid.setAttribute('aria-busy', 'false');
+      grid.innerHTML =
+        '<div class="gallery__error">' +
+          '<svg class="icon" aria-hidden="true"><use href="#icon-alert"></use></svg>' +
+          '<h3>Could not load ' + escapeHtml(label) + '</h3>' +
+          '<p>Our shop gallery took too long to respond. This usually clears up on a retry.</p>' +
+          '<button type="button" class="btn btn--primary" data-retry="' + filterKey + '">Retry</button>' +
+        '</div>';
+      setStatus('Failed to load ' + label + '. Retry is available.');
+    }
+
+    function load(filterKey) {
+      var label = FILTER_LABELS[filterKey] || filterKey;
+      renderLoading(label);
+      window.setTimeout(function () {
+        if (filterKey === 'furniture' && !galleryHiccupShown.furniture) {
+          galleryHiccupShown.furniture = true;
+          renderError(filterKey, label);
+          return;
+        }
+        var items = filterKey === 'all' ? GALLERY_ITEMS : GALLERY_ITEMS.filter(function (i) { return i.cat === filterKey; });
+        if (items.length === 0) {
+          renderEmpty(label);
+        } else {
+          renderGrid(items, label);
+        }
+      }, 550);
+    }
+
+    grid.addEventListener('click', function (e) {
+      var retryBtn = e.target.closest ? e.target.closest('[data-retry]') : null;
+      if (retryBtn) { load(retryBtn.getAttribute('data-retry')); }
+    });
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('is-active'); c.setAttribute('aria-pressed', 'false'); });
+        chip.classList.add('is-active');
+        chip.setAttribute('aria-pressed', 'true');
+        load(chip.getAttribute('data-filter'));
+      });
+    });
+
+    // initial paint — synchronous, no fake delay, so the page is never empty on load
+    renderGrid(GALLERY_ITEMS, FILTER_LABELS.all);
+  }
+
+  /* ------------------------------------------------------------
+     Material visualizer
+     ------------------------------------------------------------ */
+  var DOOR_FINISHES = {
+    'rift-oak': { label: 'Rift-Sawn White Oak', fill: '#C79A5B', note: 'Vertical straight grain, warm honey tone, clear matte topcoat.' },
+    'smoked-walnut': { label: 'Smoked Walnut', fill: '#4A3627', note: 'Deep umber heartwood, hand-rubbed oil finish.' },
+    'painted-sage': { label: 'Painted Sage', fill: '#7C8B6C', note: 'Studio-mixed sage green, satin conversion varnish.' },
+    'painted-ink': { label: 'Painted Ink', fill: '#20242B', note: 'Near-black charcoal-blue, satin conversion varnish.' }
+  };
+  var HARDWARE_FINISHES = {
+    'aged-brass': { label: 'Aged Brass', fill: '#C7A24A' },
+    'matte-black': { label: 'Matte Black', fill: '#2B2B2B' },
+    'brushed-nickel': { label: 'Brushed Nickel', fill: '#B9BEC2' }
+  };
+  var SURFACE_FINISHES = {
+    'honed-quartz': { label: 'Honed Quartz', fill: '#C9BFB6', vein: '#a89e93' },
+    'carrara-marble': { label: 'Carrara-Style Marble', fill: '#E7E4DE', vein: '#9b968d' },
+    'butcher-block': { label: 'Butcher Block', fill: '#B08655', vein: '#8a6640' }
+  };
+
+  function initMaterialVisualizer() {
+    var faces = $$('.visualizer__face');
+    var pulls = $$('.visualizer__pull');
+    var counter = $('.visualizer__counter');
+    var counterVein = $('.visualizer__counter-vein');
+    var readout = $('#visualizerReadout');
+    var doorButtons = $$('[data-swatch-group="door"]');
+    var hardwareButtons = $$('[data-swatch-group="hardware"]');
+    var surfaceButtons = $$('[data-swatch-group="surface"]');
+    if (!faces.length || !readout) return;
+
+    var state = { door: 'rift-oak', hardware: 'aged-brass', surface: 'honed-quartz' };
+
+    function update() {
+      var door = DOOR_FINISHES[state.door];
+      var hw = HARDWARE_FINISHES[state.hardware];
+      var surface = SURFACE_FINISHES[state.surface];
+      faces.forEach(function (f) { f.setAttribute('fill', door.fill); });
+      pulls.forEach(function (p) { p.setAttribute('fill', hw.fill); });
+      if (counter) counter.setAttribute('fill', surface.fill);
+      if (counterVein) counterVein.setAttribute('stroke', surface.vein);
+      readout.innerHTML = '<strong>' + escapeHtml(door.label) + '</strong> door with <strong>' + escapeHtml(hw.label) +
+        '</strong> hardware and a <strong>' + escapeHtml(surface.label) + '</strong> counter. ' + escapeHtml(door.note);
+      doorButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-swatch') === state.door)); });
+      hardwareButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-swatch') === state.hardware)); });
+      surfaceButtons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-swatch') === state.surface)); });
+    }
+
+    doorButtons.forEach(function (b) {
+      b.addEventListener('click', function () { state.door = b.getAttribute('data-swatch'); update(); });
+    });
+    hardwareButtons.forEach(function (b) {
+      b.addEventListener('click', function () { state.hardware = b.getAttribute('data-swatch'); update(); });
+    });
+    surfaceButtons.forEach(function (b) {
+      b.addEventListener('click', function () { state.surface = b.getAttribute('data-swatch'); update(); });
+    });
+
+    update();
+  }
+
+  /* ------------------------------------------------------------
+     Pricing scope toggle
+     ------------------------------------------------------------ */
+  function initPricingToggle() {
+    var buttons = $$('.pricing__scope-btn');
+    var note = $('#pricingScopeNote');
+    if (!buttons.length) return;
+    var notes = {
+      room: 'Ranges below reflect a single kitchen or bath. Whole-home projects are quoted after your consultation.',
+      home: 'Ranges below reflect whole-home millwork scoped across multiple rooms, phased and scheduled together.'
+    };
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        buttons.forEach(function (b) { b.classList.remove('is-active'); b.setAttribute('aria-pressed', 'false'); });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-pressed', 'true');
+        if (note) note.textContent = notes[btn.getAttribute('data-scope')] || '';
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     FAQ accordion
+     ------------------------------------------------------------ */
+  function initAccordion() {
+    $$('.faq-item__trigger').forEach(function (trigger) {
+      var panel = document.getElementById(trigger.getAttribute('aria-controls'));
+      if (!panel) return;
+      trigger.addEventListener('click', function () {
+        var expanded = trigger.getAttribute('aria-expanded') === 'true';
+        trigger.setAttribute('aria-expanded', String(!expanded));
+        panel.setAttribute('aria-hidden', String(expanded));
+        if (expanded) {
+          panel.style.maxHeight = '0px';
+          panel.classList.remove('is-open');
+        } else {
+          panel.classList.add('is-open');
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+        }
+      });
+    });
+  }
+
+  /* ------------------------------------------------------------
+     Testimonial carousel
+     ------------------------------------------------------------ */
+  function initTestimonialCarousel() {
+    var track = $('#testimonialTrack');
+    var prevBtn = $('#testimonialPrev');
+    var nextBtn = $('#testimonialNext');
+    var dotsWrap = $('#testimonialDots');
+    if (!track || !prevBtn || !nextBtn || !dotsWrap) return;
+
+    var slides = $$('.testimonial-card', track);
+    var index = 0;
+
+    slides.forEach(function (_, i) {
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'testimonial__dot';
+      dot.setAttribute('role', 'tab');
+      dot.setAttribute('aria-label', 'Show testimonial ' + (i + 1) + ' of ' + slides.length);
+      dot.addEventListener('click', function () { goTo(i); });
+      dotsWrap.appendChild(dot);
+    });
+    var dots = $$('.testimonial__dot', dotsWrap);
+
+    function render() {
+      track.style.transform = 'translateX(' + (index * -100) + '%)';
+      dots.forEach(function (d, i) {
+        d.classList.toggle('is-active', i === index);
+        d.setAttribute('aria-selected', String(i === index));
+      });
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === slides.length - 1;
+    }
+    function goTo(i) {
+      index = Math.max(0, Math.min(slides.length - 1, i));
+      render();
+    }
+    prevBtn.addEventListener('click', function () { goTo(index - 1); });
+    nextBtn.addEventListener('click', function () { goTo(index + 1); });
+    render();
+  }
+
+  /* ------------------------------------------------------------
+     Consultation form
+     ------------------------------------------------------------ */
+  function initConsultForm() {
+    var form = $('#consultForm');
+    if (!form) return;
+    var status = $('#formStatus');
+    var successPanel = $('#formSuccess');
+    var submitBtn = $('#consultSubmit');
+    var resetBtn = $('#formReset');
+    var attempts = 0;
+
+    var fields = [
+      { id: 'consultName', validate: function (v) { return v.trim().length > 1; }, message: 'Enter your full name.' },
+      { id: 'consultEmail', validate: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, message: 'Enter a valid email address.' },
+      { id: 'consultPhone', validate: function (v) { return /^[\d()+\-.\s]{7,}$/.test(v.trim()); }, message: 'Enter a valid phone number.' },
+      { id: 'consultProjectType', validate: function (v) { return v !== ''; }, message: 'Select a project type.' },
+      { id: 'consultDetails', validate: function (v) { return v.trim().length > 9; }, message: 'Add a few details about your project.' }
+    ];
+
+    function showFieldError(field, message) {
+      var input = $('#' + field.id);
+      var errorEl = $('#' + field.id + 'Error');
+      input.setAttribute('aria-invalid', 'true');
+      if (errorEl) errorEl.textContent = message;
+    }
+    function clearFieldError(field) {
+      var input = $('#' + field.id);
+      var errorEl = $('#' + field.id + 'Error');
+      input.removeAttribute('aria-invalid');
+      if (errorEl) errorEl.textContent = '';
+    }
+    function validateField(field) {
+      var input = $('#' + field.id);
+      var ok = field.validate(input.value);
+      if (ok) { clearFieldError(field); } else { showFieldError(field, field.message); }
+      return ok;
+    }
+
+    fields.forEach(function (f) {
+      var input = $('#' + f.id);
+      if (input) input.addEventListener('blur', function () { validateField(f); });
+    });
+
+    function setBusy(isBusy) {
+      submitBtn.disabled = isBusy;
+      submitBtn.classList.toggle('is-loading', isBusy);
+      $$('input, select, textarea', form).forEach(function (el) { el.disabled = isBusy; });
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var allValid = true;
+      fields.forEach(function (f) { if (!validateField(f)) allValid = false; });
+
+      if (!allValid) {
+        status.textContent = 'Please fix the highlighted fields before sending.';
+        status.className = 'form__status form__status--error';
+        var firstError = $('[aria-invalid="true"]', form);
+        if (firstError) firstError.focus();
+        return;
+      }
+
+      attempts += 1;
+      setBusy(true);
+      status.textContent = 'Sending your request…';
+      status.className = 'form__status form__status--pending';
+
+      window.setTimeout(function () {
+        setBusy(false);
+        if (attempts === 1) {
+          status.textContent = 'Your request did not send — our studio inbox timed out. Please try again.';
+          status.className = 'form__status form__status--error';
+        } else {
+          form.setAttribute('hidden', '');
+          status.textContent = '';
+          successPanel.removeAttribute('hidden');
+          successPanel.focus();
+        }
+      }, 900);
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        form.reset();
+        form.removeAttribute('hidden');
+        successPanel.setAttribute('hidden', '');
+        attempts = 0;
+        fields.forEach(clearFieldError);
+        status.textContent = '';
+        status.className = 'form__status';
+        $('#consultName').focus();
+      });
+    }
+  }
+
+  /* ------------------------------------------------------------
+     Footer newsletter
+     ------------------------------------------------------------ */
+  function initNewsletterForm() {
+    var form = $('#newsletterForm');
+    if (!form) return;
+    var input = $('#newsletterEmail');
+    var status = $('#newsletterStatus');
+    var btn = $('#newsletterSubmit');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var value = input.value.trim();
+      var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+
+      if (!valid) {
+        status.textContent = 'Enter a valid email address to join Shop Notes.';
+        status.className = 'newsletter__status newsletter__status--error';
+        input.setAttribute('aria-invalid', 'true');
+        input.focus();
+        return;
+      }
+
+      input.removeAttribute('aria-invalid');
+      btn.disabled = true;
+      input.disabled = true;
+      btn.classList.add('is-loading');
+      status.textContent = 'Adding you to Shop Notes…';
+      status.className = 'newsletter__status newsletter__status--pending';
+
+      window.setTimeout(function () {
+        btn.disabled = false;
+        input.disabled = false;
+        btn.classList.remove('is-loading');
+        status.textContent = 'You are on the list — watch for the next shop update.';
+        status.className = 'newsletter__status newsletter__status--success';
+        form.reset();
+      }, 700);
+    });
+  }
+
+  function stampYear() {
+    var el = $('#currentYear');
+    if (el) el.textContent = String(new Date().getFullYear());
+  }
+
+  /* ------------------------------------------------------------
+     Live shop-hours status (Mon–Fri 8–5 shop; Sat by appointment)
+     ------------------------------------------------------------ */
+  function initShopStatus() {
+    var el = $('#shopStatus');
+    if (!el) return;
+    var now = new Date();
+    var day = now.getDay();
+    var hour = now.getHours();
+    var isWeekday = day >= 1 && day <= 5;
+    var isDuringHours = hour >= 8 && hour < 17;
+    var isOpen = isWeekday && isDuringHours;
+    el.textContent = isOpen ? 'Open now' : 'Closed now — by appointment';
+    el.classList.toggle('is-open', isOpen);
+    el.classList.toggle('is-closed', !isOpen);
+  }
+
+  function init() {
+    initHeaderScroll();
+    initMobileNav();
+    initSmoothScrollAndActiveLink();
+    initBackToTop();
+    initGallery();
+    initMaterialVisualizer();
+    initPricingToggle();
+    initAccordion();
+    initTestimonialCarousel();
+    initConsultForm();
+    initNewsletterForm();
+    initShopStatus();
+    stampYear();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 </body>
-
 </html>

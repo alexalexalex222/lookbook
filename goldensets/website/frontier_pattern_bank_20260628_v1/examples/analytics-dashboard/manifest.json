@@ -1,0 +1,53 @@
+{
+  "pack_id": "aperture_telemetry_dashboard_v1",
+  "role": "anchor",
+  "family": "website.saas_dashboard",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "analytics-dashboard"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "technical",
+    "data-dense",
+    "precise",
+    "professional",
+    "premium"
+  ],
+  "surfaces": [
+    "dashboard",
+    "full_site",
+    "section"
+  ],
+  "motif_tags": [
+    "dashboard_panel",
+    "command_surface",
+    "stats_strip",
+    "glass_panel",
+    "linked_chart_grid",
+    "status_ring_chart",
+    "data_table_module"
+  ],
+  "supports_tasks": [
+    "saas_observability_dashboard",
+    "telemetry_console_ui",
+    "api_monitoring_dashboard",
+    "engineering_metrics_dashboard"
+  ],
+  "anti_patterns": [
+    "neo-brutalist thick borders and hard offset shadows",
+    "warm editorial serif narrative framing",
+    "green monospace terminal styling"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1500,
+  "confidence_score": 4,
+  "example_ids": []
+}

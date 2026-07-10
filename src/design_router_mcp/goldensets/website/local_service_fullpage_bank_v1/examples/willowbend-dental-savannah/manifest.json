@@ -1,0 +1,56 @@
+{
+  "pack_id": "willowbend_dental_glass_booking_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "willowbend-dental-savannah"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "editorial",
+    "calm",
+    "refined",
+    "light",
+    "natural"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section",
+    "booking_form"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "glass_panel",
+    "booking_flow",
+    "trust_rail",
+    "cta_treatment",
+    "stats_strip",
+    "proof_cards",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "dental_practice_homepage",
+    "glass_panel_booking_hero",
+    "family_dentistry_landing",
+    "appointment_booking_module_page"
+  ],
+  "anti_patterns": [
+    "champagne split-hero dental template",
+    "marine navy alternating-band dental page",
+    "generic three-equal-card row"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1000,
+  "confidence_score": 4,
+  "example_ids": []
+}

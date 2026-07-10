@@ -1,0 +1,53 @@
+{
+  "pack_id": "signalgrid_ops_console_v1",
+  "role": "anchor",
+  "family": "website.saas_dashboard",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "analytics-ops"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "technical",
+    "data-dense",
+    "green-accent",
+    "precise",
+    "developer"
+  ],
+  "surfaces": [
+    "dashboard",
+    "full_site",
+    "section"
+  ],
+  "motif_tags": [
+    "dashboard_panel",
+    "data_terminal",
+    "stats_strip",
+    "linked_chart_grid",
+    "command_surface",
+    "data_table_module",
+    "diagnostic_panel"
+  ],
+  "supports_tasks": [
+    "noc_operations_dashboard",
+    "infrastructure_monitoring_console",
+    "dark_terminal_ops_dashboard",
+    "incident_response_console"
+  ],
+  "anti_patterns": [
+    "financial market ticker terminal styling",
+    "warm editorial or neo-brutalist styling",
+    "fabricated incident or security claims presented as real telemetry"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1500,
+  "confidence_score": 4,
+  "example_ids": []
+}

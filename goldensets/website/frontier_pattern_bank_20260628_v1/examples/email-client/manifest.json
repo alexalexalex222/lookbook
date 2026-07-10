@@ -1,0 +1,52 @@
+{
+  "pack_id": "paper_email_client_warm_v1",
+  "role": "anchor",
+  "family": "website.productivity_app",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "email-client"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "warm",
+    "calm",
+    "editorial",
+    "restrained",
+    "light",
+    "refined",
+    "trustworthy"
+  ],
+  "surfaces": [
+    "dashboard",
+    "full_site"
+  ],
+  "motif_tags": [
+    "three_pane_shell",
+    "sidebar_nav",
+    "detail_inspector_panel",
+    "keyboard_shortcut_rail",
+    "empty_state_illustration",
+    "command_surface"
+  ],
+  "supports_tasks": [
+    "email_client_app_shell",
+    "inbox_three_pane_layout",
+    "webmail_product_interface",
+    "productivity_saas_app_shell"
+  ],
+  "anti_patterns": [
+    "marketing homepage for an email product",
+    "real user correspondence or personal data (all mail is fictional demo content)",
+    "dark developer-tool aesthetic (this is warm paper, not a dark terminal)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1700,
+  "confidence_score": 4,
+  "example_ids": []
+}

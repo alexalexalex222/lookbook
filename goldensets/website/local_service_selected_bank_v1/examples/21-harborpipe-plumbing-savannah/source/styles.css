@@ -70,10 +70,19 @@ body {
     color: var(--text-muted);
     text-decoration: none;
     transition: color 0.4s ease;
+    /* Enlarged hit area without shifting the layout */
+    padding: 12px 4px;
+    margin: -12px -4px;
 }
 
 .nav-links a:hover {
     color: var(--gold-mid);
+}
+
+.nav-links a:focus-visible {
+    color: var(--gold-mid);
+    outline: 1px solid rgba(203, 163, 88, 0.6);
+    outline-offset: 2px;
 }
 
 /* === HERO SECTION === */
@@ -92,12 +101,15 @@ body {
     inset: 0;
     width: 100%;
     height: 100%;
-    background-image: url('harborpipe_bg.png');
-    background-size: cover;
-    background-position: left center;
-    background-repeat: no-repeat;
     z-index: 1;
     animation: slowFloat 20s ease-in-out infinite alternate;
+}
+
+/* Inline SVG scene anchors left so the standpipe holds the left half at any width */
+.hero-bg svg {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 @keyframes slowFloat {
@@ -246,6 +258,12 @@ body {
     border-color: rgba(203, 163, 88, 0.8);
 }
 
+.btn-discover:focus-visible {
+    border-color: rgba(203, 163, 88, 0.9);
+    outline: 1px solid rgba(203, 163, 88, 0.6);
+    outline-offset: 3px;
+}
+
 .btn-discover:hover::before {
     transform: scaleX(1);
 }
@@ -292,13 +310,7 @@ body {
         padding-bottom: 80px;
     }
 
-    .hero-bg {
-        /* On mobile, ensure the pipe is visible but dims towards the bottom */
-        background-position: center top;
-        background-size: 150%;
-    }
-
-    /* Add a stronger gradient overlay for mobile so text is legible over the pipe */
+    /* Add a stronger gradient overlay for mobile so text is legible over the pipe scene */
     .hero::before {
         content: '';
         position: absolute;
@@ -341,5 +353,19 @@ body {
         margin-top: 20px;
         width: 100%;
         justify-content: center;
+    }
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+    .hero-bg {
+        animation: none;
+    }
+
+    .nav-links a,
+    .btn-discover,
+    .btn-discover::before,
+    .btn-discover .arrow {
+        transition: none;
     }
 }

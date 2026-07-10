@@ -1,0 +1,33 @@
+{
+  "pack_id": "atelier_stroke_svg_animator_v1",
+  "role": "anchor",
+  "family": "website.interactive_experience",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["svg-stroke"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["warm-neutral", "light", "editorial", "minimal", "precise", "studio"],
+  "surfaces": ["dashboard", "section", "full_site"],
+  "motif_tags": [
+    "minimal_centerpiece",
+    "instrument_control",
+    "interactive_stage",
+    "preset_selector_grid",
+    "playback_scrubber",
+    "upload_dropzone"
+  ],
+  "supports_tasks": [
+    "svg_animation_tool",
+    "creative_utility_workspace",
+    "design_system_demo_tool",
+    "line_art_showcase_tool"
+  ],
+  "anti_patterns": [
+    "dark synth/audio instrument framing (this is a light creative canvas tool)",
+    "marketing homepage hero",
+    "non-functional decorative presets"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1200,
+  "confidence_score": 4,
+  "example_ids": []
+}

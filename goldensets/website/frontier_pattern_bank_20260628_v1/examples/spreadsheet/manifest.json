@@ -1,0 +1,33 @@
+{
+  "pack_id": "lattice_formula_spreadsheet_v1",
+  "role": "anchor",
+  "family": "website.saas_dashboard",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["spreadsheet"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["light", "professional", "precise", "data-dense", "practical", "restrained"],
+  "surfaces": ["dashboard", "section", "full_site"],
+  "motif_tags": [
+    "data_grid",
+    "formula_bar",
+    "toolbar_ribbon",
+    "cell_selection_state",
+    "headline_hierarchy",
+    "command_surface"
+  ],
+  "supports_tasks": [
+    "spreadsheet_web_app",
+    "data_grid_tool",
+    "budget_calculator_tool",
+    "lightweight_excel_clone"
+  ],
+  "anti_patterns": [
+    "marketing homepage framing",
+    "decorative grid with no real formula evaluation",
+    "chart-first analytics dashboard (this is cell-level editing, not aggregate viz)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 2100,
+  "confidence_score": 4,
+  "example_ids": []
+}

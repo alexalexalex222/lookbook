@@ -1,0 +1,56 @@
+{
+  "pack_id": "stillwater_plumbing_slate_copper_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "stillwater-plumbing-kennesaw"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "dark",
+    "editorial",
+    "craftsmanship",
+    "trustworthy",
+    "restrained"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "sticky_nav",
+    "contour_map",
+    "water_flow_line",
+    "equipment_diagram",
+    "faq_disclosure",
+    "form_intake",
+    "process_timeline",
+    "stats_strip"
+  ],
+  "supports_tasks": [
+    "plumbing_homepage",
+    "trade_service_quote_flow",
+    "craftsmanship_service_layout",
+    "local_service_homepage_polish"
+  ],
+  "anti_patterns": [
+    "budget handyman flyer look",
+    "soft SaaS gradient hero",
+    "dashboard SaaS shell"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1100,
+  "confidence_score": 4,
+  "example_ids": []
+}

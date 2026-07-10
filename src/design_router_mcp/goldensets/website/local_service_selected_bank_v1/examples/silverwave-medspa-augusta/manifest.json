@@ -1,0 +1,17 @@
+{
+  "pack_id": "silverwave_medspa_concierge_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["silverwave-medspa-augusta"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["luxury", "dark", "premium", "beauty", "cinematic", "refined"],
+  "surfaces": ["homepage", "hero", "landing", "section"],
+  "motif_tags": ["hero_shell", "split_hero", "moonlit_wave_scene", "trust_rail", "faq_disclosure", "booking_flow", "headline_hierarchy", "cta_treatment"],
+  "supports_tasks": ["medspa_homepage", "mobile_concierge_beauty_landing", "luxury_aesthetics_website", "clinical_beauty_website", "at_home_medical_spa_page"],
+  "anti_patterns": ["physician-clinic obsidian aesthetic (see aurelia_medspa_editorial_v1)", "celestial aurora wellness-studio framing (see lumena_wellness_aurora_v1)", "light beauty-bar editorial tone (see velvet_fig_beauty_editorial_v1)"],
+  "screenshot_paths": [],
+  "token_budget_hint": 1000,
+  "confidence_score": 4,
+  "example_ids": []
+}

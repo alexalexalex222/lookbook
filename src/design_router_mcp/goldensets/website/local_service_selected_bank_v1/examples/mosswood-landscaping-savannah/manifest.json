@@ -1,0 +1,17 @@
+{
+  "pack_id": "mosswood_landscape_blueprint_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["mosswood-landscaping-savannah"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["premium", "architectural", "editorial", "restrained", "natural", "light-with-dark-panels"],
+  "surfaces": ["homepage", "hero", "landing", "section"],
+  "motif_tags": ["editorial_folio_grid", "blueprint_geometry", "contour_map", "process_timeline", "stats_strip", "trust_rail", "headline_hierarchy", "cta_treatment"],
+  "supports_tasks": ["landscape_architecture_studio_homepage", "estate_grounds_design_website", "luxury_landscape_design_landing", "architectural_landscape_website", "hardscaping_studio_homepage"],
+  "anti_patterns": ["seasonal garden-care almanac framing (see verdant_line_garden_seasonal_v1)", "warm architectural editorial without a blueprint device (see ashgrove_landscape_editorial_v1)", "residential DIY gardening tone"],
+  "screenshot_paths": [],
+  "token_budget_hint": 1100,
+  "confidence_score": 4,
+  "example_ids": []
+}

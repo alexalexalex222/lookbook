@@ -1,0 +1,17 @@
+{
+  "pack_id": "foster_quinn_legal_docket_v1",
+  "role": "anchor",
+  "family": "website.professional_services",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["foster-quinn-athens"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["premium", "editorial", "restrained", "authoritative", "traditional", "warm-neutral", "serif"],
+  "surfaces": ["homepage", "hero", "landing", "section"],
+  "motif_tags": ["hero_shell", "split_hero", "headline_hierarchy", "trust_rail", "docket_ledger_panel", "process_timeline", "light_precision", "cta_treatment"],
+  "supports_tasks": ["law_firm_homepage", "litigation_firm_homepage", "trial_firm_landing", "legal_practice_website", "heritage_law_firm_website"],
+  "anti_patterns": ["corporate business-counsel restraint (use sterling_rowe_legal_business_v1 instead)", "personal-injury verdict-dossier framing (use hale_winslow_legal_dossier_v1 instead)", "soft SaaS gradients"],
+  "screenshot_paths": [],
+  "token_budget_hint": 1200,
+  "confidence_score": 4,
+  "example_ids": []
+}

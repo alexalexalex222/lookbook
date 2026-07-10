@@ -1,0 +1,55 @@
+{
+  "pack_id": "terraverde_ecoscapes_limestone_evergreen_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "terraverde-ecoscapes-macon"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "natural",
+    "architectural",
+    "editorial",
+    "warm",
+    "light-with-dark-panels"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "split_hero",
+    "hero_shell",
+    "light_precision",
+    "numbered_principles",
+    "material_showcase",
+    "stats_strip",
+    "cta_treatment",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "landscape_homepage",
+    "outdoor_living_homepage",
+    "architectural_landscape_website",
+    "estate_grounds_care_landing"
+  ],
+  "anti_patterns": [
+    "generic lawn care template",
+    "seasonal almanac garden blog",
+    "patio showroom hero"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1000,
+  "confidence_score": 4,
+  "example_ids": []
+}

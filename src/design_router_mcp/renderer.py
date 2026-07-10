@@ -90,7 +90,7 @@ def _join_bullets(items: list[str]) -> str:
 def _selected_route(resolution: RouteResolution) -> str:
     lines = [
         f"anchor: `{resolution.anchor_pack.manifest.pack_id}` (score {resolution.anchor_score.total})",
-        f"vertical: `{resolution.normalized_request.specialty_service_class or 'general_local_service'}`",
+        f"vertical: `{resolution.normalized_request.specialty_service_class or 'none (unrouted)'}`",
         f"matched motifs: {', '.join('`' + t + '`' for t in resolution.normalized_request.motif_tags) or 'none'}",
         f"matched strengths: {', '.join('`' + t + '`' for t in resolution.normalized_request.strength_tags) or 'none'}",
     ]
@@ -101,7 +101,42 @@ def _selected_route(resolution: RouteResolution) -> str:
         examples = ", ".join(f"`{_display_id(display_map, s.example_id)}` ({s.score})" for s in resolution.selected_examples) or "none"
         lines.append(f"support bank: `{resolution.support_bank.manifest.pack_id}`")
         lines.append(f"support examples: {examples}")
+    alternatives = resolution.route_meta.get("anchor_alternatives") or []
+    if alternatives:
+        lines.append(
+            "pattern alternatives: the selected anchor above OWNS the composition skeleton and visual identity. "
+            "The runner-up anchors below are legal secondary pattern sources for INDIVIDUAL sections only — "
+            "borrow a motif or a section treatment where the primary anchor is thin; never blend two identities "
+            "or switch skeletons mid-page."
+        )
+        for alt in alternatives:
+            motifs = ", ".join(f"`{m}`" for m in alt.get("motif_tags", [])) or "none"
+            tones = ", ".join(alt.get("tones", [])) or "none"
+            tasks = ", ".join(alt.get("supports_tasks", [])) or "none"
+            lines.append(
+                f"alt anchor: `{alt.get('pack_id')}` (score {alt.get('score')}) — motifs: {motifs}; tones: {tones}; strong for: {tasks}"
+            )
     return _join_bullets(lines)
+
+
+def _full_anchor_build(resolution: RouteResolution) -> str:
+    files = resolution.route_meta.get("anchor_full_source") or []
+    if not files:
+        return ""
+    pack_id = resolution.anchor_pack.manifest.pack_id
+    parts = [
+        f"This is the COMPLETE source of the selected anchor build `{pack_id}` — the quality bar for this job. "
+        "Use it as your composition skeleton and craft reference: match its structural depth, section count, "
+        "interaction states, responsive handling, and finish level. TRANSLATE it to the target business under "
+        "the Anti-Copy Contract: replace ALL brand identity (name, copy, palette values, logo, decorative "
+        "signatures) with the target's; keep the bones and the bar. Shipping the fictional brand's name, copy, "
+        "or exact palette is a FAILURE.",
+    ]
+    for f in files:
+        rel = f.get("path", "file")
+        lang = "html" if str(rel).endswith(".html") else ("css" if str(rel).endswith(".css") else "text")
+        parts.append(f"**`{rel}`** ({f.get('chars', 0):,} chars):\n```{lang}\n{f.get('text', '')}\n```")
+    return "\n\n".join(parts)
 
 
 def _source_inventory(resolution: RouteResolution) -> str:
@@ -343,6 +378,21 @@ def _layout_qa_gates() -> str:
             "Console: zero errors, zero deprecated-API warnings, zero hydration mismatch. Network: no failed requests, no preload misses, no oversized images. Lighthouse for marketing surfaces: Performance ≥ 90, Accessibility ≥ 95, Best Practices ≥ 95 — document any deviation with a reason.",
             "Do not rely on viewport-scaled font sizes. Use clamp(min, preferred, max) with bounded min and max so type reads at every breakpoint. Responsive containers, grid tracks, min/max, and stable component dimensions over magic numbers.",
             "Fix on sight: hero overlap, oversized first folds, sticky-header anchor clipping, mobile nav blocking, floating-card collisions, card-height chaos, CTA wrapping, image dimension miss, font-swap layout shift, and any text that depends on viewport-scaled sizing without bounds.",
+        ]
+    )
+
+
+def _mobile_first_gates() -> str:
+    return _join_bullets(
+        [
+            "Mobile is a DESIGNED experience, not a collapsed desktop. The bar at 390/360px: the page should feel composed — intentional rhythm, purposeful section framing — not merely 'nothing broken'. Anchor patterns are desktop-tuned; translate their mobile treatment deliberately.",
+            "Sticky/fixed CTA bars may NEVER coexist on screen with a duplicate in-flow CTA. If both exist, suppress one contextually (hide the sticky bar while the in-flow control is visible — IntersectionObserver or scroll logic). Two stacked 'book now' controls is an automatic fail.",
+            "The wordmark/nav must fit the REAL brand name at 390 and 360. Anchor wordmark treatments are tuned to their fictional name's length — re-fit yours: clamp the size, allow a deliberate single-line fallback, and never let the menu button clip off-edge or the name wrap mid-word.",
+            "Kill dead scroll: desktop padding tokens (64-96px section pads) usually need a mobile step-down; a mobile page that is mostly empty vertical space between thin content columns reads as neglect.",
+            "Every tap target ≥ 44x44px effective (visible size may stay smaller with an expanded hit-area). Check filter chips, carousel dots, social icons, close buttons — the small controls are where this fails.",
+            "Wide components (tables, terminals, multi-column stat rails) get a REAL mobile treatment: stack, or horizontal scroll with a visible affordance cue. Never let one squeeze to illegibility or force page-level horizontal overflow.",
+            "Fixed floating elements (back-to-top, chat bubbles, sticky bars) must clear the footer's last content line at true scroll-end on every width, and hide while overlays/modals are open.",
+            "Before finishing: render at BOTH 390 and 360 (360 fails first), full-page scroll, zero horizontal overflow (scrollWidth === innerWidth), and every interactive control click-tested at mobile width.",
         ]
     )
 
@@ -1070,6 +1120,7 @@ def _pack_sections(request: DesignContextRequest, resolution: RouteResolution, *
                 _Section("Visual Asset Discipline", _visual_asset_discipline(), True),
                 _Section("Claim Realism / Proof Discipline", _claim_realism(resolution, rules), True),
                 _Section("Layout QA Gates", _layout_qa_gates(), True),
+                _Section("Mobile-First Gates", _mobile_first_gates(), True),
             ]
             core_contract_sections.extend(
                 [
@@ -1117,11 +1168,19 @@ def _pack_sections(request: DesignContextRequest, resolution: RouteResolution, *
         if failures:
             failure_sections.append(_Section("Local Model Failure Patterns", failures, True))
 
+    # Full-build mode: the complete anchor source travels as a REQUIRED section so
+    # budget trimming can never clip the quality bar out of the packet.
+    full_build_sections: list[_Section] = []
+    full_build_body = _full_anchor_build(resolution)
+    if full_build_body:
+        full_build_sections.append(_Section("Full Anchor Build (translate under Anti-Copy — never ship its brand)", full_build_body, True))
+
     intent = _active_packet_intent(request)
     if intent == "implementation_blueprint":
         sections = [
             _Section("Selected Route", _selected_route(resolution), True),
             _Section("Anchor Grammar", _anchor_grammar(resolution.anchor_pack), True),
+            *full_build_sections,
             *core_contract_sections,
             _Section("Section Plan", _section_plan(resolution, rules), True),
             _Section("Implementation Contract", _implementation_contract(request, resolution), True),
@@ -1146,6 +1205,7 @@ def _pack_sections(request: DesignContextRequest, resolution: RouteResolution, *
             _Section("Selected Route", _selected_route(resolution), True),
             _Section("Source Inventory", _source_inventory(resolution), True),
             _Section("Anchor Grammar", _anchor_grammar(resolution.anchor_pack), True),
+            *full_build_sections,
             # CORE design-system contract — placed immediately after Anchor Grammar
             # and before the code sections so it can never be truncated away.
             *core_contract_sections,
@@ -1172,6 +1232,7 @@ def _pack_sections(request: DesignContextRequest, resolution: RouteResolution, *
         sections = [
             _Section("Selected Route", _selected_route(resolution), True),
             _Section("Anchor Grammar", _anchor_grammar(resolution.anchor_pack), True),
+            *full_build_sections,
             # CORE design-system contract — placed immediately after Anchor Grammar
             # and before the code sections so it can never be truncated away.
             *core_contract_sections,
@@ -1346,7 +1407,7 @@ def _finalize(sections: list[_Section], *, request: DesignContextRequest, resolu
             "donor_starvation": resolution.route_meta.get("donor_starvation", {}),
             "composition_brief_count": 1 if recipe else 0,
             "artifact_vocabularies_named": artifact_vocabularies,
-            "vertical": resolution.normalized_request.specialty_service_class or "general_local_service",
+            "vertical": resolution.normalized_request.specialty_service_class or "none (unrouted)",
             "anchor_score": resolution.anchor_score.model_dump(mode="json"),
             "support_bank_score": resolution.support_bank_score.model_dump(mode="json") if resolution.support_bank_score else None,
         },

@@ -1,0 +1,17 @@
+{
+  "pack_id": "rivergate_dental_ivory_gold_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": ["source/index.html"],
+  "origin_example_ids": ["rivergate-dental-augusta"],
+  "stack": ["html_css", "vanilla", "website"],
+  "tones": ["premium", "warm", "editorial", "refined", "calm", "light"],
+  "surfaces": ["homepage", "hero", "landing", "section"],
+  "motif_tags": ["hero_shell", "split_hero", "floating_proof_card", "trust_rail", "proof_cards", "faq_disclosure", "booking_flow", "headline_hierarchy"],
+  "supports_tasks": ["dental_practice_homepage", "family_dentistry_landing", "editorial_dental_website", "patient_experience_website", "warm_residential_premium_theme"],
+  "anti_patterns": ["coastal navy-seaglass clinical framing (see quayside_dental_coastal_v1)", "cold clinical brochure tone", "dark high-contrast branding"],
+  "screenshot_paths": [],
+  "token_budget_hint": 2000,
+  "confidence_score": 4,
+  "example_ids": []
+}

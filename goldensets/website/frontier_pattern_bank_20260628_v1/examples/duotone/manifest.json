@@ -1,0 +1,52 @@
+{
+  "pack_id": "bichrome_duotone_studio_v1",
+  "role": "anchor",
+  "family": "website.interactive_experience",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "duotone"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "warm",
+    "editorial",
+    "studio",
+    "precise",
+    "restrained",
+    "light",
+    "interactive"
+  ],
+  "surfaces": [
+    "dashboard",
+    "full_site"
+  ],
+  "motif_tags": [
+    "interactive_stage",
+    "instrument_control",
+    "before_after_compare",
+    "minimal_centerpiece",
+    "microcopy",
+    "material_showcase"
+  ],
+  "supports_tasks": [
+    "photo_editing_tool_app",
+    "creative_image_studio_interface",
+    "browser_based_image_effects_tool",
+    "single_screen_creative_tool"
+  ],
+  "anti_patterns": [
+    "marketing landing page for a photo-editing SaaS",
+    "real user photo library or gallery grid",
+    "dark cyberpunk image tool (this is warm matted-print paper, not neon)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1000,
+  "confidence_score": 4,
+  "example_ids": []
+}

@@ -1,0 +1,55 @@
+{
+  "pack_id": "lumena_wellness_celestial_plum_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "lumena-wellness-macon"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "premium",
+    "calm",
+    "clinical",
+    "editorial",
+    "light",
+    "beauty"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "cta_treatment",
+    "split_hero",
+    "trust_rail",
+    "proof_cards",
+    "headline_hierarchy",
+    "light_precision",
+    "motion_surface"
+  ],
+  "supports_tasks": [
+    "medspa_homepage",
+    "wellness_clinic_landing",
+    "iv_therapy_service_page",
+    "aesthetic_treatment_website"
+  ],
+  "anti_patterns": [
+    "dark clinical dashboard",
+    "generic day-spa template",
+    "influencer landing page"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1100,
+  "confidence_score": 4,
+  "example_ids": []
+}

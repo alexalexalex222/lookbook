@@ -148,6 +148,13 @@ def normalize_request(request: DesignContextRequest, rules: RoutingRules | None 
     elif effective.intersection({"roofing", "roofer", "roof", "shingle", "shingles"}):
         dark_vertical = "roofing"
 
+    avoids_dark = "dark" in negatives
+    # Dark industrial preference so null-vertical ties do not elect light beauty packs by budget.
+    prefers_dark = (not avoids_dark) and bool(
+        effective.intersection({"dark", "industrial", "garage", "showroom"})
+        or any(t.lower() in {"dark", "industrial", "garage", "showroom"} for t in request.tone)
+    )
+
     return NormalizedRequest(
         surface=request.surface,
         motif_tags=_dedupe_sorted(motifs),
@@ -162,7 +169,8 @@ def normalize_request(request: DesignContextRequest, rules: RoutingRules | None 
         prefers_warm_mode=preferences.get("warm", False),
         prefers_residential_mode=preferences.get("residential", False),
         prefers_editorial_mode=preferences.get("editorial", False),
-        avoids_dark_mode="dark" in negatives,
+        prefers_dark_mode=prefers_dark,
+        avoids_dark_mode=avoids_dark,
         avoids_industrial_mode=bool({"industrial", "heavy", "equipment"}.intersection(negatives)),
         prefers_real_imagery=preferences.get("real_imagery", False),
         specialty_service_class=vertical_name,

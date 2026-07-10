@@ -1,0 +1,55 @@
+{
+  "pack_id": "stillwater_plumbing_dark_editorial_v1",
+  "role": "anchor",
+  "family": "website.local_service",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "stillwater-plumbing-kennesaw"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "editorial",
+    "premium",
+    "restrained",
+    "craftsmanship",
+    "field-service"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "section"
+  ],
+  "motif_tags": [
+    "hero_shell",
+    "sticky_nav",
+    "cta_treatment",
+    "stats_strip",
+    "process_timeline",
+    "material_showcase",
+    "proof_cards",
+    "footer_full"
+  ],
+  "supports_tasks": [
+    "plumbing_homepage",
+    "dark_editorial_trade_service_website",
+    "residential_plumbing_homepage_polish",
+    "craftsmanship_service_layout"
+  ],
+  "anti_patterns": [
+    "light technical diagnostic HUD plumbing site",
+    "budget/discount plumber framing",
+    "generic three-equal-card row"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 800,
+  "confidence_score": 4,
+  "example_ids": []
+}

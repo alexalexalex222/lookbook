@@ -1,0 +1,51 @@
+{
+  "pack_id": "prism_json_inspector_dark_v1",
+  "role": "anchor",
+  "family": "website.productivity_app",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "json-tree"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "technical",
+    "developer",
+    "precise",
+    "minimal",
+    "data-dense"
+  ],
+  "surfaces": [
+    "dashboard",
+    "full_site"
+  ],
+  "motif_tags": [
+    "command_surface",
+    "data_terminal",
+    "code_block",
+    "specification_table",
+    "empty_state_illustration",
+    "keyboard_shortcut_rail"
+  ],
+  "supports_tasks": [
+    "json_inspector_tool",
+    "devtools_product_interface",
+    "api_response_debugging_tool",
+    "data_inspection_app_shell"
+  ],
+  "anti_patterns": [
+    "marketing landing page for a devtools product",
+    "real proprietary or user-uploaded JSON payloads (sample document only; paste/upload own)",
+    "light warm consumer app (this is a dark developer surface)"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 2200,
+  "confidence_score": 4,
+  "example_ids": []
+}
