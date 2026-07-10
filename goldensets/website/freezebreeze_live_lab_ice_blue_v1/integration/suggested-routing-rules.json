@@ -73,7 +73,7 @@
   ],
   "ood_fallback_value": "generic_modern_website",
   "conflicts_to_avoid": [
-    "Do not co-route with high-contrast combat/fight-gym anchors (emberforge, iron_circuit, holland_dirt) — opposite palette and emotional register.",
+    "Do not co-route with high-contrast combat/fight-gym anchors (emberforge, iron_circuit) — opposite palette and emotional register.",
     "Do not co-route with warm light editorial service packs (verdant_line, copperbeam, velvet_fig, aurelia_medspa) — those are warm/light, this is cool/dark.",
     "Do not pull this pack for B2B SaaS dashboards or admin UIs — it is a consumer physical-product broadcast surface.",
     "When the request is live commerce but the product is not cooling/comfort, keep the structure + atoms but treat the schematic and ice-blue palette as replaceable, not authoritative."

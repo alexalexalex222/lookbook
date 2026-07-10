@@ -77,7 +77,6 @@
   "ood_fallback_value": 0.18,
   "conflicts_to_avoid": [
     "emberforge_fight_gym_black_red_v1",
-    "holland_dirt_black_yellow_v1",
     "aurelia_medspa_editorial_v1",
     "velvet_fig_beauty_editorial_v1",
     "sterling_rowe_legal_business_v1"

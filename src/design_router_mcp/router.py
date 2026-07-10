@@ -176,7 +176,6 @@ class DesignRouter:
             if manifest.pack_id in {
                 "emberforge_fight_gym_black_red_v1",
                 "iron_circuit_fight_academy_black_copper_v1",
-                "holland_dirt_black_yellow_v1",
             }:
                 request_bias -= 45
             if "hero_shell" in manifest.motif_tags and not dashboard_motifs.intersection(manifest.motif_tags):

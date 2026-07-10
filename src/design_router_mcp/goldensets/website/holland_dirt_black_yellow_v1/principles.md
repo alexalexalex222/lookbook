@@ -1,5 +1,0 @@
-- Use one dominant headline block and one obvious operational action.
-- Keep the palette disciplined: dark surfaces, one hot accent, no rainbow drift.
-- Let texture support the composition instead of overpowering it.
-- Trust should read as evidence and service confidence, not as cheerful marketing filler.
-- The hero should feel expensive because of control, not because of decorative noise.

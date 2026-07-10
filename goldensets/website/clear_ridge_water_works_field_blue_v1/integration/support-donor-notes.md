@@ -10,14 +10,14 @@ How this pack can **donate support** to other routes and where it should **borro
 5. **`maintenance_plan_comparison_v1`** — donate to any pack stuck in a three-equal-card row; it shows asymmetric tiering (featured dark + lifted, baseline, dashed add-on).
 
 ## Where this pack should borrow (support recipients)
-- **Heavier industrial / dark-texture grammar** (excavation, demolition, fabrication): borrow blocking/texture cues from `holland_dirt_black_yellow_v1` or `emberforge_fight_gym_black_red_v1` rather than darkening this whole page — Clear Ridge stays light-with-dark-panels.
+- **Heavier industrial / dark-texture grammar** (excavation, demolition, fabrication): borrow blocking/texture cues from `emberforge_fight_gym_black_red_v1` rather than darkening this whole page — Clear Ridge stays light-with-dark-panels.
 - **Editorial warmth / lifestyle proof** (landscape, garden, beauty): if a rural-water variant wants a softer "before/after" or seasonal narrative, borrow rhythm from `verdant_line_garden_seasonal_v1` or `ashgrove_landscape_editorial_v1` — but keep the diagnostic spine here.
 - **Formal credibility / long-form trust** (legal, finance): borrow structured trust sections from `sterling_rowe_legal_business_v1` only if a route needs compliance-style copy; do not adopt its corporate brochure tone for a field trade.
 
 ## Pairing guidance for the conductor
 - **Primary anchor + this pack as support**: e.g. a septic or water-well-drilling anchor can stay primary while borrowing `field_service_quote_flow_v1` + `diagnostic_issue_selector_v1` from here.
 - **This pack as primary + support donors**: when Clear Ridge is the anchor, it rarely needs donors — it ships all ten sections and seven atoms. If a route needs richer trust proof, request only labeled-placeholder-compatible support (no donor that imports fake stats/reviews).
-- **Hard conflict (do not blend surfaces)**: `emberforge_fight_gym_black_red_v1`, `holland_dirt_black_yellow_v1` (opposite light/dark balance and energy), `aurelia_medspa_editorial_v1`, `velvet_fig_beauty_editorial_v1` (opposite tone). See `manifest.conflicts_to_avoid`.
+- **Hard conflict (do not blend surfaces)**: `emberforge_fight_gym_black_red_v1` (opposite light/dark balance and energy), `aurelia_medspa_editorial_v1`, `velvet_fig_beauty_editorial_v1` (opposite tone). See `manifest.conflicts_to_avoid`.
 
 ## Non-negotiable when donating or receiving
 The **proof-safe policy travels with every atom**. A donor must not introduce, and a recipient must not request, fake licenses, response times, service towns, reviews, ratings, years-in-business, guarantees, discounts, or stock photography. Coverage and records stay as labeled placeholders until an operator supplies verified evidence.
