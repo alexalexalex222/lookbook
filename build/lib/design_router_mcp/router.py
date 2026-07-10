@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import logging
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -19,8 +18,6 @@ from .schemas import (
     RouteResolution,
     ScoreBreakdown,
 )
-
-logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -156,13 +153,6 @@ class DesignRouter:
             request_bias += 5
         if normalized.prefers_editorial_mode and "editorial" in manifest.tones:
             request_bias += 5
-        if normalized.prefers_dark_mode:
-            if "dark" in manifest.tones or "dark_texture" in manifest.motif_tags:
-                request_bias += 5
-            if "light" in manifest.tones and "beauty" in manifest.tones:
-                request_bias -= 12
-            if manifest.pack_id in {"velvet_fig_beauty_editorial_v1", "aurelia_medspa_editorial_v1"}:
-                request_bias -= 12
         if normalized.avoids_dark_mode and ("dark" in manifest.tones or "dark_texture" in manifest.motif_tags):
             request_bias -= 12
         if normalized.avoids_industrial_mode and ("industrial" in manifest.tones or "industrial_frame" in manifest.motif_tags):
@@ -176,7 +166,6 @@ class DesignRouter:
             if manifest.pack_id in {
                 "emberforge_fight_gym_black_red_v1",
                 "iron_circuit_fight_academy_black_copper_v1",
-                "holland_dirt_black_yellow_v1",
             }:
                 request_bias -= 45
             if "hero_shell" in manifest.motif_tags and not dashboard_motifs.intersection(manifest.motif_tags):
@@ -473,27 +462,6 @@ class DesignRouter:
     def route(self, request: DesignContextRequest) -> RouteResolution:
         normalized = normalize_request(request, self.rules)
         anchor = self._pick_anchor(request, normalized)
-        if normalized.specialty_service_class is None and (
-            request.surface.startswith("website") or "local" in request.surface or request.layout_mode == "homepage"
-        ):
-            scored = [
-                _ScoredRecord(record, self._score_record(request, normalized, record))
-                for record in self.index.anchors
-            ]
-            scored.sort(key=lambda item: (-item.score.total, item.record.manifest.token_budget_hint, item.record.manifest.pack_id))
-            top_total = scored[0].score.total if scored else 0
-            tied = [
-                f"{item.record.manifest.pack_id}={item.score.total}"
-                for item in scored
-                if item.score.total == top_total
-            ][:8]
-            logger.warning(
-                "design router unrouted: vertical=None for website/local-service request; "
-                "top tied anchors: %s; picked=%s; task_preview=%r",
-                ", ".join(tied) if tied else "(none)",
-                anchor.record.manifest.pack_id,
-                (request.task or "")[:160],
-            )
         hero_record = self._pick_hero_reference_record(anchor, normalized)
         support = self._pick_support_bank(request, normalized)
         selected_examples, starvation_meta = self._pick_support_examples(request, normalized, anchor.record, hero_record, support.record if support else None)
