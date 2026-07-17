@@ -92,17 +92,28 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
         name="lookbook-mcp",
         instructions=(
             "Lookbook MCP — packet compiler for production-grade frontend work. "
-            "Default to `resolve_design_context` for any frontend brief; the returned packet sets the engineering, accessibility, motion, typography, and craft bar for the page you build. "
-            "Treat every contract in the returned packet (Hard UI Rules, Visual Asset Discipline, Design Tokens Contract, Motion Grammar, Typography Discipline, Accessibility Contract, State Completeness, Performance Discipline, Microcopy Contract, Layout QA Gates, Anti-Copy Contract, Claim Realism, Implementation Contract, Vertical Guardrails) as a hard floor for shipped code — not a target, not a suggestion. "
-            "Read the V3 director sections when present: Composition Brief, Visual Artifact Specs, Local Model Failure Patterns, Donor Starvation Warning, and Mechanical Donors (UX Role Only). They are the composition contract that prevents safe-but-generic output. "
-            "Token modes scale to the local model: `micro` for 16k context, `compact` (default) for 16k-32k, `standard` for 32k-64k, `expanded` for 64k+, `full_selected` only on explicit request. Start at compact; expand intentionally. "
-            "Use `code_profile='code_first'` when the builder is a local coding model that needs source excerpts and route diagnostics before prose. "
-            "Use `inspect_design_library` for inventory without loading source. Use `get_source_excerpt` to pull targeted anchor or example code after routing. Use `export_opencode_bundle` for filesystem hand-off. Use `audit_source_hygiene` to inspect donor leakage risk. Use `validate_design_router` for setup checks. "
-            "Never invent identity, copy, claims, names, statistics, testimonials, awards, or images. Borrow composition from the anchor; build the rest from the brief. When the brief is thin, write generalized phrasing that does not require invented specifics."
+            "TOOL BUDGET (hard): for a normal build, call resolve_design_context ONCE, then write files. "
+            "Do not call get_source_excerpt, inspect_design_library, route_alternatives, donor_starvation_audit, "
+            "audit_source_hygiene, validate_design_router, or resolve_design_context a second time after a non-empty packet. "
+            "Optional second call only: export_opencode_bundle if you need the packet on disk. Max 1–2 design-router tools per user task. "
+            "Defaults already ship full depth: token_mode=full_selected, full_code_mode=true, code_profile=code_first "
+            "(complete primary pattern + all contracts in one packet). "
+            "Treat every contract in the returned packet as a hard floor for shipped code. "
+            "Read V3 director sections when present (Composition Brief, Visual Artifact Specs, Local Model Failure Patterns). "
+            "For engineering/backend briefs use resolve_knowledge_context once (not design). "
+            "Never invent identity, copy, claims, names, statistics, testimonials, awards, or images. "
+            "Borrow composition from the anchor; build the rest from the brief."
         ),
     )
 
-    @server.tool(name="resolve_design_context", description="Resolve a frontend design task into an anchor-first packet. Use code_profile='code_first' for implementation-heavy local model builds.")
+    @server.tool(
+        name="resolve_design_context",
+        description=(
+            "ONE-CALL full build packet: routes the brief and returns mandatory depth + complete primary pattern source. "
+            "Defaults (full_selected + full_code_mode + code_first) are enough — do not re-call or chain get_source_excerpt. "
+            "After a non-empty packet, stop design-router tools and implement."
+        ),
+    )
     def tool_resolve_design_context(
         surface: str,
         task: str,
@@ -111,17 +122,17 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
         layout_mode: str = "homepage",
         constraints: list[str] | None = None,
         anti_patterns: list[str] | None = None,
-        token_mode: str = "compact",
+        token_mode: str = "full_selected",
         max_examples: int = 3,
         donor_selection_mode: str = "support_examples_v1",
         donor_count: int = 3,
         pattern_lock: bool = False,
-        full_code_mode: bool = False,
+        full_code_mode: bool = True,
         include_full_library: bool = False,
         host_browser_review: bool = False,
         local_model_profile: str | None = None,
         visual_quality_profile: str = "strict_design_router_gpt55_mcp_v1",
-        code_profile: str = "balanced",
+        code_profile: str = "code_first",
         packet_intent: str = "balanced",
     ) -> str:
         packet = resolve_design_context(
@@ -152,7 +163,14 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
     def tool_inspect_design_library(include_examples: bool = False) -> str:
         return json.dumps(inspect_design_library(resolved, include_examples=include_examples), indent=2)
 
-    @server.tool(name="get_source_excerpt", description="Load targeted anchor/example code after routing, including partial snippets and optional full selected source files.")
+    @server.tool(
+        name="get_source_excerpt",
+        description=(
+            "OPTIONAL recovery only: load a pack/example source when resolve_design_context was called "
+            "with a peek token_mode that omitted full code. Do NOT use after a normal full_selected resolve — "
+            "that packet already includes the primary pattern."
+        ),
+    )
     def tool_get_source_excerpt(
         pack_id: str,
         example_id: str | None = None,
@@ -176,10 +194,10 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
         surface: str,
         task: str,
         output_dir: str = "",
-        token_mode: str = "compact",
+        token_mode: str = "full_selected",
         stack: str = "unknown",
         tone: list[str] | None = None,
-        full_code_mode: bool = False,
+        full_code_mode: bool = True,
         include_source_excerpts: bool = True,
         code_profile: str = "code_first",
         packet_intent: str = "balanced",
@@ -221,7 +239,16 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
     def tool_validate_design_router() -> str:
         return json.dumps(validate_design_router(resolved), indent=2)
 
-    @server.tool(name="resolve_knowledge_context", description="Route an engineering brief (backend/APIs/databases/reliability/agents/LLM/security/browser-automation/computer-use) to a Golden Book knowledge packet: distilled playbooks + micro cards + method skills. HOW TO CALL: write the brief in concrete action words describing what the system DOES (click, drive, charge, queue, retry, upload) — abstract audit-style summaries route poorly — and ALWAYS pass the user's original message VERBATIM as user_message (summaries strip the words that route). Returns picks, confidence, skill_picks, abstain flag, and the packet — APPLY the packet per its USE CONTRACT header line. If abstain=true, do NOT silently proceed without the book: follow the returned retry_guide (nearest chapters as symptom lines + exactly how to re-call). mode: micro (16k contexts) | compact (default) | standard.")
+    @server.tool(
+        name="resolve_knowledge_context",
+        description=(
+            "ONE-CALL knowledge packet for engineering briefs (backend/APIs/reliability/agents/LLM/security/browser-automation). "
+            "Write the brief in concrete action words; pass the user's original message VERBATIM as user_message. "
+            "After a non-empty non-abstain packet: APPLY it and do NOT re-call. "
+            "Only if abstain=true may you re-call once using retry_guide (2-call max). "
+            "mode: micro | compact (default) | standard."
+        ),
+    )
     def tool_resolve_knowledge_context(brief: str, mode: str = "compact", k: int = 2, user_message: str = "") -> str:
         from .knowledge_router import KnowledgeRouter
         result = KnowledgeRouter().resolve(brief, mode=mode, k=k, user_message=user_message)
@@ -264,17 +291,17 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
                 layout_mode=params.get("layout_mode", "homepage"),
                 constraints=params.get("constraints"),
                 anti_patterns=params.get("anti_patterns"),
-                token_mode=params.get("token_mode", "compact"),
+                token_mode=params.get("token_mode", "full_selected"),
                 max_examples=params.get("max_examples", 3),
                 donor_selection_mode=params.get("donor_selection_mode", "support_examples_v1"),
                 donor_count=params.get("donor_count", 3),
                 pattern_lock=params.get("pattern_lock", False),
-                full_code_mode=params.get("full_code_mode", False),
+                full_code_mode=params.get("full_code_mode", True),
                 include_full_library=params.get("include_full_library", False),
                 host_browser_review=params.get("host_browser_review", False),
                 local_model_profile=params.get("local_model_profile"),
                 visual_quality_profile=params.get("visual_quality_profile", "strict_design_router_gpt55_mcp_v1"),
-                code_profile=params.get("code_profile", "balanced"),
+                code_profile=params.get("code_profile", "code_first"),
                 packet_intent=params.get("packet_intent", "balanced"),
             )
         if action == "resolve_knowledge_context":

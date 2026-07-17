@@ -47,12 +47,13 @@ def router() -> KnowledgeRouter:
 
 
 # (a) — every skill loads as a separate channel, and the parsed-meta table
-# stays in lockstep. 98 = the 2026-07-05 corpus (58 originals + 8 doctrine
-# skills + 30 business skills + senior-answer-shape + gui-agent-evidence-gate);
-# update the number when the corpus grows, the lockstep assertion is the part
-# that must never move.
+# stays in lockstep. Count tracks live ~/goldenbook-harvest/skills; the
+# lockstep assertion (docs == meta) is the part that must never move.
 def test_skill_channel_loads_all_skills(router):
-    assert len(router.skill_docs) == 98
+    from pathlib import Path
+    on_disk = len(list((Path.home() / "goldenbook-harvest" / "skills").glob("*.md")))
+    assert on_disk > 0
+    assert len(router.skill_docs) == on_disk
     assert len(router._skill_meta) == len(router.skill_docs)
 
 
@@ -130,8 +131,10 @@ def test_skill_channel_is_deterministic(router):
 
 # (f) — validate tool reports the skill count and a canned skill route.
 def test_validate_reports_skill_count_and_canned_skill_route():
+    from pathlib import Path
+    on_disk = len(list((Path.home() / "goldenbook-harvest" / "skills").glob("*.md")))
     checks = validate_knowledge_router()
-    assert checks["skill_count"] == 98
+    assert checks["skill_count"] == on_disk
     assert checks["canned_skill_routes"] is True
     assert checks["all_pass"] is True
 

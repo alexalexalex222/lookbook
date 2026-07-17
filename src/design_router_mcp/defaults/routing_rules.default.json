@@ -1,5 +1,5 @@
 {
-  "version": "2.2",
+  "version": "2.3",
   "weights": {
     "surface_exact": 30,
     "surface_family": 14,
@@ -50,7 +50,7 @@
       "full_code_allowed": true
     },
     "full_selected": {
-      "max_packet_tokens": 80000,
+      "max_packet_tokens": 200000,
       "max_examples": 3,
       "max_snippets": 99,
       "full_code_allowed": true
@@ -61,7 +61,7 @@
     "balanced_32k": "compact",
     "strong_64k": "standard",
     "moe_128k": "expanded",
-    "manual": "compact"
+    "manual": "full_selected"
   },
   "expansion_order": [
     "library_audit",

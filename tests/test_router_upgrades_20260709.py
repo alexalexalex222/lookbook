@@ -100,22 +100,42 @@ def test_full_build_skips_stale_sibling_css_when_html_self_contained():
 
 
 def test_compact_mode_never_embeds_full_source():
-    md = resolve_design_packet(MMA_REQ, REPO_ROOT)  # compact default: full_code_allowed=False
+    # Peek mode only: explicit compact + full_code off must not load full sources.
+    peek = {"token_mode": "compact", "full_code_mode": False, "code_profile": "balanced"}
+    md = resolve_design_packet({**MMA_REQ, **peek}, REPO_ROOT)
     assert "# Full Anchor Build" not in md
-    resolution, _ = _route()
+    resolution, _ = _route(**peek)
     assert not resolution.route_meta.get("anchor_full_source"), (
         "compact-mode routes must not pay the cost of reading full sources"
+    )
+
+
+def test_default_resolve_is_one_call_full_depth():
+    """Builder defaults ship complete primary pattern — no second tool hop."""
+    md = resolve_design_packet(MMA_REQ, REPO_ROOT)
+    assert "# Full Anchor Build" in md
+    assert "BUILD NOW" in md
+    assert "Do NOT call resolve_design_context again" in md
+    # No ready-to-run tool recipes (prohibition text may still name the tool).
+    assert "get_source_excerpt(pack_id=" not in md
+    assert "rerun `resolve_design_context`" not in md.lower()
+    assert "PACKET TRUNCATED" not in md
+    resolution, _ = _route()
+    assert resolution.route_meta.get("anchor_full_source"), (
+        "default route must load full primary pattern for one-call builds"
     )
 
 
 # ── 3. mobile-first gates ─────────────────────────────────────────────────────
 
 def test_mobile_first_gates_present_in_normal_modes():
-    for mode in (None, "standard"):
-        md = resolve_design_packet(
-            {**MMA_REQ, **({"token_mode": mode} if mode else {})}, REPO_ROOT
-        )
-        assert "# Mobile-First Gates" in md, f"gates missing in mode={mode or 'compact'}"
+    for mode in (None, "standard", "full_selected"):
+        payload = {**MMA_REQ}
+        if mode:
+            payload["token_mode"] = mode
+            payload["full_code_mode"] = mode != "compact"
+        md = resolve_design_packet(payload, REPO_ROOT)
+        assert "# Mobile-First Gates" in md, f"gates missing in mode={mode or 'default'}"
         assert "not a collapsed desktop" in md
         assert "44x44px" in md
 

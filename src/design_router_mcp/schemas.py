@@ -57,15 +57,21 @@ class DesignContextRequest(BaseModel):
     pattern_lock: bool = Field(default=False)
     pattern_lock_strict: bool = Field(default=False)
     pattern_lock_exact: bool = Field(default=False)
-    full_code_mode: bool = Field(default=False)
+    full_code_mode: bool = Field(
+        default=True,
+        description="Include complete primary pattern source in the first resolve so builders need no follow-up excerpt calls.",
+    )
     prefer_angular_geometry: bool = Field(default=True)
     host_browser_review: bool = Field(default=False)
-    token_mode: TokenMode = Field(default="compact")
+    token_mode: TokenMode = Field(
+        default="full_selected",
+        description="Default full_selected ships mandatory depth + full primary pattern in one call. Use compact/micro only for inventory-style peeks.",
+    )
     local_model_profile: LocalModelProfile | None = Field(default=None)
     visual_quality_profile: VisualQualityProfile = Field(default="strict_design_router_gpt55_mcp_v1")
     code_profile: CodeProfile = Field(
-        default="balanced",
-        description="Use 'code_first' when local models need more implementation code and less prose before building.",
+        default="code_first",
+        description="Default code_first prioritizes implementation code in the first packet so builders do not need a second tool hop.",
     )
     packet_intent: PacketIntent = Field(
         default="balanced",

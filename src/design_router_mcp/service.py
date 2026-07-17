@@ -82,13 +82,13 @@ def resolve_design_context(
     pattern_lock: bool = False,
     pattern_lock_strict: bool = False,
     pattern_lock_exact: bool = False,
-    full_code_mode: bool = False,
+    full_code_mode: bool = True,
     prefer_angular_geometry: bool = True,
     host_browser_review: bool = False,
-    token_mode: TokenMode | str = "compact",
+    token_mode: TokenMode | str = "full_selected",
     local_model_profile: str | None = None,
     visual_quality_profile: str = "strict_design_router_gpt55_mcp_v1",
-    code_profile: str = "balanced",
+    code_profile: str = "code_first",
     packet_intent: str = "balanced",
     rules_path: Path | str | None = None,
 ) -> RenderedPacket:
@@ -516,10 +516,10 @@ def export_opencode_bundle(
     surface: str,
     task: str,
     output_dir: Path | str | None = None,
-    token_mode: TokenMode | str = "compact",
+    token_mode: TokenMode | str = "full_selected",
     stack: str = "unknown",
     tone: list[str] | None = None,
-    full_code_mode: bool = False,
+    full_code_mode: bool = True,
     include_source_excerpts: bool = True,
     code_profile: str = "code_first",
     packet_intent: str = "balanced",
@@ -595,7 +595,13 @@ def export_opencode_bundle(
         encoding="utf-8",
     )
     (out / "TOKEN_BUDGET.md").write_text(f"# Token Budget\n\n- mode: {packet.token_mode}\n- estimated_tokens: {packet.estimated_tokens}\n", encoding="utf-8")
-    (out / "NEXT_EXPANSIONS.md").write_text("# Next Expansion\n\nRerun resolve_design_context with a larger token_mode when needed.\n", encoding="utf-8")
+    (out / "NEXT_EXPANSIONS.md").write_text(
+        "# Build Now\n\n"
+        "This export already contains the routed packet and selected source excerpts.\n"
+        "Do not re-call resolve_design_context or get_source_excerpt unless the packet is empty/error.\n"
+        "Write the site from PACKET.md + SOURCE_EXCERPTS/.\n",
+        encoding="utf-8",
+    )
     return {"exported_to": str(out), "files": files, "source_excerpts": source_excerpts}
 
 

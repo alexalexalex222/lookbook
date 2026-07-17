@@ -58,6 +58,11 @@ CONTRACT_SECTION_TITLES = frozenset(
         "Claim Realism / Proof Discipline",  # data integrity — never weaken
         "Anti-Copy Contract",
         "Implementation Contract",
+        # Primary pattern must survive budget pressure — one-call full depth.
+        "Full Anchor Build (translate under Anti-Copy — never ship its brand)",
+        "Hard UI Rules",
+        "Mobile-First Gates",
+        "Layout QA Gates",
     }
 )
 
@@ -165,11 +170,17 @@ def _source_inventory(resolution: RouteResolution) -> str:
                 lines.append(f"support source dir: `{source_dir}`")
             if example is not None and example.preview_path:
                 lines.append(f"support preview path: `{example.preview_path}`")
-            lines.append(
-                "operator excerpt pull: "
-                f"`get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
-                f"example_id=\"{selection.example_id}\", include_full=true, include_section_snippets=true)`"
-            )
+            # Full primary sources ship inline under Full Anchor Build / Minimal Code
+            # Patterns when full_code_mode is on — do not paste tool-call recipes that
+            # train weak models to re-fetch before building.
+            if not request_allows_full_code(resolution.request):
+                lines.append(
+                    "operator excerpt pull (only if this packet lacks source): "
+                    f"`get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
+                    f"example_id=\"{selection.example_id}\", include_full=true, include_section_snippets=true)`"
+                )
+            else:
+                lines.append("full source for this example is included inline in this packet when selected — do not re-fetch.")
     return _join_bullets(lines)
 
 
@@ -287,9 +298,10 @@ def _support_roles(resolution: RouteResolution, rules: RoutingRules) -> str:
         if display_id != selection.example_id:
             summary = summary.replace(selection.example_id, display_id)
         lines.append(f"`{display_id}`: borrow for {tags}. {summary}")
-        if mechanical:
+        if mechanical and not request_allows_full_code(resolution.request):
             lines.append(
-                f"operator excerpt pull (real example id): `get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
+                f"operator excerpt pull (real example id, only if source missing from packet): "
+                f"`get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
                 f"example_id=\"{selection.example_id}\", include_section_snippets=true)`"
             )
     return _join_bullets(lines)
@@ -679,11 +691,12 @@ def _mechanical_donors(resolution: RouteResolution) -> str:
         display_id = _display_id(display_map, selection.example_id)
         roles = ", ".join(f"`{role}`" for role in selection.ux_role_match)
         lines.append(f"`{display_id}`: borrow {roles}; do_not_borrow: identity/copy/palette/business name/section labels.")
-        lines.append(
-            "operator excerpt pull: "
-            f"`get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
-            f"example_id=\"{selection.example_id}\", include_full=true, include_section_snippets=true)`"
-        )
+        if not request_allows_full_code(resolution.request):
+            lines.append(
+                "operator excerpt pull (only if this packet lacks source): "
+                f"`get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
+                f"example_id=\"{selection.example_id}\", include_full=true, include_section_snippets=true)`"
+            )
     return _join_bullets(lines)
 
 
@@ -941,21 +954,33 @@ def _reusable_component_library(resolution: RouteResolution, *, mode: str) -> st
 
 def _code_reference_intro(resolution: RouteResolution, *, mode: str, rules: RoutingRules) -> str:
     budget = rules.token_budget(mode)
+    full = budget.full_code_allowed and request_allows_full_code(resolution.request)
     lines = [
         "Use these as implementation reference code, not copy-paste identity. Translate class names, content, palette, and claims to the target business.",
-        f"This `{mode}` packet can include up to {budget.max_snippets} code blocks. Rerun `get_source_excerpt` for a targeted pack/example when the builder needs more code.",
+        f"This `{mode}` packet can include up to {budget.max_snippets} code blocks.",
         f"code_profile: `{resolution.request.code_profile}`.",
     ]
     if resolution.request.code_profile == "code_first":
         lines.append("Code-first mode: selected support snippets are promoted before generic atoms so local models see actual donor implementation patterns early.")
-    if budget.full_code_allowed:
-        lines.append("This token mode allows selected full source files when `full_code_mode=true` or `include_full_library=true`.")
+    if full:
+        lines.append(
+            "Full primary pattern source is INCLUDED in this packet (Full Anchor Build + selected support full files below). "
+            "Do NOT call get_source_excerpt or re-resolve — build from what is here."
+        )
+    elif budget.full_code_allowed:
+        lines.append("This token mode can include full source files when full_code_mode=true (default for resolve_design_context).")
     else:
-        lines.append("Full source files are intentionally omitted in this token mode; partial code snippets are included instead.")
+        lines.append(
+            "This token_mode uses partial snippets only (inventory/peek). "
+            "For a full build packet in one call, resolve with token_mode=full_selected and full_code_mode=true — once — then build."
+        )
     if resolution.support_bank is not None and resolution.selected_examples:
         display_map = _example_display_map(resolution)
         examples = ", ".join(f"`{_display_id(display_map, selection.example_id)}`" for selection in resolution.selected_examples)
-        lines.append(f"Selected support examples available for targeted source pulls: {examples}.")
+        if full:
+            lines.append(f"Selected support examples (sources inline in this packet): {examples}.")
+        else:
+            lines.append(f"Selected support examples: {examples}.")
     return _join_bullets(lines)
 
 
@@ -1063,16 +1088,22 @@ def _omissions(resolution: RouteResolution, *, mode: str, rules: RoutingRules) -
 
 
 def _packet_header(request: DesignContextRequest, resolution: RouteResolution, *, mode: str, rules: RoutingRules, body: str = "") -> str:
-    next_mode = rules.next_expansion(mode)
     budget = rules.token_budget(mode)
     density = _code_density_metrics(resolution)
     starvation = resolution.route_meta.get("donor_starvation", {})
     mechanical_ids = resolution.route_meta.get("mechanical_donor_ids", [])
+    full = budget.full_code_allowed and request_allows_full_code(request)
     lines = [
         "# Design Router Packet",
+        "- BUILD NOW: this packet is complete enough to implement. "
+        "Do NOT call resolve_design_context again. "
+        "Do NOT call get_source_excerpt, inspect_design_library, route_alternatives, "
+        "donor_starvation_audit, audit_source_hygiene, or validate_* for this task. "
+        "Write the site from this packet (1 design-router call max; optional export only if you need files on disk).",
         f"- token_mode: `{mode}`",
         f"- code_profile: `{request.code_profile}`",
         f"- packet_intent: `{_active_packet_intent(request)}`",
+        f"- full_code_mode: `{'on' if full else 'off'}`",
         f"- budget: `{budget.max_packet_tokens}` estimated tokens",
         "- code_density: "
         f"anchor_blocks={density['anchor_blocks']}, "
@@ -1089,10 +1120,16 @@ def _packet_header(request: DesignContextRequest, resolution: RouteResolution, *
         display_map = _example_display_map(resolution)
         donor_labels = ", ".join(_display_id(display_map, donor) for donor in mechanical_ids) or "none"
         lines.append(f"- donor_starvation: yes (mechanical donors: {donor_labels})")
-    if next_mode:
-        lines.append(f"- expansion: rerun `resolve_design_context` with token_mode=`{next_mode}`")
+    if full:
+        lines.append(
+            "- depth: FULL primary pattern + contracts are inline. "
+            "No second hop for source. Optional second tool: export_opencode_bundle only if filesystem hand-off is required."
+        )
     else:
-        lines.append("- expansion: already at maximum token mode")
+        lines.append(
+            "- depth: snippet/peek mode. For a one-call full build, re-resolve ONCE with "
+            "token_mode=full_selected and full_code_mode=true, then stop calling tools and build."
+        )
     return "\n".join(lines)
 
 
@@ -1276,7 +1313,7 @@ def _trim_section_body(section: _Section, max_chars: int) -> _Section:
         trimmed = trimmed[:cut].rstrip()
     if trimmed.count("```") % 2 == 1:
         trimmed += "\n```"
-    trimmed += "\n... [section trimmed to fit token budget; expand the token_mode for full code]"
+    trimmed += "\n... [section trimmed to fit token budget; primary Full Anchor Build and contracts remain authoritative — build from those]"
     return _Section(section.title, trimmed, section.required)
 
 
@@ -1374,8 +1411,8 @@ def _finalize(sections: list[_Section], *, request: DesignContextRequest, resolu
     if hard_truncated:
         markdown += (
             f"\n\n---\n[PACKET TRUNCATED: estimated tokens exceeded {budget}. "
-            "Reference bodies were minimized; the design-system contract is preserved. "
-            "Expand the token_mode for full code.]"
+            "Reference bodies were minimized; the design-system contract and Full Anchor Build "
+            "(when present) remain authoritative. Do not start a multi-tool fetch loop — build from what remains.]"
         )
     omitted_text, omitted_files = _omissions(resolution, mode=mode, rules=rules)
     if omitted_sections:
