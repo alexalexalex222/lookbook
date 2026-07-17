@@ -1,5 +1,5 @@
 {
-  "version": "2.1",
+  "version": "2.2",
   "weights": {
     "surface_exact": 30,
     "surface_family": 14,
@@ -838,7 +838,7 @@
       ]
     },
     "garden_care": {
-      "priority": 25,
+      "priority": 15,
       "aliases": [
         "gardening",
         "garden care",
@@ -946,7 +946,7 @@
       ]
     },
     "construction": {
-      "priority": 28,
+      "priority": 16,
       "aliases": [
         "general contractor",
         "commercial construction",
@@ -973,30 +973,34 @@
         "closeout"
       ],
       "keywords": [
+        "buildout",
+        "buildouts",
+        "clearing",
+        "concrete",
         "construction",
         "contractor",
         "contractors",
-        "buildout",
-        "buildouts",
-        "renovation",
-        "renovations",
-        "remodel",
-        "remodeling",
-        "framing",
-        "concrete",
-        "steel",
-        "excavation",
-        "grading",
-        "sitework",
-        "earthwork",
-        "shell",
-        "pads",
         "drainage",
-        "clearing",
+        "driveway",
+        "earthwork",
+        "excavation",
+        "flatwork",
         "footings",
         "foundation",
         "foundations",
+        "framing",
+        "grading",
+        "pads",
+        "remodel",
+        "remodeling",
+        "renovation",
+        "renovations",
         "schedule",
+        "shell",
+        "sitework",
+        "stamp",
+        "stamped",
+        "steel",
         "subcontractor",
         "subcontractors"
       ],
@@ -1030,17 +1034,35 @@
         "restrained"
       ],
       "preferred_anchor_pack_ids": {
-        "holland_dirt_black_yellow_v1": 18,
-        "oakline_cabinetry_craftsmanship_v1": 4,
+        "holland_dirt_black_yellow_v1": 30,
+        "oakline_cabinetry_craftsmanship_v1": -8,
         "copperbeam_flooring_light_residential_v1": 2,
-        "emberforge_fight_gym_black_red_v1": -14
+        "emberforge_fight_gym_black_red_v1": -22,
+        "clear_ridge_water_works_field_blue_v1": 10,
+        "axlecraft_garage_door_industrial_v1": 8,
+        "iron_circuit_fight_academy_black_copper_v1": -24,
+        "hale_winslow_legal_basalt_bronze_v1": -30,
+        "signalstack_saas_analytics_ink_v1": -28,
+        "hale_winslow_legal_dossier_v1": -30,
+        "sterling_rowe_legal_business_v1": -28
       },
       "penalized_anchor_pack_ids": {
-        "emberforge_fight_gym_black_red_v1": -10,
+        "signalstack_saas_analytics_ink_v1": -40,
+        "instrument_studio_minimal_interactive_v1": -35,
+        "nimbus_command_palette_v1": -35,
+        "markets_terminal_blue_dashboard_v1": -30,
+        "developer_docs_quickstart_dark_v1": -25,
         "velvet_fig_beauty_editorial_v1": -8,
         "aurelia_medspa_editorial_v1": -8,
+        "oakline_cabinetry_craftsmanship_v1": -18,
+        "emberforge_fight_gym_black_red_v1": -10,
+        "iron_circuit_fight_academy_black_copper_v1": -16,
         "sterling_rowe_legal_business_v1": -6,
-        "verdant_line_garden_seasonal_v1": -6
+        "verdant_line_garden_seasonal_v1": -6,
+        "hale_winslow_legal_dossier_v1": -30,
+        "hale_winslow_legal_basalt_bronze_v1": -30,
+        "foster_quinn_legal_docket_v1": -28,
+        "foster_quinn_trial_law_parchment_v1": -28
       },
       "prefer_example_tokens": [
         "construction",
@@ -1108,7 +1130,7 @@
       ]
     },
     "landscape": {
-      "priority": 30,
+      "priority": 16,
       "keywords": [
         "landscape",
         "landscaping",
@@ -1285,26 +1307,39 @@
       ]
     },
     "mechanical": {
-      "priority": 50,
+      "priority": 14,
       "keywords": [
-        "hvac",
-        "heating",
-        "cooling",
+        "ac",
         "air",
-        "mechanical",
+        "air conditioning",
+        "air-conditioning",
+        "cooling",
+        "ductless",
         "furnace",
-        "ac"
+        "heat-pump",
+        "heating",
+        "heatpump",
+        "hvac",
+        "indoor air",
+        "mechanical",
+        "mini split",
+        "mini-split",
+        "thermostat"
       ],
       "motif_tags": [
         "cta_treatment",
         "phone_pill",
-        "service_map"
+        "service_map",
+        "proof_cards",
+        "trust_rail",
+        "process_timeline"
       ],
       "strength_tags": [
         "phone_visibility",
         "cta_placement",
         "service_clarity",
-        "trust_rail"
+        "trust_rail",
+        "coverage_clarity"
       ],
       "prefer_tones": [
         "professional",
@@ -1313,23 +1348,38 @@
         "trustworthy"
       ],
       "preferred_anchor_pack_ids": {
-        "holland_dirt_black_yellow_v1": 4,
-        "copperbeam_flooring_light_residential_v1": 3
+        "thermaline_hvac_blueprint_grid_v1": 42,
+        "thermaline_heating_air_navy_brass_v1": 28,
+        "holland_dirt_black_yellow_v1": 8,
+        "clear_ridge_water_works_field_blue_v1": 6,
+        "copperbeam_flooring_light_residential_v1": -6,
+        "oakline_cabinetry_craftsmanship_v1": -20,
+        "verdant_line_garden_seasonal_v1": -18,
+        "velvet_fig_beauty_editorial_v1": -18,
+        "signalstack_saas_analytics_ink_v1": -30,
+        "instrument_studio_minimal_interactive_v1": -28
       },
       "prefer_example_tokens": [
         "heating",
         "air",
+        "hvac",
         "mechanical",
-        "plumbing",
-        "electric"
+        "thermaline",
+        "furnace"
       ],
       "blocked_example_tokens": [
-        "wax",
-        "sugaring",
-        "medspa",
+        "cabinetry",
+        "dashboard",
+        "dental",
+        "fight",
+        "garden",
         "law",
         "llp",
-        "dental"
+        "medspa",
+        "mma",
+        "saas",
+        "sugaring",
+        "wax"
       ],
       "support_role": "Use support donors for emergency CTAs, phone visibility, and service-area proof.",
       "ux_role_fallback": [
@@ -1338,7 +1388,19 @@
         "coverage_signal",
         "form_intake",
         "process_steps"
-      ]
+      ],
+      "penalized_anchor_pack_ids": {
+        "signalstack_saas_analytics_ink_v1": -40,
+        "instrument_studio_minimal_interactive_v1": -35,
+        "nimbus_command_palette_v1": -35,
+        "markets_terminal_blue_dashboard_v1": -30,
+        "developer_docs_quickstart_dark_v1": -25,
+        "velvet_fig_beauty_editorial_v1": -20,
+        "aurelia_medspa_editorial_v1": -20,
+        "oakline_cabinetry_craftsmanship_v1": -18,
+        "emberforge_fight_gym_black_red_v1": -16,
+        "iron_circuit_fight_academy_black_copper_v1": -16
+      }
     },
     "water_service": {
       "priority": 18,
@@ -1446,33 +1508,27 @@
     "live_commerce": {
       "priority": 18,
       "aliases": [
+        "broadcast storefront",
+        "comfort product",
+        "cooling product",
         "live commerce",
         "live shopping",
-        "shoppable video",
         "product demo",
         "product education",
-        "cooling product",
-        "comfort product",
-        "tiktok shop",
-        "youtube live",
         "shopify live",
-        "broadcast storefront"
+        "shoppable video",
+        "tiktok shop",
+        "youtube live"
       ],
       "keywords": [
-        "live",
-        "commerce",
-        "shopping",
-        "shoppable",
-        "demo",
-        "product",
-        "cooling",
-        "comfort",
-        "broadcast",
-        "stream",
         "airflow",
+        "broadcast",
+        "bundle",
+        "commerce",
         "schematic",
-        "offer",
-        "bundle"
+        "shoppable",
+        "shopping",
+        "stream"
       ],
       "motif_tags": [
         "product_schematic_svg",
@@ -1505,10 +1561,16 @@
         "premium"
       ],
       "preferred_anchor_pack_ids": {
-        "freezebreeze_live_lab_ice_blue_v1": 30,
+        "freezebreeze_live_lab_ice_blue_v1": 50,
         "copperbeam_flooring_light_residential_v1": -8,
         "holland_dirt_black_yellow_v1": -12,
-        "emberforge_fight_gym_black_red_v1": -12
+        "emberforge_fight_gym_black_red_v1": -12,
+        "oakline_cabinetry_craftsmanship_v1": -20,
+        "verdant_line_garden_seasonal_v1": -18,
+        "thermaline_hvac_blueprint_grid_v1": -12,
+        "reference_product_black_spec_v1": 12,
+        "signalstack_saas_analytics_ink_v1": -20,
+        "orbital_launch_manifest_dark_editorial_v1": -18
       },
       "penalized_anchor_pack_ids": {
         "velvet_fig_beauty_editorial_v1": -8,
@@ -1556,14 +1618,17 @@
       ]
     },
     "roofing": {
-      "priority": 60,
+      "priority": 12,
       "keywords": [
-        "roofing",
-        "roofer",
+        "flashing",
+        "gutter",
+        "gutters",
+        "ridgecap",
         "roof",
+        "roofer",
+        "roofing",
         "shingle",
-        "shingles",
-        "flashing"
+        "shingles"
       ],
       "motif_tags": [
         "trust_rail",
@@ -1583,7 +1648,16 @@
         "high-contrast"
       ],
       "preferred_anchor_pack_ids": {
-        "holland_dirt_black_yellow_v1": 8
+        "gullwing_roofing_coastal_v1": 32,
+        "gullwing_roofing_coastal_copper_v1": 30,
+        "summitline_roofing_blueprint_atelier_v1": 26,
+        "summitline_roofing_graphite_ember_v1": 24,
+        "holland_dirt_black_yellow_v1": 10,
+        "emberforge_fight_gym_black_red_v1": -22,
+        "signalstack_saas_analytics_ink_v1": -30,
+        "instrument_studio_minimal_interactive_v1": -28,
+        "oakline_cabinetry_craftsmanship_v1": -16,
+        "verdant_line_garden_seasonal_v1": -14
       },
       "prefer_example_tokens": [
         "roofing",
@@ -1605,7 +1679,19 @@
         "process_steps",
         "phone_priority_layout",
         "service_area_signal"
-      ]
+      ],
+      "penalized_anchor_pack_ids": {
+        "signalstack_saas_analytics_ink_v1": -40,
+        "instrument_studio_minimal_interactive_v1": -35,
+        "nimbus_command_palette_v1": -35,
+        "markets_terminal_blue_dashboard_v1": -30,
+        "developer_docs_quickstart_dark_v1": -25,
+        "velvet_fig_beauty_editorial_v1": -20,
+        "aurelia_medspa_editorial_v1": -20,
+        "oakline_cabinetry_craftsmanship_v1": -18,
+        "emberforge_fight_gym_black_red_v1": -16,
+        "iron_circuit_fight_academy_black_copper_v1": -16
+      }
     },
     "restoration": {
       "priority": 70,
@@ -1996,7 +2082,7 @@
         "landscape",
         "roofing"
       ],
-      "support_role": "Use support donors for dense table rhythm, filter placement, status chips, and queue ergonomics — not marketing hero patterns.",
+      "support_role": "Use support donors for dense table rhythm, filter placement, status chips, and queue ergonomics \u2014 not marketing hero patterns.",
       "section_plan": [
         "App shell: sticky top bar with product context, global search, primary actions, and user menu.",
         "Summary strip: KPI/status cards for queue depth, SLA risk, and assignment load using neutral tokens.",
@@ -2633,13 +2719,597 @@
         "law"
       ],
       "auto_donor_first": true,
-      "support_role": "Use support donors for service grids, phone-priority CTAs, process steps, and local proof — never beauty or medspa donors.",
+      "support_role": "Use support donors for service grids, phone-priority CTAs, process steps, and local proof \u2014 never beauty or medspa donors.",
       "ux_role_fallback": [
         "phone_priority_layout",
         "service_lane_set",
         "form_intake",
         "process_steps",
         "proof_rail"
+      ]
+    },
+    "plumbing": {
+      "priority": 11,
+      "aliases": [
+        "plumbing contractor",
+        "emergency plumber",
+        "drain cleaning",
+        "water heater install"
+      ],
+      "keywords": [
+        "plumbing",
+        "plumber",
+        "drain",
+        "sewer",
+        "clog",
+        "pipe",
+        "pipes",
+        "water heater",
+        "faucet",
+        "leak",
+        "leaks",
+        "hydro jetting",
+        "hydro-jetting"
+      ],
+      "motif_tags": [
+        "cta_treatment",
+        "phone_pill",
+        "service_map",
+        "proof_cards",
+        "trust_rail",
+        "process_timeline"
+      ],
+      "strength_tags": [
+        "phone_visibility",
+        "cta_placement",
+        "service_clarity",
+        "trust_rail",
+        "coverage_clarity"
+      ],
+      "prefer_tones": [
+        "professional",
+        "industrial",
+        "trustworthy",
+        "field-service"
+      ],
+      "preferred_anchor_pack_ids": {
+        "pipewise_plumbing_diagnostic_cobalt_v1": 36,
+        "pipewise_plumbing_telemetry_v1": 30,
+        "stillwater_plumbing_dark_editorial_v1": 28,
+        "stillwater_plumbing_slate_copper_v1": 24,
+        "clear_ridge_water_works_field_blue_v1": 14,
+        "holland_dirt_black_yellow_v1": 8,
+        "oakline_cabinetry_craftsmanship_v1": -22,
+        "verdant_line_garden_seasonal_v1": -18,
+        "gatewood_fence_atelier_v1": -10
+      },
+      "penalized_anchor_pack_ids": {
+        "signalstack_saas_analytics_ink_v1": -40,
+        "instrument_studio_minimal_interactive_v1": -35,
+        "nimbus_command_palette_v1": -35,
+        "markets_terminal_blue_dashboard_v1": -30,
+        "developer_docs_quickstart_dark_v1": -25,
+        "velvet_fig_beauty_editorial_v1": -20,
+        "aurelia_medspa_editorial_v1": -20,
+        "oakline_cabinetry_craftsmanship_v1": -18,
+        "emberforge_fight_gym_black_red_v1": -16,
+        "iron_circuit_fight_academy_black_copper_v1": -16
+      },
+      "prefer_example_tokens": [
+        "plumbing",
+        "plumber",
+        "drain",
+        "sewer",
+        "clog",
+        "pipe",
+        "pipes",
+        "water heater"
+      ],
+      "blocked_example_tokens": [
+        "wax",
+        "medspa",
+        "saas",
+        "dashboard",
+        "mma",
+        "fight",
+        "law",
+        "llp"
+      ],
+      "auto_donor_first": true,
+      "support_role": "Use support donors for phone-forward field-service CTAs, service-area clarity, quote flow, and proof-safe process hierarchy; never invent licenses, reviews, or response times.",
+      "claim_guardrails": [
+        "Do not invent licenses, certifications, reviews, ratings, response times, service towns, guarantees, or years in business."
+      ],
+      "reject_patterns": [
+        "SaaS dashboard chrome, beauty/medspa softness, fight-gym darkness, cabinetry portfolio for non-cabinetry trades"
+      ],
+      "ux_role_fallback": [
+        "phone_priority_layout",
+        "service_area_signal",
+        "coverage_signal",
+        "form_intake",
+        "process_steps"
+      ]
+    },
+    "electrical": {
+      "priority": 11,
+      "aliases": [
+        "electrical contractor",
+        "electrical services",
+        "licensed electrician"
+      ],
+      "keywords": [
+        "electrician",
+        "electrical",
+        "electric",
+        "wiring",
+        "panel",
+        "breaker",
+        "outlet",
+        "lighting install",
+        "ev charger",
+        "generator"
+      ],
+      "motif_tags": [
+        "cta_treatment",
+        "phone_pill",
+        "service_map",
+        "proof_cards",
+        "trust_rail",
+        "process_timeline"
+      ],
+      "strength_tags": [
+        "phone_visibility",
+        "cta_placement",
+        "service_clarity",
+        "trust_rail",
+        "coverage_clarity"
+      ],
+      "prefer_tones": [
+        "professional",
+        "industrial",
+        "trustworthy",
+        "field-service"
+      ],
+      "preferred_anchor_pack_ids": {
+        "clear_ridge_water_works_field_blue_v1": 42,
+        "axlecraft_garage_door_industrial_v1": -8,
+        "holland_dirt_black_yellow_v1": 20,
+        "thermaline_hvac_blueprint_grid_v1": 10,
+        "verdant_line_garden_seasonal_v1": -28,
+        "ashgrove_landscape_editorial_v1": -20,
+        "oakline_cabinetry_craftsmanship_v1": -18,
+        "signalstack_saas_analytics_ink_v1": -30
+      },
+      "penalized_anchor_pack_ids": {
+        "signalstack_saas_analytics_ink_v1": -40,
+        "instrument_studio_minimal_interactive_v1": -35,
+        "nimbus_command_palette_v1": -35,
+        "markets_terminal_blue_dashboard_v1": -30,
+        "developer_docs_quickstart_dark_v1": -25,
+        "velvet_fig_beauty_editorial_v1": -20,
+        "aurelia_medspa_editorial_v1": -20,
+        "oakline_cabinetry_craftsmanship_v1": -18,
+        "emberforge_fight_gym_black_red_v1": -16,
+        "iron_circuit_fight_academy_black_copper_v1": -16
+      },
+      "prefer_example_tokens": [
+        "electrician",
+        "electrical",
+        "electric",
+        "wiring",
+        "panel",
+        "breaker",
+        "outlet",
+        "lighting install"
+      ],
+      "blocked_example_tokens": [
+        "wax",
+        "medspa",
+        "saas",
+        "dashboard",
+        "mma",
+        "fight",
+        "law",
+        "llp"
+      ],
+      "auto_donor_first": true,
+      "support_role": "Use support donors for phone-forward field-service CTAs, service-area clarity, quote flow, and proof-safe process hierarchy; never invent licenses, reviews, or response times.",
+      "claim_guardrails": [
+        "Do not invent licenses, certifications, reviews, ratings, response times, service towns, guarantees, or years in business."
+      ],
+      "reject_patterns": [
+        "SaaS dashboard chrome, beauty/medspa softness, fight-gym darkness, cabinetry portfolio for non-cabinetry trades"
+      ],
+      "ux_role_fallback": [
+        "phone_priority_layout",
+        "service_area_signal",
+        "coverage_signal",
+        "form_intake",
+        "process_steps"
+      ]
+    },
+    "pest_control": {
+      "priority": 10,
+      "aliases": [
+        "pest control company",
+        "termite control",
+        "exterminator service"
+      ],
+      "keywords": [
+        "pest",
+        "pest control",
+        "termite",
+        "termites",
+        "exterminator",
+        "exterminating",
+        "rodent",
+        "rodents",
+        "mosquito",
+        "bed bug",
+        "bedbug",
+        "infestation",
+        "wildlife removal"
+      ],
+      "motif_tags": [
+        "cta_treatment",
+        "phone_pill",
+        "service_map",
+        "proof_cards",
+        "trust_rail",
+        "process_timeline"
+      ],
+      "strength_tags": [
+        "phone_visibility",
+        "cta_placement",
+        "service_clarity",
+        "trust_rail",
+        "coverage_clarity"
+      ],
+      "prefer_tones": [
+        "professional",
+        "industrial",
+        "trustworthy",
+        "field-service"
+      ],
+      "preferred_anchor_pack_ids": {
+        "clear_ridge_water_works_field_blue_v1": 48,
+        "holland_dirt_black_yellow_v1": 22,
+        "verdant_line_garden_seasonal_v1": -12,
+        "oakline_cabinetry_craftsmanship_v1": -32,
+        "velvet_fig_beauty_editorial_v1": -20,
+        "signalstack_saas_analytics_ink_v1": -30,
+        "instrument_studio_minimal_interactive_v1": -28,
+        "ashgrove_landscape_editorial_v1": -10
+      },
+      "penalized_anchor_pack_ids": {
+        "signalstack_saas_analytics_ink_v1": -40,
+        "instrument_studio_minimal_interactive_v1": -35,
+        "nimbus_command_palette_v1": -35,
+        "markets_terminal_blue_dashboard_v1": -30,
+        "developer_docs_quickstart_dark_v1": -25,
+        "velvet_fig_beauty_editorial_v1": -20,
+        "aurelia_medspa_editorial_v1": -20,
+        "oakline_cabinetry_craftsmanship_v1": -18,
+        "emberforge_fight_gym_black_red_v1": -16,
+        "iron_circuit_fight_academy_black_copper_v1": -16
+      },
+      "prefer_example_tokens": [
+        "pest",
+        "pest control",
+        "termite",
+        "termites",
+        "exterminator",
+        "exterminating",
+        "rodent",
+        "rodents"
+      ],
+      "blocked_example_tokens": [
+        "wax",
+        "medspa",
+        "saas",
+        "dashboard",
+        "mma",
+        "fight",
+        "law",
+        "llp"
+      ],
+      "auto_donor_first": true,
+      "support_role": "Use support donors for phone-forward field-service CTAs, service-area clarity, quote flow, and proof-safe process hierarchy; never invent licenses, reviews, or response times.",
+      "claim_guardrails": [
+        "Do not invent licenses, certifications, reviews, ratings, response times, service towns, guarantees, or years in business."
+      ],
+      "reject_patterns": [
+        "SaaS dashboard chrome, beauty/medspa softness, fight-gym darkness, cabinetry portfolio for non-cabinetry trades"
+      ],
+      "ux_role_fallback": [
+        "phone_priority_layout",
+        "service_area_signal",
+        "coverage_signal",
+        "form_intake",
+        "process_steps"
+      ]
+    },
+    "tree_service": {
+      "priority": 11,
+      "aliases": [
+        "tree service",
+        "tree removal",
+        "stump grinding",
+        "arborist service"
+      ],
+      "keywords": [
+        "tree",
+        "trees",
+        "arborist",
+        "stump",
+        "stumps",
+        "canopy",
+        "tree removal",
+        "tree service",
+        "logging",
+        "chipper"
+      ],
+      "motif_tags": [
+        "cta_treatment",
+        "phone_pill",
+        "service_map",
+        "proof_cards",
+        "trust_rail",
+        "process_timeline"
+      ],
+      "strength_tags": [
+        "phone_visibility",
+        "cta_placement",
+        "service_clarity",
+        "trust_rail",
+        "coverage_clarity"
+      ],
+      "prefer_tones": [
+        "professional",
+        "industrial",
+        "trustworthy",
+        "field-service"
+      ],
+      "preferred_anchor_pack_ids": {
+        "verdant_line_garden_seasonal_v1": 34,
+        "ashgrove_landscape_editorial_v1": 28,
+        "terraverde_ecoscapes_limestone_evergreen_v1": 16,
+        "terraverde_ecoscapes_split_estate_v1": 14,
+        "holland_dirt_black_yellow_v1": 6,
+        "oakline_cabinetry_craftsmanship_v1": -18,
+        "signalstack_saas_analytics_ink_v1": -28,
+        "instrument_studio_minimal_interactive_v1": -26
+      },
+      "penalized_anchor_pack_ids": {
+        "signalstack_saas_analytics_ink_v1": -40,
+        "instrument_studio_minimal_interactive_v1": -35,
+        "nimbus_command_palette_v1": -35,
+        "markets_terminal_blue_dashboard_v1": -30,
+        "developer_docs_quickstart_dark_v1": -25,
+        "velvet_fig_beauty_editorial_v1": -20,
+        "aurelia_medspa_editorial_v1": -20,
+        "oakline_cabinetry_craftsmanship_v1": -18,
+        "emberforge_fight_gym_black_red_v1": -16,
+        "iron_circuit_fight_academy_black_copper_v1": -16
+      },
+      "prefer_example_tokens": [
+        "tree",
+        "trees",
+        "arborist",
+        "stump",
+        "stumps",
+        "canopy",
+        "tree removal",
+        "tree service"
+      ],
+      "blocked_example_tokens": [
+        "wax",
+        "medspa",
+        "saas",
+        "dashboard",
+        "mma",
+        "fight",
+        "law",
+        "llp"
+      ],
+      "auto_donor_first": true,
+      "support_role": "Use support donors for phone-forward field-service CTAs, service-area clarity, quote flow, and proof-safe process hierarchy; never invent licenses, reviews, or response times.",
+      "claim_guardrails": [
+        "Do not invent licenses, certifications, reviews, ratings, response times, service towns, guarantees, or years in business."
+      ],
+      "reject_patterns": [
+        "SaaS dashboard chrome, beauty/medspa softness, fight-gym darkness, cabinetry portfolio for non-cabinetry trades"
+      ],
+      "ux_role_fallback": [
+        "phone_priority_layout",
+        "service_area_signal",
+        "coverage_signal",
+        "form_intake",
+        "process_steps"
+      ]
+    },
+    "fencing": {
+      "priority": 11,
+      "aliases": [
+        "fence contractor",
+        "fencing company",
+        "fence installation"
+      ],
+      "keywords": [
+        "fence",
+        "fencing",
+        "gates",
+        "gate install",
+        "privacy fence",
+        "chain link",
+        "wood fence",
+        "aluminum fence"
+      ],
+      "motif_tags": [
+        "cta_treatment",
+        "phone_pill",
+        "service_map",
+        "proof_cards",
+        "trust_rail",
+        "process_timeline"
+      ],
+      "strength_tags": [
+        "phone_visibility",
+        "cta_placement",
+        "service_clarity",
+        "trust_rail",
+        "coverage_clarity"
+      ],
+      "prefer_tones": [
+        "professional",
+        "industrial",
+        "trustworthy",
+        "field-service"
+      ],
+      "preferred_anchor_pack_ids": {
+        "gatewood_fence_atelier_v1": 36,
+        "gatewood_fence_brass_atelier_v1": 32,
+        "holland_dirt_black_yellow_v1": 12,
+        "ashgrove_landscape_editorial_v1": 10,
+        "verdant_line_garden_seasonal_v1": 6,
+        "cedarbrook_dental_champagne_editorial_v1": -24,
+        "oakline_cabinetry_craftsmanship_v1": -16,
+        "signalstack_saas_analytics_ink_v1": -28
+      },
+      "penalized_anchor_pack_ids": {
+        "signalstack_saas_analytics_ink_v1": -40,
+        "instrument_studio_minimal_interactive_v1": -35,
+        "nimbus_command_palette_v1": -35,
+        "markets_terminal_blue_dashboard_v1": -30,
+        "developer_docs_quickstart_dark_v1": -25,
+        "velvet_fig_beauty_editorial_v1": -20,
+        "aurelia_medspa_editorial_v1": -20,
+        "oakline_cabinetry_craftsmanship_v1": -18,
+        "emberforge_fight_gym_black_red_v1": -16,
+        "iron_circuit_fight_academy_black_copper_v1": -16
+      },
+      "prefer_example_tokens": [
+        "fence",
+        "fencing",
+        "gates",
+        "gate install",
+        "privacy fence",
+        "chain link",
+        "wood fence",
+        "aluminum fence"
+      ],
+      "blocked_example_tokens": [
+        "wax",
+        "medspa",
+        "saas",
+        "dashboard",
+        "mma",
+        "fight",
+        "law",
+        "llp"
+      ],
+      "auto_donor_first": true,
+      "support_role": "Use support donors for phone-forward field-service CTAs, service-area clarity, quote flow, and proof-safe process hierarchy; never invent licenses, reviews, or response times.",
+      "claim_guardrails": [
+        "Do not invent licenses, certifications, reviews, ratings, response times, service towns, guarantees, or years in business."
+      ],
+      "reject_patterns": [
+        "SaaS dashboard chrome, beauty/medspa softness, fight-gym darkness, cabinetry portfolio for non-cabinetry trades"
+      ],
+      "ux_role_fallback": [
+        "phone_priority_layout",
+        "service_area_signal",
+        "coverage_signal",
+        "form_intake",
+        "process_steps"
+      ]
+    },
+    "garage_door": {
+      "priority": 11,
+      "aliases": [
+        "garage door service",
+        "garage door repair",
+        "garage door installation"
+      ],
+      "keywords": [
+        "garage door",
+        "garage doors",
+        "overhead door",
+        "opener",
+        "spring replacement"
+      ],
+      "motif_tags": [
+        "cta_treatment",
+        "phone_pill",
+        "service_map",
+        "proof_cards",
+        "trust_rail",
+        "process_timeline"
+      ],
+      "strength_tags": [
+        "phone_visibility",
+        "cta_placement",
+        "service_clarity",
+        "trust_rail",
+        "coverage_clarity"
+      ],
+      "prefer_tones": [
+        "professional",
+        "industrial",
+        "trustworthy",
+        "field-service"
+      ],
+      "preferred_anchor_pack_ids": {
+        "axlecraft_garage_door_industrial_v1": 40,
+        "holland_dirt_black_yellow_v1": 12,
+        "clear_ridge_water_works_field_blue_v1": 8,
+        "oakline_cabinetry_craftsmanship_v1": -16,
+        "signalstack_saas_analytics_ink_v1": -28
+      },
+      "penalized_anchor_pack_ids": {
+        "signalstack_saas_analytics_ink_v1": -40,
+        "instrument_studio_minimal_interactive_v1": -35,
+        "nimbus_command_palette_v1": -35,
+        "markets_terminal_blue_dashboard_v1": -30,
+        "developer_docs_quickstart_dark_v1": -25,
+        "velvet_fig_beauty_editorial_v1": -20,
+        "aurelia_medspa_editorial_v1": -20,
+        "oakline_cabinetry_craftsmanship_v1": -18,
+        "emberforge_fight_gym_black_red_v1": -16,
+        "iron_circuit_fight_academy_black_copper_v1": -16
+      },
+      "prefer_example_tokens": [
+        "garage door",
+        "garage doors",
+        "overhead door",
+        "opener",
+        "spring replacement"
+      ],
+      "blocked_example_tokens": [
+        "wax",
+        "medspa",
+        "saas",
+        "dashboard",
+        "mma",
+        "fight",
+        "law",
+        "llp"
+      ],
+      "auto_donor_first": true,
+      "support_role": "Use support donors for phone-forward field-service CTAs, service-area clarity, quote flow, and proof-safe process hierarchy; never invent licenses, reviews, or response times.",
+      "claim_guardrails": [
+        "Do not invent licenses, certifications, reviews, ratings, response times, service towns, guarantees, or years in business."
+      ],
+      "reject_patterns": [
+        "SaaS dashboard chrome, beauty/medspa softness, fight-gym darkness, cabinetry portfolio for non-cabinetry trades"
+      ],
+      "ux_role_fallback": [
+        "phone_priority_layout",
+        "service_area_signal",
+        "coverage_signal",
+        "form_intake",
+        "process_steps"
       ]
     }
   },

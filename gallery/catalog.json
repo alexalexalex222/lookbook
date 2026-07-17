@@ -1,0 +1,3168 @@
+[
+  {
+    "id": "ashgrove_landscape_editorial_v1",
+    "pack_id": "ashgrove_landscape_editorial_v1",
+    "bank": "ashgrove_landscape_editorial_v1",
+    "role": "anchor",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "light",
+      "warm",
+      "architectural",
+      "natural",
+      "editorial",
+      "restrained"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "light_precision",
+      "headline_hierarchy",
+      "split_hero",
+      "material_showcase",
+      "process_timeline"
+    ],
+    "path": "goldensets/website/ashgrove_landscape_editorial_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/ashgrove_landscape_editorial_v1/source_snapshot/index.html",
+    "bytes": 169727
+  },
+  {
+    "id": "aurelia_medspa_editorial_v1",
+    "pack_id": "aurelia_medspa_editorial_v1",
+    "bank": "aurelia_medspa_editorial_v1",
+    "role": "anchor",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "beauty",
+      "clinical",
+      "editorial",
+      "refined",
+      "dark"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "light_precision",
+      "headline_hierarchy",
+      "trust_rail",
+      "split_hero",
+      "glass_panel",
+      "process_timeline"
+    ],
+    "path": "goldensets/website/aurelia_medspa_editorial_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/aurelia_medspa_editorial_v1/source_snapshot/index.html",
+    "bytes": 155606
+  },
+  {
+    "id": "clear_ridge_water_works_field_blue_v1",
+    "pack_id": "clear_ridge_water_works_field_blue_v1",
+    "bank": "clear_ridge_water_works_field_blue_v1",
+    "role": "anchor",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "technical",
+      "trustworthy",
+      "calm",
+      "field-service",
+      "light-with-dark-panels",
+      "practical"
+    ],
+    "motifs": [
+      "diagnostic_panel",
+      "issue_selector",
+      "water_flow_line",
+      "contour_map",
+      "equipment_diagram",
+      "system_cutaway",
+      "emergency_vs_planned_split",
+      "field_service_quote_flow",
+      "service_area_shell",
+      "asymmetric_plan_comparison",
+      "proof_safe_record",
+      "field_note_detail",
+      "sticky_nav",
+      "dark_diagnostic_surface"
+    ],
+    "path": "goldensets/website/clear_ridge_water_works_field_blue_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/clear_ridge_water_works_field_blue_v1/source_snapshot/index.html",
+    "bytes": 164587
+  },
+  {
+    "id": "copperbeam_flooring_light_residential_v1",
+    "pack_id": "copperbeam_flooring_light_residential_v1",
+    "bank": "copperbeam_flooring_light_residential_v1",
+    "role": "anchor",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "light",
+      "warm",
+      "residential",
+      "restrained",
+      "craftsmanship"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "light_precision",
+      "headline_hierarchy",
+      "trust_rail",
+      "phone_pill",
+      "split_hero"
+    ],
+    "path": "goldensets/website/copperbeam_flooring_light_residential_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/copperbeam_flooring_light_residential_v1/source_snapshot/index.html",
+    "bytes": 139686
+  },
+  {
+    "id": "developer_docs_quickstart_dark_v1",
+    "pack_id": "developer_docs_quickstart_dark_v1",
+    "bank": "developer_docs_quickstart_dark_v1",
+    "role": "anchor",
+    "family": "website.docs",
+    "tones": [
+      "dark",
+      "developer",
+      "precise",
+      "minimal",
+      "technical",
+      "green-accent",
+      "restrained"
+    ],
+    "motifs": [
+      "docs_shell",
+      "sticky_nav",
+      "sidebar_nav",
+      "toc_rail",
+      "code_block",
+      "callout_box",
+      "footer_full",
+      "headline_hierarchy"
+    ],
+    "path": "goldensets/website/developer_docs_quickstart_dark_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/developer_docs_quickstart_dark_v1/source_snapshot/index.html",
+    "bytes": 117315
+  },
+  {
+    "id": "emberforge_fight_gym_black_red_v1",
+    "pack_id": "emberforge_fight_gym_black_red_v1",
+    "bank": "emberforge_fight_gym_black_red_v1",
+    "role": "anchor",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "industrial",
+      "high-contrast",
+      "dark",
+      "professional",
+      "restrained"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "dark_texture",
+      "high_contrast_blocking",
+      "headline_hierarchy",
+      "process_timeline",
+      "proof_cards",
+      "stats_strip",
+      "trust_rail"
+    ],
+    "path": "goldensets/website/emberforge_fight_gym_black_red_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/emberforge_fight_gym_black_red_v1/source_snapshot/index.html",
+    "bytes": 201013
+  },
+  {
+    "id": "freezebreeze_live_lab_ice_blue_v1",
+    "pack_id": "freezebreeze_live_lab_ice_blue_v1",
+    "bank": "freezebreeze_live_lab_ice_blue_v1",
+    "role": "anchor",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/freezebreeze_live_lab_ice_blue_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/freezebreeze_live_lab_ice_blue_v1/source_snapshot/index.html",
+    "bytes": 96718
+  },
+  {
+    "id": "analytics-brutalist",
+    "pack_id": "analytics_brutalist_dashboard_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.saas_dashboard",
+    "tones": [
+      "brutalist",
+      "high-contrast",
+      "light",
+      "technical",
+      "data-dense",
+      "precise"
+    ],
+    "motifs": [
+      "dashboard_panel",
+      "high_contrast_blocking",
+      "stats_strip",
+      "linked_chart_grid",
+      "filter_chip_rail",
+      "data_table_module",
+      "headline_hierarchy",
+      "cta_treatment"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/analytics-brutalist/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/analytics-brutalist/source/index.html",
+    "bytes": 72502
+  },
+  {
+    "id": "analytics-dashboard",
+    "pack_id": "aperture_telemetry_dashboard_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.saas_dashboard",
+    "tones": [
+      "dark",
+      "technical",
+      "data-dense",
+      "precise",
+      "professional",
+      "premium"
+    ],
+    "motifs": [
+      "dashboard_panel",
+      "command_surface",
+      "stats_strip",
+      "glass_panel",
+      "linked_chart_grid",
+      "status_ring_chart",
+      "data_table_module"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/analytics-dashboard/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/analytics-dashboard/source/index.html",
+    "bytes": 90465
+  },
+  {
+    "id": "analytics-editorial",
+    "pack_id": "meridian_editorial_analytics_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.editorial_analytics",
+    "tones": [
+      "editorial",
+      "warm",
+      "serif",
+      "refined",
+      "calm",
+      "almanac"
+    ],
+    "motifs": [
+      "editorial_serif",
+      "cream_contrast_band",
+      "narrative_data_chart",
+      "stats_strip",
+      "headline_hierarchy",
+      "command_surface",
+      "linked_chart_grid"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/analytics-editorial/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/analytics-editorial/source/index.html",
+    "bytes": 76769
+  },
+  {
+    "id": "analytics-ops",
+    "pack_id": "signalgrid_ops_console_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.saas_dashboard",
+    "tones": [
+      "dark",
+      "technical",
+      "data-dense",
+      "green-accent",
+      "precise",
+      "developer"
+    ],
+    "motifs": [
+      "dashboard_panel",
+      "data_terminal",
+      "stats_strip",
+      "linked_chart_grid",
+      "command_surface",
+      "data_table_module",
+      "diagnostic_panel"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/analytics-ops/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/analytics-ops/source/index.html",
+    "bytes": 83225
+  },
+  {
+    "id": "ascii-art",
+    "pack_id": "ascii-art",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/ascii-art/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/ascii-art/source/index.html",
+    "bytes": 63083
+  },
+  {
+    "id": "audio-spectrum-visualizer",
+    "pack_id": "audio-spectrum-visualizer",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/audio-spectrum-visualizer/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/audio-spectrum-visualizer/source/index.html",
+    "bytes": 59369
+  },
+  {
+    "id": "boids",
+    "pack_id": "boids",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/boids/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/boids/source/index.html",
+    "bytes": 65358
+  },
+  {
+    "id": "breakout",
+    "pack_id": "breakout",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/breakout/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/breakout/source/index.html",
+    "bytes": 61831
+  },
+  {
+    "id": "browser-os",
+    "pack_id": "browser-os",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/browser-os/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/browser-os/source/index.html",
+    "bytes": 137804
+  },
+  {
+    "id": "calendar",
+    "pack_id": "daylight_calendar_app_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.productivity_app",
+    "tones": [
+      "light",
+      "professional",
+      "precise",
+      "practical",
+      "restrained",
+      "minimal"
+    ],
+    "motifs": [
+      "month_grid_calendar",
+      "sidebar_nav",
+      "mini_calendar_widget",
+      "event_chip_list",
+      "command_surface",
+      "headline_hierarchy",
+      "tabs_panel"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/calendar/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/calendar/source/index.html",
+    "bytes": 90312
+  },
+  {
+    "id": "calendar-heatmap",
+    "pack_id": "cadence_activity_heatmap_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.editorial_analytics",
+    "tones": [
+      "warm",
+      "editorial",
+      "minimal",
+      "precise",
+      "green-accent",
+      "calm"
+    ],
+    "motifs": [
+      "contribution_heatmap_grid",
+      "stats_strip",
+      "cream_contrast_band",
+      "command_surface",
+      "headline_hierarchy",
+      "dashboard_panel",
+      "analytics_panel_grid"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/calendar-heatmap/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/calendar-heatmap/source/index.html",
+    "bytes": 74498
+  },
+  {
+    "id": "candlestick-ohlc-chart",
+    "pack_id": "candlestick-ohlc-chart",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/candlestick-ohlc-chart/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/candlestick-ohlc-chart/source/index.html",
+    "bytes": 43941
+  },
+  {
+    "id": "chess",
+    "pack_id": "chess",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/chess/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/chess/source/index.html",
+    "bytes": 61306
+  },
+  {
+    "id": "chess-obsidian",
+    "pack_id": "chess-obsidian",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/chess-obsidian/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/chess-obsidian/source/index.html",
+    "bytes": 0
+  },
+  {
+    "id": "chord",
+    "pack_id": "chord",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/chord/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/chord/source/index.html",
+    "bytes": 67961
+  },
+  {
+    "id": "choropleth",
+    "pack_id": "choropleth",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/choropleth/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/choropleth/source/index.html",
+    "bytes": 72711
+  },
+  {
+    "id": "choropleth-parallel",
+    "pack_id": "choropleth-parallel",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/choropleth-parallel/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/choropleth-parallel/source/index.html",
+    "bytes": 53141
+  },
+  {
+    "id": "code-editor",
+    "pack_id": "code-editor",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/code-editor/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/code-editor/source/index.html",
+    "bytes": 113189
+  },
+  {
+    "id": "code-playground",
+    "pack_id": "spark_code_playground_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.saas_dashboard",
+    "tones": [
+      "dark",
+      "technical",
+      "developer",
+      "precise",
+      "minimal",
+      "professional"
+    ],
+    "motifs": [
+      "code_block",
+      "tabs_panel",
+      "command_surface",
+      "dashboard_panel",
+      "instrument_control",
+      "microcopy",
+      "interactive_stage"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/code-playground/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/code-playground/source/index.html",
+    "bytes": 77811
+  },
+  {
+    "id": "command-palette",
+    "pack_id": "nimbus_command_palette_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.saas_dashboard",
+    "tones": [
+      "professional",
+      "technical",
+      "developer",
+      "light",
+      "precise",
+      "minimal"
+    ],
+    "motifs": [
+      "hero_shell",
+      "command_surface",
+      "headline_hierarchy",
+      "stats_strip",
+      "cta_treatment",
+      "sidebar_nav",
+      "microcopy"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/command-palette/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/command-palette/source/index.html",
+    "bytes": 62681
+  },
+  {
+    "id": "contacts",
+    "pack_id": "rolodex_contacts_dashboard_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.productivity_app",
+    "tones": [
+      "warm",
+      "calm",
+      "restrained",
+      "refined",
+      "professional",
+      "trustworthy"
+    ],
+    "motifs": [
+      "sidebar_nav",
+      "dashboard_panel",
+      "toc_rail",
+      "tabs_panel",
+      "headline_hierarchy",
+      "microcopy"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/contacts/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/contacts/source/index.html",
+    "bytes": 77300
+  },
+  {
+    "id": "data-globe",
+    "pack_id": "data-globe",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/data-globe/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/data-globe/source/index.html",
+    "bytes": 70057
+  },
+  {
+    "id": "db-browser",
+    "pack_id": "strata_sql_browser_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.saas_dashboard",
+    "tones": [
+      "dark",
+      "technical",
+      "developer",
+      "data-dense",
+      "precise",
+      "professional"
+    ],
+    "motifs": [
+      "sidebar_nav",
+      "code_block",
+      "specification_table",
+      "command_surface",
+      "dashboard_panel",
+      "data_terminal",
+      "microcopy"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/db-browser/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/db-browser/source/index.html",
+    "bytes": 76548
+  },
+  {
+    "id": "drum-machine",
+    "pack_id": "po16_drum_machine_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.interactive_experience",
+    "tones": [
+      "warm-metal",
+      "craftsmanship",
+      "industrial",
+      "studio",
+      "premium",
+      "precise"
+    ],
+    "motifs": [
+      "instrument_control",
+      "minimal_centerpiece",
+      "interactive_stage",
+      "motion_surface",
+      "microcopy",
+      "material_showcase"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/drum-machine/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/drum-machine/source/index.html",
+    "bytes": 58631
+  },
+  {
+    "id": "duotone",
+    "pack_id": "bichrome_duotone_studio_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.interactive_experience",
+    "tones": [
+      "warm",
+      "editorial",
+      "studio",
+      "precise",
+      "restrained",
+      "light",
+      "interactive"
+    ],
+    "motifs": [
+      "interactive_stage",
+      "instrument_control",
+      "before_after_compare",
+      "minimal_centerpiece",
+      "microcopy",
+      "material_showcase"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/duotone/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/duotone/source/index.html",
+    "bytes": 58033
+  },
+  {
+    "id": "email-client",
+    "pack_id": "paper_email_client_warm_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.productivity_app",
+    "tones": [
+      "warm",
+      "calm",
+      "editorial",
+      "restrained",
+      "light",
+      "refined",
+      "trustworthy"
+    ],
+    "motifs": [
+      "three_pane_shell",
+      "sidebar_nav",
+      "detail_inspector_panel",
+      "keyboard_shortcut_rail",
+      "empty_state_illustration",
+      "command_surface"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/email-client/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/email-client/source/index.html",
+    "bytes": 91708
+  },
+  {
+    "id": "file-manager",
+    "pack_id": "aperture_file_manager_blue_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.productivity_app",
+    "tones": [
+      "light",
+      "precise",
+      "minimal",
+      "professional",
+      "calm",
+      "blue",
+      "restrained"
+    ],
+    "motifs": [
+      "three_pane_shell",
+      "sidebar_nav",
+      "detail_inspector_panel",
+      "command_surface",
+      "empty_state_illustration",
+      "specification_table"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/file-manager/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/file-manager/source/index.html",
+    "bytes": 80000
+  },
+  {
+    "id": "flashcards",
+    "pack_id": "lantern_flashcards_warm_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.productivity_app",
+    "tones": [
+      "warm",
+      "calm",
+      "quiet",
+      "restrained",
+      "light",
+      "warm-neutral"
+    ],
+    "motifs": [
+      "sidebar_nav",
+      "interactive_stage",
+      "empty_state_illustration",
+      "microcopy",
+      "keyboard_shortcut_rail",
+      "stats_strip"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/flashcards/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/flashcards/source/index.html",
+    "bytes": 78395
+  },
+  {
+    "id": "font-playground",
+    "pack_id": "specimen_type_lab_editorial_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.interactive_experience",
+    "tones": [
+      "light",
+      "editorial",
+      "warm",
+      "precise",
+      "studio",
+      "restrained"
+    ],
+    "motifs": [
+      "hero_shell",
+      "interactive_stage",
+      "instrument_control",
+      "specification_table",
+      "microcopy",
+      "editorial_serif"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/font-playground/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/font-playground/source/index.html",
+    "bytes": 73017
+  },
+  {
+    "id": "gantt",
+    "pack_id": "meridian_gantt_timeline_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.productivity_app",
+    "tones": [
+      "light",
+      "precise",
+      "professional",
+      "data-dense",
+      "restrained",
+      "trustworthy"
+    ],
+    "motifs": [
+      "schedule_matrix",
+      "detail_inspector_panel",
+      "command_surface",
+      "process_timeline",
+      "empty_state_illustration",
+      "three_pane_shell"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/gantt/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/gantt/source/index.html",
+    "bytes": 74200
+  },
+  {
+    "id": "gear-train",
+    "pack_id": "gear-train",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/gear-train/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/gear-train/source/index.html",
+    "bytes": 62043
+  },
+  {
+    "id": "git-graph",
+    "pack_id": "loom_git_graph_dark_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.productivity_app",
+    "tones": [
+      "dark",
+      "technical",
+      "developer",
+      "data-dense",
+      "precise",
+      "high-contrast"
+    ],
+    "motifs": [
+      "three_pane_shell",
+      "detail_inspector_panel",
+      "data_terminal",
+      "command_surface",
+      "sidebar_nav",
+      "empty_state_illustration"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/git-graph/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/git-graph/source/index.html",
+    "bytes": 64098
+  },
+  {
+    "id": "glitch-lab",
+    "pack_id": "glitchlab_rgb_shift_neon_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.interactive_experience",
+    "tones": [
+      "dark",
+      "high-contrast",
+      "experimental",
+      "technical",
+      "studio",
+      "interactive"
+    ],
+    "motifs": [
+      "interactive_stage",
+      "instrument_control",
+      "before_after_compare",
+      "data_terminal",
+      "microcopy",
+      "dark_texture"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/glitch-lab/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/glitch-lab/source/index.html",
+    "bytes": 57446
+  },
+  {
+    "id": "gltf-inspector",
+    "pack_id": "gltf-inspector",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/gltf-inspector/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/gltf-inspector/source/index.html",
+    "bytes": 64534
+  },
+  {
+    "id": "gradient-studio",
+    "pack_id": "meld_gradient_studio_dark_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.interactive_experience",
+    "tones": [
+      "dark",
+      "premium",
+      "technical",
+      "precise",
+      "studio",
+      "interactive"
+    ],
+    "motifs": [
+      "interactive_stage",
+      "instrument_control",
+      "tabs_panel",
+      "glass_panel",
+      "microcopy",
+      "minimal_centerpiece"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/gradient-studio/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/gradient-studio/source/index.html",
+    "bytes": 111235
+  },
+  {
+    "id": "image-cropper",
+    "pack_id": "image-cropper",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/image-cropper/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/image-cropper/source/index.html",
+    "bytes": 64548
+  },
+  {
+    "id": "json-tree",
+    "pack_id": "prism_json_inspector_dark_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.productivity_app",
+    "tones": [
+      "dark",
+      "technical",
+      "developer",
+      "precise",
+      "minimal",
+      "data-dense"
+    ],
+    "motifs": [
+      "command_surface",
+      "data_terminal",
+      "code_block",
+      "specification_table",
+      "empty_state_illustration",
+      "keyboard_shortcut_rail"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/json-tree/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/json-tree/source/index.html",
+    "bytes": 113228
+  },
+  {
+    "id": "kanban-board",
+    "pack_id": "kanban_board_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.productivity_app",
+    "tones": [
+      "light",
+      "professional",
+      "minimal",
+      "precise",
+      "restrained",
+      "trustworthy",
+      "practical"
+    ],
+    "motifs": [
+      "dashboard_panel",
+      "kanban_columns",
+      "drag_drop_card",
+      "card_board_layout",
+      "empty_state_pattern",
+      "app_toolbar",
+      "microcopy"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/kanban-board/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/kanban-board/source/index.html",
+    "bytes": 46920
+  },
+  {
+    "id": "markdown-editor",
+    "pack_id": "markdown_editor_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.interactive_experience",
+    "tones": [
+      "warm",
+      "editorial",
+      "calm",
+      "restrained",
+      "premium",
+      "quiet",
+      "serif"
+    ],
+    "motifs": [
+      "editorial_serif",
+      "code_block",
+      "microcopy",
+      "callout_box",
+      "split_pane_editor",
+      "live_preview_pane",
+      "toolbar_header"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/markdown-editor/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/markdown-editor/source/index.html",
+    "bytes": 56798
+  },
+  {
+    "id": "mind-map",
+    "pack_id": "mind_map_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.interactive_experience",
+    "tones": [
+      "dark",
+      "minimal",
+      "interactive",
+      "studio",
+      "precise",
+      "technical",
+      "premium"
+    ],
+    "motifs": [
+      "interactive_stage",
+      "motion_surface",
+      "minimal_centerpiece",
+      "node_link_diagram",
+      "spatial_canvas",
+      "canvas_minimap",
+      "keyboard_shortcut_help"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/mind-map/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/mind-map/source/index.html",
+    "bytes": 54236
+  },
+  {
+    "id": "music-player",
+    "pack_id": "music-player",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/music-player/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/music-player/source/index.html",
+    "bytes": 79214
+  },
+  {
+    "id": "network-graph",
+    "pack_id": "network-graph",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/network-graph/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/network-graph/source/index.html",
+    "bytes": 85068
+  },
+  {
+    "id": "node-graph",
+    "pack_id": "node-graph",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/node-graph/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/node-graph/source/index.html",
+    "bytes": 108161
+  },
+  {
+    "id": "notifications",
+    "pack_id": "notifications",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/notifications/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/notifications/source/index.html",
+    "bytes": 97440
+  },
+  {
+    "id": "orrery",
+    "pack_id": "orrery",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/orrery/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/orrery/source/index.html",
+    "bytes": 59278
+  },
+  {
+    "id": "particle-flow",
+    "pack_id": "particle-flow",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/particle-flow/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/particle-flow/source/index.html",
+    "bytes": 49181
+  },
+  {
+    "id": "pattern-generator",
+    "pack_id": "pattern_generator_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.interactive_experience",
+    "tones": [
+      "light",
+      "minimal",
+      "precise",
+      "restrained",
+      "warm-neutral",
+      "technical",
+      "quiet"
+    ],
+    "motifs": [
+      "interactive_stage",
+      "instrument_control",
+      "minimal_centerpiece",
+      "preset_swatch_grid",
+      "export_bar",
+      "parametric_controls",
+      "geometry_sliders"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/pattern-generator/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/pattern-generator/source/index.html",
+    "bytes": 50686
+  },
+  {
+    "id": "pattern-generator-s2",
+    "pack_id": "pattern_generator_s2_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.interactive_experience",
+    "tones": [
+      "editorial",
+      "premium",
+      "high-contrast",
+      "warm-neutral",
+      "precise",
+      "restrained"
+    ],
+    "motifs": [
+      "interactive_stage",
+      "instrument_control",
+      "headline_hierarchy",
+      "numbered_principles",
+      "preset_swatch_grid",
+      "export_bar",
+      "eyebrow_label"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/pattern-generator-s2/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/pattern-generator-s2/source/index.html",
+    "bytes": 45455
+  },
+  {
+    "id": "physics-sandbox",
+    "pack_id": "physics-sandbox",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/physics-sandbox/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/physics-sandbox/source/index.html",
+    "bytes": 55752
+  },
+  {
+    "id": "pixel-editor",
+    "pack_id": "pixel-editor",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/pixel-editor/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/pixel-editor/source/index.html",
+    "bytes": 71721
+  },
+  {
+    "id": "product-configurator-3d",
+    "pack_id": "product_configurator_3d_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.product_detail",
+    "tones": [
+      "dark",
+      "luxury",
+      "premium",
+      "warm-metal",
+      "restrained",
+      "high-contrast",
+      "studio"
+    ],
+    "motifs": [
+      "product_hero",
+      "material_showcase",
+      "instrument_control",
+      "interactive_stage",
+      "pricing_panel",
+      "product_3d_viewer",
+      "swatch_selector"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/product-configurator-3d/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/product-configurator-3d/source/index.html",
+    "bytes": 81177
+  },
+  {
+    "id": "qr-styler",
+    "pack_id": "qr-styler",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/qr-styler/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/qr-styler/source/index.html",
+    "bytes": 99744
+  },
+  {
+    "id": "racer",
+    "pack_id": "racer",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/racer/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/racer/source/index.html",
+    "bytes": 60838
+  },
+  {
+    "id": "raymarched-sdf-metaball",
+    "pack_id": "raymarched-sdf-metaball",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/raymarched-sdf-metaball/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/raymarched-sdf-metaball/source/index.html",
+    "bytes": 40525
+  },
+  {
+    "id": "regex-tester",
+    "pack_id": "regex_lab_devtool_dark_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.developer_tool",
+    "tones": [
+      "dark",
+      "developer",
+      "technical",
+      "precise",
+      "data-dense",
+      "restrained"
+    ],
+    "motifs": [
+      "code_block",
+      "command_surface",
+      "tabs_panel",
+      "live_match_explain_rail",
+      "stats_footer_bar",
+      "headline_hierarchy"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/regex-tester/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/regex-tester/source/index.html",
+    "bytes": 74530
+  },
+  {
+    "id": "roguelike",
+    "pack_id": "roguelike",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/roguelike/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/roguelike/source/index.html",
+    "bytes": 65380
+  },
+  {
+    "id": "sankey",
+    "pack_id": "sankey",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/sankey/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/sankey/source/index.html",
+    "bytes": 59368
+  },
+  {
+    "id": "settings",
+    "pack_id": "aperture_settings_appshell_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.saas_dashboard",
+    "tones": [
+      "light",
+      "professional",
+      "precise",
+      "minimal",
+      "restrained",
+      "practical",
+      "trustworthy"
+    ],
+    "motifs": [
+      "sidebar_nav",
+      "command_surface",
+      "headline_hierarchy",
+      "settings_panel_group",
+      "toggle_control_row",
+      "segmented_control",
+      "master_detail_nav"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/settings/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/settings/source/index.html",
+    "bytes": 76130
+  },
+  {
+    "id": "solitaire",
+    "pack_id": "solitaire",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/solitaire/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/solitaire/source/index.html",
+    "bytes": 64200
+  },
+  {
+    "id": "spreadsheet",
+    "pack_id": "lattice_formula_spreadsheet_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.saas_dashboard",
+    "tones": [
+      "light",
+      "professional",
+      "precise",
+      "data-dense",
+      "practical",
+      "restrained"
+    ],
+    "motifs": [
+      "data_grid",
+      "formula_bar",
+      "toolbar_ribbon",
+      "cell_selection_state",
+      "headline_hierarchy",
+      "command_surface"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/spreadsheet/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/spreadsheet/source/index.html",
+    "bytes": 102751
+  },
+  {
+    "id": "sql-builder",
+    "pack_id": "querycraft_sql_builder_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.developer_tool",
+    "tones": [
+      "light",
+      "technical",
+      "precise",
+      "professional",
+      "data-dense",
+      "restrained"
+    ],
+    "motifs": [
+      "code_block",
+      "command_surface",
+      "specification_table",
+      "filter_condition_builder",
+      "query_preview_panel",
+      "empty_state_prompt"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/sql-builder/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/sql-builder/source/index.html",
+    "bytes": 73590
+  },
+  {
+    "id": "streaming-line",
+    "pack_id": "streaming-line",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/streaming-line/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/streaming-line/source/index.html",
+    "bytes": 57390
+  },
+  {
+    "id": "sudoku",
+    "pack_id": "sudoku",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/sudoku/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/sudoku/source/index.html",
+    "bytes": 45554
+  },
+  {
+    "id": "sunburst",
+    "pack_id": "sunburst",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/sunburst/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/sunburst/source/index.html",
+    "bytes": 43063
+  },
+  {
+    "id": "svg-stroke",
+    "pack_id": "atelier_stroke_svg_animator_v1",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "website.interactive_experience",
+    "tones": [
+      "warm-neutral",
+      "light",
+      "editorial",
+      "minimal",
+      "precise",
+      "studio"
+    ],
+    "motifs": [
+      "minimal_centerpiece",
+      "instrument_control",
+      "interactive_stage",
+      "preset_selector_grid",
+      "playback_scrubber",
+      "upload_dropzone"
+    ],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/svg-stroke/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/svg-stroke/source/index.html",
+    "bytes": 60234
+  },
+  {
+    "id": "terminal",
+    "pack_id": "terminal",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/terminal/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/terminal/source/index.html",
+    "bytes": 90838
+  },
+  {
+    "id": "terrain",
+    "pack_id": "terrain",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/terrain/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/terrain/source/index.html",
+    "bytes": 76508
+  },
+  {
+    "id": "tower-defense",
+    "pack_id": "tower-defense",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/tower-defense/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/tower-defense/source/index.html",
+    "bytes": 53125
+  },
+  {
+    "id": "treemap",
+    "pack_id": "treemap",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/treemap/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/treemap/source/index.html",
+    "bytes": 49608
+  },
+  {
+    "id": "typing-test",
+    "pack_id": "typing-test",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/typing-test/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/typing-test/source/index.html",
+    "bytes": 53541
+  },
+  {
+    "id": "voxel-sandbox",
+    "pack_id": "voxel-sandbox",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/voxel-sandbox/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/voxel-sandbox/source/index.html",
+    "bytes": 79546
+  },
+  {
+    "id": "whiteboard",
+    "pack_id": "whiteboard",
+    "bank": "frontier_pattern_bank_20260628_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/frontier_pattern_bank_20260628_v1/examples/whiteboard/source/index.html",
+    "url": "/goldensets/website/frontier_pattern_bank_20260628_v1/examples/whiteboard/source/index.html",
+    "bytes": 70192
+  },
+  {
+    "id": "holland_dirt_black_yellow_v1",
+    "pack_id": "holland_dirt_black_yellow_v1",
+    "bank": "holland_dirt_black_yellow_v1",
+    "role": "anchor",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "industrial",
+      "high-contrast",
+      "dark"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "comparison_module",
+      "cta_treatment",
+      "dark_texture",
+      "high_contrast_blocking",
+      "headline_hierarchy",
+      "trust_rail"
+    ],
+    "path": "goldensets/website/holland_dirt_black_yellow_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/holland_dirt_black_yellow_v1/source_snapshot/index.html",
+    "bytes": 178905
+  },
+  {
+    "id": "instrument_studio_minimal_interactive_v1",
+    "pack_id": "instrument_studio_minimal_interactive_v1",
+    "bank": "instrument_studio_minimal_interactive_v1",
+    "role": "anchor",
+    "family": "website.interactive_experience",
+    "tones": [
+      "dark",
+      "minimal",
+      "interactive",
+      "studio",
+      "quiet",
+      "experimental",
+      "premium"
+    ],
+    "motifs": [
+      "interactive_stage",
+      "minimal_centerpiece",
+      "instrument_control",
+      "motion_surface",
+      "sound_studio",
+      "hero_shell",
+      "microcopy"
+    ],
+    "path": "goldensets/website/instrument_studio_minimal_interactive_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/instrument_studio_minimal_interactive_v1/source_snapshot/index.html",
+    "bytes": 131604
+  },
+  {
+    "id": "iron_circuit_fight_academy_black_copper_v1",
+    "pack_id": "iron_circuit_fight_academy_black_copper_v1",
+    "bank": "iron_circuit_fight_academy_black_copper_v1",
+    "role": "anchor",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "industrial",
+      "high-contrast",
+      "dark",
+      "athletic",
+      "restrained",
+      "grounded"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "mat_grid",
+      "taped_corner",
+      "fight_card_structure",
+      "bracket_schedule",
+      "cta_treatment",
+      "dark_texture",
+      "high_contrast_blocking",
+      "headline_hierarchy",
+      "program_tabs",
+      "schedule_matrix",
+      "onboarding_timeline",
+      "proof_safe_roster",
+      "booking_flow",
+      "faq_disclosure",
+      "mobile_sticky_cta"
+    ],
+    "path": "goldensets/website/iron_circuit_fight_academy_black_copper_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/iron_circuit_fight_academy_black_copper_v1/source_snapshot/index.html",
+    "bytes": 148398
+  },
+  {
+    "id": "ashgrove-landscape-macon",
+    "pack_id": "ashgrove-landscape-macon",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/ashgrove-landscape-macon/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/ashgrove-landscape-macon/source/index.html",
+    "bytes": 30010
+  },
+  {
+    "id": "aurelia-med-spa-macon",
+    "pack_id": "aurelia-med-spa-macon",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/aurelia-med-spa-macon/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/aurelia-med-spa-macon/source/index.html",
+    "bytes": 27674
+  },
+  {
+    "id": "axlecraft-garage-door-jefferson",
+    "pack_id": "axlecraft-garage-door-jefferson",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/axlecraft-garage-door-jefferson/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/axlecraft-garage-door-jefferson/source/index.html",
+    "bytes": 56912
+  },
+  {
+    "id": "cedarbrook-dental-associates-athens",
+    "pack_id": "cedarbrook_dental_champagne_editorial_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "light",
+      "calm",
+      "clinical",
+      "editorial",
+      "warm",
+      "restrained"
+    ],
+    "motifs": [
+      "hero_shell",
+      "cta_treatment",
+      "split_hero",
+      "light_precision",
+      "headline_hierarchy",
+      "glass_panel",
+      "trust_rail",
+      "proof_cards"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/cedarbrook-dental-associates-athens/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/cedarbrook-dental-associates-athens/source/index.html",
+    "bytes": 26523
+  },
+  {
+    "id": "foster-quinn-athens",
+    "pack_id": "foster_quinn_trial_law_parchment_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.professional_services",
+    "tones": [
+      "premium",
+      "editorial",
+      "traditional",
+      "authoritative",
+      "restrained",
+      "light",
+      "warm-neutral"
+    ],
+    "motifs": [
+      "hero_shell",
+      "headline_hierarchy",
+      "trust_rail",
+      "cta_treatment",
+      "proof_cards",
+      "process_timeline",
+      "light_precision",
+      "case_docket_panel"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/foster-quinn-athens/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/foster-quinn-athens/source/index.html",
+    "bytes": 38856
+  },
+  {
+    "id": "gatewood-fence-marietta",
+    "pack_id": "gatewood_fence_brass_atelier_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "editorial",
+      "warm",
+      "restrained",
+      "craftsmanship",
+      "warm-metal"
+    ],
+    "motifs": [
+      "hero_shell",
+      "cta_treatment",
+      "material_showcase",
+      "process_timeline",
+      "proof_cards",
+      "trust_rail",
+      "headline_hierarchy",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/gatewood-fence-marietta/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/gatewood-fence-marietta/source/index.html",
+    "bytes": 25054
+  },
+  {
+    "id": "gullwing-roofing-savannah",
+    "pack_id": "gullwing_roofing_coastal_copper_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "editorial",
+      "architectural",
+      "craftsmanship",
+      "warm-metal",
+      "coastal"
+    ],
+    "motifs": [
+      "hero_shell",
+      "cta_treatment",
+      "split_hero",
+      "proof_cards",
+      "material_showcase",
+      "process_timeline",
+      "trust_rail",
+      "stats_strip",
+      "dark_texture"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/gullwing-roofing-savannah/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/gullwing-roofing-savannah/source/index.html",
+    "bytes": 35389
+  },
+  {
+    "id": "hale-winslow-columbus",
+    "pack_id": "hale_winslow_legal_basalt_bronze_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.professional_services",
+    "tones": [
+      "dark",
+      "premium",
+      "authoritative",
+      "editorial",
+      "high-contrast",
+      "restrained"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "trust_rail",
+      "proof_cards",
+      "dark_texture",
+      "headline_hierarchy",
+      "high_contrast_blocking"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/hale-winslow-columbus/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/hale-winslow-columbus/source/index.html",
+    "bytes": 30765
+  },
+  {
+    "id": "lumena-wellness-macon",
+    "pack_id": "lumena_wellness_celestial_plum_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "calm",
+      "clinical",
+      "editorial",
+      "light",
+      "beauty"
+    ],
+    "motifs": [
+      "hero_shell",
+      "cta_treatment",
+      "split_hero",
+      "trust_rail",
+      "proof_cards",
+      "headline_hierarchy",
+      "light_precision",
+      "motion_surface"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/lumena-wellness-macon/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/lumena-wellness-macon/source/index.html",
+    "bytes": 35804
+  },
+  {
+    "id": "mosswood-landscaping-savannah",
+    "pack_id": "mosswood_estate_landscape_folio_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "architectural",
+      "dark",
+      "editorial",
+      "restrained",
+      "studio"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "contour_map",
+      "process_timeline",
+      "material_showcase",
+      "stats_strip",
+      "headline_hierarchy",
+      "cta_treatment",
+      "drafting_board_panel"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/mosswood-landscaping-savannah/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/mosswood-landscaping-savannah/source/index.html",
+    "bytes": 34075
+  },
+  {
+    "id": "pipewise-plumbing-marietta",
+    "pack_id": "pipewise_plumbing_diagnostic_cobalt_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "technical",
+      "precise",
+      "trustworthy",
+      "field-service",
+      "light-with-dark-panels",
+      "data-dense"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "trust_rail",
+      "diagnostic_panel",
+      "stats_strip",
+      "process_timeline",
+      "proof_cards",
+      "headline_hierarchy"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/pipewise-plumbing-marietta/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/pipewise-plumbing-marietta/source/index.html",
+    "bytes": 53248
+  },
+  {
+    "id": "quayside-dental-savannah",
+    "pack_id": "quayside_dental_marine_arch_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "editorial",
+      "light",
+      "calm",
+      "refined",
+      "blue"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "split_hero",
+      "trust_rail",
+      "arch_frame_imagery",
+      "headline_hierarchy",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/quayside-dental-savannah/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/quayside-dental-savannah/source/index.html",
+    "bytes": 30524
+  },
+  {
+    "id": "rivergate-dental-augusta",
+    "pack_id": "rivergate-dental-augusta",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/rivergate-dental-augusta/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/rivergate-dental-augusta/source/index.html",
+    "bytes": 35368
+  },
+  {
+    "id": "silverwave-medspa-augusta",
+    "pack_id": "silverwave_medspa_mobile_navy_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "beauty",
+      "editorial",
+      "refined",
+      "light",
+      "clinical"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "cta_treatment",
+      "trust_rail",
+      "headline_hierarchy",
+      "material_showcase",
+      "process_timeline",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/silverwave-medspa-augusta/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/silverwave-medspa-augusta/source/index.html",
+    "bytes": 24441
+  },
+  {
+    "id": "solace-medical-spa-macon",
+    "pack_id": "solace-medical-spa-macon",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/solace-medical-spa-macon/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/solace-medical-spa-macon/source/index.html",
+    "bytes": 32703
+  },
+  {
+    "id": "spa-larkspur-augusta",
+    "pack_id": "spa_larkspur_glass_indigo_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "dark",
+      "beauty",
+      "clinical",
+      "refined",
+      "luxury"
+    ],
+    "motifs": [
+      "hero_shell",
+      "glass_panel",
+      "cta_treatment",
+      "trust_rail",
+      "process_timeline",
+      "proof_cards",
+      "headline_hierarchy",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/spa-larkspur-augusta/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/spa-larkspur-augusta/source/index.html",
+    "bytes": 31493
+  },
+  {
+    "id": "stillwater-plumbing-kennesaw",
+    "pack_id": "stillwater_plumbing_dark_editorial_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "dark",
+      "editorial",
+      "premium",
+      "restrained",
+      "craftsmanship",
+      "field-service"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "stats_strip",
+      "process_timeline",
+      "material_showcase",
+      "proof_cards",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/stillwater-plumbing-kennesaw/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/stillwater-plumbing-kennesaw/source/index.html",
+    "bytes": 39547
+  },
+  {
+    "id": "summitline-roofing-atlanta",
+    "pack_id": "summitline_roofing_blueprint_atelier_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "dark",
+      "technical",
+      "architectural",
+      "premium",
+      "industrial",
+      "precise"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "stats_strip",
+      "specification_table",
+      "technical_manifest",
+      "blueprint_diagram",
+      "process_timeline",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/summitline-roofing-atlanta/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/summitline-roofing-atlanta/source/index.html",
+    "bytes": 33380
+  },
+  {
+    "id": "terraverde-ecoscapes-macon",
+    "pack_id": "terraverde_ecoscapes_split_estate_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "architectural",
+      "natural",
+      "editorial",
+      "restrained",
+      "light-with-dark-panels"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "headline_hierarchy",
+      "cta_treatment",
+      "stats_strip",
+      "material_showcase",
+      "numbered_principles",
+      "precision_spec_module"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/terraverde-ecoscapes-macon/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/terraverde-ecoscapes-macon/source/index.html",
+    "bytes": 27980
+  },
+  {
+    "id": "thermaline-heating-air-atlanta",
+    "pack_id": "thermaline_hvac_blueprint_grid_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "dark",
+      "premium",
+      "technical",
+      "precise",
+      "architectural",
+      "warm-metal"
+    ],
+    "motifs": [
+      "hero_shell",
+      "blueprint_grid_frame",
+      "cta_treatment",
+      "stats_strip",
+      "trust_rail",
+      "headline_hierarchy",
+      "proof_cards",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/thermaline-heating-air-atlanta/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/thermaline-heating-air-atlanta/source/index.html",
+    "bytes": 36994
+  },
+  {
+    "id": "velvet-fig-wax-atlanta",
+    "pack_id": "velvet-fig-wax-atlanta",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/velvet-fig-wax-atlanta/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/velvet-fig-wax-atlanta/source/index.html",
+    "bytes": 33422
+  },
+  {
+    "id": "willowbend-dental-savannah",
+    "pack_id": "willowbend_dental_glass_booking_v1",
+    "bank": "local_service_fullpage_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "editorial",
+      "calm",
+      "refined",
+      "light",
+      "natural"
+    ],
+    "motifs": [
+      "hero_shell",
+      "glass_panel",
+      "booking_flow",
+      "trust_rail",
+      "cta_treatment",
+      "stats_strip",
+      "proof_cards",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_fullpage_bank_v1/examples/willowbend-dental-savannah/source/index.html",
+    "url": "/goldensets/website/local_service_fullpage_bank_v1/examples/willowbend-dental-savannah/source/index.html",
+    "bytes": 30941
+  },
+  {
+    "id": "11-cresthaul-moving-augusta",
+    "pack_id": "11-cresthaul-moving-augusta",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/11-cresthaul-moving-augusta/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/11-cresthaul-moving-augusta/source/index.html",
+    "bytes": 9950
+  },
+  {
+    "id": "13-copperbeam-flooring-atlanta",
+    "pack_id": "13-copperbeam-flooring-atlanta",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/13-copperbeam-flooring-atlanta/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/13-copperbeam-flooring-atlanta/source/index.html",
+    "bytes": 18297
+  },
+  {
+    "id": "19-oakline-cabinets-columbus",
+    "pack_id": "19-oakline-cabinets-columbus",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/19-oakline-cabinets-columbus/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/19-oakline-cabinets-columbus/source/index.html",
+    "bytes": 9214
+  },
+  {
+    "id": "21-harborpipe-plumbing-savannah",
+    "pack_id": "21-harborpipe-plumbing-savannah",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/21-harborpipe-plumbing-savannah/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/21-harborpipe-plumbing-savannah/source/index.html",
+    "bytes": 8826
+  },
+  {
+    "id": "22-voltway-electric-savannah",
+    "pack_id": "22-voltway-electric-savannah",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/22-voltway-electric-savannah/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/22-voltway-electric-savannah/source/index.html",
+    "bytes": 3118
+  },
+  {
+    "id": "25-finchline-body-paint-warner-robins",
+    "pack_id": "25-finchline-body-paint-warner-robins",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/25-finchline-body-paint-warner-robins/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/25-finchline-body-paint-warner-robins/source/index.html",
+    "bytes": 4614
+  },
+  {
+    "id": "34-ridgecap-roofing-services-gainesville",
+    "pack_id": "34-ridgecap-roofing-services-gainesville",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/34-ridgecap-roofing-services-gainesville/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/34-ridgecap-roofing-services-gainesville/source/index.html",
+    "bytes": 8459
+  },
+  {
+    "id": "45-stackpoint-storage-columbus",
+    "pack_id": "45-stackpoint-storage-columbus",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/45-stackpoint-storage-columbus/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/45-stackpoint-storage-columbus/source/index.html",
+    "bytes": 9546
+  },
+  {
+    "id": "47-beaconframe-construction-commerce",
+    "pack_id": "47-beaconframe-construction-commerce",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/47-beaconframe-construction-commerce/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/47-beaconframe-construction-commerce/source/index.html",
+    "bytes": 10166
+  },
+  {
+    "id": "ashgrove-landscape-macon",
+    "pack_id": "ashgrove-landscape-macon",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/ashgrove-landscape-macon/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/ashgrove-landscape-macon/source/index.html",
+    "bytes": 30010
+  },
+  {
+    "id": "aurelia-med-spa-macon",
+    "pack_id": "aurelia-med-spa-macon",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/aurelia-med-spa-macon/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/aurelia-med-spa-macon/source/index.html",
+    "bytes": 27674
+  },
+  {
+    "id": "axlecraft-garage-door-jefferson",
+    "pack_id": "axlecraft_garage_door_industrial_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "industrial",
+      "dark",
+      "high-contrast",
+      "technical",
+      "precise",
+      "field-service"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "high_contrast_blocking",
+      "stats_strip",
+      "process_timeline",
+      "proof_cards",
+      "equipment_diagram",
+      "issue_selector",
+      "field_service_quote_flow"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/axlecraft-garage-door-jefferson/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/axlecraft-garage-door-jefferson/source/index.html",
+    "bytes": 59410
+  },
+  {
+    "id": "cedarbrook-dental-associates-athens",
+    "pack_id": "cedarbrook_dental_editorial_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "clinical",
+      "editorial",
+      "refined",
+      "calm",
+      "light",
+      "serif",
+      "warm-neutral"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "headline_hierarchy",
+      "faq_disclosure",
+      "process_timeline",
+      "stats_strip",
+      "proof_cards",
+      "booking_flow",
+      "service_area_shell",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/cedarbrook-dental-associates-athens/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/cedarbrook-dental-associates-athens/source/index.html",
+    "bytes": 58008
+  },
+  {
+    "id": "foster-quinn-athens",
+    "pack_id": "foster_quinn_legal_docket_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.professional_services",
+    "tones": [
+      "premium",
+      "editorial",
+      "restrained",
+      "authoritative",
+      "traditional",
+      "warm-neutral",
+      "serif"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "headline_hierarchy",
+      "trust_rail",
+      "docket_ledger_panel",
+      "process_timeline",
+      "light_precision",
+      "cta_treatment"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/foster-quinn-athens/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/foster-quinn-athens/source/index.html",
+    "bytes": 38856
+  },
+  {
+    "id": "gatewood-fence-marietta",
+    "pack_id": "gatewood_fence_atelier_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "craftsmanship",
+      "warm",
+      "editorial",
+      "natural",
+      "restrained"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "material_showcase",
+      "process_timeline",
+      "proof_cards",
+      "service_map",
+      "faq_disclosure",
+      "form_intake"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/gatewood-fence-marietta/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/gatewood-fence-marietta/source/index.html",
+    "bytes": 62500
+  },
+  {
+    "id": "gullwing-roofing-savannah",
+    "pack_id": "gullwing_roofing_coastal_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "editorial",
+      "trustworthy",
+      "craftsmanship",
+      "warm",
+      "restrained"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "proof_cards",
+      "process_timeline",
+      "trust_rail",
+      "material_showcase",
+      "headline_hierarchy",
+      "cta_treatment"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/gullwing-roofing-savannah/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/gullwing-roofing-savannah/source/index.html",
+    "bytes": 35389
+  },
+  {
+    "id": "hale-winslow-columbus",
+    "pack_id": "hale_winslow_legal_dossier_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.professional_services",
+    "tones": [
+      "dark",
+      "high-contrast",
+      "premium",
+      "authoritative",
+      "editorial",
+      "restrained"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "headline_hierarchy",
+      "dark_texture",
+      "verdict_dossier_card",
+      "verdict_ledger_rows",
+      "proof_cards",
+      "cta_treatment"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/hale-winslow-columbus/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/hale-winslow-columbus/source/index.html",
+    "bytes": 30765
+  },
+  {
+    "id": "lumena-wellness-macon",
+    "pack_id": "lumena_wellness_aurora_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "beauty",
+      "calm",
+      "light",
+      "editorial",
+      "restrained"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "aurora_gradient_scene",
+      "trust_rail",
+      "proof_cards",
+      "faq_disclosure",
+      "booking_flow",
+      "headline_hierarchy"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/lumena-wellness-macon/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/lumena-wellness-macon/source/index.html",
+    "bytes": 61911
+  },
+  {
+    "id": "mosswood-landscaping-savannah",
+    "pack_id": "mosswood_landscape_blueprint_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "architectural",
+      "editorial",
+      "restrained",
+      "natural",
+      "light-with-dark-panels"
+    ],
+    "motifs": [
+      "editorial_folio_grid",
+      "blueprint_geometry",
+      "contour_map",
+      "process_timeline",
+      "stats_strip",
+      "trust_rail",
+      "headline_hierarchy",
+      "cta_treatment"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/mosswood-landscaping-savannah/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/mosswood-landscaping-savannah/source/index.html",
+    "bytes": 34075
+  },
+  {
+    "id": "pipewise-plumbing-marietta",
+    "pack_id": "pipewise_plumbing_telemetry_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "technical",
+      "trustworthy",
+      "practical",
+      "field-service",
+      "precise"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "telemetry_hud",
+      "diagnostic_panel",
+      "stats_strip",
+      "process_timeline",
+      "trust_rail",
+      "cta_treatment"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/pipewise-plumbing-marietta/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/pipewise-plumbing-marietta/source/index.html",
+    "bytes": 53248
+  },
+  {
+    "id": "quayside-dental-savannah",
+    "pack_id": "quayside_dental_coastal_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "clinical",
+      "calm",
+      "editorial",
+      "trustworthy",
+      "light"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "arch_frame_visual",
+      "trust_rail",
+      "proof_cards",
+      "faq_disclosure",
+      "booking_flow",
+      "headline_hierarchy"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/quayside-dental-savannah/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/quayside-dental-savannah/source/index.html",
+    "bytes": 82341
+  },
+  {
+    "id": "rivergate-dental-augusta",
+    "pack_id": "rivergate_dental_ivory_gold_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "warm",
+      "editorial",
+      "refined",
+      "calm",
+      "light"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "floating_proof_card",
+      "trust_rail",
+      "proof_cards",
+      "faq_disclosure",
+      "booking_flow",
+      "headline_hierarchy"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/rivergate-dental-augusta/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/rivergate-dental-augusta/source/index.html",
+    "bytes": 69187
+  },
+  {
+    "id": "silverwave-medspa-augusta",
+    "pack_id": "silverwave_medspa_concierge_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "luxury",
+      "dark",
+      "premium",
+      "beauty",
+      "cinematic",
+      "refined"
+    ],
+    "motifs": [
+      "hero_shell",
+      "split_hero",
+      "moonlit_wave_scene",
+      "trust_rail",
+      "faq_disclosure",
+      "booking_flow",
+      "headline_hierarchy",
+      "cta_treatment"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/silverwave-medspa-augusta/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/silverwave-medspa-augusta/source/index.html",
+    "bytes": 65059
+  },
+  {
+    "id": "solace-medical-spa-macon",
+    "pack_id": "solace_medical_spa_macon_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "calm",
+      "clinical",
+      "premium",
+      "light",
+      "serene"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "trust_rail",
+      "headline_hierarchy",
+      "light_precision"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/solace-medical-spa-macon/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/solace-medical-spa-macon/source/index.html",
+    "bytes": 32703
+  },
+  {
+    "id": "spa-larkspur-augusta",
+    "pack_id": "spa_larkspur_indigo_gold_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "dark",
+      "editorial",
+      "clinical",
+      "refined",
+      "luxury"
+    ],
+    "motifs": [
+      "hero_shell",
+      "glass_panel",
+      "headline_hierarchy",
+      "cta_treatment",
+      "process_timeline",
+      "numbered_principles",
+      "trust_rail",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/spa-larkspur-augusta/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/spa-larkspur-augusta/source/index.html",
+    "bytes": 31493
+  },
+  {
+    "id": "stillwater-plumbing-kennesaw",
+    "pack_id": "stillwater_plumbing_slate_copper_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "dark",
+      "editorial",
+      "craftsmanship",
+      "trustworthy",
+      "restrained"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "contour_map",
+      "water_flow_line",
+      "equipment_diagram",
+      "faq_disclosure",
+      "form_intake",
+      "process_timeline",
+      "stats_strip"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/stillwater-plumbing-kennesaw/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/stillwater-plumbing-kennesaw/source/index.html",
+    "bytes": 76940
+  },
+  {
+    "id": "summitline-roofing-atlanta",
+    "pack_id": "summitline_roofing_graphite_ember_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "dark",
+      "technical",
+      "architectural",
+      "industrial",
+      "high-contrast"
+    ],
+    "motifs": [
+      "hero_shell",
+      "technical_manifest",
+      "specification_table",
+      "equipment_diagram",
+      "stats_strip",
+      "process_timeline",
+      "material_showcase",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/summitline-roofing-atlanta/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/summitline-roofing-atlanta/source/index.html",
+    "bytes": 33380
+  },
+  {
+    "id": "terraverde-ecoscapes-macon",
+    "pack_id": "terraverde_ecoscapes_limestone_evergreen_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "natural",
+      "architectural",
+      "editorial",
+      "warm",
+      "light-with-dark-panels"
+    ],
+    "motifs": [
+      "split_hero",
+      "hero_shell",
+      "light_precision",
+      "numbered_principles",
+      "material_showcase",
+      "stats_strip",
+      "cta_treatment",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/terraverde-ecoscapes-macon/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/terraverde-ecoscapes-macon/source/index.html",
+    "bytes": 27980
+  },
+  {
+    "id": "thermaline-heating-air-atlanta",
+    "pack_id": "thermaline_heating_air_navy_brass_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "dark",
+      "technical",
+      "precise",
+      "industrial",
+      "traditional"
+    ],
+    "motifs": [
+      "hero_shell",
+      "technical_manifest",
+      "equipment_diagram",
+      "diagnostic_panel",
+      "stats_strip",
+      "process_timeline",
+      "material_showcase",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/thermaline-heating-air-atlanta/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/thermaline-heating-air-atlanta/source/index.html",
+    "bytes": 36994
+  },
+  {
+    "id": "velvet-fig-wax-atlanta",
+    "pack_id": "velvet-fig-wax-atlanta",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/velvet-fig-wax-atlanta/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/velvet-fig-wax-atlanta/source/index.html",
+    "bytes": 33422
+  },
+  {
+    "id": "willowbend-dental-savannah",
+    "pack_id": "willowbend_dental_sage_glass_v1",
+    "bank": "local_service_selected_bank_v1",
+    "role": "bank_example",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "light",
+      "editorial",
+      "calm",
+      "trustworthy",
+      "warm-neutral"
+    ],
+    "motifs": [
+      "hero_shell",
+      "glass_panel",
+      "split_hero",
+      "booking_flow",
+      "trust_rail",
+      "stats_strip",
+      "cta_treatment",
+      "footer_full"
+    ],
+    "path": "goldensets/website/local_service_selected_bank_v1/examples/willowbend-dental-savannah/source/index.html",
+    "url": "/goldensets/website/local_service_selected_bank_v1/examples/willowbend-dental-savannah/source/index.html",
+    "bytes": 30941
+  },
+  {
+    "id": "developer-docs-quickstart",
+    "pack_id": "developer-docs-quickstart",
+    "bank": "localhost_fullsite_pattern_bank_20260622_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/developer-docs-quickstart/source/index.html",
+    "url": "/goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/developer-docs-quickstart/source/index.html",
+    "bytes": 107693
+  },
+  {
+    "id": "instrument-studio-interactive",
+    "pack_id": "instrument-studio-interactive",
+    "bank": "localhost_fullsite_pattern_bank_20260622_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/instrument-studio-interactive/source/index.html",
+    "url": "/goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/instrument-studio-interactive/source/index.html",
+    "bytes": 33628
+  },
+  {
+    "id": "luxury-maison-editorial",
+    "pack_id": "luxury-maison-editorial",
+    "bank": "localhost_fullsite_pattern_bank_20260622_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/luxury-maison-editorial/source/index.html",
+    "url": "/goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/luxury-maison-editorial/source/index.html",
+    "bytes": 60947
+  },
+  {
+    "id": "markets-terminal-capabilities",
+    "pack_id": "markets-terminal-capabilities",
+    "bank": "localhost_fullsite_pattern_bank_20260622_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/markets-terminal-capabilities/source/index.html",
+    "url": "/goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/markets-terminal-capabilities/source/index.html",
+    "bytes": 105693
+  },
+  {
+    "id": "orbital-launch-manifest",
+    "pack_id": "orbital-launch-manifest",
+    "bank": "localhost_fullsite_pattern_bank_20260622_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/orbital-launch-manifest/source/index.html",
+    "url": "/goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/orbital-launch-manifest/source/index.html",
+    "bytes": 104403
+  },
+  {
+    "id": "reference-product-spec",
+    "pack_id": "reference-product-spec",
+    "bank": "localhost_fullsite_pattern_bank_20260622_v1",
+    "role": "bank_example",
+    "family": "",
+    "tones": [],
+    "motifs": [],
+    "path": "goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/reference-product-spec/source/index.html",
+    "url": "/goldensets/website/localhost_fullsite_pattern_bank_20260622_v1/examples/reference-product-spec/source/index.html",
+    "bytes": 57553
+  },
+  {
+    "id": "luxury_maison_editorial_serif_v1",
+    "pack_id": "luxury_maison_editorial_serif_v1",
+    "bank": "luxury_maison_editorial_serif_v1",
+    "role": "anchor",
+    "family": "website.luxury_editorial",
+    "tones": [
+      "dark",
+      "luxury",
+      "editorial",
+      "serif",
+      "restrained",
+      "warm",
+      "quiet"
+    ],
+    "motifs": [
+      "editorial_serif",
+      "luxury_maison",
+      "ritual_pacing",
+      "numbered_principles",
+      "cream_contrast_band",
+      "newsletter_form",
+      "footer_full",
+      "headline_hierarchy"
+    ],
+    "path": "goldensets/website/luxury_maison_editorial_serif_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/luxury_maison_editorial_serif_v1/source_snapshot/index.html",
+    "bytes": 135734
+  },
+  {
+    "id": "markets_terminal_blue_dashboard_v1",
+    "pack_id": "markets_terminal_blue_dashboard_v1",
+    "bank": "markets_terminal_blue_dashboard_v1",
+    "role": "anchor",
+    "family": "website.fintech_terminal",
+    "tones": [
+      "dark",
+      "technical",
+      "data-dense",
+      "professional",
+      "blue",
+      "precise",
+      "premium"
+    ],
+    "motifs": [
+      "command_surface",
+      "dashboard_panel",
+      "data_terminal",
+      "ticker_strip",
+      "market_table",
+      "proof_cards",
+      "stats_strip",
+      "tabs_panel",
+      "hero_shell"
+    ],
+    "path": "goldensets/website/markets_terminal_blue_dashboard_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/markets_terminal_blue_dashboard_v1/source_snapshot/index.html",
+    "bytes": 111742
+  },
+  {
+    "id": "oakline_cabinetry_craftsmanship_v1",
+    "pack_id": "oakline_cabinetry_craftsmanship_v1",
+    "bank": "oakline_cabinetry_craftsmanship_v1",
+    "role": "anchor",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "warm",
+      "residential",
+      "craftsmanship",
+      "restrained",
+      "dark"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "headline_hierarchy",
+      "trust_rail",
+      "phone_pill",
+      "material_showcase"
+    ],
+    "path": "goldensets/website/oakline_cabinetry_craftsmanship_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/oakline_cabinetry_craftsmanship_v1/source_snapshot/index.html",
+    "bytes": 163581
+  },
+  {
+    "id": "orbital_launch_manifest_dark_editorial_v1",
+    "pack_id": "orbital_launch_manifest_dark_editorial_v1",
+    "bank": "orbital_launch_manifest_dark_editorial_v1",
+    "role": "anchor",
+    "family": "website.technical_product",
+    "tones": [
+      "dark",
+      "technical",
+      "cinematic",
+      "precise",
+      "premium",
+      "editorial",
+      "high-contrast"
+    ],
+    "motifs": [
+      "hero_shell",
+      "dark_texture",
+      "technical_manifest",
+      "process_timeline",
+      "specification_table",
+      "mission_sequence",
+      "form_intake",
+      "vector_product_diagram",
+      "headline_hierarchy"
+    ],
+    "path": "goldensets/website/orbital_launch_manifest_dark_editorial_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/orbital_launch_manifest_dark_editorial_v1/source_snapshot/index.html",
+    "bytes": 153873
+  },
+  {
+    "id": "reference_product_black_spec_v1",
+    "pack_id": "reference_product_black_spec_v1",
+    "bank": "reference_product_black_spec_v1",
+    "role": "anchor",
+    "family": "website.product_detail",
+    "tones": [
+      "dark",
+      "premium",
+      "editorial",
+      "technical",
+      "restrained",
+      "warm-metal",
+      "high-contrast"
+    ],
+    "motifs": [
+      "product_hero",
+      "dark_texture",
+      "technical_manifest",
+      "material_showcase",
+      "specification_table",
+      "proof_cards",
+      "pricing_panel",
+      "process_timeline",
+      "headline_hierarchy"
+    ],
+    "path": "goldensets/website/reference_product_black_spec_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/reference_product_black_spec_v1/source_snapshot/index.html",
+    "bytes": 148260
+  },
+  {
+    "id": "signalstack_saas_analytics_ink_v1",
+    "pack_id": "signalstack_saas_analytics_ink_v1",
+    "bank": "signalstack_saas_analytics_ink_v1",
+    "role": "anchor",
+    "family": "website.saas_dashboard",
+    "tones": [
+      "professional",
+      "neutral",
+      "restrained",
+      "precise",
+      "technical",
+      "premium",
+      "data-dense"
+    ],
+    "motifs": [
+      "command_surface",
+      "dashboard_panel",
+      "glass_panel",
+      "tabs_panel",
+      "hero_shell",
+      "trust_rail",
+      "proof_cards",
+      "headline_hierarchy",
+      "split_hero"
+    ],
+    "path": "goldensets/website/signalstack_saas_analytics_ink_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/signalstack_saas_analytics_ink_v1/source_snapshot/index.html",
+    "bytes": 160744
+  },
+  {
+    "id": "sterling_rowe_legal_business_v1",
+    "pack_id": "sterling_rowe_legal_business_v1",
+    "bank": "sterling_rowe_legal_business_v1",
+    "role": "anchor",
+    "family": "website.professional_services",
+    "tones": [
+      "professional",
+      "premium",
+      "restrained",
+      "editorial",
+      "traditional",
+      "authoritative",
+      "warm-neutral"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "trust_rail",
+      "cta_treatment",
+      "proof_cards",
+      "process_timeline",
+      "headline_hierarchy",
+      "light_precision",
+      "split_hero"
+    ],
+    "path": "goldensets/website/sterling_rowe_legal_business_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/sterling_rowe_legal_business_v1/source_snapshot/index.html",
+    "bytes": 34134
+  },
+  {
+    "id": "velvet_fig_beauty_editorial_v1",
+    "pack_id": "velvet_fig_beauty_editorial_v1",
+    "bank": "velvet_fig_beauty_editorial_v1",
+    "role": "anchor",
+    "family": "website.local_service",
+    "tones": [
+      "premium",
+      "light",
+      "beauty",
+      "editorial",
+      "restrained",
+      "calm"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "cta_treatment",
+      "light_precision",
+      "headline_hierarchy",
+      "trust_rail",
+      "phone_pill",
+      "split_hero",
+      "glass_panel"
+    ],
+    "path": "goldensets/website/velvet_fig_beauty_editorial_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/velvet_fig_beauty_editorial_v1/source_snapshot/index.html",
+    "bytes": 203348
+  },
+  {
+    "id": "verdant_line_garden_seasonal_v1",
+    "pack_id": "verdant_line_garden_seasonal_v1",
+    "bank": "verdant_line_garden_seasonal_v1",
+    "role": "anchor",
+    "family": "website.local_service",
+    "tones": [
+      "editorial",
+      "natural",
+      "light",
+      "warm",
+      "restrained",
+      "horticultural",
+      "almanac"
+    ],
+    "motifs": [
+      "hero_shell",
+      "sticky_nav",
+      "trust_rail",
+      "cta_treatment",
+      "service_map",
+      "proof_cards",
+      "process_timeline",
+      "split_hero",
+      "light_precision",
+      "headline_hierarchy"
+    ],
+    "path": "goldensets/website/verdant_line_garden_seasonal_v1/source_snapshot/index.html",
+    "url": "/goldensets/website/verdant_line_garden_seasonal_v1/source_snapshot/index.html",
+    "bytes": 121264
+  }
+]

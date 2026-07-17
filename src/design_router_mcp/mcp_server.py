@@ -233,6 +233,119 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
         from .knowledge_router import validate_knowledge_router
         return json.dumps(validate_knowledge_router(), indent=2)
 
+    # ------------------------------------------------------------------
+    # Facade dispatcher — single tool that routes to all Golden Book ops.
+    # Workaround for Codex deferred-tool-discovery namespace drop (issue #23839).
+    # Every call is structurally identical: golden_book(action="...", args={...})
+    # ------------------------------------------------------------------
+    @server.tool(
+        name="golden_book",
+        description=(
+            "Golden Book dispatcher — one tool to rule them all. "
+            "Pass action='resolve_design_context'|'resolve_knowledge_context'|'get_source_excerpt'|"
+            "'inspect_design_library'|'route_alternatives'|'donor_starvation_audit'|"
+            "'code_density_metrics'|'audit_source_hygiene'|'export_opencode_bundle'|"
+            "'validate_design_router'|'validate_knowledge_router' "
+            "plus args (JSON object with the parameters for that action)."
+        ),
+    )
+    def tool_golden_book(action: str, args: str = "{}") -> str:
+        try:
+            params = json.loads(args) if isinstance(args, str) else (args or {})
+        except json.JSONDecodeError:
+            return json.dumps({"error": f"Invalid JSON in args: {args!r}"}, indent=2)
+
+        if action == "resolve_design_context":
+            return tool_resolve_design_context(
+                surface=params.get("surface", ""),
+                task=params.get("task", ""),
+                stack=params.get("stack", "unknown"),
+                tone=params.get("tone"),
+                layout_mode=params.get("layout_mode", "homepage"),
+                constraints=params.get("constraints"),
+                anti_patterns=params.get("anti_patterns"),
+                token_mode=params.get("token_mode", "compact"),
+                max_examples=params.get("max_examples", 3),
+                donor_selection_mode=params.get("donor_selection_mode", "support_examples_v1"),
+                donor_count=params.get("donor_count", 3),
+                pattern_lock=params.get("pattern_lock", False),
+                full_code_mode=params.get("full_code_mode", False),
+                include_full_library=params.get("include_full_library", False),
+                host_browser_review=params.get("host_browser_review", False),
+                local_model_profile=params.get("local_model_profile"),
+                visual_quality_profile=params.get("visual_quality_profile", "strict_design_router_gpt55_mcp_v1"),
+                code_profile=params.get("code_profile", "balanced"),
+                packet_intent=params.get("packet_intent", "balanced"),
+            )
+        if action == "resolve_knowledge_context":
+            return tool_resolve_knowledge_context(
+                brief=params.get("brief", ""),
+                mode=params.get("mode", "compact"),
+                k=params.get("k", 2),
+                user_message=params.get("user_message", ""),
+            )
+        if action == "get_source_excerpt":
+            return tool_get_source_excerpt(
+                pack_id=params.get("pack_id", ""),
+                example_id=params.get("example_id"),
+                token_mode=params.get("token_mode", "compact"),
+                max_chars=params.get("max_chars", 3000),
+                include_full=params.get("include_full", False),
+                include_section_snippets=params.get("include_section_snippets", True),
+            )
+        if action == "inspect_design_library":
+            return tool_inspect_design_library(
+                include_examples=params.get("include_examples", False),
+            )
+        if action == "route_alternatives":
+            return tool_route_alternatives(
+                request_json=params.get("request_json", "{}"),
+            )
+        if action == "donor_starvation_audit":
+            return tool_donor_starvation_audit(
+                request_json=params.get("request_json", "{}"),
+            )
+        if action == "code_density_metrics":
+            return tool_code_density_metrics(
+                request_json=params.get("request_json", "{}"),
+            )
+        if action == "audit_source_hygiene":
+            return tool_audit_source_hygiene(
+                pack_id=params.get("pack_id"),
+                example_id=params.get("example_id"),
+                max_files=params.get("max_files", 200),
+            )
+        if action == "export_opencode_bundle":
+            return tool_export_opencode_bundle(
+                surface=params.get("surface", ""),
+                task=params.get("task", ""),
+                output_dir=params.get("output_dir", ""),
+                token_mode=params.get("token_mode", "compact"),
+                stack=params.get("stack", "unknown"),
+                tone=params.get("tone"),
+                full_code_mode=params.get("full_code_mode", False),
+                include_source_excerpts=params.get("include_source_excerpts", True),
+                code_profile=params.get("code_profile", "code_first"),
+                packet_intent=params.get("packet_intent", "balanced"),
+                max_source_chars=params.get("max_source_chars", 8000),
+            )
+        if action == "validate_design_router":
+            return tool_validate_design_router()
+        if action == "validate_knowledge_router":
+            return tool_validate_knowledge_router()
+
+        return json.dumps({
+            "error": f"Unknown action: {action!r}",
+            "valid_actions": [
+                "resolve_design_context", "resolve_knowledge_context",
+                "get_source_excerpt", "inspect_design_library",
+                "route_alternatives", "donor_starvation_audit",
+                "code_density_metrics", "audit_source_hygiene",
+                "export_opencode_bundle", "validate_design_router",
+                "validate_knowledge_router",
+            ],
+        }, indent=2)
+
     return server
 
 
