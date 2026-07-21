@@ -60,6 +60,25 @@ the first pass already looks like a product studio shipped it — and it does th
   anchors plus 72 non-landing interactive patterns.
 - **Validation, source-hygiene, anti-copy, route-alternative, and density tools.**
 
+## Build Week Proof
+
+I built Golden Book and used Codex with GPT-5.6 to refine the routing system and
+the golden sets used by the router. Codex helped me inspect weak generated
+interfaces, compare original and routed builds, improve retrieval and source
+hygiene, and verify the resulting interfaces in a browser. I made the product
+and design decisions and iterated on the implementation.
+
+The featured demonstration uses the same OpenCode MiMo builder and the same
+martial-arts gym brief in both conditions:
+
+- [Original prompt result](https://golden-book-martial-original.vercel.app)
+- [Golden Book routed result](https://golden-book-martial-routed.vercel.app)
+- [64-second comparison video](https://youtu.be/nn2zdjX-QC0)
+
+These are controlled browser-tested examples, not a claim that one comparison
+proves universal improvement. The example business is synthetic, and missing
+business facts remain placeholders instead of invented claims.
+
 ## Anti-Copy Enforcement
 
 Reference libraries are dangerous: the easy failure mode is a model that photocopies
