@@ -1,0 +1,392 @@
+{
+  "generated_at": "2026-07-20T21:07:46.015Z",
+  "root_url": "http://127.0.0.1:8931",
+  "pack_id": "holland_dirt_black_yellow_v1",
+  "pass": true,
+  "source_hashes": {
+    "index.html": "57ffe0d00f1b898e88ccf55121bd48e75e3deb4b054d4c232822bcb2ed349818",
+    "styles.css": "9a506c7eaf709b823e016d025d9fa4a2c51cd54b96bb60e04819c8434bc505e4",
+    "script.js": "f81d56d8020afe12c4bcd8a6edeb05f36d6f0160db16e8835c0fa89f558111f6"
+  },
+  "viewport_count": 7,
+  "states": [
+    {
+      "viewport": {
+        "id": "desktop-1512x812",
+        "width": 1512,
+        "height": 812
+      },
+      "status": 200,
+      "pass": true,
+      "screenshot": "screenshots/desktop-1512.png",
+      "first_viewport_screenshot": "screenshots/router-desktop-1512x812.png",
+      "metrics": {
+        "title": "Holland Grading | Terrain-first sitework preview",
+        "bodyTextLength": 8154,
+        "h1Count": 1,
+        "innerWidth": 1512,
+        "scrollWidth": 1512,
+        "innerHeight": 812,
+        "scrollHeight": 14353,
+        "bodyFontSize": 17.2,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 51,
+        "hero": {
+          "width": 1512,
+          "height": 708,
+          "bottom": 789
+        },
+        "nextSectionTop": 789,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "compare": true,
+        "scopeTab": true,
+        "coverage": true,
+        "planner": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
+      "console_errors": [],
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
+    },
+    {
+      "viewport": {
+        "id": "desktop-1440x900",
+        "width": 1440,
+        "height": 900
+      },
+      "status": 200,
+      "pass": true,
+      "screenshot": "screenshots/desktop-1440.png",
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Holland Grading | Terrain-first sitework preview",
+        "bodyTextLength": 8154,
+        "h1Count": 1,
+        "innerWidth": 1440,
+        "scrollWidth": 1440,
+        "innerHeight": 900,
+        "scrollHeight": 14393,
+        "bodyFontSize": 17.2,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 51,
+        "hero": {
+          "width": 1440,
+          "height": 796,
+          "bottom": 877
+        },
+        "nextSectionTop": 877,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "compare": true,
+        "scopeTab": true,
+        "coverage": true,
+        "planner": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
+      "console_errors": [],
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
+    },
+    {
+      "viewport": {
+        "id": "desktop-1280x800",
+        "width": 1280,
+        "height": 800
+      },
+      "status": 200,
+      "pass": true,
+      "screenshot": "screenshots/desktop-1280.png",
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Holland Grading | Terrain-first sitework preview",
+        "bodyTextLength": 8154,
+        "h1Count": 1,
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "innerHeight": 800,
+        "scrollHeight": 14080,
+        "bodyFontSize": 17.2,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 51,
+        "hero": {
+          "width": 1280,
+          "height": 696,
+          "bottom": 777
+        },
+        "nextSectionTop": 777,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "compare": true,
+        "scopeTab": true,
+        "coverage": true,
+        "planner": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
+      "console_errors": [],
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
+    },
+    {
+      "viewport": {
+        "id": "tablet-1024x768",
+        "width": 1024,
+        "height": 768
+      },
+      "status": 200,
+      "pass": true,
+      "screenshot": "screenshots/tablet-1024.png",
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Holland Grading | Terrain-first sitework preview",
+        "bodyTextLength": 7927,
+        "h1Count": 1,
+        "innerWidth": 1024,
+        "scrollWidth": 1024,
+        "innerHeight": 768,
+        "scrollHeight": 14087,
+        "bodyFontSize": 17.2,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 51,
+        "hero": {
+          "width": 1024,
+          "height": 672,
+          "bottom": 753
+        },
+        "nextSectionTop": 753,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "compare": true,
+        "scopeTab": true,
+        "coverage": true,
+        "planner": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
+      "console_errors": [],
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
+    },
+    {
+      "viewport": {
+        "id": "tablet-768x1024",
+        "width": 768,
+        "height": 1024
+      },
+      "status": 200,
+      "pass": true,
+      "screenshot": "screenshots/tablet-768.png",
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Holland Grading | Terrain-first sitework preview",
+        "bodyTextLength": 7827,
+        "h1Count": 1,
+        "innerWidth": 768,
+        "scrollWidth": 768,
+        "innerHeight": 1024,
+        "scrollHeight": 17134,
+        "bodyFontSize": 16.896,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 51,
+        "hero": {
+          "width": 768,
+          "height": 920,
+          "bottom": 1001
+        },
+        "nextSectionTop": 1001,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "compare": true,
+        "scopeTab": true,
+        "coverage": true,
+        "planner": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
+      "console_errors": [],
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
+    },
+    {
+      "viewport": {
+        "id": "mobile-390x844",
+        "width": 390,
+        "height": 844
+      },
+      "status": 200,
+      "pass": true,
+      "screenshot": "screenshots/mobile-390.png",
+      "first_viewport_screenshot": "screenshots/router-mobile-390x844.png",
+      "metrics": {
+        "title": "Holland Grading | Terrain-first sitework preview",
+        "bodyTextLength": 7777,
+        "h1Count": 1,
+        "innerWidth": 390,
+        "scrollWidth": 390,
+        "innerHeight": 844,
+        "scrollHeight": 19015,
+        "bodyFontSize": 16.14,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 51,
+        "hero": {
+          "width": 390,
+          "height": 664,
+          "bottom": 737
+        },
+        "nextSectionTop": 737,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": true,
+        "opened": true,
+        "closed": true
+      },
+      "interactions": {
+        "compare": true,
+        "scopeTab": true,
+        "coverage": true,
+        "planner": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
+      "console_errors": [],
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
+    },
+    {
+      "viewport": {
+        "id": "mobile-360x780",
+        "width": 360,
+        "height": 780
+      },
+      "status": 200,
+      "pass": true,
+      "screenshot": "screenshots/mobile-360.png",
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Holland Grading | Terrain-first sitework preview",
+        "bodyTextLength": 7777,
+        "h1Count": 1,
+        "innerWidth": 360,
+        "scrollWidth": 360,
+        "innerHeight": 780,
+        "scrollHeight": 19498,
+        "bodyFontSize": 16.08,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 51,
+        "hero": {
+          "width": 360,
+          "height": 668,
+          "bottom": 741
+        },
+        "nextSectionTop": 741,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": true,
+        "opened": true,
+        "closed": true
+      },
+      "interactions": {
+        "compare": true,
+        "scopeTab": true,
+        "coverage": true,
+        "planner": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
+      "console_errors": [],
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
+    }
+  ]
+}

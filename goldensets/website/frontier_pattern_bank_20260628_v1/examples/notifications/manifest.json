@@ -1,0 +1,55 @@
+{
+  "pack_id": "aurora_notification_center_v1",
+  "role": "anchor",
+  "family": "website.productivity_app",
+  "source_paths": [
+    "source/index.html"
+  ],
+  "origin_example_ids": [
+    "notifications"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "dark",
+    "professional",
+    "precise",
+    "restrained",
+    "interactive",
+    "trustworthy"
+  ],
+  "surfaces": [
+    "dashboard",
+    "section",
+    "full_site"
+  ],
+  "motif_tags": [
+    "notification_feed",
+    "grouped_activity",
+    "unread_filter",
+    "search_filter_toolbar",
+    "quick_action_stack",
+    "activity_summary",
+    "command_surface",
+    "microcopy"
+  ],
+  "supports_tasks": [
+    "notification_center_app",
+    "workspace_activity_inbox",
+    "grouped_notification_feed",
+    "unread_and_snooze_workflow"
+  ],
+  "anti_patterns": [
+    "marketing landing-page hero",
+    "local-service lead-generation framing",
+    "analytics KPI dashboard unrelated to notification activity",
+    "decorative notification rows with no read, snooze, dismiss, or filter behavior"
+  ],
+  "screenshot_paths": [],
+  "token_budget_hint": 1500,
+  "confidence_score": 4,
+  "example_ids": []
+}

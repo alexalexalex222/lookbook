@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Neon Apex</title>
+<style>
+  :root {
+    --bg-deep: #0a0a14;
+    --bg-surface: #12122a;
+    --neon-cyan: #00f0ff;
+    --neon-magenta: #ff00aa;
+    --neon-yellow: #ffe600;
+    --neon-green: #00ff88;
+    --text-primary: #e8e8f0;
+    --text-muted: #7878a0;
+    --danger: #ff3355;
+    --font-display: 'Courier New', ui-monospace, monospace;
+    --font-body: system-ui, -apple-system, sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-deep);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    overflow: hidden;
+    height: 100dvh;
+    width: 100vw;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* HUD */
+  .hud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px 16px;
+    pointer-events: none;
+    z-index: 10;
+    font-family: var(--font-display);
+  }
+
+  .hud-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .hud-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .hud-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 8px var(--neon-cyan);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hud-value.speed { color: var(--neon-yellow); text-shadow: 0 0 8px var(--neon-yellow); }
+  .hud-value.lap { color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green); }
+
+  .hud-center {
+    text-align: center;
+  }
+
+  .hud-center .hud-value {
+    font-size: 28px;
+  }
+
+  /* Overlay screens */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(6, 6, 16, 0.88);
+    backdrop-filter: blur(6px);
+    z-index: 100;
+    text-align: center;
+    padding: 24px;
+    transition: opacity 0.2s ease;
+  }
+
+  .overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+  }
+
+  .overlay h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 20px var(--neon-cyan), 0 0 60px rgba(0, 240, 255, 0.3);
+    margin-bottom: 8px;
+  }
+
+  .overlay h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-weight: 600;
+    color: var(--neon-magenta);
+    text-shadow: 0 0 12px var(--neon-magenta);
+    margin-bottom: 16px;
+  }
+
+  .overlay p {
+    color: var(--text-muted);
+    font-size: 15px;
+    max-width: 40ch;
+    line-height: 1.55;
+    margin-bottom: 24px;
+  }
+
+  .overlay .subtitle {
+    font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+    color: var(--neon-magenta);
+    text-shadow: 0 0 8px rgba(255, 0, 170, 0.5);
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    padding: 14px 36px;
+    border: 2px solid var(--neon-cyan);
+    background: transparent;
+    color: var(--neon-cyan);
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.15s ease;
+    pointer-events: auto;
+    min-width: 180px;
+  }
+
+  .btn:hover, .btn:focus-visible {
+    background: var(--neon-cyan);
+    color: var(--bg-deep);
+    box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+    outline: none;
+  }
+
+  .btn:active { transform: scale(0.97); }
+
+  .btn.danger {
+    border-color: var(--neon-magenta);
+    color: var(--neon-magenta);
+  }
+
+  .btn.danger:hover, .btn.danger:focus-visible {
+    background: var(--neon-magenta);
+    color: var(--bg-deep);
+    box-shadow: 0 0 20px rgba(255, 0, 170, 0.4);
+  }
+
+  .btn-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 24px;
+    margin: 16px 0 24px;
+    text-align: left;
+  }
+
+  .stat-item .stat-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .stat-item .stat-val {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--neon-yellow);
+    text-shadow: 0 0 6px rgba(255, 230, 0, 0.4);
+  }
+
+  /* Touch controls */
+  .touch-controls {
+    position: fixed;
+    bottom: 16px;
+    left: 0;
+    right: 0;
+    display: none;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 16px;
+    z-index: 50;
+    pointer-events: none;
+  }
+
+  @media (pointer: coarse), (max-width: 768px) {
+    .touch-controls { display: flex; }
+  }
+
+  .touch-group {
+    display: flex;
+    gap: 8px;
+    pointer-events: auto;
+  }
+
+  .touch-btn {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 2px solid rgba(0, 240, 255, 0.4);
+    background: rgba(0, 240, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.1s;
+  }
+
+  .touch-btn:active, .touch-btn.active {
+    background: rgba(0, 240, 255, 0.25);
+    border-color: var(--neon-cyan);
+  }
+
+  .touch-btn svg {
+    width: 28px;
+    height: 28px;
+    fill: none;
+    stroke: var(--neon-cyan);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .touch-btn.gas {
+    width: 72px;
+    height: 72px;
+    border-color: rgba(0, 255, 136, 0.5);
+    background: rgba(0, 255, 136, 0.08);
+  }
+
+  .touch-btn.gas:active, .touch-btn.gas.active {
+    background: rgba(0, 255, 136, 0.25);
+    border-color: var(--neon-green);
+  }
+
+  .touch-btn.gas svg {
+    stroke: var(--neon-green);
+  }
+
+  .touch-btn.brake {
+    width: 56px;
+    height: 56px;
+    border-color: rgba(255, 51, 85, 0.5);
+    background: rgba(255, 51, 85, 0.08);
+  }
+
+  .touch-btn.brake:active, .touch-btn.brake.active {
+    background: rgba(255, 51, 85, 0.25);
+    border-color: var(--danger);
+  }
+
+  .touch-btn.brake svg {
+    stroke: var(--danger);
+    width: 22px;
+    height: 22px;
+  }
+
+  .pause-btn {
+    position: fixed;
+    top: 8px;
+    right: 8px;
+    z-index: 60;
+    width: 44px;
+    height: 44px;
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: auto;
+  }
+
+  .pause-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: rgba(255, 255, 255, 0.6);
+  }
+
+  .controls-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 12px;
+    line-height: 1.6;
+  }
+
+  .countdown {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 80;
+    pointer-events: none;
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 15vw, 8rem);
+    font-weight: 700;
+    color: var(--neon-cyan);
+    text-shadow: 0 0 40px var(--neon-cyan), 0 0 80px rgba(0, 240, 255, 0.3);
+    opacity: 0;
+    transition: opacity 0.15s;
+  }
+
+  .countdown.visible {
+    opacity: 1;
+  }
+
+  .checkpoint-flash {
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display);
+    font-size: clamp(1rem, 3vw, 1.6rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--neon-green);
+    text-shadow: 0 0 12px var(--neon-green);
+    z-index: 70;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .checkpoint-flash.visible {
+    opacity: 1;
+  }
+</style>
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<!-- HUD -->
+<div class="hud" id="hud">
+  <div class="hud-group">
+    <span class="hud-label">Speed</span>
+    <span class="hud-value speed" id="hud-speed">0</span>
+  </div>
+  <div class="hud-group hud-center">
+    <span class="hud-label">Time</span>
+    <span class="hud-value" id="hud-timer">0:00.0</span>
+  </div>
+  <div class="hud-group" style="align-items:flex-end">
+    <span class="hud-label">Lap</span>
+    <span class="hud-value lap" id="hud-lap">0 / 3</span>
+  </div>
+</div>
+
+<!-- Pause button -->
+<button class="pause-btn" id="pause-btn" type="button" aria-label="Pause game">
+  <svg viewBox="0 0 18 18"><rect x="3" y="2" width="4" height="14"/><rect x="11" y="2" width="4" height="14"/></svg>
+</button>
+
+<!-- Countdown -->
+<div class="countdown" id="countdown"></div>
+
+<!-- Checkpoint flash -->
+<div class="checkpoint-flash" id="cp-flash"></div>
+
+<!-- Start overlay -->
+<div class="overlay" id="start-screen" role="dialog" aria-modal="true" aria-labelledby="start-screen-title">
+  <h1 id="start-screen-title">NEON APEX</h1>
+  <div class="subtitle">Top-Down Arcade Racing</div>
+  <p>Race through the neon circuit. Complete 3 laps to set your time. Stay on the track or lose speed.</p>
+  <button class="btn" id="start-btn" type="button">Start Race</button>
+  <div class="controls-hint">
+    Arrow keys or WASD to drive &middot; P to pause &middot; R to restart<br>
+    Touch controls on mobile
+  </div>
+</div>
+
+<!-- Pause overlay -->
+<div class="overlay hidden" id="pause-screen" role="dialog" aria-modal="true" aria-labelledby="pause-title" aria-hidden="true">
+  <h2 id="pause-title">Paused</h2>
+  <div class="btn-row">
+    <button class="btn" id="resume-btn" type="button">Resume</button>
+    <button class="btn danger" id="restart-pause-btn" type="button">Restart</button>
+  </div>
+</div>
+
+<!-- Game Over overlay -->
+<div class="overlay hidden" id="gameover-screen" role="dialog" aria-modal="true" aria-labelledby="go-title" aria-hidden="true">
+  <h2 id="go-title">Race Complete</h2>
+  <div class="stats-grid" id="go-stats"></div>
+  <div class="btn-row">
+    <button class="btn" id="replay-btn" type="button">Race Again</button>
+  </div>
+</div>
+
+<!-- Touch controls -->
+<div class="touch-controls" id="touch-controls">
+  <div class="touch-group">
+    <button class="touch-btn" id="touch-left" type="button" aria-label="Steer left">
+      <svg viewBox="0 0 28 28"><polyline points="18,6 8,14 18,22"/></svg>
+    </button>
+    <button class="touch-btn" id="touch-right" type="button" aria-label="Steer right">
+      <svg viewBox="0 0 28 28"><polyline points="10,6 20,14 10,22"/></svg>
+    </button>
+  </div>
+  <div class="touch-group">
+    <button class="touch-btn brake" id="touch-brake" type="button" aria-label="Brake">
+      <svg viewBox="0 0 22 22"><rect x="4" y="4" width="14" height="14" rx="2"/></svg>
+    </button>
+    <button class="touch-btn gas" id="touch-gas" type="button" aria-label="Accelerate">
+      <svg viewBox="0 0 28 28"><polygon points="8,22 14,6 20,22" fill="none"/><line x1="14" y1="16" x2="14" y2="22"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // ── Canvas setup ──
+  const canvas = document.getElementById("game");
+  const ctx = canvas.getContext("2d");
+  let W, H, scale;
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + "px";
+    canvas.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    scale = Math.min(W, H) / 800;
+  }
+  window.addEventListener("resize", resize);
+  resize();
+
+  // ── Track definition ──
+  // Circuit defined as centerline waypoints (in virtual 1000x1000 space)
+  // Track width is ~100 units on each side of centerline
+  const TRACK_W = 55;
+  const trackPoints = [];
+  const NUM_TRACK_PTS = 120;
+
+  // Generate a closed circuit with interesting curves
+  function buildTrack() {
+    trackPoints.length = 0;
+    const cx = 500, cy = 500;
+    for (let i = 0; i < NUM_TRACK_PTS; i++) {
+      const t = (i / NUM_TRACK_PTS) * Math.PI * 2;
+      // Base ellipse
+      let r = 280 + 80 * Math.sin(t * 2) + 40 * Math.cos(t * 3);
+      // Add chicanes
+      r += 30 * Math.sin(t * 5);
+      const x = cx + r * Math.cos(t);
+      const y = cy + r * 0.75 * Math.sin(t);
+      trackPoints.push({ x, y });
+    }
+  }
+  buildTrack();
+
+  // Compute normals and inner/outer boundaries
+  function getTrackGeometry() {
+    const inner = [], outer = [];
+    for (let i = 0; i < trackPoints.length; i++) {
+      const curr = trackPoints[i];
+      const next = trackPoints[(i + 1) % trackPoints.length];
+      const dx = next.x - curr.x;
+      const dy = next.y - curr.y;
+      const len = Math.sqrt(dx * dx + dy * dy) || 1;
+      const nx = -dy / len;
+      const ny = dx / len;
+      inner.push({ x: curr.x + nx * TRACK_W, y: curr.y + ny * TRACK_W });
+      outer.push({ x: curr.x - nx * TRACK_W, y: curr.y - ny * TRACK_W });
+    }
+    return { inner, outer };
+  }
+
+  const trackGeo = getTrackGeometry();
+
+  // ── Checkpoints ──
+  const NUM_CHECKPOINTS = 8;
+  const checkpoints = [];
+  for (let i = 0; i < NUM_CHECKPOINTS; i++) {
+    const idx = Math.floor((i / NUM_CHECKPOINTS) * trackPoints.length);
+    checkpoints.push(idx);
+  }
+
+  // ── State ──
+  const STATE = { START: 0, COUNTDOWN: 1, PLAYING: 2, PAUSED: 3, GAMEOVER: 4 };
+  let state = STATE.START;
+
+  // ── Car ──
+  const car = {
+    x: trackPoints[0].x,
+    y: trackPoints[0].y,
+    angle: 0,
+    speed: 0,
+    vx: 0,
+    vy: 0,
+    lap: 0,
+    nextCheckpoint: 0,
+    bestLapTime: Infinity,
+    lapStartTime: 0,
+    totalTime: 0,
+    lapTimes: [],
+    offTrack: false,
+    driftAngle: 0,
+  };
+
+  const MAX_SPEED = 6;
+  const ACCEL = 0.12;
+  const BRAKE_FORCE = 0.15;
+  const FRICTION = 0.02;
+  const TURN_SPEED = 0.045;
+  const OFF_TRACK_FRICTION = 0.08;
+  const TOTAL_LAPS = 3;
+
+  // ── Input ──
+  const keys = {};
+  window.addEventListener("keydown", (e) => {
+    keys[e.code] = true;
+    if (e.code === "KeyP" && state === STATE.PLAYING) { pauseGame(); return; }
+    if (e.code === "KeyP" && state === STATE.PAUSED) { resumeGame(); return; }
+    if (e.code === "KeyR") { restartGame(); return; }
+    if (e.code === "Space" || e.code === "Enter") {
+      e.preventDefault();
+      if (state === STATE.START) startGame();
+      else if (state === STATE.GAMEOVER) restartGame();
+    }
+  });
+  window.addEventListener("keyup", (e) => { keys[e.code] = false; });
+
+  // Touch input — unified pointer events
+  const touch = { left: false, right: false, gas: false, brake: false };
+
+  function setupPointerBtn(id, prop) {
+    const el = document.getElementById(id);
+    if (!el) return;
+
+    function onDown(e) {
+      e.preventDefault();
+      el.setPointerCapture(e.pointerId);
+      touch[prop] = true;
+      el.classList.add("active");
+    }
+
+    function onUp(e) {
+      e.preventDefault();
+      touch[prop] = false;
+      el.classList.remove("active");
+    }
+
+    el.addEventListener("pointerdown", onDown);
+    el.addEventListener("pointerup", onUp);
+    el.addEventListener("pointercancel", onUp);
+    el.addEventListener("pointerleave", onUp);
+    el.addEventListener("lostpointercapture", onUp);
+
+    // Prevent default touch/mouse to avoid double-firing
+    el.addEventListener("touchstart", (e) => e.preventDefault(), { passive: false });
+    el.addEventListener("mousedown", (e) => e.preventDefault());
+  }
+
+  setupPointerBtn("touch-left", "left");
+  setupPointerBtn("touch-right", "right");
+  setupPointerBtn("touch-gas", "gas");
+  setupPointerBtn("touch-brake", "brake");
+
+  // ── Helpers ──
+  function dist(a, b) {
+    const dx = a.x - b.x, dy = a.y - b.y;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function pointInPolygon(px, py, polygon) {
+    let inside = false;
+    for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+      const xi = polygon[i].x, yi = polygon[i].y;
+      const xj = polygon[j].x, yj = polygon[j].y;
+      if ((yi > py) !== (yj > py) && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) {
+        inside = !inside;
+      }
+    }
+    return inside;
+  }
+
+  function isOnTrack(x, y) {
+    // Check if point is between inner and outer boundaries
+    return pointInPolygon(x, y, trackGeo.outer) && !pointInPolygon(x, y, trackGeo.inner);
+  }
+
+  function closestTrackPoint(x, y) {
+    let minD = Infinity, best = 0;
+    for (let i = 0; i < trackPoints.length; i++) {
+      const d = dist({ x, y }, trackPoints[i]);
+      if (d < minD) { minD = d; best = i; }
+    }
+    return { index: best, dist: minD };
+  }
+
+  function segmentCrossesLine(p1, p2, a, b) {
+    const d1x = p2.x - p1.x, d1y = p2.y - p1.y;
+    const d2x = b.x - a.x, d2y = b.y - a.y;
+    const denom = d1x * d2y - d1y * d2x;
+    if (Math.abs(denom) < 0.001) return false;
+    const t = ((a.x - p1.x) * d2y - (a.y - p1.y) * d2x) / denom;
+    const u = ((a.x - p1.x) * d1y - (a.y - p1.y) * d1x) / denom;
+    return t >= 0 && t <= 1 && u >= 0 && u <= 1;
+  }
+
+  // ── Particles ──
+  const particles = [];
+  function spawnParticle(x, y, color, life) {
+    if (particles.length > 120) return;
+    particles.push({
+      x, y,
+      vx: (Math.random() - 0.5) * 2,
+      vy: (Math.random() - 0.5) * 2,
+      life,
+      maxLife: life,
+      color,
+      size: 2 + Math.random() * 3,
+    });
+  }
+
+  function updateParticles(dt) {
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life -= dt;
+      if (p.life <= 0) particles.splice(i, 1);
+    }
+  }
+
+  function drawParticles() {
+    for (const p of particles) {
+      const alpha = Math.max(0, p.life / p.maxLife);
+      ctx.globalAlpha = alpha * 0.7;
+      ctx.fillStyle = p.color;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * scale, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  // ── Screen coord transforms ──
+  function toScreen(vx, vy) {
+    const ox = (W / 2 - car.x) * scale + W / 2;
+    const oy = (H / 2 - car.y) * scale + H / 2;
+    return { x: vx * scale + ox, y: vy * scale + oy };
+  }
+
+  // ── Drawing ──
+  function drawTrack() {
+    // Draw track surface
+    ctx.fillStyle = "#1a1a2e";
+    ctx.beginPath();
+    const o0 = toScreen(trackGeo.outer[0].x, trackGeo.outer[0].y);
+    ctx.moveTo(o0.x, o0.y);
+    for (let i = 1; i < trackGeo.outer.length; i++) {
+      const p = toScreen(trackGeo.outer[i].x, trackGeo.outer[i].y);
+      ctx.lineTo(p.x, p.y);
+    }
+    ctx.closePath();
+
+    // Cut out inner
+    const i0 = toScreen(trackGeo.inner[0].x, trackGeo.inner[0].y);
+    ctx.moveTo(i0.x, i0.y);
+    for (let i = trackGeo.inner.length - 1; i >= 0; i--) {
+      const p = toScreen(trackGeo.inner[i].x, trackGeo.inner[i].y);
+      ctx.lineTo(p.x, p.y);
+    }
+    ctx.closePath();
+    ctx.fill("evenodd");
+
+    // Center line (dashed)
+    ctx.strokeStyle = "rgba(0, 240, 255, 0.08)";
+    ctx.lineWidth = 1.5 * scale;
+    ctx.setLineDash([8 * scale, 12 * scale]);
+    ctx.beginPath();
+    for (let i = 0; i < trackPoints.length; i++) {
+      const p = toScreen(trackPoints[i].x, trackPoints[i].y);
+      if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+    }
+    ctx.closePath();
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Track edges - outer glow
+    ctx.strokeStyle = "rgba(0, 240, 255, 0.35)";
+    ctx.lineWidth = 2.5 * scale;
+    ctx.shadowColor = "rgba(0, 240, 255, 0.5)";
+    ctx.shadowBlur = 10 * scale;
+    ctx.beginPath();
+    for (let i = 0; i < trackGeo.outer.length; i++) {
+      const p = toScreen(trackGeo.outer[i].x, trackGeo.outer[i].y);
+      if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+    }
+    ctx.closePath();
+    ctx.stroke();
+
+    // Inner edge
+    ctx.strokeStyle = "rgba(255, 0, 170, 0.35)";
+    ctx.shadowColor = "rgba(255, 0, 170, 0.4)";
+    ctx.beginPath();
+    for (let i = 0; i < trackGeo.inner.length; i++) {
+      const p = toScreen(trackGeo.inner[i].x, trackGeo.inner[i].y);
+      if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+    }
+    ctx.closePath();
+    ctx.stroke();
+
+    ctx.shadowBlur = 0;
+
+    // Start/finish line
+    const sfInner = toScreen(trackGeo.inner[0].x, trackGeo.inner[0].y);
+    const sfOuter = toScreen(trackGeo.outer[0].x, trackGeo.outer[0].y);
+    ctx.strokeStyle = "rgba(255, 230, 0, 0.7)";
+    ctx.lineWidth = 3 * scale;
+    ctx.shadowColor = "rgba(255, 230, 0, 0.5)";
+    ctx.shadowBlur = 8 * scale;
+    ctx.beginPath();
+    ctx.moveTo(sfInner.x, sfInner.y);
+    ctx.lineTo(sfOuter.x, sfOuter.y);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
+
+    // Checkpoint markers (subtle)
+    for (let c = 1; c < checkpoints.length; c++) {
+      const ci = checkpoints[c];
+      const cpInner = toScreen(trackGeo.inner[ci].x, trackGeo.inner[ci].y);
+      const cpOuter = toScreen(trackGeo.outer[ci].x, trackGeo.outer[ci].y);
+      ctx.strokeStyle = "rgba(0, 255, 136, 0.15)";
+      ctx.lineWidth = 1.5 * scale;
+      ctx.beginPath();
+      ctx.moveTo(cpInner.x, cpInner.y);
+      ctx.lineTo(cpOuter.x, cpOuter.y);
+      ctx.stroke();
+    }
+  }
+
+  function drawCar() {
+    const pos = toScreen(car.x, car.y);
+    const sz = 14 * scale;
+    const glowColor = car.offTrack ? "rgba(255, 51, 85, 0.6)" : "rgba(0, 240, 255, 0.6)";
+
+    ctx.save();
+    ctx.translate(pos.x, pos.y);
+    ctx.rotate(car.angle);
+
+    // Glow
+    ctx.shadowColor = glowColor;
+    ctx.shadowBlur = 15 * scale;
+
+    // Car body
+    ctx.fillStyle = car.offTrack ? "#ff3355" : "#00f0ff";
+    ctx.beginPath();
+    ctx.moveTo(sz * 1.2, 0);
+    ctx.lineTo(-sz * 0.7, -sz * 0.6);
+    ctx.lineTo(-sz * 0.5, 0);
+    ctx.lineTo(-sz * 0.7, sz * 0.6);
+    ctx.closePath();
+    ctx.fill();
+
+    // Windshield
+    ctx.fillStyle = car.offTrack ? "rgba(255,100,120,0.5)" : "rgba(0, 100, 200, 0.5)";
+    ctx.beginPath();
+    ctx.moveTo(sz * 0.4, -sz * 0.25);
+    ctx.lineTo(sz * 0.1, -sz * 0.35);
+    ctx.lineTo(sz * 0.1, sz * 0.35);
+    ctx.lineTo(sz * 0.4, sz * 0.25);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.shadowBlur = 0;
+
+    // Exhaust particles
+    if (car.speed > 0.5) {
+      const ex = -sz * 0.8;
+      const col = car.offTrack ? "#ff3355" : "#00f0ff";
+      if (Math.random() < 0.4) {
+        spawnParticle(
+          car.x - Math.cos(car.angle) * 10,
+          car.y - Math.sin(car.angle) * 10,
+          col, 20 + Math.random() * 15
+        );
+      }
+    }
+
+    ctx.restore();
+  }
+
+  function drawBackground() {
+    ctx.fillStyle = "#0a0a14";
+    ctx.fillRect(0, 0, W, H);
+
+    // Grid
+    ctx.strokeStyle = "rgba(0, 240, 255, 0.03)";
+    ctx.lineWidth = 0.5;
+    const gridSize = 60 * scale;
+    const ox = ((W / 2 - car.x * scale) % gridSize + gridSize) % gridSize;
+    const oy = ((H / 2 - car.y * scale) % gridSize + gridSize) % gridSize;
+
+    for (let x = ox; x < W; x += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, H);
+      ctx.stroke();
+    }
+    for (let y = oy; y < H; y += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(W, y);
+      ctx.stroke();
+    }
+  }
+
+  // ── Game logic ──
+  function resetCar() {
+    car.x = trackPoints[0].x;
+    car.y = trackPoints[0].y;
+    car.speed = 0;
+    car.vx = 0;
+    car.vy = 0;
+    car.lap = 0;
+    car.nextCheckpoint = 1;
+    car.bestLapTime = Infinity;
+    car.lapStartTime = 0;
+    car.totalTime = 0;
+    car.lapTimes = [];
+    car.offTrack = false;
+    car.driftAngle = 0;
+    particles.length = 0;
+
+    // Face along track direction
+    const p0 = trackPoints[0];
+    const p1 = trackPoints[1];
+    car.angle = Math.atan2(p1.y - p0.y, p1.x - p0.x);
+  }
+
+  let countdownVal = 0;
+  let countdownTimer = 0;
+  let raceStartTime = 0;
+  let lastTime = 0;
+
+  // ── Overlay management ──
+  function showOverlay(id, focusId) {
+    const el = document.getElementById(id);
+    el.classList.remove("hidden");
+    el.removeAttribute("aria-hidden");
+    if (focusId) {
+      const focusEl = document.getElementById(focusId);
+      if (focusEl) focusEl.focus();
+    }
+  }
+
+  function hideOverlay(id) {
+    const el = document.getElementById(id);
+    el.classList.add("hidden");
+    el.setAttribute("aria-hidden", "true");
+  }
+
+  function startGame() {
+    resetCar();
+    state = STATE.COUNTDOWN;
+    countdownVal = 3;
+    countdownTimer = 0;
+    hideOverlay("start-screen");
+    hideOverlay("gameover-screen");
+    hideOverlay("pause-screen");
+    showCountdown(3);
+  }
+
+  function showCountdown(n) {
+    const el = document.getElementById("countdown");
+    if (n > 0) {
+      el.textContent = n;
+      el.classList.add("visible");
+    } else {
+      el.textContent = "GO!";
+      el.classList.add("visible");
+      setTimeout(() => el.classList.remove("visible"), 600);
+    }
+  }
+
+  function showCheckpointFlash(text) {
+    const el = document.getElementById("cp-flash");
+    el.textContent = text;
+    el.classList.add("visible");
+    setTimeout(() => el.classList.remove("visible"), 1200);
+  }
+
+  function pauseGame() {
+    if (state !== STATE.PLAYING) return;
+    state = STATE.PAUSED;
+    showOverlay("pause-screen", "resume-btn");
+  }
+
+  function resumeGame() {
+    if (state !== STATE.PAUSED) return;
+    state = STATE.PLAYING;
+    lastTime = performance.now();
+    hideOverlay("pause-screen");
+    document.getElementById("pause-btn").focus();
+  }
+
+  function restartGame() {
+    state = STATE.START;
+    hideOverlay("pause-screen");
+    hideOverlay("gameover-screen");
+    showOverlay("start-screen", "start-btn");
+    resetCar();
+    updateHUD();
+  }
+
+  function gameOver() {
+    state = STATE.GAMEOVER;
+    const titleEl = document.getElementById("go-title");
+    titleEl.textContent = "Race Complete";
+
+    const statsEl = document.getElementById("go-stats");
+    const totalFmt = formatTime(car.totalTime);
+    const bestFmt = car.bestLapTime < Infinity ? formatTime(car.bestLapTime) : "--";
+    const avgSpeed = car.lapTimes.length > 0
+      ? Math.round(car.totalTime > 0 ? (car.lap * 100) / (car.totalTime / 60) : 0)
+      : 0;
+
+    let html = "";
+    html += `<div class="stat-item"><div class="stat-label">Total Time</div><div class="stat-val">${totalFmt}</div></div>`;
+    html += `<div class="stat-item"><div class="stat-label">Best Lap</div><div class="stat-val">${bestFmt}</div></div>`;
+    for (let i = 0; i < car.lapTimes.length; i++) {
+      html += `<div class="stat-item"><div class="stat-label">Lap ${i + 1}</div><div class="stat-val">${formatTime(car.lapTimes[i])}</div></div>`;
+    }
+    statsEl.innerHTML = html;
+
+    showOverlay("gameover-screen", "replay-btn");
+  }
+
+  function formatTime(frames) {
+    const totalSec = frames / 60;
+    const min = Math.floor(totalSec / 60);
+    const sec = Math.floor(totalSec % 60);
+    const ms = Math.floor((totalSec % 1) * 10);
+    return `${min}:${sec.toString().padStart(2, "0")}.${ms}`;
+  }
+
+  function updateHUD() {
+    const displaySpeed = Math.round(Math.abs(car.speed) * 40);
+    document.getElementById("hud-speed").textContent = displaySpeed;
+    document.getElementById("hud-timer").textContent = formatTime(car.totalTime);
+    document.getElementById("hud-lap").textContent = `${Math.min(car.lap + 1, TOTAL_LAPS)} / ${TOTAL_LAPS}`;
+  }
+
+  // ── Update ──
+  function update() {
+    if (state === STATE.COUNTDOWN) {
+      countdownTimer++;
+      if (countdownTimer === 60) { countdownVal = 2; showCountdown(2); }
+      if (countdownTimer === 120) { countdownVal = 1; showCountdown(1); }
+      if (countdownTimer === 180) {
+        countdownVal = 0;
+        showCountdown(0);
+        state = STATE.PLAYING;
+        raceStartTime = performance.now();
+        lastTime = performance.now();
+        car.lapStartTime = 0;
+      }
+      return;
+    }
+
+    if (state !== STATE.PLAYING) return;
+
+    const now = performance.now();
+    const dt = Math.min((now - lastTime) / 16.667, 3); // normalize to ~60fps
+    lastTime = now;
+
+    car.totalTime += dt;
+    car.lapStartTime += dt;
+
+    // Input
+    const gas = keys["ArrowUp"] || keys["KeyW"] || touch.gas;
+    const brake = keys["ArrowDown"] || keys["KeyS"] || touch.brake;
+    const left = keys["ArrowLeft"] || keys["KeyA"] || touch.left;
+    const right = keys["ArrowRight"] || keys["KeyD"] || touch.right;
+
+    // Steering
+    const turnMultiplier = car.speed > 0.3 ? 1 : car.speed / 0.3;
+    if (left) car.angle -= TURN_SPEED * turnMultiplier * dt;
+    if (right) car.angle += TURN_SPEED * turnMultiplier * dt;
+
+    // Acceleration
+    if (gas) {
+      car.speed += ACCEL * dt;
+    }
+    if (brake) {
+      car.speed -= BRAKE_FORCE * dt;
+    }
+
+    // Track status
+    car.offTrack = !isOnTrack(car.x, car.y);
+    const friction = car.offTrack ? OFF_TRACK_FRICTION : FRICTION;
+    car.speed *= (1 - friction * dt);
+
+    // Speed cap
+    const maxSpd = car.offTrack ? MAX_SPEED * 0.5 : MAX_SPEED;
+    car.speed = Math.max(-MAX_SPEED * 0.3, Math.min(maxSpd, car.speed));
+
+    // Movement with slight drift
+    const driftFactor = 0.15;
+    const targetVx = Math.cos(car.angle) * car.speed;
+    const targetVy = Math.sin(car.angle) * car.speed;
+    car.vx += (targetVx - car.vx) * (1 - driftFactor) * dt;
+    car.vy += (targetVy - car.vy) * (1 - driftFactor) * dt;
+
+    const prevX = car.x, prevY = car.y;
+    car.x += car.vx * dt;
+    car.y += car.vy * dt;
+
+    // Boundary collision - push back onto track
+    if (!isOnTrack(car.x, car.y)) {
+      const closest = closestTrackPoint(car.x, car.y);
+      const tp = trackPoints[closest.index];
+      const dx = car.x - tp.x;
+      const dy = car.y - tp.y;
+      const d = Math.sqrt(dx * dx + dy * dy) || 1;
+      const maxDist = TRACK_W * 0.95;
+      if (d > maxDist) {
+        car.x = tp.x + (dx / d) * maxDist;
+        car.y = tp.y + (dy / d) * maxDist;
+        car.speed *= 0.7;
+      }
+    }
+
+    // Checkpoint detection
+    const cpIdx = checkpoints[car.nextCheckpoint];
+    const cpPt = trackPoints[cpIdx];
+    const cpDist = dist({ x: car.x, y: car.y }, cpPt);
+
+    if (cpDist < TRACK_W * 1.5) {
+      // Check if we crossed the checkpoint line
+      const cpInner = trackGeo.inner[cpIdx];
+      const cpOuter = trackGeo.outer[cpIdx];
+      if (segmentCrossesLine(
+        { x: prevX, y: prevY }, { x: car.x, y: car.y },
+        cpInner, cpOuter
+      ) || cpDist < TRACK_W * 0.7) {
+
+        if (car.nextCheckpoint === 0 && car.lap > 0) {
+          // Crossed start/finish = lap complete
+          const lapTime = car.lapStartTime;
+          car.lapTimes.push(lapTime);
+          if (lapTime < car.bestLapTime) car.bestLapTime = lapTime;
+          showCheckpointFlash("Lap " + car.lap + ": " + formatTime(lapTime));
+        }
+
+        car.nextCheckpoint++;
+        if (car.nextCheckpoint >= NUM_CHECKPOINTS) {
+          car.nextCheckpoint = 0;
+          car.lap++;
+
+          if (car.lap >= TOTAL_LAPS) {
+            gameOver();
+            return;
+          }
+        }
+
+        if (car.nextCheckpoint !== 0) {
+          showCheckpointFlash("Checkpoint " + car.nextCheckpoint);
+        }
+      }
+    }
+
+    updateParticles(dt);
+    updateHUD();
+  }
+
+  // ── Render ──
+  function render() {
+    drawBackground();
+    drawTrack();
+    drawParticles();
+    drawCar();
+
+    // Speed lines when fast
+    if (Math.abs(car.speed) > 3 && state === STATE.PLAYING) {
+      ctx.globalAlpha = (Math.abs(car.speed) - 3) / MAX_SPEED * 0.3;
+      ctx.strokeStyle = "rgba(0, 240, 255, 0.2)";
+      ctx.lineWidth = 1;
+      for (let i = 0; i < 6; i++) {
+        const sx = Math.random() * W;
+        const sy = Math.random() * H;
+        ctx.beginPath();
+        ctx.moveTo(sx, sy);
+        ctx.lineTo(sx + (sx - W / 2) * 0.05, sy + (sy - H / 2) * 0.05);
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    // Off-track warning
+    if (car.offTrack && state === STATE.PLAYING) {
+      ctx.fillStyle = "rgba(255, 51, 85, 0.05)";
+      ctx.fillRect(0, 0, W, H);
+
+      // Flash warning text
+      if (Math.floor(car.totalTime / 8) % 2 === 0) {
+        ctx.font = `bold ${14 * scale}px ${getComputedStyle(document.body).fontFamily}`;
+        ctx.fillStyle = "rgba(255, 51, 85, 0.7)";
+        ctx.textAlign = "center";
+        ctx.fillText("OFF TRACK", W / 2, H - 100 * scale);
+      }
+    }
+  }
+
+  // ── Game loop ──
+  function loop() {
+    update();
+    render();
+    requestAnimationFrame(loop);
+  }
+
+  // ── UI wiring ──
+  document.getElementById("start-btn").addEventListener("click", startGame);
+  document.getElementById("resume-btn").addEventListener("click", resumeGame);
+  document.getElementById("restart-pause-btn").addEventListener("click", restartGame);
+  document.getElementById("replay-btn").addEventListener("click", restartGame);
+  document.getElementById("pause-btn").addEventListener("click", () => {
+    if (state === STATE.PLAYING) pauseGame();
+    else if (state === STATE.PAUSED) resumeGame();
+  });
+
+  // Init
+  resetCar();
+  updateHUD();
+  loop();
+
+})();
+</script>
+</body>
+</html>

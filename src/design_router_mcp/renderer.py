@@ -3,30 +3,79 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from .rules import RoutingRules, load_routing_rules
-from .sanitizer import sanitize_source_text
-from .schemas import CodeFile, DesignContextRequest, ExampleSummary, LoadedPack, RenderedPacket, RouteResolution, TokenMode
+from .sanitizer import sanitize_source_text, strip_external_dependencies
+from .schemas import (
+    CodeFile,
+    DesignContextRequest,
+    LoadedPack,
+    OptionalPattern,
+    PatternCardTier,
+    RenderedPacket,
+    RouteResolution,
+    TokenMode,
+)
 
 
 def estimate_tokens(text: str) -> int:
     return max(1, len(text) // 4)
 
 
-def _trim(text: str, max_chars: int) -> str:
-    text = (text or "").strip()
-    if len(text) <= max_chars:
-        return text
-    return text[:max_chars].rstrip() + "\n... [truncated]"
+def _trim(text: str, max_chars: int | None = None) -> str:
+    """Compatibility helper retained for callers; packet text is never clipped."""
+    return (text or "").strip()
 
 
-def _code_block(language: str, code: str, *, max_chars: int) -> str:
+def _request_forbids_external_dependencies(
+    request: DesignContextRequest | None,
+) -> bool:
+    if request is None:
+        return False
+    text = " ".join(request.constraints).lower().replace("_", " ").replace("-", " ")
+    return any(
+        phrase in text
+        for phrase in (
+            "no external dependencies",
+            "no external assets",
+            "self contained",
+            "single file",
+            "offline",
+        )
+    )
+
+
+def _prepare_code_for_request(
+    code: str,
+    request: DesignContextRequest | None,
+) -> str:
+    if _request_forbids_external_dependencies(request):
+        return strip_external_dependencies(code)
+    return code
+
+
+def _code_block(
+    language: str,
+    code: str,
+    *,
+    max_chars: int | None = None,
+    request: DesignContextRequest | None = None,
+) -> str:
+    code = _prepare_code_for_request(code, request)
     code = _trim(code, max_chars)
     if not code:
         return ""
     return f"```{language or 'text'}\n{code}\n```"
 
 
-def _code_file_block(file: CodeFile, *, max_chars: int) -> str:
-    return f"### Full File `{file.label}`\n{_code_block(file.language, file.content, max_chars=max_chars)}"
+def _code_file_block(
+    file: CodeFile,
+    *,
+    max_chars: int | None = None,
+    request: DesignContextRequest | None = None,
+) -> str:
+    return (
+        f"### Full File `{file.label}`\n"
+        f"{_code_block(file.language, file.content, max_chars=max_chars, request=request)}"
+    )
 
 
 @dataclass(frozen=True)
@@ -40,79 +89,65 @@ class _Section:
         return f"# {self.title}\n{body}" if body else f"# {self.title}"
 
 
-# Design-system contract sections: NEVER trimmed or dropped under budget pressure.
-# These carry the non-negotiable token/motion/typography/accessibility/state floor,
-# the data-integrity / anti-copy contract, and the engineering contract. The
-# foundation token starter code is protected here too (it IS the contract as code).
-CONTRACT_SECTION_TITLES = frozenset(
-    {
-        "Design Tokens Contract",
-        "Design Tokens Starter",
-        "Motion Grammar",
-        "Typography Discipline",
-        "Accessibility Contract",
-        "State Completeness",
-        "Performance Discipline",
-        "Microcopy Contract",
-        "Production Discipline",  # micro-mode condensed contract
-        "Claim Realism / Proof Discipline",  # data integrity — never weaken
-        "Anti-Copy Contract",
-        "Implementation Contract",
-        # Primary pattern must survive budget pressure — one-call full depth.
-        "Full Anchor Build (translate under Anti-Copy — never ship its brand)",
-        "Hard UI Rules",
-        "Mobile-First Gates",
-        "Layout QA Gates",
-    }
-)
-
-# Sections whose BODIES may be trimmed when the packet is over budget, in order
-# (most disposable first). Pure reference data goes first; then heavy *guardrail
-# prose* (the design-system contract sections above already encode the floor), so
-# the primary CODE deliverables (component library, minimal code patterns) survive.
-# This never touches a CONTRACT_SECTION_TITLES section.
-TRIMMABLE_SECTION_ORDER = (
-    "Omitted Files",
-    "Source Inventory",
-    "Route Diagnostics",
-    "Visual References",
-    "Local Model Failure Patterns",
-    "Visual Artifact Specs",
-    "Composition Brief",
-    "Production Bar",
-    "Visual Asset Discipline",
-    "Layout QA Gates",
-    "Hard UI Rules",
-    "Minimal Code Patterns",
-    "Reusable Component Library",
-)
-
-
 def _join_bullets(items: list[str]) -> str:
     return "\n".join(f"- {item}" for item in items if item)
 
 
 def _selected_route(resolution: RouteResolution) -> str:
+    confidence = resolution.route_meta.get("route_confidence", {})
     lines = [
         f"anchor: `{resolution.anchor_pack.manifest.pack_id}` (score {resolution.anchor_score.total})",
+        f"surface kind: `{resolution.normalized_request.surface_kind}`",
+        f"task archetype: `{resolution.normalized_request.task_archetype or 'none'}` "
+        f"(confidence {resolution.normalized_request.task_archetype_confidence:.2f})",
+        f"route decision: `{confidence.get('decision', 'unknown')}` "
+        f"(confidence {confidence.get('value', 0):.2f}; margin {confidence.get('margin', 0)})",
         f"vertical: `{resolution.normalized_request.specialty_service_class or 'none (unrouted)'}`",
         f"matched motifs: {', '.join('`' + t + '`' for t in resolution.normalized_request.motif_tags) or 'none'}",
         f"matched strengths: {', '.join('`' + t + '`' for t in resolution.normalized_request.strength_tags) or 'none'}",
     ]
+    if resolution.normalized_request.task_archetype_ambiguous:
+        candidates = ", ".join(
+            f"`{candidate.name}` ({candidate.confidence:.2f})"
+            for candidate in resolution.normalized_request.task_archetype_candidates[:3]
+        )
+        lines.append(f"archetype ambiguity: {candidates or 'multiple plausible workflows'}")
+    if confidence.get("needs_clarification"):
+        lines.append(
+            "provisional route: do not treat this anchor as final until the primary workflow is clarified."
+        )
+        if confidence.get("clarification_question"):
+            lines.append(f"clarification question: {confidence['clarification_question']}")
     if resolution.hero_reference_pack is not None:
         lines.append(f"hero reference: `{resolution.hero_reference_pack.manifest.pack_id}`")
-    if resolution.support_bank is not None:
+    if resolution.support_bank is not None and resolution.selected_examples:
         display_map = _example_display_map(resolution)
         examples = ", ".join(f"`{_display_id(display_map, s.example_id)}` ({s.score})" for s in resolution.selected_examples) or "none"
         lines.append(f"support bank: `{resolution.support_bank.manifest.pack_id}`")
         lines.append(f"support examples: {examples}")
-    alternatives = resolution.route_meta.get("anchor_alternatives") or []
-    if alternatives:
+    if resolution.optional_patterns:
+        source_packs = sorted({pattern.pack_id for pattern in resolution.optional_patterns})
         lines.append(
-            "pattern alternatives: the selected anchor above OWNS the composition skeleton and visual identity. "
-            "The runner-up anchors below are legal secondary pattern sources for INDIVIDUAL sections only — "
-            "borrow a motif or a section treatment where the primary anchor is thin; never blend two identities "
-            "or switch skeletons mid-page."
+            f"optional pattern shelf: {len(resolution.optional_patterns)} inlined Pattern Cards from "
+            f"{len(source_packs)} golden sets; {len(resolution.optional_pattern_catalog)} total "
+            "qualified cards are available for explicit expansion."
+        )
+    source_selection = resolution.route_meta.get("source_selection", {})
+    if source_selection.get("anchor_self_sufficient"):
+        lines.append(
+            "secondary source policy: the selected anchor covers the requested UX jobs; "
+            "redundant support donors, generic atoms, and optional patterns were withheld."
+        )
+    alternatives = resolution.route_meta.get("anchor_alternatives") or []
+    if alternatives and (
+        confidence.get("decision") != "route"
+        or float(confidence.get("value", 0) or 0) < 0.72
+    ):
+        lines.append(
+            "pattern alternatives (diagnostic only): the selected anchor above OWNS the composition skeleton and visual identity. "
+            "Do not borrow from a runner-up merely because it appears below. Only fragments explicitly emitted in the "
+            "Optional Pattern Shelf are approved secondary sources, and those remain optional section mechanics only; "
+            "never blend two identities or switch skeletons mid-page."
         )
         for alt in alternatives:
             motifs = ", ".join(f"`{m}`" for m in alt.get("motif_tags", [])) or "none"
@@ -140,7 +175,13 @@ def _full_anchor_build(resolution: RouteResolution) -> str:
     for f in files:
         rel = f.get("path", "file")
         lang = "html" if str(rel).endswith(".html") else ("css" if str(rel).endswith(".css") else "text")
-        parts.append(f"**`{rel}`** ({f.get('chars', 0):,} chars):\n```{lang}\n{f.get('text', '')}\n```")
+        rendered = _code_block(
+            lang,
+            str(f.get("text", "")),
+            max_chars=max(1, len(str(f.get("text", ""))) + 1),
+            request=resolution.request,
+        )
+        parts.append(f"**`{rel}`** ({f.get('chars', 0):,} chars):\n{rendered}")
     return "\n\n".join(parts)
 
 
@@ -158,7 +199,7 @@ def _source_inventory(resolution: RouteResolution) -> str:
         lines.append(f"hero reference pack: `{resolution.hero_reference_pack.manifest.pack_id}`")
         for rel in resolution.hero_reference_pack.manifest.source_paths:
             lines.append(f"hero reference source file: `{rel}`")
-    if resolution.support_bank is not None:
+    if resolution.support_bank is not None and resolution.selected_examples:
         display_map = _example_display_map(resolution)
         lines.append(f"support bank: `{resolution.support_bank.manifest.pack_id}`")
         for selection in resolution.selected_examples:
@@ -170,24 +211,38 @@ def _source_inventory(resolution: RouteResolution) -> str:
                 lines.append(f"support source dir: `{source_dir}`")
             if example is not None and example.preview_path:
                 lines.append(f"support preview path: `{example.preview_path}`")
-            # Full primary sources ship inline under Full Anchor Build / Minimal Code
-            # Patterns when full_code_mode is on — do not paste tool-call recipes that
-            # train weak models to re-fetch before building.
-            if not request_allows_full_code(resolution.request):
-                lines.append(
-                    "operator excerpt pull (only if this packet lacks source): "
-                    f"`get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
-                    f"example_id=\"{selection.example_id}\", include_full=true, include_section_snippets=true)`"
-                )
-            else:
-                lines.append("full source for this example is included inline in this packet when selected — do not re-fetch.")
+            lines.append(
+                "operator excerpt pull: "
+                f"`get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
+                f"example_id=\"{selection.example_id}\", include_full=true, include_section_snippets=true)`"
+            )
+    for pattern in resolution.optional_patterns:
+        lines.append(f"optional pattern: `{pattern.pattern_id}`")
+        if pattern.source_kind == "support_example" and pattern.example_id:
+            lines.append(
+                "optional pattern provenance pull: "
+                f"`get_source_excerpt(pack_id=\"{pattern.pack_id}\", "
+                f"example_id=\"{pattern.example_id}\", include_full=true, include_section_snippets=true)`"
+            )
+        else:
+            lines.append(
+                "auxiliary treatment summary only: this route does not approve donor markup or a full-source pull "
+                "from the runner-up anchor."
+            )
+    if resolution.optional_pattern_catalog:
+        lines.append(
+            "catalog expansion: call `get_pattern_card` with the same request, a catalog `pattern_id`, "
+            "and tier `S`, `M`, or `L`; only that card is returned."
+        )
     return _join_bullets(lines)
 
 
 def _score_line(label: str, score) -> str:
     return (
         f"{label}: `{score.pack_id}` total={score.total} "
-        f"surface={score.surface} motif={score.motif} tone={score.tone} "
+        f"surface={score.surface} family_fit={score.family_fit} task_fit={score.task_fit} "
+        f"signature_fit={score.signature_fit} retrieval_fit={score.retrieval_fit} "
+        f"anti_pattern={score.anti_pattern} motif={score.motif} tone={score.tone} "
         f"layout={score.layout} request_bias={score.request_bias} confidence={score.confidence}"
     )
 
@@ -212,6 +267,13 @@ def _route_diagnostics(resolution: RouteResolution) -> str:
         if selection.conflicting_strength_tags or selection.conflicting_motif_tags:
             bits.append(f"conflicts={selection.conflicting_strength_tags + selection.conflicting_motif_tags}")
         lines.append("; ".join(bits))
+    for pattern in resolution.optional_patterns:
+        lines.append(
+            f"optional pattern `{pattern.pattern_id}` score={pattern.score}; "
+            f"domain={pattern.domain_fit}; mechanic={pattern.mechanic_fit}; "
+            f"roles={pattern.ux_roles or []}; priority={pattern.priority_roles or []}; "
+            f"matches={pattern.matched_terms or []}; axes={pattern.score_axes or {}}"
+        )
     lines.append("Repeatability rule: same vertical + same selected anchor + same top support example should stay stable across paraphrases of the same business niche.")
     return _join_bullets(lines)
 
@@ -235,7 +297,13 @@ def _visual_references(resolution: RouteResolution) -> str:
         "Reference-only: screenshots and previews describe visual grammar. Do not place these paths in the generated page, and do not use them as `<img>`, `<picture>`, `<source>`, or CSS `background-image` assets unless the user explicitly supplied those exact image files for the target site.",
     ]
     display_map = _example_display_map(resolution)
-    for label, pack in [("anchor", resolution.anchor_pack), ("hero_reference", resolution.hero_reference_pack), ("support", resolution.support_bank)]:
+    visual_packs = [
+        ("anchor", resolution.anchor_pack),
+        ("hero_reference", resolution.hero_reference_pack),
+        ("support", resolution.support_bank),
+        *[("optional_anchor", pack) for pack in resolution.auxiliary_anchor_packs],
+    ]
+    for label, pack in visual_packs:
         if pack is None:
             continue
         for path in pack.manifest.screenshot_paths:
@@ -298,13 +366,157 @@ def _support_roles(resolution: RouteResolution, rules: RoutingRules) -> str:
         if display_id != selection.example_id:
             summary = summary.replace(selection.example_id, display_id)
         lines.append(f"`{display_id}`: borrow for {tags}. {summary}")
-        if mechanical and not request_allows_full_code(resolution.request):
+        if mechanical:
             lines.append(
-                f"operator excerpt pull (real example id, only if source missing from packet): "
-                f"`get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
+                f"operator excerpt pull (real example id): `get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
                 f"example_id=\"{selection.example_id}\", include_section_snippets=true)`"
             )
     return _join_bullets(lines)
+
+
+def _optional_pattern_card_tier(mode: str) -> str:
+    return "L"
+
+
+def _safe_css_excerpt(css: str, *, max_chars: int | None = None) -> str:
+    """Return the complete selected style source; max_chars is legacy-only."""
+    return css.strip()
+
+
+def optional_pattern_metadata(pattern: OptionalPattern) -> dict[str, object]:
+    return {
+        "pattern_id": pattern.pattern_id,
+        "pack_id": pattern.pack_id,
+        "example_id": pattern.example_id,
+        "source_kind": pattern.source_kind,
+        "score": pattern.score,
+        "score_axes": pattern.score_axes,
+        "domain_fit": pattern.domain_fit,
+        "mechanic_fit": pattern.mechanic_fit,
+        "quality_score": pattern.quality_score,
+        "identity_risk": pattern.identity_risk,
+        "ux_roles": pattern.ux_roles,
+        "priority_roles": pattern.priority_roles,
+        "matched_terms": pattern.matched_terms,
+        "strength_tags": pattern.strength_tags,
+        "motif_tags": pattern.motif_tags,
+        "job_statement": pattern.job_statement,
+        "when_to_use": pattern.when_to_use,
+        "when_not_to_use": pattern.when_not_to_use,
+        "states": pattern.states,
+        "responsive_behavior": pattern.responsive_behavior,
+        "invariants": pattern.invariants,
+        "dependencies": pattern.dependencies,
+        "integration_hint": pattern.integration_hint,
+        "excerpt_label": pattern.excerpt.label if pattern.excerpt is not None else None,
+        "style_excerpt_label": (
+            pattern.style_excerpt.label if pattern.style_excerpt is not None else None
+        ),
+        "hygiene_clean": pattern.hygiene_clean,
+        "optional": pattern.optional,
+    }
+
+
+def render_pattern_card(
+    pattern: OptionalPattern,
+    *,
+    tier: PatternCardTier | str = "M",
+    request: DesignContextRequest | None = None,
+) -> str:
+    normalized_tier = str(tier).upper()
+    if normalized_tier not in {"S", "M", "L"}:
+        raise ValueError("Pattern Card tier must be S, M, or L.")
+    roles = ", ".join(f"`{role}`" for role in pattern.ux_roles) or "route-compatible section mechanics"
+    matches = ", ".join(f"`{term}`" for term in pattern.matched_terms[:10]) or "structural route fit"
+    source = (
+        f"`{pattern.pack_id}` / `{pattern.example_id}`"
+        if pattern.example_id
+        else f"auxiliary anchor `{pattern.pack_id}`"
+    )
+    pattern_parts = [
+        f"## Optional Pattern `{pattern.pattern_id}`",
+        _join_bullets(
+            [
+                f"source: {source}",
+                f"job: {pattern.job_statement or 'one bounded section or interaction mechanic'}",
+                f"fit: total={pattern.score}; domain=`{pattern.domain_fit}`; mechanic={pattern.mechanic_fit}; quality={pattern.quality_score}; identity_risk=`{pattern.identity_risk}`",
+                f"candidate jobs: {roles}",
+                f"priority roles covered: {', '.join(f'`{role}`' for role in pattern.priority_roles) or 'none'}",
+                f"matched route terms: {matches}",
+                f"when to use: {pattern.when_to_use}",
+                f"when not to use: {pattern.when_not_to_use}",
+                f"integration: {pattern.integration_hint}",
+                f"dependencies: {', '.join(f'`{item}`' for item in pattern.dependencies) or 'anchor tokens only'}",
+            ]
+        ),
+    ]
+    if normalized_tier in {"M", "L"}:
+        if pattern.states:
+            pattern_parts.append("states: " + ", ".join(f"`{state}`" for state in pattern.states))
+        if pattern.responsive_behavior:
+            pattern_parts.append("responsive behavior:\n" + _join_bullets(pattern.responsive_behavior))
+    if normalized_tier == "L" and pattern.invariants:
+        pattern_parts.append("invariants:\n" + _join_bullets(pattern.invariants))
+    if pattern.excerpt is not None:
+        pattern_parts.append(
+            f"`{pattern.excerpt.label}`\n"
+            f"{_code_block(pattern.excerpt.language, pattern.excerpt.content, max_chars=max(3000, len(pattern.excerpt.content) + 1), request=request)}"
+        )
+    else:
+        pattern_parts.append(
+            "No donor markup is emitted for this auxiliary treatment summary. "
+            "Use only the stated job and integration guidance."
+        )
+    if pattern.style_excerpt is not None:
+        safe_css = _safe_css_excerpt(pattern.style_excerpt.content)
+        if safe_css:
+            pattern_parts.append(
+                f"`{pattern.style_excerpt.label}`\n"
+                f"{_code_block(pattern.style_excerpt.language, safe_css, max_chars=len(safe_css) + 1, request=request)}"
+            )
+    return "\n".join(item for item in pattern_parts if item)
+
+
+def _optional_pattern_shelf(resolution: RouteResolution, *, mode: str) -> str:
+    if not resolution.optional_patterns:
+        return ""
+    tier = _optional_pattern_card_tier(mode)
+    parts = [
+        _join_bullets(
+            [
+                "This shelf is optional, not a checklist. Choose zero, one, or several fragments only when they solve a concrete job in the brief; ignore every fragment that does not improve the build.",
+                "The primary anchor still owns the page skeleton, hierarchy, shape language, and identity. Shelf fragments may contribute one local mechanic such as a schedule, proof rail, HUD, overlay, form, navigation treatment, responsive control dock, or data view.",
+                "Never merge donor identities. Borrow the interaction or section logic, then rewrite class names, copy, palette, claims, labels, and decorative signatures for the target.",
+                "Before implementation, name the chosen pattern IDs in build notes with the job each one solves. Using none is valid when the anchor and first-party component library are already sufficient.",
+                f"Rendered card tier: `{tier}`. Every selected markup and CSS fragment is emitted complete.",
+            ]
+        )
+    ]
+    for pattern in resolution.optional_patterns:
+        parts.append(
+            render_pattern_card(
+                pattern,
+                tier=tier,
+                request=resolution.request,
+            )
+        )
+    selected_ids = set(resolution.optional_pattern_ids)
+    catalog_rows = [
+        entry for entry in resolution.optional_pattern_catalog if entry.pattern_id not in selected_ids
+    ]
+    if catalog_rows:
+        parts.append(
+            "## Qualified Pattern Catalog (not inlined)\n"
+            + _join_bullets(
+                [
+                    f"`{entry.pattern_id}` — {entry.job_statement}; roles={entry.priority_roles or entry.ux_roles}; "
+                    f"domain={entry.domain_fit}; mechanic={entry.mechanic_fit}; identity_risk={entry.identity_risk}. "
+                    "Expand explicitly with `get_pattern_card`."
+                    for entry in catalog_rows
+                ]
+            )
+        )
+    return "\n\n".join(parts)
 
 
 def _anti_copy(resolution: RouteResolution) -> str:
@@ -312,6 +524,7 @@ def _anti_copy(resolution: RouteResolution) -> str:
         "Borrow: section sequencing, hierarchy of attention, interaction patterns, density rhythm, anchor-to-proof flow, and the underlying logic that makes the donor work.",
         "Do not copy exact palette values, source headlines word-for-word, source body copy, brand identity, customer logos, testimonial claims, named clients, named staff, project counts, statistics, or section order one-to-one.",
         "Support donors sharpen the page; they never become the page. If your draft reads as a recolor of the donor with brand swaps, you have failed the contract — restart from the brief.",
+        "Optional shelf patterns are zero-or-more local mechanics, never additional page identities. If two chosen fragments disagree with the primary anchor, keep the anchor and drop the fragments.",
         "Do not fall back to generic local-business hero plus three-card grid plus CTA strip if source excerpts are thin. Build a page that earns its sections — if you cannot fill a section honestly from the brief and the anchor grammar, cut the section.",
         "If the source uses three big proof cards with specific named clients, build a proof rail with the target business's actual specifics from the brief. Lacking those, use neutral verifiable structure (process steps, service capabilities, geographic coverage, methodology) and zero invented names.",
         "Headlines, body copy, and microcopy are written fresh against the brief. Source copy is reference for tone and density only — never raw material for the target page.",
@@ -691,12 +904,11 @@ def _mechanical_donors(resolution: RouteResolution) -> str:
         display_id = _display_id(display_map, selection.example_id)
         roles = ", ".join(f"`{role}`" for role in selection.ux_role_match)
         lines.append(f"`{display_id}`: borrow {roles}; do_not_borrow: identity/copy/palette/business name/section labels.")
-        if not request_allows_full_code(resolution.request):
-            lines.append(
-                "operator excerpt pull (only if this packet lacks source): "
-                f"`get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
-                f"example_id=\"{selection.example_id}\", include_full=true, include_section_snippets=true)`"
-            )
+        lines.append(
+            "operator excerpt pull: "
+            f"`get_source_excerpt(pack_id=\"{resolution.support_bank.manifest.pack_id}\", "
+            f"example_id=\"{selection.example_id}\", include_full=true, include_section_snippets=true)`"
+        )
     return _join_bullets(lines)
 
 
@@ -727,6 +939,7 @@ def _implementation_contract(request: DesignContextRequest, resolution: RouteRes
         "Server-render the hero, primary nav, and footer CTA at minimum. Avoid client-side date or locale formatting that produces hydration mismatch — render server-side or use a stable formatter.",
         "Use raster/photo image paths only when the user supplied them for this target site; otherwise build unique inline SVG/vector proof surfaces instead of fake image placeholders.",
         "Copy is real to the brief. Do not invent claims, names, statistics, testimonials, awards, certifications, locations served, years in business, project counts, pricing, or contact details. When specifics are not supplied, write generalized phrasing that does not require them.",
+        "Optional patterns are decisions, not obligations. Record the chosen pattern IDs and the single job each solves; choosing none is valid. Drop any fragment that conflicts with the anchor or adds a second identity.",
         "Smallest correct CSS over largest plausible. Smallest correct markup over largest plausible. If a rule, class, attribute, or element does not earn its place, delete it before shipping.",
         browser,
     ]
@@ -756,88 +969,18 @@ def _section_plan(resolution: RouteResolution, rules: RoutingRules) -> str:
     return _join_bullets(plan)
 
 
-def _append_block(blocks: list[str], block: str, *, limit: int) -> bool:
-    if not block or len(blocks) >= limit:
+def _append_block(
+    blocks: list[str],
+    block: str,
+) -> bool:
+    if not block:
         return False
     blocks.append(block)
     return True
 
 
-def _mode_code_limits(mode: str) -> tuple[int, int, int]:
-    if mode == "micro":
-        return 1300, 720, 650
-    if mode == "compact":
-        return 2100, 1100, 900
-    if mode == "standard":
-        # Raised atom cap so complete components (not fragments) reach the model.
-        return 4200, 1800, 3200
-    if mode == "expanded":
-        return 7600, 3200, 6000
-    return 7600, 3200, 8000
-
-
-def _mode_atom_file_chars(mode: str) -> int:
-    """Per-file char cap for atoms surfaced in the Reusable Component Library.
-
-    These are a primary deliverable, so the budget here is more generous than the
-    legacy ``_mode_code_limits`` atom cap (which governs the older 'Atom' lines in
-    Minimal Code Patterns). Full components show at standard+; compact shows
-    full-ish code; micro stays compact.
-    """
-    return {
-        "micro": 1100,
-        "compact": 950,
-        "standard": 3200,
-        "expanded": 5500,
-        "full_selected": 8000,
-    }.get(str(mode), 950)
-
-
-def _mode_atom_count(mode: str) -> int:
-    """How many selected atoms the Reusable Component Library renders."""
-    from .atom_selector import atom_budget_for_mode
-
-    return atom_budget_for_mode(mode)
-
-
-def _mode_library_token_target(mode: str) -> int:
-    """Approx token budget the component library packs whole components into.
-
-    The library packs complete components until adding the next one would exceed
-    this target, so output is whole components sized to the realistic headroom that
-    survives alongside the contract + required prose (rather than a ragged tail the
-    reducer has to hack). Scales up sharply with the token mode.
-    """
-    return {
-        "micro": 700,
-        "compact": 2900,
-        "standard": 11500,
-        "expanded": 28000,
-        "full_selected": 60000,
-    }.get(str(mode), 2900)
-
-
-# The foundation token atom is the keystone every other component reads from. Its
-# full `:root` block must survive even at compact, so it gets a dedicated, higher
-# per-file cap (large enough to carry the complete token block — the source `:root`
-# closes around char 7142). micro is too small for the full block, so it gets the
-# essential leading token families only.
-_FOUNDATION_FILE_CHARS = {
-    "micro": 3200,
-    "compact": 7600,
-    "standard": 8000,
-    "expanded": 12000,
-    "full_selected": 12000,
-}
-
-
-def _atom_file_chars(atom, mode: str) -> int:
-    from .atom_selector import FOUNDATION_ATOM_ID
-
-    base = _mode_atom_file_chars(mode)
-    if atom.atom_id == FOUNDATION_ATOM_ID:
-        return max(base, _FOUNDATION_FILE_CHARS.get(str(mode), 7600))
-    return base
+def _atom_file_chars(atom, mode: str) -> None:
+    return None
 
 
 def _atom_adapt_line(atom) -> str:
@@ -855,7 +998,12 @@ def _atom_adapt_line(atom) -> str:
     return _trim(" ".join(notes.split()), 240)
 
 
-def _render_atom_block(atom, *, mode: str) -> str:
+def _render_atom_block(
+    atom,
+    *,
+    mode: str,
+    request: DesignContextRequest | None = None,
+) -> str:
     header = f"## Component `{atom.atom_id}`"
     if getattr(atom, "category", ""):
         header += f" ({atom.category})"
@@ -870,9 +1018,21 @@ def _render_atom_block(atom, *, mode: str) -> str:
     file_chars = _atom_file_chars(atom, mode)
     code_blocks = list(getattr(atom, "code_blocks", []) or [])
     if not code_blocks and atom.snippet:
-        parts.append(_code_block(atom.language, atom.snippet, max_chars=file_chars))
+        parts.append(
+            _code_block(
+                atom.language,
+                atom.snippet,
+                max_chars=file_chars,
+                request=request,
+            )
+        )
     for code_file in code_blocks:
-        block = _code_block(code_file.language, code_file.content, max_chars=file_chars)
+        block = _code_block(
+            code_file.language,
+            code_file.content,
+            max_chars=file_chars,
+            request=request,
+        )
         if block:
             parts.append(f"`{code_file.label}`\n{block}")
     return "\n".join(parts)
@@ -900,154 +1060,184 @@ def _design_tokens_starter(resolution: RouteResolution, *, mode: str) -> str:
     file_chars = _atom_file_chars(atom, mode)
     blocks = [intro]
     code_blocks = list(getattr(atom, "code_blocks", []) or [])
-    # At tight budgets, surface only the CSS token file (the keystone); the demo
-    # HTML is redundant there. At standard+ include every file.
-    if mode in {"micro", "compact"}:
-        code_blocks = [c for c in code_blocks if c.language == "css"] or code_blocks[:1]
     for code_file in code_blocks:
-        block = _code_block(code_file.language, code_file.content, max_chars=file_chars)
+        block = _code_block(
+            code_file.language,
+            code_file.content,
+            max_chars=file_chars,
+            request=resolution.request,
+        )
         if block:
             blocks.append(f"`{code_file.label}`\n{block}")
     if not code_blocks and atom.snippet:
-        blocks.append(_code_block(atom.language, atom.snippet, max_chars=file_chars))
+        blocks.append(
+            _code_block(
+                atom.language,
+                atom.snippet,
+                max_chars=file_chars,
+                request=resolution.request,
+            )
+        )
     return "\n\n".join(blocks)
 
 
 def _reusable_component_library(resolution: RouteResolution, *, mode: str) -> str:
     """Surface the SELECTED first-party reference COMPONENTS WITH their real code.
 
-    A primary deliverable for weak local models: several complete, copy-adaptable
-    components (html, then css, then js). The foundation token starter is rendered
-    separately in its own protected section. Mode-scaled volume and per-file budget.
+    A primary deliverable for local models: every relevance-selected, complete,
+    copy-adaptable component (html, then css, then js). The foundation token starter
+    is rendered separately.
     """
     from .atom_selector import FOUNDATION_ATOM_ID
 
     atoms = [a for a in resolution.shared_atoms if a.atom_id != FOUNDATION_ATOM_ID]
     if not atoms:
         return ""
-    # max_atoms counts the foundation atom too; the starter is rendered elsewhere.
-    max_atoms = max(1, _mode_atom_count(mode) - 1)
-    token_target = _mode_library_token_target(mode)
     intro = _join_bullets(
         [
             "Real, copy-adaptable component code built on the Design Tokens Starter above. Translate class names, copy, palette, and claims to the target business — keep the token discipline, motion, responsive structure, and accessibility.",
-            "Each component loads its own web fonts and consumes the shared tokens. These are reference implementations, not brand identity — do not ship the placeholder copy (`[TESTIMONIAL_QUOTE]`, `[PRICE]`, etc.).",
+            (
+                "External font and asset loaders have been removed for this self-contained brief. "
+                "Use system fonts or user-supplied local assets; do not restore network imports."
+                if _request_forbids_external_dependencies(resolution.request)
+                else "Keep one project-level font strategy instead of duplicating font loads per component."
+            ),
+            "These are reference implementations, not brand identity — do not ship placeholder copy (`[TESTIMONIAL_QUOTE]`, `[PRICE]`, etc.).",
         ]
     )
     blocks: list[str] = [intro]
-    used = estimate_tokens(intro)
-    rendered = 0
     for atom in atoms:
-        if rendered >= max_atoms:
-            break
-        block = _render_atom_block(atom, mode=mode)
-        cost = estimate_tokens(block)
-        # Always include at least the first component; otherwise pack whole
-        # components until the next one would blow the library's token target.
-        if rendered >= 1 and used + cost > token_target:
-            break
+        block = _render_atom_block(
+            atom,
+            mode=mode,
+            request=resolution.request,
+        )
         blocks.append(block)
-        used += cost
-        rendered += 1
     return "\n\n".join(blocks)
 
 
 def _code_reference_intro(resolution: RouteResolution, *, mode: str, rules: RoutingRules) -> str:
-    budget = rules.token_budget(mode)
-    full = budget.full_code_allowed and request_allows_full_code(resolution.request)
     lines = [
         "Use these as implementation reference code, not copy-paste identity. Translate class names, content, palette, and claims to the target business.",
-        f"This `{mode}` packet can include up to {budget.max_snippets} code blocks.",
+        f"Capacity policy: `unbounded`. The `{mode}` label does not cap code blocks, source characters, sections, or estimated tokens.",
+        "Every relevance-selected source file and pattern fragment is emitted complete. Estimated token counts are telemetry only.",
         f"code_profile: `{resolution.request.code_profile}`.",
     ]
     if resolution.request.code_profile == "code_first":
-        lines.append("Code-first mode: selected support snippets are promoted before generic atoms so local models see actual donor implementation patterns early.")
-    if full:
-        lines.append(
-            "Full primary pattern source is INCLUDED in this packet (Full Anchor Build + selected support full files below). "
-            "Do NOT call get_source_excerpt or re-resolve — build from what is here."
-        )
-    elif budget.full_code_allowed:
-        lines.append("This token mode can include full source files when full_code_mode=true (default for resolve_design_context).")
-    else:
-        lines.append(
-            "This token_mode uses partial snippets only (inventory/peek). "
-            "For a full build packet in one call, resolve with token_mode=full_selected and full_code_mode=true — once — then build."
-        )
+        lines.append("Code-first mode: selected implementation source is promoted before generic atoms so local models see real donor mechanics early.")
     if resolution.support_bank is not None and resolution.selected_examples:
         display_map = _example_display_map(resolution)
         examples = ", ".join(f"`{_display_id(display_map, selection.example_id)}`" for selection in resolution.selected_examples)
-        if full:
-            lines.append(f"Selected support examples (sources inline in this packet): {examples}.")
-        else:
-            lines.append(f"Selected support examples: {examples}.")
+        lines.append(f"Selected support examples included in full: {examples}.")
+    if resolution.optional_patterns:
+        lines.append(
+            f"The Optional Pattern Shelf contains {len(resolution.optional_patterns)} inlined Pattern Cards and "
+            f"{len(resolution.optional_pattern_catalog)} qualified catalog entries. Cards are zero-or-more choices "
+            "and do not count against the primary anchor."
+        )
     return _join_bullets(lines)
 
 
 def _code_patterns(resolution: RouteResolution, *, mode: str, rules: RoutingRules) -> str:
-    budget = rules.token_budget(mode)
-    if budget.max_snippets <= 0:
-        return "No code snippets included in this token mode. Use grammar notes and inline SVG/vector visual surfaces; do not use image paths unless the user supplied them."
-    max_chars, css_chars, atom_chars = _mode_code_limits(mode)
+    max_chars = css_chars = atom_chars = None
     blocks: list[str] = []
     anchor = resolution.anchor_pack
     blocks.append(_code_reference_intro(resolution, mode=mode, rules=rules))
-    if anchor.anchor_markup_excerpt:
-        _append_block(blocks, f"## Anchor markup excerpt\n{_code_block(anchor.anchor_markup_language, anchor.anchor_markup_excerpt, max_chars=max_chars)}", limit=budget.max_snippets + 1)
-    if anchor.anchor_css_excerpt:
-        _append_block(blocks, f"## Anchor CSS excerpt\n{_code_block(anchor.anchor_css_language, anchor.anchor_css_excerpt, max_chars=css_chars)}", limit=budget.max_snippets + 1)
-    # When full_code_mode is explicitly requested, surface anchor and selected
-    # support source files early so they survive the per-mode snippet cap.
-    if budget.full_code_allowed and request_allows_full_code(resolution.request):
-        for file in anchor.anchor_source_files:
-            if len(blocks) >= budget.max_snippets + 1:
-                break
-            blocks.append(_code_file_block(file, max_chars=max_chars))
-        if resolution.support_bank is not None:
-            for selection in resolution.selected_examples:
-                if len(blocks) >= budget.max_snippets + 1:
-                    break
-                example = resolution.support_bank.example_summaries.get(selection.example_id)
-                if example is None:
-                    continue
-                for file in example.full_code_files:
-                    if len(blocks) >= budget.max_snippets + 1:
-                        break
-                    blocks.append(_code_file_block(file, max_chars=max_chars))
+    anchor_is_in_full_build = bool(resolution.route_meta.get("anchor_full_source"))
+    if anchor.anchor_markup_excerpt and not anchor_is_in_full_build:
+        _append_block(
+            blocks,
+            "## Anchor markup excerpt\n"
+            + _code_block(
+                anchor.anchor_markup_language,
+                anchor.anchor_markup_excerpt,
+                max_chars=max_chars,
+                request=resolution.request,
+            ),
+        )
+    if anchor.anchor_css_excerpt and not anchor_is_in_full_build:
+        _append_block(
+            blocks,
+            "## Anchor CSS excerpt\n"
+            + _code_block(
+                anchor.anchor_css_language,
+                anchor.anchor_css_excerpt,
+                max_chars=css_chars,
+                request=resolution.request,
+            ),
+        )
+    if resolution.hero_reference_pack is not None:
+        for file in resolution.hero_reference_pack.anchor_source_files:
+            blocks.append(
+                "## Hero Reference Source\n"
+                + _code_file_block(
+                    file,
+                    max_chars=max_chars,
+                    request=resolution.request,
+                )
+            )
     display_map = _example_display_map(resolution)
     if resolution.support_bank is not None:
         for selection in resolution.selected_examples:
-            if len(blocks) >= budget.max_snippets + 1:
-                break
             example = resolution.support_bank.example_summaries.get(selection.example_id)
             if example is None:
                 continue
             display_id = _display_id(display_map, selection.example_id)
+            if example.full_code_files:
+                blocks.append(f"## Full Support Source `{display_id}`")
+                for file in example.full_code_files:
+                    blocks.append(
+                        _code_file_block(
+                            file,
+                            max_chars=max_chars,
+                            request=resolution.request,
+                        )
+                    )
+                continue
             if example.html_excerpt:
-                blocks.append(f"## Support `{display_id}` hero/markup snippet\n{_code_block('html', example.html_excerpt, max_chars=max_chars)}")
-            if len(blocks) >= budget.max_snippets + 1:
-                break
-            for excerpt in example.section_job_excerpts[:2]:
-                if len(blocks) >= budget.max_snippets + 1:
-                    break
-                blocks.append(f"## Support section snippet `{excerpt.label}`\n{_code_block(excerpt.language, excerpt.content, max_chars=max_chars)}")
-            if len(blocks) >= budget.max_snippets + 1:
-                break
+                blocks.append(
+                    f"## Support `{display_id}` hero/markup snippet\n"
+                    + _code_block(
+                        "html",
+                        example.html_excerpt,
+                        max_chars=max_chars,
+                        request=resolution.request,
+                    )
+                )
+            for excerpt in example.section_job_excerpts:
+                blocks.append(
+                    f"## Support section snippet `{excerpt.label}`\n"
+                    + _code_block(
+                        excerpt.language,
+                        excerpt.content,
+                        max_chars=max_chars,
+                        request=resolution.request,
+                    )
+                )
             if example.css_excerpt:
-                blocks.append(f"## Support `{display_id}` CSS snippet\n{_code_block('css', example.css_excerpt, max_chars=css_chars)}")
+                blocks.append(
+                    f"## Support `{display_id}` CSS snippet\n"
+                    + _code_block(
+                        "css",
+                        example.css_excerpt,
+                        max_chars=css_chars,
+                        request=resolution.request,
+                    )
+                )
     # Shared reference atoms are surfaced in their own dedicated "Reusable Component
     # Library" section with full code; only pack-local anchor atoms appear here.
     for atom in anchor.atoms:
-        if len(blocks) >= budget.max_snippets + 1:
-            break
         if atom.snippet:
-            blocks.append(f"## Atom `{atom.atom_id}`\n{_trim(atom.notes, 500)}\n{_code_block(atom.language, atom.snippet, max_chars=atom_chars)}")
+            blocks.append(
+                f"## Atom `{atom.atom_id}`\n{_trim(atom.notes, 500)}\n"
+                + _code_block(
+                    atom.language,
+                    atom.snippet,
+                    max_chars=atom_chars,
+                    request=resolution.request,
+                )
+            )
     return "\n\n".join(blocks) if blocks else "No code excerpts found for selected route."
-
-
-def request_allows_full_code(request: DesignContextRequest) -> bool:
-    return bool(request.full_code_mode or request.include_full_library)
-
 
 def _code_density_metrics(resolution: RouteResolution) -> dict[str, int]:
     support_blocks = 0
@@ -1068,145 +1258,152 @@ def _code_density_metrics(resolution: RouteResolution) -> dict[str, int]:
         "atom_blocks": atom_blocks,
         "support_blocks": support_blocks,
         "section_slices": section_slices,
+        "optional_pattern_slices": len(resolution.optional_patterns),
+        "optional_pattern_style_blocks": sum(
+            int(pattern.style_excerpt is not None) for pattern in resolution.optional_patterns
+        ),
+        "optional_pattern_code_blocks": sum(
+            int(pattern.excerpt is not None) for pattern in resolution.optional_patterns
+        ),
+        "optional_pattern_catalog_entries": len(resolution.optional_pattern_catalog),
         "full_files": len(resolution.anchor_pack.anchor_source_files) + support_full_files,
     }
 
 
 def _omissions(resolution: RouteResolution, *, mode: str, rules: RoutingRules) -> tuple[str, list[str]]:
-    budget = rules.token_budget(mode)
     omitted: list[str] = []
-    if not budget.full_code_allowed and request_allows_full_code(resolution.request):
-        omitted.append("full source files: disabled for this token mode")
     if resolution.support_bank is not None:
         selected = set(resolution.selected_example_ids)
-        for example_id in resolution.support_bank.manifest.example_ids:
-            if example_id not in selected:
-                omitted.append(f"support example `{example_id}`: not selected by route/budget")
+        unselected_count = len(
+            set(resolution.support_bank.manifest.example_ids).difference(selected)
+        )
+        if unselected_count:
+            if resolution.route_meta.get("source_selection", {}).get(
+                "anchor_self_sufficient"
+            ):
+                omitted.append(
+                    "secondary donors: withheld because the anchor covers the requested UX jobs"
+                )
+            else:
+                omitted.append(
+                    f"support examples: {unselected_count} incompatible or redundant donors withheld"
+                )
+    optional_meta = resolution.route_meta.get("optional_pattern_pool", {})
+    optional_target = int(optional_meta.get("requested_count", 0) or 0)
+    selected_optional = int(optional_meta.get("selected_count", 0) or 0)
+    if optional_target and selected_optional < optional_target:
+        reason = (
+            "the anchor already covers the requested UX jobs"
+            if optional_meta.get("anchor_self_sufficient")
+            else "lower-fit fragments were withheld"
+        )
+        omitted.append(
+            f"optional pattern slots: selected {selected_optional} of {optional_target}; {reason}"
+        )
     if not omitted:
         omitted.append("none")
     return _join_bullets(omitted[:20]), omitted
 
 
 def _packet_header(request: DesignContextRequest, resolution: RouteResolution, *, mode: str, rules: RoutingRules, body: str = "") -> str:
-    budget = rules.token_budget(mode)
     density = _code_density_metrics(resolution)
     starvation = resolution.route_meta.get("donor_starvation", {})
     mechanical_ids = resolution.route_meta.get("mechanical_donor_ids", [])
-    full = budget.full_code_allowed and request_allows_full_code(request)
     lines = [
         "# Design Router Packet",
-        "- BUILD NOW: this packet is complete enough to implement. "
-        "Do NOT call resolve_design_context again. "
-        "Do NOT call get_source_excerpt, inspect_design_library, route_alternatives, "
-        "donor_starvation_audit, audit_source_hygiene, or validate_* for this task. "
-        "Write the site from this packet (1 design-router call max; optional export only if you need files on disk).",
         f"- token_mode: `{mode}`",
         f"- code_profile: `{request.code_profile}`",
         f"- packet_intent: `{_active_packet_intent(request)}`",
-        f"- full_code_mode: `{'on' if full else 'off'}`",
-        f"- budget: `{budget.max_packet_tokens}` estimated tokens",
+        "- capacity_policy: `unbounded`",
+        "- estimated_tokens: telemetry only; never used to trim, drop, or shorten selected material",
         "- code_density: "
         f"anchor_blocks={density['anchor_blocks']}, "
         f"atom_blocks={density['atom_blocks']}, "
         f"support_blocks={density['support_blocks']}, "
         f"section_slices={density['section_slices']}, "
+        f"optional_patterns={density['optional_pattern_slices']}, "
+        f"optional_catalog={density['optional_pattern_catalog_entries']}, "
         f"full_files={density['full_files']}",
         f"- request: {request.task}",
         f"- anchor: `{resolution.anchor_pack.manifest.pack_id}`",
     ]
-    if resolution.support_bank is not None:
+    if resolution.support_bank is not None and resolution.selected_examples:
         lines.append(f"- support_bank: `{resolution.support_bank.manifest.pack_id}`")
+    if resolution.optional_patterns:
+        lines.append(
+            f"- optional_pattern_shelf: {len(resolution.optional_patterns)} inlined cards; "
+            f"{len(resolution.optional_pattern_catalog)} qualified catalog entries (use zero or more)"
+        )
     if starvation.get("native_count") == 0:
         display_map = _example_display_map(resolution)
         donor_labels = ", ".join(_display_id(display_map, donor) for donor in mechanical_ids) or "none"
         lines.append(f"- donor_starvation: yes (mechanical donors: {donor_labels})")
-    if full:
-        lines.append(
-            "- depth: FULL primary pattern + contracts are inline. "
-            "No second hop for source. Optional second tool: export_opencode_bundle only if filesystem hand-off is required."
-        )
-    else:
-        lines.append(
-            "- depth: snippet/peek mode. For a one-call full build, re-resolve ONCE with "
-            "token_mode=full_selected and full_code_mode=true, then stop calling tools and build."
-        )
+    lines.append("- expansion: unnecessary; selected source is already complete")
     return "\n".join(lines)
 
 
 def _pack_sections(request: DesignContextRequest, resolution: RouteResolution, *, mode: str, rules: RoutingRules) -> list[_Section]:
     omit_text, _ = _omissions(resolution, mode=mode, rules=rules)
     strict_quality_sections: list[_Section] = []
-    # The four CORE design-system contract sections. These are placed EARLY (right
-    # after Anchor Grammar) in both intent branches and are protected from
-    # truncation so the design-system contract is never chopped off the tail.
     core_contract_sections: list[_Section] = []
-    # State/Performance/Microcopy contracts (standard+). Also required, but allowed
-    # to sit later in the packet.
     extended_contract_sections: list[_Section] = []
     if _visual_quality_enabled(request):
-        if mode == "micro":
-            strict_quality_sections = [
-                _Section("Production Discipline", _micro_production_discipline(), True),
+        strict_quality_sections = [
+            _Section("Production Bar", _production_bar_preamble(), True),
+            _Section("Hard UI Rules", _hard_ui_rules(), True),
+            _Section("Visual Asset Discipline", _visual_asset_discipline(), True),
+            _Section("Claim Realism / Proof Discipline", _claim_realism(resolution, rules), True),
+            _Section("Layout QA Gates", _layout_qa_gates(), True),
+            _Section("Mobile-First Gates", _mobile_first_gates(), True),
+        ]
+        core_contract_sections.extend(
+            [
+                _Section("Design Tokens Contract", _design_tokens_contract(), True),
+                _Section("Motion Grammar", _motion_grammar(), True),
+                _Section("Typography Discipline", _typography_discipline(), True),
+                _Section("Accessibility Contract", _accessibility_contract(), True),
             ]
-        elif mode == "library_audit":
-            strict_quality_sections = []
-        else:
-            strict_quality_sections = [
-                _Section("Production Bar", _production_bar_preamble(), True),
-                _Section("Hard UI Rules", _hard_ui_rules(), True),
-                _Section("Visual Asset Discipline", _visual_asset_discipline(), True),
-                _Section("Claim Realism / Proof Discipline", _claim_realism(resolution, rules), True),
-                _Section("Layout QA Gates", _layout_qa_gates(), True),
-                _Section("Mobile-First Gates", _mobile_first_gates(), True),
+        )
+        extended_contract_sections.extend(
+            [
+                _Section("State Completeness", _state_completeness_contract(), True),
+                _Section("Performance Discipline", _performance_discipline(), True),
+                _Section("Microcopy Contract", _microcopy_contract(), True),
             ]
-            core_contract_sections.extend(
-                [
-                    _Section("Design Tokens Contract", _design_tokens_contract(), True),
-                    _Section("Motion Grammar", _motion_grammar(), True),
-                    _Section("Typography Discipline", _typography_discipline(), True),
-                    _Section("Accessibility Contract", _accessibility_contract(), True),
-                ]
-            )
-            if mode in {"standard", "expanded", "full_selected"}:
-                extended_contract_sections.extend(
-                    [
-                        _Section("State Completeness", _state_completeness_contract(), True),
-                        _Section("Performance Discipline", _performance_discipline(), True),
-                        _Section("Microcopy Contract", _microcopy_contract(), True),
-                    ]
-                )
+        )
     token_starter_sections: list[_Section] = []
     component_library_sections: list[_Section] = []
-    if mode != "library_audit":
-        starter_body = _design_tokens_starter(resolution, mode=mode)
-        if starter_body:
-            token_starter_sections.append(_Section("Design Tokens Starter", starter_body, True))
-        library_body = _reusable_component_library(resolution, mode=mode)
-        if library_body:
-            component_library_sections.append(_Section("Reusable Component Library", library_body, True))
+    optional_pattern_sections: list[_Section] = []
+    starter_body = _design_tokens_starter(resolution, mode=mode)
+    if starter_body:
+        token_starter_sections.append(_Section("Design Tokens Starter", starter_body, True))
+    library_body = _reusable_component_library(resolution, mode=mode)
+    if library_body:
+        component_library_sections.append(_Section("Reusable Component Library", library_body, True))
+    optional_pattern_body = _optional_pattern_shelf(resolution, mode=mode)
+    if optional_pattern_body:
+        optional_pattern_sections.append(_Section("Optional Pattern Shelf", optional_pattern_body, True))
     vertical_guardrails = _vertical_guardrails(resolution, rules)
     composition_sections: list[_Section] = []
     donor_sections: list[_Section] = []
     failure_sections: list[_Section] = []
-    if mode not in {"micro", "library_audit"}:
-        composition = _composition_brief(resolution, rules)
-        artifacts = _visual_artifact_specs(resolution, rules)
-        if composition:
-            composition_sections.append(_Section("Composition Brief", composition, True))
-        if artifacts:
-            composition_sections.append(_Section("Visual Artifact Specs", artifacts, True))
-        donor_warning = _donor_starvation_warning(resolution)
-        mechanical_donors = _mechanical_donors(resolution)
-        if donor_warning:
-            donor_sections.append(_Section("Donor Starvation Warning", donor_warning, True))
-        if mechanical_donors:
-            donor_sections.append(_Section("Mechanical Donors (UX Role Only)", mechanical_donors, True))
-        failures = _local_model_failure_patterns(resolution, rules)
-        if failures:
-            failure_sections.append(_Section("Local Model Failure Patterns", failures, True))
+    composition = _composition_brief(resolution, rules)
+    artifacts = _visual_artifact_specs(resolution, rules)
+    if composition:
+        composition_sections.append(_Section("Composition Brief", composition, True))
+    if artifacts:
+        composition_sections.append(_Section("Visual Artifact Specs", artifacts, True))
+    donor_warning = _donor_starvation_warning(resolution)
+    mechanical_donors = _mechanical_donors(resolution)
+    if donor_warning:
+        donor_sections.append(_Section("Donor Starvation Warning", donor_warning, True))
+    if mechanical_donors:
+        donor_sections.append(_Section("Mechanical Donors (UX Role Only)", mechanical_donors, True))
+    failures = _local_model_failure_patterns(resolution, rules)
+    if failures:
+        failure_sections.append(_Section("Local Model Failure Patterns", failures, True))
 
-    # Full-build mode: the complete anchor source travels as a REQUIRED section so
-    # budget trimming can never clip the quality bar out of the packet.
+    # The selected anchor implementation is always complete.
     full_build_sections: list[_Section] = []
     full_build_body = _full_anchor_build(resolution)
     if full_build_body:
@@ -1218,6 +1415,7 @@ def _pack_sections(request: DesignContextRequest, resolution: RouteResolution, *
             _Section("Selected Route", _selected_route(resolution), True),
             _Section("Anchor Grammar", _anchor_grammar(resolution.anchor_pack), True),
             *full_build_sections,
+            *optional_pattern_sections,
             *core_contract_sections,
             _Section("Section Plan", _section_plan(resolution, rules), True),
             _Section("Implementation Contract", _implementation_contract(request, resolution), True),
@@ -1243,6 +1441,7 @@ def _pack_sections(request: DesignContextRequest, resolution: RouteResolution, *
             _Section("Source Inventory", _source_inventory(resolution), True),
             _Section("Anchor Grammar", _anchor_grammar(resolution.anchor_pack), True),
             *full_build_sections,
+            *optional_pattern_sections,
             # CORE design-system contract — placed immediately after Anchor Grammar
             # and before the code sections so it can never be truncated away.
             *core_contract_sections,
@@ -1270,6 +1469,7 @@ def _pack_sections(request: DesignContextRequest, resolution: RouteResolution, *
             _Section("Selected Route", _selected_route(resolution), True),
             _Section("Anchor Grammar", _anchor_grammar(resolution.anchor_pack), True),
             *full_build_sections,
+            *optional_pattern_sections,
             # CORE design-system contract — placed immediately after Anchor Grammar
             # and before the code sections so it can never be truncated away.
             *core_contract_sections,
@@ -1292,8 +1492,6 @@ def _pack_sections(request: DesignContextRequest, resolution: RouteResolution, *
             _Section("Section Plan", _section_plan(resolution, rules), True),
             _Section("Omitted Files", omit_text, True),
         ]
-    if mode == "library_audit":
-        return [sections[0], sections[1], sections[-1]]
     return sections
 
 
@@ -1301,130 +1499,23 @@ def _assemble(header: str, sections: list[_Section]) -> str:
     return "\n\n".join([header, *(s.render() for s in sections)]).strip()
 
 
-def _trim_section_body(section: _Section, max_chars: int) -> _Section:
-    body = section.body.strip()
-    if len(body) <= max_chars:
-        return section
-    trimmed = body[:max_chars].rstrip()
-    # Prefer to cut at a fenced-code boundary or newline so we never leave a code
-    # fence open. Close any dangling fence.
-    cut = trimmed.rfind("\n")
-    if cut > max_chars // 2:
-        trimmed = trimmed[:cut].rstrip()
-    if trimmed.count("```") % 2 == 1:
-        trimmed += "\n```"
-    trimmed += "\n... [section trimmed to fit token budget; primary Full Anchor Build and contracts remain authoritative — build from those]"
-    return _Section(section.title, trimmed, section.required)
-
-
-def _reduce_to_budget(
-    header: str,
-    sections: list[_Section],
-    *,
-    budget: int,
-    full_code: bool = False,
-) -> tuple[list[_Section], list[str], list[str], bool]:
-    """Section-aware reducer that protects the design-system contract.
-
-    Returns (kept_sections, dropped_titles, trimmed_titles, hard_truncated).
-    Order of sacrifice: drop trailing non-required sections, then trim the BODIES of
-    the lowest-value reference sections. Contract sections are never trimmed or
-    dropped. A blind char-chop is a last resort and is performed at a heading
-    boundary that keeps every contract section intact.
-    """
-    kept = list(sections)
-    dropped: list[str] = []
-    trimmed: list[str] = []
-
-    if estimate_tokens(_assemble(header, kept)) <= budget:
-        return kept, dropped, trimmed, False
-
-    # 1) Drop trailing non-required, non-contract sections (most disposable last).
-    for idx in range(len(kept) - 1, -1, -1):
-        if estimate_tokens(_assemble(header, kept)) <= budget:
-            break
-        section = kept[idx]
-        if section.required or section.title in CONTRACT_SECTION_TITLES:
-            continue
-        dropped.append(section.title)
-        del kept[idx]
-
-    # 2) Trim BODIES of the lowest-value reference sections, most disposable first.
-    # When full_code is explicitly requested, the full source files live in
-    # "Minimal Code Patterns" and are a primary deliverable, so the (otherwise
-    # most-protected) Reusable Component Library yields to them first.
-    trim_order: tuple[str, ...] = TRIMMABLE_SECTION_ORDER
-    if full_code:
-        middle = [t for t in TRIMMABLE_SECTION_ORDER if t not in ("Reusable Component Library", "Minimal Code Patterns")]
-        trim_order = ("Reusable Component Library", *middle, "Minimal Code Patterns")
-    for title in trim_order:
-        if estimate_tokens(_assemble(header, kept)) <= budget:
-            break
-        for idx, section in enumerate(kept):
-            if section.title != title or title in CONTRACT_SECTION_TITLES:
-                continue
-            # Compute how many chars this section may keep: shrink it until the whole
-            # packet fits, with a small floor so the heading + a hint survive.
-            overage_tokens = estimate_tokens(_assemble(header, kept)) - budget
-            allowed = max(0, len(section.body) - (overage_tokens * 4) - 80)
-            kept[idx] = _trim_section_body(section, allowed)
-            trimmed.append(title)
-            break
-
-    # 3) Last resort: still over budget even after minimizing every trimmable body
-    # (the contract + structural required sections alone exceed the budget). Chop
-    # from the END at a heading boundary that preserves all contract sections.
-    if estimate_tokens(_assemble(header, kept)) <= budget:
-        return kept, dropped, trimmed, False
-    last_contract_idx = max(
-        (i for i, s in enumerate(kept) if s.title in CONTRACT_SECTION_TITLES),
-        default=-1,
-    )
-    safe_kept = kept[: last_contract_idx + 1] if last_contract_idx >= 0 else kept
-    return safe_kept, dropped, trimmed, True
-
-
 def _finalize(sections: list[_Section], *, request: DesignContextRequest, resolution: RouteResolution, mode: str, rules: RoutingRules) -> RenderedPacket:
-    budget = rules.token_budget(mode).max_packet_tokens
     header = _packet_header(request, resolution, mode=mode, rules=rules)
     code_density = _code_density_metrics(resolution)
-    omitted_sections: list[str] = []
-
-    # First pass: keep all required sections; only drop non-required ones that would
-    # push the packet over budget (preserves the original optional-omission behavior).
-    selected_sections: list[_Section] = []
-    for section in sections:
-        candidate_sections = [*selected_sections, section]
-        if estimate_tokens(_assemble(header, candidate_sections)) <= budget or section.required:
-            selected_sections.append(section)
-        else:
-            omitted_sections.append(section.title)
-
-    # Second pass: contract-aware reduction if still over budget.
-    full_code = rules.token_budget(mode).full_code_allowed and request_allows_full_code(request)
-    selected_sections, dropped, trimmed, hard_truncated = _reduce_to_budget(
-        header, selected_sections, budget=budget, full_code=full_code
-    )
-    omitted_sections.extend(dropped)
-
-    markdown = _assemble(header, selected_sections)
-    if hard_truncated:
-        markdown += (
-            f"\n\n---\n[PACKET TRUNCATED: estimated tokens exceeded {budget}. "
-            "Reference bodies were minimized; the design-system contract and Full Anchor Build "
-            "(when present) remain authoritative. Do not start a multi-tool fetch loop — build from what remains.]"
-        )
+    markdown = _assemble(header, sections)
     omitted_text, omitted_files = _omissions(resolution, mode=mode, rules=rules)
-    if omitted_sections:
-        omitted_files.extend(f"section `{title}`: token budget" for title in omitted_sections)
-    if trimmed:
-        omitted_files.extend(f"section `{title}`: body trimmed to fit token budget" for title in dict.fromkeys(trimmed))
     selected_files = [resolution.anchor_pack.manifest.pack_id]
     if resolution.hero_reference_pack is not None:
         selected_files.append(resolution.hero_reference_pack.manifest.pack_id)
-    if resolution.support_bank is not None:
+    if resolution.support_bank is not None and resolution.selected_examples:
         selected_files.append(resolution.support_bank.manifest.pack_id)
         selected_files.extend(resolution.selected_example_ids)
+    for pattern in resolution.optional_patterns:
+        if pattern.source_kind == "support_example":
+            selected_files.append(pattern.pack_id)
+        if pattern.source_kind == "support_example" and pattern.example_id:
+            selected_files.append(f"{pattern.pack_id}::{pattern.example_id}")
+    selected_files = list(dict.fromkeys(selected_files))
     code_density = {**code_density, "estimated_tokens": estimate_tokens(markdown)}
     recipe = _composition_recipe(resolution, rules)
     artifact_vocabularies = sorted({str(item.get("vocabulary")) for item in recipe.get("artifact_briefs", []) if item.get("vocabulary")})
@@ -1435,18 +1526,37 @@ def _finalize(sections: list[_Section], *, request: DesignContextRequest, resolu
         selected_files=selected_files,
         omitted_files=omitted_files,
         metadata={
+            "capacity_policy": "unbounded",
+            "estimated_tokens_are_telemetry_only": True,
             "rules_version": rules.version,
+            "route_trace_id": resolution.route_meta.get("trace_id"),
+            "route_profile": request.route_profile,
+            "rerank_mode": request.rerank_mode,
             "omitted_summary": omitted_text,
             "visual_quality_profile": request.visual_quality_profile,
             "code_profile": request.code_profile,
             "packet_intent": _active_packet_intent(request),
             "code_density": code_density,
             "donor_starvation": resolution.route_meta.get("donor_starvation", {}),
+            "source_selection": resolution.route_meta.get("source_selection", {}),
             "composition_brief_count": 1 if recipe else 0,
             "artifact_vocabularies_named": artifact_vocabularies,
             "vertical": resolution.normalized_request.specialty_service_class or "none (unrouted)",
+            "surface_kind": resolution.normalized_request.surface_kind,
+            "task_archetype": resolution.normalized_request.task_archetype,
+            "route_confidence": resolution.route_meta.get("route_confidence", {}),
+            "candidate_gate": resolution.route_meta.get("candidate_gate", {}),
             "anchor_score": resolution.anchor_score.model_dump(mode="json"),
             "support_bank_score": resolution.support_bank_score.model_dump(mode="json") if resolution.support_bank_score else None,
+            "optional_pattern_pool": resolution.route_meta.get("optional_pattern_pool", {}),
+            "optional_patterns": [
+                optional_pattern_metadata(pattern)
+                for pattern in resolution.optional_patterns
+            ],
+            "optional_pattern_catalog": [
+                entry.model_dump(mode="json")
+                for entry in resolution.optional_pattern_catalog
+            ],
         },
     )
 

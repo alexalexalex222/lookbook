@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ashvault — Dungeon Tactics</title>
+<style>
+/* ============================================================
+   ASHVAULT — Design Tokens
+   Dark fantasy palette. Derived from Golden Book token system.
+   ============================================================ */
+:root {
+  /* Neutral ramp — warm stone tones */
+  --neutral-0:   #1a1714;
+  --neutral-50:  #1e1b17;
+  --neutral-100: #262320;
+  --neutral-200: #33302b;
+  --neutral-300: #47433b;
+  --neutral-500: #7a7468;
+  --neutral-700: #b5ae9e;
+  --neutral-900: #e8e2d4;
+
+  /* Brand — ember/torch accent */
+  --brand-300:   #f5a623;
+  --brand-500:   #e8912e;
+  --brand-600:   #c67a20;
+  --brand-700:   #9e5f16;
+
+  /* Player — arcane blue */
+  --player-300:  #7ec8f0;
+  --player-500:  #4da6e0;
+  --player-700:  #2d7ab0;
+
+  /* Enemy — blood red */
+  --enemy-300:   #f07070;
+  --enemy-500:   #d94444;
+  --enemy-700:   #a83030;
+
+  /* Exit — emerald green */
+  --exit-300:    #6ae08a;
+  --exit-500:    #38c960;
+  --exit-700:    #24993f;
+
+  /* Feedback */
+  --success-500: #38c960;
+  --warning-500: #e8912e;
+  --danger-500:  #d94444;
+
+  /* Semantic roles */
+  --color-bg:           #121010;
+  --color-surface:      var(--neutral-50);
+  --color-surface-alt:  var(--neutral-100);
+  --color-border:       var(--neutral-200);
+  --color-border-strong:var(--neutral-300);
+  --color-text:         var(--neutral-900);
+  --color-text-muted:   var(--neutral-500);
+  --color-text-subtle:  var(--neutral-700);
+  --color-focus-ring:   var(--brand-500);
+
+  /* Typography */
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-body:    system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono:    ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --text-xs:   0.8125rem;
+  --text-sm:   0.875rem;
+  --text-base: 1rem;
+  --text-md:   1.0625rem;
+  --text-lg:   1.25rem;
+  --text-xl:   1.5rem;
+  --text-2xl:  2rem;
+
+  --leading-tight:  1.1;
+  --leading-snug:   1.25;
+  --leading-normal: 1.5;
+  --leading-loose:  1.7;
+
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-bold:    700;
+
+  /* Spacing — 4px base */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 2.5rem;
+  --space-8: 3rem;
+
+  /* Radii */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+
+  /* Elevation */
+  --shadow-1: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+  --shadow-2: 0 4px 12px rgba(0,0,0,0.4), 0 2px 4px rgba(0,0,0,0.3);
+  --shadow-3: 0 12px 32px rgba(0,0,0,0.5), 0 4px 8px rgba(0,0,0,0.3);
+
+  /* Motion */
+  --duration-instant: 80ms;
+  --duration-fast:    150ms;
+  --duration-base:    220ms;
+  --duration-slow:    350ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-emphasis: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Z-index */
+  --z-base:    1;
+  --z-overlay: 10;
+  --z-modal:   100;
+
+  /* Game-specific */
+  --cell-size: clamp(22px, 6.5vmin, 52px);
+  --grid-gap:  2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-instant: 0ms;
+    --duration-fast:    0ms;
+    --duration-base:    0ms;
+    --duration-slow:    0ms;
+  }
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background: var(--color-bg);
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow-x: hidden;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+/* ============================================================
+   Layout — Mobile-first shell
+   ============================================================ */
+.shell {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-3);
+  gap: var(--space-3);
+}
+
+@media (min-width: 720px) {
+  .shell {
+    grid-template-columns: 1fr 260px;
+    grid-template-rows: auto 1fr auto;
+    gap: var(--space-4);
+    padding: var(--space-4);
+  }
+}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-1);
+}
+
+.header__title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: var(--weight-bold);
+  letter-spacing: 0.04em;
+  color: var(--brand-300);
+  text-transform: uppercase;
+}
+
+.header__controls {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  border-radius: var(--radius-xs);
+  transition: background var(--duration-fast) var(--ease-standard),
+              color var(--duration-fast) var(--ease-standard);
+  min-height: 44px;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background: var(--brand-500);
+  color: #fff;
+}
+.btn--primary:hover { background: var(--brand-600); }
+.btn--primary:active { background: var(--brand-700); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+.btn--ghost:hover { background: var(--color-surface-alt); color: var(--color-text); }
+
+.btn .icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ============================================================
+   Status Bar
+   ============================================================ */
+.status-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  align-items: center;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.status-item__label {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.status-item__value {
+  font-weight: var(--weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text);
+}
+
+.status-item__value--hp { color: var(--exit-300); }
+.status-item__value--danger { color: var(--danger-500); }
+.status-item__value--turn { color: var(--brand-300); }
+
+.hp-bar {
+  width: 60px;
+  height: 6px;
+  background: var(--neutral-200);
+  border-radius: 3px;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: var(--space-1);
+}
+
+.hp-bar__fill {
+  height: 100%;
+  background: var(--exit-500);
+  border-radius: 3px;
+  transition: width var(--duration-base) var(--ease-standard);
+}
+.hp-bar__fill--low { background: var(--danger-500); }
+
+.spacer { flex: 1; }
+
+/* ============================================================
+   Game Board
+   ============================================================ */
+.board-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.game-board {
+  display: grid;
+  gap: var(--grid-gap);
+  background: var(--neutral-200);
+  border: 2px solid var(--neutral-300);
+  border-radius: var(--radius-sm);
+  padding: var(--grid-gap);
+  box-shadow: var(--shadow-2), inset 0 0 40px rgba(0,0,0,0.3);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.cell {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(var(--cell-size) * 0.55);
+  border-radius: var(--radius-xs);
+  position: relative;
+  transition: background var(--duration-fast) var(--ease-standard),
+              box-shadow var(--duration-fast) var(--ease-standard),
+              transform var(--duration-fast) var(--ease-standard);
+}
+
+/* Cell types */
+.cell--floor {
+  background: #2a2622;
+}
+.cell--floor:hover {
+  background: #332f2a;
+}
+
+.cell--wall {
+  background: #1a1714;
+  border: 1px solid #2a2622;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.5);
+}
+.cell--wall::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 3px,
+    rgba(255,255,255,0.02) 3px,
+    rgba(255,255,255,0.02) 6px
+  );
+  border-radius: inherit;
+}
+
+.cell--exit {
+  background: #1a2e1e;
+  border: 1px solid var(--exit-700);
+  box-shadow: inset 0 0 12px rgba(56, 201, 96, 0.15);
+}
+.cell--exit::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  border: 2px solid var(--exit-500);
+  animation: pulse-exit 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-exit {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* Player */
+.cell--player {
+  background: #1a2438;
+  z-index: 2;
+}
+.cell--player .cell__icon {
+  color: var(--player-300);
+  filter: drop-shadow(0 0 6px rgba(77, 166, 224, 0.5));
+  transition: transform var(--duration-fast) var(--ease-emphasis);
+}
+.cell--player:hover .cell__icon {
+  transform: scale(1.1);
+}
+
+/* Enemy */
+.cell--enemy {
+  background: #2e1a1a;
+  z-index: 2;
+}
+.cell--enemy .cell__icon {
+  color: var(--enemy-300);
+  filter: drop-shadow(0 0 5px rgba(217, 68, 68, 0.4));
+}
+
+/* Movement range highlight */
+.cell--move-range {
+  box-shadow: inset 0 0 0 2px rgba(77, 166, 224, 0.35);
+  cursor: pointer;
+}
+.cell--move-range:hover {
+  box-shadow: inset 0 0 0 2px rgba(77, 166, 224, 0.7);
+  background: rgba(77, 166, 224, 0.08);
+}
+
+/* Attack range highlight */
+.cell--attack-range {
+  box-shadow: inset 0 0 0 2px rgba(217, 68, 68, 0.3);
+}
+.cell--attackable {
+  box-shadow: inset 0 0 0 2px rgba(217, 68, 68, 0.6);
+  cursor: pointer;
+  animation: attack-pulse 1.2s ease-in-out infinite;
+}
+.cell--attackable:hover {
+  box-shadow: inset 0 0 0 3px rgba(217, 68, 68, 0.9);
+}
+
+@keyframes attack-pulse {
+  0%, 100% { box-shadow: inset 0 0 0 2px rgba(217, 68, 68, 0.4); }
+  50% { box-shadow: inset 0 0 0 2px rgba(217, 68, 68, 0.8); }
+}
+
+/* Player selected state */
+.cell--player-selected {
+  box-shadow: inset 0 0 0 3px var(--player-500), 0 0 12px rgba(77, 166, 224, 0.3);
+}
+
+/* Health bars on entities */
+.entity-hp {
+  position: absolute;
+  bottom: 2px;
+  left: 15%;
+  right: 15%;
+  height: 3px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.entity-hp__fill {
+  height: 100%;
+  background: var(--exit-500);
+  border-radius: 2px;
+  transition: width var(--duration-base) var(--ease-standard);
+}
+.entity-hp__fill--enemy { background: var(--danger-500); }
+
+/* ============================================================
+   Side Panel (Event Log)
+   ============================================================ */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+@media (min-width: 720px) {
+  .side-panel {
+    grid-row: 2;
+    grid-column: 2;
+  }
+  .board-wrap {
+    grid-row: 2;
+    grid-column: 1;
+  }
+  .header {
+    grid-column: 1 / -1;
+  }
+  .status-bar {
+    grid-column: 1 / -1;
+  }
+  .footer {
+    grid-column: 1 / -1;
+  }
+}
+
+.log-panel {
+  flex: 1;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-1);
+  overflow: hidden;
+}
+
+.log-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
+}
+
+.log-panel__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-2);
+  font-size: var(--text-xs);
+  line-height: var(--leading-normal);
+  font-family: var(--font-mono);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 400px;
+}
+
+.log-entry {
+  padding: 3px var(--space-2);
+  border-radius: var(--radius-xs);
+  color: var(--color-text-subtle);
+  word-break: break-word;
+}
+.log-entry--move { color: var(--player-300); }
+.log-entry--attack { color: var(--enemy-300); }
+.log-entry--damage { color: var(--warning-500); }
+.log-entry--kill { color: var(--exit-300); font-weight: var(--weight-medium); }
+.log-entry--info { color: var(--brand-300); }
+.log-entry--danger { color: var(--danger-500); font-weight: var(--weight-medium); }
+.log-entry--victory { color: var(--exit-500); font-weight: var(--weight-bold); font-size: var(--text-sm); }
+.log-entry--defeat { color: var(--danger-500); font-weight: var(--weight-bold); font-size: var(--text-sm); }
+
+/* ============================================================
+   Help Panel
+   ============================================================ */
+.help-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: var(--leading-loose);
+}
+
+.help-panel__title {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-2);
+  letter-spacing: 0.03em;
+}
+
+.help-panel kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text);
+  min-width: 18px;
+  text-align: center;
+}
+
+.help-panel ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* ============================================================
+   Overlay (Victory / Defeat)
+   ============================================================ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 8, 6, 0.85);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-slow) var(--ease-standard);
+}
+.overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay__card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6) var(--space-7);
+  text-align: center;
+  box-shadow: var(--shadow-3);
+  max-width: 360px;
+  transform: scale(0.9);
+  transition: transform var(--duration-slow) var(--ease-emphasis);
+}
+.overlay.is-visible .overlay__card {
+  transform: scale(1);
+}
+
+.overlay__icon {
+  font-size: 3rem;
+  margin-bottom: var(--space-3);
+  display: block;
+  color: var(--color-text);
+}
+.overlay__icon svg {
+  width: 48px;
+  height: 48px;
+}
+
+.overlay__title {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  margin-bottom: var(--space-2);
+}
+.overlay__title--victory { color: var(--exit-300); }
+.overlay__title--defeat { color: var(--danger-500); }
+
+.overlay__msg {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-5);
+  line-height: var(--leading-normal);
+}
+
+.overlay__btns {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.footer {
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  padding: var(--space-2);
+  opacity: 0.6;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 719px) {
+  .shell {
+    grid-template-rows: auto auto 1fr auto auto;
+  }
+  .side-panel {
+    order: 4;
+  }
+  .log-panel__body {
+    max-height: 200px;
+  }
+}
+
+/* Touch/mobile larger targets */
+@media (hover: none) and (pointer: coarse) {
+  .cell {
+    min-width: 40px;
+    min-height: 40px;
+  }
+}
+
+/* ============================================================
+   Utility
+   ============================================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+</style>
+</head>
+
+<body>
+<div class="shell">
+  <!-- Header -->
+  <header class="header" role="banner">
+    <h1 class="header__title">Ashvault</h1>
+    <div class="header__controls">
+      <button class="btn btn--ghost" id="btn-restart" type="button" aria-label="Restart level">
+        <svg class="icon" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8a6 6 0 0 1 10.2-4.2"/><path d="M14 8a6 6 0 0 1-10.2 4.2"/><polyline points="2 2 2 5 5 5"/><polyline points="14 14 14 11 11 11"/></svg>
+        Restart
+      </button>
+    </div>
+  </header>
+
+  <!-- Status Bar -->
+  <div class="status-bar" role="status" aria-live="polite">
+    <div class="status-item">
+      <span class="status-item__label">HP</span>
+      <span class="status-item__value status-item__value--hp" id="hud-hp">5</span>
+      <div class="hp-bar" aria-hidden="true"><div class="hp-bar__fill" id="hud-hp-bar" style="width:100%"></div></div>
+    </div>
+    <div class="status-item">
+      <span class="status-item__label">Atk</span>
+      <span class="status-item__value" id="hud-atk">2</span>
+    </div>
+    <div class="status-item">
+      <span class="status-item__label">Range</span>
+      <span class="status-item__value" id="hud-range">1</span>
+    </div>
+    <div class="status-item">
+      <span class="status-item__label">Enemies</span>
+      <span class="status-item__value status-item__value--danger" id="hud-enemies">4</span>
+    </div>
+    <span class="spacer"></span>
+    <div class="status-item">
+      <span class="status-item__label">Turn</span>
+      <span class="status-item__value status-item__value--turn" id="hud-turn">1</span>
+    </div>
+  </div>
+
+  <!-- Game Board -->
+  <div class="board-wrap">
+    <div class="game-board" id="game-board" role="grid" aria-label="Dungeon grid"></div>
+  </div>
+
+  <!-- Side Panel -->
+  <aside class="side-panel">
+    <div class="log-panel" aria-label="Event log">
+      <div class="log-panel__header">
+        <span>Event Log</span>
+        <button class="btn btn--ghost" id="btn-clear-log" type="button" aria-label="Clear log">Clear</button>
+      </div>
+      <div class="log-panel__body" id="log-body" role="log" aria-live="polite"></div>
+    </div>
+
+    <div class="help-panel" aria-label="Controls">
+      <div class="help-panel__title">Controls</div>
+      <ul>
+        <li><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or <kbd>&uarr;</kbd><kbd>&larr;</kbd><kbd>&darr;</kbd><kbd>&rarr;</kbd> — Move</li>
+        <li><kbd>Space</kbd> or <kbd>E</kbd> — Attack nearby enemy</li>
+        <li><kbd>R</kbd> — Restart</li>
+        <li>Tap/click — Move or attack</li>
+        <li>Swipe — Move (mobile)</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>Ashvault &mdash; Turn-based dungeon tactics</span>
+  </footer>
+</div>
+
+<!-- Victory/Defeat Overlay -->
+<div class="overlay" id="overlay" aria-hidden="true" role="dialog" aria-modal="true">
+  <div class="overlay__card">
+    <span class="overlay__icon" id="overlay-icon" aria-hidden="true"></span>
+    <h2 class="overlay__title" id="overlay-title"></h2>
+    <p class="overlay__msg" id="overlay-msg"></p>
+    <div class="overlay__btns">
+      <button class="btn btn--primary" id="overlay-restart" type="button">Play Again</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ASHVAULT — Game Engine
+   Turn-based dungeon tactics. DOM rendering, no dependencies.
+   ============================================================ */
+(function () {
+  "use strict";
+
+  /* ----------------------------------------------------------
+     Constants
+     ---------------------------------------------------------- */
+  var COLS = 12;
+  var ROWS = 10;
+  var TILE_EMPTY  = 0;
+  var TILE_WALL   = 1;
+  var TILE_EXIT   = 2;
+
+  var PLAYER_MOVE_RANGE = 3;
+  var PLAYER_ATK_RANGE  = 1;
+  var PLAYER_ATK_POWER  = 2;
+  var PLAYER_HP         = 5;
+
+  var ENEMY_DETECTION_RANGE = 6;
+  var ENEMY_ATK_RANGE       = 1;
+  var ENEMY_ATK_POWER       = 1;
+  var ENEMY_HP              = 3;
+
+  /* ----------------------------------------------------------
+     Level data
+     ---------------------------------------------------------- */
+  // 0=floor, 1=wall, 2=exit
+  var LEVEL_MAP = [
+    // col: 0  1  2  3  4  5  6  7  8  9 10 11
+    [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 2],  // row 0
+    [0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0],  // row 1
+    [0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],  // row 2
+    [1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1],  // row 3
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],  // row 4
+    [0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0],  // row 5
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],  // row 6
+    [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0],  // row 7
+    [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],  // row 8
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]   // row 9
+  ];
+
+  var PLAYER_START = { r: 9, c: 1 };
+  var EXIT_POS     = { r: 0, c: 11 };
+
+  var ENEMY_STARTS = [
+    { r: 2, c: 4, hp: ENEMY_HP },
+    { r: 4, c: 8, hp: ENEMY_HP },
+    { r: 6, c: 2, hp: ENEMY_HP },
+    { r: 1, c: 10, hp: ENEMY_HP }
+  ];
+
+  /* ----------------------------------------------------------
+     Game state
+     ---------------------------------------------------------- */
+  var state = {};
+  var $board, $logBody, $hudHp, $hudHpBar, $hudAtk, $hudRange, $hudEnemies, $hudTurn;
+  var $overlay, $overlayTitle, $overlayMsg, $overlayIcon, $overlayRestart;
+  var $btnRestart, $btnClearLog;
+
+  function deepCopy(obj) { return JSON.parse(JSON.stringify(obj)); }
+
+  function initState() {
+    state = {
+      map: LEVEL_MAP.map(function (row) { return row.slice(); }),
+      player: deepCopy(PLAYER_START),
+      playerHp: PLAYER_HP,
+      playerMaxHp: PLAYER_HP,
+      playerAtk: PLAYER_ATK_POWER,
+      playerRange: PLAYER_ATK_RANGE,
+      moveRange: PLAYER_MOVE_RANGE,
+      enemies: ENEMY_STARTS.map(function (e, i) {
+        return { id: i, r: e.r, c: e.c, hp: e.hp, maxHp: e.hp, alive: true };
+      }),
+      turn: 1,
+      phase: "player", // "player" | "enemy" | "ended"
+      selected: false, // whether player is "selected" for showing range
+      gameOver: false,
+      won: false
+    };
+  }
+
+  /* ----------------------------------------------------------
+     DOM refs
+     ---------------------------------------------------------- */
+  function cacheDom() {
+    $board = document.getElementById("game-board");
+    $logBody = document.getElementById("log-body");
+    $hudHp = document.getElementById("hud-hp");
+    $hudHpBar = document.getElementById("hud-hp-bar");
+    $hudAtk = document.getElementById("hud-atk");
+    $hudRange = document.getElementById("hud-range");
+    $hudEnemies = document.getElementById("hud-enemies");
+    $hudTurn = document.getElementById("hud-turn");
+    $overlay = document.getElementById("overlay");
+    $overlayTitle = document.getElementById("overlay-title");
+    $overlayMsg = document.getElementById("overlay-msg");
+    $overlayIcon = document.getElementById("overlay-icon");
+    $overlayRestart = document.getElementById("overlay-restart");
+    $btnRestart = document.getElementById("btn-restart");
+    $btnClearLog = document.getElementById("btn-clear-log");
+  }
+
+  /* ----------------------------------------------------------
+     Helpers
+     ---------------------------------------------------------- */
+  function manhattan(r1, c1, r2, c2) {
+    return Math.abs(r1 - r2) + Math.abs(c1 - c2);
+  }
+
+  function inBounds(r, c) {
+    return r >= 0 && r < ROWS && c >= 0 && c < COLS;
+  }
+
+  function isWall(r, c) {
+    return state.map[r][c] === TILE_WALL;
+  }
+
+  function isOccupiedByEnemy(r, c) {
+    for (var i = 0; i < state.enemies.length; i++) {
+      var e = state.enemies[i];
+      if (e.alive && e.r === r && e.c === c) return e;
+    }
+    return null;
+  }
+
+  function isPlayerAt(r, c) {
+    return state.player.r === r && state.player.c === c;
+  }
+
+  function getMoveRange(pr, pc, maxSteps) {
+    var reachable = [];
+    var visited = {};
+    var queue = [{ r: pr, c: pc, steps: 0 }];
+    visited[pr + "," + pc] = true;
+
+    while (queue.length > 0) {
+      var cur = queue.shift();
+      if (cur.steps > 0) {
+        reachable.push({ r: cur.r, c: cur.c });
+      }
+      if (cur.steps >= maxSteps) continue;
+
+      var dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+      for (var d = 0; d < dirs.length; d++) {
+        var nr = cur.r + dirs[d][0];
+        var nc = cur.c + dirs[d][1];
+        var key = nr + "," + nc;
+        if (inBounds(nr, nc) && !isWall(nr, nc) && !isPlayerAt(nr, nc) && !visited[key]) {
+          var enemy = isOccupiedByEnemy(nr, nc);
+          if (!enemy) {
+            visited[key] = true;
+            queue.push({ r: nr, c: nc, steps: cur.steps + 1 });
+          }
+        }
+      }
+    }
+    return reachable;
+  }
+
+  function getAttackTargets(pr, pc, range) {
+    var targets = [];
+    for (var i = 0; i < state.enemies.length; i++) {
+      var e = state.enemies[i];
+      if (e.alive && manhattan(pr, pc, e.r, e.c) <= range) {
+        targets.push(e);
+      }
+    }
+    return targets;
+  }
+
+  /* ----------------------------------------------------------
+     Logging
+     ---------------------------------------------------------- */
+  function addLog(msg, cls) {
+    var entry = document.createElement("div");
+    entry.className = "log-entry" + (cls ? " log-entry--" + cls : "");
+    entry.textContent = "[T" + state.turn + "] " + msg;
+    $logBody.appendChild(entry);
+    $logBody.scrollTop = $logBody.scrollHeight;
+  }
+
+  function clearLog() {
+    $logBody.innerHTML = "";
+    addLog("The Ashvault awaits...", "info");
+  }
+
+  /* ----------------------------------------------------------
+     Rendering
+     ---------------------------------------------------------- */
+  function renderBoard() {
+    $board.style.gridTemplateColumns = "repeat(" + COLS + ", var(--cell-size))";
+    $board.style.gridTemplateRows = "repeat(" + ROWS + ", var(--cell-size))";
+    $board.innerHTML = "";
+
+    var moveRange = [];
+    var attackTargets = [];
+
+    if (state.phase === "player" && state.selected && !state.gameOver) {
+      moveRange = getMoveRange(state.player.r, state.player.c, state.moveRange);
+      attackTargets = getAttackTargets(state.player.r, state.player.c, state.playerRange);
+    }
+
+    for (var r = 0; r < ROWS; r++) {
+      for (var c = 0; c < COLS; c++) {
+        var cell = document.createElement("div");
+        cell.className = "cell";
+        cell.dataset.r = r;
+        cell.dataset.c = c;
+
+        var tile = state.map[r][c];
+        var enemy = isOccupiedByEnemy(r, c);
+        var isPlayer = isPlayerAt(r, c);
+        var isExit = (tile === TILE_EXIT);
+
+        // Base type
+        if (tile === TILE_WALL) {
+          cell.classList.add("cell--wall");
+          cell.setAttribute("aria-label", "Wall at row " + (r + 1) + " column " + (c + 1));
+        } else if (isExit) {
+          cell.classList.add("cell--exit");
+          cell.innerHTML = '<svg class="cell__icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 2l6 8-6 8-6-8z"/></svg>';
+          cell.setAttribute("aria-label", "Exit at row " + (r + 1) + " column " + (c + 1));
+        } else {
+          cell.classList.add("cell--floor");
+          cell.setAttribute("aria-label", "Floor at row " + (r + 1) + " column " + (c + 1));
+        }
+
+        // Entities
+        if (isPlayer) {
+          cell.classList.add("cell--player");
+          if (state.selected) cell.classList.add("cell--player-selected");
+          cell.innerHTML = '<svg class="cell__icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><circle cx="10" cy="10" r="4"/><path d="M10 2v4M10 14v4M2 10h4M14 10h4" stroke="currentColor" stroke-width="2" fill="none"/></svg>';
+          cell.setAttribute("aria-label", "Player at row " + (r + 1) + " column " + (c + 1) + ", HP " + state.playerHp);
+          // HP bar
+          var hpPct = Math.max(0, state.playerHp / state.playerMaxHp * 100);
+          var hpFillClass = "entity-hp__fill" + (hpPct <= 40 ? " entity-hp__fill--low" : "");
+          cell.innerHTML += '<div class="entity-hp"><div class="' + hpFillClass + '" style="width:' + hpPct + '%"></div></div>';
+        } else if (enemy) {
+          cell.classList.add("cell--enemy");
+          var enemySvg = enemy.hp <= 1
+            ? '<svg class="cell__icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><circle cx="10" cy="7" r="5"/><rect x="7" y="13" width="6" height="5" rx="1"/></svg>'
+            : '<svg class="cell__icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M10 2l3 6h5l-4 3.5 1.5 6L10 14l-5.5 3.5L6 11.5 2 8h5z"/></svg>';
+          cell.innerHTML = enemySvg;
+          cell.setAttribute("aria-label", "Enemy at row " + (r + 1) + " column " + (c + 1) + ", HP " + enemy.hp);
+          // HP bar
+          var ePct = Math.max(0, enemy.hp / enemy.maxHp * 100);
+          cell.innerHTML += '<div class="entity-hp"><div class="entity-hp__fill entity-hp__fill--enemy" style="width:' + ePct + '%"></div></div>';
+        }
+
+        // Highlights
+        if (state.phase === "player" && state.selected && !state.gameOver) {
+          if (isMoveTarget(moveRange, r, c)) {
+            cell.classList.add("cell--move-range");
+          }
+          if (isAttackTargetCell(attackTargets, r, c)) {
+            cell.classList.add("cell--attackable");
+          } else if (isInAttackRange(r, c) && !enemy) {
+            cell.classList.add("cell--attack-range");
+          }
+        }
+
+        $board.appendChild(cell);
+      }
+    }
+  }
+
+  function isMoveTarget(range, r, c) {
+    for (var i = 0; i < range.length; i++) {
+      if (range[i].r === r && range[i].c === c) return true;
+    }
+    return false;
+  }
+
+  function isAttackTargetCell(targets, r, c) {
+    for (var i = 0; i < targets.length; i++) {
+      if (targets[i].r === r && targets[i].c === c) return true;
+    }
+    return false;
+  }
+
+  function isInAttackRange(r, c) {
+    return manhattan(state.player.r, state.player.c, r, c) <= state.playerRange;
+  }
+
+  function updateHud() {
+    var aliveEnemies = 0;
+    for (var i = 0; i < state.enemies.length; i++) {
+      if (state.enemies[i].alive) aliveEnemies++;
+    }
+
+    $hudHp.textContent = state.playerHp;
+    $hudHpBar.style.width = Math.max(0, state.playerHp / state.playerMaxHp * 100) + "%";
+    $hudHpBar.className = "hp-bar__fill" + (state.playerHp <= 2 ? " hp-bar__fill--low" : "");
+    $hudAtk.textContent = state.playerAtk;
+    $hudRange.textContent = state.playerRange;
+    $hudEnemies.textContent = aliveEnemies;
+    $hudTurn.textContent = state.turn;
+  }
+
+  /* ----------------------------------------------------------
+     Player actions
+     ---------------------------------------------------------- */
+  function movePlayer(r, c) {
+    if (state.gameOver || state.phase !== "player") return false;
+
+    var range = getMoveRange(state.player.r, state.player.c, state.moveRange);
+    var valid = false;
+    for (var i = 0; i < range.length; i++) {
+      if (range[i].r === r && range[i].c === c) { valid = true; break; }
+    }
+    if (!valid) return false;
+
+    var oldR = state.player.r, oldC = state.player.c;
+    state.player.r = r;
+    state.player.c = c;
+    state.selected = false;
+    addLog("Moved to (" + (r + 1) + "," + (c + 1) + ")", "move");
+
+    // Check exit
+    if (state.map[r][c] === TILE_EXIT) {
+      winGame();
+      return true;
+    }
+
+    endPlayerTurn();
+    return true;
+  }
+
+  function attackEnemy(targetId) {
+    if (state.gameOver || state.phase !== "player") return false;
+
+    var target = null;
+    for (var i = 0; i < state.enemies.length; i++) {
+      if (state.enemies[i].id === targetId && state.enemies[i].alive) {
+        target = state.enemies[i];
+        break;
+      }
+    }
+    if (!target) return false;
+
+    var d = manhattan(state.player.r, state.player.c, target.r, target.c);
+    if (d > state.playerRange) return false;
+
+    target.hp -= state.playerAtk;
+    state.selected = false;
+    addLog("Attacked enemy #" + (target.id + 1) + " for " + state.playerAtk + " damage! (" + Math.max(0, target.hp) + " HP left)", "attack");
+
+    if (target.hp <= 0) {
+      target.alive = false;
+      addLog("Enemy #" + (target.id + 1) + " destroyed!", "kill");
+
+      // Check all enemies dead
+      var anyAlive = false;
+      for (var j = 0; j < state.enemies.length; j++) {
+        if (state.enemies[j].alive) { anyAlive = true; break; }
+      }
+      if (!anyAlive) {
+        addLog("All enemies defeated!", "info");
+      }
+    }
+
+    endPlayerTurn();
+    return true;
+  }
+
+  function playerWait() {
+    if (state.gameOver || state.phase !== "player") return;
+    state.selected = false;
+    addLog("Waited.", "info");
+    endPlayerTurn();
+  }
+
+  /* ----------------------------------------------------------
+     Turn system
+     ---------------------------------------------------------- */
+  function endPlayerTurn() {
+    if (state.gameOver) return;
+    state.phase = "enemy";
+    renderBoard();
+    updateHud();
+
+    // Enemy turns with small delays for readability
+    setTimeout(function () { runEnemyTurns(0); }, 150);
+  }
+
+  function runEnemyTurns(idx) {
+    if (state.gameOver) return;
+
+    var aliveEnemies = [];
+    for (var i = 0; i < state.enemies.length; i++) {
+      if (state.enemies[i].alive) aliveEnemies.push(state.enemies[i]);
+    }
+
+    if (idx >= aliveEnemies.length) {
+      // All enemies have acted
+      startNewTurn();
+      return;
+    }
+
+    var enemy = aliveEnemies[idx];
+    var d = manhattan(enemy.r, enemy.c, state.player.r, state.player.c);
+
+    if (d <= ENEMY_ATK_RANGE) {
+      // Attack player
+      state.playerHp -= ENEMY_ATK_POWER;
+      addLog("Enemy #" + (enemy.id + 1) + " attacks you for " + ENEMY_ATK_POWER + " damage!", "danger");
+      if (state.playerHp <= 0) {
+        state.playerHp = 0;
+        loseGame();
+        return;
+      }
+    } else if (d <= ENEMY_DETECTION_RANGE) {
+      // Move toward player
+      var moved = moveEnemyToward(enemy, state.player.r, state.player.c);
+      if (moved) {
+        addLog("Enemy #" + (enemy.id + 1) + " moves to (" + (enemy.r + 1) + "," + (enemy.c + 1) + ")", "info");
+      }
+    }
+
+    renderBoard();
+    updateHud();
+
+    setTimeout(function () { runEnemyTurns(idx + 1); }, 120);
+  }
+
+  function moveEnemyToward(enemy, tr, tc) {
+    var bestDist = manhattan(enemy.r, enemy.c, tr, tc);
+    var bestMove = null;
+    var dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+
+    for (var d = 0; d < dirs.length; d++) {
+      var nr = enemy.r + dirs[d][0];
+      var nc = enemy.c + dirs[d][1];
+      if (!inBounds(nr, nc) || isWall(nr, nc)) continue;
+      if (isPlayerAt(nr, nc)) continue;
+      if (isOccupiedByEnemy(nr, nc)) continue;
+
+      var nd = manhattan(nr, nc, tr, tc);
+      if (nd < bestDist) {
+        bestDist = nd;
+        bestMove = { r: nr, c: nc };
+      }
+    }
+
+    if (bestMove) {
+      enemy.r = bestMove.r;
+      enemy.c = bestMove.c;
+      return true;
+    }
+    return false;
+  }
+
+  function startNewTurn() {
+    if (state.gameOver) return;
+    state.turn++;
+    state.phase = "player";
+    state.selected = false;
+    updateHud();
+    renderBoard();
+  }
+
+  /* ----------------------------------------------------------
+     Win / Lose
+     ---------------------------------------------------------- */
+  function winGame() {
+    state.gameOver = true;
+    state.won = true;
+    state.phase = "ended";
+    addLog("You escaped the Ashvault!", "victory");
+    renderBoard();
+    updateHud();
+    showOverlay(true);
+  }
+
+  function loseGame() {
+    state.gameOver = true;
+    state.won = false;
+    state.phase = "ended";
+    addLog("You have fallen in the Ashvault...", "defeat");
+    renderBoard();
+    updateHud();
+    showOverlay(false);
+  }
+
+  function showOverlay(isWin) {
+    $overlayIcon.innerHTML = isWin
+      ? '<svg width="48" height="48" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 4l14 20H10z"/><path d="M24 44l14-20H10z"/></svg>'
+      : '<svg width="48" height="48" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><circle cx="24" cy="16" r="12"/><rect x="14" y="30" width="20" height="14" rx="3"/><circle cx="19" cy="14" r="3" fill="#121010"/><circle cx="29" cy="14" r="3" fill="#121010"/></svg>';
+    $overlayIcon.style.color = isWin ? "var(--exit-300)" : "var(--danger-500)";
+    $overlayTitle.textContent = isWin ? "Victory" : "Defeat";
+    $overlayTitle.className = "overlay__title " + (isWin ? "overlay__title--victory" : "overlay__title--defeat");
+    $overlayMsg.textContent = isWin
+      ? "You escaped the Ashvault in " + state.turn + " turns. The ancient halls fall silent behind you."
+      : "Your strength was not enough. The Ashvault claims another soul.";
+    $overlay.classList.add("is-visible");
+    $overlay.setAttribute("aria-hidden", "false");
+    $overlayRestart.focus();
+  }
+
+  function hideOverlay() {
+    $overlay.classList.remove("is-visible");
+    $overlay.setAttribute("aria-hidden", "true");
+  }
+
+  /* ----------------------------------------------------------
+     Input — Keyboard
+     ---------------------------------------------------------- */
+  function handleKey(e) {
+    if (state.gameOver && e.key !== "r" && e.key !== "R") return;
+    if (state.phase !== "player") return;
+
+    var handled = true;
+    switch (e.key) {
+      case "ArrowUp":    case "w": case "W": tryMove(-1, 0); break;
+      case "ArrowDown":  case "s": case "S": tryMove(1, 0); break;
+      case "ArrowLeft":  case "a": case "A": tryMove(0, -1); break;
+      case "ArrowRight": case "d": case "D": tryMove(0, 1); break;
+      case " ": case "e": case "E": tryAttackNearest(); break;
+      case "r": case "R": restartGame(); break;
+      case "Escape": state.selected = false; renderBoard(); break;
+      default: handled = false;
+    }
+    if (handled) e.preventDefault();
+  }
+
+  function tryMove(dr, dc) {
+    var nr = state.player.r + dr;
+    var nc = state.player.c + dc;
+    if (!inBounds(nr, nc) || isWall(nr, nc)) return;
+
+    // Check if enemy is there — if so, attack instead
+    var enemy = isOccupiedByEnemy(nr, nc);
+    if (enemy && manhattan(state.player.r, state.player.c, nr, nc) <= state.playerRange) {
+      attackEnemy(enemy.id);
+      return;
+    }
+
+    if (!state.selected) {
+      state.selected = true;
+    }
+    movePlayer(nr, nc);
+  }
+
+  function tryAttackNearest() {
+    var targets = getAttackTargets(state.player.r, state.player.c, state.playerRange);
+    if (targets.length > 0) {
+      // Attack the lowest HP target
+      targets.sort(function (a, b) { return a.hp - b.hp; });
+      attackEnemy(targets[0].id);
+    } else {
+      if (!state.selected) {
+        state.selected = true;
+        addLog("No enemies in attack range.", "info");
+        renderBoard();
+      } else {
+        playerWait();
+      }
+    }
+  }
+
+  /* ----------------------------------------------------------
+     Input — Mouse / Touch click
+     ---------------------------------------------------------- */
+  function handleBoardClick(e) {
+    if (state.gameOver || state.phase !== "player") return;
+
+    var cell = e.target.closest(".cell");
+    if (!cell) return;
+
+    var r = parseInt(cell.dataset.r, 10);
+    var c = parseInt(cell.dataset.c, 10);
+    if (isNaN(r) || isNaN(c)) return;
+
+    // If clicking on an attackable enemy
+    var enemy = isOccupiedByEnemy(r, c);
+    if (enemy && manhattan(state.player.r, state.player.c, r, c) <= state.playerRange) {
+      attackEnemy(enemy.id);
+      return;
+    }
+
+    // If clicking a move-range cell
+    var range = getMoveRange(state.player.r, state.player.c, state.moveRange);
+    for (var i = 0; i < range.length; i++) {
+      if (range[i].r === r && range[i].c === c) {
+        movePlayer(r, c);
+        return;
+      }
+    }
+
+    // If clicking on player, toggle selection
+    if (isPlayerAt(r, c)) {
+      state.selected = !state.selected;
+      renderBoard();
+      return;
+    }
+
+    // Deselect
+    state.selected = false;
+    renderBoard();
+  }
+
+  /* ----------------------------------------------------------
+     Input — Touch swipe
+     ---------------------------------------------------------- */
+  var touchStartX = 0, touchStartY = 0;
+
+  function handleTouchStart(e) {
+    if (e.touches.length !== 1) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }
+
+  function handleTouchEnd(e) {
+    if (state.gameOver || state.phase !== "player") return;
+    if (e.changedTouches.length !== 1) return;
+
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    var dy = e.changedTouches[0].clientY - touchStartY;
+    var absDx = Math.abs(dx);
+    var absDy = Math.abs(dy);
+
+    // Minimum swipe distance (30px)
+    if (absDx < 30 && absDy < 30) return;
+
+    if (absDx > absDy) {
+      tryMove(0, dx > 0 ? 1 : -1);
+    } else {
+      tryMove(dy > 0 ? 1 : -1, 0);
+    }
+    e.preventDefault();
+  }
+
+  /* ----------------------------------------------------------
+     Game lifecycle
+     ---------------------------------------------------------- */
+  function restartGame() {
+    hideOverlay();
+    initState();
+    clearLog();
+    addLog("You descend into the Ashvault...", "info");
+    addLog("Reach " + EXIT_SYMBOL + " to escape. Defeat enemies along the way.", "info");
+    renderBoard();
+    updateHud();
+  }
+
+  var EXIT_SYMBOL = "the glowing exit";
+
+  function init() {
+    cacheDom();
+    initState();
+    clearLog();
+    addLog("You descend into the Ashvault...", "info");
+    addLog("Reach " + EXIT_SYMBOL + " to escape. Defeat enemies along the way.", "info");
+    renderBoard();
+    updateHud();
+
+    // Event listeners
+    document.addEventListener("keydown", handleKey);
+    $board.addEventListener("click", handleBoardClick);
+    $board.addEventListener("touchstart", handleTouchStart, { passive: true });
+    $board.addEventListener("touchend", handleTouchEnd, { passive: false });
+    $btnRestart.addEventListener("click", restartGame);
+    $btnClearLog.addEventListener("click", clearLog);
+    $overlayRestart.addEventListener("click", restartGame);
+
+    // Close overlay on Escape
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && $overlay.classList.contains("is-visible")) {
+        hideOverlay();
+      }
+    });
+  }
+
+  // Boot
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

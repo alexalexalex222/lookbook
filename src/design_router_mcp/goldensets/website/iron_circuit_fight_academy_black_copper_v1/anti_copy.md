@@ -1,53 +1,33 @@
-# Anti-Copy & Source Hygiene — Iron Circuit Fight Academy
+# Iron Circuit Fight Academy - Anti-Copy
 
-This pack is a **synthetic visual donor**. Borrow the *grammar* (combat-sports
-hierarchy, mat geometry, fight-card structure, interaction discipline). Never
-copy its literal content as if it were real.
+This is a synthetic visual donor. Borrow its UX roles, composition, material
+language, and interaction discipline. Do not ship its identity or literal copy.
 
-## Must NOT be copied verbatim
-- The brand name **Iron Circuit Fight Academy**, its logo lockup
-  (`IRON` + copper `CIRCUIT`), or its exact navigation labels.
-- The exact black/COPPER token values, the exact headline wording
-  ("Step onto the mat / Learn to fight the right way"), the exact program/FAQ
-  copy, or the exact schedule grid contents (these times and disciplines are
-  illustrative structure, not a real timetable).
-- The placeholder tokens (`[COACH_NAME]`, `[VERIFIED_CREDENTIAL]`,
-  `[ACADEMY_ADDRESS]`, `[PHONE_NUMBER]`, `[EMAIL_ADDRESS]`) shipped as literal
-  output — they must be replaced with operator-supplied verified values or kept
-  clearly labeled, never silently invented.
+## Do Not Copy
 
-## Forbidden content (zero tolerance — fabrication)
-Do not generate, and do not let a downstream model add:
-- Fake **belts, ranks, fight records, championships, title reigns**, or
-  win/loss numbers.
-- Fake **testimonials, reviews, star ratings, member quotes**, or named
-  students.
-- Fake **awards, certifications, licenses, accreditations, insurance claims**,
-  or "years in business".
-- Superlatives like **"#1 gym", "number one", "best in <city>", "world-class",
-  "undefeated"**.
-- Names of real organizations or promotions (**UFC, Bellator, PFL, ONE, ADCC,
-  IBJJF, WBC, etc.**) or real fighters / coaches, unless the operator supplies
-  them as verified target-site facts.
-- Fake **fighter photos, stock fighter silhouettes**, or any raster imagery.
+- The Iron Circuit name, mark, exact navigation, headline, program names,
+  schedule entries, FAQ answers, floor geometry, gear arrangement, or token
+  values.
+- The exact cage, ring, bag, floor-plan, wall-board, or gear-study SVG paths.
+- Sample schedules as live availability.
+- Proof-safe coach roles as if they were named staff.
 
-If a section needs proof, use proof-safe copy ("ask about current availability",
-"Verified coach credentials can be placed here", "Reviews and credentials can be
-added after approval") or a labeled placeholder — never beautiful fake trust.
+## Never Invent
 
-## Source-hygiene rules
-- No `<img>`, no `background-image`/`url()` pointing to rasters, no external
-  image URLs. The only allowed `url()` is an **internal SVG fragment reference**
-  (`url(#id)`) to an inline `<pattern>`/gradient in the same document.
-- No external fonts, CDNs, analytics, or third-party JS. System font stack only;
-  any script is minimal vanilla and dependency-free.
-- No emoji used as iconography. Icons are bespoke inline SVG, one SVG per job.
-- No `lorem ipsum`; all copy is real, on-brand, and grounded.
-- Screenshot paths stay empty in the manifest until the conductor captures and
-  records real viewports.
+- Coach names, biographies, ranks, belts, records, championships, affiliations,
+  certifications, testimonials, ratings, awards, member counts, or years in
+  business.
+- Claims such as "number one," "world class," "undefeated," or guaranteed
+  progression.
+- Real promotion, federation, fighter, or coach names unless supplied and
+  verified by the operator.
 
-## Don't soften or genre-shift the route
-Do not turn this into kids-karate, family-fitness, wellness/yoga, generic
-personal training, corporate gym-chain, or SaaS-dashboard grammar. Keep the
-grounded adult/teen combat-sports tone: disciplined, beginner-safe, premium —
-intensity without ego, and never a hype broadcast aesthetic.
+## Asset And Genre Hygiene
+
+- No external fonts, CDNs, analytics, third-party scripts, stock fighters, emoji
+  icons, or raster filler.
+- Internal SVG gradients, patterns, masks, and filters are allowed.
+- Do not flatten the detailed environment into childish icons, generic fighter
+  silhouettes, or a repeated card template.
+- Keep the result adult, disciplined, beginner-safe, and professional. Do not
+  soften it into family-karate or harden it into a fight-broadcast clone.

@@ -1,179 +1,314 @@
-/* Iron Circuit Fight Academy — progressive enhancement only.
-   Vanilla JS, no dependencies. Every behavior degrades gracefully:
-   with JS off the page is fully readable and the form posts natively. */
 (function () {
   "use strict";
 
-  // Mark JS available (drives accordion default-open fallback in CSS).
   document.documentElement.classList.remove("no-js");
 
-  var prefersReduced = window.matchMedia
+  var prefersReducedMotion = window.matchMedia
     ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
     : false;
 
-  /* ---------- Footer year ---------- */
-  var yearEl = document.getElementById("ic-year");
-  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
-
-  /* ---------- Sticky nav: elevate on scroll ---------- */
-  var header = document.querySelector(".ic-header");
+  var header = document.querySelector("[data-header]");
   if (header) {
-    var onScroll = function () {
-      header.setAttribute("data-elevate", window.scrollY > 8 ? "true" : "false");
+    var updateHeader = function () {
+      header.classList.toggle("is-elevated", window.scrollY > 10);
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
+
+    updateHeader();
+    window.addEventListener("scroll", updateHeader, { passive: true });
   }
 
-  /* ---------- Mobile nav toggle ---------- */
-  var toggle = document.querySelector(".ic-nav__toggle");
-  var menu = document.getElementById("ic-nav-menu");
-  if (toggle && menu) {
-    var setMenu = function (open) {
-      toggle.setAttribute("aria-expanded", String(open));
-      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-      menu.classList.toggle("is-open", open);
+  var menuButton = document.querySelector("[data-menu-button]");
+  var mobileMenu = document.querySelector("[data-mobile-menu]");
+
+  if (menuButton && mobileMenu) {
+    var setMenuOpen = function (open, returnFocus) {
+      menuButton.setAttribute("aria-expanded", String(open));
+      menuButton.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      mobileMenu.hidden = !open;
+      document.body.classList.toggle("menu-open", open);
+
+      if (open) {
+        var firstLink = mobileMenu.querySelector("a");
+        if (firstLink) firstLink.focus();
+      } else if (returnFocus) {
+        menuButton.focus();
+      }
     };
-    toggle.addEventListener("click", function () {
-      setMenu(toggle.getAttribute("aria-expanded") !== "true");
+
+    menuButton.addEventListener("click", function () {
+      setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true", false);
     });
-    // Close after choosing a link or pressing Escape.
-    menu.addEventListener("click", function (e) {
-      if (e.target.closest("a")) setMenu(false);
+
+    mobileMenu.addEventListener("click", function (event) {
+      if (event.target.closest("a")) setMenuOpen(false, false);
     });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
-        setMenu(false);
-        toggle.focus();
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+        setMenuOpen(false, true);
+      }
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 980 && menuButton.getAttribute("aria-expanded") === "true") {
+        setMenuOpen(false, false);
       }
     });
   }
 
-  /* ---------- Program selector: ARIA tabs with roving focus ---------- */
-  document.querySelectorAll("[data-tabs]").forEach(function (group) {
-    var tabs = Array.prototype.slice.call(group.querySelectorAll('[role="tab"]'));
+  var initializeTabs = function (root, tabSelector, activate) {
+    if (!root) return;
+
+    var tabs = Array.prototype.slice.call(root.querySelectorAll(tabSelector));
     if (!tabs.length) return;
 
-    var activate = function (tab, setFocus) {
-      tabs.forEach(function (t) {
-        var selected = t === tab;
-        t.setAttribute("aria-selected", String(selected));
-        t.setAttribute("tabindex", selected ? "0" : "-1");
-        var panel = document.getElementById(t.getAttribute("aria-controls"));
-        if (panel) panel.hidden = !selected;
-      });
-      if (setFocus) tab.focus();
-    };
-
-    group.addEventListener("click", function (e) {
-      var tab = e.target.closest('[role="tab"]');
-      if (tab) activate(tab, false);
+    root.addEventListener("click", function (event) {
+      var tab = event.target.closest(tabSelector);
+      if (tab && tabs.indexOf(tab) !== -1) activate(tab, tabs, false);
     });
 
-    group.addEventListener("keydown", function (e) {
-      var idx = tabs.indexOf(document.activeElement);
-      if (idx < 0) return;
-      var next = null;
-      switch (e.key) {
-        case "ArrowRight":
-        case "ArrowDown": next = tabs[(idx + 1) % tabs.length]; break;
-        case "ArrowLeft":
-        case "ArrowUp": next = tabs[(idx - 1 + tabs.length) % tabs.length]; break;
-        case "Home": next = tabs[0]; break;
-        case "End": next = tabs[tabs.length - 1]; break;
-        default: return;
-      }
-      e.preventDefault();
-      activate(next, true);
-    });
-  });
+    root.addEventListener("keydown", function (event) {
+      var currentIndex = tabs.indexOf(document.activeElement);
+      if (currentIndex < 0) return;
 
-  /* ---------- FAQ accordion: disclosure pattern ---------- */
-  document.querySelectorAll("[data-accordion]").forEach(function (acc) {
-    acc.querySelectorAll(".ic-accordion__trigger").forEach(function (btn) {
-      var panel = document.getElementById(btn.getAttribute("aria-controls"));
-      if (!panel) return;
-      // Start collapsed (JS present). CSS keeps it open when JS is absent.
-      btn.setAttribute("aria-expanded", "false");
-      panel.classList.remove("is-open");
-      btn.addEventListener("click", function () {
-        var open = btn.getAttribute("aria-expanded") === "true";
-        btn.setAttribute("aria-expanded", String(!open));
-        // Under reduced motion the CSS transition is ~0ms, so the same
-        // class toggle simply snaps open/closed — no separate code path needed.
-        panel.classList.toggle("is-open", !open);
-      });
-    });
-  });
-
-  /* ---------- Trial booking form: inline validation, input preserved ---------- */
-  var form = document.getElementById("ic-trial-form");
-  if (form) {
-    var success = document.getElementById("ic-form-success");
-
-    var validators = {
-      name: function (f) { return f.value.trim() ? "" : f.dataset.msg; },
-      email: function (f) {
-        var v = f.value.trim();
-        if (!v) return "Enter your email so we can confirm.";
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) ? "" : f.dataset.msg;
-      },
-      program: function (f) { return f.value ? "" : f.dataset.msg; },
-      consent: function (f) { return f.checked ? "" : f.dataset.msg; }
-    };
-
-    var fields = Array.prototype.slice
-      .call(form.querySelectorAll("[required]"))
-      .filter(function (f) { return validators[f.name]; });
-
-    // Seed each field's message from its paired error element.
-    fields.forEach(function (f) {
-      var err = form.querySelector('[data-error-for="' + f.id + '"]');
-      if (err) f.dataset.msg = err.textContent.trim();
-    });
-
-    var showError = function (field, msg) {
-      var err = form.querySelector('[data-error-for="' + field.id + '"]');
-      var bad = Boolean(msg);
-      field.setAttribute("aria-invalid", String(bad));
-      if (err) {
-        err.hidden = !bad;
-        if (bad) err.textContent = msg;
-      }
-      return bad;
-    };
-
-    var validateField = function (field) {
-      return showError(field, validators[field.name](field));
-    };
-
-    // Re-validate a field once it has been flagged, so errors clear as the user fixes them.
-    fields.forEach(function (f) {
-      var evt = f.type === "checkbox" || f.tagName === "SELECT" ? "change" : "blur";
-      f.addEventListener(evt, function () {
-        if (f.getAttribute("aria-invalid") === "true" || f.value) validateField(f);
-      });
-    });
-
-    form.addEventListener("submit", function (e) {
-      e.preventDefault(); // demo donor: never actually navigates away
-      var firstBad = null;
-      fields.forEach(function (f) {
-        if (validateField(f) && !firstBad) firstBad = f;
-      });
-      if (firstBad) {
-        if (success) success.hidden = true;
-        firstBad.focus(); // move to first problem; input is untouched
+      var nextIndex = currentIndex;
+      if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+        nextIndex = (currentIndex + 1) % tabs.length;
+      } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+        nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+      } else if (event.key === "Home") {
+        nextIndex = 0;
+      } else if (event.key === "End") {
+        nextIndex = tabs.length - 1;
+      } else {
         return;
       }
-      // Success: reveal status, keep the form in place.
-      if (success) {
-        success.hidden = false;
-        success.focus && success.setAttribute("tabindex", "-1");
-        success.scrollIntoView({ block: "nearest", behavior: prefersReduced ? "auto" : "smooth" });
-      }
-      form.reset();
-      fields.forEach(function (f) { f.setAttribute("aria-invalid", "false"); });
+
+      event.preventDefault();
+      activate(tabs[nextIndex], tabs, true);
     });
+  };
+
+  var programRoot = document.querySelector("[data-program-tabs]");
+  initializeTabs(programRoot, '[role="tab"]', function (activeTab, tabs, moveFocus) {
+    tabs.forEach(function (tab) {
+      var selected = tab === activeTab;
+      var panel = document.getElementById(tab.getAttribute("aria-controls"));
+
+      tab.setAttribute("aria-selected", String(selected));
+      tab.setAttribute("tabindex", selected ? "0" : "-1");
+
+      if (panel) {
+        panel.hidden = !selected;
+        panel.classList.toggle("is-active", selected);
+      }
+    });
+
+    if (moveFocus) activeTab.focus();
+  });
+
+  var dayTabs = document.querySelector("[data-day-tabs]");
+  var scheduleGrid = document.querySelector("[data-schedule-grid]");
+
+  initializeTabs(dayTabs, "[data-day-button]", function (activeTab, tabs, moveFocus) {
+    var activeDay = activeTab.getAttribute("data-day-button");
+
+    tabs.forEach(function (tab) {
+      var selected = tab === activeTab;
+      tab.setAttribute("aria-selected", String(selected));
+      tab.setAttribute("tabindex", selected ? "0" : "-1");
+    });
+
+    if (scheduleGrid) {
+      scheduleGrid.querySelectorAll("[data-schedule-day]").forEach(function (day) {
+        day.classList.toggle(
+          "is-selected",
+          day.getAttribute("data-schedule-day") === activeDay
+        );
+      });
+    }
+
+    if (moveFocus) activeTab.focus();
+  });
+
+  document.querySelectorAll(".faq-list details").forEach(function (details) {
+    details.addEventListener("toggle", function () {
+      if (!details.open) return;
+
+      document.querySelectorAll(".faq-list details").forEach(function (other) {
+        if (other !== details) other.open = false;
+      });
+    });
+  });
+
+  var form = document.getElementById("trial-form");
+  var successPanel = document.getElementById("form-success");
+  var resetButton = document.getElementById("form-reset");
+
+  if (form && successPanel) {
+    var summary = document.getElementById("form-summary");
+    var submitButton = document.getElementById("trial-submit");
+    var submitLabel = submitButton
+      ? submitButton.querySelector(".button__label")
+      : null;
+
+    var fields = [
+      {
+        id: "trial-name",
+        helpId: "trial-name-help",
+        errorId: "trial-name-error",
+        validate: function (field) {
+          return field.value.trim().length >= 2
+            ? ""
+            : "Enter at least two characters for the name the academy should use.";
+        }
+      },
+      {
+        id: "trial-email",
+        helpId: "trial-email-help",
+        errorId: "trial-email-error",
+        validate: function (field) {
+          var value = field.value.trim();
+          if (!value) return "Enter an email address so the trial can be confirmed.";
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+            ? ""
+            : "Use a complete email address, such as name@example.com.";
+        }
+      },
+      {
+        id: "trial-program",
+        helpId: "trial-program-help",
+        errorId: "trial-program-error",
+        validate: function (field) {
+          return field.value
+            ? ""
+            : "Choose a starting track, or select Not sure yet.";
+        }
+      },
+      {
+        id: "trial-consent",
+        helpId: "trial-consent-help",
+        errorId: "trial-consent-error",
+        validate: function (field) {
+          return field.checked
+            ? ""
+            : "Confirm that the academy may contact you about this request.";
+        }
+      }
+    ];
+
+    var setFieldError = function (config, message) {
+      var field = document.getElementById(config.id);
+      var error = document.getElementById(config.errorId);
+      if (!field || !error) return;
+
+      if (message) {
+        field.setAttribute("aria-invalid", "true");
+        field.setAttribute(
+          "aria-describedby",
+          config.helpId + " " + config.errorId
+        );
+        error.textContent = message;
+        error.hidden = false;
+      } else {
+        field.removeAttribute("aria-invalid");
+        field.setAttribute("aria-describedby", config.helpId);
+        error.textContent = "";
+        error.hidden = true;
+      }
+    };
+
+    var validateField = function (config) {
+      var field = document.getElementById(config.id);
+      if (!field) return true;
+
+      var message = config.validate(field);
+      setFieldError(config, message);
+      return !message;
+    };
+
+    fields.forEach(function (config) {
+      var field = document.getElementById(config.id);
+      if (!field) return;
+
+      var eventName =
+        field.type === "checkbox" || field.tagName === "SELECT"
+          ? "change"
+          : "blur";
+
+      field.addEventListener(eventName, function () {
+        field.dataset.touched = "true";
+        validateField(config);
+      });
+
+      field.addEventListener("input", function () {
+        if (field.getAttribute("aria-invalid") === "true") {
+          validateField(config);
+        }
+      });
+    });
+
+    var setSubmitting = function (submitting) {
+      if (!submitButton) return;
+
+      submitButton.disabled = submitting;
+      submitButton.setAttribute("aria-busy", String(submitting));
+      if (submitLabel) {
+        submitLabel.textContent = submitting
+          ? "Checking request"
+          : "Prepare trial request";
+      }
+    };
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var firstInvalid = null;
+      var allValid = true;
+
+      fields.forEach(function (config) {
+        var valid = validateField(config);
+        if (!valid) {
+          allValid = false;
+          if (!firstInvalid) firstInvalid = document.getElementById(config.id);
+        }
+      });
+
+      if (!allValid) {
+        if (summary) {
+          summary.textContent =
+            "Review the highlighted fields. Each message explains what to change.";
+        }
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      if (summary) summary.textContent = "";
+      setSubmitting(true);
+
+      window.setTimeout(function () {
+        setSubmitting(false);
+        form.hidden = true;
+        successPanel.hidden = false;
+        successPanel.focus();
+      }, prefersReducedMotion ? 0 : 500);
+    });
+
+    if (resetButton) {
+      resetButton.addEventListener("click", function () {
+        form.reset();
+        fields.forEach(function (config) {
+          var field = document.getElementById(config.id);
+          if (field) delete field.dataset.touched;
+          setFieldError(config, "");
+        });
+        if (summary) summary.textContent = "";
+        successPanel.hidden = true;
+        form.hidden = false;
+
+        var firstField = document.getElementById("trial-name");
+        if (firstField) firstField.focus();
+      });
+    }
   }
 })();

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lookbook.local/schemas/pattern-judgment.schema.json",
+  "title": "Lookbook Optional Pattern Judgment",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "judgment_id",
+    "request",
+    "pattern_id",
+    "verdict",
+    "reviewer",
+    "reviewed_at",
+    "notes"
+  ],
+  "properties": {
+    "judgment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "surface",
+        "task"
+      ],
+      "properties": {
+        "surface": {
+          "type": "string",
+          "minLength": 1
+        },
+        "surface_kind": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "task": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "route_trace_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pattern_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verdict": {
+      "enum": [
+        "useful",
+        "redundant",
+        "foreign_domain",
+        "identity_risk",
+        "broken_excerpt",
+        "missing_state",
+        "missing_responsive",
+        "unsafe_source"
+      ]
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "baseline_artifact": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "pattern_artifact": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

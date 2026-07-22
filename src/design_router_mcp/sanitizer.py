@@ -22,6 +22,23 @@ LOCAL_PATH_RE = re.compile(r"/Users/[^\"'\s<>]+")
 IMAGE_TAG_RE = re.compile(r"<\s*(?:img|picture|source)\b[^>]*>", re.IGNORECASE | re.DOTALL)
 SRCSET_RE = re.compile(r"\s(?:src|srcset)\s*=\s*(['\"])[^'\"]*(?:https?://|data:image|\.jpg|\.jpeg|\.png|\.webp|\.gif)[^'\"]*\1", re.IGNORECASE)
 CSS_RASTER_URL_RE = re.compile(r"url\(\s*(['\"]?)(?:https?://|data:image|[^)]*\.(?:jpg|jpeg|png|webp|gif))[^)]*\)", re.IGNORECASE)
+EXTERNAL_LINK_TAG_RE = re.compile(
+    r"<link\b(?=[^>]*\bhref\s*=\s*(['\"])(?:https?://|\[URL\]))[^>]*>\s*",
+    re.IGNORECASE | re.DOTALL,
+)
+EXTERNAL_SCRIPT_TAG_RE = re.compile(
+    r"<script\b(?=[^>]*\bsrc\s*=\s*(['\"])(?:https?://|\[URL\]))[^>]*>\s*</script>\s*",
+    re.IGNORECASE | re.DOTALL,
+)
+EXTERNAL_IMPORT_RE = re.compile(
+    r"@import\s+(?:url\(\s*)?(['\"]?)(?:https?://|\[URL\])[^;)\n]*\1\s*\)?\s*;?",
+    re.IGNORECASE,
+)
+EXTERNAL_FONT_FACE_RE = re.compile(
+    r"@font-face\s*\{(?=[^}]*?(?:https?://|\[URL\]))[^}]*\}\s*",
+    re.IGNORECASE | re.DOTALL,
+)
+PLACEHOLDER_URL_RE = re.compile(r"url\(\s*(['\"]?)\[URL\]\1\s*\)", re.IGNORECASE)
 STAR_RATING_RE = re.compile(r"(?:\b\d(?:\.\d)?\s*/\s*5\b|\b\d(?:\.\d)?\s*-\s*star\b|\b\d(?:\.\d)?\s*star\b|\bfive\s*star\b|⭐+)", re.IGNORECASE)
 YEARS_CLAIM_RE = re.compile(r"\b(?:since\s+\d{4}|\d{1,3}\+?\s+(?:years?|yrs?)(?:\s+of\s+[a-z ]{2,28})?)\b", re.IGNORECASE)
 LARGE_PROOF_RE = re.compile(r"\b\d+(?:\.\d+)?\s*k\+?\s+(?:projects?|jobs?|clients?|customers?|moves?|installs?|reviews?)\b", re.IGNORECASE)
@@ -213,3 +230,47 @@ def sanitize_source_text(text: str) -> str:
     sanitized = AWARD_CLAIM_RE.sub("[VERIFY_FROM_BRIEF]", sanitized)
     sanitized = TESTIMONIAL_RE.sub("[VERIFY_FROM_BRIEF]", sanitized)
     return sanitized
+
+
+def strip_external_dependencies(text: str) -> str:
+    """Remove network-loaded code, fonts, and assets from emitted reference code.
+
+    Source excerpts are still allowed to use inline SVG, CSS, and local/system
+    fonts. This transform is request-scoped by the renderer for briefs that require
+    a self-contained build.
+    """
+
+    if not text:
+        return ""
+    cleaned = EXTERNAL_SCRIPT_TAG_RE.sub("", text)
+    cleaned = EXTERNAL_LINK_TAG_RE.sub("", cleaned)
+    cleaned = EXTERNAL_IMPORT_RE.sub("", cleaned)
+    cleaned = EXTERNAL_FONT_FACE_RE.sub("", cleaned)
+    cleaned = PLACEHOLDER_URL_RE.sub("none", cleaned)
+
+    def _drop_font_loader_comment(match: re.Match[str]) -> str:
+        value = match.group(0).lower()
+        markers = (
+            "google font",
+            "font load",
+            "font loading",
+            "required load",
+            "copy them into <head>",
+            "fonts.googleapis",
+            "fonts.gstatic",
+        )
+        return "" if any(marker in value for marker in markers) else match.group(0)
+
+    cleaned = re.sub(
+        r"<!--.*?-->",
+        _drop_font_loader_comment,
+        cleaned,
+        flags=re.DOTALL,
+    )
+    cleaned = re.sub(
+        r"/\*.*?\*/",
+        _drop_font_loader_comment,
+        cleaned,
+        flags=re.DOTALL,
+    )
+    return cleaned.strip()

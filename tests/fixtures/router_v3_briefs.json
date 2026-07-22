@@ -1,0 +1,182 @@
+[
+  {
+    "id": "settings",
+    "request": {
+      "surface": "app",
+      "task": "Build an application settings page for profile, security, notifications, billing, and appearance preferences"
+    },
+    "expected_archetype": "settings",
+    "expected_top1": "aperture_settings_appshell_v1"
+  },
+  {
+    "id": "kanban",
+    "request": {
+      "surface": "app",
+      "task": "Build a kanban board for project tasks with draggable columns, cards, filters, assignees, and due dates"
+    },
+    "expected_archetype": "kanban",
+    "expected_top1": "kanban_board_v1"
+  },
+  {
+    "id": "notifications",
+    "request": {
+      "surface": "app",
+      "task": "Build a notification center with unread alerts, filters, timestamps, and mark all as read"
+    },
+    "expected_archetype": "notifications",
+    "expected_top1": "aurora_notification_center_v1"
+  },
+  {
+    "id": "file-manager",
+    "request": {
+      "surface": "app",
+      "task": "Build a file manager with folders, list and grid views, upload, search, breadcrumbs, and storage details"
+    },
+    "expected_archetype": "file_manager",
+    "expected_top1": "aperture_file_manager_blue_v1"
+  },
+  {
+    "id": "calendar",
+    "request": {
+      "surface": "app",
+      "task": "Build a calendar application with month and week views, events, scheduling, and a mini calendar"
+    },
+    "expected_archetype": "calendar",
+    "expected_top1": "daylight_calendar_app_v1"
+  },
+  {
+    "id": "email-client",
+    "request": {
+      "surface": "app",
+      "task": "Build an email client with inbox, folders, message list, reading pane, compose, search, and labels"
+    },
+    "expected_archetype": "email_client",
+    "expected_top1": "paper_email_client_warm_v1"
+  },
+  {
+    "id": "markdown-editor",
+    "request": {
+      "surface": "app",
+      "task": "Build a markdown editor with a file tree, editor, live preview, formatting toolbar, and export"
+    },
+    "expected_archetype": "editor",
+    "expected_top1": "markdown_editor_v1"
+  },
+  {
+    "id": "code-playground",
+    "request": {
+      "surface": "app",
+      "task": "Build a code playground with an editor, syntax highlighting, run controls, console output, and preview"
+    },
+    "expected_archetype": "code_playground",
+    "expected_top1": "spark_code_playground_v1"
+  },
+  {
+    "id": "sql-builder",
+    "request": {
+      "surface": "app",
+      "task": "Build a visual SQL query builder with schema tables, joins, conditions, generated query, and results"
+    },
+    "expected_archetype": "database_tool",
+    "expected_top1": "querycraft_sql_builder_v1"
+  },
+  {
+    "id": "sql-browser",
+    "request": {
+      "surface": "app",
+      "task": "Build a database browser with tables, schema inspector, SQL console, data grid, and query history"
+    },
+    "expected_archetype": "database_tool",
+    "expected_top1": "strata_sql_browser_v1"
+  },
+  {
+    "id": "spreadsheet",
+    "request": {
+      "surface": "app",
+      "task": "Build a spreadsheet application with a formula bar, editable cells, sheet tabs, charts, and formatting controls"
+    },
+    "expected_archetype": "spreadsheet",
+    "expected_top1": "lattice_formula_spreadsheet_v1"
+  },
+  {
+    "id": "gantt",
+    "request": {
+      "surface": "app",
+      "task": "Build a project timeline and Gantt chart with task dependencies, milestones, assignees, and date controls"
+    },
+    "expected_archetype": "timeline",
+    "expected_top1": "meridian_gantt_timeline_v1"
+  },
+  {
+    "id": "contacts",
+    "request": {
+      "surface": "app",
+      "task": "Build a contacts manager with people list, search, groups, profile detail, notes, and recent activity"
+    },
+    "expected_archetype": "contacts",
+    "expected_top1": "rolodex_contacts_dashboard_v1"
+  },
+  {
+    "id": "flashcards",
+    "request": {
+      "surface": "app",
+      "task": "Build a flashcard study app with decks, spaced repetition, progress, review controls, and keyboard shortcuts"
+    },
+    "expected_archetype": "learning_tool",
+    "expected_top1": "lantern_flashcards_warm_v1"
+  },
+  {
+    "id": "telemetry",
+    "request": {
+      "surface": "app",
+      "task": "Build an analytics dashboard for service telemetry with time series charts, metrics, logs, and incident status"
+    },
+    "expected_archetype": "analytics_dashboard",
+    "expected_top1": "aperture_telemetry_dashboard_v1"
+  },
+  {
+    "id": "glitch-editor",
+    "request": {
+      "surface": "app",
+      "task": "Build a glitch image editor with RGB channel offsets, scanlines, distortion controls, presets, and export"
+    },
+    "expected_archetype": "creative_image_tool",
+    "expected_top1": "glitchlab_rgb_shift_neon_v1"
+  },
+  {
+    "id": "gradient-generator",
+    "request": {
+      "surface": "app",
+      "task": "Build a gradient generator with color stops, angle controls, live preview, CSS output, presets, and copy"
+    },
+    "expected_archetype": "gradient_tool",
+    "expected_top1": "meld_gradient_studio_dark_v1"
+  },
+  {
+    "id": "duotone-tool",
+    "request": {
+      "surface": "app",
+      "task": "Build a duotone image tool with upload, two color controls, live preview, blend modes, and export"
+    },
+    "expected_archetype": "creative_image_tool",
+    "expected_top1": "bichrome_duotone_studio_v1"
+  },
+  {
+    "id": "interactive-instrument",
+    "request": {
+      "surface": "instrument",
+      "task": "Build an interactive audio visual instrument with knobs, sequencer controls, waveform visualization, presets, and recording"
+    },
+    "expected_archetype": "interactive_instrument",
+    "expected_top1": "instrument_studio_minimal_interactive_v1"
+  },
+  {
+    "id": "developer-docs",
+    "request": {
+      "surface": "docs",
+      "task": "Build developer documentation with sidebar navigation, quickstart steps, API examples, code snippets, and search"
+    },
+    "expected_archetype": "docs",
+    "expected_top1": "developer_docs_quickstart_dark_v1"
+  }
+]

@@ -1,0 +1,1368 @@
+{
+  "profile": "hybrid_v4",
+  "ledger_path": "/Users/alexburkhart/lookbook-clean-20260701/evals/router/judgments.jsonl",
+  "judgment_count": 35,
+  "metrics": {
+    "count": 35,
+    "pass_rate": 1.0,
+    "top1_accuracy": 1.0,
+    "top3_acceptance": 1.0,
+    "decision_accuracy": 1.0,
+    "forbidden_violations": 0,
+    "hybrid_disagreements": 3
+  },
+  "splits": {
+    "train": {
+      "count": 10,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "calibration": {
+      "count": 12,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 2
+    },
+    "hidden": {
+      "count": 13,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 1
+    }
+  },
+  "tags": {
+    "ambiguity": {
+      "count": 7,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 3
+    },
+    "analytics": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "broad-archetype": {
+      "count": 4,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 2
+    },
+    "calendar": {
+      "count": 2,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "code-playground": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "conflicting-intent": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "contacts": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "creative-tool": {
+      "count": 3,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "database": {
+      "count": 2,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "docs": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "editor": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "email": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "file-manager": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "instrument": {
+      "count": 2,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "kanban": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "learning": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "missing-vertical": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "negation": {
+      "count": 3,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "notifications": {
+      "count": 3,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "out-of-distribution": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "paraphrase": {
+      "count": 20,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "settings": {
+      "count": 3,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "signature": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "sparse": {
+      "count": 2,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 1
+    },
+    "spreadsheet": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "surface-intent": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "timeline": {
+      "count": 1,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    },
+    "typo": {
+      "count": 3,
+      "pass_rate": 1.0,
+      "top1_accuracy": 1.0,
+      "top3_acceptance": 1.0,
+      "decision_accuracy": 1.0,
+      "forbidden_violations": 0,
+      "hybrid_disagreements": 0
+    }
+  },
+  "confidence_bins": [
+    {
+      "range": "0.00-0.25",
+      "count": 1,
+      "accuracy": 1.0,
+      "route_rate": 0.0
+    },
+    {
+      "range": "0.25-0.50",
+      "count": 7,
+      "accuracy": 1.0,
+      "route_rate": 0.0
+    },
+    {
+      "range": "0.50-0.75",
+      "count": 0,
+      "accuracy": null,
+      "route_rate": null
+    },
+    {
+      "range": "0.75-1.00",
+      "count": 27,
+      "accuracy": 1.0,
+      "route_rate": 1.0
+    }
+  ],
+  "calibration": {
+    "available": true,
+    "threshold": 0.84,
+    "accuracy": 1.0,
+    "false_confident": 0,
+    "false_clarify": 0,
+    "count": 12
+  },
+  "quality_gate": {
+    "pass": true,
+    "requirements": {
+      "hidden_pass_rate": 1.0,
+      "hidden_decision_accuracy": 1.0,
+      "hidden_forbidden_violations": 0
+    }
+  },
+  "hybrid_disagreements": [
+    {
+      "judgment_id": "clarify-dashboard",
+      "split": "calibration",
+      "tags": [
+        "sparse",
+        "ambiguity"
+      ],
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "expected_top1": null,
+      "winner": "signalstack_saas_analytics_ink_v1",
+      "top3": [
+        "signalstack_saas_analytics_ink_v1",
+        "markets_terminal_blue_dashboard_v1",
+        "aperture_telemetry_dashboard_v1"
+      ],
+      "confidence": 0.446,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "What primary workflow or industry should this design support?",
+      "hybrid_disagreement": true,
+      "hybrid_winner": "strata_sql_browser_v1",
+      "baseline_winner": "signalstack_saas_analytics_ink_v1"
+    },
+    {
+      "judgment_id": "clarify-image-effects",
+      "split": "calibration",
+      "tags": [
+        "broad-archetype",
+        "ambiguity"
+      ],
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "expected_top1": null,
+      "winner": "meld_gradient_studio_dark_v1",
+      "top3": [
+        "meld_gradient_studio_dark_v1",
+        "bichrome_duotone_studio_v1",
+        "glitchlab_rgb_shift_neon_v1"
+      ],
+      "confidence": 0.417,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "Which direction is primary: gradient studio, duotone, glitch lab?",
+      "hybrid_disagreement": true,
+      "hybrid_winner": "bichrome_duotone_studio_v1",
+      "baseline_winner": "meld_gradient_studio_dark_v1"
+    },
+    {
+      "judgment_id": "clarify-analytics",
+      "split": "hidden",
+      "tags": [
+        "broad-archetype",
+        "ambiguity"
+      ],
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "expected_top1": null,
+      "winner": "signalstack_saas_analytics_ink_v1",
+      "top3": [
+        "signalstack_saas_analytics_ink_v1",
+        "aperture_telemetry_dashboard_v1",
+        "analytics_brutalist_dashboard_v1"
+      ],
+      "confidence": 0.385,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "Which direction is primary: signalstack analytics, analytics dashboard?",
+      "hybrid_disagreement": true,
+      "hybrid_winner": "aperture_telemetry_dashboard_v1",
+      "baseline_winner": "signalstack_saas_analytics_ink_v1"
+    }
+  ],
+  "failures": [],
+  "rows": [
+    {
+      "judgment_id": "settings-syn",
+      "split": "train",
+      "tags": [
+        "paraphrase",
+        "settings"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "aperture_settings_appshell_v1",
+      "winner": "aperture_settings_appshell_v1",
+      "top3": [
+        "aperture_settings_appshell_v1",
+        "spark_code_playground_v1",
+        "signalstack_saas_analytics_ink_v1"
+      ],
+      "confidence": 0.88,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "aperture_settings_appshell_v1",
+      "baseline_winner": "aperture_settings_appshell_v1"
+    },
+    {
+      "judgment_id": "kanban-syn",
+      "split": "train",
+      "tags": [
+        "paraphrase",
+        "kanban"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "kanban_board_v1",
+      "winner": "kanban_board_v1",
+      "top3": [
+        "kanban_board_v1",
+        "rolodex_contacts_dashboard_v1",
+        "daylight_calendar_app_v1"
+      ],
+      "confidence": 0.962,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "kanban_board_v1",
+      "baseline_winner": "kanban_board_v1"
+    },
+    {
+      "judgment_id": "notifications-syn",
+      "split": "train",
+      "tags": [
+        "paraphrase",
+        "notifications"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "aurora_notification_center_v1",
+      "winner": "aurora_notification_center_v1",
+      "top3": [
+        "aurora_notification_center_v1",
+        "signalstack_saas_analytics_ink_v1",
+        "paper_email_client_warm_v1"
+      ],
+      "confidence": 0.926,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "aurora_notification_center_v1",
+      "baseline_winner": "aurora_notification_center_v1"
+    },
+    {
+      "judgment_id": "files-syn",
+      "split": "train",
+      "tags": [
+        "paraphrase",
+        "file-manager"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "aperture_file_manager_blue_v1",
+      "winner": "aperture_file_manager_blue_v1",
+      "top3": [
+        "aperture_file_manager_blue_v1",
+        "loom_git_graph_dark_v1",
+        "meridian_gantt_timeline_v1"
+      ],
+      "confidence": 0.904,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "aperture_file_manager_blue_v1",
+      "baseline_winner": "aperture_file_manager_blue_v1"
+    },
+    {
+      "judgment_id": "calendar-syn",
+      "split": "train",
+      "tags": [
+        "paraphrase",
+        "calendar"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "daylight_calendar_app_v1",
+      "winner": "daylight_calendar_app_v1",
+      "top3": [
+        "daylight_calendar_app_v1",
+        "rolodex_contacts_dashboard_v1",
+        "kanban_board_v1"
+      ],
+      "confidence": 0.856,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "daylight_calendar_app_v1",
+      "baseline_winner": "daylight_calendar_app_v1"
+    },
+    {
+      "judgment_id": "email-syn",
+      "split": "train",
+      "tags": [
+        "paraphrase",
+        "email"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "paper_email_client_warm_v1",
+      "winner": "paper_email_client_warm_v1",
+      "top3": [
+        "paper_email_client_warm_v1",
+        "aperture_file_manager_blue_v1",
+        "loom_git_graph_dark_v1"
+      ],
+      "confidence": 0.844,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "paper_email_client_warm_v1",
+      "baseline_winner": "paper_email_client_warm_v1"
+    },
+    {
+      "judgment_id": "markdown-syn",
+      "split": "train",
+      "tags": [
+        "paraphrase",
+        "editor"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "markdown_editor_v1",
+      "winner": "markdown_editor_v1",
+      "top3": [
+        "markdown_editor_v1",
+        "spark_code_playground_v1",
+        "regex_lab_devtool_dark_v1"
+      ],
+      "confidence": 0.976,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "markdown_editor_v1",
+      "baseline_winner": "markdown_editor_v1"
+    },
+    {
+      "judgment_id": "playground-syn",
+      "split": "train",
+      "tags": [
+        "paraphrase",
+        "code-playground"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "spark_code_playground_v1",
+      "winner": "spark_code_playground_v1",
+      "top3": [
+        "spark_code_playground_v1",
+        "regex_lab_devtool_dark_v1",
+        "strata_sql_browser_v1"
+      ],
+      "confidence": 0.998,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "spark_code_playground_v1",
+      "baseline_winner": "spark_code_playground_v1"
+    },
+    {
+      "judgment_id": "sql-builder-syn",
+      "split": "train",
+      "tags": [
+        "paraphrase",
+        "database"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "querycraft_sql_builder_v1",
+      "winner": "querycraft_sql_builder_v1",
+      "top3": [
+        "querycraft_sql_builder_v1",
+        "strata_sql_browser_v1",
+        "spark_code_playground_v1"
+      ],
+      "confidence": 0.904,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "querycraft_sql_builder_v1",
+      "baseline_winner": "querycraft_sql_builder_v1"
+    },
+    {
+      "judgment_id": "sql-browser-syn",
+      "split": "train",
+      "tags": [
+        "paraphrase",
+        "database"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "strata_sql_browser_v1",
+      "winner": "strata_sql_browser_v1",
+      "top3": [
+        "strata_sql_browser_v1",
+        "querycraft_sql_builder_v1",
+        "signalgrid_ops_console_v1"
+      ],
+      "confidence": 0.998,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "strata_sql_browser_v1",
+      "baseline_winner": "strata_sql_browser_v1"
+    },
+    {
+      "judgment_id": "sheet-syn",
+      "split": "calibration",
+      "tags": [
+        "paraphrase",
+        "spreadsheet"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "lattice_formula_spreadsheet_v1",
+      "winner": "lattice_formula_spreadsheet_v1",
+      "top3": [
+        "lattice_formula_spreadsheet_v1",
+        "signalstack_saas_analytics_ink_v1",
+        "aperture_telemetry_dashboard_v1"
+      ],
+      "confidence": 0.844,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "lattice_formula_spreadsheet_v1",
+      "baseline_winner": "lattice_formula_spreadsheet_v1"
+    },
+    {
+      "judgment_id": "gantt-syn",
+      "split": "calibration",
+      "tags": [
+        "paraphrase",
+        "timeline"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "meridian_gantt_timeline_v1",
+      "winner": "meridian_gantt_timeline_v1",
+      "top3": [
+        "meridian_gantt_timeline_v1",
+        "kanban_board_v1",
+        "rolodex_contacts_dashboard_v1"
+      ],
+      "confidence": 0.88,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "meridian_gantt_timeline_v1",
+      "baseline_winner": "meridian_gantt_timeline_v1"
+    },
+    {
+      "judgment_id": "contacts-syn",
+      "split": "calibration",
+      "tags": [
+        "paraphrase",
+        "contacts"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "rolodex_contacts_dashboard_v1",
+      "winner": "rolodex_contacts_dashboard_v1",
+      "top3": [
+        "rolodex_contacts_dashboard_v1",
+        "aurora_notification_center_v1",
+        "daylight_calendar_app_v1"
+      ],
+      "confidence": 0.89,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "rolodex_contacts_dashboard_v1",
+      "baseline_winner": "rolodex_contacts_dashboard_v1"
+    },
+    {
+      "judgment_id": "flashcards-syn",
+      "split": "calibration",
+      "tags": [
+        "paraphrase",
+        "learning"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "lantern_flashcards_warm_v1",
+      "winner": "lantern_flashcards_warm_v1",
+      "top3": [
+        "lantern_flashcards_warm_v1",
+        "paper_email_client_warm_v1",
+        "prism_json_inspector_dark_v1"
+      ],
+      "confidence": 0.998,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "lantern_flashcards_warm_v1",
+      "baseline_winner": "lantern_flashcards_warm_v1"
+    },
+    {
+      "judgment_id": "telemetry-syn",
+      "split": "calibration",
+      "tags": [
+        "paraphrase",
+        "analytics"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "aperture_telemetry_dashboard_v1",
+      "winner": "aperture_telemetry_dashboard_v1",
+      "top3": [
+        "aperture_telemetry_dashboard_v1",
+        "signalstack_saas_analytics_ink_v1",
+        "signalgrid_ops_console_v1"
+      ],
+      "confidence": 0.976,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "aperture_telemetry_dashboard_v1",
+      "baseline_winner": "aperture_telemetry_dashboard_v1"
+    },
+    {
+      "judgment_id": "glitch-syn",
+      "split": "calibration",
+      "tags": [
+        "paraphrase",
+        "creative-tool"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "glitchlab_rgb_shift_neon_v1",
+      "winner": "glitchlab_rgb_shift_neon_v1",
+      "top3": [
+        "glitchlab_rgb_shift_neon_v1",
+        "meld_gradient_studio_dark_v1",
+        "bichrome_duotone_studio_v1"
+      ],
+      "confidence": 0.976,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "glitchlab_rgb_shift_neon_v1",
+      "baseline_winner": "glitchlab_rgb_shift_neon_v1"
+    },
+    {
+      "judgment_id": "gradient-syn",
+      "split": "calibration",
+      "tags": [
+        "paraphrase",
+        "creative-tool"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "meld_gradient_studio_dark_v1",
+      "winner": "meld_gradient_studio_dark_v1",
+      "top3": [
+        "meld_gradient_studio_dark_v1",
+        "pattern_generator_v1",
+        "mind_map_v1"
+      ],
+      "confidence": 0.998,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "meld_gradient_studio_dark_v1",
+      "baseline_winner": "meld_gradient_studio_dark_v1"
+    },
+    {
+      "judgment_id": "duotone-syn",
+      "split": "calibration",
+      "tags": [
+        "paraphrase",
+        "creative-tool"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "bichrome_duotone_studio_v1",
+      "winner": "bichrome_duotone_studio_v1",
+      "top3": [
+        "bichrome_duotone_studio_v1",
+        "meld_gradient_studio_dark_v1",
+        "pattern_generator_v1"
+      ],
+      "confidence": 0.952,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "bichrome_duotone_studio_v1",
+      "baseline_winner": "bichrome_duotone_studio_v1"
+    },
+    {
+      "judgment_id": "instrument-syn",
+      "split": "hidden",
+      "tags": [
+        "paraphrase",
+        "instrument"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "instrument_studio_minimal_interactive_v1",
+      "winner": "instrument_studio_minimal_interactive_v1",
+      "top3": [
+        "instrument_studio_minimal_interactive_v1",
+        "po16_drum_machine_v1",
+        "bichrome_duotone_studio_v1"
+      ],
+      "confidence": 0.998,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "instrument_studio_minimal_interactive_v1",
+      "baseline_winner": "instrument_studio_minimal_interactive_v1"
+    },
+    {
+      "judgment_id": "drum-machine",
+      "split": "hidden",
+      "tags": [
+        "signature",
+        "instrument"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "po16_drum_machine_v1",
+      "winner": "po16_drum_machine_v1",
+      "top3": [
+        "po16_drum_machine_v1",
+        "instrument_studio_minimal_interactive_v1",
+        "meld_gradient_studio_dark_v1"
+      ],
+      "confidence": 0.998,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "po16_drum_machine_v1",
+      "baseline_winner": "po16_drum_machine_v1"
+    },
+    {
+      "judgment_id": "docs-syn",
+      "split": "hidden",
+      "tags": [
+        "paraphrase",
+        "docs"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "developer_docs_quickstart_dark_v1",
+      "winner": "developer_docs_quickstart_dark_v1",
+      "top3": [
+        "developer_docs_quickstart_dark_v1"
+      ],
+      "confidence": 0.962,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "developer_docs_quickstart_dark_v1",
+      "baseline_winner": "developer_docs_quickstart_dark_v1"
+    },
+    {
+      "judgment_id": "settings-typo",
+      "split": "hidden",
+      "tags": [
+        "typo",
+        "settings"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "aperture_settings_appshell_v1",
+      "winner": "aperture_settings_appshell_v1",
+      "top3": [
+        "aperture_settings_appshell_v1",
+        "signalstack_saas_analytics_ink_v1",
+        "nimbus_command_palette_v1"
+      ],
+      "confidence": 0.772,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "aperture_settings_appshell_v1",
+      "baseline_winner": "aperture_settings_appshell_v1"
+    },
+    {
+      "judgment_id": "calendar-typo",
+      "split": "hidden",
+      "tags": [
+        "typo",
+        "calendar"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "daylight_calendar_app_v1",
+      "winner": "daylight_calendar_app_v1",
+      "top3": [
+        "daylight_calendar_app_v1",
+        "kanban_board_v1",
+        "rolodex_contacts_dashboard_v1"
+      ],
+      "confidence": 0.772,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "daylight_calendar_app_v1",
+      "baseline_winner": "daylight_calendar_app_v1"
+    },
+    {
+      "judgment_id": "notification-typo",
+      "split": "hidden",
+      "tags": [
+        "typo",
+        "notifications"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "aurora_notification_center_v1",
+      "winner": "aurora_notification_center_v1",
+      "top3": [
+        "aurora_notification_center_v1",
+        "signalstack_saas_analytics_ink_v1",
+        "nimbus_command_palette_v1"
+      ],
+      "confidence": 0.784,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "aurora_notification_center_v1",
+      "baseline_winner": "aurora_notification_center_v1"
+    },
+    {
+      "judgment_id": "not-dashboard",
+      "split": "hidden",
+      "tags": [
+        "negation",
+        "settings"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "aperture_settings_appshell_v1",
+      "winner": "aperture_settings_appshell_v1",
+      "top3": [
+        "aperture_settings_appshell_v1",
+        "signalstack_saas_analytics_ink_v1",
+        "analytics_brutalist_dashboard_v1"
+      ],
+      "confidence": 0.816,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "aperture_settings_appshell_v1",
+      "baseline_winner": "aperture_settings_appshell_v1"
+    },
+    {
+      "judgment_id": "not-email",
+      "split": "hidden",
+      "tags": [
+        "negation",
+        "notifications"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "aurora_notification_center_v1",
+      "winner": "aurora_notification_center_v1",
+      "top3": [
+        "aurora_notification_center_v1",
+        "paper_email_client_warm_v1",
+        "signalstack_saas_analytics_ink_v1"
+      ],
+      "confidence": 0.907,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "aurora_notification_center_v1",
+      "baseline_winner": "aurora_notification_center_v1"
+    },
+    {
+      "judgment_id": "not-landing",
+      "split": "hidden",
+      "tags": [
+        "negation",
+        "surface-intent"
+      ],
+      "expected_decision": "route",
+      "actual_decision": "route",
+      "expected_top1": "spark_code_playground_v1",
+      "winner": "spark_code_playground_v1",
+      "top3": [
+        "spark_code_playground_v1",
+        "signalstack_saas_analytics_ink_v1",
+        "nimbus_command_palette_v1"
+      ],
+      "confidence": 0.998,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "spark_code_playground_v1",
+      "baseline_winner": "spark_code_playground_v1"
+    },
+    {
+      "judgment_id": "clarify-dashboard",
+      "split": "calibration",
+      "tags": [
+        "sparse",
+        "ambiguity"
+      ],
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "expected_top1": null,
+      "winner": "signalstack_saas_analytics_ink_v1",
+      "top3": [
+        "signalstack_saas_analytics_ink_v1",
+        "markets_terminal_blue_dashboard_v1",
+        "aperture_telemetry_dashboard_v1"
+      ],
+      "confidence": 0.446,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "What primary workflow or industry should this design support?",
+      "hybrid_disagreement": true,
+      "hybrid_winner": "strata_sql_browser_v1",
+      "baseline_winner": "signalstack_saas_analytics_ink_v1"
+    },
+    {
+      "judgment_id": "clarify-editor",
+      "split": "calibration",
+      "tags": [
+        "broad-archetype",
+        "ambiguity"
+      ],
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "expected_top1": null,
+      "winner": "markdown_editor_v1",
+      "top3": [
+        "markdown_editor_v1",
+        "spark_code_playground_v1",
+        "signalstack_saas_analytics_ink_v1"
+      ],
+      "confidence": 0.44,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "Which direction is primary: markdown editor, code playground?",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "markdown_editor_v1",
+      "baseline_winner": "markdown_editor_v1"
+    },
+    {
+      "judgment_id": "clarify-image-effects",
+      "split": "calibration",
+      "tags": [
+        "broad-archetype",
+        "ambiguity"
+      ],
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "expected_top1": null,
+      "winner": "meld_gradient_studio_dark_v1",
+      "top3": [
+        "meld_gradient_studio_dark_v1",
+        "bichrome_duotone_studio_v1",
+        "glitchlab_rgb_shift_neon_v1"
+      ],
+      "confidence": 0.417,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "Which direction is primary: gradient studio, duotone, glitch lab?",
+      "hybrid_disagreement": true,
+      "hybrid_winner": "bichrome_duotone_studio_v1",
+      "baseline_winner": "meld_gradient_studio_dark_v1"
+    },
+    {
+      "judgment_id": "clarify-database",
+      "split": "calibration",
+      "tags": [
+        "broad-archetype",
+        "ambiguity"
+      ],
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "expected_top1": null,
+      "winner": "querycraft_sql_builder_v1",
+      "top3": [
+        "querycraft_sql_builder_v1",
+        "strata_sql_browser_v1",
+        "signalstack_saas_analytics_ink_v1"
+      ],
+      "confidence": 0.378,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "Which direction is primary: sql builder, db browser?",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "querycraft_sql_builder_v1",
+      "baseline_winner": "querycraft_sql_builder_v1"
+    },
+    {
+      "judgment_id": "clarify-calendar-kanban",
+      "split": "hidden",
+      "tags": [
+        "conflicting-intent",
+        "ambiguity"
+      ],
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "expected_top1": null,
+      "winner": "kanban_board_v1",
+      "top3": [
+        "kanban_board_v1",
+        "daylight_calendar_app_v1",
+        "aurora_notification_center_v1"
+      ],
+      "confidence": 0.431,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "Which direction is primary: kanban, calendar?",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "kanban_board_v1",
+      "baseline_winner": "kanban_board_v1"
+    },
+    {
+      "judgment_id": "clarify-local-service",
+      "split": "hidden",
+      "tags": [
+        "missing-vertical",
+        "ambiguity"
+      ],
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "expected_top1": null,
+      "winner": "solace_medical_spa_macon_v1",
+      "top3": [
+        "solace_medical_spa_macon_v1",
+        "willowbend_dental_sage_glass_v1",
+        "axlecraft_garage_door_industrial_v1"
+      ],
+      "confidence": 0.35,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "What service vertical is this for, such as plumbing, roofing, dental, landscaping, or another trade?",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "solace_medical_spa_macon_v1",
+      "baseline_winner": "solace_medical_spa_macon_v1"
+    },
+    {
+      "judgment_id": "clarify-vague",
+      "split": "hidden",
+      "tags": [
+        "sparse",
+        "out-of-distribution"
+      ],
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "expected_top1": null,
+      "winner": "velvet_fig_beauty_editorial_v1",
+      "top3": [
+        "velvet_fig_beauty_editorial_v1",
+        "copperbeam_flooring_light_residential_v1",
+        "oakline_cabinetry_craftsmanship_v1"
+      ],
+      "confidence": 0.094,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "What primary workflow or industry should this design support?",
+      "hybrid_disagreement": false,
+      "hybrid_winner": "velvet_fig_beauty_editorial_v1",
+      "baseline_winner": "velvet_fig_beauty_editorial_v1"
+    },
+    {
+      "judgment_id": "clarify-analytics",
+      "split": "hidden",
+      "tags": [
+        "broad-archetype",
+        "ambiguity"
+      ],
+      "expected_decision": "clarify",
+      "actual_decision": "clarify",
+      "expected_top1": null,
+      "winner": "signalstack_saas_analytics_ink_v1",
+      "top3": [
+        "signalstack_saas_analytics_ink_v1",
+        "aperture_telemetry_dashboard_v1",
+        "analytics_brutalist_dashboard_v1"
+      ],
+      "confidence": 0.385,
+      "top1_correct": true,
+      "top3_acceptable": true,
+      "decision_correct": true,
+      "forbidden_violation": false,
+      "passed": true,
+      "clarification_question": "Which direction is primary: signalstack analytics, analytics dashboard?",
+      "hybrid_disagreement": true,
+      "hybrid_winner": "aperture_telemetry_dashboard_v1",
+      "baseline_winner": "signalstack_saas_analytics_ink_v1"
+    }
+  ]
+}

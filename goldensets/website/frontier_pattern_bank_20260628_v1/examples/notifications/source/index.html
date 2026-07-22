@@ -43,8 +43,8 @@
     --n-700:#262c3c; --n-800:#1a1f2c; --n-900:#11151f;
 
     /* semantic roles */
-    --accent:        #5b9dff;
-    --accent-strong: #3b82f6;
+    --accent:        #7cb8a4;
+    --accent-strong: #4f8f79;
     --accent-soft:   color-mix(in srgb, var(--accent) 18%, transparent);
     --danger:        #ff5a5f;
     --danger-strong: #ef3b41;
@@ -59,11 +59,11 @@
     --hairline:   rgba(255,255,255,.085);
     --hairline-2: rgba(255,255,255,.14);
 
-    --glass:      rgba(22,27,40,.62);
-    --glass-2:    rgba(34,41,58,.55);
-    --glass-row:  rgba(42,49,70,.60);
-    --glass-row-h:rgba(56,65,90,.74);
-    --blur:       saturate(1.5) blur(34px);
+    --glass:      #181c22;
+    --glass-2:    #20262d;
+    --glass-row:  #222931;
+    --glass-row-h:#29323b;
+    --blur:       none;
 
     --focus: 0 0 0 2px var(--n-900), 0 0 0 4px var(--accent);
   }
@@ -83,30 +83,23 @@
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    background: #06080f;
+    background: #111418;
     overflow-x: hidden;
   }
-  /* Aurora wallpaper */
+  /* Quiet application backdrop */
   .wallpaper {
     position: fixed; inset: 0; z-index: -2; overflow: hidden;
     background:
-      radial-gradient(120% 90% at 8% 0%, #1b3a6b 0%, rgba(27,58,107,0) 46%),
-      radial-gradient(120% 100% at 100% 8%, #5a2a78 0%, rgba(90,42,120,0) 44%),
-      radial-gradient(100% 80% at 60% 100%, #0c5a63 0%, rgba(12,90,99,0) 50%),
-      linear-gradient(160deg, #0a0e1a 0%, #070912 60%, #05060c 100%);
+      linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),
+      linear-gradient(180deg,#171b20,#101317);
+    background-size:32px 32px,32px 32px,auto;
   }
   .wallpaper::after{
-    content:""; position:absolute; inset:-20%;
-    background:
-      radial-gradient(38% 30% at 22% 30%, rgba(91,157,255,.20), transparent 70%),
-      radial-gradient(40% 34% at 82% 64%, rgba(61,220,151,.14), transparent 72%),
-      radial-gradient(34% 28% at 64% 14%, rgba(214,120,255,.16), transparent 70%);
-    filter: blur(8px);
-    animation: drift 28s ease-in-out infinite alternate;
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(90deg,rgba(124,184,164,.08),transparent 30%,transparent 70%,rgba(211,166,92,.06));
   }
-  @keyframes drift { from{ transform: translate3d(-2%,-1%,0) scale(1);} to{ transform: translate3d(3%,2%,0) scale(1.06);} }
-  .grain{ position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.04;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .grain{ display:none; }
 
   .skip{ position:absolute; left:8px; top:-44px; z-index:60; background:var(--accent-strong); color:#fff;
     padding:10px 16px; border-radius:var(--r-sm); font-weight:600; transition: top var(--dur-2) var(--ease); }
@@ -116,25 +109,49 @@
   .stage{
     min-height: 100dvh;
     display: grid;
-    grid-template-columns: minmax(0,1fr);
-    justify-items: center;
-    padding: clamp(16px, 4vh, 56px) clamp(12px, 4vw, 40px) 120px;
+    grid-template-columns: 210px minmax(0,680px) 230px;
+    justify-content:center; align-items:start; gap:var(--sp-5);
+    padding: clamp(18px, 3vh, 36px) clamp(16px, 3vw, 36px) 64px;
+    max-width:1280px; margin:0 auto;
   }
   .panel{
-    width: min(480px, 100%);
+    width: 100%;
     background: var(--glass);
-    backdrop-filter: var(--blur);
-    -webkit-backdrop-filter: var(--blur);
     border: 1px solid var(--hairline-2);
-    border-radius: var(--r-xl);
-    box-shadow: var(--e-3);
+    border-radius: var(--r-md);
+    box-shadow: var(--e-2);
     overflow: hidden;
     position: relative;
   }
-  .panel::before{ /* top sheen */
-    content:""; position:absolute; inset:0 0 auto; height:120px; pointer-events:none;
-    background: linear-gradient(180deg, rgba(255,255,255,.06), transparent);
+  .panel::before{ display:none; }
+  .context-rail,.summary-rail{
+    position:sticky; top:var(--sp-6);
+    display:flex; flex-direction:column; gap:var(--sp-4);
+    padding:var(--sp-4); border:1px solid var(--hairline);
+    border-radius:var(--r-md); background:#15191e; box-shadow:var(--e-1);
   }
+  .rail-brand{ display:flex; align-items:center; gap:10px; padding-bottom:var(--sp-4); border-bottom:1px solid var(--hairline); }
+  .rail-mark{ width:32px; height:32px; display:grid; place-items:center; border-radius:var(--r-sm); background:var(--accent); color:#102019; font-weight:800; }
+  .rail-brand b{ display:block; font-size:var(--fs-500); }
+  .rail-brand span{ display:block; color:var(--ink-3); font-size:var(--fs-300); }
+  .rail-nav{ display:grid; gap:4px; }
+  .rail-nav button{
+    min-height:42px; padding:0 10px; display:flex; align-items:center; gap:10px;
+    border:0; border-radius:var(--r-sm); background:transparent; color:var(--ink-2);
+    font:inherit; font-size:var(--fs-400); font-weight:650; cursor:pointer; text-align:left;
+  }
+  .rail-nav button:hover,.rail-nav button[aria-current="true"]{ background:var(--glass-2); color:var(--ink); }
+  .rail-nav svg{ width:17px; height:17px; color:var(--accent); }
+  .rail-note{ margin:0; color:var(--ink-3); font-size:var(--fs-300); line-height:1.55; }
+  .summary-rail h2{ margin:0; font-size:var(--fs-500); }
+  .summary-list{ display:grid; gap:var(--sp-2); }
+  .summary-item{
+    display:flex; align-items:center; justify-content:space-between; gap:var(--sp-3);
+    min-height:42px; padding:0 10px; border:1px solid var(--hairline); border-radius:var(--r-sm);
+    background:var(--glass-2); color:var(--ink-2); font-size:var(--fs-400);
+  }
+  .summary-item b{ color:var(--ink); font-variant-numeric:tabular-nums; }
+  .summary-status{ padding-top:var(--sp-3); border-top:1px solid var(--hairline); color:var(--ink-3); font-size:var(--fs-300); }
 
   /* ---- header ---- */
   header.head{ padding: var(--sp-6) var(--sp-5) var(--sp-4); position:relative; }
@@ -250,7 +267,7 @@
   /* ---- scroll feed ---- */
   .feed{
     padding: var(--sp-3) var(--sp-4) var(--sp-5);
-    max-height: min(64vh, 720px);
+    max-height: calc(100dvh - 334px);
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
@@ -309,12 +326,14 @@
     position:relative; z-index:1;
     display:grid; grid-template-columns:auto 1fr auto; gap:var(--sp-3); align-items:start;
     padding: var(--sp-3);
-    background: var(--glass-row); border:1px solid var(--hairline); border-radius:var(--r-md);
+    background: var(--glass-row); border:1px solid var(--hairline); border-radius:var(--r-sm);
     cursor:pointer; touch-action: pan-y; user-select:none; -webkit-user-select:none;
     will-change: transform;
     transition: background var(--dur-1) var(--ease), border-color var(--dur-1) var(--ease), box-shadow var(--dur-2) var(--ease);
   }
   .notif:hover{ background: var(--glass-row-h); border-color: var(--hairline-2); }
+  .n-actions{ opacity:.16; transition:opacity var(--dur-1) var(--ease); }
+  .notif:hover .n-actions,.notif:focus-within .n-actions{ opacity:1; }
   .notif.dragging{ transition:none; cursor:grabbing; }
   .notif.flash{ animation: flash var(--dur-3) var(--ease); }
   @keyframes flash{ 0%{ box-shadow:0 0 0 0 var(--accent-soft);} 30%{ box-shadow:0 0 0 3px var(--accent-soft);} 100%{ box-shadow:0 0 0 0 transparent;} }
@@ -561,7 +580,7 @@
 
   .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 
-  .credit{ text-align:center; font-size:var(--fs-300); color: rgba(255,255,255,.42); margin-top: var(--sp-5); }
+  .credit{ grid-column:1 / -1; text-align:center; font-size:var(--fs-300); color: rgba(255,255,255,.42); margin-top:0; }
   .credit b{ color: rgba(255,255,255,.62); font-weight:600; }
 
   @media (max-width: 520px){
@@ -571,6 +590,12 @@
     h1{ font-size: clamp(1.5rem,7vw,1.9rem); }
     .select{ max-width:150px; }
     .credit{ display:none; }
+    .context-rail,.summary-rail{ display:none; }
+    .n-actions{ opacity:1; }
+  }
+  @media (max-width:1040px){
+    .stage{ grid-template-columns:minmax(0,680px); }
+    .context-rail,.summary-rail{ display:none; }
   }
   @media (max-width: 360px){
     .header-pad{ padding-left:var(--sp-4); padding-right:var(--sp-4); }
@@ -585,6 +610,32 @@
   <a class="skip" href="#feed">Skip to notifications</a>
 
   <main class="stage">
+    <aside class="context-rail" aria-label="Notification views">
+      <div class="rail-brand">
+        <span class="rail-mark" aria-hidden="true">A</span>
+        <span><b>Aurora</b><span>Workspace inbox</span></span>
+      </div>
+      <nav class="rail-nav">
+        <button id="railAll" type="button" aria-current="true">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5h16v14H4zM4 9h16" stroke="currentColor" stroke-width="2"/></svg>
+          All activity
+        </button>
+        <button id="railUnread" type="button">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+          Unread
+        </button>
+        <button id="railSnoozed" type="button">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 8v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Snoozed
+        </button>
+        <button id="railQuiet" type="button">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z" stroke="currentColor" stroke-width="2"/></svg>
+          Quiet mode
+        </button>
+      </nav>
+      <p class="rail-note">Sample feed with fictional sources. Changes stay in this browser.</p>
+    </aside>
+
     <section class="panel" aria-labelledby="panel-title">
       <header class="head header-pad">
         <div class="head-top">
@@ -684,6 +735,17 @@
         <button class="btn" id="clearAllBtn" type="button">Clear all</button>
       </footer>
     </section>
+
+    <aside class="summary-rail" aria-labelledby="summaryTitle">
+      <h2 id="summaryTitle">Activity summary</h2>
+      <div class="summary-list">
+        <div class="summary-item"><span>Unread</span><b id="summaryUnread">0</b></div>
+        <div class="summary-item"><span>Active</span><b id="summaryActive">0</b></div>
+        <div class="summary-item"><span>Snoozed</span><b id="summarySnoozed">0</b></div>
+        <div class="summary-item"><span>Muted apps</span><b id="summaryMuted">0</b></div>
+      </div>
+      <p class="summary-status" id="summaryStatus">Notifications are arriving normally.</p>
+    </aside>
 
     <p class="credit">Sample feed — fictional apps &amp; senders. <b>Aurora</b> demo surface.</p>
   </main>
@@ -879,6 +941,7 @@
   const searchInput = $('#search'), searchWrap = $('#searchWrap'), searchClear = $('#searchClear');
   const unreadBtn = $('#unreadBtn');
   const settingsBtn = $('#settingsBtn'), settingsDialog = $('#settingsDialog'), settingsClose = $('#settingsClose'), srcList = $('#srcList');
+  const railAll = $('#railAll'), railUnread = $('#railUnread'), railSnoozed = $('#railSnoozed'), railQuiet = $('#railQuiet');
   const snoozeMenu = $('#snoozeMenu');
   const reduceMQ = window.matchMedia('(prefers-reduced-motion: reduce)');
   if(reduceMQ.matches) document.documentElement.setAttribute('data-reduce','1');
@@ -1601,6 +1664,14 @@
       : `${c} unread · ${visc} active${snz?` · ${snz} snoozed`:''}`;
     markAllBtn.disabled = c===0;
     clearAllBtn.disabled = viewPool().length===0;
+    $('#summaryUnread').textContent = String(c);
+    $('#summaryActive').textContent = String(visc);
+    $('#summarySnoozed').textContent = String(snz);
+    $('#summaryMuted').textContent = String(Object.keys(settings.muted).filter(k=>settings.muted[k]).length);
+    $('#summaryStatus').textContent = settings.dnd ? 'Quiet mode is on. New arrivals stay silent.' : 'Notifications are arriving normally.';
+    railAll.setAttribute('aria-current', (!settings.unreadOnly && settings.filterApp==='all' && !settings.query.trim()) ? 'true':'false');
+    railUnread.setAttribute('aria-current', settings.unreadOnly ? 'true':'false');
+    railQuiet.setAttribute('aria-current', settings.dnd ? 'true':'false');
   }
   function updateGroupCounts(){
     feed.querySelectorAll('.group').forEach(gEl=>{
@@ -1623,6 +1694,17 @@
     appFilter.value = settings.filterApp;
   })();
   appFilter.addEventListener('change', ()=>{ settings.filterApp = appFilter.value; save(); render({staggerAll:true}); });
+  railAll.addEventListener('click', ()=>{
+    settings.query=''; settings.filterApp='all'; searchInput.value=''; searchWrap.classList.remove('has-value');
+    appFilter.value='all'; setUnreadOnly(false); save(); render({staggerAll:true});
+  });
+  railUnread.addEventListener('click', ()=> setUnreadOnly(!settings.unreadOnly));
+  railSnoozed.addEventListener('click', ()=>{
+    const target = feed.querySelector('.snoozed');
+    if(target) target.scrollIntoView({block:'nearest',behavior:reduceMQ.matches?'auto':'smooth'});
+    else announce('No notifications are snoozed.');
+  });
+  railQuiet.addEventListener('click', ()=> setDND(!settings.dnd));
 
   // search
   function applySearch(v){
@@ -1683,6 +1765,7 @@
     dndBtn.setAttribute('aria-pressed', String(on));
     dndStrip.classList.toggle('show', on);
     save();
+    updateHeader();
   }
   dndBtn.addEventListener('click', ()=> setDND(!settings.dnd));
 

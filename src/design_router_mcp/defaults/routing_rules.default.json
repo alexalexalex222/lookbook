@@ -1,5 +1,5 @@
 {
-  "version": "2.3",
+  "version": "3.0",
   "weights": {
     "surface_exact": 30,
     "surface_family": 14,
@@ -12,6 +12,16 @@
     "confidence": 1,
     "vertical_pack_token": 3,
     "vertical_tone": 2,
+    "surface_kind_family": 20,
+    "surface_kind_mismatch": -35,
+    "task_exact_phrase": 40,
+    "task_bigram_overlap": 15,
+    "task_token_overlap": 7,
+    "task_archetype_family": 18,
+    "task_archetype_pack": 50,
+    "hybrid_retrieval": 24,
+    "local_rerank_max_gap": 18,
+    "anti_pattern_token": -8,
     "request_token_example": 3,
     "preferred_example_token": 12,
     "conflict_strength": 4,
@@ -19,57 +29,347 @@
     "ux_role_overlap": 5
   },
   "token_modes": {
+    "unbounded": {
+      "max_packet_tokens": null,
+      "max_examples": null,
+      "max_snippets": null,
+      "full_code_allowed": true
+    },
     "library_audit": {
-      "max_packet_tokens": 1200,
-      "max_examples": 0,
-      "max_snippets": 0,
-      "full_code_allowed": false
+      "max_packet_tokens": null,
+      "max_examples": null,
+      "max_snippets": null,
+      "full_code_allowed": true
     },
     "micro": {
-      "max_packet_tokens": 4000,
-      "max_examples": 1,
-      "max_snippets": 3,
-      "full_code_allowed": false
+      "max_packet_tokens": null,
+      "max_examples": null,
+      "max_snippets": null,
+      "full_code_allowed": true
     },
     "compact": {
-      "max_packet_tokens": 10000,
-      "max_examples": 2,
-      "max_snippets": 8,
-      "full_code_allowed": false
+      "max_packet_tokens": null,
+      "max_examples": null,
+      "max_snippets": null,
+      "full_code_allowed": true
     },
     "standard": {
-      "max_packet_tokens": 20000,
-      "max_examples": 3,
-      "max_snippets": 14,
+      "max_packet_tokens": null,
+      "max_examples": null,
+      "max_snippets": null,
       "full_code_allowed": true
     },
     "expanded": {
-      "max_packet_tokens": 40000,
-      "max_examples": 3,
-      "max_snippets": 20,
+      "max_packet_tokens": null,
+      "max_examples": null,
+      "max_snippets": null,
       "full_code_allowed": true
     },
     "full_selected": {
-      "max_packet_tokens": 200000,
-      "max_examples": 3,
-      "max_snippets": 99,
+      "max_packet_tokens": null,
+      "max_examples": null,
+      "max_snippets": null,
       "full_code_allowed": true
     }
   },
   "profile_defaults": {
-    "tiny_16k": "micro",
-    "balanced_32k": "compact",
-    "strong_64k": "standard",
-    "moe_128k": "expanded",
-    "manual": "full_selected"
+    "tiny_16k": "unbounded",
+    "balanced_32k": "unbounded",
+    "strong_64k": "unbounded",
+    "moe_128k": "unbounded",
+    "manual": "unbounded"
+  },
+  "task_archetypes": {
+    "settings": {
+      "priority": 1,
+      "aliases": ["settings page", "settings app", "account preferences", "preferences panel", "configuration screen"],
+      "keywords": ["settings", "preferences", "configuration", "toggles"],
+      "preferred_families": ["website.saas_dashboard", "website.productivity_app"],
+      "preferred_pack_ids": {"aperture_settings_appshell_v1": 70},
+      "required_any_motifs": ["settings_panel_group", "toggle_control_row", "master_detail_nav"],
+      "blocked_families": ["website.local_service", "website.professional_services"],
+      "minimum_keyword_matches": 1
+    },
+    "kanban": {
+      "priority": 2,
+      "aliases": ["kanban board", "sprint board", "agile board", "task board", "trello board", "work board"],
+      "keywords": ["kanban", "sprint", "draggable", "backlog", "trello", "lanes", "cards", "wip"],
+      "preferred_families": ["website.productivity_app"],
+      "preferred_pack_ids": {"kanban_board_v1": 70},
+      "pack_signatures": {
+        "kanban_board_v1": ["kanban", "trello", "work in progress", "board lanes", "draggable cards"]
+      },
+      "required_any_motifs": ["kanban_columns", "drag_drop_card", "card_board_layout"],
+      "blocked_families": ["website.local_service", "website.professional_services"],
+      "minimum_keyword_matches": 1
+    },
+    "notifications": {
+      "priority": 3,
+      "aliases": ["notification center", "notifications app", "activity inbox", "notification feed"],
+      "keywords": ["notifications", "notification", "unread", "snooze"],
+      "preferred_families": ["website.productivity_app", "website.saas_dashboard"],
+      "preferred_pack_ids": {"aurora_notification_center_v1": 70},
+      "required_any_motifs": ["notification_feed", "grouped_activity", "unread_filter"],
+      "blocked_families": ["website.local_service", "website.professional_services"],
+      "minimum_keyword_matches": 1
+    },
+    "file_manager": {
+      "priority": 4,
+      "aliases": ["file manager", "file browser", "cloud storage browser"],
+      "keywords": ["files", "folders", "storage", "browser"],
+      "preferred_families": ["website.productivity_app"],
+      "preferred_pack_ids": {"aperture_file_manager_blue_v1": 60},
+      "required_any_motifs": ["three_pane_shell", "detail_inspector_panel"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 2
+    },
+    "calendar": {
+      "priority": 5,
+      "aliases": ["calendar app", "scheduling dashboard", "booking calendar", "event calendar"],
+      "keywords": ["calendar", "schedule", "events", "booking"],
+      "preferred_families": ["website.productivity_app"],
+      "preferred_pack_ids": {"daylight_calendar_app_v1": 60},
+      "required_any_motifs": ["month_grid_calendar", "mini_calendar_widget", "event_chip_list"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "arcade_game": {
+      "priority": 14,
+      "aliases": ["arcade racer", "top down racer", "top-down racer", "browser racing game", "driving game"],
+      "keywords": ["arcade", "racer", "racing", "steering", "acceleration", "checkpoints", "laps", "speed"],
+      "preferred_families": ["website.game"],
+      "preferred_pack_ids": {
+        "neon_apex_arcade_racer_v1": 80
+      },
+      "pack_signatures": {
+        "neon_apex_arcade_racer_v1": ["arcade racer", "top down racer", "steering", "acceleration", "track boundaries", "checkpoints", "laps", "speed display", "race timer"]
+      },
+      "supersedes": ["game"],
+      "required_any_motifs": ["gameplay_first", "canvas_stage", "race_hud", "checkpoint_system", "touch_control_cluster"],
+      "blocked_families": ["website.local_service", "website.professional_services", "website.productivity_app", "website.saas_dashboard"],
+      "minimum_keyword_matches": 2
+    },
+    "tactics_game": {
+      "priority": 15,
+      "aliases": ["turn based tactics", "turn-based tactics", "dungeon tactics", "grid tactics game", "tactical grid game"],
+      "keywords": ["tactics", "dungeon", "turn", "enemies", "movement", "attack", "health", "exit"],
+      "preferred_families": ["website.game"],
+      "preferred_pack_ids": {
+        "ashvault_dungeon_tactics_v1": 80
+      },
+      "pack_signatures": {
+        "ashvault_dungeon_tactics_v1": ["turn based", "turn-based", "dungeon tactics", "grid map", "deterministic enemies", "attack range", "health", "exit objective", "turn counter", "event log"]
+      },
+      "supersedes": ["game"],
+      "required_any_motifs": ["gameplay_first", "tactical_grid", "turn_loop", "movement_range", "attack_range", "event_log"],
+      "blocked_families": ["website.local_service", "website.professional_services", "website.productivity_app", "website.saas_dashboard"],
+      "minimum_keyword_matches": 2
+    },
+    "game": {
+      "priority": 30,
+      "aliases": ["browser game", "playable game", "video game", "game ui"],
+      "keywords": ["game", "gameplay", "playable"],
+      "preferred_families": ["website.game"],
+      "preferred_pack_ids": {
+        "neon_apex_arcade_racer_v1": 28,
+        "ashvault_dungeon_tactics_v1": 28
+      },
+      "pack_signatures": {
+        "neon_apex_arcade_racer_v1": ["racer", "racing", "driving", "laps", "checkpoints"],
+        "ashvault_dungeon_tactics_v1": ["tactics", "dungeon", "turn based", "grid combat", "enemies"]
+      },
+      "clarify_without_signature": true,
+      "required_any_motifs": ["gameplay_first", "interactive_stage"],
+      "blocked_families": ["website.local_service", "website.professional_services", "website.productivity_app", "website.saas_dashboard"],
+      "minimum_keyword_matches": 1
+    },
+    "email_client": {
+      "priority": 6,
+      "aliases": ["email client", "mail app", "webmail interface", "inbox app"],
+      "keywords": ["email", "mail", "inbox", "compose"],
+      "preferred_families": ["website.productivity_app"],
+      "preferred_pack_ids": {"paper_email_client_warm_v1": 60},
+      "required_any_motifs": ["three_pane_shell", "sidebar_nav"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "code_playground": {
+      "priority": 7,
+      "aliases": ["code playground", "browser ide", "code sandbox", "browser sandbox", "live code runner", "code execution workspace"],
+      "keywords": ["playground", "runner", "console", "syntax", "sandbox", "execute", "execution", "stdout", "runtime"],
+      "preferred_families": ["website.saas_dashboard", "website.developer_tool"],
+      "preferred_pack_ids": {
+        "spark_code_playground_v1": 60
+      },
+      "pack_signatures": {
+        "spark_code_playground_v1": ["code playground", "browser sandbox", "execute code", "stdout", "console output", "live result", "runtime"]
+      },
+      "supersedes": ["editor"],
+      "required_any_motifs": ["code_block", "command_surface", "interactive_stage"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 2
+    },
+    "editor": {
+      "priority": 8,
+      "aliases": ["markdown editor", "code editor", "content editor", "writing studio", "live preview editor"],
+      "keywords": ["editor", "editing", "preview", "markdown", "code"],
+      "preferred_families": ["website.interactive_experience", "website.saas_dashboard", "website.developer_tool"],
+      "preferred_pack_ids": {
+        "markdown_editor_v1": 28,
+        "spark_code_playground_v1": 20
+      },
+      "pack_signatures": {
+        "markdown_editor_v1": ["markdown", "writing", "rendered preview", "authoring", "formatting toolbar"],
+        "spark_code_playground_v1": ["execute code", "console output", "stdout", "runtime", "code playground"]
+      },
+      "clarify_without_signature": true,
+      "required_any_motifs": ["code_block", "split_pane_editor", "live_preview_pane"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "database_tool": {
+      "priority": 9,
+      "aliases": ["sql builder", "sql browser", "database browser", "query console", "database admin"],
+      "keywords": ["sql", "database", "query", "schema"],
+      "preferred_families": ["website.developer_tool", "website.saas_dashboard"],
+      "preferred_pack_ids": {
+        "querycraft_sql_builder_v1": 35,
+        "strata_sql_browser_v1": 30
+      },
+      "pack_signatures": {
+        "querycraft_sql_builder_v1": ["query builder", "visual query", "joining tables", "joins", "conditions", "generated sql", "no code database"],
+        "strata_sql_browser_v1": ["database browser", "sql browser", "inspect schema", "browse rows", "table rows", "query history", "sql console", "data explorer"]
+      },
+      "clarify_without_signature": true,
+      "required_any_motifs": ["code_block", "query_preview_panel", "data_terminal"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "spreadsheet": {
+      "priority": 10,
+      "aliases": ["spreadsheet app", "data grid tool", "excel clone", "formula sheet"],
+      "keywords": ["spreadsheet", "formula", "cells", "grid"],
+      "preferred_families": ["website.saas_dashboard", "website.productivity_app"],
+      "preferred_pack_ids": {"lattice_formula_spreadsheet_v1": 60},
+      "required_any_motifs": ["data_grid", "formula_bar", "cell_selection_state"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "timeline": {
+      "priority": 11,
+      "aliases": ["gantt chart", "project timeline", "resource planning dashboard"],
+      "keywords": ["gantt", "timeline", "milestones", "resources"],
+      "preferred_families": ["website.productivity_app"],
+      "preferred_pack_ids": {"meridian_gantt_timeline_v1": 60},
+      "required_any_motifs": ["schedule_matrix", "process_timeline"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "contacts": {
+      "priority": 12,
+      "aliases": ["contacts dashboard", "address book", "team directory", "crm contacts"],
+      "keywords": ["contacts", "directory", "address", "people"],
+      "preferred_families": ["website.productivity_app"],
+      "preferred_pack_ids": {"rolodex_contacts_dashboard_v1": 60},
+      "required_any_motifs": ["master_detail_nav", "sidebar_nav", "dashboard_panel"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "learning_tool": {
+      "priority": 13,
+      "aliases": ["flashcard app", "spaced repetition", "study app", "learning app"],
+      "keywords": ["flashcards", "flashcard", "study", "learning", "review"],
+      "preferred_families": ["website.productivity_app"],
+      "preferred_pack_ids": {"lantern_flashcards_warm_v1": 60},
+      "required_any_motifs": ["interactive_stage", "keyboard_shortcut_rail"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "analytics_dashboard": {
+      "priority": 20,
+      "aliases": ["analytics dashboard", "operations dashboard", "observability dashboard", "metrics dashboard", "admin console"],
+      "keywords": ["analytics", "metrics", "telemetry", "observability", "operations", "kpi"],
+      "preferred_families": ["website.saas_dashboard", "website.editorial_analytics"],
+      "preferred_pack_ids": {
+        "signalstack_saas_analytics_ink_v1": 35,
+        "aperture_telemetry_dashboard_v1": 30
+      },
+      "pack_signatures": {
+        "signalstack_saas_analytics_ink_v1": ["incident operations", "owned alert queue", "incident queue", "triage queue", "selected signal detail", "workflow ownership", "permission boundaries", "operational states", "deployment options", "handoff audit trail", "b2b saas analytics", "operations dashboard"],
+        "aperture_telemetry_dashboard_v1": ["telemetry", "observability", "distributed traces", "service logs", "service health", "api monitoring", "engineering metrics", "latency traces", "error budget"]
+      },
+      "clarify_without_signature": true,
+      "required_any_motifs": ["dashboard_panel", "stats_strip", "linked_chart_grid", "data_table_module"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "gradient_tool": {
+      "priority": 21,
+      "aliases": ["gradient generator", "gradient design tool", "mesh gradient editor", "css gradient tool"],
+      "keywords": ["gradient", "stops", "angle", "mesh"],
+      "preferred_families": ["website.interactive_experience"],
+      "preferred_pack_ids": {
+        "meld_gradient_studio_dark_v1": 60
+      },
+      "pack_signatures": {
+        "meld_gradient_studio_dark_v1": ["gradient", "mesh", "color stops", "angle", "css export", "color ramp"]
+      },
+      "supersedes": ["creative_image_tool"],
+      "required_any_motifs": ["interactive_stage", "instrument_control", "minimal_centerpiece"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "creative_image_tool": {
+      "priority": 22,
+      "aliases": ["image effects tool", "photo editing tool", "creative image studio", "glitch studio"],
+      "keywords": ["image", "photo", "glitch", "duotone", "effects"],
+      "preferred_families": ["website.interactive_experience"],
+      "preferred_pack_ids": {
+        "glitchlab_rgb_shift_neon_v1": 26,
+        "bichrome_duotone_studio_v1": 24,
+        "meld_gradient_studio_dark_v1": 24
+      },
+      "pack_signatures": {
+        "glitchlab_rgb_shift_neon_v1": ["glitch", "rgb split", "rgb shift", "scan lines", "scanlines", "distortion", "channel offset"],
+        "bichrome_duotone_studio_v1": ["duotone", "two color", "two-color", "blend controls", "before after", "photo filter"],
+        "meld_gradient_studio_dark_v1": ["gradient", "mesh", "color stops", "angle", "css export", "color ramp"]
+      },
+      "clarify_without_signature": true,
+      "required_any_motifs": ["interactive_stage", "instrument_control", "before_after_compare"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "interactive_instrument": {
+      "priority": 23,
+      "aliases": ["interactive instrument", "browser instrument", "synthesizer app", "drum machine", "audio studio"],
+      "keywords": ["instrument", "synth", "synthesizer", "audio", "sound", "drum"],
+      "preferred_families": ["website.interactive_experience"],
+      "preferred_pack_ids": {
+        "instrument_studio_minimal_interactive_v1": 50,
+        "po16_drum_machine_v1": 36
+      },
+      "pack_signatures": {
+        "instrument_studio_minimal_interactive_v1": ["synth", "synthesizer", "waveform", "sequencer", "recording", "knobs"],
+        "po16_drum_machine_v1": ["drum machine", "drum pads", "step sequencer", "rhythm", "beats"]
+      },
+      "clarify_without_signature": true,
+      "required_any_motifs": ["instrument_control", "sound_studio", "interactive_stage"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    },
+    "docs": {
+      "priority": 24,
+      "aliases": ["developer docs", "api documentation", "quickstart guide", "documentation site"],
+      "keywords": ["docs", "documentation", "quickstart", "guide", "sdk", "api"],
+      "preferred_families": ["website.docs"],
+      "preferred_pack_ids": {"developer_docs_quickstart_dark_v1": 60},
+      "required_any_motifs": ["docs_shell", "toc_rail", "code_block"],
+      "blocked_families": ["website.local_service"],
+      "minimum_keyword_matches": 1
+    }
   },
   "expansion_order": [
-    "library_audit",
-    "micro",
-    "compact",
-    "standard",
-    "expanded",
-    "full_selected"
+    "unbounded"
   ],
   "motif_keywords": {
     "hero_shell": [
@@ -1561,7 +1861,6 @@
         "premium"
       ],
       "preferred_anchor_pack_ids": {
-        "freezebreeze_live_lab_ice_blue_v1": 50,
         "copperbeam_flooring_light_residential_v1": -8,
         "holland_dirt_black_yellow_v1": -12,
         "emberforge_fight_gym_black_red_v1": -12,
@@ -1815,7 +2114,6 @@
         "copperbeam_flooring_light_residential_v1": 4
       },
       "penalized_anchor_pack_ids": {
-        "freezebreeze_live_lab_ice_blue_v1": -24,
         "clear_ridge_water_works_field_blue_v1": -10,
         "iron_circuit_fight_academy_black_copper_v1": -10
       },
@@ -2454,8 +2752,7 @@
       },
       "penalized_anchor_pack_ids": {
         "holland_dirt_black_yellow_v1": -18,
-        "emberforge_fight_gym_black_red_v1": -18,
-        "freezebreeze_live_lab_ice_blue_v1": -18
+        "emberforge_fight_gym_black_red_v1": -18
       },
       "prefer_example_tokens": [
         "luxury",
@@ -2484,7 +2781,13 @@
         "premium hardware",
         "measured product",
         "black product page",
-        "industrial design product"
+        "industrial design product",
+        "mechanical watch",
+        "luxury watch",
+        "premium watch",
+        "watch product",
+        "reference watch",
+        "fine timepiece"
       ],
       "keywords": [
         "reference",
@@ -2493,6 +2796,16 @@
         "device",
         "audio",
         "headphones",
+        "watch",
+        "timepiece",
+        "horology",
+        "chronometer",
+        "movement",
+        "caliber",
+        "case",
+        "dial",
+        "crown",
+        "strap",
         "measured",
         "measurement",
         "specs",
@@ -2526,7 +2839,6 @@
       ],
       "preferred_anchor_pack_ids": {
         "reference_product_black_spec_v1": 52,
-        "freezebreeze_live_lab_ice_blue_v1": 6,
         "oakline_cabinetry_craftsmanship_v1": 4
       },
       "penalized_anchor_pack_ids": {
@@ -2540,7 +2852,12 @@
         "hardware",
         "product",
         "measured",
-        "specs"
+        "specs",
+        "watch",
+        "timepiece",
+        "movement",
+        "dial",
+        "strap"
       ],
       "blocked_example_tokens": [
         "spa",
@@ -2555,6 +2872,84 @@
         "stats_strip",
         "process_steps"
       ]
+    },
+    "browser_game": {
+      "priority": 5,
+      "aliases": [
+        "browser game",
+        "playable game",
+        "video game",
+        "arcade racer",
+        "dungeon tactics"
+      ],
+      "keywords": [
+        "game",
+        "gameplay",
+        "playable",
+        "arcade",
+        "racer",
+        "racing",
+        "dungeon",
+        "tactics",
+        "checkpoints",
+        "laps",
+        "enemy",
+        "enemies",
+        "turn-based",
+        "turn"
+      ],
+      "motif_tags": [
+        "gameplay_first",
+        "interactive_stage",
+        "game_state_overlay",
+        "keyboard_controls",
+        "touch_controls",
+        "restart_flow",
+        "victory_state",
+        "defeat_state"
+      ],
+      "strength_tags": [
+        "single_screen_stage",
+        "navigation_clarity",
+        "state_completeness",
+        "interaction_feedback"
+      ],
+      "prefer_tones": [
+        "kinetic",
+        "tactical",
+        "precise",
+        "legible",
+        "atmospheric"
+      ],
+      "preferred_anchor_pack_ids": {
+        "neon_apex_arcade_racer_v1": 44,
+        "ashvault_dungeon_tactics_v1": 44
+      },
+      "penalized_anchor_pack_ids": {
+        "instrument_studio_minimal_interactive_v1": -35,
+        "lattice_formula_spreadsheet_v1": -45,
+        "daylight_calendar_app_v1": -45,
+        "signalstack_saas_analytics_ink_v1": -35
+      },
+      "prefer_example_tokens": [
+        "game",
+        "arcade",
+        "racer",
+        "tactics",
+        "dungeon",
+        "playable",
+        "canvas"
+      ],
+      "blocked_example_tokens": [
+        "landscape",
+        "roofing",
+        "plumbing",
+        "spa",
+        "law",
+        "fight"
+      ],
+      "support_role": "Use support donors only for mechanical UI roles. The native game anchor owns identity, gameplay hierarchy, controls, and state composition.",
+      "ux_role_fallback": []
     },
     "interactive_instrument": {
       "priority": 104,
@@ -2611,8 +3006,7 @@
       },
       "penalized_anchor_pack_ids": {
         "emberforge_fight_gym_black_red_v1": -16,
-        "holland_dirt_black_yellow_v1": -16,
-        "freezebreeze_live_lab_ice_blue_v1": -14
+        "holland_dirt_black_yellow_v1": -16
       },
       "prefer_example_tokens": [
         "interactive",
@@ -3328,6 +3722,42 @@
     "spatial_map"
   ],
   "composition_recipes": {
+    "browser_game": {
+      "section_count_target": [
+        1,
+        2
+      ],
+      "rhythm_breaks": [
+        "the first viewport is the playable game surface, never a marketing hero",
+        "instructions and status stay compact around the playfield"
+      ],
+      "surface_palette_distribution": "the game world owns the canvas; HUD and overlays use a restrained semantic signal palette",
+      "density_curve": "immediate playfield, compact state support, explicit pause and end-state overlays",
+      "forbidden_repetitions": [
+        "no landing-page card rows before gameplay",
+        "no fake controls or decorative canvas",
+        "no duplicated HUD panels",
+        "no invented multiplayer, online, save, procedural, or AI claims"
+      ],
+      "local_model_failure_patterns": [
+        {
+          "if": "the first screen reads like a product landing page",
+          "then": "remove the hero and make the playable board or canvas own the viewport"
+        },
+        {
+          "if": "touch controls are smaller than 44px or collide with the HUD",
+          "then": "recompose the mobile control zones with stable dimensions and clear thumb reach"
+        },
+        {
+          "if": "pause, victory, defeat, or restart are only described",
+          "then": "implement them as explicit states in the same authoritative game loop"
+        },
+        {
+          "if": "a non-game donor controls identity",
+          "then": "keep only the needed mechanical role and restore the native game anchor as composition owner"
+        }
+      ]
+    },
     "combat_sports": {
       "section_count_target": [
         6,

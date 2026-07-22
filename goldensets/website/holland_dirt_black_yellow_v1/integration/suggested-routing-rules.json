@@ -1,0 +1,67 @@
+{
+  "pack_id": "holland_dirt_black_yellow_v1",
+  "vertical_tokens": [
+    "land clearing",
+    "grading",
+    "excavation",
+    "site prep",
+    "sitework",
+    "earthwork",
+    "drainage",
+    "driveway",
+    "pond",
+    "demolition",
+    "mountain property",
+    "steep terrain",
+    "dozer",
+    "excavator"
+  ],
+  "tone_tokens": [
+    "professional",
+    "industrial",
+    "field-ready",
+    "dark",
+    "earth",
+    "moss",
+    "safety-yellow",
+    "topographic",
+    "documentary"
+  ],
+  "surface_tokens": [
+    "terrain hero",
+    "grade board",
+    "before after comparison",
+    "service phase tabs",
+    "process timeline",
+    "equipment fleet",
+    "coverage checker",
+    "field studies",
+    "planning tool",
+    "site walk request"
+  ],
+  "motif_tokens": [
+    "excavator_terrain_hero",
+    "layered_mountain_sitework_scene",
+    "grade_section_board",
+    "before_after_grading_slider",
+    "service_phase_tabs",
+    "site_walk_to_closeout_timeline",
+    "detailed_equipment_fleet",
+    "property_coverage_checker",
+    "proof_safe_field_studies",
+    "site_walk_brief_planner"
+  ],
+  "anti_tokens": [
+    "cartoon equipment",
+    "simple construction icons",
+    "fake project photos",
+    "fake service territory",
+    "fake fleet count",
+    "fake estimate",
+    "fake timeline",
+    "stock machinery",
+    "generic contractor cards",
+    "saas gradient"
+  ],
+  "recommended_weight_notes": "Use as the primary anchor for terrain, earthwork, grading, excavation, drainage, and equipment-led contractor sites. It can donate comparison, field-sequencing, fleet-study, coverage-review, and planning patterns. Do not route here for generic local services that lack terrain or heavy-equipment context."
+}

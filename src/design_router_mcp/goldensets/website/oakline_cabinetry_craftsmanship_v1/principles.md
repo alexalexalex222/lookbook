@@ -1,5 +1,8 @@
-- Lead with one precise headline block and one obvious design-consultation action.
-- Let the right-side visual prove material intelligence through finish direction, joinery, or cabinet elevation cues rather than generic cards.
-- Keep the palette warm and premium, but do not let darkness turn into aggression or contractor grit.
-- Trust should feel like reputation, fit, and meticulous execution instead of volume-driven bravado.
-- Premium here should come from detailing, spacing, and material hierarchy rather than vague luxury slogans.
+# Oakline Cabinetry — Anchor Principles
+
+- Make the cabinet or room-fit drawing the first-viewport proof object. The product must be inspectable, not implied by decorative texture.
+- Explain why the work holds together: inset construction, joinery, grain direction, hardware fit, finish, and installation sequence.
+- The material selector changes a real visual readout and keeps wood and metal choices legible for keyboard and touch users.
+- Alternate precise drawing surfaces with warmer project and consultation bands so the page stays residential rather than industrial.
+- Specifications should be concise and construction-oriented. Unsupported materials, warranty terms, and dimensions remain placeholders or are omitted.
+- Responsive layouts preserve the elevation, callouts, selector labels, and form state without shrinking text into diagram noise.

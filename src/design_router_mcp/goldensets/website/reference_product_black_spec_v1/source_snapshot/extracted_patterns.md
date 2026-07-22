@@ -1,41 +1,27 @@
-# Reference Product Black Spec — Extracted Full-Site Pattern
-
-## Capture Evidence
-- Source URL: http://localhost:5181/
-- HTTP status: 200
-- Captured title: TACET Umbra — The Reference
-- Body text length: 4261
-- Section count: 15
-- Heading count: 15
-- Resource count: 56
-- Desktop screenshot: screenshots/desktop-1512x812.png
-- Mobile screenshot: screenshots/mobile-390x844.png
+# Reference Product Black Spec — Extracted Watch Pattern
 
 ## Reusable Pattern
-- The hero presents one product object as the focal point and lets the value proposition stay quiet and exact.
-- Editorial thesis sections explain what the product removes or improves before revealing construction details.
-- Specs must include method/context or become placeholders; this pattern rejects unmeasured marketing claims.
-- Purchase/reserve modules are compact, sober, and adjacent to proof rather than repeated throughout the page.
 
-## Observed Section Jobs
-- main#main: Umbra / Most headphones have a sound. This one is built not to. / Nothing here is decorative. / The weight you stop noticing. / Machined, not moulded. / The part that does everything, seen by no one.; NO. 01 TACET · REFERENCE SERIES Umbra Engineered to disappear. A reference transducer built to add nothing and hide nothing — so the only thing left between you and the recording i
-- section#top.hero: Umbra; NO. 01 TACET · REFERENCE SERIES Umbra Engineered to disappear. A reference transducer built to add nothing and hide nothing — so the only thing left between you and the recording i
-- section#thesis.section manifesto: Most headphones have a sound. This one is built not to.; NO. 02 THE IDEA Most headphones have a sound. This one is built not to. Every decision inside Umbra — the alloy, the damping, the geometry of the chamber — exists to remove a finge
-- section#object.section craft: Nothing here is decorative. / The weight you stop noticing. / Machined, not moulded. / The part that does everything, seen by no one. / Where it meets you.; NO. 03 THE OBJECT Nothing here is decorative. Every part you can see is doing acoustic work. Turn it in the light and read it — four decisions you can feel before you ever press pl
-- header.lockup craft__intro is-visible: Nothing here is decorative.; NO. 03 THE OBJECT Nothing here is decorative. Every part you can see is doing acoustic work. Turn it in the light and read it — four decisions you can feel before you ever press pl
-- section#sound.section sound: The quietest thing we build is the silence.; NO. 04 THE SOUND The quietest thing we build is the silence. Detail doesn't live in the loud parts. It lives in the floor beneath them — the reverb tail, the rosin on the bow, the 
-- section#measured.section specs: We publish the figure and the method. At ship, not before.; NO. 05 MEASURED, NOT MARKETED We publish the figure and the method. At ship, not before. Round numbers are marketing. Every value here is measured on the unit that becomes yours an
-- header.lockup is-visible: We publish the figure and the method. At ship, not before.; NO. 05 MEASURED, NOT MARKETED We publish the figure and the method. At ship, not before. Round numbers are marketing. Every value here is measured on the unit that becomes yours an
-- section#inbox.section inbox: The case is the last thing we engineered. / Umbra / Machined case / Reference cable / Certificate of measurement; NO. 06 WHAT ARRIVES The case is the last thing we engineered. 01 Umbra The instrument, assembled and burned in by hand. 02 Machined case A sealed, cushioned home — built to outlast
-- header.lockup is-visible: The case is the last thing we engineered.; NO. 06 WHAT ARRIVES The case is the last thing we engineered.
-- section#reserve.section buy: You already know whether this is for you.; NO. 07 RESERVE You already know whether this is for you. Umbra is built in small numbered batches and measured one unit at a time. Reserve a place in the next batch now; nothing is
+- The first viewport presents one inspectable watch object with quiet product copy and a compact reserve path.
+- Editorial sections move from product thesis into case anatomy, movement and casing process, measured specifications, surface inspection, included components, strap selection, FAQ, and reservation review.
+- Construction proof is visual and relational: exploded parts, labeled callouts, material transitions, and method-backed measurement rows.
+- Six surface-detail views use an accessible tab pattern so finish, crown, movement, escapement, dial, and strap can be inspected without leaving the page.
+- The reservation sequence keeps selection, price, and submitted details together and provides a review/edit state before completion.
 
-## Responsive Extraction
-- desktop-1512x812: scrollWidth 1512, clientWidth 1512, horizontalOverflow false
-- mobile-390x844: scrollWidth 390, clientWidth 390, horizontalOverflow false
+## Responsive Behavior
+
+- Desktop keeps the watch object, anatomy, and measurement surfaces broad enough to inspect.
+- Mobile stacks diagrams and readouts while preserving callout labels, tab names, selector state, form input, and review context.
+- Fixed-format visuals use intrinsic SVG dimensions so controls and dynamic content do not shift the surrounding layout.
+
+## Proof Discipline
+
+- Product measurements require method and unit context.
+- Movement origin, caliber, accuracy, power reserve, water resistance, materials, price, batch size, availability, and certification must come from the user's brief.
+- Missing facts are omitted or represented with clearly labeled placeholders; scarcity and performance claims are never invented.
 
 ## Donor Hygiene
-- Treat the captured page as calibration material, not copy-ready content.
-- Reuse layout rhythm, information architecture, state treatment, and component relationships.
-- Do not reuse donor brand names, exact headlines, exact product names, exact measurements, prices, chart values, paths, or claims.
-- Replace any business/product facts with supplied brief facts or neutral placeholders.
+
+- Treat the page as calibration material, not copy-ready content.
+- Reuse object focus, information sequence, component relationships, interaction states, and responsive behavior.
+- Do not reuse Datum, Nadir, exact headlines, watch geometry, illustrations, measurements, prices, form labels, or code identifiers.

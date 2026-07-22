@@ -32,23 +32,31 @@
     "full_site"
   ],
   "motif_tags": [
-    "hero_shell",
+    "launch_pad_elevation",
+    "vehicle_exploded_diagram",
+    "vehicle_assembly_selector",
     "dark_texture",
     "technical_manifest",
+    "capability_envelope",
+    "orbit_visualization",
     "process_timeline",
     "specification_table",
     "mission_sequence",
+    "program_roadmap",
+    "payload_manifest_intake",
     "form_intake",
     "vector_product_diagram",
     "headline_hierarchy"
   ],
   "supports_tasks": [
-    "aerospace_landing_page",
-    "deep_tech_product_page",
-    "technical_manifest_site",
-    "engineering_product_homepage",
-    "mission_process_landing",
-    "waitlist_or_manifest_form"
+    "private_aerospace_launch_provider_website",
+    "rocket_vehicle_technical_product_page",
+    "launch_vehicle_exploded_anatomy",
+    "orbit_destination_visualization",
+    "mission_sequence_landing",
+    "launch_program_roadmap",
+    "payload_manifest_intake_form",
+    "deep_tech_engineering_homepage"
   ],
   "anti_patterns": [
     "generic startup gradient hero",
@@ -58,9 +66,31 @@
     "stock rocket photography"
   ],
   "screenshot_paths": [
-    "screenshots/desktop-1512x812.png",
-    "screenshots/mobile-390x844.png"
+    "screenshots/router-desktop-1512x812.png",
+    "screenshots/router-mobile-390x844.png"
   ],
+  "reusable_atoms": [
+    "launch_pad_elevation_svg_v1",
+    "vehicle_assembly_selector_v1",
+    "capability_envelope_table_v1",
+    "orbit_visualization_v1",
+    "mission_sequence_timeline_v1",
+    "program_roadmap_v1",
+    "payload_manifest_form_v1"
+  ],
+  "routing_tokens": [
+    "private launch provider",
+    "launch vehicle",
+    "rocket",
+    "payload",
+    "orbit",
+    "mission sequence",
+    "vehicle specifications",
+    "program roadmap",
+    "manifest intake"
+  ],
+  "proof_policy": "no invented launch capability, performance, certification, schedule, or mission claims; use supplied facts or labeled placeholders",
+  "qa_status": "static-pass; visual-pass",
   "token_budget_hint": 6200,
   "confidence_score": 5
 }

@@ -1,7 +1,7 @@
 """Route + render proofs for the frontier_pattern_bank support pack (72 non-landing
 interactive patterns). These assert behavior, not implementation: the bank is
 registered, an app/tool request selects it and surfaces relevant donor examples,
-and the rendered packet stays within the token_mode budget."""
+and packet size remains telemetry rather than a clipping boundary."""
 from pathlib import Path
 
 from design_router_mcp.index_store import build_repository_index
@@ -80,7 +80,7 @@ def test_existing_website_routing_unaffected():
     assert "signalstack_saas_analytics_ink_v1" in packet.markdown
 
 
-def test_render_within_token_budget():
+def test_render_reports_size_without_enforcing_a_token_budget():
     rules = load_routing_rules(ROOT)
     packet = resolve_design_context(
         ROOT,
@@ -93,4 +93,6 @@ def test_render_within_token_budget():
     assert packet.markdown.strip()
     assert packet.estimated_tokens > 0
     budget = rules.token_budget(packet.token_mode)
-    assert packet.estimated_tokens <= budget.max_packet_tokens, (packet.estimated_tokens, budget.max_packet_tokens)
+    assert budget.max_packet_tokens is None
+    assert packet.metadata["capacity_policy"] == "unbounded"
+    assert "PACKET TRUNCATED" not in packet.markdown

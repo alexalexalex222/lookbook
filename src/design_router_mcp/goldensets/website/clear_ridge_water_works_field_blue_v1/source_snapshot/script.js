@@ -1,184 +1,345 @@
-/* Clear Ridge Water Works -- minimal vanilla interactions, no dependencies.
-   1) Diagnostic issue selector (WAI-ARIA tabs pattern, full keyboard support)
-   2) Quote form: inline validation, never loses input, success state
-   3) Footer year */
 (function () {
   "use strict";
 
-  /* ---------- Footer year ---------- */
-  var yearEl = document.getElementById("year");
-  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+  var menuButton = document.getElementById("menu-button");
+  var mobileMenu = document.getElementById("mobile-menu");
+  var lastMenuFocus = null;
 
-  /* ---------- Diagnostic issue selector (tabs) ---------- */
-  var tablist = document.querySelector('.issue-tabs[role="tablist"]');
-  if (tablist) {
-    var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
+  function menuLinks() {
+    return mobileMenu
+      ? Array.prototype.slice.call(mobileMenu.querySelectorAll("a, button"))
+      : [];
+  }
 
-    var selectTab = function (tab, setFocus) {
-      tabs.forEach(function (t) {
-        var selected = t === tab;
-        t.setAttribute("aria-selected", String(selected));
-        t.tabIndex = selected ? 0 : -1;
-        t.classList.toggle("is-active", selected);
-        var panel = document.getElementById(t.getAttribute("aria-controls"));
-        if (panel) {
-          panel.hidden = !selected;
-          panel.classList.toggle("is-active", selected);
-        }
-      });
-      if (setFocus) tab.focus();
-    };
+  function setMenu(open, options) {
+    options = options || {};
+    if (!menuButton || !mobileMenu) return;
 
-    tabs.forEach(function (tab, index) {
-      tab.addEventListener("click", function () { selectTab(tab, false); });
-      tab.addEventListener("keydown", function (e) {
-        var next = null;
-        switch (e.key) {
-          case "ArrowDown":
-          case "ArrowRight":
-            next = tabs[(index + 1) % tabs.length];
-            break;
-          case "ArrowUp":
-          case "ArrowLeft":
-            next = tabs[(index - 1 + tabs.length) % tabs.length];
-            break;
-          case "Home":
-            next = tabs[0];
-            break;
-          case "End":
-            next = tabs[tabs.length - 1];
-            break;
-          default:
-            return;
-        }
-        e.preventDefault();
-        selectTab(next, true);
-      });
-    });
+    menuButton.setAttribute("aria-expanded", String(open));
+    menuButton.setAttribute("aria-label", open ? "Close navigation" : "Open navigation");
+    mobileMenu.hidden = !open;
+    document.body.classList.toggle("menu-open", open);
 
-    /* Link a chosen symptom into the quote form's <select> when the
-       diagnostic CTA is followed (progressive enhancement only). */
-    var issueMap = {
-      "panel-no-water": "no-water",
-      "panel-low-pressure": "low-pressure",
-      "panel-cloudy": "cloudy",
-      "panel-cycling": "cycling",
-      "panel-filtration": "filtration"
-    };
-    var diagCta = document.querySelector(".diagnostic-cta");
-    var issueSelect = document.getElementById("q-issue");
-    if (diagCta && issueSelect) {
-      diagCta.addEventListener("click", function () {
-        var active = tabs.filter(function (t) { return t.getAttribute("aria-selected") === "true"; })[0];
-        if (!active) return;
-        var value = issueMap[active.getAttribute("aria-controls")];
-        if (value) {
-          issueSelect.value = value;
-          var field = issueSelect.closest(".field");
-          if (field) field.classList.remove("has-error");
-          var err = document.getElementById("err-issue");
-          if (err) err.textContent = "";
-        }
-      });
+    if (open) {
+      lastMenuFocus = document.activeElement;
+      var firstLink = menuLinks()[0];
+      if (firstLink) firstLink.focus();
+    } else if (options.restoreFocus !== false) {
+      (lastMenuFocus || menuButton).focus();
     }
   }
 
-  /* ---------- Quote form validation ---------- */
-  var form = document.getElementById("quote-form");
-  if (!form) return;
-
-  var statusEl = document.getElementById("form-status");
-  var successEl = document.getElementById("form-success");
-  var resetBtn = document.getElementById("form-reset");
-  var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  var phoneRe = /[0-9]/; /* at least one digit */
-
-  var rules = {
-    "q-name": function (v) { return v.trim() ? "" : "Please enter your name."; },
-    "q-phone": function (v) {
-      if (!v.trim()) return "Please enter a phone number.";
-      return phoneRe.test(v) ? "" : "Enter a number we can reach you on.";
-    },
-    "q-email": function (v) {
-      if (!v.trim()) return ""; /* optional */
-      return emailRe.test(v.trim()) ? "" : "Enter a valid email address.";
-    },
-    "q-issue": function (v) { return v ? "" : "Pick what your water is doing."; }
-  };
-
-  var setError = function (id, message) {
-    var input = document.getElementById(id);
-    var errEl = document.getElementById("err-" + id.replace("q-", ""));
-    if (!input) return;
-    var field = input.closest(".field");
-    if (message) {
-      if (field) field.classList.add("has-error");
-      input.setAttribute("aria-invalid", "true");
-      if (errEl) errEl.textContent = message;
-    } else {
-      if (field) field.classList.remove("has-error");
-      input.removeAttribute("aria-invalid");
-      if (errEl) errEl.textContent = "";
-    }
-  };
-
-  var validateField = function (id) {
-    var input = document.getElementById(id);
-    if (!input || !rules[id]) return true;
-    var message = rules[id](input.value);
-    setError(id, message);
-    return !message;
-  };
-
-  /* Validate on blur once touched; clear error as the user fixes it. */
-  Object.keys(rules).forEach(function (id) {
-    var input = document.getElementById(id);
-    if (!input) return;
-    input.addEventListener("blur", function () { validateField(id); });
-    input.addEventListener("input", function () {
-      if (input.closest(".field").classList.contains("has-error")) validateField(id);
-    });
-    input.addEventListener("change", function () { validateField(id); });
-  });
-
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    var firstInvalid = null;
-    Object.keys(rules).forEach(function (id) {
-      var ok = validateField(id);
-      if (!ok && !firstInvalid) firstInvalid = document.getElementById(id);
+  if (menuButton && mobileMenu) {
+    menuButton.addEventListener("click", function () {
+      var open = menuButton.getAttribute("aria-expanded") !== "true";
+      setMenu(open);
     });
 
-    if (firstInvalid) {
-      if (statusEl) statusEl.textContent = "Please fix the highlighted fields and try again.";
-      firstInvalid.focus();
-      return;
-    }
-
-    /* Success -- no network call in this static reference build.
-       Input is preserved in the form; we reveal the confirmation. */
-    if (statusEl) statusEl.textContent = "";
-    form.querySelectorAll("input, select, textarea, .form-submit").forEach(function (el) {
-      el.disabled = true;
-    });
-    if (successEl) {
-      successEl.hidden = false;
-      successEl.setAttribute("tabindex", "-1");
-      successEl.focus();
-    }
-  });
-
-  if (resetBtn) {
-    resetBtn.addEventListener("click", function () {
-      form.reset();
-      form.querySelectorAll("input, select, textarea, .form-submit").forEach(function (el) {
-        el.disabled = false;
+    mobileMenu.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        setMenu(false, { restoreFocus: false });
       });
-      Object.keys(rules).forEach(function (id) { setError(id, ""); });
-      if (successEl) successEl.hidden = true;
-      if (statusEl) statusEl.textContent = "";
-      var nameField = document.getElementById("q-name");
-      if (nameField) nameField.focus();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (menuButton.getAttribute("aria-expanded") !== "true") return;
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMenu(false);
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+      var links = menuLinks();
+      if (!links.length) return;
+      var first = links[0];
+      var last = links[links.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 940 && menuButton.getAttribute("aria-expanded") === "true") {
+        setMenu(false, { restoreFocus: false });
+      }
+    });
+  }
+
+  var tablist = document.querySelector('.triage__symptoms[role="tablist"]');
+  var selectedIssue = "no-water";
+
+  function activateTab(tab, moveFocus) {
+    if (!tablist || !tab) return;
+    var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
+
+    tabs.forEach(function (candidate) {
+      var selected = candidate === tab;
+      candidate.setAttribute("aria-selected", String(selected));
+      candidate.tabIndex = selected ? 0 : -1;
+      var panel = document.getElementById(candidate.getAttribute("aria-controls"));
+      if (panel) panel.hidden = !selected;
+    });
+
+    selectedIssue = tab.getAttribute("data-issue") || selectedIssue;
+    if (moveFocus) tab.focus();
+  }
+
+  if (tablist) {
+    var symptomTabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
+
+    symptomTabs.forEach(function (tab, index) {
+      tab.addEventListener("click", function () {
+        activateTab(tab, false);
+      });
+
+      tab.addEventListener("keydown", function (event) {
+        var nextIndex = index;
+
+        if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+          nextIndex = (index + 1) % symptomTabs.length;
+        } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+          nextIndex = (index - 1 + symptomTabs.length) % symptomTabs.length;
+        } else if (event.key === "Home") {
+          nextIndex = 0;
+        } else if (event.key === "End") {
+          nextIndex = symptomTabs.length - 1;
+        } else {
+          return;
+        }
+
+        event.preventDefault();
+        activateTab(symptomTabs[nextIndex], true);
+      });
+    });
+  }
+
+  var requestSection = document.getElementById("request");
+  var issueSelect = document.getElementById("request-issue");
+  var areaInput = document.getElementById("request-area");
+  var notesInput = document.getElementById("request-notes");
+  var reducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function scrollToRequest(focusTarget) {
+    if (!requestSection) return;
+    requestSection.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+    window.setTimeout(function () {
+      if (focusTarget) focusTarget.focus();
+    }, reducedMotion ? 0 : 360);
+  }
+
+  var useSymptomButton = document.querySelector("[data-use-symptom]");
+  if (useSymptomButton && issueSelect) {
+    useSymptomButton.addEventListener("click", function () {
+      issueSelect.value = selectedIssue;
+      clearFieldError(issueSelect);
+      scrollToRequest(issueSelect);
+    });
+  }
+
+  function setUrgency(value) {
+    var urgency = document.querySelector('input[name="urgency"][value="' + value + '"]');
+    if (urgency) urgency.checked = true;
+
+    if (value === "emergency" && issueSelect && !issueSelect.value) {
+      issueSelect.value = "no-water";
+    }
+
+    scrollToRequest(issueSelect);
+  }
+
+  document.querySelectorAll("[data-set-urgency]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      setUrgency(button.getAttribute("data-set-urgency"));
+    });
+  });
+
+  document.querySelectorAll("[data-focus-area]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      scrollToRequest(areaInput);
+    });
+  });
+
+  document.querySelectorAll("[data-plan]").forEach(function (button) {
+    button.addEventListener("click", function () {
+      var plan = button.getAttribute("data-plan");
+      if (issueSelect) issueSelect.value = plan === "Filtration watch" ? "filtration" : "maintenance";
+      if (notesInput) notesInput.value = "I would like to ask about the " + plan.toLowerCase() + " scope.";
+      scrollToRequest(issueSelect);
+    });
+  });
+
+  var requestForm = document.getElementById("request-form");
+  var formStatus = document.getElementById("form-status");
+  var formSuccess = document.getElementById("form-success");
+  var submitButton = document.getElementById("request-submit");
+  var submitLabel = submitButton ? submitButton.querySelector(".request-form__label") : null;
+  var formReset = document.getElementById("form-reset");
+  var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  var fieldRules = {
+    "request-name": {
+      helpId: "request-name-help",
+      errorId: "request-name-error",
+      test: function (value) {
+        return value.trim().length >= 2 ? "" : "Enter the name we should ask for, using at least 2 characters.";
+      }
+    },
+    "request-phone": {
+      helpId: "request-phone-help",
+      errorId: "request-phone-error",
+      test: function (value) {
+        var digits = value.replace(/\D/g, "");
+        return digits.length >= 7 ? "" : "Enter a phone number with at least 7 digits so the service details can be confirmed.";
+      }
+    },
+    "request-email": {
+      helpId: "request-email-help",
+      errorId: "request-email-error",
+      test: function (value) {
+        return !value.trim() || emailPattern.test(value.trim())
+          ? ""
+          : "Enter an email in the format name@example.com, or leave this optional field blank.";
+      }
+    },
+    "request-area": {
+      helpId: "request-area-help",
+      errorId: "request-area-error",
+      test: function (value) {
+        return value.trim().length >= 3
+          ? ""
+          : "Enter a road, general area or county so coverage can be checked.";
+      }
+    },
+    "request-issue": {
+      helpId: "request-issue-help",
+      errorId: "request-issue-error",
+      test: function (value) {
+        return value ? "" : "Choose the closest water symptom so the request can be routed.";
+      }
+    }
+  };
+
+  function fieldRule(input) {
+    return input ? fieldRules[input.id] : null;
+  }
+
+  function showFieldError(input, message) {
+    var rule = fieldRule(input);
+    if (!input || !rule) return;
+    var error = document.getElementById(rule.errorId);
+    input.setAttribute("aria-invalid", "true");
+    input.setAttribute("aria-describedby", rule.helpId + " " + rule.errorId);
+    if (error) error.textContent = message;
+  }
+
+  function clearFieldError(input) {
+    var rule = fieldRule(input);
+    if (!input || !rule) return;
+    var error = document.getElementById(rule.errorId);
+    input.removeAttribute("aria-invalid");
+    input.setAttribute("aria-describedby", rule.helpId + " " + rule.errorId);
+    if (error) error.textContent = "";
+  }
+
+  function validateField(input) {
+    var rule = fieldRule(input);
+    if (!input || !rule) return true;
+    var message = rule.test(input.value);
+
+    if (message) {
+      showFieldError(input, message);
+      return false;
+    }
+
+    clearFieldError(input);
+    return true;
+  }
+
+  function setLoading(loading) {
+    if (!submitButton) return;
+    submitButton.disabled = loading;
+    submitButton.classList.toggle("is-loading", loading);
+    submitButton.setAttribute("aria-busy", String(loading));
+    if (submitLabel) submitLabel.textContent = loading ? "Checking request" : "Check and stage request";
+  }
+
+  if (requestForm) {
+    Object.keys(fieldRules).forEach(function (id) {
+      var input = document.getElementById(id);
+      if (!input) return;
+
+      input.addEventListener("blur", function () {
+        if (input.dataset.touched === "true" || input.value) validateField(input);
+      });
+
+      input.addEventListener("input", function () {
+        input.dataset.touched = "true";
+        if (input.getAttribute("aria-invalid") === "true") validateField(input);
+      });
+
+      input.addEventListener("change", function () {
+        input.dataset.touched = "true";
+        validateField(input);
+      });
+    });
+
+    requestForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      var firstInvalid = null;
+      var valid = true;
+
+      Object.keys(fieldRules).forEach(function (id) {
+        var input = document.getElementById(id);
+        if (!validateField(input)) {
+          valid = false;
+          if (!firstInvalid) firstInvalid = input;
+        }
+      });
+
+      if (!valid) {
+        if (formStatus) formStatus.textContent = "Review the highlighted fields. Each message explains what to add or change.";
+        if (firstInvalid) firstInvalid.focus();
+        return;
+      }
+
+      if (formStatus) formStatus.textContent = "";
+      setLoading(true);
+
+      window.setTimeout(function () {
+        setLoading(false);
+        requestForm.hidden = true;
+        if (formSuccess) {
+          formSuccess.hidden = false;
+          formSuccess.focus();
+        }
+      }, 850);
+    });
+  }
+
+  if (formReset && requestForm && formSuccess) {
+    formReset.addEventListener("click", function () {
+      requestForm.reset();
+      formSuccess.hidden = true;
+      requestForm.hidden = false;
+      if (formStatus) formStatus.textContent = "";
+
+      Object.keys(fieldRules).forEach(function (id) {
+        var input = document.getElementById(id);
+        if (!input) return;
+        delete input.dataset.touched;
+        clearFieldError(input);
+      });
+
+      var nameInput = document.getElementById("request-name");
+      if (nameInput) nameInput.focus();
     });
   }
 })();

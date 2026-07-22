@@ -1,0 +1,90 @@
+{
+  "pack_id": "neon_apex_arcade_racer_v1",
+  "role": "anchor",
+  "family": "website.game",
+  "source_paths": [
+    "source_snapshot/index.html"
+  ],
+  "origin_example_ids": [
+    "mimo-four-surface-benchmark-2026-07-18/arcade-racer"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla_javascript",
+    "canvas_2d",
+    "single_file"
+  ],
+  "tones": [
+    "dark",
+    "kinetic",
+    "precise",
+    "arcade",
+    "neon",
+    "high-contrast"
+  ],
+  "surfaces": [
+    "game",
+    "full_site",
+    "canvas",
+    "hud",
+    "touch_controls"
+  ],
+  "motif_tags": [
+    "gameplay_first",
+    "canvas_stage",
+    "race_hud",
+    "lap_progress",
+    "checkpoint_system",
+    "timer_readout",
+    "speed_readout",
+    "pause_overlay",
+    "restart_flow",
+    "touch_control_cluster",
+    "keyboard_controls",
+    "victory_state",
+    "responsive_fixed_stage"
+  ],
+  "supports_tasks": [
+    "top_down_arcade_racer",
+    "browser_racing_game",
+    "checkpoint_lap_game",
+    "canvas_driving_game",
+    "keyboard_touch_arcade_game",
+    "timer_speed_hud",
+    "pause_restart_game_flow"
+  ],
+  "anti_patterns": [
+    "marketing landing page before gameplay",
+    "fake multiplayer or online claims",
+    "nonfunctional controls",
+    "decorative canvas with no game loop",
+    "tiny mobile controls",
+    "hidden pause or restart state",
+    "external game assets",
+    "copied neon apex identity"
+  ],
+  "screenshot_paths": [
+    "screenshots/desktop-1512.png",
+    "screenshots/mobile-390.png"
+  ],
+  "token_budget_hint": 5200,
+  "confidence_score": 5,
+  "origin_type": "synthetic_historical",
+  "routing_tokens": [
+    "game",
+    "arcade",
+    "racer",
+    "racing",
+    "top_down",
+    "steering",
+    "acceleration",
+    "checkpoints",
+    "laps",
+    "speed",
+    "timer",
+    "canvas",
+    "touch_controls"
+  ],
+  "proof_policy": "gameplay and controls must be implemented and browser-verified; no invented online, multiplayer, save, or AI claims",
+  "qa_status": "browser-pass; desktop-mobile-interaction-pass"
+}

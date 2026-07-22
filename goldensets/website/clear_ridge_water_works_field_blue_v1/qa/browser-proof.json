@@ -1,200 +1,371 @@
 {
+  "generated_at": "2026-07-20T21:07:46.015Z",
+  "root_url": "http://127.0.0.1:8931",
   "pack_id": "clear_ridge_water_works_field_blue_v1",
-  "status": "pass",
-  "render_engine": "playwright/chromium 147.0.7727.15 (headless)",
-  "render_url": "source_snapshot/index.html",
-  "static_checks": {
-    "pack_id": "clear_ridge_water_works_field_blue_v1",
-    "status": "pass",
-    "counts": {
-      "img_tags": 0,
-      "external_urls": 0,
-      "css_raster_url": 0,
-      "css_external_url": 0,
-      "emoji_glyphs": 0,
-      "lorem_ipsum": 0,
-      "h1": 1
-    },
-    "structure": {
-      "skip_to_content": true,
-      "main_landmark": true,
-      "focus_visible": true,
-      "reduced_motion": true,
-      "viewport_meta": true,
-      "inline_svg": true
-    },
-    "fake_claim_hits": {},
-    "leak_phones": 0,
-    "leak_emails": 0,
-    "failures": []
+  "pass": true,
+  "source_hashes": {
+    "index.html": "b7c990f6127eefd4b1b49a3505e18664f4c7f93b0dd6d3bea52fea406b05a6d8",
+    "styles.css": "6f0b83ca492a843977f550a3b26b4c17a8f7125613f8c0295e5b8be079ebfd76",
+    "script.js": "cbec288c84e8999d71c383b2e546263ae398c60e4661b314656667f443415bb5"
   },
-  "viewports": [
+  "viewport_count": 7,
+  "states": [
     {
-      "name": "desktop-1512",
-      "width": 1512,
-      "height": 900,
+      "viewport": {
+        "id": "desktop-1512x812",
+        "width": 1512,
+        "height": 812
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/desktop-1512.png",
-      "scroll_width": 1512,
-      "inner_width": 1512,
-      "doc_height": 7915,
-      "title": "Clear Ridge Water Works | Well Pump, Filtration & Rural Water Service",
-      "body_text_length": 6571,
-      "h1": "What\u2019s happening with your water?",
-      "screenshot_bytes": 1227167,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": "screenshots/router-desktop-1512x812.png",
+      "metrics": {
+        "title": "Clear Ridge Water Works | Rural well and water system service",
+        "bodyTextLength": 8681,
+        "h1Count": 1,
+        "innerWidth": 1512,
+        "scrollWidth": 1512,
+        "innerHeight": 812,
+        "scrollHeight": 10538,
+        "bodyFontSize": 17,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 17,
+        "hero": {
+          "width": 1512,
+          "height": 688,
+          "bottom": 765
+        },
+        "nextSectionTop": 765,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "symptomTab": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "desktop-1440",
-      "width": 1440,
-      "height": 900,
+      "viewport": {
+        "id": "desktop-1440x900",
+        "width": 1440,
+        "height": 900
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/desktop-1440.png",
-      "scroll_width": 1440,
-      "inner_width": 1440,
-      "doc_height": 7889,
-      "title": "Clear Ridge Water Works | Well Pump, Filtration & Rural Water Service",
-      "body_text_length": 6571,
-      "h1": "What\u2019s happening with your water?",
-      "screenshot_bytes": 1212616,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Clear Ridge Water Works | Rural well and water system service",
+        "bodyTextLength": 8681,
+        "h1Count": 1,
+        "innerWidth": 1440,
+        "scrollWidth": 1440,
+        "innerHeight": 900,
+        "scrollHeight": 10626,
+        "bodyFontSize": 17,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 17,
+        "hero": {
+          "width": 1440,
+          "height": 776,
+          "bottom": 853
+        },
+        "nextSectionTop": 853,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "symptomTab": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "desktop-1280",
-      "width": 1280,
-      "height": 800,
+      "viewport": {
+        "id": "desktop-1280x800",
+        "width": 1280,
+        "height": 800
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/desktop-1280.png",
-      "scroll_width": 1280,
-      "inner_width": 1280,
-      "doc_height": 7739,
-      "title": "Clear Ridge Water Works | Well Pump, Filtration & Rural Water Service",
-      "body_text_length": 6571,
-      "h1": "What\u2019s happening with your water?",
-      "screenshot_bytes": 1199364,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Clear Ridge Water Works | Rural well and water system service",
+        "bodyTextLength": 8681,
+        "h1Count": 1,
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "innerHeight": 800,
+        "scrollHeight": 10582,
+        "bodyFontSize": 17,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 17,
+        "hero": {
+          "width": 1280,
+          "height": 721,
+          "bottom": 798
+        },
+        "nextSectionTop": 798,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "symptomTab": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "tablet-1024",
-      "width": 1024,
-      "height": 768,
+      "viewport": {
+        "id": "tablet-1024x768",
+        "width": 1024,
+        "height": 768
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/tablet-1024.png",
-      "scroll_width": 1024,
-      "inner_width": 1024,
-      "doc_height": 7523,
-      "title": "Clear Ridge Water Works | Well Pump, Filtration & Rural Water Service",
-      "body_text_length": 6571,
-      "h1": "What\u2019s happening with your water?",
-      "screenshot_bytes": 1124423,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Clear Ridge Water Works | Rural well and water system service",
+        "bodyTextLength": 8486,
+        "h1Count": 1,
+        "innerWidth": 1024,
+        "scrollWidth": 1024,
+        "innerHeight": 768,
+        "scrollHeight": 12425,
+        "bodyFontSize": 17,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 17,
+        "hero": {
+          "width": 1024,
+          "height": 644,
+          "bottom": 721
+        },
+        "nextSectionTop": 721,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "symptomTab": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "tablet-768",
-      "width": 768,
-      "height": 1024,
+      "viewport": {
+        "id": "tablet-768x1024",
+        "width": 768,
+        "height": 1024
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/tablet-768.png",
-      "scroll_width": 768,
-      "inner_width": 768,
-      "doc_height": 9130,
-      "title": "Clear Ridge Water Works | Well Pump, Filtration & Rural Water Service",
-      "body_text_length": 6571,
-      "h1": "What\u2019s happening with your water?",
-      "screenshot_bytes": 1084559,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Clear Ridge Water Works | Rural well and water system service",
+        "bodyTextLength": 8425,
+        "h1Count": 1,
+        "innerWidth": 768,
+        "scrollWidth": 768,
+        "innerHeight": 1024,
+        "scrollHeight": 15512,
+        "bodyFontSize": 17,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 17,
+        "hero": {
+          "width": 768,
+          "height": 806,
+          "bottom": 875
+        },
+        "nextSectionTop": 875,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "symptomTab": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "mobile-390",
-      "width": 390,
-      "height": 844,
+      "viewport": {
+        "id": "mobile-390x844",
+        "width": 390,
+        "height": 844
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/mobile-390.png",
-      "scroll_width": 390,
-      "inner_width": 390,
-      "doc_height": 11385,
-      "title": "Clear Ridge Water Works | Well Pump, Filtration & Rural Water Service",
-      "body_text_length": 6532,
-      "h1": "What\u2019s happening with your water?",
-      "screenshot_bytes": 957707,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": "screenshots/router-mobile-390x844.png",
+      "metrics": {
+        "title": "Clear Ridge Water Works | Rural well and water system service",
+        "bodyTextLength": 8301,
+        "h1Count": 1,
+        "innerWidth": 390,
+        "scrollWidth": 390,
+        "innerHeight": 844,
+        "scrollHeight": 16699,
+        "bodyFontSize": 16,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 17,
+        "hero": {
+          "width": 390,
+          "height": 665,
+          "bottom": 734
+        },
+        "nextSectionTop": 734,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": true,
+        "opened": true,
+        "closed": true
+      },
+      "interactions": {
+        "symptomTab": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "mobile-360",
-      "width": 360,
-      "height": 780,
+      "viewport": {
+        "id": "mobile-360x780",
+        "width": 360,
+        "height": 780
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/mobile-360.png",
-      "scroll_width": 360,
-      "inner_width": 360,
-      "doc_height": 11755,
-      "title": "Clear Ridge Water Works | Well Pump, Filtration & Rural Water Service",
-      "body_text_length": 6532,
-      "h1": "What\u2019s happening with your water?",
-      "screenshot_bytes": 944891,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Clear Ridge Water Works | Rural well and water system service",
+        "bodyTextLength": 8301,
+        "h1Count": 1,
+        "innerWidth": 360,
+        "scrollWidth": 360,
+        "innerHeight": 780,
+        "scrollHeight": 16916,
+        "bodyFontSize": 16,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 17,
+        "hero": {
+          "width": 360,
+          "height": 665,
+          "bottom": 734
+        },
+        "nextSectionTop": 734,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": true,
+        "opened": true,
+        "closed": true
+      },
+      "interactions": {
+        "symptomTab": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     }
-  ],
-  "global_checks": {
-    "no_img_tags": true,
-    "no_external_images": true,
-    "no_css_raster_url": true,
-    "no_emoji_icons": true,
-    "no_lorem": true,
-    "single_h1": true,
-    "no_fake_claims": true,
-    "a11y_structure_present": true,
-    "no_horizontal_overflow": true,
-    "no_console_errors": true,
-    "no_page_errors": true,
-    "no_external_network_requests": true,
-    "no_request_failures": true,
-    "nonblank_render": true,
-    "screenshots_nontrivial": true
-  },
-  "overflow_viewports": [],
-  "console_errors": [],
-  "page_errors": [],
-  "external_requests": [],
-  "request_failures": [],
-  "http_errors": [],
-  "blank_viewports": [],
-  "tiny_screenshots": [],
-  "open_issues": [],
-  "verified_at": "browser render (this run)"
+  ]
 }

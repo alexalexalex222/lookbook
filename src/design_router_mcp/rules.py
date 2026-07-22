@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 import os
 from functools import lru_cache
 from importlib.resources import files
@@ -13,10 +12,10 @@ from .schemas import LocalModelProfile, TokenMode
 
 
 class TokenBudget(BaseModel):
-    max_packet_tokens: int
-    max_examples: int
-    max_snippets: int
-    full_code_allowed: bool = False
+    max_packet_tokens: int | None = None
+    max_examples: int | None = None
+    max_snippets: int | None = None
+    full_code_allowed: bool = True
 
 
 class NegativeExclusion(BaseModel):
@@ -27,6 +26,24 @@ class NegativeExclusion(BaseModel):
 class TagExpansion(BaseModel):
     motif: list[str] = Field(default_factory=list)
     strength: list[str] = Field(default_factory=list)
+
+
+class TaskArchetypeRule(BaseModel):
+    priority: int = 100
+    aliases: list[str] = Field(default_factory=list)
+    keywords: list[str] = Field(default_factory=list)
+    preferred_families: list[str] = Field(default_factory=list)
+    preferred_pack_ids: dict[str, int] = Field(default_factory=dict)
+    pack_signatures: dict[str, list[str]] = Field(default_factory=dict)
+    clarify_without_signature: bool = False
+    supersedes: list[str] = Field(default_factory=list)
+    required_any_motifs: list[str] = Field(default_factory=list)
+    blocked_families: list[str] = Field(default_factory=list)
+    minimum_keyword_matches: int = Field(default=1, ge=1)
+
+    @property
+    def all_keywords(self) -> set[str]:
+        return {token.lower() for token in [*self.keywords, *self.aliases]}
 
 
 class VerticalRule(BaseModel):
@@ -69,6 +86,7 @@ class RoutingRules(BaseModel):
     generic_example_stop_tokens: list[str] = Field(default_factory=list)
     artifact_vocabularies: list[str] = Field(default_factory=list)
     composition_recipes: dict[str, dict[str, Any]] = Field(default_factory=dict)
+    task_archetypes: dict[str, TaskArchetypeRule] = Field(default_factory=dict)
     verticals: dict[str, VerticalRule] = Field(default_factory=dict)
 
     def token_budget(self, mode: TokenMode | str) -> TokenBudget:
@@ -81,8 +99,8 @@ class RoutingRules(BaseModel):
         if token_mode:
             return str(token_mode)
         if profile:
-            return self.profile_defaults.get(str(profile), "compact")
-        return "compact"
+            return self.profile_defaults.get(str(profile), "unbounded")
+        return "unbounded"
 
     def next_expansion(self, current: TokenMode | str) -> str | None:
         if not self.expansion_order:

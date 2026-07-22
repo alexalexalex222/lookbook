@@ -225,12 +225,6 @@ _FRAME_CONTRACT = (
     "is the best outcome for THIS task, never demonstrated adherence to the "
     "packet."
 )
-_FRAME_TOOL_BUDGET = (
-    "TOOL BUDGET: this knowledge packet is complete — do NOT re-call "
-    "resolve_knowledge_context or other golden-book tools for this task. "
-    "Apply the chapters and answer/build. Re-call only if a prior route "
-    "returned abstain=true (one retry max)."
-)
 _TRADEOFF_WORDS = {"vs", "versus", "tradeoff", "trade-off", "justify", "either"}
 _TRADEOFF_PHRASES = ("choose between", "which is better")
 
@@ -835,13 +829,10 @@ class KnowledgeRouter:
             confidence = self._confidence(picks, self._expand(tokens(brief)))
         topics = ", ".join(f"{name} ({score:.4f})" for name, score in picks) or "(none)"
         n = len(picks)
-        # Line order is load-bearing for packet-header tests and consumers:
-        # 1 topics, 2 REFERENCE MATERIAL, 3 USE CONTRACT, then tool budget.
         lines = [
             f"Routed topics ({n} pick{'s' if n != 1 else ''}, confidence {confidence:.2f}): {topics}",
             _FRAME_REFERENCE,
             _FRAME_CONTRACT,
-            _FRAME_TOOL_BUDGET,
         ]
         if _asks_for_tradeoff(brief):
             lines.append(_FRAME_TRADEOFF)

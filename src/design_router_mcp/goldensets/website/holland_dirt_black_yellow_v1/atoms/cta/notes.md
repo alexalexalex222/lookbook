@@ -1,3 +1,6 @@
-The CTA treatment is utility-first.
+Use one primary site-walk action and one secondary proof or scope action.
 
-Use strong contrast, high legibility, and obvious clickability. Avoid soft gradients, tiny pills, or decorative micro-buttons.
+The primary button uses the safety-signal color; the secondary button keeps the
+terrain visible. Both remain at least 44px, have visible focus and active states,
+and link to real page destinations. Do not invent a phone number or urgent
+dispatch promise.

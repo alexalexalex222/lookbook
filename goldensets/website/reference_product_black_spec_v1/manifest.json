@@ -5,6 +5,7 @@
   "source_paths": [
     "source_snapshot/index.html",
     "source_snapshot/styles.css",
+    "source_snapshot/app.js",
     "source_snapshot/extracted_patterns.md"
   ],
   "origin_example_ids": [
@@ -32,23 +33,30 @@
     "full_site"
   ],
   "motif_tags": [
-    "product_hero",
+    "inspectable_watch_hero",
+    "exploded_case_anatomy",
+    "watch_component_callouts",
+    "six_surface_detail_tabs",
+    "strap_selector",
+    "reservation_review",
     "dark_texture",
     "technical_manifest",
     "material_showcase",
     "specification_table",
-    "proof_cards",
+    "measurement_method_tooltips",
     "pricing_panel",
     "process_timeline",
     "headline_hierarchy"
   ],
   "supports_tasks": [
-    "premium_product_detail",
-    "hardware_landing_page",
-    "audio_product_website",
-    "industrial_design_product_page",
-    "measured_specs_product_page",
-    "reservation_checkout_landing"
+    "premium_mechanical_watch_product_detail",
+    "inspectable_watch_hero",
+    "exploded_watch_case_anatomy",
+    "watch_material_surface_inspection",
+    "measured_watch_specification_page",
+    "watch_strap_selector",
+    "watch_reservation_review_flow",
+    "reference_grade_hardware_landing"
   ],
   "anti_patterns": [
     "invented performance measurements",
@@ -58,9 +66,31 @@
     "decorative specs with no method"
   ],
   "screenshot_paths": [
-    "screenshots/desktop-1512x812.png",
-    "screenshots/mobile-390x844.png"
+    "screenshots/router-desktop-1512x812.png",
+    "screenshots/router-mobile-390x844.png"
   ],
+  "reusable_atoms": [
+    "watch_hero_svg_v1",
+    "exploded_case_anatomy_v1",
+    "surface_detail_tabs_v1",
+    "measurement_method_table_v1",
+    "strap_selector_v1",
+    "reservation_review_form_v1"
+  ],
+  "routing_tokens": [
+    "mechanical watch",
+    "timepiece",
+    "watch movement",
+    "watch case",
+    "watch dial",
+    "watch crown",
+    "watch strap",
+    "surface finish",
+    "measured specifications",
+    "reservation"
+  ],
+  "proof_policy": "no invented movement, timing, water-resistance, material, price, availability, or certification claims",
+  "qa_status": "static-pass; visual-pass",
   "token_budget_hint": 6200,
   "confidence_score": 5
 }

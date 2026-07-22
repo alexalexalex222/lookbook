@@ -78,7 +78,7 @@ include-package-data = true
 where = ["src"]
 
 [tool.setuptools.package-data]
-design_router_mcp = ["defaults/*.json", "goldensets/**/*"]
+design_router_mcp = ["assets/*.mjs", "defaults/*.json", "goldensets/**/*"]
 
 [tool.pytest.ini_options]
 addopts = "-q"

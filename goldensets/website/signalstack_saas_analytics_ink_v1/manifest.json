@@ -4,7 +4,8 @@
   "family": "website.saas_dashboard",
   "source_paths": [
     "source_snapshot/index.html",
-    "source_snapshot/styles.css"
+    "source_snapshot/styles.css",
+    "source_snapshot/app.js"
   ],
   "origin_example_ids": [
     "signalstack-analytics"
@@ -28,28 +29,51 @@
     "hero",
     "landing",
     "section",
-    "dashboard"
+    "app",
+    "dashboard",
+    "workspace",
+    "queue",
+    "detail-panel",
+    "workflow",
+    "state-panel",
+    "deployment"
   ],
   "motif_tags": [
     "command_surface",
+    "owned_alert_queue",
+    "triage_filter_toolbar",
+    "selected_signal_detail",
+    "incident_timeline",
+    "workflow_stage_model",
+    "permission_boundary_matrix",
+    "loading_empty_error_success_states",
+    "deployment_option_comparison",
+    "audit_context",
     "dashboard_panel",
-    "glass_panel",
     "tabs_panel",
+    "dense_data_table",
+    "status_chips",
     "hero_shell",
-    "trust_rail",
-    "proof_cards",
-    "headline_hierarchy",
-    "split_hero"
+    "headline_hierarchy"
   ],
   "supports_tasks": [
-    "saas_dashboard_landing",
-    "b2b_analytics_homepage",
+    "incident_operations_workspace",
+    "owned_alert_queue",
+    "incident_triage_dashboard",
+    "selected_signal_detail_panel",
+    "incident_workflow_stage_design",
+    "role_permission_boundaries",
+    "operational_state_design",
+    "incident_handoff_audit_trail",
+    "deployment_model_comparison",
+    "b2b_saas_analytics_dashboard_landing",
     "operations_dashboard_marketing_page",
-    "admin_console_landing",
-    "developer_tool_landing_page",
-    "observability_product_page"
+    "admin_console_landing"
   ],
   "anti_patterns": [
+    "generic analytics KPI dashboard",
+    "marketing hero above the product",
+    "telemetry charts without ownership workflow",
     "consumer beauty editorial framing",
     "local-service phone-pill hero",
     "fight-gym dark theatrics",
@@ -57,7 +81,33 @@
     "invented KPI counters or uptime stats",
     "raster product screenshots"
   ],
-  "screenshot_paths": [],
+  "screenshot_paths": [
+    "screenshots/router-desktop-1512x812.png",
+    "screenshots/router-mobile-390x844.png"
+  ],
+  "reusable_atoms": [
+    "owned_alert_queue_v1",
+    "triage_filter_toolbar_v1",
+    "selected_signal_detail_v1",
+    "incident_timeline_v1",
+    "permission_boundary_matrix_v1",
+    "operational_state_set_v1",
+    "deployment_option_comparison_v1"
+  ],
+  "routing_tokens": [
+    "incident operations",
+    "incident queue",
+    "alert queue",
+    "triage filters",
+    "signal detail",
+    "workflow ownership",
+    "permission boundaries",
+    "operational states",
+    "handoff audit",
+    "deployment options"
+  ],
+  "proof_policy": "no invented customers, uptime, SLA, incident volume, integrations, or performance metrics",
+  "qa_status": "static-pass; visual-pass",
   "token_budget_hint": 5400,
   "confidence_score": 5
 }

@@ -2,39 +2,128 @@
   "pack_id": "holland_dirt_black_yellow_v1",
   "role": "anchor",
   "family": "website.local_service",
+  "origin_type": "synthetic",
+  "visual_revision": "2026-07-20-sol-xhigh-v2",
+  "legacy_pack_id_note": "The stable pack ID is retained for routing compatibility; the current visual system adds moss, clay, topographic detail, and documentary field-study surfaces to the dark safety-signal base.",
   "source_paths": [
-    "source_snapshot/app_page.tsx",
-    "source_snapshot/app_globals.css"
+    "source_snapshot/index.html",
+    "source_snapshot/styles.css",
+    "source_snapshot/script.js"
   ],
-  "stack": ["html_css", "nextjs", "react", "tailwind"],
-  "tones": ["premium", "industrial", "high-contrast", "dark"],
-  "surfaces": ["homepage", "hero", "landing", "section"],
+  "stack": [
+    "html_css",
+    "vanilla",
+    "website"
+  ],
+  "tones": [
+    "professional",
+    "industrial",
+    "field-ready",
+    "high-contrast",
+    "dark",
+    "earth",
+    "moss",
+    "safety-yellow",
+    "topographic",
+    "documentary",
+    "practical"
+  ],
+  "surfaces": [
+    "homepage",
+    "hero",
+    "landing",
+    "before-after-comparison",
+    "service-tabs",
+    "process",
+    "fleet",
+    "coverage-checker",
+    "field-studies",
+    "planning-tool",
+    "request-form",
+    "faq"
+  ],
   "motif_tags": [
     "hero_shell",
     "sticky_nav",
-    "comparison_module",
-    "cta_treatment",
-    "dark_texture",
+    "excavator_terrain_hero",
+    "layered_mountain_sitework_scene",
+    "grade_section_board",
+    "before_after_grading_slider",
+    "service_phase_tabs",
+    "site_walk_to_closeout_timeline",
+    "detailed_equipment_fleet",
+    "property_coverage_checker",
+    "proof_safe_field_studies",
+    "site_walk_brief_planner",
+    "site_walk_request_flow",
+    "topographic_map_plate",
     "high_contrast_blocking",
+    "safety_yellow_accent",
     "headline_hierarchy",
-    "trust_rail"
+    "cta_treatment"
   ],
   "supports_tasks": [
-    "hero_redesign",
-    "homepage_polish",
-    "local_service_layout",
-    "industrial_high_contrast_theme"
+    "land_clearing_grading_contractor_website",
+    "excavation_sitework_homepage",
+    "mountain_property_sitework_landing",
+    "terrain_before_after_comparison",
+    "clearing_grading_drainage_service_tabs",
+    "contractor_process_timeline",
+    "heavy_equipment_fleet_showcase",
+    "property_specific_coverage_checker",
+    "proof_safe_project_study_gallery",
+    "site_walk_brief_planner",
+    "site_walk_request_flow"
   ],
   "anti_patterns": [
-    "template feel",
+    "fake license insurance or permit claim",
+    "fabricated project photos or client testimonials",
+    "invented fleet counts or service territory",
+    "guaranteed timeline estimate or price",
+    "generic contractor card grid",
+    "cartoon construction equipment",
+    "simplistic low-detail svg machinery",
     "soft SaaS gradients",
-    "marketing-agency vibe",
-    "generic white cards"
+    "marketing-agency polish",
+    "stock heavy-equipment photography"
   ],
   "screenshot_paths": [
-    "screenshots/holland_dirt-desktop-1512x812.png",
-    "screenshots/holland_dirt-mobile-390x844.png"
+    "screenshots/router-desktop-1512x812.png",
+    "screenshots/router-mobile-390x844.png"
   ],
-  "token_budget_hint": 4500,
-  "confidence_score": 5
+  "token_budget_hint": 8200,
+  "confidence_score": 5,
+  "reusable_atoms": [
+    "terrain_equipment_hero_v2",
+    "grade_section_board_v1",
+    "grading_before_after_slider_v2",
+    "service_phase_tabs_v1",
+    "sitework_process_timeline_v2",
+    "detailed_fleet_studies_v1",
+    "property_coverage_checker_v2",
+    "proof_safe_field_study_filter_v1",
+    "site_walk_brief_planner_v1",
+    "site_walk_request_form_v2"
+  ],
+  "routing_tokens": [
+    "land clearing",
+    "grading",
+    "excavation",
+    "site preparation",
+    "sitework",
+    "earthwork",
+    "drainage",
+    "driveway",
+    "pond",
+    "demolition",
+    "mountain property",
+    "steep terrain",
+    "dozer",
+    "excavator",
+    "fleet",
+    "site walk",
+    "north georgia contractor"
+  ],
+  "proof_policy": "No invented licenses, insurance, permits, project photos, testimonials, fleet counts, service territory, prices, or completion timing. Property coverage and business details require operator verification.",
+  "qa_status": "static-pass; visual-pass; interaction-pass; responsive-pass"
 }

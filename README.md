@@ -52,13 +52,30 @@ the first pass already looks like a product studio shipped it — and it does th
 - **MCP stdio server** for OpenCode, Codex, Claude, Hermes, Grok, LM Studio, and any
   MCP-compatible runtime.
 - **CLI packet compiler** for offline or scripted use.
-- **Data-driven routing engine** that scores a brief against anchor packs and
-  support banks and composes reference snippets from the matching patterns.
+- **Calibrated multi-stage routing engine** that classifies surface intent,
+  ranks fuzzy/negation-aware task archetypes, applies pack-specific workflow
+  signatures, gates incompatible anchor families, and returns `route`,
+  `route_with_caution`, or `clarify` instead of expressing false confidence.
 - **Packet renderer** with token modes from `micro` to full source excerpts, so the
   same library serves a 16k-context local model and a 1M-context agent.
+- **Optional Pattern Shelf** that inlines a small set of role-matched Pattern Cards
+  and exposes a larger qualified catalog across compatible golden sets. The primary
+  anchor still owns the page; the builder may use zero, one, or several cards.
 - **A curated, browser-verified design library** (`goldensets/`) — landing-page
   anchors plus 72 non-landing interactive patterns.
 - **Validation, source-hygiene, anti-copy, route-alternative, and density tools.**
+- **Versioned routing judgments and quality gates** across train, calibration, and
+  hidden splits, with generated JSON/HTML audits and explicit hybrid disagreements.
+- **Hybrid retrieval** that fuses deterministic rules, BM25, character similarity,
+  a generated structural/pixel visual index, and optional frozen local embeddings.
+  Dense query embeddings and pixel routing remain optional, so missing local
+  services never make deterministic routing unavailable.
+- **Router V5** with contained reference-screenshot matching and a bounded local
+  candidate reranker. The model can reorder only the already-qualified top pool;
+  it cannot admit a new pack or override a clarification decision.
+- **Golden Build Arena** for reproducible baseline/candidate builds, deterministic
+  static/browser gates, known-bad negative controls, full-page screenshots, and
+  explicit human promotion.
 
 ## Build Week Proof
 
@@ -111,10 +128,8 @@ Nothing enters the library — or a packet — on vibes.
 
 - **Every pattern was browser-verified during curation.** Each was rendered in a real
   headless browser (Playwright) across desktop and mobile widths and checked for
-  **zero console errors and zero horizontal overflow** before being banked. The harness
-  and most proof artifacts aren't included in this public snapshot yet — 3 packs ship
-  their `qa/browser-proof.json` as worked examples. See `docs/eval-quality.md` for the
-  full picture.
+  **zero console errors and zero horizontal overflow** before being banked. The
+  Golden Build Arena now ships in the package; see `docs/eval-quality.md`.
 - **`validate_design_router`** checks the whole library on demand: every manifest
   loads against a Pydantic schema, every source path and example directory resolves
   (no silent gaps), no path is absolute, and support banks have UX-role coverage.
@@ -123,11 +138,18 @@ Nothing enters the library — or a packet — on vibes.
 - **Routing is deterministic.** Pack and example selection use explicit secondary
   sort keys — the same brief always yields the same packet, so behavior is testable
   and reproducible.
-- **Token budgets are enforced, not documented.** The renderer holds each packet
-  under the `token_mode` ceiling so a small local model never gets a packet it can't
-  fit.
-- **A public test suite** asserts route selection, packet rendering, budget limits,
-  and the anti-copy containment guards — run it yourself below.
+- **Uncertainty is explicit.** Ambiguous or underspecified briefs preserve ranked
+  archetype evidence, emit a provisional anchor, and include a concrete clarification
+  question. Screenshot/proof constraints are kept out of semantic anchor scoring.
+- **Routing vocabulary validates itself.** `validate_design_router` checks that every
+  declared task alias resolves to its owning archetype, preferred/signature pack IDs
+  exist, broad multi-pack intents have distinguishing signatures, and stale hierarchy
+  references fail loudly.
+- **Packet capacity is unbounded.** Relevance and hygiene decide what enters. Once
+  selected, source files, Pattern Card fragments, contracts, and packet sections are
+  emitted complete. Estimated tokens are telemetry only.
+- **A public test suite** asserts route selection, complete packet/source rendering,
+  arena rejection of application-level output caps, and anti-copy containment.
 - **Reference-starvation auditing** (`donor_starvation_audit`) surfaces exactly
   which references were selected, rejected, or unavailable for any request, so routing
   is inspectable instead of a black box.
@@ -141,8 +163,9 @@ anything that can follow a build packet and write code:
 
 - frontier coding agents (GPT-5.x, Codex-style repo agents);
 - strong open / local models — the demo above is **Qwen 3.6 27B (dense)**;
-- smaller-context models via `token_mode: "micro"` / `"compact"`;
-- stronger agents via `code_profile: "code_first"` and larger source excerpts.
+- local models through the same complete packet contract; callers must choose a
+  runtime with enough context instead of asking the router to hide source;
+- implementation-heavy agents via `code_profile: "code_first"`.
 
 ## Install
 
@@ -164,7 +187,7 @@ lookbook --repo-root . export \
   --surface app.tool \
   --task "A live analytics dashboard: KPI cards, a brushable timeline, a sortable table, and a sidebar" \
   --output-dir /tmp/lookbook-packet \
-  --token-mode expanded \
+  --token-mode unbounded \
   --stack html_css \
   --code-profile code_first
 ```
@@ -178,6 +201,16 @@ Useful commands:
 lookbook --repo-root . list --examples   # browse the library
 lookbook --repo-root . validate          # verify manifests, paths, and indexes
 lookbook --repo-root . hygiene --pack-id frontier_pattern_bank_20260628_v1
+lookbook --repo-root . visual-index      # index source structure and screenshot shape
+lookbook --repo-root . routing-eval --output-dir evals/reports/router-latest
+lookbook --repo-root . routing-eval --profile hybrid_v5 --output-dir evals/reports/router-v5
+
+# Optional: build frozen dense vectors through a local Ollama-compatible endpoint.
+lookbook --repo-root . embedding-index --model nomic-embed-text:latest
+
+# Prepare matched baseline/routed prompts, then evaluate generated HTML.
+lookbook --repo-root . arena --phase prepare --config evals/arena/example.json
+lookbook --repo-root . arena --phase evaluate --config evals/arena/example.json
 ```
 
 ## MCP Usage
@@ -197,9 +230,41 @@ Hermes, Grok, LM Studio):
 ```
 
 Primary tool: `resolve_design_context`. Also available: `inspect_design_library`,
-`get_source_excerpt`, `export_opencode_bundle`, `route_alternatives`,
+`get_pattern_card`, `get_source_excerpt`, `export_opencode_bundle`, `route_alternatives`,
 `donor_starvation_audit`, `code_density_metrics`, `audit_source_hygiene`,
+`routing_quality_audit`, `build_visual_routing_index`,
+`build_design_embedding_index`, `run_golden_build_arena`, and
 `validate_design_router`.
+
+`resolve_design_context` defaults to `route_profile="hybrid_v4"`. Set
+`route_profile="hybrid_shadow_v1"` to observe hybrid winners without allowing the
+retrieval bonus to change the selected anchor. Set `route_profile="hybrid_v5"` to
+add screenshot-pixel matching and bounded local reranking. Frozen embeddings are
+used for health/coverage by default; set `DESIGN_ROUTER_LIVE_EMBEDDINGS=1` to
+enable a live query vector through `DESIGN_ROUTER_EMBED_URL`.
+
+Optional pattern retrieval is enabled by default. `optional_pattern_count` requests
+an upper bound, not a quota. Token modes never lower that request or trim selected
+cards. The router hard-gates foreign domains, fills uncovered priority roles, and
+stops at the relevance elbow instead of padding the shelf. Each inlined Pattern Card
+includes its job, fit axes, when/when-not guidance, states, responsive behavior,
+invariants, dependencies, integration guidance, exact provenance, and complete
+sanitized code for the selected fragment. A larger
+qualified catalog remains available without loading its code; expand one item with
+`get_pattern_card` using the same request and exact `pattern_id`. Set
+`include_optional_patterns=false` to disable both the shelf and catalog.
+
+V5 reranking is local-only by default:
+
+```bash
+export DESIGN_ROUTER_RERANK_MODEL=qwen3.5:0.8b
+export DESIGN_ROUTER_RERANK_URL=http://localhost:11434/api/generate
+```
+
+Then send `rerank_mode: "shadow"` to observe the decision or
+`rerank_mode: "active"` to allow a bounded promotion inside the qualified
+candidate pool. Non-loopback endpoints are rejected unless the server operator
+explicitly sets `DESIGN_ROUTER_ALLOW_REMOTE_RERANK=1`.
 
 Recommended request shape:
 
@@ -208,7 +273,11 @@ Recommended request shape:
   "surface": "app.tool",
   "task": "Build a live analytics console with cross-filtering charts and a data table",
   "stack": "html_css",
-  "token_mode": "expanded",
+  "route_profile": "hybrid_v5",
+  "rerank_mode": "shadow",
+  "reference_image_paths": ["references/target-direction.png"],
+  "token_mode": "unbounded",
+  "optional_pattern_count": 10,
   "code_profile": "code_first",
   "packet_intent": "implementation_blueprint"
 }
@@ -216,12 +285,13 @@ Recommended request shape:
 
 ## Library Contents
 
-The public library currently includes 23 routed packs:
+The current library index contains 92 routed packs: 88 anchors and 4 support
+banks.
 
 - **anchor packs** for SaaS dashboards, combat sports, water service, live commerce,
   developer docs, luxury/editorial pages, product/spec pages, interactive
-  instruments, finance terminals, garden care, legal/business pages, cabinetry,
-  flooring, and other local-service surfaces;
+  instruments, native arcade/tactics games, finance terminals, garden care,
+  legal/business pages, cabinetry, flooring, and other local-service surfaces;
 - the **frontier pattern bank** (`frontier_pattern_bank_20260628_v1`): **72**
   browser-verified, non-landing-page UI patterns — dashboards, data-viz, editors,
   app shells, games, and real-time 3D/canvas scenes — so Lookbook routes for *all*

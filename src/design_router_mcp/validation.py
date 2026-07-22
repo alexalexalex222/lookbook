@@ -3,9 +3,13 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any
 
+from .hybrid_retrieval import HybridRetriever
 from .index_store import build_repository_index, find_goldensets_root
+from .normalizer import normalize_request
+from .routing_eval import default_judgment_path, load_judgments
 from .rules import load_routing_rules
 from .sanitizer import scan_source_hygiene
+from .schemas import DesignContextRequest
 
 CODE_SUFFIXES = {".html", ".htm", ".css", ".tsx", ".ts", ".jsx", ".js", ".md"}
 SOURCE_FILE_NAMES = ("index.html", "styles.css", "app_page.tsx", "app_globals.css", "page.tsx", "App.tsx", "app.jsx", "style.css")
@@ -129,7 +133,44 @@ def validate_repository(repo_root: Path) -> dict[str, Any]:
 
     try:
         rules = load_routing_rules(repo_root)
-        checks.append({"check": "rules_load", "pass": True, "version": rules.version, "vertical_count": len(rules.verticals)})
+        checks.append(
+            {
+                "check": "rules_load",
+                "pass": True,
+                "version": rules.version,
+                "vertical_count": len(rules.verticals),
+                "task_archetype_count": len(rules.task_archetypes),
+            }
+        )
+        alias_failures: list[dict[str, Any]] = []
+        alias_count = 0
+        for name, archetype in rules.task_archetypes.items():
+            surface = "docs" if name == "docs" else "instrument" if name == "interactive_instrument" else "app"
+            for alias in archetype.aliases:
+                alias_count += 1
+                normalized = normalize_request(
+                    DesignContextRequest(surface=surface, task=f"build a {alias}"),
+                    rules,
+                )
+                if normalized.task_archetype != name:
+                    alias_failures.append(
+                        {
+                            "expected": name,
+                            "alias": alias,
+                            "actual": normalized.task_archetype,
+                            "candidates": [
+                                candidate.name for candidate in normalized.task_archetype_candidates[:3]
+                            ],
+                        }
+                    )
+        checks.append(
+            {
+                "check": "task_archetype_alias_resolution",
+                "pass": not alias_failures,
+                "alias_count": alias_count,
+                "failures": alias_failures[:20],
+            }
+        )
         recipe_verticals = sorted(rules.composition_recipes)
         missing_recipes = sorted(set(rules.verticals).difference(recipe_verticals))
         checks.append(
@@ -145,10 +186,118 @@ def validate_repository(repo_root: Path) -> dict[str, Any]:
         checks.append({"check": "rules_load", "pass": False, "error": str(exc)})
         rules = None
 
+    judgment_path = default_judgment_path(repo_root)
+    try:
+        judgments = load_judgments(judgment_path)
+        split_counts = {
+            split: sum(judgment.split == split for judgment in judgments)
+            for split in ("train", "calibration", "hidden")
+        }
+        checks.append(
+            {
+                "check": "routing_judgment_ledger",
+                "pass": bool(judgments) and all(split_counts.values()),
+                "path": str(judgment_path),
+                "judgment_count": len(judgments),
+                "split_counts": split_counts,
+            }
+        )
+    except Exception as exc:
+        checks.append(
+            {
+                "check": "routing_judgment_ledger",
+                "pass": False,
+                "path": str(judgment_path),
+                "error": str(exc),
+            }
+        )
+
     try:
         index = build_repository_index(repo_root)
         checks.append({"check": "index_load", "pass": True, "pack_count": len(index.records), "anchor_count": len(index.anchors), "support_bank_count": len(index.support_banks)})
         checks.append({"check": "has_anchor", "pass": len(index.anchors) > 0})
+        retrieval_health = HybridRetriever(repo_root, index.anchors).health()
+        required_channels = {"rules", "bm25", "character"}
+        checks.append(
+            {
+                "check": "hybrid_retrieval",
+                "pass": required_channels.issubset(retrieval_health["channels"]),
+                **retrieval_health,
+            }
+        )
+        checks.append(
+            {
+                "check": "visual_retrieval_index",
+                "pass": (
+                    retrieval_health["visual_index_present"]
+                    and retrieval_health["visual_coverage"]["covered"]
+                    == retrieval_health["visual_coverage"]["total"]
+                ),
+                "warning_only": True,
+                "visual_index_present": retrieval_health["visual_index_present"],
+                "coverage": retrieval_health["visual_coverage"],
+                "remediation": "Run `lookbook --repo-root . visual-index` to refresh structural visual retrieval.",
+            }
+        )
+        checks.append(
+            {
+                "check": "pixel_visual_retrieval",
+                "pass": (
+                    retrieval_health.get("visual_index_version") == "2.0"
+                    and retrieval_health["pixel_coverage"]["covered"] > 0
+                ),
+                "warning_only": True,
+                "visual_index_version": retrieval_health.get("visual_index_version"),
+                "coverage": retrieval_health["pixel_coverage"],
+                "remediation": "Run `lookbook --repo-root . visual-index` to build V2 screenshot pixel profiles.",
+            }
+        )
+        if rules is not None:
+            archetype_errors: list[str] = []
+            term_owners: dict[str, list[str]] = {}
+            pack_ids = set(index.by_id)
+            for name, archetype in rules.task_archetypes.items():
+                unknown_preferred = sorted(set(archetype.preferred_pack_ids).difference(pack_ids))
+                unknown_signatures = sorted(set(archetype.pack_signatures).difference(pack_ids))
+                unknown_parents = sorted(set(archetype.supersedes).difference(rules.task_archetypes))
+                if unknown_preferred:
+                    archetype_errors.append(f"{name}: unknown preferred packs {unknown_preferred}")
+                if unknown_signatures:
+                    archetype_errors.append(f"{name}: unknown signature packs {unknown_signatures}")
+                if unknown_parents:
+                    archetype_errors.append(f"{name}: unknown superseded archetypes {unknown_parents}")
+                if archetype.clarify_without_signature:
+                    missing_signatures = sorted(
+                        set(archetype.preferred_pack_ids).difference(archetype.pack_signatures)
+                    )
+                    if missing_signatures:
+                        archetype_errors.append(
+                            f"{name}: clarify_without_signature packs missing signatures {missing_signatures}"
+                        )
+                for term in archetype.all_keywords:
+                    term_owners.setdefault(term, []).append(name)
+            collisions = [
+                {"term": term, "archetypes": sorted(owners)}
+                for term, owners in sorted(term_owners.items())
+                if len(owners) > 1
+            ]
+            checks.append(
+                {
+                    "check": "task_archetype_integrity",
+                    "pass": not archetype_errors,
+                    "archetype_count": len(rules.task_archetypes),
+                    "errors": archetype_errors[:20],
+                }
+            )
+            checks.append(
+                {
+                    "check": "task_archetype_collisions",
+                    "pass": not collisions,
+                    "warning_only": True,
+                    "collision_count": len(collisions),
+                    "collisions": collisions[:20],
+                }
+            )
         broken_sources: list[str] = []
         broken_example_sources: list[str] = []
         absolute_sources: list[str] = []
@@ -208,7 +357,26 @@ def validate_repository(repo_root: Path) -> dict[str, Any]:
         checks.append({"check": "source_paths", "pass": not broken_sources, "broken": broken_sources[:20]})
         checks.append({"check": "support_source_dirs", "pass": not broken_example_sources, "broken": broken_example_sources[:20]})
         checks.append({"check": "local_source_paths", "pass": not absolute_sources, "absolute": absolute_sources[:20]})
-        checks.append({"check": "screenshot_paths", "pass": True, "missing_warning": broken_screenshots[:20]})
+        anchors_with_screenshots = sum(1 for record in index.anchors if record.manifest.screenshot_paths)
+        anchor_count = len(index.anchors)
+        checks.append(
+            {
+                "check": "screenshot_paths",
+                "pass": not broken_screenshots,
+                "warning_only": True,
+                "missing": broken_screenshots[:20],
+            }
+        )
+        checks.append(
+            {
+                "check": "anchor_screenshot_coverage",
+                "pass": anchors_with_screenshots == anchor_count,
+                "warning_only": True,
+                "anchors_with_screenshots": anchors_with_screenshots,
+                "anchor_count": anchor_count,
+                "coverage_ratio": round(anchors_with_screenshots / anchor_count, 3) if anchor_count else 0.0,
+            }
+        )
         checks.append(
             {
                 "check": "ux_role_coverage",
@@ -220,7 +388,7 @@ def validate_repository(repo_root: Path) -> dict[str, Any]:
         checks.append(
             {
                 "check": "source_hygiene",
-                "pass": True,
+                "pass": hygiene_total == 0,
                 "warning_only": True,
                 "hit_count": hygiene_total,
                 "files_with_hits": len(hygiene_rows),
@@ -231,7 +399,7 @@ def validate_repository(repo_root: Path) -> dict[str, Any]:
         checks.append(
             {
                 "check": "mirror_drift",
-                "pass": True,
+                "pass": not mirror["drift"],
                 "warning_only": True,
                 "available": mirror["available"],
                 "canonical_tree": "src/design_router_mcp",
@@ -251,5 +419,13 @@ def validate_repository(repo_root: Path) -> dict[str, Any]:
     except Exception as exc:
         checks.append({"check": "index_load", "pass": False, "error": str(exc)})
 
-    all_required = all(c.get("pass", False) for c in checks if c["check"] not in {"screenshot_paths", "composition_recipes", "ux_role_coverage"})
-    return {"all_pass": all_required, "checks": checks}
+    required_checks = [check for check in checks if not check.get("warning_only")]
+    warnings = [check for check in checks if check.get("warning_only") and not check.get("pass", False)]
+    all_required = all(check.get("pass", False) for check in required_checks)
+    return {
+        "all_pass": all_required,
+        "all_clean": all_required and not warnings,
+        "warning_count": len(warnings),
+        "warnings": [check["check"] for check in warnings],
+        "checks": checks,
+    }

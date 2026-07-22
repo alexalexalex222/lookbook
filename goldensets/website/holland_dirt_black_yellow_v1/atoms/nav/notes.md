@@ -1,3 +1,6 @@
-The nav pattern is compact, sticky, and contact-first.
+The navigation is compact, sticky, and work-focused.
 
-It should not read like a desktop app. It should read like a local operator bar with one strong contact action.
+Desktop keeps the service sequence visible with one site-walk action. Mobile
+uses a real disclosure menu, visible focus, Escape handling, and a close button.
+Replace the identity and labels, but keep the semantic nav structure and focus
+behavior. Do not turn it into a phone-number claim without verified contact data.

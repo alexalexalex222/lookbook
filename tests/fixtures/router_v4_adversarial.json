@@ -1,0 +1,41 @@
+{
+  "routes": [
+    ["settings-syn", "app", "preferences console where users control privacy theme alerts and account options", "aperture_settings_appshell_v1"],
+    ["kanban-syn", "app", "trello like work board with lanes cards owners and work in progress", "kanban_board_v1"],
+    ["notifications-syn", "app", "activity inbox for unread alerts mentions snoozing and mark all read", "aurora_notification_center_v1"],
+    ["files-syn", "app", "cloud drive browser for directories uploads breadcrumbs and storage usage", "aperture_file_manager_blue_v1"],
+    ["calendar-syn", "app", "team scheduler with month week agenda events and availability", "daylight_calendar_app_v1"],
+    ["email-syn", "app", "webmail workspace with message threads compose labels folders and reading pane", "paper_email_client_warm_v1"],
+    ["markdown-syn", "app", "writing workspace with markdown source rendered preview toolbar and export", "markdown_editor_v1"],
+    ["playground-syn", "app", "browser sandbox that executes code and shows stdout errors and live result", "spark_code_playground_v1"],
+    ["sql-builder-syn", "app", "compose database queries visually by joining tables adding filters and previewing SQL", "querycraft_sql_builder_v1"],
+    ["sql-browser-syn", "app", "inspect database schema browse table rows run SQL and keep query history", "strata_sql_browser_v1"],
+    ["sheet-syn", "app", "grid of editable cells formulas formatting charts and multiple sheets", "lattice_formula_spreadsheet_v1"],
+    ["gantt-syn", "app", "roadmap timeline with task dependencies milestones dates and resource owners", "meridian_gantt_timeline_v1"],
+    ["contacts-syn", "app", "address book with people profiles groups notes search and recent activity", "rolodex_contacts_dashboard_v1"],
+    ["flashcards-syn", "app", "spaced repetition deck review with study progress and keyboard grading", "lantern_flashcards_warm_v1"],
+    ["telemetry-syn", "app", "observability console for traces logs metrics service health and incidents", "aperture_telemetry_dashboard_v1"],
+    ["glitch-syn", "app", "RGB split photo effects with scan lines distortion presets and export", "glitchlab_rgb_shift_neon_v1"],
+    ["gradient-syn", "app", "mesh color ramp maker with stops angle CSS export presets and live canvas", "meld_gradient_studio_dark_v1"],
+    ["duotone-syn", "app", "two color photo filter with upload blend controls before after and export", "bichrome_duotone_studio_v1"],
+    ["instrument-syn", "instrument", "browser synth sequencer with knobs waveform presets recording and sound controls", "instrument_studio_minimal_interactive_v1"],
+    ["drum-machine", "instrument", "drum machine with step sequencer pads rhythm controls and beat patterns", "po16_drum_machine_v1"],
+    ["docs-syn", "docs", "SDK reference and quick start with API snippets sidebar search and install guide", "developer_docs_quickstart_dark_v1"],
+    ["settings-typo", "app", "acount prefernces and securty setings with notificatons and apperance", "aperture_settings_appshell_v1"],
+    ["calendar-typo", "app", "calender schedulling app with mnth and weak views and evnts", "daylight_calendar_app_v1"],
+    ["notification-typo", "app", "notifcation centre with unred alrts and snoze actions", "aurora_notification_center_v1"],
+    ["not-dashboard", "app", "not an analytics dashboard, build a settings page for privacy and appearance", "aperture_settings_appshell_v1"],
+    ["not-email", "app", "not an email client; build a notification center for unread alerts", "aurora_notification_center_v1"],
+    ["not-landing", "website", "not a marketing landing page, make a browser code playground with console output", "spark_code_playground_v1"]
+  ],
+  "clarify": [
+    ["dashboard", "app", "build a dashboard"],
+    ["editor", "app", "build an editor with preview"],
+    ["calendar-kanban", "app", "build a calendar and kanban project workspace"],
+    ["image-effects", "app", "build an image tool with effects and export"],
+    ["local-service", "website", "build a local service homepage"],
+    ["vague", "website", "make it look better"],
+    ["database", "app", "build a database tool"],
+    ["analytics", "app", "build an analytics dashboard"]
+  ]
+}

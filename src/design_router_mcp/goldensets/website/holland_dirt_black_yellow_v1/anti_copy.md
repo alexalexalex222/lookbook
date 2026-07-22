@@ -1,5 +1,30 @@
-- Do not reuse Holland Grading wording, service labels, or dirt-specific imagery unless the target business is actually grading or excavation.
-- Do not preserve the exact headline cadence from the source.
-- Do not clone the exact yellow-on-black palette values.
-- Do not reproduce the same badge rhythm, texture treatment, or comparison framing one-to-one.
-- Borrow the structural confidence and contrast logic only.
+# Holland Grading - Anti-Copy
+
+This is a synthetic visual donor. Borrow its terrain-first composition,
+mechanical detail, comparison logic, field sequence, and planning flow. Do not
+ship its identity or literal content.
+
+## Do Not Copy
+
+- The Holland name, mark, exact headlines, navigation, service labels, process
+  copy, fleet labels, checklist wording, token values, or SVG geometry.
+- The exact terrain, equipment, county-zone, or before-and-after drawings.
+- A conceptual field study as if it were a completed customer project.
+
+## Never Invent
+
+- Licenses, insurance, permits, service territory, operating base, project
+  photos, testimonials, reviews, fleet counts, equipment ownership, prices,
+  estimates, guarantees, schedules, or completion timing.
+- County, city, or travel-area coverage without operator evidence.
+- Engineering approval, drainage performance, or permit advice.
+
+## Asset And Genre Hygiene
+
+- No external fonts, CDNs, analytics, third-party scripts, stock equipment,
+  raster filler, data-image blobs, or emoji icons.
+- Internal SVG gradients, patterns, masks, markers, and filters are allowed.
+- Do not simplify the machinery into childish icons or generic construction
+  clip art.
+- For non-earthwork routes, translate modules by UX role rather than retaining
+  dozers, dirt, grading, or terrain imagery.

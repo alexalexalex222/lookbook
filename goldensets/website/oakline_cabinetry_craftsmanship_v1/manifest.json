@@ -5,6 +5,7 @@
   "source_paths": [
     "source_snapshot/index.html",
     "source_snapshot/styles.css",
+    "source_snapshot/app.js",
     "source_snapshot/oakline_cabinets_bg.png"
   ],
   "origin_example_ids": [
@@ -21,36 +22,82 @@
     "residential",
     "craftsmanship",
     "restrained",
-    "dark"
+    "architectural",
+    "material-led",
+    "quiet"
   ],
   "surfaces": [
     "homepage",
     "hero",
     "landing",
-    "section"
+    "section",
+    "material-selector",
+    "project-gallery",
+    "process",
+    "specifications",
+    "consultation-form",
+    "faq"
   ],
   "motif_tags": [
-    "hero_shell",
+    "detailed_cabinet_elevation",
+    "exploded_joinery_diagram",
+    "material_selector",
+    "wood_grain_direction",
+    "hardware_finish_switcher",
+    "project_case_studies",
+    "measured_process_timeline",
+    "construction_specification",
+    "design_consultation_form",
+    "inline_svg_cabinet",
     "sticky_nav",
-    "cta_treatment",
-    "headline_hierarchy",
-    "trust_rail",
-    "phone_pill",
-    "material_showcase"
+    "material_showcase",
+    "headline_hierarchy"
   ],
   "supports_tasks": [
-    "hero_redesign",
-    "homepage_polish",
-    "cabinetry_studio_website",
+    "custom_cabinetry_studio_website",
     "architectural_millwork_landing",
-    "warm_craftsmanship_service_layout"
+    "cabinet_elevation_product_story",
+    "exploded_joinery_explanation",
+    "wood_and_hardware_material_selector",
+    "residential_project_case_studies",
+    "cabinet_construction_specifications",
+    "design_consultation_request_flow"
   ],
   "anti_patterns": [
-    "template feel",
+    "fake project names or client claims",
+    "invented warranty or material specification",
+    "stock luxury kitchen photography",
+    "generic three-card service row",
     "hard industrial framing",
     "generic luxury mush",
     "dashboard-like ops panels"
   ],
+  "screenshot_paths": [
+    "screenshots/router-desktop-1512x812.png",
+    "screenshots/router-mobile-390x844.png"
+  ],
+  "reusable_atoms": [
+    "cabinet_elevation_svg_v1",
+    "exploded_joinery_callout_v1",
+    "material_finish_selector_v1",
+    "project_case_study_rail_v1",
+    "cabinet_specification_table_v1",
+    "design_consultation_form_v1"
+  ],
+  "routing_tokens": [
+    "custom cabinetry",
+    "architectural millwork",
+    "cabinet elevation",
+    "joinery",
+    "wood grain",
+    "hardware finish",
+    "material selector",
+    "shop drawings",
+    "installation",
+    "design consultation"
+  ],
+  "proof_policy": "no invented project, warranty, material, or service claims; use supplied facts or labeled placeholders",
+  "qa_status": "static-pass; visual-pass",
   "token_budget_hint": 4300,
   "confidence_score": 5
 }

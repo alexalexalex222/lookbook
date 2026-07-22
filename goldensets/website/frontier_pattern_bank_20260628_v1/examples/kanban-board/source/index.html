@@ -79,23 +79,22 @@
 
     --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
             Arial, "Apple Color Emoji", sans-serif;
-    --col-w: clamp(284px, 26vw, 340px);
+    --col-w: clamp(260px, 22vw, 320px);
+    --shell-max: 1540px;
   }
 
   /* ============================================================ RESET ===== */
   *, *::before, *::after { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+  html { max-width:100%; overflow-x:clip; -webkit-text-size-adjust: 100%; }
   body {
     margin: 0;
-    min-height: 100vh;
+    min-height: 100dvh;
+    max-width:100%; overflow-x:clip;
     font-family: var(--font);
     font-size: var(--fs-300);
     line-height: 1.45;
     color: var(--color-text);
-    background:
-      radial-gradient(120% 80% at 100% 0%, var(--color-app-2) 0%, transparent 55%),
-      radial-gradient(120% 90% at 0% 0%, #eef2fb 0%, transparent 50%),
-      var(--color-app-1);
+    background: var(--color-app-1);
     -webkit-font-smoothing: antialiased;
   }
   body.is-dragging { user-select: none; cursor: grabbing; }
@@ -103,6 +102,7 @@
   button { font: inherit; color: inherit; }
   svg { display: block; }
   .card *, .card { -webkit-user-drag: none; }
+  [hidden] { display: none !important; }
 
   .visually-hidden {
     position: absolute !important; width: 1px; height: 1px;
@@ -129,16 +129,16 @@
     border-bottom: 1px solid var(--color-border);
   }
   .app-header__bar {
-    max-width: 1480px; margin-inline: auto;
+    max-width: var(--shell-max); margin-inline: auto;
     padding: var(--space-4) var(--space-5);
     display: flex; align-items: center; justify-content: space-between;
     gap: var(--space-4); flex-wrap: wrap;
   }
   .brand { display: flex; align-items: center; gap: var(--space-3); min-width: 0; }
   .brand__mark {
-    flex: none; width: 40px; height: 40px; border-radius: var(--radius-md);
+    flex: none; width: 40px; height: 40px; border-radius: var(--radius-sm);
     display: grid; place-items: center; color: var(--color-on-primary);
-    background: linear-gradient(145deg, var(--color-primary) 0%, var(--color-primary-strong) 100%);
+    background: var(--gray-900);
     box-shadow: var(--shadow-1);
   }
   .brand__title { font-size: var(--fs-500); font-weight: 700; letter-spacing: -.01em; color: var(--color-heading); line-height: 1.1; }
@@ -160,9 +160,46 @@
   .btn:active { transform: translateY(1px); }
   .btn--danger { color: var(--color-danger); border-color: color-mix(in srgb, var(--color-danger) 45%, var(--color-border)); background: var(--color-danger-soft); }
   .btn--danger:hover { background: color-mix(in srgb, var(--color-danger) 12%, #fff); border-color: var(--color-danger); }
+  .btn--primary { color: var(--color-on-primary); background: var(--color-primary); border-color: var(--color-primary); }
+  .btn--primary:hover { color: var(--color-on-primary); background: var(--color-primary-strong); border-color: var(--color-primary-strong); }
+
+  /* ============================================================ CONTEXT === */
+  .workspace-bar {
+    max-width: var(--shell-max); margin-inline: auto;
+    min-height: 92px; padding: var(--space-4) var(--space-5);
+    display: grid; grid-template-columns:minmax(240px,1fr) auto minmax(260px,360px) auto;
+    align-items:center; gap:var(--space-4);
+    border-bottom:1px solid var(--color-border);
+  }
+  .workspace-bar__eyebrow {
+    color:var(--color-text-muted); font-size:var(--fs-100); font-weight:700;
+    letter-spacing:.08em; text-transform:uppercase;
+  }
+  .workspace-bar h2 { margin-top:2px; color:var(--color-heading); font-size:var(--fs-500); letter-spacing:-.01em; }
+  .board-metrics { display:flex; gap:var(--space-2); }
+  .metric {
+    min-height:36px; padding:0 var(--space-3); display:inline-flex; align-items:center; gap:7px;
+    border:1px solid var(--color-border); border-radius:var(--radius-sm);
+    background:var(--gray-0); color:var(--color-text-muted); font-size:var(--fs-200); white-space:nowrap;
+  }
+  .metric b { color:var(--color-heading); font-variant-numeric:tabular-nums; }
+  .board-search { position:relative; min-width:0; }
+  .board-search svg {
+    position:absolute; left:12px; top:50%; transform:translateY(-50%);
+    width:17px; height:17px; color:var(--gray-400); pointer-events:none;
+  }
+  .board-search input {
+    width:100%; min-height:44px; padding:0 14px 0 38px;
+    border:1px solid var(--color-border-strong); border-radius:var(--radius-sm);
+    background:var(--gray-0); color:var(--color-text); font:inherit; font-size:var(--fs-200);
+  }
+  .board-search input:focus-visible { outline:none; border-color:var(--color-primary); box-shadow:var(--focus-ring); }
 
   /* ============================================================ BOARD ===== */
-  .board-wrap { max-width: 1480px; margin-inline: auto; }
+  .board-wrap {
+    width:100%; max-width: var(--shell-max); height:calc(100dvh - 173px); min-height:0;
+    margin-inline:auto; overflow:hidden; contain:layout paint;
+  }
   .board-wrap:focus { outline: none; }
 
   .board-empty {
@@ -180,21 +217,23 @@
 
   .board {
     display: flex; gap: var(--space-4); align-items: stretch;
-    padding: var(--space-6) var(--space-5) var(--space-8);
-    overflow-x: auto; overflow-y: visible;
+    height:100%; min-height:0;
+    padding: var(--space-5);
+    overflow-x:auto; overflow-y:hidden;
     scroll-snap-type: x proximity;
     scrollbar-width: thin;
   }
 
   /* ============================================================ COLUMN ==== */
   .column {
-    flex: 1 0 var(--col-w); min-width: 284px; max-width: 360px;
+    flex:1 0 var(--col-w); min-width:260px; max-width:320px;
+    min-height:0;
     scroll-snap-align: start;
     display: flex; flex-direction: column;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-top: 3px solid var(--accent);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     box-shadow: var(--shadow-1);
   }
   .column__header {
@@ -215,18 +254,19 @@
     list-style: none; margin: 0;
     padding: 0 var(--space-3) var(--space-2);
     display: flex; flex-direction: column; gap: var(--space-2);
-    flex: 1 1 auto; min-height: 64px;
+    flex: 1 1 auto; min-height: 64px; overflow-y:auto;
+    scrollbar-width:thin;
   }
 
   /* ============================================================ CARD ====== */
   .card {
     position: relative;
-    display: grid; grid-template-columns: auto 1fr auto; align-items: center;
+    display: grid; grid-template-columns: auto 1fr auto; align-items: start;
     gap: var(--space-1);
     padding: var(--space-2) var(--space-2) var(--space-2) 0;
     background: var(--color-card);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     box-shadow: var(--shadow-1);
     color: var(--color-text);
     cursor: grab;
@@ -251,7 +291,23 @@
 
   .card__title {
     font-size: var(--fs-300); line-height: 1.4; color: var(--color-text);
-    overflow-wrap: anywhere; padding-block: var(--space-1);
+    overflow-wrap: anywhere; padding:var(--space-1) 0 var(--space-2);
+  }
+  .card__meta {
+    grid-column:2 / 4; display:flex; align-items:center; gap:var(--space-2); flex-wrap:wrap;
+    padding:0 var(--space-1) var(--space-1) 0; color:var(--color-text-muted); font-size:var(--fs-100);
+  }
+  .card__tag {
+    display:inline-flex; align-items:center; min-height:22px; padding:0 7px;
+    border-radius:var(--radius-pill); background:var(--gray-100); color:var(--gray-600); font-weight:650;
+  }
+  .card__priority { display:inline-flex; align-items:center; gap:5px; }
+  .card__priority::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--gray-400); }
+  .card__priority[data-priority="High"]::before { background:#c2413a; }
+  .card__priority[data-priority="Medium"]::before { background:#b7791f; }
+  .card__owner {
+    margin-left:auto; width:24px; height:24px; display:grid; place-items:center;
+    border-radius:50%; background:var(--gray-800); color:#fff; font-size:10px; font-weight:750;
   }
 
   .card__delete {
@@ -367,8 +423,18 @@
 
   /* ============================================================ NARROW ==== */
   @media (max-width: 640px) {
+    .board-wrap { height:auto; min-height:calc(100dvh - 238px); overflow:hidden; }
     .app-header__bar { padding: var(--space-3) var(--space-4); }
-    .board { padding: var(--space-4) var(--space-4) var(--space-7); }
+    .brand__subtitle { display:none; }
+    .workspace-bar {
+      min-height:auto; padding:var(--space-3) var(--space-4);
+      grid-template-columns:1fr auto;
+    }
+    .workspace-bar__title { grid-column:1 / -1; }
+    .board-metrics { grid-column:1 / -1; order:3; }
+    .board-search { grid-column:1 / -1; order:2; }
+    .workspace-bar .btn--primary { grid-column:2; grid-row:1; }
+    .board { height:auto; min-height:calc(100dvh - 238px); padding: var(--space-4) var(--space-4) var(--space-7); overflow-y:visible; }
     .board-empty { margin: var(--space-4) var(--space-4) 0; flex-direction: column; text-align: center; }
     .column { flex-basis: 84vw; min-width: 84vw; max-width: 90vw; }
   }
@@ -397,6 +463,26 @@
       </div>
     </div>
   </header>
+
+  <section class="workspace-bar" aria-label="Board controls">
+    <div class="workspace-bar__title">
+      <p class="workspace-bar__eyebrow">Design systems / active sprint</p>
+      <h2>Interface quality pass</h2>
+    </div>
+    <div class="board-metrics" aria-label="Board summary">
+      <span class="metric"><b id="metricTotal">0</b> tasks</span>
+      <span class="metric"><b id="metricDoing">0</b> in progress</span>
+    </div>
+    <label class="board-search">
+      <span class="visually-hidden">Filter cards</span>
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input id="cardSearch" type="search" autocomplete="off" placeholder="Filter tasks, labels, or owner" />
+    </label>
+    <button class="btn btn--primary" id="newTaskBtn" type="button">
+      <svg width="17" height="17" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M9 4v10M4 9h10"/></svg>
+      New task
+    </button>
+  </section>
 
   <main id="board" class="board-wrap" tabindex="-1">
     <section class="board-empty" id="boardEmpty" hidden aria-labelledby="boardEmptyTitle">
@@ -456,23 +542,23 @@
   /* ---------- sample seed: plain task titles, no people / metrics -------- */
   var SEED = {
     "backlog": [
-      "Define color + spacing design tokens",
-      "Audit text contrast against WCAG AA",
-      "Draft onboarding copy for first run",
-      "Spike: offline persistence strategy"
+      { title:"Define color + spacing design tokens", label:"Tokens", priority:"High", owner:"DS", points:3 },
+      { title:"Audit text contrast against WCAG AA", label:"Accessibility", priority:"High", owner:"QA", points:2 },
+      { title:"Draft onboarding copy for first run", label:"Content", priority:"Low", owner:"PM", points:1 },
+      { title:"Spike: offline persistence strategy", label:"Research", priority:"Medium", owner:"FE", points:3 }
     ],
     "todo": [
-      "Build column empty states",
-      "Add keyboard shortcuts overlay",
-      "Wire up card search and filter"
+      { title:"Build column empty states", label:"UI", priority:"Medium", owner:"DS", points:2 },
+      { title:"Add keyboard shortcuts overlay", label:"Access", priority:"Low", owner:"FE", points:2 },
+      { title:"Wire up card search and filter", label:"Workflow", priority:"High", owner:"FE", points:3 }
     ],
     "in-progress": [
-      "Refactor the card component",
-      "Fix focus order in the add form"
+      { title:"Refactor the card component", label:"UI", priority:"High", owner:"FE", points:3 },
+      { title:"Fix focus order in the add form", label:"Accessibility", priority:"High", owner:"QA", points:2 }
     ],
     "done": [
-      "Set up the project scaffold",
-      "Choose a neutral color ramp"
+      { title:"Set up the project scaffold", label:"Foundation", priority:"Medium", owner:"FE", points:2 },
+      { title:"Choose a neutral color ramp", label:"Tokens", priority:"Medium", owner:"DS", points:1 }
     ]
   };
 
@@ -499,7 +585,9 @@
       columns: COLUMN_DEFS.map(function (def) {
         return {
           id: def.id, title: def.title, accent: def.accent,
-          cards: (SEED[def.id] || []).map(function (t) { return { id: uid(), title: t }; })
+          cards: (SEED[def.id] || []).map(function (c) {
+            return { id: uid(), title:c.title, label:c.label, priority:c.priority, owner:c.owner, points:c.points };
+          })
         };
       })
     };
@@ -520,7 +608,15 @@
         if (found && Array.isArray(found.cards)) {
           cards = found.cards.filter(function (c) {
             return c && typeof c.id === "string" && typeof c.title === "string" && c.title.length;
-          }).map(function (c) { return { id: c.id, title: String(c.title).slice(0, 120) }; });
+          }).map(function (c) {
+            return {
+              id:c.id, title:String(c.title).slice(0,120),
+              label:String(c.label || "Task").slice(0,24),
+              priority:["High","Medium","Low"].indexOf(c.priority)>=0 ? c.priority : "Medium",
+              owner:String(c.owner || "PM").slice(0,3).toUpperCase(),
+              points:Math.max(1,Math.min(8,Number(c.points)||1))
+            };
+          });
         }
         return { id: def.id, title: def.title, accent: def.accent, cards: cards };
       })
@@ -531,7 +627,9 @@
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({
         columns: board.columns.map(function (c) {
-          return { id: c.id, cards: c.cards.map(function (card) { return { id: card.id, title: card.title }; }) };
+          return { id: c.id, cards: c.cards.map(function (card) {
+            return { id:card.id, title:card.title, label:card.label, priority:card.priority, owner:card.owner, points:card.points };
+          }) };
         })
       }));
     } catch (e) { /* storage unavailable / full — state still lives in memory */ }
@@ -603,9 +701,17 @@
     del.tabIndex = -1;                        /* reachable via Delete key / hover, not a tab stop */
     del.innerHTML = X_SVG;
 
+    var meta = el("div", "card__meta");
+    var tag = el("span", "card__tag"); tag.textContent = card.label || "Task";
+    var priority = el("span", "card__priority"); priority.dataset.priority = card.priority || "Medium"; priority.textContent = card.priority || "Medium";
+    var points = el("span", "card__points"); points.textContent = (card.points || 1) + " pt";
+    var owner = el("span", "card__owner"); owner.textContent = card.owner || "PM"; owner.title = "Owner role: " + (card.owner || "PM");
+    meta.appendChild(tag); meta.appendChild(priority); meta.appendChild(points); meta.appendChild(owner);
+
     li.appendChild(handle);
     li.appendChild(title);
     li.appendChild(del);
+    li.appendChild(meta);
     return li;
   }
 
@@ -693,8 +799,11 @@
 
     boardCols.replaceChildren(frag);
     boardEmpty.hidden = (total !== 0);
+    document.getElementById("metricTotal").textContent = String(total);
+    document.getElementById("metricDoing").textContent = String(board.columns[colIndexById("in-progress")].cards.length);
     applyFormsLock();
     applyPendingFocus();
+    applyViewFilter();
   }
 
   function applyPendingFocus() {
@@ -784,7 +893,7 @@
     err.hidden = true;
     input.classList.remove("add-input--error");
     var col = board.columns[colIndexById(colId)];
-    var card = { id: uid(), title: title.slice(0, 120) };
+    var card = { id:uid(), title:title.slice(0,120), label:"Task", priority:"Medium", owner:"PM", points:1 };
     pendingFocus = { type: "input", id: colId };
     withFlip(function () { col.cards.push(card); });
     save();
@@ -1106,6 +1215,28 @@
     board = seed(); save(); pendingFocus = null;
     render();
     announce("Sample cards restored.");
+  });
+
+  var cardSearch = document.getElementById("cardSearch");
+  var newTaskBtn = document.getElementById("newTaskBtn");
+  var filterQuery = "";
+  function applyViewFilter() {
+    var cards = boardCols.querySelectorAll(".card[data-card-id]");
+    for (var i = 0; i < cards.length; i++) {
+      var id = cards[i].dataset.cardId;
+      var pos = locate(id);
+      var card = pos ? board.columns[pos.c].cards[pos.i] : null;
+      var hay = card ? [card.title,card.label,card.priority,card.owner].join(" ").toLowerCase() : "";
+      cards[i].hidden = !!filterQuery && hay.indexOf(filterQuery) < 0;
+    }
+  }
+  cardSearch.addEventListener("input", function () {
+    filterQuery = cardSearch.value.trim().toLowerCase();
+    applyViewFilter();
+  });
+  newTaskBtn.addEventListener("click", function () {
+    var input = document.getElementById("add-backlog");
+    if (input) { input.focus(); input.scrollIntoView({ block:"nearest", inline:"center", behavior:reduceMQ.matches?"auto":"smooth" }); }
   });
 
   /* ======================================================== init ======== */

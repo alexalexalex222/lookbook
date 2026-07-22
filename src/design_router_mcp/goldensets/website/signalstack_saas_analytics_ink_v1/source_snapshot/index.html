@@ -1,2744 +1,426 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SignalStack | The operational signal platform for on-call teams</title>
-<meta name="description" content="SignalStack pulls every alert, error, and threshold breach scattered across your stack into one triage queue — live, sortable, and owned. See what it does in one screen, not six dashboards.">
-<meta name="theme-color" content="#0b111c">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%235b8cff'/%3E%3Cpath d='M9 34h9l5-15 11 30 8-22 5 7h8' fill='none' stroke='%23081020' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<style>
-/* =========================================================
-   SignalStack — Operational Signal Platform (ink theme, r2)
-   Round-2 redo: header + hero rebuilt for instant clarity.
-   Design tokens
-   ========================================================= */
-:root {
-  color-scheme: dark;
-  /* color roles — dark "ink" canvas, elevated panels, restrained signal accent.
-     Palette held from v1 per brand lock: same ink canvas + signal blue + status trio. */
-  --canvas: #0b111c;
-  --canvas-2: #0e1420;
-  --panel: #161f2e;
-  --panel-2: #1d2838;
-  --panel-3: #10192a;
-  --line: rgba(255, 255, 255, 0.08);
-  --line-strong: rgba(255, 255, 255, 0.17);
-  --line-dashed: rgba(148, 168, 199, 0.34);
-  --text: #eef2f8;
-  --text-dim: #9aa7ba;
-  --text-faint: #8492a8; /* holds 4.5:1 AA on canvas/panel/panel-2, verified */
-  --signal: #5b8cff;
-  --signal-press: #3f6fe0;
-  --signal-bright: #7fa4ff;
-  --signal-soft: rgba(91, 140, 255, 0.14);
-  --signal-soft-2: rgba(91, 140, 255, 0.08);
-  --ok: #3fb27f;
-  --ok-tint: #16301f;
-  --ok-line: rgba(63, 178, 127, 0.4);
-  --warn: #d6a445;
-  --warn-tint: #352c16;
-  --risk: #e0654f;
-  --risk-tint: #2c1a17;
-  --neutral-tint: #232f42;
-  /* spacing scale (4px base) */
-  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px; --s9: 112px;
-  /* radii + elevation (3 elevation steps, held) */
-  --r-sm: 7px; --r: 12px; --r-lg: 20px; --r-pill: 999px;
-  --e1: 0 1px 0 var(--line);
-  --e2: 0 16px 44px rgba(0, 0, 0, 0.42);
-  --e3: 0 30px 76px rgba(0, 0, 0, 0.58);
-  /* type */
-  --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-  --t-micro: 0.72rem;
-  --t-eyebrow: 0.76rem;
-  --t-small: 0.85rem;
-  --t-body: clamp(1rem, 0.96rem + 0.2vw, 1.075rem);
-  --t-lede: clamp(1.08rem, 0.98rem + 0.5vw, 1.3rem);
-  --t-h3: clamp(1.12rem, 1rem + 0.5vw, 1.3rem);
-  --t-h2: clamp(1.6rem, 1.22rem + 1.7vw, 2.55rem);
-  --t-h1: clamp(2.3rem, 1.5rem + 3.3vw, 3.75rem);
-  --header-h: 76px;
-  --ease: cubic-bezier(0.2, 0.7, 0.3, 1);
-  --dur: 200ms;
-  --dur-slow: 340ms;
-}
-
-* { box-sizing: border-box; }
-[hidden] { display: none !important; }
-html { scroll-behavior: smooth; }
-
-body {
-  margin: 0;
-  background:
-    radial-gradient(1000px 560px at 84% -8%, rgba(91, 140, 255, 0.13), transparent 58%),
-    radial-gradient(700px 420px at -6% 18%, rgba(91, 140, 255, 0.06), transparent 55%),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px) 0 0 / 56px 56px,
-    var(--canvas);
-  color: var(--text);
-  font-family: var(--sans);
-  font-size: var(--t-body);
-  line-height: 1.62;
-  -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
-}
-
-a { color: inherit; text-decoration: none; }
-button, input, select, textarea { font: inherit; color: inherit; }
-h1, h2, h3, h4 { line-height: 1.13; letter-spacing: -0.015em; margin: 0; }
-p { margin: 0; }
-ul, ol { margin: 0; padding: 0; }
-table { border-collapse: collapse; }
-svg.icon { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
-
-:focus-visible {
-  outline: 2px solid var(--signal-bright);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-
-.visually-hidden {
-  position: absolute !important;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.skip-link {
-  position: absolute;
-  left: 16px;
-  top: -60px;
-  z-index: 80;
-  background: var(--signal);
-  color: #081020;
-  font-weight: 700;
-  padding: 10px 16px;
-  border-radius: var(--r-sm);
-  transition: top var(--dur) var(--ease);
-}
-.skip-link:focus { top: 14px; }
-
-.noscript-banner {
-  display: block; text-align: center; padding: 10px var(--s4);
-  background: var(--warn-tint); color: var(--warn);
-  font-size: 0.86rem; border-bottom: 1px solid var(--line);
-}
-
-.page-shell { min-height: 100vh; }
-
-/* thin engineered accent line at the very top of the page */
-.top-accent {
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--signal) 22%, var(--signal-bright) 50%, var(--signal) 78%, transparent);
-  background-size: 200% 100%;
-  animation: accent-sweep 7s linear infinite;
-}
-@keyframes accent-sweep { to { background-position: -200% 0; } }
-
-/* ---- reveal-on-scroll (transform/opacity only) ---- */
-.reveal { opacity: 0; transform: translateY(14px); transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease); }
-.reveal.is-in { opacity: 1; transform: translateY(0); }
-
-/* ---- buttons / links ---- */
-.primary-link, .secondary-link, .ghost-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 0 var(--s5);
-  border-radius: var(--r-sm);
-  font-weight: 700;
-  font-size: 0.92rem;
-  border: 1px solid transparent;
-  cursor: pointer;
-  background: none;
-  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease), border-color var(--dur) var(--ease), color var(--dur) var(--ease), opacity var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-}
-.primary-link {
-  background: var(--signal);
-  color: #081020;
-  box-shadow: 0 10px 26px rgba(91, 140, 255, 0.3);
-}
-.primary-link:hover { background: var(--signal-bright); transform: translateY(-1px); box-shadow: 0 14px 30px rgba(91, 140, 255, 0.38); }
-.primary-link:focus-visible { outline-offset: 3px; }
-.primary-link:active { background: var(--signal-press); transform: translateY(0); box-shadow: 0 6px 16px rgba(91, 140, 255, 0.28); }
-.primary-link:disabled, .primary-link[aria-disabled="true"] { background: #384864; color: var(--text-faint); box-shadow: none; cursor: not-allowed; transform: none; }
-.secondary-link {
-  border: 1px solid var(--line-strong);
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.02);
-}
-.secondary-link:hover { border-color: var(--signal); color: #cdd9ff; background: var(--signal-soft-2); }
-.secondary-link:active { background: rgba(91, 140, 255, 0.12); }
-.secondary-link:disabled, .secondary-link[aria-disabled="true"] { color: var(--text-faint); border-color: var(--line); cursor: not-allowed; background: none; }
-.ghost-link { color: var(--text-dim); padding: 0 var(--s3); min-height: 40px; }
-.ghost-link:hover { color: var(--text); }
-.ghost-link:active { color: var(--signal); }
-.block { display: flex; width: 100%; }
-
-.link-btn {
-  background: none; border: 0; padding: 0; cursor: pointer;
-  color: var(--signal); font-weight: 600; font-size: 0.85rem;
-  text-decoration: underline; text-underline-offset: 3px; text-decoration-color: transparent;
-  min-height: 32px; display: inline-flex; align-items: center;
-  transition: text-decoration-color var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.link-btn:hover { text-decoration-color: currentColor; }
-.link-btn:active { color: var(--signal-press); }
-.link-btn:disabled { color: var(--text-faint); cursor: not-allowed; text-decoration: none; }
-
-/* ---- chips (filter / status toggles) ---- */
-.chip {
-  display: inline-flex; align-items: center; gap: 6px;
-  min-height: 36px; padding: 0 var(--s4);
-  border-radius: var(--r-pill);
-  border: 1px solid var(--line-strong);
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text-dim);
-  font-size: 0.82rem; font-weight: 600;
-  cursor: pointer;
-  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease), background var(--dur) var(--ease);
-}
-.chip:hover { border-color: var(--line-strong); color: var(--text); }
-.chip:active { transform: translateY(1px); }
-.chip[aria-pressed="true"] { background: var(--signal-soft); border-color: var(--signal); color: #cdd9ff; }
-.chip:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* ---- layout primitives ---- */
-.section { padding: clamp(56px, 8vw, 112px) 0; }
-.section-inner, .hero-inner, .signal-inner, .cta-panel {
-  width: min(1220px, calc(100% - 40px));
-  margin: 0 auto;
-}
-.eyebrow {
-  font-family: var(--mono);
-  font-size: var(--t-eyebrow);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--signal);
-  margin-bottom: var(--s4);
-}
-.section-heading { max-width: 60ch; margin-bottom: var(--s7); }
-.section-heading h2 { font-size: var(--t-h2); margin-bottom: var(--s4); }
-.section-heading p { color: var(--text-dim); font-size: var(--t-lede); }
-.section-heading.center { max-width: 62ch; margin-left: auto; margin-right: auto; text-align: center; }
-
-/* ---- header (r2: rebuilt for identity + clarity) ---- */
-.site-header {
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  min-height: var(--header-h);
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--line);
-  background: rgba(11, 17, 28, 0.86);
-  backdrop-filter: blur(18px);
-  transition: box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease), background var(--dur) var(--ease);
-}
-.site-header.is-scrolled { box-shadow: 0 14px 34px rgba(0,0,0,0.4); border-color: var(--line-strong); background: rgba(11, 17, 28, 0.96); }
-.nav {
-  width: min(1220px, calc(100% - 40px));
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(168px, 0.75fr) minmax(280px, 1.2fr) auto;
-  gap: var(--s5);
-  align-items: center;
-  position: relative;
-}
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-  font-weight: 800;
-  font-size: 1.04rem;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  border-radius: var(--r-sm);
-}
-.brand-mark {
-  position: relative;
-  width: 36px; height: 36px;
-  display: grid; place-items: center;
-  border-radius: 10px;
-  background: linear-gradient(155deg, var(--signal), #7aa0ff 65%, #a9c2ff);
-  color: #081020;
-  box-shadow: 0 6px 16px rgba(91, 140, 255, 0.35), inset 0 1px 0 rgba(255,255,255,0.35);
-  flex: none;
-}
-.brand-mark svg { width: 21px; height: 15px; stroke: #081020; stroke-width: 2.4; }
-.brand-mark .brand-live {
-  position: absolute; top: -3px; right: -3px;
-  width: 9px; height: 9px; border-radius: 50%;
-  background: var(--ok); border: 2px solid var(--canvas);
-  animation: pulse 2.2s var(--ease) infinite;
-}
-.brand-word { color: var(--text); }
-.nav-links {
-  display: flex;
-  justify-content: center;
-  gap: clamp(14px, 1.9vw, 30px);
-  color: var(--text-dim);
-  font-size: 0.85rem;
-  font-weight: 650;
-  letter-spacing: 0.01em;
-}
-.nav-links a { position: relative; padding: 10px 1px; }
-.nav-links a::after {
-  content: ""; position: absolute; left: 1px; right: 1px; bottom: 5px; height: 2px;
-  background: var(--signal); border-radius: 2px;
-  transform: scaleX(0); transform-origin: left;
-  transition: transform var(--dur) var(--ease);
-}
-.nav-links a:hover { color: var(--text); }
-.nav-links a:hover::after { transform: scaleX(1); }
-.nav-links a.is-active { color: var(--text); }
-.nav-links a.is-active::after { transform: scaleX(1); }
-.nav-actions { display: flex; justify-content: end; align-items: center; gap: var(--s3); }
-
-.nav-toggle {
-  display: none;
-  align-items: center; justify-content: center;
-  width: 44px; height: 44px;
-  border-radius: var(--r-sm);
-  border: 1px solid var(--line-strong);
-  background: rgba(255,255,255,0.02);
-  color: var(--text);
-  cursor: pointer;
-}
-.nav-toggle:hover { border-color: var(--signal); }
-.nav-toggle .icon-close { display: none; }
-.nav-toggle[aria-expanded="true"] .icon-menu { display: none; }
-.nav-toggle[aria-expanded="true"] .icon-close { display: block; }
-
-.nav-scrim {
-  position: fixed; inset: 0; z-index: 35;
-  background: rgba(5, 8, 14, 0.6);
-  opacity: 0; pointer-events: none;
-  transition: opacity var(--dur-slow) var(--ease);
-}
-.nav-scrim.is-open { opacity: 1; pointer-events: auto; }
-
-.nav-mobile-panel {
-  position: absolute;
-  top: calc(100% + 1px);
-  left: 0; right: 0;
-  z-index: 36;
-  background: var(--panel);
-  border-bottom: 1px solid var(--line-strong);
-  box-shadow: var(--e2);
-  padding: var(--s4) var(--s5) var(--s5);
-  display: grid;
-  gap: var(--s2);
-  opacity: 0;
-  transform: translateY(-8px);
-  transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
-  pointer-events: none;
-}
-.nav-mobile-panel.is-open { opacity: 1; transform: translateY(0); pointer-events: auto; }
-.nav-mobile-panel a {
-  display: block; padding: 12px 6px; min-height: 44px; display: flex; align-items: center;
-  color: var(--text-dim); font-weight: 600; font-size: 0.95rem;
-  border-bottom: 1px solid var(--line);
-}
-.nav-mobile-panel a:hover, .nav-mobile-panel a:focus-visible { color: var(--text); }
-.nav-mobile-panel .nav-mobile-actions { display: grid; gap: var(--s3); margin-top: var(--s3); }
-
-/* ---- hero ---- */
-.hero { padding-top: clamp(20px, 3.4vw, 44px); padding-bottom: 0; }
-.hero-inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
-  gap: clamp(18px, 4vw, 60px);
-  align-items: center;
-}
-.hero-kicker {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 7px 14px 7px 10px;
-  border-radius: var(--r-pill);
-  background: var(--signal-soft);
-  border: 1px solid rgba(91, 140, 255, 0.4);
-  color: #cdd9ff;
-  font-family: var(--mono);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: var(--s4);
-}
-.hero-kicker .kicker-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ok); flex: none; animation: pulse 2.2s var(--ease) infinite; }
-.hero-copy h1 { font-size: var(--t-h1); margin-bottom: var(--s4); max-width: 15ch; }
-.hero-lede { font-size: var(--t-lede); color: var(--text-dim); max-width: 48ch; }
-.hero-lede strong { color: var(--text); font-weight: 700; }
-.hero-actions { display: flex; flex-wrap: wrap; gap: var(--s3); margin: var(--s5) 0 var(--s4); }
-.hero-note { font-size: 0.86rem; color: var(--text-faint); }
-
-/* mechanism section — the "what it does, in one glance" row, its own section right after the hero */
-.mechanism-section { border-top: 1px solid var(--line); padding-top: clamp(40px, 6vw, 64px); }
-.hero-mechanism-label {
-  font-family: var(--mono); font-size: var(--t-micro); letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--text-faint); margin-bottom: var(--s5);
-}
-.mechanism-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--s2);
-  counter-reset: mech;
-}
-.mechanism-step {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-right: var(--s4);
-}
-.mechanism-step:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  top: 19px; right: 6px; left: calc(100% - 14px);
-  width: 999px;
-  display: none;
-}
-.mechanism-arrow {
-  position: absolute; top: 17px; right: -6px;
-  color: var(--line-strong);
-  width: 16px; height: 16px;
-}
-.mechanism-icon {
-  width: 38px; height: 38px; border-radius: var(--r-sm);
-  background: var(--panel-2); border: 1px solid var(--line);
-  display: grid; place-items: center; color: var(--signal);
-  flex: none;
-}
-.mechanism-icon svg { width: 19px; height: 19px; }
-.mechanism-step strong { font-size: 0.92rem; }
-.mechanism-step span { color: var(--text-dim); font-size: 0.8rem; line-height: 1.5; }
-.mechanism-step .mech-no {
-  font-family: var(--mono); font-size: 0.68rem; color: var(--text-faint); letter-spacing: 0.06em;
-}
-
-/* ---- hero visual: the console (product surface, not marketing art) ---- */
-.hero-visual { margin: 0; min-width: 0; }
-.console {
-  border-radius: var(--r-lg);
-  background: var(--panel);
-  border: 1px solid var(--line-strong);
-  box-shadow: var(--e3);
-  overflow: hidden;
-}
-.console-bar {
-  display: flex;
-  align-items: center;
-  gap: var(--s2);
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--line);
-  background: rgba(17, 25, 38, 0.55);
-}
-.console-bar .dot { width: 10px; height: 10px; border-radius: 50%; background: #2b3a4f; }
-.console-bar .dot:first-child { background: var(--risk); opacity: 0.75; }
-.console-bar .dot:nth-child(2) { background: var(--warn); opacity: 0.75; }
-.console-bar .dot:nth-child(3) { background: var(--ok); opacity: 0.75; }
-.console-path {
-  margin-left: var(--s3);
-  font-family: var(--mono);
-  font-size: 0.74rem;
-  color: var(--text-faint);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  min-width: 0;
-}
-.console-bar-tags { margin-left: auto; display: flex; align-items: center; gap: 8px; flex: none; }
-.console-sample-tag {
-  display: inline-flex; align-items: center; gap: 5px;
-  font-family: var(--mono); font-size: 0.66rem; letter-spacing: 0.05em; text-transform: uppercase;
-  color: var(--text-faint); border: 1px dashed var(--line-dashed); border-radius: var(--r-pill);
-  padding: 3px 9px 3px 8px; white-space: nowrap;
-}
-.console-live {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: var(--mono); font-size: 0.7rem; color: var(--ok);
-  white-space: nowrap;
-}
-.console-live .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ok); animation: pulse 2.2s var(--ease) infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
-
-.console-body { padding: var(--s4); display: grid; gap: var(--s3); background: var(--canvas-2); }
-
-/* KPI strip — redesigned as explicit placeholder "slots", not fake data */
-.console-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); }
-.kpi-slot {
-  padding: var(--s3) var(--s4); border-radius: var(--r-sm);
-  background: rgba(255, 255, 255, 0.015);
-  border: 1px dashed var(--line-dashed);
-  min-width: 0;
-  display: grid; gap: 7px;
-}
-.kpi-slot.is-ok { border-color: var(--ok-line); background: rgba(63, 178, 127, 0.06); }
-.kpi-label { display: flex; align-items: center; gap: 6px; font-size: 0.76rem; color: var(--text-dim); }
-.kpi-slot.is-ok .kpi-label { color: #7fcfa6; }
-.kpi-value {
-  font-family: var(--mono); font-size: clamp(0.86rem, 0.8rem + 0.3vw, 0.98rem); font-weight: 700;
-  letter-spacing: 0.02em; color: var(--text-faint); overflow-wrap: break-word;
-}
-.kpi-slot.is-ok .kpi-value { color: var(--ok); }
-.kpi-caption { font-size: 0.68rem; color: var(--text-faint); font-style: italic; }
-
-/* toolbar */
-.console-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); }
-.console-toolbar .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
-.console-toolbar .result-count { margin-left: auto; font-family: var(--mono); font-size: 0.74rem; color: var(--text-faint); white-space: nowrap; }
-
-/* skeleton loading */
-.skeleton-rows { display: grid; gap: 8px; }
-.skeleton-rows[hidden] { display: none; }
-.skeleton-row { height: 44px; border-radius: var(--r-sm); background: linear-gradient(90deg, var(--panel-2), #2a384e, var(--panel-2)); background-size: 200% 100%; animation: shimmer 1.4s var(--ease) infinite; }
-@keyframes shimmer { to { background-position: -200% 0; } }
-
-/* data table (shared: hero console + live console) */
-.table-scroll { overflow-x: auto; border-radius: var(--r-sm); border: 1px solid var(--line); min-width: 0; }
-/* hero's table is a compact viewport onto the real 6-row queue — same data, fixed-height scroll, not a cut concept */
-#heroTableWrap {
-  max-height: 322px; overflow-y: auto;
-  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 30px), transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 calc(100% - 30px), transparent 100%);
-}
-@media (max-width: 620px) { #heroTableWrap { max-height: 232px; } }
-table.data-table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 0.86rem; }
-table.data-table caption { text-align: left; padding: 10px 14px; font-size: var(--t-micro); color: var(--text-faint); font-family: var(--mono); border-bottom: 1px solid var(--line); }
-table.data-table thead th { text-align: left; padding: 10px 14px; font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--text-faint); background: var(--panel-3); border-bottom: 1px solid var(--line); position: sticky; top: 0; }
-table.data-table th[aria-sort] { cursor: pointer; user-select: none; }
-table.data-table th button.sort-btn {
-  background: none; border: 0; padding: 0; color: inherit; font: inherit; letter-spacing: inherit;
-  display: inline-flex; align-items: center; gap: 5px; cursor: pointer; min-height: 32px;
-}
-table.data-table th button.sort-btn:hover { color: var(--text); }
-table.data-table th .sort-arrow { width: 9px; height: 9px; opacity: 0.35; }
-table.data-table th[aria-sort="ascending"] .sort-arrow, table.data-table th[aria-sort="descending"] .sort-arrow { opacity: 1; color: var(--signal); }
-table.data-table th[aria-sort="descending"] .sort-arrow { transform: rotate(180deg); }
-table.data-table tbody tr { border-bottom: 1px solid var(--line); background: var(--panel-3); transition: background var(--dur) var(--ease), opacity var(--dur) var(--ease); }
-table.data-table tbody tr:nth-child(even) { background: #0e1826; }
-table.data-table tbody tr:hover { background: var(--panel-2); }
-table.data-table tbody tr.is-inactive { opacity: 0.5; }
-table.data-table td { padding: 12px 14px; vertical-align: middle; }
-.cell-primary { color: var(--text); font-weight: 600; display: block; }
-.cell-sub { color: var(--text-faint); font-size: 0.78rem; display: block; margin-top: 2px; }
-.cell-owner { display: inline-flex; align-items: center; gap: 8px; color: var(--text-dim); }
-.owner-dot { width: 18px; height: 18px; border-radius: 50%; background: var(--panel-2); border: 1px solid var(--line-strong); display: inline-grid; place-items: center; font-size: 0.6rem; font-weight: 700; color: var(--text-dim); flex: none; }
-.cell-time { color: var(--text-faint); font-family: var(--mono); font-size: 0.78rem; white-space: nowrap; }
-.cell-sev { font-family: var(--mono); font-size: 0.72rem; color: var(--text-faint); border: 1px solid var(--line-strong); border-radius: var(--r-sm); padding: 2px 6px; white-space: nowrap; }
-
-.status-chip { display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; font-weight: 700; padding: 5px 12px; border-radius: var(--r-pill); white-space: nowrap; }
-.status-chip::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-.status-chip.is-risk { background: var(--risk-tint); color: var(--risk); }
-.status-chip.is-warn { background: var(--warn-tint); color: var(--warn); }
-.status-chip.is-ok { background: var(--ok-tint); color: var(--ok); }
-.status-chip.is-neutral { background: var(--neutral-tint); color: var(--text-dim); }
-
-.row-actions { display: flex; flex-wrap: wrap; gap: 6px; }
-.row-actions .mini-btn {
-  min-height: 30px; padding: 0 10px; border-radius: var(--r-sm);
-  border: 1px solid var(--line-strong); background: rgba(255,255,255,0.02); color: var(--text-dim);
-  font-size: 0.74rem; font-weight: 600; cursor: pointer;
-  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease), background var(--dur) var(--ease);
-}
-.row-actions .mini-btn:hover { border-color: var(--signal); color: var(--text); }
-.row-actions .mini-btn:active { background: var(--signal-soft); }
-.row-actions .mini-btn:disabled, .row-actions .mini-btn[aria-disabled="true"] { opacity: 0.45; cursor: not-allowed; }
-.row-actions .claimed-pill { display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; font-weight: 700; color: var(--ok); }
-
-.console-sparkline { padding: var(--s3); border-radius: var(--r-sm); background: var(--panel-2); border: 1px solid var(--line); }
-.console-sparkline p { font-size: 0.76rem; color: var(--text-dim); margin-bottom: var(--s2); }
-.console-sparkline svg { display: block; width: 100%; height: auto; }
-
-.visual-cap {
-  margin-top: var(--s3);
-  font-size: 0.78rem;
-  color: var(--text-faint);
-  text-align: right;
-}
-
-/* ---- signal strip (capability trust rail, directly under hero) ---- */
-.signal-strip { border-block: 1px solid var(--line); background: rgba(255, 255, 255, 0.015); }
-.signal-inner {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--s5);
-  padding: var(--s6) 0;
-}
-.signal-item { display: grid; grid-template-columns: auto 1fr; gap: var(--s3); align-items: start; }
-.signal-item .icon-wrap { width: 34px; height: 34px; border-radius: var(--r-sm); background: var(--panel-2); border: 1px solid var(--line); display: grid; place-items: center; color: var(--signal); flex: none; }
-.signal-item .icon-wrap svg { width: 18px; height: 18px; }
-.signal-item strong { display: block; font-size: 0.95rem; margin-bottom: 3px; }
-.signal-item span { color: var(--text-dim); font-size: 0.88rem; }
-
-/* ---- feature grid ---- */
-.feature-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s4); }
-.feature-card {
-  padding: var(--s5);
-  border-radius: var(--r);
-  background: var(--panel);
-  border: 1px solid var(--line);
-  display: grid;
-  gap: var(--s3);
-  align-content: start;
-  transition: transform var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
-}
-.feature-card:hover { transform: translateY(-3px); border-color: var(--line-strong); box-shadow: var(--e1), 0 20px 40px rgba(0,0,0,0.28); }
-.feature-icon { width: 42px; height: 42px; color: var(--signal); border-radius: var(--r-sm); background: var(--signal-soft); display: grid; place-items: center; }
-.feature-icon svg { width: 22px; height: 22px; }
-.feature-card h3 { font-size: var(--t-h3); }
-.feature-card p { color: var(--text-dim); font-size: 0.94rem; }
-.feature-proof { margin-top: 2px; padding-top: var(--s3); border-top: 1px solid var(--line); font-family: var(--mono); font-size: 0.76rem; color: var(--text-faint); }
-.feature-proof strong { color: var(--text-dim); font-family: var(--sans); font-weight: 700; }
-
-/* ---- role-based access section ---- */
-.role-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); }
-.role-card { padding: var(--s5); border-radius: var(--r); background: var(--panel); border: 1px solid var(--line); display: grid; gap: var(--s3); align-content: start; }
-.role-card .feature-icon { margin-bottom: 2px; }
-.role-card h3 { font-size: var(--t-h3); }
-.role-card > p { color: var(--text-dim); font-size: 0.9rem; }
-.perm-list { list-style: none; display: grid; gap: 6px; margin-top: 4px; }
-.perm-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 0.84rem; color: var(--text-dim); }
-.perm-list li svg { width: 14px; height: 14px; flex: none; margin-top: 3px; }
-.perm-list li.can svg { color: var(--ok); }
-.perm-list li.cannot svg { color: var(--text-faint); }
-.perm-list li.cannot { color: var(--text-faint); }
-
-/* ---- workflow ---- */
-.workflow-layout { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(28px, 4vw, 64px); align-items: start; }
-.workflow-copy h2 { font-size: var(--t-h2); margin-bottom: var(--s4); }
-.workflow-copy p { color: var(--text-dim); font-size: var(--t-lede); max-width: 38ch; }
-.workflow-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s4); position: relative; }
-.workflow-steps li { display: grid; grid-template-columns: auto 1fr; gap: var(--s4); align-items: start; padding: var(--s5); background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); position: relative; }
-.workflow-steps li:not(:last-child)::after {
-  content: ""; position: absolute; left: calc(var(--s5) + 15px); top: 100%; width: 1px; height: var(--s4);
-  background: var(--line-strong);
-}
-.step-no { font-family: var(--mono); font-weight: 800; color: var(--signal); font-size: 1.05rem; width: 30px; height: 30px; border-radius: 50%; background: var(--signal-soft); display: grid; place-items: center; }
-.workflow-steps strong { display: block; margin-bottom: 4px; }
-.workflow-steps p { color: var(--text-dim); font-size: 0.94rem; }
-.step-meta { display: inline-flex; align-items: center; gap: 6px; margin-top: var(--s3); font-family: var(--mono); font-size: 0.72rem; color: var(--text-faint); border: 1px dashed var(--line-strong); border-radius: var(--r-pill); padding: 4px 10px; }
-
-/* ---- live console (tabs_panel + command_surface deep dive) ---- */
-.console-shell {
-  border-radius: var(--r-lg);
-  background: var(--panel);
-  border: 1px solid var(--line-strong);
-  box-shadow: var(--e2);
-  overflow: hidden;
-}
-.tabs { display: flex; flex-wrap: wrap; gap: 2px; padding: var(--s3) var(--s3) 0; border-bottom: 1px solid var(--line); background: var(--panel-3); }
-.tab {
-  display: inline-flex; align-items: center; gap: 8px;
-  min-height: 44px; padding: 0 var(--s4);
-  border-radius: var(--r-sm) var(--r-sm) 0 0;
-  border: 1px solid transparent;
-  background: none; color: var(--text-dim); font-weight: 600; font-size: 0.88rem;
-  cursor: pointer;
-  transition: color var(--dur) var(--ease), background var(--dur) var(--ease);
-}
-.tab svg { width: 16px; height: 16px; }
-.tab:hover { color: var(--text); }
-.tab[aria-selected="true"] { color: var(--text); background: var(--panel); border-color: var(--line) var(--line) transparent; }
-.tab-count { font-family: var(--mono); font-size: 0.7rem; color: var(--text-faint); background: var(--panel-2); border-radius: var(--r-pill); padding: 1px 7px; }
-.tab[aria-selected="true"] .tab-count { color: var(--signal); }
-
-.tab-panel { padding: var(--s5); display: grid; gap: var(--s4); }
-.tab-panel[hidden] { display: none; }
-
-.panel-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s3); }
-.search-field { position: relative; flex: 1 1 220px; max-width: 320px; }
-.search-field svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: var(--text-faint); pointer-events: none; }
-.search-field input {
-  width: 100%; min-height: 40px; padding: 0 30px 0 34px;
-  background: var(--panel-2); border: 1px solid var(--line-strong); border-radius: var(--r-sm);
-  color: var(--text); font-size: 0.86rem;
-}
-.search-field input::placeholder { color: var(--text-faint); }
-.search-field input:focus-visible { border-color: var(--signal); }
-.search-field input:focus-visible ~ .kbd-hint { display: none; }
-kbd {
-  font-family: var(--mono); font-size: 0.72rem; color: var(--text-dim);
-  border: 1px solid var(--line-strong); border-radius: 4px; padding: 1px 6px;
-  background: var(--panel-2);
-}
-.kbd-legend { color: var(--text-faint); font-size: 0.8rem; margin-top: -4px; }
-.kbd-legend kbd { margin: 0 2px; }
-.kbd-hint {
-  position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-  font-family: var(--mono); font-size: 0.7rem; color: var(--text-faint);
-  border: 1px solid var(--line-strong); border-radius: 4px; padding: 1px 6px;
-  background: var(--panel); pointer-events: none;
-}
-.panel-toolbar .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
-.panel-toolbar .result-count { margin-left: auto; font-family: var(--mono); font-size: 0.76rem; color: var(--text-faint); white-space: nowrap; }
-
-.connector-status { display: flex; align-items: center; gap: var(--s3); padding: 10px 14px; border-radius: var(--r-sm); background: var(--panel-2); border: 1px solid var(--line); font-size: 0.84rem; }
-.connector-status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); flex: none; }
-.connector-status.is-error .dot { background: var(--risk); }
-.connector-status.is-error { background: var(--risk-tint); border-color: #4a2c26; }
-.connector-status .msg { color: var(--text-dim); flex: 1; }
-.connector-status.is-error .msg { color: #f2a99a; }
-
-.empty-state, .error-state {
-  display: none;
-  text-align: center;
-  padding: var(--s7) var(--s5);
-  border: 1px dashed var(--line-strong);
-  border-radius: var(--r);
-  color: var(--text-dim);
-}
-.empty-state.is-shown, .error-state.is-shown { display: grid; gap: var(--s3); justify-items: center; }
-.empty-state svg, .error-state svg { width: 32px; height: 32px; color: var(--text-faint); }
-.error-state svg { color: var(--risk); }
-.empty-state strong, .error-state strong { color: var(--text); font-size: 1rem; }
-.empty-state p, .error-state p { max-width: 42ch; font-size: 0.88rem; }
-
-/* alert rules */
-.rule-list { list-style: none; display: grid; gap: var(--s3); }
-.rule-card {
-  display: grid; grid-template-columns: 1fr auto; gap: var(--s4); align-items: center;
-  padding: var(--s4) var(--s5); border-radius: var(--r); background: var(--panel-3); border: 1px solid var(--line);
-}
-.rule-card.is-disabled { opacity: 0.55; }
-.rule-condition { font-family: var(--mono); font-size: 0.88rem; color: var(--text); margin-bottom: 6px; }
-.rule-condition .tok { color: var(--signal); }
-.rule-meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 0.78rem; color: var(--text-dim); }
-.rule-meta .sep { color: var(--text-faint); }
-.rule-badge { font-family: var(--mono); font-size: 0.7rem; color: var(--text-faint); border: 1px solid var(--line-strong); border-radius: var(--r-pill); padding: 2px 8px; }
-.rule-toggle-wrap { display: grid; justify-items: end; gap: 4px; }
-.rule-toggle-label { font-size: 0.72rem; font-family: var(--mono); color: var(--text-faint); }
-
-/* switch (used for alert rules + pricing cadence) */
-.switch {
-  position: relative; width: 44px; height: 26px; border-radius: var(--r-pill);
-  background: var(--panel-2); border: 1px solid var(--line-strong);
-  cursor: pointer; flex: none; padding: 0;
-  transition: background var(--dur) var(--ease), border-color var(--dur) var(--ease);
-}
-.switch::after {
-  content: ""; position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%;
-  background: var(--text-dim);
-  transition: transform var(--dur) var(--ease), background var(--dur) var(--ease);
-}
-.switch:hover { border-color: var(--line-strong); }
-.switch[aria-checked="true"] { background: var(--signal-soft); border-color: var(--signal); }
-.switch[aria-checked="true"]::after { transform: translateX(18px); background: var(--signal); }
-.switch:disabled { opacity: 0.5; cursor: not-allowed; }
-
-/* audit log */
-.audit-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s3); }
-.audit-toolbar p { color: var(--text-faint); font-size: 0.82rem; }
-.audit-list { list-style: none; display: grid; max-height: 360px; overflow-y: auto; border: 1px solid var(--line); border-radius: var(--r-sm); }
-.audit-list li {
-  display: grid; grid-template-columns: 96px 110px 1fr; gap: var(--s3); align-items: baseline;
-  padding: 10px 14px; font-size: 0.82rem; border-bottom: 1px solid var(--line); background: var(--panel-3);
-}
-.audit-list li:nth-child(even) { background: #0e1826; }
-.audit-list li:last-child { border-bottom: 0; }
-.audit-time { font-family: var(--mono); color: var(--text-faint); font-size: 0.76rem; }
-.audit-actor { color: var(--signal); font-weight: 600; }
-.audit-actor.is-system { color: var(--text-faint); font-style: italic; font-weight: 400; }
-.audit-action { color: var(--text-dim); }
-.audit-action strong { color: var(--text); font-weight: 600; }
-#exportStatus { font-size: 0.82rem; color: var(--text-dim); min-height: 1.2em; }
-#exportStatus.is-success { color: var(--ok); }
-.table-scroll.is-degraded { opacity: 0.45; pointer-events: none; transition: opacity var(--dur) var(--ease); }
-
-/* ---- API / CLI parity section ---- */
-.code-tabs { display: grid; gap: var(--s4); }
-.code-block { position: relative; border-radius: var(--r); background: var(--panel-3); border: 1px solid var(--line); overflow: hidden; min-width: 0; }
-.code-block-head { display: flex; align-items: center; justify-content: space-between; padding: 10px var(--s4); border-bottom: 1px solid var(--line); background: rgba(255,255,255,0.02); }
-.code-block-head > span { font-family: var(--mono); font-size: 0.72rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.05em; }
-.copy-btn {
-  display: inline-flex; align-items: center; gap: 6px; min-height: 30px; padding: 0 10px;
-  border-radius: var(--r-sm); border: 1px solid var(--line-strong); background: rgba(255,255,255,0.02);
-  color: var(--text-dim); font-size: 0.74rem; font-weight: 600; cursor: pointer;
-  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
-}
-.copy-btn svg { width: 13px; height: 13px; }
-.copy-btn:hover { border-color: var(--signal); color: var(--text); }
-.copy-btn:active { background: var(--signal-soft); }
-.copy-btn.is-copied { color: var(--ok); border-color: var(--ok); }
-.code-block pre { margin: 0; padding: var(--s4); overflow-x: auto; font-family: var(--mono); font-size: 0.84rem; line-height: 1.7; color: var(--text-dim); }
-.code-block code .tok-flag { color: var(--signal); }
-.code-block code .tok-str { color: var(--ok); }
-.code-block code .tok-comment { color: var(--text-faint); }
-
-/* ---- trust rail ---- */
-.trust-rail { border-block: 1px solid var(--line); background: rgba(255,255,255,0.015); }
-.trust-rail-label { margin: var(--s6) 0 var(--s5); text-align: center; }
-.trust-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s4); padding: var(--s6) 0; }
-.trust-item { display: grid; gap: var(--s2); justify-items: center; text-align: center; }
-.trust-item .icon-wrap { width: 38px; height: 38px; border-radius: 50%; background: var(--panel-2); border: 1px solid var(--line); display: grid; place-items: center; color: var(--signal); }
-.trust-item .icon-wrap svg { width: 18px; height: 18px; }
-.trust-item p { font-size: 0.8rem; color: var(--text-dim); }
-
-/* ---- integrations ---- */
-.integration-group + .integration-group { margin-top: var(--s5); }
-.integration-group h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); font-family: var(--mono); margin-bottom: var(--s3); }
-.integration-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); }
-.integration-slot {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: var(--s4);
-  border: 1px dashed var(--line-dashed);
-  border-radius: var(--r-sm);
-  color: var(--text-faint);
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  background: rgba(255, 255, 255, 0.012);
-}
-.integration-slot .int-glyph { width: 22px; height: 22px; border-radius: 6px; background: linear-gradient(150deg, var(--panel-2), #2c3c54); flex: none; }
-.integration-slot .int-copy { display: grid; gap: 2px; overflow: hidden; }
-.integration-slot .int-copy span { color: var(--text-dim); font-family: var(--sans); font-size: 0.72rem; }
-.integration-note { margin-top: var(--s5); color: var(--text-dim); font-size: 0.9rem; }
-
-/* ---- proof cards ---- */
-.proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); }
-.proof-card { padding: var(--s5); border-radius: var(--r); background: var(--panel); border: 1px solid var(--line); display: grid; gap: var(--s3); min-width: 0; }
-.proof-card h3 { font-size: 1rem; }
-.proof-data { background: var(--panel-3); border: 1px solid var(--line); border-radius: var(--r-sm); padding: var(--s3) var(--s4); font-family: var(--mono); font-size: 0.78rem; color: var(--text-dim); overflow-x: auto; white-space: pre; }
-.proof-data .k { color: var(--text-faint); }
-.proof-data .v { color: var(--signal); }
-.proof-card p { color: var(--text-dim); font-size: 0.86rem; }
-
-/* ---- pricing ---- */
-.pricing-toggle { display: flex; align-items: center; justify-content: center; gap: var(--s3); margin-bottom: var(--s6); }
-.pricing-toggle span { font-size: 0.88rem; color: var(--text-dim); font-weight: 600; }
-.pricing-toggle span[data-cadence="annual"] { color: var(--text-faint); }
-.pricing-toggle.is-annual span[data-cadence="annual"] { color: var(--text); }
-.pricing-toggle.is-annual span[data-cadence="monthly"] { color: var(--text-faint); }
-.pricing-toggle .save-note { font-family: var(--mono); font-size: 0.72rem; color: var(--ok); background: var(--ok-tint); border-radius: var(--r-pill); padding: 3px 10px; }
-
-.pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); align-items: start; }
-.price-card { padding: var(--s6); border-radius: var(--r); background: var(--panel); border: 1px solid var(--line); display: grid; gap: var(--s4); }
-.price-card.featured { border-color: var(--signal); background: linear-gradient(180deg, #18233a, var(--panel)); box-shadow: var(--e2); }
-.price-flag { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--signal); }
-.price-card h3 { font-size: var(--t-h3); }
-.price { display: flex; align-items: baseline; gap: 6px; }
-.price .amount { font-size: 2rem; font-weight: 800; font-family: var(--mono); }
-.price .per { color: var(--text-faint); font-size: 0.85rem; }
-.price-for { color: var(--text-dim); font-size: 0.9rem; }
-.price-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-.price-list li { position: relative; padding-left: 24px; color: var(--text-dim); font-size: 0.92rem; }
-.price-list li::before { content: ""; position: absolute; left: 0; top: 8px; width: 12px; height: 7px; border-left: 2px solid var(--ok); border-bottom: 2px solid var(--ok); transform: rotate(-45deg); }
-
-.compare-wrap { margin-top: var(--s7); overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r); }
-table.compare-table { width: 100%; min-width: 640px; font-size: 0.88rem; }
-table.compare-table caption { text-align: left; padding: var(--s4) var(--s5); font-weight: 700; background: var(--panel-3); border-bottom: 1px solid var(--line); }
-table.compare-table th, table.compare-table td { padding: 12px var(--s5); text-align: left; border-bottom: 1px solid var(--line); }
-table.compare-table thead th { font-family: var(--mono); font-size: 0.76rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.04em; background: var(--panel-3); }
-table.compare-table thead th:not(:first-child), table.compare-table td:not(:first-child) { text-align: center; }
-table.compare-table tbody th { color: var(--text-dim); font-weight: 600; font-size: 0.88rem; }
-table.compare-table tbody tr:last-child th, table.compare-table tbody tr:last-child td { border-bottom: 0; }
-table.compare-table .yes { color: var(--ok); }
-table.compare-table .no { color: var(--text-faint); }
-
-/* ---- FAQ accordion ---- */
-.accordion { display: grid; gap: var(--s3); max-width: 78ch; }
-.accordion-item { border: 1px solid var(--line); border-radius: var(--r); background: var(--panel); overflow: hidden; }
-.accordion-item h3 { margin: 0; }
-.accordion-trigger {
-  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: var(--s4);
-  min-height: 56px; padding: var(--s4) var(--s5);
-  background: none; border: 0; text-align: left; cursor: pointer;
-  font-size: 0.98rem; font-weight: 700; color: var(--text);
-}
-.accordion-trigger:hover { color: var(--signal); }
-.accordion-trigger .chev { width: 18px; height: 18px; color: var(--text-faint); flex: none; transition: transform var(--dur) var(--ease); }
-.accordion-trigger[aria-expanded="true"] .chev { transform: rotate(180deg); color: var(--signal); }
-.accordion-panel { padding: 0 var(--s5) var(--s5); color: var(--text-dim); font-size: 0.92rem; max-width: 68ch; opacity: 0; transform: translateY(-6px); transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease); }
-.accordion-panel[hidden] { display: none; }
-.accordion-panel.is-in { opacity: 1; transform: translateY(0); }
-.accordion-panel code { font-family: var(--mono); color: var(--signal); background: var(--signal-soft-2); border-radius: 4px; padding: 1px 5px; font-size: 0.86em; }
-
-/* ---- states showcase ---- */
-.state-demo { display: grid; gap: var(--s5); }
-.state-controls { display: flex; flex-wrap: wrap; gap: 8px; }
-.state-widget {
-  border-radius: var(--r); background: var(--panel); border: 1px solid var(--line);
-  overflow: hidden; box-shadow: var(--e1);
-}
-.state-widget-head { display: flex; align-items: center; justify-content: space-between; padding: var(--s4) var(--s5); border-bottom: 1px solid var(--line); }
-.state-widget-head strong { font-size: 0.94rem; }
-.state-widget-head .state-tag { font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 9px; border-radius: var(--r-pill); background: var(--panel-2); color: var(--text-dim); }
-.state-widget-head .state-tag.is-error { background: var(--risk-tint); color: var(--risk); }
-.state-widget-head .state-tag.is-success { background: var(--ok-tint); color: var(--ok); }
-.state-widget-body { padding: var(--s5); min-height: 200px; display: grid; align-content: start; gap: var(--s3); }
-.state-list { list-style: none; display: grid; gap: var(--s3); }
-.state-list li { display: grid; grid-template-columns: auto 1fr auto; gap: var(--s3); align-items: center; padding: var(--s3) var(--s4); background: var(--panel-3); border-radius: var(--r-sm); border: 1px solid var(--line); }
-.state-list .sig-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); flex: none; }
-.state-list strong { font-size: 0.88rem; font-weight: 600; }
-.state-list span { color: var(--text-faint); font-size: 0.78rem; font-family: var(--mono); }
-.state-empty-copy, .state-error-copy { text-align: center; padding: var(--s6) var(--s4); color: var(--text-dim); display: grid; gap: var(--s3); justify-items: center; }
-.state-empty-copy svg, .state-error-copy svg { width: 30px; height: 30px; color: var(--text-faint); }
-.state-error-copy svg { color: var(--risk); }
-.state-empty-copy strong, .state-error-copy strong { color: var(--text); }
-
-/* ---- final cta ---- */
-.cta-panel {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: clamp(28px, 4vw, 56px);
-  padding: clamp(28px, 4vw, 56px);
-  border-radius: var(--r-lg);
-  background: linear-gradient(150deg, #18233a, var(--panel));
-  border: 1px solid var(--line-strong);
-  box-shadow: var(--e2);
-  align-items: center;
-}
-.cta-copy h2 { font-size: var(--t-h2); margin-bottom: var(--s4); }
-.cta-copy p { color: var(--text-dim); }
-.cta-quote { margin-top: var(--s5); padding-left: var(--s4); border-left: 2px solid var(--signal); font-style: italic; color: var(--text-dim); }
-.cta-attr { display: block; margin-top: 6px; font-style: normal; font-size: 0.82rem; color: var(--text-faint); }
-
-.form-wrap { position: relative; }
-.demo-form { display: grid; gap: var(--s4); background: var(--canvas); padding: var(--s5); border-radius: var(--r); border: 1px solid var(--line); }
-.field { display: grid; gap: 6px; }
-.field label { font-size: 0.82rem; font-weight: 600; color: var(--text-dim); }
-.field .required { color: var(--risk); }
-.field input, .field select {
-  min-height: 44px;
-  padding: 0 14px;
-  background: var(--panel);
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r-sm);
-  color: var(--text);
-}
-.field input::placeholder { color: var(--text-faint); }
-.field input:focus-visible, .field select:focus-visible { border-color: var(--signal); outline: none; box-shadow: 0 0 0 3px rgba(91, 140, 255, 0.25); }
-.field input[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--risk); }
-.field input:disabled, .field select:disabled { opacity: 0.55; cursor: not-allowed; }
-.field-error { display: block; min-height: 1.1em; font-size: 0.78rem; color: var(--risk); }
-.form-fine { font-size: 0.78rem; color: var(--text-faint); }
-
-.form-banner {
-  display: none; align-items: flex-start; gap: 10px;
-  padding: var(--s3) var(--s4); border-radius: var(--r-sm);
-  font-size: 0.85rem; border: 1px solid var(--line);
-}
-.form-banner.is-shown { display: flex; }
-.form-banner.is-error { background: var(--risk-tint); border-color: #4a2c26; color: #f2a99a; }
-.form-banner svg { width: 16px; height: 16px; flex: none; margin-top: 2px; }
-
-.submit-btn { position: relative; }
-.submit-btn .spinner { display: none; width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(8,16,31,0.35); border-top-color: #08101f; animation: spin 0.7s linear infinite; }
-.submit-btn[aria-busy="true"] .spinner { display: inline-block; }
-.submit-btn[aria-busy="true"] .btn-label { opacity: 0.85; }
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.form-success {
-  display: none; position: absolute; inset: 0; z-index: 2;
-  background: var(--canvas); border: 1px solid var(--line); border-radius: var(--r);
-  padding: var(--s6) var(--s5); text-align: center;
-  flex-direction: column; align-items: center; justify-content: center; gap: var(--s3);
-  opacity: 0; transform: translateY(8px); transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease);
-}
-.form-success.is-shown { display: flex; }
-.form-success.is-in { opacity: 1; transform: translateY(0); }
-.form-success .success-icon { width: 44px; height: 44px; border-radius: 50%; background: var(--ok-tint); color: var(--ok); display: grid; place-items: center; }
-.form-success .success-icon svg { width: 22px; height: 22px; }
-.form-success h3 { font-size: 1.1rem; }
-.form-success p { color: var(--text-dim); font-size: 0.9rem; max-width: 36ch; }
-
-/* ---- footer ---- */
-footer { border-top: 1px solid var(--line); padding: var(--s7) 0 var(--s5); }
-.footer-inner { width: min(1220px, calc(100% - 40px)); margin: 0 auto; }
-.footer-top { display: grid; grid-template-columns: 1.4fr repeat(4, 0.85fr); gap: var(--s5); padding-bottom: var(--s6); }
-.footer-brand strong { color: var(--text); font-size: 1.05rem; display: inline-flex; align-items: center; gap: 8px; }
-.footer-brand p { margin-top: var(--s3); color: var(--text-dim); font-size: 0.88rem; max-width: 34ch; }
-.footer-social { display: flex; gap: 8px; margin-top: var(--s4); }
-.footer-social a { width: 36px; height: 36px; border-radius: var(--r-sm); border: 1px solid var(--line-strong); display: grid; place-items: center; color: var(--text-dim); }
-.footer-social a:hover { color: var(--text); border-color: var(--signal); }
-.footer-social svg { width: 16px; height: 16px; }
-.footer-col h4 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); font-family: var(--mono); margin-bottom: var(--s3); }
-.footer-col ul { list-style: none; display: grid; gap: 10px; }
-.footer-col a { color: var(--text-dim); font-size: 0.88rem; }
-.footer-col a:hover { color: var(--text); }
-.footer-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s3); padding-top: var(--s5); border-top: 1px solid var(--line); }
-.footer-fine { color: var(--text-faint); font-size: 0.8rem; max-width: 60ch; }
-.footer-copyright { color: var(--text-faint); font-size: 0.8rem; white-space: nowrap; }
-.footer-mark { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(155deg, var(--signal), #7aa0ff); display: grid; place-items: center; flex: none; }
-.footer-mark svg { width: 15px; height: 11px; stroke: #081020; stroke-width: 2.4; }
-
-/* ==========================================================
-   Responsive — desktop down through two mobile widths
-   ========================================================== */
-@media (max-width: 1080px) {
-  .hero-inner, .workflow-layout, .cta-panel { grid-template-columns: 1fr; }
-  .trust-grid { grid-template-columns: repeat(3, 1fr); }
-  .footer-top { grid-template-columns: repeat(3, 1fr); }
-  .footer-brand { grid-column: 1 / -1; }
-  .proof-grid { grid-template-columns: repeat(2, 1fr); }
-  .mechanism-row { grid-template-columns: repeat(2, 1fr); row-gap: var(--s5); }
-  .mechanism-step:nth-child(2)::after { display: none; }
-}
-@media (max-width: 860px) {
-  .nav { grid-template-columns: 1fr auto; }
-  .nav-links, .nav-actions .ghost-link { display: none; }
-  .nav-toggle { display: inline-flex; }
-  .signal-inner { grid-template-columns: repeat(2, 1fr); }
-  .feature-grid { grid-template-columns: repeat(2, 1fr); }
-  .role-grid { grid-template-columns: repeat(2, 1fr); }
-  .integration-grid { grid-template-columns: repeat(2, 1fr); }
-  .pricing-grid { grid-template-columns: 1fr; max-width: 460px; margin-inline: auto; }
-  .console-kpis { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 620px) {
-  .signal-inner, .feature-grid, .integration-grid, .proof-grid, .role-grid { grid-template-columns: 1fr; }
-  .trust-grid { grid-template-columns: repeat(2, 1fr); }
-  .footer-top { grid-template-columns: 1fr; gap: var(--s6); }
-  .footer-brand { grid-column: auto; }
-  .footer-bottom { flex-direction: column; align-items: flex-start; }
-  .footer-fine { text-align: left; }
-  .visual-cap { text-align: left; }
-  .console-kpis { grid-template-columns: repeat(2, 1fr); }
-  .console-kpis > :last-child { grid-column: 1 / -1; }
-  .rule-card { grid-template-columns: 1fr; }
-  .rule-toggle-wrap { justify-items: start; flex-direction: row; display: flex; align-items: center; gap: 10px; }
-  .audit-list li { grid-template-columns: 1fr; gap: 4px; }
-  .tabs { overflow-x: auto; flex-wrap: nowrap; }
-  .compare-wrap table { min-width: 560px; }
-  .mechanism-row { grid-template-columns: 1fr; row-gap: var(--s4); }
-  .mechanism-step::after, .mechanism-arrow { display: none; }
-  .hero-copy h1 { max-width: none; }
-  .console-bar-tags { gap: 6px; }
-  .console-sample-tag span.tag-word { display: none; }
-}
-@media (max-width: 400px) {
-  .section-inner, .hero-inner, .signal-inner, .cta-panel { width: calc(100% - 24px); }
-  .hero-copy h1 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
-  .cta-panel, .demo-form { padding: var(--s4); }
-  .price-card, .proof-card, .feature-card { padding: var(--s4); }
-}
-
-/* ==========================================================
-   Mobile polish pass (surgical, additive, ≤620px only)
-   — desktop and tablet layouts are untouched above this query.
-   Fixes observed at 390/360: the data table, the plan-compare
-   table and the console tabs already scroll horizontally
-   (min-width forces it) but gave zero visual cue, so the extra
-   columns / "Audit log" tab were invisible unless a user
-   randomly swiped; filter chips, sort buttons, row actions,
-   the copy button and the on/off switches sat under the 44px
-   touch-target floor; and the connector-status row collided
-   its message text against its button into a jagged 4-line
-   wrap at narrow widths.
-   ========================================================== */
-@media (max-width: 620px) {
-  /* horizontally-scrollable wide components: add a trailing
-     edge fade so "there's more to the right" is visible instead
-     of a hard, silent clip. */
-  .table-scroll, .compare-wrap, .tabs {
-    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
-    mask-image: linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
-  }
-  /* #heroTableWrap already carries a vertical (bottom) fade for its
-     height clamp at this same ID specificity — combine both fades
-     here instead of letting the vertical one win outright. */
-  #heroTableWrap {
-    -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 30px), transparent 100%), linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
-    mask-image: linear-gradient(to bottom, #000 calc(100% - 30px), transparent 100%), linear-gradient(to right, #000 calc(100% - 28px), transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-composite: intersect;
-  }
-
-  /* touch targets: bring the small interactive controls up to a
-     real tap size without changing desktop density. Matched to
-     the base rules' selectors so the override actually wins. */
-  .chip, .copy-btn { min-height: 44px; }
-  table.data-table th button.sort-btn { min-height: 44px; }
-  .row-actions .mini-btn { min-height: 44px; }
-
-  /* toggle switches keep their compact visual size; extend the
-     invisible hit area instead so they still meet 44px. */
-  .switch::before { content: ""; position: absolute; inset: -9px -3px; }
-
-  /* connector status: message + button no longer compete for
-     the same line — button drops to its own full-width row. */
-  .connector-status { flex-wrap: wrap; row-gap: 8px; }
-  .connector-status .link-btn { flex: 1 1 100%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
-  .reveal { opacity: 1 !important; transform: none !important; }
-  .top-accent { background-position: 0 0; }
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SignalStack turns alerts, errors, and threshold breaches into one owned incident-triage queue for on-call teams.">
+  <meta name="theme-color" content="#0a0d12">
+  <title>SignalStack | Incident triage in one operating view</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%235d8cff'/%3E%3Cpath d='M10 35h10l5-16 12 29 7-20 5 7h5' fill='none' stroke='%23090d14' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
 </head>
 <body>
-<svg aria-hidden="true" style="position:absolute; width:0; height:0; overflow:hidden;">
-  <defs>
-    <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></symbol>
-    <symbol id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></symbol>
-    <symbol id="icon-chevron-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l7 8 7-8"/></symbol>
-    <symbol id="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.5-4.5"/></symbol>
-    <symbol id="icon-sort-arrow" viewBox="0 0 10 10" fill="currentColor"><path d="M5 0l5 6H0z"/></symbol>
-    <symbol id="icon-triage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h11M4 18h7"/></symbol>
-    <symbol id="icon-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l9 16H3z"/><path d="M12 10v4"/><circle cx="12" cy="17.3" r="0.6" fill="currentColor" stroke="none"/></symbol>
-    <symbol id="icon-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.4-3 7.4-7 9-4-1.6-7-4.6-7-9V6z"/></symbol>
-    <symbol id="icon-audit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h7M9 8h2"/></symbol>
-    <symbol id="icon-stream" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l2-6 4 12 3-9 2 3h4"/></symbol>
-    <symbol id="icon-server" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="4" width="17" height="6.5" rx="1.4"/><rect x="3.5" y="13.5" width="17" height="6.5" rx="1.4"/><circle cx="7" cy="7.25" r="0.7" fill="currentColor" stroke="none"/><circle cx="7" cy="16.75" r="0.7" fill="currentColor" stroke="none"/></symbol>
-    <symbol id="icon-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9" rx="1.6"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></symbol>
-    <symbol id="icon-key" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15.5" r="4"/><path d="M11 12.5L19.5 4M16.5 7L19 9.5M13.5 10L15.5 12"/></symbol>
-    <symbol id="icon-export" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7.5 10.5L12 15l4.5-4.5"/><path d="M4 16v3a1.6 1.6 0 0 0 1.6 1.6h12.8A1.6 1.6 0 0 0 20 19v-3"/></symbol>
-    <symbol id="icon-badge" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 2l2.4 2.1 3.1-.4.8 3 2.7 1.6-1 3 1 3-2.7 1.6-.8 3-3.1-.4L12 22l-2.4-2.1-3.1.4-.8-3-2.7-1.6 1-3-1-3 2.7-1.6.8-3 3.1.4z"/><path d="M9 12.3l2 2 4-4.3"/></symbol>
-    <symbol id="icon-check-circle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.3l2.6 2.6L16.5 9"/></symbol>
-    <symbol id="icon-alert-triangle" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l9.5 16H2.5z"/><path d="M12 10.5v4"/><circle cx="12" cy="17.6" r="0.6" fill="currentColor" stroke="none"/></symbol>
-    <symbol id="icon-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h4.2l1.5 3h4.6l1.5-3H20"/><path d="M6 5h12l2 7v6.4A1.6 1.6 0 0 1 18.4 20H5.6A1.6 1.6 0 0 1 4 18.4V12z"/></symbol>
-    <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5.5" width="17" height="13" rx="1.8"/><path d="M4.5 7l7.5 6 7.5-6"/></symbol>
-    <symbol id="icon-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16v10H10l-4.5 3.5V15.5H4z"/></symbol>
-    <symbol id="icon-node" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="6" cy="6" r="2.2"/><circle cx="18" cy="6" r="2.2"/><circle cx="12" cy="18" r="2.2"/><path d="M7.7 7.3L10.5 16M16.3 7.3L13.5 16M8.2 6h7.6"/></symbol>
-    <symbol id="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></symbol>
-  </defs>
-</svg>
+  <svg class="icon-sprite" aria-hidden="true">
+    <defs>
+      <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M2 12h4l3-8 6 16 3-8h4"/></symbol>
+      <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></symbol>
+      <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M4 4h16l2 12v4H2v-4L4 4Z"/><path d="M2 16h6l2 2h4l2-2h6"/></symbol>
+      <symbol id="i-rule" viewBox="0 0 24 24"><path d="M4 6h6M14 6h6M8 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0ZM4 18h10M18 18h2M18 18a2 2 0 1 0-4 0 2 2 0 0 0 4 0ZM4 12h2M10 12h10M10 12a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z"/></symbol>
+      <symbol id="i-audit" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6V3Z"/><path d="M14 3v5h5M9 12h7M9 16h7"/></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+      <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+      <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3 2.7 20h18.6L12 3Z"/><path d="M12 9v5M12 17h.01"/></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5 21v-2a7 7 0 0 1 14 0v2"/></symbol>
+      <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6"/><rect x="3" y="14" width="18" height="6"/><path d="M7 7h.01M7 17h.01"/></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v5c0 5 3.4 8.8 8 10 4.6-1.2 8-5 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></symbol>
+      <symbol id="i-webhook" viewBox="0 0 24 24"><path d="M7 7a5 5 0 0 1 9.5 2M17 17a5 5 0 0 1-9.5-2M7 17H3l2-3M17 7h4l-2 3"/></symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    </defs>
+  </svg>
 
-<a class="skip-link" href="#main">Skip to content</a>
-<noscript><span class="noscript-banner">This page reads content and pricing without JavaScript, but the live console, forms, and filters need it enabled to do anything.</span></noscript>
-<div class="page-shell">
-  <div class="top-accent" aria-hidden="true"></div>
-  <header class="site-header" id="siteHeader">
-    <nav class="nav" aria-label="Primary navigation">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="SignalStack home">
-        <span class="brand-mark" aria-hidden="true">
-          <svg class="icon" viewBox="0 0 24 24"><use href="#icon-stream"></use></svg>
-          <span class="brand-live"></span>
-        </span>
-        <span class="brand-word">SignalStack</span>
+        <span class="brand-mark" aria-hidden="true"><svg><use href="#i-pulse"></use></svg></span>
+        <span>SignalStack</span>
+        <span class="brand-context">Incident operations</span>
       </a>
-      <div class="nav-links" aria-label="Page sections" id="navLinks">
-        <a href="#product">Product</a>
+
+      <div class="desktop-nav">
         <a href="#workflow">Workflow</a>
-        <a href="#live-console">Live console</a>
-        <a href="#integrations">Integrations</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
+        <a href="#console">Console</a>
+        <a href="#access">Access</a>
+        <a href="#deployment">Deployment</a>
       </div>
+
       <div class="nav-actions">
-        <a class="ghost-link" href="#signin">Sign in</a>
-        <a class="primary-link" href="#demo">Request demo</a>
-        <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMobilePanel" aria-label="Open menu">
-          <svg class="icon icon-menu" aria-hidden="true"><use href="#icon-menu"></use></svg>
-          <svg class="icon icon-close" aria-hidden="true"><use href="#icon-close"></use></svg>
-        </button>
-      </div>
-      <div class="nav-mobile-panel" id="navMobilePanel">
-        <a href="#product">Product</a>
-        <a href="#workflow">Workflow</a>
-        <a href="#live-console">Live console</a>
-        <a href="#integrations">Integrations</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-        <div class="nav-mobile-actions">
-          <a class="secondary-link block" href="#signin">Sign in</a>
-          <a class="primary-link block" href="#demo">Request demo</a>
-        </div>
+        <a class="button button-secondary nav-secondary" href="#console">View console</a>
+        <a class="button button-primary" href="#demo">Request demo</a>
+        <details class="mobile-menu">
+          <summary aria-label="Open navigation"><svg><use href="#i-menu"></use></svg></summary>
+          <div class="mobile-menu-panel">
+            <a href="#workflow">Workflow</a>
+            <a href="#console">Console</a>
+            <a href="#access">Access</a>
+            <a href="#deployment">Deployment</a>
+            <a class="button button-primary" href="#demo">Request demo</a>
+          </div>
+        </details>
       </div>
     </nav>
   </header>
-  <div class="nav-scrim" id="navScrim"></div>
 
   <main id="main">
-    <section class="hero section" id="top" aria-labelledby="hero-title">
-      <div class="hero-inner">
-        <div class="hero-copy">
-          <span class="hero-kicker"><span class="kicker-dot" aria-hidden="true"></span>Operational signal platform</span>
-          <h1 id="hero-title">See every signal before it becomes an incident.</h1>
-          <p class="hero-lede">
-            SignalStack pulls the alerts, errors, and threshold breaches scattered across your stack into
-            <strong>one triage queue</strong> — so your team works from a single, sortable view instead of
-            six dashboards and a Slack channel.
-          </p>
-          <div class="hero-actions" aria-label="Primary calls to action">
-            <a class="primary-link" href="#demo">Request a demo</a>
-            <a class="secondary-link" href="#workflow">See the workflow</a>
-          </div>
-          <p class="hero-note">No card required for the guided walkthrough. Bring one real workflow and we'll map it live.</p>
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-intro">
+        <div>
+          <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> Operational analytics for on-call teams</p>
+          <h1 id="hero-title">Turn scattered alerts into an owned incident queue.</h1>
         </div>
+        <div class="hero-summary">
+          <p>SignalStack brings errors, threshold breaches, and operational events into one sortable view. Teams can see risk, assign ownership, and preserve the full action trail without switching dashboards.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#demo">Request a demo <svg><use href="#i-arrow"></use></svg></a>
+            <a class="text-link" href="#workflow">Follow the workflow <svg><use href="#i-arrow"></use></svg></a>
+          </div>
+        </div>
+      </div>
 
-        <figure class="hero-visual" aria-label="Reference console, interactive">
-          <div class="console">
-            <div class="console-bar" aria-hidden="true">
-              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-              <span class="console-path">app.signalstack.example / queues / incident-triage</span>
-              <span class="console-bar-tags">
-                <span class="console-sample-tag"><span class="tag-word">Sample</span> workspace</span>
-                <span class="console-live"><span class="live-dot"></span>Live</span>
-              </span>
+      <div class="operations-frame" aria-label="Interactive sample SignalStack incident workspace">
+        <aside class="app-rail" aria-label="Workspace sections">
+          <a class="rail-brand" href="#top" aria-label="SignalStack overview"><svg><use href="#i-pulse"></use></svg></a>
+          <a class="rail-item is-active" href="#console" aria-label="Triage queue"><svg><use href="#i-inbox"></use></svg><span>Triage</span></a>
+          <a class="rail-item" href="#access" aria-label="Alert rules"><svg><use href="#i-rule"></use></svg><span>Rules</span></a>
+          <a class="rail-item" href="#deployment" aria-label="Audit log"><svg><use href="#i-audit"></use></svg><span>Audit</span></a>
+        </aside>
+
+        <div class="workspace">
+          <div class="workspace-topbar">
+            <div>
+              <span class="workspace-label">Incident triage</span>
+              <strong>Production operations</strong>
             </div>
-            <div class="console-body">
-              <div class="console-kpis">
-                <div class="kpi-slot"><span class="kpi-label">Open queues</span><span class="kpi-value">[ACTIVE_QUEUES]</span><span class="kpi-caption">from your workspace</span></div>
-                <div class="kpi-slot"><span class="kpi-label">P95 ack time</span><span class="kpi-value">[P95_ACK]</span><span class="kpi-caption">from your workspace</span></div>
-                <div class="kpi-slot is-ok"><span class="kpi-label">SLA on track</span><span class="kpi-value">[SLA_ON_TRACK]</span><span class="kpi-caption">from your workspace</span></div>
-              </div>
+            <div class="workspace-status"><span class="live-dot" aria-hidden="true"></span> Sample workspace</div>
+          </div>
 
-              <div class="console-toolbar">
-                <div class="chip-group" role="group" aria-label="Filter hero queue by status" id="heroFilterGroup">
-                  <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
-                  <button class="chip" type="button" data-filter="risk" aria-pressed="false">At risk</button>
-                  <button class="chip" type="button" data-filter="warn" aria-pressed="false">Review</button>
-                  <button class="chip" type="button" data-filter="ok" aria-pressed="false">On track</button>
-                </div>
-                <span class="result-count" id="heroResultCount" aria-live="polite">6 of 6 signals</span>
-              </div>
+          <div class="status-strip" aria-label="Queue status summary">
+            <div><span class="status-marker status-risk"></span><span>At risk</span><strong>Needs owner</strong></div>
+            <div><span class="status-marker status-review"></span><span>Review</span><strong>Threshold crossed</strong></div>
+            <div><span class="status-marker status-track"></span><span>On track</span><strong>Within bounds</strong></div>
+            <div><span class="status-marker status-muted"></span><span>Snoozed</span><strong>Returns on schedule</strong></div>
+          </div>
 
-              <div class="table-scroll" id="heroTableWrap">
-                <div class="skeleton-rows" id="heroSkeleton" aria-hidden="true">
-                  <div class="skeleton-row"></div><div class="skeleton-row"></div><div class="skeleton-row"></div><div class="skeleton-row"></div>
-                </div>
-                <table class="data-table" id="heroTable" hidden aria-describedby="board-cap">
-                  <caption class="visually-hidden">Reference triage queue — demo data, not connected to a live source</caption>
-                  <thead>
-                    <tr>
-                      <th aria-sort="none"><button class="sort-btn" type="button" data-sort-key="signal">Signal <svg class="icon sort-arrow" aria-hidden="true"><use href="#icon-sort-arrow"></use></svg></button></th>
-                      <th aria-sort="none"><button class="sort-btn" type="button" data-sort-key="owner">Owner <svg class="icon sort-arrow" aria-hidden="true"><use href="#icon-sort-arrow"></use></svg></button></th>
-                      <th aria-sort="none"><button class="sort-btn" type="button" data-sort-key="updated">Updated <svg class="icon sort-arrow" aria-hidden="true"><use href="#icon-sort-arrow"></use></svg></button></th>
-                      <th aria-sort="none"><button class="sort-btn" type="button" data-sort-key="status">Status <svg class="icon sort-arrow" aria-hidden="true"><use href="#icon-sort-arrow"></use></svg></button></th>
-                    </tr>
-                  </thead>
-                  <tbody id="heroQueueBody">
-                    <tr data-status="risk" data-updated="2">
-                      <td><span class="cell-primary">Checkout API error rate above threshold</span><span class="cell-sub">checkout-service</span></td>
-                      <td><span class="cell-owner"><span class="owner-dot">PN</span><span class="owner-name">Priya N.</span></span></td>
-                      <td class="cell-time">2m ago</td>
-                      <td><span class="status-chip is-risk">At risk</span></td>
-                    </tr>
-                    <tr data-status="warn" data-updated="6">
-                      <td><span class="cell-primary">Webhook delivery latency climbing</span><span class="cell-sub">payments-eu</span></td>
-                      <td><span class="cell-owner"><span class="owner-dot">MT</span><span class="owner-name">Marcus T.</span></span></td>
-                      <td class="cell-time">6m ago</td>
-                      <td><span class="status-chip is-warn">Review</span></td>
-                    </tr>
-                    <tr data-status="ok" data-updated="14">
-                      <td><span class="cell-primary">Read replica lag within bounds</span><span class="cell-sub">reporting-db</span></td>
-                      <td><span class="cell-owner"><span class="owner-dot">DK</span><span class="owner-name">Dana K.</span></span></td>
-                      <td class="cell-time">14m ago</td>
-                      <td><span class="status-chip is-ok">On track</span></td>
-                    </tr>
-                    <tr data-status="warn" data-updated="22">
-                      <td><span class="cell-primary">Auth token refresh failures</span><span class="cell-sub">mobile client</span></td>
-                      <td><span class="cell-owner"><span class="owner-dot">IR</span><span class="owner-name">Ilyas R.</span></span></td>
-                      <td class="cell-time">22m ago</td>
-                      <td><span class="status-chip is-warn">Review</span></td>
-                    </tr>
-                    <tr data-status="ok" data-updated="41">
-                      <td><span class="cell-primary">Queue depth stable</span><span class="cell-sub">order-fulfillment</span></td>
-                      <td><span class="cell-owner"><span class="owner-dot">WO</span><span class="owner-name">Wren O.</span></span></td>
-                      <td class="cell-time">41m ago</td>
-                      <td><span class="status-chip is-ok">On track</span></td>
-                    </tr>
-                    <tr data-status="risk" data-updated="53">
-                      <td><span class="cell-primary">Session cookie renewal errors climbing</span><span class="cell-sub">auth-gateway</span></td>
-                      <td><span class="cell-owner"><span class="owner-dot">CD</span><span class="owner-name">Callum D.</span></span></td>
-                      <td class="cell-time">53m ago</td>
-                      <td><span class="status-chip is-risk">At risk</span></td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
+          <div class="queue-toolbar">
+            <label class="search-control">
+              <span class="visually-hidden">Search the sample queue</span>
+              <svg aria-hidden="true"><use href="#i-search"></use></svg>
+              <input id="queueSearch" type="search" placeholder="Search signal or source" autocomplete="off">
+            </label>
+            <div class="filter-group" aria-label="Filter sample queue">
+              <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+              <button class="filter-button" type="button" data-filter="risk" aria-pressed="false">At risk</button>
+              <button class="filter-button" type="button" data-filter="review" aria-pressed="false">Review</button>
+              <button class="filter-button" type="button" data-filter="track" aria-pressed="false">On track</button>
+            </div>
+          </div>
 
-              <div class="console-sparkline">
-                <p>Signal volume / 24h — placeholder trend, not live data</p>
-                <svg viewBox="0 0 660 110" preserveAspectRatio="none" role="img" aria-label="Line chart showing a placeholder signal-volume trend over 24 hours">
-                  <polyline points="0,86 60,78 120,82 180,58 240,68 300,36 360,50 420,24 480,42 540,18 600,30 660,14" fill="none" stroke="#5b8cff" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
-                  <polyline points="0,96 60,92 120,94 180,80 240,86 300,66 360,74 420,54 480,66 540,48 600,58 660,44" fill="none" stroke="#3fb27f" stroke-width="2" stroke-opacity="0.55" stroke-linejoin="round" stroke-linecap="round"/>
-                </svg>
+          <div class="queue-table" role="table" aria-label="Sample incident triage queue">
+            <div class="queue-head" role="row">
+              <span role="columnheader">Signal</span>
+              <span role="columnheader">Owner</span>
+              <span role="columnheader">Updated</span>
+              <span role="columnheader">Status</span>
+              <span role="columnheader">Action</span>
+            </div>
+            <div class="queue-body" id="queueBody" role="rowgroup">
+              <div class="queue-row is-selected" role="row" data-status="risk" data-signal="Checkout API error rate above threshold" data-source="checkout-service" data-owner="Payments on-call" data-state="At risk" data-summary="Error-rate threshold crossed across the checkout service. Ownership is open and the escalation path is ready.">
+                <button class="signal-cell" type="button" role="cell" aria-pressed="true">
+                  <span class="severity severity-high">High</span>
+                  <span><strong>Checkout API error rate above threshold</strong><small>checkout-service</small></span>
+                </button>
+                <span role="cell">Payments on-call</span>
+                <span role="cell">2m ago</span>
+                <span role="cell"><span class="status status-risk">At risk</span></span>
+                <span role="cell"><button class="row-action" type="button" data-action="claim">Claim</button></span>
+              </div>
+              <div class="queue-row" role="row" data-status="review" data-signal="Webhook delivery latency climbing" data-source="payments-eu" data-owner="Platform rotation" data-state="Review" data-summary="Delivery latency is moving beyond its normal band. The source remains connected while the assigned team reviews the trend.">
+                <button class="signal-cell" type="button" role="cell" aria-pressed="false">
+                  <span class="severity severity-medium">Med</span>
+                  <span><strong>Webhook delivery latency climbing</strong><small>payments-eu</small></span>
+                </button>
+                <span role="cell">Platform rotation</span>
+                <span role="cell">6m ago</span>
+                <span role="cell"><span class="status status-review">Review</span></span>
+                <span role="cell"><button class="row-action" type="button" data-action="snooze">Snooze</button></span>
+              </div>
+              <div class="queue-row" role="row" data-status="track" data-signal="Read replica lag within bounds" data-source="reporting-db" data-owner="Data operations" data-state="On track" data-summary="Replica lag is inside the configured operating band. The row remains visible so the team can confirm recovery without opening another dashboard.">
+                <button class="signal-cell" type="button" role="cell" aria-pressed="false">
+                  <span class="severity severity-low">Low</span>
+                  <span><strong>Read replica lag within bounds</strong><small>reporting-db</small></span>
+                </button>
+                <span role="cell">Data operations</span>
+                <span role="cell">14m ago</span>
+                <span role="cell"><span class="status status-track">On track</span></span>
+                <span role="cell"><button class="row-action" type="button" data-action="open">Open</button></span>
+              </div>
+              <div class="queue-row" role="row" data-status="review" data-signal="Auth token refresh failures" data-source="mobile-client" data-owner="Identity on-call" data-state="Review" data-summary="Refresh failures crossed the review threshold. SignalStack keeps the source, owner, rule, and recent actions together.">
+                <button class="signal-cell" type="button" role="cell" aria-pressed="false">
+                  <span class="severity severity-medium">Med</span>
+                  <span><strong>Auth token refresh failures</strong><small>mobile-client</small></span>
+                </button>
+                <span role="cell">Identity on-call</span>
+                <span role="cell">22m ago</span>
+                <span role="cell"><span class="status status-review">Review</span></span>
+                <span role="cell"><button class="row-action" type="button" data-action="reassign">Reassign</button></span>
               </div>
             </div>
           </div>
-          <figcaption id="board-cap" class="visual-cap">Reference console — all figures are placeholders, not live data.</figcaption>
-        </figure>
-      </div>
-    </section>
+          <p class="queue-feedback" id="queueFeedback" aria-live="polite">Showing the sample queue.</p>
+        </div>
 
-    <section class="mechanism-section section" aria-label="What SignalStack actually does">
-      <div class="section-inner">
-        <p class="hero-mechanism-label">What SignalStack actually does</p>
-        <div class="mechanism-row">
-          <div class="mechanism-step">
-            <span class="mechanism-icon" aria-hidden="true"><svg class="icon"><use href="#icon-stream"></use></svg></span>
-            <svg class="mechanism-arrow icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
-            <span class="mech-no">01 · Ingest</span>
-            <strong>Every event stream, one intake</strong>
-            <span>Webhooks, log drains, and polling jobs land in the same place.</span>
+        <aside class="incident-detail" aria-labelledby="detailTitle">
+          <div class="detail-top">
+            <p class="panel-label">Selected signal</p>
+            <span class="status status-risk" id="detailStatus">At risk</span>
           </div>
-          <div class="mechanism-step">
-            <span class="mechanism-icon" aria-hidden="true"><svg class="icon"><use href="#icon-node"></use></svg></span>
-            <svg class="mechanism-arrow icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
-            <span class="mech-no">02 · Correlate</span>
-            <strong>Thresholds catch it early</strong>
-            <span>Plain-language rules route each signal to the right owner.</span>
+          <h2 id="detailTitle">Checkout API error rate above threshold</h2>
+          <p id="detailSummary">Error-rate threshold crossed across the checkout service. Ownership is open and the escalation path is ready.</p>
+          <dl class="detail-list">
+            <div><dt>Source</dt><dd id="detailSource">checkout-service</dd></div>
+            <div><dt>Owner</dt><dd id="detailOwner">Payments on-call</dd></div>
+            <div><dt>Rule</dt><dd>Error rate exceeds configured threshold</dd></div>
+          </dl>
+          <div class="timeline" aria-label="Sample incident timeline">
+            <div><span></span><p><strong>Signal opened</strong><small>Threshold condition matched</small></p></div>
+            <div><span></span><p><strong>Route evaluated</strong><small>Escalation path ready</small></p></div>
+            <div><span></span><p><strong>Waiting for owner</strong><small>Action remains auditable</small></p></div>
           </div>
-          <div class="mechanism-step">
-            <span class="mechanism-icon" aria-hidden="true"><svg class="icon"><use href="#icon-triage"></use></svg></span>
-            <svg class="mechanism-arrow icon" aria-hidden="true"><use href="#icon-arrow-right"></use></svg>
-            <span class="mech-no">03 · Triage</span>
-            <strong>One queue, owned and sorted</strong>
-            <span>Claim, snooze, or reassign without leaving the table.</span>
+          <div class="detail-actions">
+            <button class="button button-primary" type="button" data-detail-action="claim">Claim signal</button>
+            <button class="button button-secondary" type="button" data-detail-action="snooze">Snooze</button>
           </div>
-          <div class="mechanism-step">
-            <span class="mechanism-icon" aria-hidden="true"><svg class="icon"><use href="#icon-check-circle"></use></svg></span>
-            <span class="mech-no">04 · Resolve</span>
-            <strong>Closed with a full audit trail</strong>
-            <span>Every action is a timestamped, exportable row.</span>
-          </div>
-        </div>
+          <p class="detail-feedback" id="detailFeedback" aria-live="polite"></p>
+        </aside>
       </div>
-    </section>
 
-    <section class="signal-strip" aria-label="Capability signals">
-      <div class="signal-inner">
-        <div class="signal-item">
-          <span class="icon-wrap" aria-hidden="true"><svg class="icon"><use href="#icon-stream"></use></svg></span>
-          <div><strong>Stream-native</strong><span>Ingest events from your existing services — no rip-and-replace.</span></div>
-        </div>
-        <div class="signal-item">
-          <span class="icon-wrap" aria-hidden="true"><svg class="icon"><use href="#icon-shield"></use></svg></span>
-          <div><strong>Read-only by default</strong><span>Scoped, role-based access with a full audit trail on every action.</span></div>
-        </div>
-        <div class="signal-item">
-          <span class="icon-wrap" aria-hidden="true"><svg class="icon"><use href="#icon-server"></use></svg></span>
-          <div><strong>Self-host or cloud</strong><span>Run it in your VPC or ours; the data model is identical.</span></div>
-        </div>
-        <div class="signal-item">
-          <span class="icon-wrap" aria-hidden="true"><svg class="icon"><use href="#icon-check-circle"></use></svg></span>
-          <div><strong>No vanity metrics</strong><span>Every number traces to an event you can open and verify.</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="product" aria-labelledby="product-title">
-      <div class="section-inner">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Product</p>
-          <h2 id="product-title">A single operating view, built for density.</h2>
-          <p>Four capabilities that keep a busy on-call team oriented without a wall of dashboards to babysit.</p>
-        </div>
-        <div class="feature-grid">
-          <article class="feature-card reveal">
-            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#icon-triage"></use></svg></span>
-            <h3>Live triage queues</h3>
-            <p>Sortable, filterable work queues that update in place. Claim, snooze, and reassign without leaving the table.</p>
-            <p class="feature-proof">Proof: every <strong>claim / snooze / reassign</strong> writes one audit-log row.</p>
-          </article>
-          <article class="feature-card reveal">
-            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#icon-alert"></use></svg></span>
-            <h3>Threshold alerting</h3>
-            <p>Set conditions in plain language. Route to the right owner with escalation paths and quiet hours.</p>
-            <p class="feature-proof">Proof: every rule shows its <strong>condition, route, and escalation window</strong>.</p>
-          </article>
-          <article class="feature-card reveal">
-            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#icon-shield"></use></svg></span>
-            <h3>Role-based views</h3>
-            <p>Operators, leads, and auditors each see a scoped surface. Permissions are explicit and reviewable.</p>
-            <p class="feature-proof">Proof: permission scopes are <strong>listed, never inferred</strong>.</p>
-          </article>
-          <article class="feature-card reveal">
-            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#icon-audit"></use></svg></span>
-            <h3>Immutable audit trail</h3>
-            <p>Every status change, comment, and override is recorded with actor and time. Export it whenever you need it.</p>
-            <p class="feature-proof">Proof: exports are <strong>plain CSV</strong>, generated on demand, no lock-in.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="roles" aria-labelledby="roles-title">
-      <div class="section-inner">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Role-based views</p>
-          <h2 id="roles-title">Three roles, three scoped surfaces.</h2>
-          <p>Permissions are a short, readable list per role — not an inherited pile of flags nobody can reconstruct later.</p>
-        </div>
-        <div class="role-grid">
-          <article class="role-card reveal">
-            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#icon-triage"></use></svg></span>
-            <h3>Operator</h3>
-            <p>Works the queue day to day — claims, resolves, and hands off signals as they come in.</p>
-            <ul class="perm-list">
-              <li class="can"><svg aria-hidden="true"><use href="#icon-check-circle"></use></svg>Claim, snooze, and comment on signals in their team's queues</li>
-              <li class="can"><svg aria-hidden="true"><use href="#icon-check-circle"></use></svg>Reassign within their team's roster</li>
-              <li class="cannot"><svg aria-hidden="true"><use href="#icon-close"></use></svg>Cannot edit alert rules or thresholds</li>
-              <li class="cannot"><svg aria-hidden="true"><use href="#icon-close"></use></svg>Cannot see queues outside assigned teams</li>
-            </ul>
-          </article>
-          <article class="role-card reveal">
-            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#icon-alert"></use></svg></span>
-            <h3>Lead</h3>
-            <p>Owns the rules and the escalation path — sets the conditions operators work against.</p>
-            <ul class="perm-list">
-              <li class="can"><svg aria-hidden="true"><use href="#icon-check-circle"></use></svg>Everything an operator can, across every team</li>
-              <li class="can"><svg aria-hidden="true"><use href="#icon-check-circle"></use></svg>Create, edit, and disable alert rules</li>
-              <li class="cannot"><svg aria-hidden="true"><use href="#icon-close"></use></svg>Cannot change billing or workspace-level SSO</li>
-            </ul>
-          </article>
-          <article class="role-card reveal">
-            <span class="feature-icon" aria-hidden="true"><svg class="icon"><use href="#icon-audit"></use></svg></span>
-            <h3>Auditor</h3>
-            <p>Reads everything, changes nothing — the role that makes the audit trail worth having.</p>
-            <ul class="perm-list">
-              <li class="can"><svg aria-hidden="true"><use href="#icon-check-circle"></use></svg>View every queue and rule, across every team</li>
-              <li class="can"><svg aria-hidden="true"><use href="#icon-check-circle"></use></svg>Search and export the full audit trail</li>
-              <li class="cannot"><svg aria-hidden="true"><use href="#icon-close"></use></svg>Cannot claim, snooze, reassign, or edit a rule</li>
-            </ul>
-          </article>
-        </div>
+      <div class="operating-rail" aria-label="Product operating principles">
+        <span><svg><use href="#i-webhook"></use></svg>Webhooks, log drains, polling</span>
+        <span><svg><use href="#i-shield"></use></svg>Read-only by default</span>
+        <span><svg><use href="#i-audit"></use></svg>Every action recorded</span>
+        <span><svg><use href="#i-server"></use></svg>Cloud or self-hosted</span>
       </div>
     </section>
 
     <section class="workflow-section section" id="workflow" aria-labelledby="workflow-title">
-      <div class="section-inner workflow-layout">
-        <div class="workflow-copy reveal">
-          <p class="eyebrow">Workflow</p>
-          <h2 id="workflow-title">From raw stream to resolved, on one screen.</h2>
-          <p>The path is deliberately short: connect a source, shape it into a queue, and hand the team a view they can act on.</p>
-        </div>
-        <ol class="workflow-steps">
-          <li class="reveal">
-            <span class="step-no" aria-hidden="true">01</span>
-            <div>
-              <strong>Connect</strong>
-              <p>Point a source at SignalStack — webhook, log drain, or polling job. Events land in seconds.</p>
-              <span class="step-meta">webhook · log drain · polling</span>
-            </div>
-          </li>
-          <li class="reveal">
-            <span class="step-no" aria-hidden="true">02</span>
-            <div>
-              <strong>Shape</strong>
-              <p>Map fields to a queue, set status states, and define the thresholds that matter to you.</p>
-              <span class="step-meta">fields → queue → thresholds</span>
-            </div>
-          </li>
-          <li class="reveal">
-            <span class="step-no" aria-hidden="true">03</span>
-            <div>
-              <strong>Operate</strong>
-              <p>The team works the queue. Alerts fire, ownership is clear, and the audit trail writes itself.</p>
-              <span class="step-meta">claim · snooze · escalate</span>
-            </div>
-          </li>
-          <li class="reveal">
-            <span class="step-no" aria-hidden="true">04</span>
-            <div>
-              <strong>Review</strong>
-              <p>Leads tune thresholds against what the audit trail actually showed. Auditors confirm nothing slipped through unlogged.</p>
-              <span class="step-meta">audit trail → rule tuning</span>
-            </div>
-          </li>
-        </ol>
+      <div class="section-heading">
+        <p class="eyebrow">A short path from signal to resolution</p>
+        <h2 id="workflow-title">The workflow stays legible under pressure.</h2>
+        <p>SignalStack keeps intake, routing, ownership, and review in one operational sequence. Each step leaves a visible record for the next person in the loop.</p>
+      </div>
+      <ol class="workflow-grid">
+        <li>
+          <span class="step-number">01</span>
+          <svg aria-hidden="true"><use href="#i-webhook"></use></svg>
+          <h3>Ingest</h3>
+          <p>Bring in webhooks, log drains, and polling jobs without replacing the systems that already emit the events.</p>
+        </li>
+        <li>
+          <span class="step-number">02</span>
+          <svg aria-hidden="true"><use href="#i-rule"></use></svg>
+          <h3>Correlate</h3>
+          <p>Shape incoming events into queues and evaluate the rules that determine status, owner, and escalation path.</p>
+        </li>
+        <li>
+          <span class="step-number">03</span>
+          <svg aria-hidden="true"><use href="#i-inbox"></use></svg>
+          <h3>Triage</h3>
+          <p>Claim, snooze, or reassign a signal from the same table where the team sees source context and current state.</p>
+        </li>
+        <li>
+          <span class="step-number">04</span>
+          <svg aria-hidden="true"><use href="#i-audit"></use></svg>
+          <h3>Review</h3>
+          <p>Export the action trail, inspect the handoff, and tune the rule against what actually happened.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="console-section section" id="console" aria-labelledby="console-title">
+      <div class="section-heading">
+        <p class="eyebrow">One operating surface</p>
+        <h2 id="console-title">The queue is the product, not a decorative screenshot.</h2>
+        <p>Each layer answers a different incident question while preserving the same source of truth.</p>
+      </div>
+      <div class="console-layers">
+        <article class="layer layer-primary">
+          <div class="layer-index">01 / Queue</div>
+          <div>
+            <h3>What needs attention now?</h3>
+            <p>A dense, sortable queue keeps source, owner, age, state, and next action aligned row by row.</p>
+          </div>
+          <div class="mini-queue" aria-hidden="true">
+            <span><i class="status-marker status-risk"></i><b>Checkout API error rate</b><em>Needs owner</em></span>
+            <span><i class="status-marker status-review"></i><b>Webhook latency</b><em>Review</em></span>
+            <span><i class="status-marker status-track"></i><b>Replica lag</b><em>Within bounds</em></span>
+          </div>
+        </article>
+        <article class="layer">
+          <div class="layer-index">02 / Context</div>
+          <div>
+            <h3>What changed, and who owns it?</h3>
+            <p>The selected-signal panel holds the rule, source, current owner, and recent event sequence beside the queue.</p>
+          </div>
+          <div class="context-map" aria-hidden="true">
+            <span>Source</span><i></i><span>Rule</span><i></i><span>Owner</span><i></i><span>Action</span>
+          </div>
+        </article>
+        <article class="layer">
+          <div class="layer-index">03 / Audit</div>
+          <div>
+            <h3>Can the handoff be reconstructed?</h3>
+            <p>Claims, snoozes, reassignments, comments, and overrides remain attached to actor and time.</p>
+          </div>
+          <pre class="audit-sample" aria-label="Sample audit-log shape"><code>actor:  current operator
+action: claimed
+target: selected signal
+time:   recorded at action</code></pre>
+        </article>
       </div>
     </section>
 
-    <section class="section" id="live-console" aria-labelledby="live-console-title">
-      <div class="section-inner">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Live console</p>
-          <h2 id="live-console-title">The actual product surface, not a screenshot of it.</h2>
-          <p>Three real views into the same console your team would run. Search, sort, claim a signal, flip a rule, export the log — everything here does what it says.</p>
-          <p class="kbd-legend"><kbd>/</kbd> jumps to search · <kbd>Esc</kbd> clears it · click any column header to sort</p>
+    <section class="access-section section" id="access" aria-labelledby="access-title">
+      <div class="access-layout">
+        <div class="section-heading">
+          <p class="eyebrow">Scoped access</p>
+          <h2 id="access-title">Every role gets a deliberate operating boundary.</h2>
+          <p>Permissions stay readable and reviewable. Operators work the queue, leads shape the rules, and auditors inspect the record without changing it.</p>
         </div>
 
-        <div class="console-shell reveal">
-          <div class="tabs" role="tablist" aria-label="Console views" id="consoleTabs">
-            <button class="tab" role="tab" type="button" id="tab-triage" aria-selected="true" aria-controls="panel-triage">
-              <svg class="icon" aria-hidden="true"><use href="#icon-triage"></use></svg>Triage queue <span class="tab-count" id="triageTabCount">10</span>
-            </button>
-            <button class="tab" role="tab" type="button" id="tab-rules" aria-selected="false" aria-controls="panel-rules" tabindex="-1">
-              <svg class="icon" aria-hidden="true"><use href="#icon-alert"></use></svg>Alert rules <span class="tab-count" id="rulesTabCount">8</span>
-            </button>
-            <button class="tab" role="tab" type="button" id="tab-audit" aria-selected="false" aria-controls="panel-audit" tabindex="-1">
-              <svg class="icon" aria-hidden="true"><use href="#icon-audit"></use></svg>Audit log <span class="tab-count" id="auditTabCount">10</span>
-            </button>
+        <div class="role-console">
+          <div class="role-tabs" role="tablist" aria-label="Role permission views">
+            <button type="button" role="tab" id="role-operator" aria-selected="true" aria-controls="panel-operator">Operator</button>
+            <button type="button" role="tab" id="role-lead" aria-selected="false" aria-controls="panel-lead" tabindex="-1">Lead</button>
+            <button type="button" role="tab" id="role-auditor" aria-selected="false" aria-controls="panel-auditor" tabindex="-1">Auditor</button>
           </div>
-
-          <div class="tab-panel" id="panel-triage" role="tabpanel" aria-labelledby="tab-triage" tabindex="0">
-            <div class="panel-toolbar">
-              <div class="search-field">
-                <svg class="icon" aria-hidden="true"><use href="#icon-search"></use></svg>
-                <label class="visually-hidden" for="triageSearch">Search the triage queue</label>
-                <input type="search" id="triageSearch" placeholder="Search signal or owner…" autocomplete="off">
-                <kbd class="kbd-hint" aria-hidden="true">/</kbd>
-              </div>
-              <div class="chip-group" role="group" aria-label="Filter triage queue by status" id="triageFilterGroup">
-                <button class="chip" type="button" data-filter="all" aria-pressed="true">All</button>
-                <button class="chip" type="button" data-filter="risk" aria-pressed="false">At risk</button>
-                <button class="chip" type="button" data-filter="warn" aria-pressed="false">Review</button>
-                <button class="chip" type="button" data-filter="ok" aria-pressed="false">On track</button>
-                <button class="chip" type="button" data-filter="neutral" aria-pressed="false">Snoozed</button>
-              </div>
-              <span class="result-count" id="triageResultCount" aria-live="polite">10 of 10 signals</span>
-            </div>
-
-            <div class="connector-status" id="connectorStatus">
-              <span class="dot" aria-hidden="true"></span>
-              <span class="msg" id="connectorMsg">Connector healthy — last event 38s ago.</span>
-              <button class="link-btn" type="button" id="connectorDropBtn">Simulate connector drop</button>
-              <button class="link-btn" type="button" id="connectorRetryBtn" hidden>Retry connection</button>
-            </div>
-
-            <div class="error-state" id="triageErrorState" role="alert">
-              <svg class="icon" aria-hidden="true"><use href="#icon-alert-triangle"></use></svg>
-              <strong>Source connection lost.</strong>
-              <p>SignalStack lost its connection to the ingest source for this queue. Existing rows are cached below; new events are paused until reconnected.</p>
-            </div>
-
-            <div class="table-scroll">
-              <table class="data-table" id="triageTable">
-                <caption class="visually-hidden">Full triage queue — demo data, not connected to a live source</caption>
-                <thead>
-                  <tr>
-                    <th aria-sort="none"><button class="sort-btn" type="button" data-sort-key="signal">Signal <svg class="icon sort-arrow" aria-hidden="true"><use href="#icon-sort-arrow"></use></svg></button></th>
-                    <th aria-sort="none"><button class="sort-btn" type="button" data-sort-key="owner">Owner <svg class="icon sort-arrow" aria-hidden="true"><use href="#icon-sort-arrow"></use></svg></button></th>
-                    <th aria-sort="none"><button class="sort-btn" type="button" data-sort-key="updated">Updated <svg class="icon sort-arrow" aria-hidden="true"><use href="#icon-sort-arrow"></use></svg></button></th>
-                    <th aria-sort="none"><button class="sort-btn" type="button" data-sort-key="status">Status <svg class="icon sort-arrow" aria-hidden="true"><use href="#icon-sort-arrow"></use></svg></button></th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody id="triageBody">
-                  <tr data-status="risk" data-updated="1">
-                    <td><span class="cell-primary">TLS certificate expiring in 3 days</span><span class="cell-sub">edge-gateway <span class="cell-sev">Sev1</span></span></td>
-                    <td><span class="cell-owner"><span class="owner-dot">SB</span><span class="owner-name">Sofia B.</span></span></td>
-                    <td class="cell-time">1m ago</td>
-                    <td><span class="status-chip is-risk">At risk</span></td>
-                    <td><div class="row-actions"><button class="mini-btn" type="button" data-action="claim">Claim</button><button class="mini-btn" type="button" data-action="snooze">Snooze</button><button class="mini-btn" type="button" data-action="reassign">Reassign</button></div></td>
-                  </tr>
-                  <tr data-status="warn" data-updated="5">
-                    <td><span class="cell-primary">Rate limit breaches climbing</span><span class="cell-sub">public-api-v2 <span class="cell-sev">Sev2</span></span></td>
-                    <td><span class="cell-owner"><span class="owner-dot">CD</span><span class="owner-name">Callum D.</span></span></td>
-                    <td class="cell-time">5m ago</td>
-                    <td><span class="status-chip is-warn">Review</span></td>
-                    <td><div class="row-actions"><button class="mini-btn" type="button" data-action="claim">Claim</button><button class="mini-btn" type="button" data-action="snooze">Snooze</button><button class="mini-btn" type="button" data-action="reassign">Reassign</button></div></td>
-                  </tr>
-                  <tr data-status="risk" data-updated="9">
-                    <td><span class="cell-primary">Background job retries exhausted</span><span class="cell-sub">export-worker <span class="cell-sev">Sev1</span></span></td>
-                    <td><span class="cell-owner"><span class="owner-dot">NH</span><span class="owner-name">Noor H.</span></span></td>
-                    <td class="cell-time">9m ago</td>
-                    <td><span class="status-chip is-risk">At risk</span></td>
-                    <td><div class="row-actions"><button class="mini-btn" type="button" data-action="claim">Claim</button><button class="mini-btn" type="button" data-action="snooze">Snooze</button><button class="mini-btn" type="button" data-action="reassign">Reassign</button></div></td>
-                  </tr>
-                  <tr data-status="ok" data-updated="13">
-                    <td><span class="cell-primary">Disk utilization stable</span><span class="cell-sub">ingest-node-3 <span class="cell-sev">Sev3</span></span></td>
-                    <td><span class="cell-owner"><span class="owner-dot">PN</span><span class="owner-name">Priya N.</span></span></td>
-                    <td class="cell-time">13m ago</td>
-                    <td><span class="status-chip is-ok">On track</span></td>
-                    <td><div class="row-actions"><button class="mini-btn" type="button" data-action="claim">Claim</button><button class="mini-btn" type="button" data-action="snooze">Snooze</button><button class="mini-btn" type="button" data-action="reassign">Reassign</button></div></td>
-                  </tr>
-                  <tr data-status="warn" data-updated="18">
-                    <td><span class="cell-primary">Anomalous login velocity</span><span class="cell-sub">admin-console <span class="cell-sev">Sev2</span></span></td>
-                    <td><span class="cell-owner"><span class="owner-dot">MT</span><span class="owner-name">Marcus T.</span></span></td>
-                    <td class="cell-time">18m ago</td>
-                    <td><span class="status-chip is-warn">Review</span></td>
-                    <td><div class="row-actions"><button class="mini-btn" type="button" data-action="claim">Claim</button><button class="mini-btn" type="button" data-action="snooze">Snooze</button><button class="mini-btn" type="button" data-action="reassign">Reassign</button></div></td>
-                  </tr>
-                  <tr data-status="ok" data-updated="25">
-                    <td><span class="cell-primary">Order-fulfillment queue draining normally</span><span class="cell-sub">order-fulfillment <span class="cell-sev">Sev3</span></span></td>
-                    <td><span class="cell-owner"><span class="owner-dot">DK</span><span class="owner-name">Dana K.</span></span></td>
-                    <td class="cell-time">25m ago</td>
-                    <td><span class="status-chip is-ok">On track</span></td>
-                    <td><div class="row-actions"><button class="mini-btn" type="button" data-action="claim">Claim</button><button class="mini-btn" type="button" data-action="snooze">Snooze</button><button class="mini-btn" type="button" data-action="reassign">Reassign</button></div></td>
-                  </tr>
-                  <tr data-status="neutral" data-updated="33" data-prev-status="warn" class="is-inactive">
-                    <td><span class="cell-primary">Cache hit ratio dip</span><span class="cell-sub">search-index <span class="cell-sev">Sev2</span></span></td>
-                    <td><span class="cell-owner"><span class="owner-dot">IR</span><span class="owner-name">Ilyas R.</span></span></td>
-                    <td class="cell-time">33m ago</td>
-                    <td><span class="status-chip is-neutral">Snoozed</span></td>
-                    <td><div class="row-actions"><button class="mini-btn" type="button" data-action="resume">Resume</button></div></td>
-                  </tr>
-                  <tr data-status="risk" data-updated="47">
-                    <td><span class="cell-primary">Payment webhook signature mismatches</span><span class="cell-sub">payments-eu <span class="cell-sev">Sev1</span></span></td>
-                    <td><span class="cell-owner"><span class="owner-dot">WO</span><span class="owner-name">Wren O.</span></span></td>
-                    <td class="cell-time">47m ago</td>
-                    <td><span class="status-chip is-risk">At risk</span></td>
-                    <td><div class="row-actions"><button class="mini-btn" type="button" data-action="claim">Claim</button><button class="mini-btn" type="button" data-action="snooze">Snooze</button><button class="mini-btn" type="button" data-action="reassign">Reassign</button></div></td>
-                  </tr>
-                  <tr data-status="warn" data-updated="52">
-                    <td><span class="cell-primary">Elevated 5xx rate on public status page</span><span class="cell-sub">status-page <span class="cell-sev">Sev2</span></span></td>
-                    <td><span class="cell-owner"><span class="owner-dot">NH</span><span class="owner-name">Noor H.</span></span></td>
-                    <td class="cell-time">52m ago</td>
-                    <td><span class="status-chip is-warn">Review</span></td>
-                    <td><div class="row-actions"><button class="mini-btn" type="button" data-action="claim">Claim</button><button class="mini-btn" type="button" data-action="snooze">Snooze</button><button class="mini-btn" type="button" data-action="reassign">Reassign</button></div></td>
-                  </tr>
-                  <tr data-status="ok" data-updated="58">
-                    <td><span class="cell-primary">Nightly export job completed on schedule</span><span class="cell-sub">export-worker <span class="cell-sev">Sev3</span></span></td>
-                    <td><span class="cell-owner"><span class="owner-dot">SB</span><span class="owner-name">Sofia B.</span></span></td>
-                    <td class="cell-time">58m ago</td>
-                    <td><span class="status-chip is-ok">On track</span></td>
-                    <td><div class="row-actions"><button class="mini-btn" type="button" data-action="claim">Claim</button><button class="mini-btn" type="button" data-action="snooze">Snooze</button><button class="mini-btn" type="button" data-action="reassign">Reassign</button></div></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="empty-state" id="triageEmptyState">
-              <svg class="icon" aria-hidden="true"><use href="#icon-inbox"></use></svg>
-              <strong>No open signals in this view.</strong>
-              <p>Nothing matches the current search and filter. An empty queue is a good outcome — the button below gets you back to the full queue.</p>
-              <button class="secondary-link" type="button" id="triageClearFiltersBtn">Clear search &amp; filters</button>
-            </div>
+          <div class="role-panel" id="panel-operator" role="tabpanel" aria-labelledby="role-operator">
+            <div><span class="permission yes"><svg><use href="#i-check"></use></svg>Allowed</span><strong>Claim, snooze, comment, and reassign within assigned queues</strong></div>
+            <div><span class="permission no">Restricted</span><strong>Alert-rule editing and workspace administration</strong></div>
           </div>
-
-          <div class="tab-panel" id="panel-rules" role="tabpanel" aria-labelledby="tab-rules" tabindex="0" hidden>
-            <p style="color:var(--text-dim); font-size:0.9rem; max-width:60ch;">Conditions are written once, in the open, and routed to a real owner. Flip any rule off without leaving the page — the switch below is fully functional.</p>
-            <ul class="rule-list">
-              <li class="rule-card" data-rule-id="rule-1">
-                <div>
-                  <p class="rule-condition"><span class="tok">IF</span> checkout error rate &gt; <span class="tok">[THRESHOLD]</span>% for 5 minutes</p>
-                  <div class="rule-meta"><span>Routes to <strong>#payments-oncall</strong></span><span class="sep">·</span><span>Escalates after <strong>[ESCALATION_WINDOW]</strong></span><span class="rule-badge">Quiet hours respected</span></div>
-                </div>
-                <div class="rule-toggle-wrap">
-                  <span class="rule-toggle-label" id="rule-1-label">Enabled</span>
-                  <button class="switch" role="switch" aria-checked="true" type="button" aria-labelledby="rule-1-label" data-rule="rule-1"></button>
-                </div>
-              </li>
-              <li class="rule-card" data-rule-id="rule-2">
-                <div>
-                  <p class="rule-condition"><span class="tok">IF</span> order-fulfillment queue depth &gt; <span class="tok">[THRESHOLD]</span> items</p>
-                  <div class="rule-meta"><span>Routes to <strong>Fulfillment lead</strong></span><span class="sep">·</span><span>Escalates after <strong>[ESCALATION_WINDOW]</strong></span></div>
-                </div>
-                <div class="rule-toggle-wrap">
-                  <span class="rule-toggle-label" id="rule-2-label">Enabled</span>
-                  <button class="switch" role="switch" aria-checked="true" type="button" aria-labelledby="rule-2-label" data-rule="rule-2"></button>
-                </div>
-              </li>
-              <li class="rule-card" data-rule-id="rule-3">
-                <div>
-                  <p class="rule-condition"><span class="tok">IF</span> P95 latency &gt; <span class="tok">[THRESHOLD]</span>ms for 3 consecutive checks</p>
-                  <div class="rule-meta"><span>Routes to <strong>#platform-oncall</strong></span><span class="sep">·</span><span>Escalates after <strong>[ESCALATION_WINDOW]</strong></span><span class="rule-badge">Quiet hours respected</span></div>
-                </div>
-                <div class="rule-toggle-wrap">
-                  <span class="rule-toggle-label" id="rule-3-label">Enabled</span>
-                  <button class="switch" role="switch" aria-checked="true" type="button" aria-labelledby="rule-3-label" data-rule="rule-3"></button>
-                </div>
-              </li>
-              <li class="rule-card" data-rule-id="rule-4">
-                <div>
-                  <p class="rule-condition"><span class="tok">IF</span> failed-login velocity &gt; <span class="tok">[THRESHOLD]</span>/min from one IP</p>
-                  <div class="rule-meta"><span>Routes to <strong>Security on-call</strong></span><span class="sep">·</span><span>Escalates after <strong>[ESCALATION_WINDOW]</strong></span></div>
-                </div>
-                <div class="rule-toggle-wrap">
-                  <span class="rule-toggle-label" id="rule-4-label">Enabled</span>
-                  <button class="switch" role="switch" aria-checked="true" type="button" aria-labelledby="rule-4-label" data-rule="rule-4"></button>
-                </div>
-              </li>
-              <li class="rule-card is-disabled" data-rule-id="rule-5">
-                <div>
-                  <p class="rule-condition"><span class="tok">IF</span> TLS certificate expiry &lt; <span class="tok">[THRESHOLD]</span> days</p>
-                  <div class="rule-meta"><span>Routes to <strong>Infra owner</strong></span><span class="sep">·</span><span>Escalates after <strong>[ESCALATION_WINDOW]</strong></span></div>
-                </div>
-                <div class="rule-toggle-wrap">
-                  <span class="rule-toggle-label" id="rule-5-label">Disabled</span>
-                  <button class="switch" role="switch" aria-checked="false" type="button" aria-labelledby="rule-5-label" data-rule="rule-5"></button>
-                </div>
-              </li>
-              <li class="rule-card" data-rule-id="rule-6">
-                <div>
-                  <p class="rule-condition"><span class="tok">IF</span> job retry exhaustion in any queue</p>
-                  <div class="rule-meta"><span>Routes to <strong>Workflow owner</strong></span><span class="sep">·</span><span>Escalates after <strong>[ESCALATION_WINDOW]</strong></span><span class="rule-badge">Quiet hours respected</span></div>
-                </div>
-                <div class="rule-toggle-wrap">
-                  <span class="rule-toggle-label" id="rule-6-label">Enabled</span>
-                  <button class="switch" role="switch" aria-checked="true" type="button" aria-labelledby="rule-6-label" data-rule="rule-6"></button>
-                </div>
-              </li>
-              <li class="rule-card" data-rule-id="rule-7">
-                <div>
-                  <p class="rule-condition"><span class="tok">IF</span> a Sev1 signal is unclaimed for <span class="tok">[THRESHOLD]</span> minutes</p>
-                  <div class="rule-meta"><span>Routes to <strong>#platform-oncall</strong></span><span class="sep">·</span><span>Escalates <strong>immediately</strong></span><span class="rule-badge">Ignores quiet hours</span></div>
-                </div>
-                <div class="rule-toggle-wrap">
-                  <span class="rule-toggle-label" id="rule-7-label">Enabled</span>
-                  <button class="switch" role="switch" aria-checked="true" type="button" aria-labelledby="rule-7-label" data-rule="rule-7"></button>
-                </div>
-              </li>
-              <li class="rule-card" data-rule-id="rule-8">
-                <div>
-                  <p class="rule-condition"><span class="tok">IF</span> an audit export is requested outside business hours</p>
-                  <div class="rule-meta"><span>Routes to <strong>Security on-call</strong></span><span class="sep">·</span><span>Escalates after <strong>[ESCALATION_WINDOW]</strong></span></div>
-                </div>
-                <div class="rule-toggle-wrap">
-                  <span class="rule-toggle-label" id="rule-8-label">Enabled</span>
-                  <button class="switch" role="switch" aria-checked="true" type="button" aria-labelledby="rule-8-label" data-rule="rule-8"></button>
-                </div>
-              </li>
-            </ul>
+          <div class="role-panel" id="panel-lead" role="tabpanel" aria-labelledby="role-lead" hidden>
+            <div><span class="permission yes"><svg><use href="#i-check"></use></svg>Allowed</span><strong>Work all queues, define rules, and manage escalation paths</strong></div>
+            <div><span class="permission no">Restricted</span><strong>Workspace billing and organization-level identity settings</strong></div>
           </div>
-
-          <div class="tab-panel" id="panel-audit" role="tabpanel" aria-labelledby="tab-audit" tabindex="0" hidden>
-            <div class="audit-toolbar">
-              <p>10 most recent actions · newest first · demo data, not connected to a live source</p>
-              <button class="secondary-link" type="button" id="exportAuditBtn"><svg class="icon" aria-hidden="true"><use href="#icon-export"></use></svg>Export CSV</button>
-            </div>
-            <ol class="audit-list" id="auditList">
-              <li><span class="audit-time">14:02:18</span><span class="audit-actor">Marcus T.</span><span class="audit-action">claimed <strong>TLS certificate expiring in 3 days</strong></span></li>
-              <li><span class="audit-time">13:58:41</span><span class="audit-actor is-system">system</span><span class="audit-action">status changed to <strong>At risk</strong> — Payment webhook signature mismatches</span></li>
-              <li><span class="audit-time">13:47:02</span><span class="audit-actor">Priya N.</span><span class="audit-action">snoozed <strong>Cache hit ratio dip</strong></span></li>
-              <li><span class="audit-time">13:30:55</span><span class="audit-actor">Dana K.</span><span class="audit-action">reassigned <strong>Rate limit breaches climbing</strong> to Callum D.</span></li>
-              <li><span class="audit-time">13:12:09</span><span class="audit-actor is-system">system</span><span class="audit-action">threshold breached — <strong>Queue depth, order-fulfillment</strong></span></li>
-              <li><span class="audit-time">12:58:47</span><span class="audit-actor">Wren O.</span><span class="audit-action">resolved <strong>Anomalous login velocity</strong></span></li>
-              <li><span class="audit-time">12:40:16</span><span class="audit-actor">Sofia B.</span><span class="audit-action">commented on <strong>Background job retries exhausted</strong></span></li>
-              <li><span class="audit-time">12:15:33</span><span class="audit-actor is-system">system</span><span class="audit-action">rule disabled — <strong>TLS certificate expiry rule</strong></span></li>
-              <li><span class="audit-time">11:52:07</span><span class="audit-actor">Callum D.</span><span class="audit-action">exported an audit range</span></li>
-              <li><span class="audit-time">11:30:00</span><span class="audit-actor is-system">system</span><span class="audit-action">connector reconnected — <strong>ingest-node-3</strong></span></li>
-            </ol>
-            <p id="exportStatus" aria-live="polite"></p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="api" aria-labelledby="api-title">
-      <div class="section-inner">
-        <div class="section-heading reveal">
-          <p class="eyebrow">For the terminal, not just the browser</p>
-          <h2 id="api-title">Every click above maps to a documented call.</h2>
-          <p>The console is a convenience layer. Claim a signal, list a queue, export the log — automate any of it from a script instead of a keyboard.</p>
-        </div>
-        <div class="code-tabs">
-          <div class="code-block reveal">
-            <div class="code-block-head">
-              <span>REST — list open signals</span>
-              <button class="copy-btn" type="button" data-copy-target="code-list"><svg class="icon" aria-hidden="true"><use href="#icon-export"></use></svg><span class="copy-label">Copy</span></button>
-            </div>
-            <pre id="code-list"><code>curl <span class="tok-flag">-H</span> <span class="tok-str">"Authorization: Bearer [API_KEY]"</span> \
-  https://api.signalstack.example/v1/queues/incident-triage/signals?status=at_risk</code></pre>
-          </div>
-          <div class="code-block reveal">
-            <div class="code-block-head">
-              <span>CLI — claim a signal</span>
-              <button class="copy-btn" type="button" data-copy-target="code-claim"><svg class="icon" aria-hidden="true"><use href="#icon-export"></use></svg><span class="copy-label">Copy</span></button>
-            </div>
-            <pre id="code-claim"><code><span class="tok-comment"># requires the signalstack CLI, authenticated once per machine</span>
-signalstack queue claim <span class="tok-flag">--id</span> [SIGNAL_ID] <span class="tok-flag">--queue</span> incident-triage</code></pre>
-          </div>
-          <div class="code-block reveal">
-            <div class="code-block-head">
-              <span>REST — export the audit trail</span>
-              <button class="copy-btn" type="button" data-copy-target="code-export"><svg class="icon" aria-hidden="true"><use href="#icon-export"></use></svg><span class="copy-label">Copy</span></button>
-            </div>
-            <pre id="code-export"><code>curl <span class="tok-flag">-H</span> <span class="tok-str">"Authorization: Bearer [API_KEY]"</span> \
-  https://api.signalstack.example/v1/audit?since=[ISO_TIMESTAMP] -o audit.csv</code></pre>
-          </div>
-        </div>
-        <p style="margin-top: var(--s5); color: var(--text-dim); font-size: 0.92rem;">Rate limits, pagination, and webhook payload shapes live in the published API reference — this is the shape of it, not the whole document.</p>
-      </div>
-    </section>
-
-    <section class="trust-rail" aria-labelledby="trust-rail-title">
-      <div class="section-inner">
-        <p class="eyebrow trust-rail-label" id="trust-rail-title" style="text-align:center;">Built the way an ops team would insist on</p>
-        <div class="trust-grid">
-          <div class="trust-item reveal">
-            <span class="icon-wrap" aria-hidden="true"><svg class="icon"><use href="#icon-lock"></use></svg></span>
-            <p><strong>SSO &amp; SCIM</strong> on every tier above Team</p>
-          </div>
-          <div class="trust-item reveal">
-            <span class="icon-wrap" aria-hidden="true"><svg class="icon"><use href="#icon-key"></use></svg></span>
-            <p>Scoped API keys, rotated on your schedule</p>
-          </div>
-          <div class="trust-item reveal">
-            <span class="icon-wrap" aria-hidden="true"><svg class="icon"><use href="#icon-server"></use></svg></span>
-            <p>Self-host in your VPC or run SignalStack Cloud</p>
-          </div>
-          <div class="trust-item reveal">
-            <span class="icon-wrap" aria-hidden="true"><svg class="icon"><use href="#icon-badge"></use></svg></span>
-            <p>Every export is plain CSV — no proprietary lock-in</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="integrations" aria-labelledby="int-title">
-      <div class="section-inner">
-        <div class="section-heading reveal">
-          <h2 id="int-title">Connects to the stack you already run.</h2>
-          <p>Source connectors and destinations are configured per workspace. Names shown are placeholders for the tools you choose.</p>
-        </div>
-        <div class="integration-group reveal">
-          <h3>Sources</h3>
-          <div class="integration-grid">
-            <div class="integration-slot"><span class="int-glyph" aria-hidden="true"></span><span class="int-copy">[INTEGRATION_NAME]<span>Webhook</span></span></div>
-            <div class="integration-slot"><span class="int-glyph" aria-hidden="true"></span><span class="int-copy">[INTEGRATION_NAME]<span>Log drain</span></span></div>
-            <div class="integration-slot"><span class="int-glyph" aria-hidden="true"></span><span class="int-copy">[INTEGRATION_NAME]<span>Polling job</span></span></div>
-            <div class="integration-slot"><span class="int-glyph" aria-hidden="true"></span><span class="int-copy">[INTEGRATION_NAME]<span>Message queue</span></span></div>
-            <div class="integration-slot"><span class="int-glyph" aria-hidden="true"></span><span class="int-copy">[INTEGRATION_NAME]<span>APM export</span></span></div>
-            <div class="integration-slot"><span class="int-glyph" aria-hidden="true"></span><span class="int-copy">[INTEGRATION_NAME]<span>Database CDC</span></span></div>
-          </div>
-        </div>
-        <div class="integration-group reveal">
-          <h3>Destinations</h3>
-          <div class="integration-grid">
-            <div class="integration-slot"><span class="int-glyph" aria-hidden="true"></span><span class="int-copy">[INTEGRATION_NAME]<span>Chat</span></span></div>
-            <div class="integration-slot"><span class="int-glyph" aria-hidden="true"></span><span class="int-copy">[INTEGRATION_NAME]<span>Ticketing</span></span></div>
-            <div class="integration-slot"><span class="int-glyph" aria-hidden="true"></span><span class="int-copy">[INTEGRATION_NAME]<span>Paging</span></span></div>
-            <div class="integration-slot"><span class="int-glyph" aria-hidden="true"></span><span class="int-copy">[INTEGRATION_NAME]<span>Data warehouse</span></span></div>
-            <div class="integration-slot"><span class="int-glyph" aria-hidden="true"></span><span class="int-copy">[INTEGRATION_NAME]<span>Spreadsheet export</span></span></div>
-          </div>
-        </div>
-        <p class="integration-note">Need a source we don't list? The generic webhook + REST ingest covers most custom systems.</p>
-      </div>
-    </section>
-
-    <section class="section" id="proof" aria-labelledby="proof-title">
-      <div class="section-inner">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Evidence, not adjectives</p>
-          <h2 id="proof-title">Every claim on this page traces to a shape like this.</h2>
-          <p>No testimonials, no invented uptime numbers. Here is the literal shape of the data behind three claims made above.</p>
-        </div>
-        <div class="proof-grid">
-          <article class="proof-card reveal">
-            <h3>Sample audit row</h3>
-            <pre class="proof-data">actor:  <span class="v">Priya N.</span>
-action: <span class="v">snoozed</span>
-target: <span class="v">Cache hit ratio dip</span>
-at:     <span class="v">13:47:02</span></pre>
-            <p>One row is written per action. Nothing is aggregated before it is logged.</p>
-          </article>
-          <article class="proof-card reveal">
-            <h3>Sample alert rule</h3>
-            <pre class="proof-data">if:       checkout error rate &gt; <span class="v">[THRESHOLD]</span>%
-route:    <span class="v">#payments-oncall</span>
-escalate: <span class="v">[ESCALATION_WINDOW]</span></pre>
-            <p>Conditions read the same in the console as they do here — no hidden logic.</p>
-          </article>
-          <article class="proof-card reveal">
-            <h3>Sample permission scope</h3>
-            <pre class="proof-data">role:  <span class="v">operator</span>
-scope: claim, snooze, comment
-role:  <span class="v">auditor</span>
-scope: read, export</pre>
-            <p>Scopes are a short, readable list per role — never an implicit inheritance chain.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="pricing" aria-labelledby="pricing-title">
-      <div class="section-inner">
-        <div class="section-heading center reveal">
-          <h2 id="pricing-title">Pricing that scales with seats, not surprises.</h2>
-          <p>All prices are placeholders for the published rate card. Annual and non-profit terms are <strong>[SUPPORT_TERM]</strong> — set by your rep, listed here regardless.</p>
-        </div>
-
-        <div class="pricing-toggle is-annual reveal" id="pricingToggle">
-          <span data-cadence="monthly">Monthly</span>
-          <button class="switch" role="switch" aria-checked="true" type="button" aria-label="Toggle annual billing" id="pricingSwitch"></button>
-          <span data-cadence="annual">Annual</span>
-          <span class="save-note">Save on annual</span>
-        </div>
-
-        <div class="pricing-grid">
-          <article class="price-card reveal">
-            <p class="price-flag">Team</p>
-            <h3>For a single on-call team getting started</h3>
-            <div class="price"><span class="amount">[PRICE]</span><span class="per">/ seat / mo</span></div>
-            <ul class="price-list">
-              <li>Up to [SEAT_LIMIT] seats</li>
-              <li>Live queues &amp; alerting</li>
-              <li>[RETENTION] audit retention</li>
-              <li>Community support</li>
-            </ul>
-            <a class="secondary-link block" href="#demo">Start a trial</a>
-          </article>
-          <article class="price-card featured reveal">
-            <p class="price-flag">Most teams choose Growth</p>
-            <h3>Growth</h3>
-            <div class="price"><span class="amount">[PRICE]</span><span class="per">/ seat / mo</span></div>
-            <ul class="price-list">
-              <li>For multiple teams sharing queues and escalation</li>
-              <li>Everything in Team</li>
-              <li>Role-based views &amp; SSO</li>
-              <li>[RETENTION] audit retention</li>
-              <li>Escalation scheduler</li>
-              <li>[SUPPORT_TERM] support</li>
-            </ul>
-            <a class="primary-link block" href="#demo">Request a demo</a>
-          </article>
-          <article class="price-card reveal">
-            <p class="price-flag">Enterprise</p>
-            <h3>Custom</h3>
-            <div class="price"><span class="amount">Custom</span></div>
-            <p class="price-for">For regulated or self-hosted deployments</p>
-            <ul class="price-list">
-              <li>Self-host in your VPC</li>
-              <li>Audit export &amp; retention controls</li>
-              <li>SAML / SCIM provisioning</li>
-              <li>[SUPPORT_TERM] provisioning</li>
-              <li>Named support contact</li>
-            </ul>
-            <a class="secondary-link block" href="#demo">Talk to us</a>
-          </article>
-        </div>
-
-        <div class="compare-wrap reveal">
-          <table class="compare-table">
-            <caption>Compare tiers at a glance</caption>
-            <thead>
-              <tr><th scope="col">Feature</th><th scope="col">Team</th><th scope="col">Growth</th><th scope="col">Enterprise</th></tr>
-            </thead>
-            <tbody>
-              <tr><th scope="row">Seats</th><td>Up to [SEAT_LIMIT]</td><td>Unlimited</td><td>Unlimited</td></tr>
-              <tr><th scope="row">Event retention</th><td>[RETENTION]</td><td>[RETENTION]</td><td>Configurable</td></tr>
-              <tr><th scope="row">Threshold alerting</th><td class="yes">Included</td><td class="yes">Included</td><td class="yes">Included</td></tr>
-              <tr><th scope="row">Role-based views</th><td class="no">—</td><td class="yes">Included</td><td class="yes">Included</td></tr>
-              <tr><th scope="row">SSO / SAML</th><td class="no">—</td><td class="yes">Included</td><td class="yes">Included</td></tr>
-              <tr><th scope="row">Self-host option</th><td class="no">—</td><td class="no">—</td><td class="yes">Included</td></tr>
-              <tr><th scope="row">Audit export</th><td class="yes">CSV</td><td class="yes">CSV</td><td class="yes">CSV + API</td></tr>
-              <tr><th scope="row">Support</th><td>Community</td><td>[SUPPORT_TERM]</td><td>[SUPPORT_TERM]</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="section" id="faq" aria-labelledby="faq-title">
-      <div class="section-inner">
-        <div class="section-heading reveal">
-          <h2 id="faq-title">Questions teams ask before rolling out.</h2>
-          <p>Straight answers. Anywhere a real number belongs, it's a bracketed placeholder until you supply one.</p>
-        </div>
-        <div class="accordion">
-          <div class="accordion-item reveal">
-            <h3><button class="accordion-trigger" type="button" id="faq-1-trigger" aria-expanded="true" aria-controls="faq-1-panel">Can we self-host SignalStack?<svg class="icon chev" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></button></h3>
-            <div class="accordion-panel is-in" id="faq-1-panel" role="region" aria-labelledby="faq-1-trigger">
-              <p>Yes. Self-host in your VPC or run in SignalStack Cloud — the data model, queues, and audit trail are identical either way. Support terms are <code>[SUPPORT_TERM]</code> regardless of hosting choice.</p>
-            </div>
-          </div>
-          <div class="accordion-item reveal">
-            <h3><button class="accordion-trigger" type="button" id="faq-2-trigger" aria-expanded="false" aria-controls="faq-2-panel">How does pricing scale?<svg class="icon chev" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></button></h3>
-            <div class="accordion-panel" id="faq-2-panel" role="region" aria-labelledby="faq-2-trigger" hidden>
-              <p>Team and Growth are priced per seat. Enterprise is scoped to usage and hosting model. The comparison table above shows what's included at each tier.</p>
-            </div>
-          </div>
-          <div class="accordion-item reveal">
-            <h3><button class="accordion-trigger" type="button" id="faq-3-trigger" aria-expanded="false" aria-controls="faq-3-panel">What's the data retention window?<svg class="icon chev" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></button></h3>
-            <div class="accordion-panel" id="faq-3-panel" role="region" aria-labelledby="faq-3-trigger" hidden>
-              <p>Configurable per workspace. The published default is <code>[RETENTION]</code>; longer windows are available on Growth and Enterprise.</p>
-            </div>
-          </div>
-          <div class="accordion-item reveal">
-            <h3><button class="accordion-trigger" type="button" id="faq-4-trigger" aria-expanded="false" aria-controls="faq-4-panel">Do you support SSO and SCIM?<svg class="icon chev" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></button></h3>
-            <div class="accordion-panel" id="faq-4-panel" role="region" aria-labelledby="faq-4-trigger" hidden>
-              <p>SAML SSO is available starting on Growth; SCIM provisioning is available on Enterprise. Role-based views apply at every tier.</p>
-            </div>
-          </div>
-          <div class="accordion-item reveal">
-            <h3><button class="accordion-trigger" type="button" id="faq-5-trigger" aria-expanded="false" aria-controls="faq-5-panel">How long does onboarding take?<svg class="icon chev" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></button></h3>
-            <div class="accordion-panel" id="faq-5-panel" role="region" aria-labelledby="faq-5-trigger" hidden>
-              <p>Most teams connect a first source and shape a queue inside a single guided session. A typical single-source rollout takes <code>[ONBOARDING_TIME]</code>.</p>
-            </div>
-          </div>
-          <div class="accordion-item reveal">
-            <h3><button class="accordion-trigger" type="button" id="faq-6-trigger" aria-expanded="false" aria-controls="faq-6-panel">What happens to the audit trail if we cancel?<svg class="icon chev" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></button></h3>
-            <div class="accordion-panel" id="faq-6-panel" role="region" aria-labelledby="faq-6-trigger" hidden>
-              <p>Audit exports remain available for <code>[EXPORT_WINDOW]</code> after cancellation, so you keep a record of every action taken while you were a customer.</p>
-            </div>
-          </div>
-          <div class="accordion-item reveal">
-            <h3><button class="accordion-trigger" type="button" id="faq-7-trigger" aria-expanded="false" aria-controls="faq-7-panel">Can we bring alert rules over from another tool?<svg class="icon chev" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></button></h3>
-            <div class="accordion-panel" id="faq-7-panel" role="region" aria-labelledby="faq-7-trigger" hidden>
-              <p>Most teams port a handful of critical rules in the first session. The condition syntax is deliberately close to what on-call engineers are already writing elsewhere.</p>
-            </div>
-          </div>
-          <div class="accordion-item reveal">
-            <h3><button class="accordion-trigger" type="button" id="faq-8-trigger" aria-expanded="false" aria-controls="faq-8-panel">Is there an uptime number you can share?<svg class="icon chev" aria-hidden="true"><use href="#icon-chevron-down"></use></svg></button></h3>
-            <div class="accordion-panel" id="faq-8-panel" role="region" aria-labelledby="faq-8-trigger" hidden>
-              <p>Hosting status and <code>[COMPLIANCE_STATUS]</code> are shared on request. We don't publish a marketing uptime figure here — an unverified number is exactly what this product argues against.</p>
-            </div>
+          <div class="role-panel" id="panel-auditor" role="tabpanel" aria-labelledby="role-auditor" hidden>
+            <div><span class="permission yes"><svg><use href="#i-check"></use></svg>Allowed</span><strong>Read every queue, inspect rules, and export the audit trail</strong></div>
+            <div><span class="permission no">Restricted</span><strong>Claims, snoozes, reassignments, and rule changes</strong></div>
           </div>
         </div>
       </div>
     </section>
 
     <section class="states-section section" aria-labelledby="states-title">
-      <div class="section-inner">
-        <div class="section-heading reveal">
-          <h2 id="states-title">Designed for the empty and broken moments too.</h2>
-          <p>A real operations tool spends time with no data, partial data, and failures. This is the same "Recent signals" widget in all four states — press a button, watch it change live.</p>
-        </div>
-        <div class="state-demo reveal">
-          <div class="state-controls" role="group" aria-label="Preview widget state">
-            <button class="chip" type="button" data-state="loading" aria-pressed="true">Loading</button>
-            <button class="chip" type="button" data-state="empty" aria-pressed="false">Empty</button>
-            <button class="chip" type="button" data-state="error" aria-pressed="false">Error</button>
-            <button class="chip" type="button" data-state="success" aria-pressed="false">Success</button>
-          </div>
-          <div class="state-widget">
-            <div class="state-widget-head">
-              <strong>Recent signals</strong>
-              <span class="state-tag" id="stateWidgetTag">Loading</span>
-            </div>
-            <div class="state-widget-body" id="stateWidgetBody" aria-live="polite">
-              <div class="skeleton-rows" aria-hidden="true"><div class="skeleton-row"></div><div class="skeleton-row"></div><div class="skeleton-row"></div></div>
-            </div>
-          </div>
-        </div>
+      <div class="section-heading">
+        <p class="eyebrow">Operational states</p>
+        <h2 id="states-title">The product stays useful when the data does not.</h2>
+        <p>Loading, empty, and failure states keep their context and give the operator a clear next step instead of collapsing the surface.</p>
+      </div>
+      <div class="state-grid">
+        <article>
+          <div class="state-title"><span class="state-icon"><svg><use href="#i-clock"></use></svg></span><div><small>Loading</small><h3>Queue is connecting</h3></div></div>
+          <div class="skeleton-lines" aria-hidden="true"><span></span><span></span><span></span></div>
+        </article>
+        <article>
+          <div class="state-title"><span class="state-icon"><svg><use href="#i-inbox"></use></svg></span><div><small>Empty</small><h3>No signals in this view</h3></div></div>
+          <p>The current filters returned no open work. The queue keeps the active view visible so the operator can widen it.</p>
+          <button class="button button-secondary" type="button" data-state-action="clear">Clear filters</button>
+          <p class="state-feedback" aria-live="polite"></p>
+        </article>
+        <article>
+          <div class="state-title"><span class="state-icon state-icon-risk"><svg><use href="#i-alert"></use></svg></span><div><small>Source error</small><h3>Connector unavailable</h3></div></div>
+          <p>Existing rows remain readable while new events pause. The failing source and retry action stay attached to the queue.</p>
+          <button class="button button-secondary" type="button" data-state-action="retry">Retry connection</button>
+          <p class="state-feedback" aria-live="polite"></p>
+        </article>
+        <article>
+          <div class="state-title"><span class="state-icon state-icon-track"><svg><use href="#i-check"></use></svg></span><div><small>Resolved</small><h3>Signal closed with context</h3></div></div>
+          <p>The final owner, action, and event sequence remain available for review and export after the queue is clear.</p>
+          <a class="button button-secondary" href="#console">View audit shape</a>
+        </article>
       </div>
     </section>
 
-    <section class="final-cta section" id="demo" aria-labelledby="demo-title">
-      <div class="cta-panel reveal">
-        <div class="cta-copy">
-          <p class="eyebrow">Request a demo</p>
-          <h2 id="demo-title">Bring one workflow. We'll wire it up live.</h2>
-          <p>Tell us the source and the decision your team is trying to make. The walkthrough uses your real shape — no slideware.</p>
-          <p class="cta-quote" style="border-left-style:dashed;">&ldquo;[TESTIMONIAL_QUOTE]&rdquo; <span class="cta-attr">— [CUSTOMER_NAME], [CUSTOMER_ROLE]</span><span style="display:block; margin-top:6px; font-style:normal; font-family:var(--mono); font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--text-faint);">Sample testimonial slot — not a real customer</span></p>
+    <section class="deployment-section section" id="deployment" aria-labelledby="deployment-title">
+      <div class="deployment-layout">
+        <div class="section-heading">
+          <p class="eyebrow">Deployment and connections</p>
+          <h2 id="deployment-title">Fit the operating model you already have.</h2>
+          <p>Connect common event paths, keep access scoped, and choose a cloud or self-hosted deployment without changing the queue model.</p>
         </div>
-        <div class="form-wrap">
-          <form class="demo-form" id="demoForm" aria-label="Request a demo" novalidate>
-            <div class="form-banner is-error" id="formBanner" role="alert">
-              <svg class="icon" aria-hidden="true"><use href="#icon-alert-triangle"></use></svg>
-              <span id="formBannerMsg"></span>
-            </div>
-            <div class="field">
-              <label for="email">Work email <span class="required" aria-hidden="true">*</span></label>
-              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required placeholder="you@company.com" aria-describedby="email-err" aria-invalid="false">
-              <span class="field-error" id="email-err" role="alert"></span>
-            </div>
-            <div class="field">
-              <label for="team">Team size <span class="required" aria-hidden="true">*</span></label>
-              <select id="team" name="team" required aria-describedby="team-err" aria-invalid="false">
-                <option value="">Select a range</option>
-                <option>1–5</option>
-                <option>6–25</option>
-                <option>26–100</option>
-                <option>100+</option>
-              </select>
-              <span class="field-error" id="team-err" role="alert"></span>
-            </div>
-            <div class="field">
-              <label for="use">Primary use <span class="required" aria-hidden="true">*</span></label>
-              <input id="use" name="use" type="text" required minlength="3" placeholder="e.g. incident triage, fraud review, ops queue" aria-describedby="use-err" aria-invalid="false">
-              <span class="field-error" id="use-err" role="alert"></span>
-            </div>
-            <button class="primary-link block submit-btn" type="submit" id="submitBtn" aria-busy="false">
-              <span class="spinner" aria-hidden="true"></span>
-              <span class="btn-label">Request walkthrough</span>
-            </button>
-            <p class="form-fine">We use this only to schedule the walkthrough. No newsletter, no resale. Using a personal inbox? We'll ask for a work address so the right team can follow up.</p>
-          </form>
-          <div class="form-success" id="formSuccess" role="status">
-            <span class="success-icon" aria-hidden="true"><svg class="icon"><use href="#icon-check-circle"></use></svg></span>
-            <h3>Walkthrough requested.</h3>
-            <p>We'll follow up at the address you gave us within one business day. Bring the workflow you want mapped.</p>
-            <button class="secondary-link" type="button" id="formResetBtn">Submit another</button>
-          </div>
+        <div class="manifest">
+          <div class="manifest-row"><span>Ingest</span><strong>Webhook · REST · log drain · polling</strong><em>Connect</em></div>
+          <div class="manifest-row"><span>Actions</span><strong>Claim · snooze · reassign · comment</strong><em>Operate</em></div>
+          <div class="manifest-row"><span>Record</span><strong>Actor · action · target · time</strong><em>Audit</em></div>
+          <div class="manifest-row"><span>Hosting</span><strong>SignalStack Cloud · self-hosted VPC</strong><em>Deploy</em></div>
+          <div class="manifest-row"><span>Export</span><strong>CSV · API</strong><em>Review</em></div>
         </div>
+      </div>
+      <div class="deployment-principles">
+        <div><svg><use href="#i-shield"></use></svg><span><strong>Read-only by default</strong>Start with the smallest useful permission surface.</span></div>
+        <div><svg><use href="#i-server"></use></svg><span><strong>One data model</strong>Cloud and self-hosted deployments preserve the same queue shape.</span></div>
+        <div><svg><use href="#i-audit"></use></svg><span><strong>Portable record</strong>Operational history remains exportable as plain data.</span></div>
       </div>
     </section>
 
+    <section class="demo-section section" id="demo" aria-labelledby="demo-title">
+      <div class="demo-copy">
+        <p class="eyebrow">Request a guided walkthrough</p>
+        <h2 id="demo-title">Bring one incident workflow. Map it in the queue.</h2>
+        <p>Share the event source and the decision your team needs to make. The walkthrough can use that shape to show intake, routing, ownership, and audit context together.</p>
+        <div class="demo-path" aria-label="Walkthrough sequence">
+          <span>Source</span><svg><use href="#i-arrow"></use></svg><span>Rule</span><svg><use href="#i-arrow"></use></svg><span>Queue</span><svg><use href="#i-arrow"></use></svg><span>Action trail</span>
+        </div>
+      </div>
+      <form class="demo-form" id="demoForm" action="#demo" method="get">
+        <div class="field">
+          <label for="email">Work email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@company.com" aria-describedby="emailError" aria-invalid="false">
+          <span class="field-error" id="emailError" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="source">Primary event source</label>
+          <select id="source" name="source" required aria-describedby="sourceError" aria-invalid="false">
+            <option value="">Select one</option>
+            <option>Webhook</option>
+            <option>Log drain</option>
+            <option>Polling job</option>
+            <option>REST ingest</option>
+            <option>Another source</option>
+          </select>
+          <span class="field-error" id="sourceError" aria-live="polite"></span>
+        </div>
+        <div class="field">
+          <label for="workflow-input">Workflow to map</label>
+          <textarea id="workflow-input" name="workflow" rows="3" required minlength="3" placeholder="Incident triage, fraud review, operations queue" aria-describedby="workflowError" aria-invalid="false"></textarea>
+          <span class="field-error" id="workflowError" aria-live="polite"></span>
+        </div>
+        <button class="button button-primary" type="submit">Request walkthrough <svg><use href="#i-arrow"></use></svg></button>
+        <p class="form-status" id="formStatus" aria-live="polite"></p>
+      </form>
+    </section>
   </main>
 
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <strong><span class="footer-mark" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><use href="#icon-stream"></use></svg></span>SignalStack</strong>
-          <p>Synthetic B2B operational-analytics dashboard concept. No real customers, logos, or claims.</p>
-          <div class="footer-social">
-            <a href="#top" aria-label="SignalStack status page"><svg class="icon" aria-hidden="true"><use href="#icon-stream"></use></svg></a>
-            <a href="#faq" aria-label="SignalStack community"><svg class="icon" aria-hidden="true"><use href="#icon-chat"></use></svg></a>
-            <a href="#demo" aria-label="Contact SignalStack"><svg class="icon" aria-hidden="true"><use href="#icon-mail"></use></svg></a>
-          </div>
-        </div>
-        <nav class="footer-col" aria-label="Product">
-          <h4>Product</h4>
-          <ul>
-            <li><a href="#product">Capabilities</a></li>
-            <li><a href="#live-console">Live console</a></li>
-            <li><a href="#workflow">Workflow</a></li>
-            <li><a href="#integrations">Integrations</a></li>
-          </ul>
-        </nav>
-        <nav class="footer-col" aria-label="Resources">
-          <h4>Resources</h4>
-          <ul>
-            <li><a href="#proof">Evidence</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#pricing">Pricing</a></li>
-            <li><a href="#demo">Request demo</a></li>
-          </ul>
-        </nav>
-        <nav class="footer-col" aria-label="Company">
-          <h4>Company</h4>
-          <ul>
-            <li><a href="#top">About</a></li>
-            <li><a href="#demo">Contact</a></li>
-            <li><a href="#signin">Sign in</a></li>
-          </ul>
-        </nav>
-        <nav class="footer-col" aria-label="Legal">
-          <h4>Legal</h4>
-          <ul>
-            <li><a href="#top">Privacy</a></li>
-            <li><a href="#top">Terms</a></li>
-            <li><a href="#top">Security</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="footer-bottom">
-        <p class="footer-fine">This mockup uses no real customers, logos, metrics, reviews, or imagery. All figures are bracketed placeholders.</p>
-        <p class="footer-copyright">© 2026 SignalStack. Concept build for design reference.</p>
-      </div>
+  <footer class="site-footer">
+    <div>
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true"><svg><use href="#i-pulse"></use></svg></span>
+        <span>SignalStack</span>
+      </a>
+      <p>Operational analytics and incident triage in one owned queue.</p>
     </div>
+    <nav aria-label="Footer navigation">
+      <a href="#workflow">Workflow</a>
+      <a href="#console">Console</a>
+      <a href="#access">Access</a>
+      <a href="#deployment">Deployment</a>
+      <a href="#demo">Request demo</a>
+    </nav>
+    <p class="concept-note">Synthetic product concept. Sample queue content is illustrative and contains no customer data or performance claims.</p>
   </footer>
-</div>
-
-<script>
-(function () {
-  'use strict';
-
-  var reduceMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  function prefersReducedMotion() { return reduceMotionQuery.matches; }
-
-  /* ---------- header: shadow on scroll ---------- */
-  (function headerShadow() {
-    var header = document.getElementById('siteHeader');
-    if (!header) return;
-    function onScroll() { header.classList.toggle('is-scrolled', window.scrollY > 4); }
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
-
-  /* ---------- mobile nav + scrim + scroll-spy (r2: adds backdrop scrim) ---------- */
-  (function nav() {
-    var toggle = document.getElementById('navToggle');
-    var panel = document.getElementById('navMobilePanel');
-    var scrim = document.getElementById('navScrim');
-    if (toggle && panel) {
-      function onKeydown(e) { if (e.key === 'Escape') closeMenu(true); }
-      function openMenu() {
-        toggle.setAttribute('aria-expanded', 'true');
-        toggle.setAttribute('aria-label', 'Close menu');
-        panel.classList.add('is-open');
-        if (scrim) scrim.classList.add('is-open');
-        document.addEventListener('keydown', onKeydown);
-      }
-      function closeMenu(returnFocus) {
-        toggle.setAttribute('aria-expanded', 'false');
-        toggle.setAttribute('aria-label', 'Open menu');
-        panel.classList.remove('is-open');
-        if (scrim) scrim.classList.remove('is-open');
-        document.removeEventListener('keydown', onKeydown);
-        if (returnFocus) toggle.focus();
-      }
-      toggle.addEventListener('click', function () {
-        var isOpen = toggle.getAttribute('aria-expanded') === 'true';
-        if (isOpen) closeMenu(false); else openMenu();
-      });
-      Array.prototype.forEach.call(panel.querySelectorAll('a'), function (a) {
-        a.addEventListener('click', function () { closeMenu(false); });
-      });
-      if (scrim) scrim.addEventListener('click', function () { closeMenu(false); });
-      document.addEventListener('click', function (e) {
-        var isOpen = toggle.getAttribute('aria-expanded') === 'true';
-        if (isOpen && !panel.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) closeMenu(false);
-      });
-    }
-
-    var navLinks = Array.prototype.slice.call(document.querySelectorAll('#navLinks a'));
-    var sections = navLinks.map(function (a) {
-      var sel = a.getAttribute('href');
-      return sel && sel.charAt(0) === '#' ? document.querySelector(sel) : null;
-    }).filter(Boolean);
-    if (sections.length && 'IntersectionObserver' in window) {
-      var spy = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          var id = '#' + entry.target.id;
-          navLinks.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('href') === id); });
-        });
-      }, { rootMargin: '-45% 0px -50% 0px' });
-      sections.forEach(function (s) { spy.observe(s); });
-    }
-  })();
-
-  /* ---------- reveal-on-scroll ---------- */
-  (function reveal() {
-    var els = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
-    if (!els.length) return;
-    if (prefersReducedMotion() || !('IntersectionObserver' in window)) {
-      els.forEach(function (el) { el.classList.add('is-in'); });
-      return;
-    }
-    var io = new IntersectionObserver(function (entries, obs) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-in');
-          obs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-    els.forEach(function (el) { io.observe(el); });
-  })();
-
-  /* ---------- shared helper: sortable + filterable + searchable data-table ---------- */
-  function wireTable(opts) {
-    var table = opts.table;
-    var tbody = opts.tbody;
-    if (!table || !tbody) return null;
-    var currentFilter = 'all';
-    var currentSearch = '';
-    var sortDir = 'ascending';
-
-    function rowMatches(tr) {
-      var status = tr.getAttribute('data-status');
-      var filterOk = currentFilter === 'all' || status === currentFilter;
-      var searchOk = !currentSearch || tr.textContent.toLowerCase().indexOf(currentSearch) !== -1;
-      return filterOk && searchOk;
-    }
-
-    function apply() {
-      var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
-      var visible = 0;
-      rows.forEach(function (tr) {
-        var show = rowMatches(tr);
-        tr.hidden = !show;
-        if (show) visible += 1;
-      });
-      if (opts.resultCountEl) {
-        opts.resultCountEl.textContent = visible + ' of ' + rows.length + (rows.length === 1 ? ' signal' : ' signals');
-      }
-      if (opts.emptyStateEl) opts.emptyStateEl.classList.toggle('is-shown', visible === 0);
-      return visible;
-    }
-
-    if (opts.filterGroup) {
-      opts.filterGroup.addEventListener('click', function (e) {
-        var btn = e.target.closest ? e.target.closest('.chip') : null;
-        if (!btn || !opts.filterGroup.contains(btn)) return;
-        currentFilter = btn.getAttribute('data-filter');
-        Array.prototype.forEach.call(opts.filterGroup.querySelectorAll('.chip'), function (c) {
-          c.setAttribute('aria-pressed', String(c === btn));
-        });
-        apply();
-      });
-    }
-
-    if (opts.searchInput) {
-      opts.searchInput.addEventListener('input', function () {
-        currentSearch = opts.searchInput.value.trim().toLowerCase();
-        apply();
-      });
-    }
-
-    var sortButtons = Array.prototype.slice.call(table.querySelectorAll('thead [data-sort-key]'));
-    var statusRank = { risk: 0, warn: 1, neutral: 2, ok: 3 };
-    sortButtons.forEach(function (btn) {
-      var th = btn.closest('th');
-      var key = btn.getAttribute('data-sort-key');
-      btn.addEventListener('click', function () {
-        var wasActive = th.getAttribute('aria-sort') !== 'none';
-        sortDir = wasActive && th.getAttribute('aria-sort') === 'ascending' ? 'descending' : 'ascending';
-        Array.prototype.forEach.call(table.querySelectorAll('thead th[aria-sort]'), function (t) {
-          t.setAttribute('aria-sort', t === th ? sortDir : 'none');
-        });
-        var rows = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
-        rows.sort(function (a, b) {
-          var av, bv;
-          if (key === 'updated') {
-            av = parseInt(a.getAttribute('data-updated'), 10);
-            bv = parseInt(b.getAttribute('data-updated'), 10);
-          } else if (key === 'status') {
-            av = statusRank[a.getAttribute('data-status')];
-            bv = statusRank[b.getAttribute('data-status')];
-          } else if (key === 'owner') {
-            av = (a.querySelector('.owner-name') || a.cells[1]).textContent;
-            bv = (b.querySelector('.owner-name') || b.cells[1]).textContent;
-          } else {
-            av = a.querySelector('.cell-primary').textContent;
-            bv = b.querySelector('.cell-primary').textContent;
-          }
-          if (av < bv) return sortDir === 'ascending' ? -1 : 1;
-          if (av > bv) return sortDir === 'ascending' ? 1 : -1;
-          return 0;
-        });
-        rows.forEach(function (tr) { tbody.appendChild(tr); });
-      });
-    });
-
-    return { apply: apply };
-  }
-
-  /* ---------- hero console: skeleton loading -> live table ---------- */
-  (function heroConsole() {
-    var skeleton = document.getElementById('heroSkeleton');
-    var tableEl = document.getElementById('heroTable');
-    if (!skeleton || !tableEl) return;
-    var delay = prefersReducedMotion() ? 0 : 650;
-    window.setTimeout(function () {
-      skeleton.hidden = true;
-      tableEl.hidden = false;
-      wireTable({
-        table: tableEl,
-        tbody: document.getElementById('heroQueueBody'),
-        filterGroup: document.getElementById('heroFilterGroup'),
-        resultCountEl: document.getElementById('heroResultCount')
-      });
-    }, delay);
-  })();
-
-  /* ---------- live console: tabs (WAI-ARIA tabs pattern) ---------- */
-  (function consoleTabs() {
-    var tablist = document.getElementById('consoleTabs');
-    if (!tablist) return;
-    var tabs = Array.prototype.slice.call(tablist.querySelectorAll('[role="tab"]'));
-
-    function activate(tab, focusIt) {
-      tabs.forEach(function (t) {
-        var selected = t === tab;
-        t.setAttribute('aria-selected', String(selected));
-        t.tabIndex = selected ? 0 : -1;
-        var panel = document.getElementById(t.getAttribute('aria-controls'));
-        if (panel) panel.hidden = !selected;
-      });
-      if (focusIt) tab.focus();
-    }
-
-    tabs.forEach(function (tab, i) {
-      tab.addEventListener('click', function () { activate(tab, false); });
-      tab.addEventListener('keydown', function (e) {
-        var idx = i;
-        if (e.key === 'ArrowRight') idx = (i + 1) % tabs.length;
-        else if (e.key === 'ArrowLeft') idx = (i - 1 + tabs.length) % tabs.length;
-        else if (e.key === 'Home') idx = 0;
-        else if (e.key === 'End') idx = tabs.length - 1;
-        else return;
-        e.preventDefault();
-        activate(tabs[idx], true);
-      });
-    });
-  })();
-
-  /* ---------- triage queue tab: search / filter / sort / row actions / connector ---------- */
-  (function triageQueue() {
-    var table = document.getElementById('triageTable');
-    var tbody = document.getElementById('triageBody');
-    if (!table || !tbody) return;
-
-    var controller = wireTable({
-      table: table,
-      tbody: tbody,
-      filterGroup: document.getElementById('triageFilterGroup'),
-      searchInput: document.getElementById('triageSearch'),
-      resultCountEl: document.getElementById('triageResultCount'),
-      emptyStateEl: document.getElementById('triageEmptyState')
-    });
-
-    var clearFiltersBtn = document.getElementById('triageClearFiltersBtn');
-    if (clearFiltersBtn) {
-      clearFiltersBtn.addEventListener('click', function () {
-        var searchInput = document.getElementById('triageSearch');
-        var filterGroup = document.getElementById('triageFilterGroup');
-        if (searchInput) { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); }
-        if (filterGroup) {
-          var allChip = filterGroup.querySelector('[data-filter="all"]');
-          if (allChip) allChip.click();
-        }
-        if (searchInput) searchInput.focus();
-      });
-    }
-
-    var ROSTER = ['Priya N.', 'Marcus T.', 'Dana K.', 'Ilyas R.', 'Wren O.', 'Sofia B.', 'Callum D.', 'Noor H.'];
-    var STATUS_LABEL = { risk: ['is-risk', 'At risk'], warn: ['is-warn', 'Review'], ok: ['is-ok', 'On track'] };
-    function initialsOf(name) {
-      return name.replace(/\./g, '').split(' ').map(function (p) { return p.charAt(0); }).join('').slice(0, 2).toUpperCase();
-    }
-    var ACTIVE_ACTIONS = '<button class="mini-btn" type="button" data-action="claim">Claim</button>' +
-      '<button class="mini-btn" type="button" data-action="snooze">Snooze</button>' +
-      '<button class="mini-btn" type="button" data-action="reassign">Reassign</button>';
-
-    tbody.addEventListener('click', function (e) {
-      var btn = e.target.closest ? e.target.closest('.mini-btn') : null;
-      if (!btn) return;
-      var tr = btn.closest('tr');
-      var action = btn.getAttribute('data-action');
-      var actionsWrap = btn.closest('.row-actions');
-
-      if (action === 'claim') {
-        actionsWrap.innerHTML = '<span class="claimed-pill"><svg class="icon" aria-hidden="true"><use href="#icon-check-circle"></use></svg>Claimed by you</span>';
-      } else if (action === 'snooze') {
-        tr.setAttribute('data-prev-status', tr.getAttribute('data-status'));
-        tr.setAttribute('data-status', 'neutral');
-        tr.classList.add('is-inactive');
-        var chip = tr.querySelector('.status-chip');
-        chip.className = 'status-chip is-neutral';
-        chip.textContent = 'Snoozed';
-        actionsWrap.innerHTML = '<button class="mini-btn" type="button" data-action="resume">Resume</button>';
-        if (controller) controller.apply();
-      } else if (action === 'resume') {
-        var prev = tr.getAttribute('data-prev-status') || 'ok';
-        tr.setAttribute('data-status', prev);
-        tr.classList.remove('is-inactive');
-        var chip2 = tr.querySelector('.status-chip');
-        var mapped = STATUS_LABEL[prev] || STATUS_LABEL.ok;
-        chip2.className = 'status-chip ' + mapped[0];
-        chip2.textContent = mapped[1];
-        actionsWrap.innerHTML = ACTIVE_ACTIONS;
-        if (controller) controller.apply();
-      } else if (action === 'reassign') {
-        var ownerNameEl = tr.querySelector('.owner-name');
-        var dotEl = tr.querySelector('.owner-dot');
-        var idx = ROSTER.indexOf(ownerNameEl.textContent);
-        var next = ROSTER[(idx + 1) % ROSTER.length];
-        ownerNameEl.textContent = next;
-        dotEl.textContent = initialsOf(next);
-      }
-    });
-
-    /* connector drop / retry simulation — the one demo-labelled control, since a real
-       network failure cannot be triggered client-side without a backend to fail. */
-    var dropBtn = document.getElementById('connectorDropBtn');
-    var retryBtn = document.getElementById('connectorRetryBtn');
-    var statusWrap = document.getElementById('connectorStatus');
-    var statusMsg = document.getElementById('connectorMsg');
-    var errorState = document.getElementById('triageErrorState');
-    var tableWrap = table.closest('.table-scroll');
-
-    function setConnectorError() {
-      statusWrap.classList.add('is-error');
-      statusMsg.textContent = 'Source connection lost — retry or inspect the connector.';
-      dropBtn.hidden = true;
-      retryBtn.hidden = false;
-      errorState.classList.add('is-shown');
-      if (tableWrap) tableWrap.classList.add('is-degraded');
-    }
-    function clearConnectorError() {
-      statusWrap.classList.remove('is-error');
-      statusMsg.textContent = 'Connector healthy — last event 38s ago.';
-      dropBtn.hidden = false;
-      retryBtn.hidden = true;
-      errorState.classList.remove('is-shown');
-      if (tableWrap) tableWrap.classList.remove('is-degraded');
-    }
-    if (dropBtn) dropBtn.addEventListener('click', setConnectorError);
-    if (retryBtn) retryBtn.addEventListener('click', clearConnectorError);
-  })();
-
-  /* ---------- alert rules: enable/disable switches ---------- */
-  (function ruleSwitches() {
-    var switches = Array.prototype.slice.call(document.querySelectorAll('#panel-rules .switch'));
-    switches.forEach(function (sw) {
-      sw.addEventListener('click', function () {
-        var checked = sw.getAttribute('aria-checked') === 'true';
-        var next = !checked;
-        sw.setAttribute('aria-checked', String(next));
-        var label = document.getElementById(sw.getAttribute('aria-labelledby'));
-        if (label) label.textContent = next ? 'Enabled' : 'Disabled';
-        var card = sw.closest('.rule-card');
-        if (card) card.classList.toggle('is-disabled', !next);
-      });
-    });
-  })();
-
-  /* ---------- audit log: real CSV export (Blob download, no fake affordance) ---------- */
-  (function auditExport() {
-    var btn = document.getElementById('exportAuditBtn');
-    var statusEl = document.getElementById('exportStatus');
-    var list = document.getElementById('auditList');
-    if (!btn || !list) return;
-    btn.addEventListener('click', function () {
-      btn.disabled = true;
-      statusEl.classList.remove('is-success');
-      statusEl.textContent = 'Preparing export…';
-      window.setTimeout(function () {
-        var esc = function (s) { return '"' + s.replace(/"/g, '""') + '"'; };
-        var rows = Array.prototype.slice.call(list.querySelectorAll('li')).map(function (li) {
-          var time = li.querySelector('.audit-time').textContent.trim();
-          var actor = li.querySelector('.audit-actor').textContent.trim();
-          var action = li.querySelector('.audit-action').textContent.trim();
-          return [esc(time), esc(actor), esc(action)].join(',');
-        });
-        var csv = 'time,actor,action\n' + rows.join('\n') + '\n';
-        var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        var url = URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.href = url;
-        a.download = 'signalstack-audit-export.csv';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        window.setTimeout(function () { URL.revokeObjectURL(url); }, 1500);
-        statusEl.classList.add('is-success');
-        statusEl.textContent = 'Export ready — signalstack-audit-export.csv (' + rows.length + ' rows) downloaded.';
-        btn.disabled = false;
-      }, 850);
-    });
-  })();
-
-  /* ---------- pricing: monthly / annual cadence toggle
-     (r2 fix: v1 pointed at ids/attributes that did not exist in its own markup —
-     #cadenceSwitch, #annualSaveNote and [data-cadence-label] were never on the page,
-     so the switch was visually present but inert. Wired to the real hooks below,
-     and synced once on load so the label always matches the switch state.) ---------- */
-  (function pricingCadence() {
-    var toggle = document.getElementById('pricingToggle');
-    var sw = document.getElementById('pricingSwitch');
-    var saveNote = toggle ? toggle.querySelector('.save-note') : null;
-    var perEls = Array.prototype.slice.call(document.querySelectorAll('.price .per'));
-    if (!sw) return;
-
-    function sync(isAnnual) {
-      sw.setAttribute('aria-checked', String(isAnnual));
-      if (toggle) toggle.classList.toggle('is-annual', isAnnual);
-      if (saveNote) saveNote.hidden = !isAnnual;
-      perEls.forEach(function (el) { el.textContent = isAnnual ? '/ seat / yr' : '/ seat / mo'; });
-    }
-
-    sw.addEventListener('click', function () {
-      var checked = sw.getAttribute('aria-checked') === 'true';
-      sync(!checked);
-    });
-
-    sync(sw.getAttribute('aria-checked') === 'true');
-  })();
-
-  /* ---------- FAQ accordion ---------- */
-  (function faqAccordion() {
-    var triggers = Array.prototype.slice.call(document.querySelectorAll('.accordion-trigger'));
-    triggers.forEach(function (trigger) {
-      trigger.addEventListener('click', function () {
-        var panel = document.getElementById(trigger.getAttribute('aria-controls'));
-        var expanded = trigger.getAttribute('aria-expanded') === 'true';
-        trigger.setAttribute('aria-expanded', String(!expanded));
-        if (!panel) return;
-        if (expanded) {
-          panel.classList.remove('is-in');
-          window.setTimeout(function () { panel.hidden = true; }, prefersReducedMotion() ? 0 : 220);
-        } else {
-          panel.hidden = false;
-          window.requestAnimationFrame(function () {
-            window.requestAnimationFrame(function () { panel.classList.add('is-in'); });
-          });
-        }
-      });
-    });
-  })();
-
-  /* ---------- states showcase: loading / empty / error / success demo widget ---------- */
-  (function statesDemo() {
-    var controls = document.querySelector('.state-controls');
-    var body = document.getElementById('stateWidgetBody');
-    var tag = document.getElementById('stateWidgetTag');
-    if (!controls || !body || !tag) return;
-
-    var TEMPLATES = {
-      loading: {
-        tagText: 'Loading', tagClass: '',
-        html: '<div class="skeleton-rows" aria-hidden="true"><div class="skeleton-row"></div><div class="skeleton-row"></div><div class="skeleton-row"></div></div>'
-      },
-      empty: {
-        tagText: 'Empty', tagClass: '',
-        html: '<div class="state-empty-copy"><svg class="icon" aria-hidden="true"><use href="#icon-inbox"></use></svg><strong>No signals right now.</strong><p>An empty queue is a good outcome — guidance points to the next useful filter, not a dead end.</p></div>'
-      },
-      error: {
-        tagText: 'Error', tagClass: 'is-error',
-        html: '<div class="state-error-copy"><svg class="icon" aria-hidden="true"><use href="#icon-alert-triangle"></use></svg><strong>Could not reach the source.</strong><p>Errors name the failing source and the recovery action — they never blank the whole screen.</p></div>'
-      },
-      success: {
-        tagText: 'Loaded', tagClass: 'is-success',
-        html: '<ul class="state-list">' +
-          '<li><span class="sig-dot" aria-hidden="true"></span><strong>Search index reindex lag climbing</strong><span>3m ago</span></li>' +
-          '<li><span class="sig-dot" aria-hidden="true"></span><strong>Support queue backlog above target</strong><span>9m ago</span></li>' +
-          '<li><span class="sig-dot" aria-hidden="true"></span><strong>Deploy pipeline retry count elevated</strong><span>16m ago</span></li>' +
-          '</ul>'
-      }
-    };
-
-    function setState(name) {
-      var t = TEMPLATES[name];
-      if (!t) return;
-      body.innerHTML = t.html;
-      tag.textContent = t.tagText;
-      tag.className = 'state-tag' + (t.tagClass ? ' ' + t.tagClass : '');
-      Array.prototype.forEach.call(controls.querySelectorAll('.chip'), function (c) {
-        c.setAttribute('aria-pressed', String(c.getAttribute('data-state') === name));
-      });
-    }
-
-    controls.addEventListener('click', function (e) {
-      var btn = e.target.closest ? e.target.closest('.chip') : null;
-      if (!btn) return;
-      setState(btn.getAttribute('data-state'));
-    });
-
-    window.setTimeout(function () { setState('success'); }, prefersReducedMotion() ? 0 : 900);
-  })();
-
-  /* ---------- demo form: validation, work-email domain check, loading/success states ---------- */
-  (function demoForm() {
-    var form = document.getElementById('demoForm');
-    if (!form) return;
-    var banner = document.getElementById('formBanner');
-    var bannerMsg = document.getElementById('formBannerMsg');
-    var submitBtn = document.getElementById('submitBtn');
-    var successPanel = document.getElementById('formSuccess');
-    var resetBtn = document.getElementById('formResetBtn');
-
-    var FREE_DOMAINS = ['gmail.com', 'yahoo.com', 'hotmail.com', 'outlook.com', 'icloud.com', 'aol.com', 'proton.me', 'live.com'];
-
-    var validators = {
-      email: function (v) {
-        var trimmed = v.trim();
-        if (!trimmed) return 'Enter your work email.';
-        var match = /^[^\s@]+@([^\s@]+\.[^\s@]+)$/.exec(trimmed);
-        if (!match) return 'Enter a valid email address.';
-        if (FREE_DOMAINS.indexOf(match[1].toLowerCase()) !== -1) return 'Please use your work email, not a personal address.';
-        return '';
-      },
-      team: function (v) { return v ? '' : 'Select a team size.'; },
-      use: function (v) { return v.trim().length >= 3 ? '' : 'Tell us the primary use in a few words.'; }
-    };
-
-    function fieldEls(name) {
-      return { input: form.elements[name], error: document.getElementById(name + '-err') };
-    }
-
-    function validateField(name) {
-      var f = fieldEls(name);
-      var msg = validators[name](f.input.value);
-      f.input.setAttribute('aria-invalid', String(!!msg));
-      f.error.textContent = msg;
-      return !msg;
-    }
-
-    ['email', 'team', 'use'].forEach(function (name) {
-      var f = fieldEls(name);
-      f.input.addEventListener('blur', function () { validateField(name); });
-      f.input.addEventListener('input', function () { if (f.input.getAttribute('aria-invalid') === 'true') validateField(name); });
-      f.input.addEventListener('change', function () { if (f.input.getAttribute('aria-invalid') === 'true') validateField(name); });
-    });
-
-    function showBanner(msg) { bannerMsg.textContent = msg; banner.classList.add('is-shown'); }
-    function hideBanner() { banner.classList.remove('is-shown'); }
-
-    function setLoading(loading) {
-      submitBtn.setAttribute('aria-busy', String(loading));
-      submitBtn.disabled = loading;
-      Array.prototype.forEach.call(form.querySelectorAll('input, select'), function (el) { el.disabled = loading; });
-    }
-
-    function showSuccess() {
-      successPanel.classList.add('is-shown');
-      window.requestAnimationFrame(function () {
-        window.requestAnimationFrame(function () { successPanel.classList.add('is-in'); });
-      });
-      successPanel.setAttribute('tabindex', '-1');
-      successPanel.focus();
-    }
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      hideBanner();
-      var names = ['email', 'team', 'use'];
-      var results = names.map(validateField);
-      var invalidCount = results.filter(function (r) { return !r; }).length;
-      if (invalidCount > 0) {
-        showBanner('Fix the highlighted field' + (invalidCount > 1 ? 's' : '') + ' before requesting a walkthrough.');
-        fieldEls(names[results.indexOf(false)]).input.focus();
-        return;
-      }
-      setLoading(true);
-      window.setTimeout(function () {
-        setLoading(false);
-        showSuccess();
-      }, 900);
-    });
-
-    if (resetBtn) {
-      resetBtn.addEventListener('click', function () {
-        form.reset();
-        ['email', 'team', 'use'].forEach(function (name) {
-          var f = fieldEls(name);
-          f.input.setAttribute('aria-invalid', 'false');
-          f.error.textContent = '';
-        });
-        hideBanner();
-        successPanel.classList.remove('is-shown', 'is-in');
-        form.elements.email.focus();
-      });
-    }
-  })();
-
-  /* ---------- API/CLI code blocks: real copy-to-clipboard
-     (r2 fix: v1 looked for a .copy-label child that the markup never included, so
-     clicking "Copy" silently did nothing. Markup now wraps the label in <span class="copy-label">.) ---------- */
-  (function copyBlocks() {
-    var buttons = Array.prototype.slice.call(document.querySelectorAll('.copy-btn'));
-    if (!buttons.length) return;
-    buttons.forEach(function (btn) {
-      var targetId = btn.getAttribute('data-copy-target');
-      var target = document.getElementById(targetId);
-      var label = btn.querySelector('.copy-label');
-      if (!target || !label) return;
-      var defaultLabel = label.textContent;
-      btn.addEventListener('click', function () {
-        var text = target.textContent;
-        function markCopied() {
-          btn.classList.add('is-copied');
-          label.textContent = 'Copied';
-          window.setTimeout(function () {
-            btn.classList.remove('is-copied');
-            label.textContent = defaultLabel;
-          }, 1600);
-        }
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-          navigator.clipboard.writeText(text).then(markCopied, function () { fallbackCopy(text, markCopied); });
-        } else {
-          fallbackCopy(text, markCopied);
-        }
-      });
-    });
-
-    function fallbackCopy(text, done) {
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); } catch (err) { /* clipboard unavailable — silent, button just stays as-is */ }
-      document.body.removeChild(ta);
-      done();
-    }
-  })();
-
-  /* ---------- global shortcut: "/" focuses the triage search, matching the visible <kbd> hint ---------- */
-  (function searchShortcut() {
-    var search = document.getElementById('triageSearch');
-    var triageTab = document.getElementById('tab-triage');
-    if (!search) return;
-    function isTyping(el) {
-      return el && (el.tagName === 'INPUT' || el.tagName === 'SELECT' || el.tagName === 'TEXTAREA' || el.isContentEditable);
-    }
-    document.addEventListener('keydown', function (e) {
-      if (e.key === '/' && !isTyping(document.activeElement)) {
-        e.preventDefault();
-        if (triageTab && triageTab.getAttribute('aria-selected') !== 'true') triageTab.click();
-        search.focus();
-      }
-    });
-    search.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && search.value) {
-        search.value = '';
-        search.dispatchEvent(new Event('input'));
-      }
-    });
-  })();
-
-})();
-</script>
 </body>
 </html>

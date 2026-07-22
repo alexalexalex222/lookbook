@@ -137,6 +137,7 @@ def test_mcp_server_registers_knowledge_tools():
     assert "validate_knowledge_router" in tool_names
     # existing design tools must be untouched
     assert "resolve_design_context" in tool_names
+    assert "get_pattern_card" in tool_names
     assert "validate_design_router" in tool_names
 
 

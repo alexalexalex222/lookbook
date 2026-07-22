@@ -1,84 +1,163 @@
-# Page Quality Eval
+# Routing And Page Quality Evaluation
 
-> **Note:** The Node/Playwright eval harness described below is not included in this
-> public repository snapshot yet. Routing and packet contracts are covered by `tests/`.
+Lookbook verifies two different things:
 
-The router and its `tests/` suite verify *routing and packet contracts* — that a brief
-resolves to a sensible anchor and the packet carries the right rules. Nothing scored the thing
-that actually ships: the **generated page**. This harness closes that gap.
+1. the router selected a defensible anchor and handled uncertainty correctly;
+2. the generated frontend actually renders and behaves at the quality bar.
 
-It scores a finished HTML page against the same hard rules the packet enforces, and ties each
-page back to what the router chose for it.
+Neither result substitutes for the other.
 
-## What it measures
+## Routing Ledger
 
-**Hard-rule policy** (any violation = FAIL):
-- raster `<img>/<picture>/<source>` count (packet allows raster only when user-supplied)
-- raster CSS `url(...)` assets, and external asset/link refs
-- emoji in visible copy (no emoji-as-icons)
-- repeated-SVG groups (one decorative SVG reused across sections)
-- horizontal overflow at any of 6 viewports
-- console / page errors
-
-**Richness signals** (not pass/fail, for A/B and triage): inline-SVG count, section count and
-ids, generic `.card` uses, structure markers (timeline/process/proof/grid/stats…), domain-term
-hits.
-
-**Fabricated-proof candidates** are reported with surrounding context for human review and are
-*not* auto-failed — phrases like "no awards, no invented reviews" legitimately contain the words.
-The harness never fabricates a verdict on taste; it flags, you (or a stronger model) judge.
-
-**Route metadata** (when a brief is supplied): anchor, score, vertical, and donor-starvation
-status, via the Python CLI — so page quality is read next to route quality.
-
-## Layers
-
-- `quality_scan.js` — `staticScan(html)` (pure string analysis, always runs) and
-  `browserScan(htmlPath)` (Playwright across 6 viewports: 1512/1440/1280/1024/768/390).
-  If the browser can't launch, `browserScan` returns `{available:false}` so the eval never
-  hard-blocks — the static layer still scores.
-- `run_quality_eval.js` — discovers/loads pages, runs both layers, writes a per-run
-  `results.json` + `report.md` under `evals/reports/<timestamp>/`.
-
-No dependencies beyond `playwright` (already installed) and Node built-ins.
-
-## Usage
+`evals/router/judgments.jsonl` is the versioned route/clarify ledger. It covers
+train, calibration, and hidden splits, including historical failures, typos,
+negation, sparse prompts, game surfaces, local-service verticals, and forbidden
+anchor families.
 
 ```bash
-# Auto-scan every generated/*/index.html (full 6-viewport browser pass)
-node evals/run_quality_eval.js
-
-# Fast static-only pass (no browser; good for CI)
-node evals/run_quality_eval.js --no-browser
-
-# Specific pages, saving 6-viewport screenshots to the report dir
-node evals/run_quality_eval.js --shots --pages path/to/index.html another/index.html
-
-# Config-driven: route + A/B (routed vs unrouted baseline) for a brief set
-node evals/run_quality_eval.js --config evals/briefs/example.json
+lookbook --repo-root . visual-index
+lookbook --repo-root . routing-eval \
+  --profile hybrid_v5 \
+  --output-dir evals/reports/router-v5
 ```
 
-### Config entry shape
+The command writes `routing-eval.json` and `routing-eval.html`. The hidden gate
+requires:
+
+- 100% pass rate;
+- 100% route/clarify decision accuracy;
+- zero forbidden-anchor violations.
+
+`route_with_caution` counts as a route in the binary ledger while remaining
+visible as a distinct runtime decision.
+
+## Router V5
+
+V5 preserves deterministic rules as the safety channel and adds:
+
+- BM25 and character retrieval;
+- structural source-profile retrieval;
+- real screenshot pixel profiles;
+- optional live local query embeddings;
+- an optional bounded local reranker over the already-qualified top pool.
+
+Build the optional local indexes:
+
+```bash
+lookbook --repo-root . visual-index
+lookbook --repo-root . embedding-index --model nomic-embed-text:latest
+```
+
+Enable live dense queries only when a local embedding endpoint is available:
+
+```bash
+DESIGN_ROUTER_LIVE_EMBEDDINGS=1 \
+  lookbook --repo-root . routing-eval --profile hybrid_v5
+```
+
+For the bounded reranker:
+
+```bash
+export DESIGN_ROUTER_RERANK_MODEL=qwen3.5:0.8b
+export DESIGN_ROUTER_RERANK_URL=http://localhost:11434/api/generate
+```
+
+Use `rerank_mode="shadow"` first. Active mode can promote only an existing
+candidate inside the configured score corridor and confidence floor. Candidate
+escape, malformed JSON, endpoint failure, model abstention, low confidence, and
+non-loopback endpoints all preserve the deterministic winner.
+
+Optional `reference_image_paths` are resolved only inside the repository or
+server roots declared by `DESIGN_ROUTER_REFERENCE_IMAGE_ROOTS`.
+
+## Golden Build Arena
+
+The Arena creates matched build inputs and evaluates baseline/candidate HTML.
+Preparation writes:
+
+- `baseline/PROMPT.md`;
+- `routed/PROMPT.md`;
+- `routed/PACKET.md`;
+- `routed/ROUTE.json`;
+- `PREPARED.json`.
+
+```bash
+lookbook --repo-root . arena \
+  --phase prepare \
+  --config evals/arena/example.json \
+  --output-dir evals/arena/latest
+```
+
+After the same builder/model produces both pages, add `baseline_html` and
+`routed_html` to each case and evaluate:
+
+```bash
+lookbook --repo-root . arena \
+  --phase evaluate \
+  --config evals/arena/example.json \
+  --output-dir evals/arena/latest
+```
+
+Evaluation writes `results.json`, `report.md`, `report.html`, and full-page
+screenshots for 1512, 1280, 768, 390, and 360 widths.
+
+## Deterministic Gates
+
+The static layer checks:
+
+- title, language, and one-H1 heading flow;
+- prohibited raster/external references;
+- emoji in visible copy;
+- labelled form controls;
+- empty pages and repeated SVG warnings;
+- focus, reduced-motion, domain, state, and structure signals.
+
+The browser layer checks:
+
+- browser availability when browser proof is requested;
+- horizontal overflow;
+- console and page errors;
+- blocked network requests;
+- body text size;
+- 44px interactive targets;
+- overlapping interactive controls;
+- substantial content left opacity-hidden after a deterministic scroll sweep;
+- nonblank rendered pages;
+- painted canvas pixels for visible games.
+
+The known-bad negative control must fail both the expected static checks and the
+browser check. A candidate becomes eligible for human review only when the
+negative control passes, the candidate clears deterministic gates, the result
+does not regress from baseline, and the static quality delta is nonnegative.
+
+Promotion is never automatic. The config must contain an explicit human review
+with `approved: true` and `winner: "routed"`.
+
+## Config Shape
 
 ```json
-[
-  {
-    "label": "coffee_ood",
-    "html": "generated/coffee-roaster-routed/index.html",
-    "brief": "evals/briefs/coffee.request.json",
-    "baselineHtml": "generated/coffee-roaster-unrouted/index.html",
-    "domainTerms": ["roast", "single origin", "espresso", "brew"]
-  }
-]
+{
+  "version": "1.0",
+  "shared_instructions": "Use the same builder, model, and implementation budget.",
+  "cases": [
+    {
+      "case_id": "arcade-racer",
+      "request": {
+        "surface": "game",
+        "surface_kind": "game",
+        "task": "Build a playable top-down arcade racer."
+      },
+      "domain_terms": ["racer", "checkpoint", "lap"],
+      "baseline_html": "generated/arcade-baseline/index.html",
+      "routed_html": "generated/arcade-routed/index.html",
+      "human_review": {
+        "approved": false,
+        "winner": ""
+      }
+    }
+  ]
+}
 ```
 
-With `baselineHtml`, the report adds an A/B table of routed-minus-baseline deltas (raster
-images, inline SVG, sections, generic `.card`, domain terms, structure markers). This is the
-"does the packet actually help" experiment, reproducible per brief.
-
-## Interpreting a run
-
-`report.md` leads with `N pass / M fail` and a per-page table; failing pages list their exact
-violations; A/B blocks show deltas and the route the packet came from. `results.json` has the
-full per-viewport detail. The policy layer is deterministic; the richness/claim layers are
-inputs to judgment, not a score to optimize blindly.
+Use `--no-browser` only for an explicitly static-only run. Browser unavailability
+does not count as a pass when browser proof was requested.

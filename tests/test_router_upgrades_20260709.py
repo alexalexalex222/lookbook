@@ -3,10 +3,10 @@
 Three features, each proven live before these tests were written:
   1. Multi-pattern routing — runner-up anchors ride in route_meta["anchor_alternatives"]
      and render in the Selected Route section with borrow-don't-blend discipline.
-  2. Full-build mode — token_mode=full_selected + full_code_mode=True embeds the COMPLETE
-     anchor source in a required "Full Anchor Build" section (stale sibling css skipped
-     when the primary html is self-contained).
-  3. Mobile-First Gates — a required strict-quality section in normal modes, absent in micro.
+  2. Full-build mode — every packet embeds the COMPLETE selected anchor source in a
+     required "Full Anchor Build" section (stale sibling css skipped when the primary
+     html is self-contained).
+  3. Mobile-First Gates — a required strict-quality section in every packet mode.
 
 These guard behavior (packet contents / route_meta shape), not implementation details.
 """
@@ -99,47 +99,27 @@ def test_full_build_skips_stale_sibling_css_when_html_self_contained():
         )
 
 
-def test_compact_mode_never_embeds_full_source():
-    # Peek mode only: explicit compact + full_code off must not load full sources.
-    peek = {"token_mode": "compact", "full_code_mode": False, "code_profile": "balanced"}
-    md = resolve_design_packet({**MMA_REQ, **peek}, REPO_ROOT)
-    assert "# Full Anchor Build" not in md
-    resolution, _ = _route(**peek)
-    assert not resolution.route_meta.get("anchor_full_source"), (
-        "compact-mode routes must not pay the cost of reading full sources"
-    )
-
-
-def test_default_resolve_is_one_call_full_depth():
-    """Builder defaults ship complete primary pattern — no second tool hop."""
+def test_compact_mode_embeds_full_source_without_clipping():
     md = resolve_design_packet(MMA_REQ, REPO_ROOT)
     assert "# Full Anchor Build" in md
-    assert "BUILD NOW" in md
-    assert "Do NOT call resolve_design_context again" in md
-    # No ready-to-run tool recipes (prohibition text may still name the tool).
-    assert "get_source_excerpt(pack_id=" not in md
-    assert "rerun `resolve_design_context`" not in md.lower()
     assert "PACKET TRUNCATED" not in md
     resolution, _ = _route()
-    assert resolution.route_meta.get("anchor_full_source"), (
-        "default route must load full primary pattern for one-call builds"
-    )
+    assert resolution.route_meta.get("anchor_full_source")
+    assert resolution.route_meta["capacity_policy"] == "unbounded"
 
 
 # ── 3. mobile-first gates ─────────────────────────────────────────────────────
 
 def test_mobile_first_gates_present_in_normal_modes():
-    for mode in (None, "standard", "full_selected"):
-        payload = {**MMA_REQ}
-        if mode:
-            payload["token_mode"] = mode
-            payload["full_code_mode"] = mode != "compact"
-        md = resolve_design_packet(payload, REPO_ROOT)
-        assert "# Mobile-First Gates" in md, f"gates missing in mode={mode or 'default'}"
+    for mode in (None, "standard"):
+        md = resolve_design_packet(
+            {**MMA_REQ, **({"token_mode": mode} if mode else {})}, REPO_ROOT
+        )
+        assert "# Mobile-First Gates" in md, f"gates missing in mode={mode or 'compact'}"
         assert "not a collapsed desktop" in md
         assert "44x44px" in md
 
 
-def test_mobile_first_gates_absent_in_micro():
+def test_mobile_first_gates_present_in_micro():
     md = resolve_design_packet({**MMA_REQ, "token_mode": "micro"}, REPO_ROOT)
-    assert "# Mobile-First Gates" not in md, "micro packets must stay lean"
+    assert "# Mobile-First Gates" in md

@@ -1,0 +1,91 @@
+{
+  "pack_id": "ashvault_dungeon_tactics_v1",
+  "role": "anchor",
+  "family": "website.game",
+  "source_paths": [
+    "source_snapshot/index.html"
+  ],
+  "origin_example_ids": [
+    "mimo-four-surface-benchmark-2026-07-18/dungeon-tactics"
+  ],
+  "stack": [
+    "html_css",
+    "vanilla_javascript",
+    "dom_grid",
+    "single_file"
+  ],
+  "tones": [
+    "dark",
+    "tactical",
+    "atmospheric",
+    "legible",
+    "warm",
+    "restrained"
+  ],
+  "surfaces": [
+    "game",
+    "full_site",
+    "grid_board",
+    "turn_log",
+    "touch_controls"
+  ],
+  "motif_tags": [
+    "gameplay_first",
+    "tactical_grid",
+    "turn_loop",
+    "player_state",
+    "enemy_state",
+    "movement_range",
+    "attack_range",
+    "health_status",
+    "objective_exit",
+    "event_log",
+    "restart_flow",
+    "victory_state",
+    "defeat_state",
+    "keyboard_controls",
+    "touch_controls"
+  ],
+  "supports_tasks": [
+    "turn_based_dungeon_tactics",
+    "grid_strategy_game",
+    "deterministic_enemy_turns",
+    "movement_attack_range_game",
+    "browser_tactics_game",
+    "keyboard_touch_grid_game",
+    "victory_defeat_restart_flow"
+  ],
+  "anti_patterns": [
+    "spreadsheet identity owner",
+    "marketing landing page before gameplay",
+    "random enemy behavior described as deterministic",
+    "decorative grid with no turn loop",
+    "emoji used as game icons",
+    "tiny mobile controls",
+    "fake procedural or saved-game claims",
+    "copied ashvault identity"
+  ],
+  "screenshot_paths": [
+    "screenshots/desktop-1512.png",
+    "screenshots/mobile-390.png"
+  ],
+  "token_budget_hint": 6200,
+  "confidence_score": 5,
+  "origin_type": "synthetic_historical",
+  "routing_tokens": [
+    "game",
+    "tactics",
+    "turn_based",
+    "dungeon",
+    "grid",
+    "player_movement",
+    "enemy_turns",
+    "attack_range",
+    "health",
+    "exit",
+    "event_log",
+    "touch_controls"
+  ],
+  "proof_policy": "turn loop, movement, enemy response, victory, defeat, restart, keyboard, and touch behavior must be browser-verified",
+  "qa_status": "browser-pass; desktop-mobile-interaction-pass"
+}

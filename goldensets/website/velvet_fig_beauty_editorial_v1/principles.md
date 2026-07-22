@@ -1,5 +1,8 @@
-- Lead with one graceful headline block and one obvious booking action.
-- Let the right-side visual feel sculpted and beauty-native: soft editorial geometry, controlled proof, and a clear sense of treatment polish.
-- Keep the phone action visible, but integrate it into the page rhythm instead of letting utility chrome become the hero.
-- Premium here should come from pace, typography, and restraint rather than vague luxury filler or residential warmth.
-- This family is strongest when the first frame feels quiet, feminine, and specific without turning into influencer-template fluff.
+# Velvet Fig Beauty Editorial — Anchor Principles
+
+- The first viewport is one sculpted portrait composition with one obvious booking action, not a split hero made from generic cards.
+- Service discovery is operational: filters expose a real treatment list with category, duration or scope placeholders, and direct booking paths.
+- Preparation guidance uses a readable time sequence so first-time visitors know what happens before and after the appointment.
+- Locations and memberships are comparison tools, not decorative trust rails. Selected state and mobile touch targets remain explicit.
+- Booking preserves input, validates specifically, and ends in a review state before submission.
+- Premium quality comes from illustration, pace, typography, and whitespace, never invented results, vague luxury language, or stock photography.

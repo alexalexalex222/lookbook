@@ -1,3 +1,9 @@
-Build with calm beauty authority, not residential showroom politeness.
+# Velvet Fig Beauty Editorial — Route Prompt
 
-The page should feel editorial, composed, and booking-forward. Favor clear phone action, serene first-frame confidence, and one genuinely beautiful visual field over generic local-service trust rails or lifestyle mush.
+Use for sugaring, waxing, skin, brow, and beauty studios that need an editorial service site with a complete booking journey.
+
+Lead with one detailed illustrative portrait field and a direct booking action. Continue through the treatment method, filterable treatment menu, first-visit preparation guide, studio location selector, membership comparison, FAQ, booking request, and final review state.
+
+The page should feel calm, feminine, specific, and operational. Typography and illustration carry the beauty identity; utility controls stay clear and touch-friendly.
+
+Do not invent treatment outcomes, medical claims, locations, prices, membership savings, availability, reviews, or credentials. Use supplied facts or labeled placeholders.

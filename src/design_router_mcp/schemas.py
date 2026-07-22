@@ -5,10 +5,31 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-TokenMode = Literal["micro", "compact", "standard", "expanded", "full_selected", "library_audit"]
+TokenMode = Literal[
+    "unbounded",
+    "micro",
+    "compact",
+    "standard",
+    "expanded",
+    "full_selected",
+    "library_audit",
+]
 LocalModelProfile = Literal["tiny_16k", "balanced_32k", "strong_64k", "moe_128k", "manual"]
 DonorSelectionMode = Literal["default", "support_examples_v1", "site_donor_first_v1", "auto_lane_promotion_v1"]
-RouteProfile = Literal["hybrid_survivor_v1", "legacy_exploration", "specialty_hardened", "data_driven_v2"]
+PatternSourceKind = Literal["support_example", "anchor_excerpt"]
+PatternDomainFit = Literal["native", "neutral", "adjacent"]
+PatternIdentityRisk = Literal["low", "medium", "high"]
+PatternCardTier = Literal["S", "M", "L"]
+RouteProfile = Literal[
+    "hybrid_survivor_v1",
+    "legacy_exploration",
+    "specialty_hardened",
+    "data_driven_v2",
+    "hybrid_shadow_v1",
+    "hybrid_v4",
+    "hybrid_v5",
+]
+RerankMode = Literal["off", "shadow", "active"]
 PacketProfile = Literal["current_source_first_v1", "march12_exploratory", "march15_foldfit", "compact_v2"]
 VisualQualityProfile = Literal["strict_design_router_gpt55_mcp_v1", "legacy_relaxed"]
 CodeProfile = Literal["balanced", "code_first"]
@@ -27,6 +48,17 @@ UxRole = Literal[
     "trust_rail",
     "stats_strip",
     "service_area_signal",
+    "navigation_shell",
+    "filter_toolbar",
+    "data_table",
+    "modal_flow",
+    "hud_cluster",
+    "overlay_state",
+    "inventory_panel",
+    "control_cluster",
+    "gameplay_stage",
+    "event_log",
+    "responsive_control_dock",
 ]
 
 
@@ -42,16 +74,46 @@ class DesignContextRequest(BaseModel):
 
     surface: str = Field(description="e.g. website.local_service")
     task: str = Field(description="Concrete frontend task description.")
+    surface_kind: str | None = Field(
+        default=None,
+        description="Optional canonical surface class such as app, landing, dashboard, instrument, game, or docs.",
+    )
+    task_archetype: str | None = Field(
+        default=None,
+        description="Optional explicit workflow archetype such as settings, kanban, notifications, or file_manager.",
+    )
     stack: str = Field(default="unknown")
     tone: list[str] = Field(default_factory=list)
     layout_mode: str = Field(default="homepage")
     constraints: list[str] = Field(default_factory=list)
     anti_patterns: list[str] = Field(default_factory=list)
     desired_density: str = Field(default="balanced")
-    max_examples: int = Field(default=3, ge=0, le=5)
+    max_examples: int = Field(default=3, ge=0)
     donor_selection_mode: DonorSelectionMode = Field(default="support_examples_v1")
-    donor_count: int = Field(default=3, ge=1, le=3)
-    route_profile: RouteProfile = Field(default="data_driven_v2")
+    donor_count: int = Field(default=3, ge=1)
+    include_optional_patterns: bool = Field(
+        default=True,
+        description="Include a diversified shelf of optional section-level patterns from compatible golden sets.",
+    )
+    optional_pattern_count: int = Field(
+        default=8,
+        ge=0,
+        description="Requested optional pattern count. Routing quality gates may return fewer, but token modes never cap it.",
+    )
+    route_profile: RouteProfile = Field(default="hybrid_v4")
+    rerank_mode: RerankMode = Field(
+        default="shadow",
+        description="V5 local-candidate reranking mode. Ignored by earlier route profiles.",
+    )
+    rerank_model: str | None = Field(
+        default=None,
+        description="Optional local Ollama model id for bounded V5 reranking. Endpoint configuration stays server-side.",
+    )
+    reference_image_paths: list[str] = Field(
+        default_factory=list,
+        max_length=3,
+        description="Optional local reference screenshots for V5 pixel-aware retrieval. Paths must stay inside an allowed server-side root.",
+    )
     packet_profile: PacketProfile = Field(default="compact_v2")
     include_full_library: bool = Field(default=False)
     pattern_lock: bool = Field(default=False)
@@ -59,19 +121,19 @@ class DesignContextRequest(BaseModel):
     pattern_lock_exact: bool = Field(default=False)
     full_code_mode: bool = Field(
         default=True,
-        description="Include complete primary pattern source in the first resolve so builders need no follow-up excerpt calls.",
+        description="Backward-compatible flag. Selected source is complete by default; false no longer enables clipping.",
     )
     prefer_angular_geometry: bool = Field(default=True)
     host_browser_review: bool = Field(default=False)
     token_mode: TokenMode = Field(
-        default="full_selected",
-        description="Default full_selected ships mandatory depth + full primary pattern in one call. Use compact/micro only for inventory-style peeks.",
+        default="unbounded",
+        description="Packet detail label retained for compatibility. All normal modes use unbounded capacity.",
     )
     local_model_profile: LocalModelProfile | None = Field(default=None)
     visual_quality_profile: VisualQualityProfile = Field(default="strict_design_router_gpt55_mcp_v1")
     code_profile: CodeProfile = Field(
-        default="code_first",
-        description="Default code_first prioritizes implementation code in the first packet so builders do not need a second tool hop.",
+        default="balanced",
+        description="Use 'code_first' when local models need more implementation code and less prose before building.",
     )
     packet_intent: PacketIntent = Field(
         default="balanced",
@@ -194,8 +256,22 @@ class LoadedPack(BaseModel):
     anchor_source_files: list[CodeFile] = Field(default_factory=list)
 
 
+class ArchetypeCandidate(BaseModel):
+    name: str
+    score: int
+    confidence: float
+    exact_phrases: list[str] = Field(default_factory=list)
+    exact_tokens: list[str] = Field(default_factory=list)
+    fuzzy_tokens: list[str] = Field(default_factory=list)
+
+
 class NormalizedRequest(BaseModel):
     surface: str
+    surface_kind: str = "unknown"
+    task_archetype: str | None = None
+    task_archetype_confidence: float = 0.0
+    task_archetype_candidates: list[ArchetypeCandidate] = Field(default_factory=list)
+    task_archetype_ambiguous: bool = False
     motif_tags: list[str]
     strength_tags: list[str]
     avoided_motif_tags: list[str]
@@ -226,6 +302,12 @@ class ScoreBreakdown(BaseModel):
     tone: int = 0
     layout: int = 0
     screenshot_fit: int = 0
+    task_fit: int = 0
+    signature_fit: int = 0
+    retrieval_fit: int = 0
+    rerank_fit: int = 0
+    family_fit: int = 0
+    anti_pattern: int = 0
     request_bias: int = 0
     confidence: int = 0
     matched_terms: dict[str, list[str]] = Field(default_factory=dict)
@@ -242,6 +324,51 @@ class ExampleSelection(BaseModel):
     ux_role_match: list[UxRole] = Field(default_factory=list)
 
 
+class OptionalPattern(BaseModel):
+    pattern_id: str
+    pack_id: str
+    example_id: str | None = None
+    source_kind: PatternSourceKind
+    score: int
+    score_axes: dict[str, int] = Field(default_factory=dict)
+    domain_fit: PatternDomainFit = "neutral"
+    mechanic_fit: int = Field(default=0, ge=0, le=100)
+    quality_score: int = Field(default=0, ge=0, le=100)
+    identity_risk: PatternIdentityRisk = "medium"
+    ux_roles: list[UxRole] = Field(default_factory=list)
+    priority_roles: list[UxRole] = Field(default_factory=list)
+    matched_terms: list[str] = Field(default_factory=list)
+    strength_tags: list[str] = Field(default_factory=list)
+    motif_tags: list[str] = Field(default_factory=list)
+    job_statement: str = ""
+    when_to_use: str = ""
+    when_not_to_use: str = ""
+    states: list[str] = Field(default_factory=list)
+    responsive_behavior: list[str] = Field(default_factory=list)
+    invariants: list[str] = Field(default_factory=list)
+    dependencies: list[str] = Field(default_factory=list)
+    integration_hint: str = ""
+    excerpt: CodeFile | None = None
+    style_excerpt: CodeFile | None = None
+    hygiene_clean: bool = True
+    optional: bool = True
+
+
+class PatternCatalogEntry(BaseModel):
+    pattern_id: str
+    pack_id: str
+    example_id: str | None = None
+    source_kind: PatternSourceKind
+    score: int
+    domain_fit: PatternDomainFit
+    mechanic_fit: int
+    quality_score: int
+    identity_risk: PatternIdentityRisk
+    ux_roles: list[UxRole] = Field(default_factory=list)
+    priority_roles: list[UxRole] = Field(default_factory=list)
+    job_statement: str = ""
+
+
 class RouteResolution(BaseModel):
     request: DesignContextRequest
     normalized_request: NormalizedRequest
@@ -249,6 +376,13 @@ class RouteResolution(BaseModel):
     hero_reference_pack: LoadedPack | None = None
     support_bank: LoadedPack | None = None
     selected_examples: list[ExampleSelection] = Field(default_factory=list)
+    optional_patterns: list[OptionalPattern] = Field(default_factory=list)
+    optional_pattern_catalog: list[PatternCatalogEntry] = Field(default_factory=list)
+    optional_pattern_candidates: list[OptionalPattern] = Field(
+        default_factory=list,
+        exclude=True,
+        repr=False,
+    )
     auxiliary_anchor_packs: list[LoadedPack] = Field(default_factory=list)
     shared_atoms: list[AtomSnippet] = Field(default_factory=list)
     anchor_score: ScoreBreakdown
@@ -259,11 +393,15 @@ class RouteResolution(BaseModel):
     def selected_example_ids(self) -> list[str]:
         return [example.example_id for example in self.selected_examples]
 
+    @property
+    def optional_pattern_ids(self) -> list[str]:
+        return [pattern.pattern_id for pattern in self.optional_patterns]
+
 
 class RenderedPacket(BaseModel):
     markdown: str
     estimated_tokens: int
-    token_mode: TokenMode = "compact"
+    token_mode: TokenMode = "unbounded"
     selected_files: list[str] = Field(default_factory=list)
     omitted_files: list[str] = Field(default_factory=list)
     metadata: dict[str, Any] = Field(default_factory=dict)

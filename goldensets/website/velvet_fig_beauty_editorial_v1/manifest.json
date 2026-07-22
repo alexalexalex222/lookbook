@@ -26,33 +26,76 @@
     "homepage",
     "hero",
     "landing",
-    "section"
+    "section",
+    "treatment-menu",
+    "preparation-guide",
+    "locations",
+    "membership-comparison",
+    "booking-form",
+    "review",
+    "faq"
   ],
   "motif_tags": [
-    "hero_shell",
+    "illustrative_portrait_hero",
+    "editorial_figure_field",
+    "treatment_filter_menu",
+    "sugaring_method_comparison",
+    "preparation_timeline",
+    "studio_location_selector",
+    "membership_comparison",
+    "booking_request_review",
+    "faq_disclosure",
     "sticky_nav",
     "cta_treatment",
     "light_precision",
-    "headline_hierarchy",
-    "trust_rail",
-    "phone_pill",
-    "split_hero",
-    "glass_panel"
+    "headline_hierarchy"
   ],
   "supports_tasks": [
-    "hero_redesign",
-    "homepage_polish",
-    "beauty_service_website",
-    "light_editorial_beauty_theme",
-    "medspa_homepage"
+    "editorial_sugaring_skin_studio_website",
+    "illustrative_beauty_portrait_hero",
+    "filterable_treatment_menu",
+    "first_visit_preparation_guide",
+    "multi_studio_location_selector",
+    "beauty_membership_comparison",
+    "booking_request_review_flow",
+    "beauty_service_faq"
   ],
   "anti_patterns": [
-    "template feel",
+    "fake treatment results or medical claims",
+    "invented studio locations or availability",
+    "fabricated reviews or membership savings",
+    "stock beauty photography",
+    "generic medspa split hero",
     "generic luxury mush",
     "influencer landing page",
     "residential contractor framing",
     "clinical dashboard shell"
   ],
-  "token_budget_hint": 4200,
+  "screenshot_paths": [
+    "screenshots/router-desktop-1512x812.png",
+    "screenshots/router-mobile-390x844.png"
+  ],
+  "reusable_atoms": [
+    "illustrative_portrait_hero_v1",
+    "treatment_filter_menu_v1",
+    "preparation_timeline_v1",
+    "studio_location_selector_v1",
+    "membership_comparison_v1",
+    "booking_request_review_v1"
+  ],
+  "routing_tokens": [
+    "sugaring",
+    "skin studio",
+    "treatment menu",
+    "preparation guide",
+    "studio locations",
+    "membership",
+    "booking request",
+    "booking review",
+    "editorial beauty"
+  ],
+  "proof_policy": "no invented results, medical claims, locations, memberships, prices, availability, or testimonials",
+  "qa_status": "static-pass; visual-pass",
+  "token_budget_hint": 5600,
   "confidence_score": 5
 }

@@ -6,16 +6,21 @@ import os
 import sys
 from pathlib import Path
 
-from .index_store import build_repository_index
+from .routing_eval import compare_routing_profiles, write_routing_report
 from .service import (
     audit_source_hygiene,
     build_index,
+    build_design_embedding_index,
+    build_visual_routing_index,
     code_density_metrics,
     donor_starvation_audit,
     export_opencode_bundle,
+    get_pattern_card,
     inspect_design_library,
+    prepare_golden_build_arena,
     resolve_design_packet,
     route_alternatives,
+    run_golden_build_arena,
     validate_design_router,
 )
 from .schemas import DesignContextRequest
@@ -66,6 +71,12 @@ def build_parser() -> argparse.ArgumentParser:
     alternatives.add_argument("--request-file")
     alternatives.add_argument("--request-json")
 
+    pattern_card = sub.add_parser("pattern-card", help="Expand one route-qualified optional Pattern Card.")
+    pattern_card.add_argument("--request-file")
+    pattern_card.add_argument("--request-json")
+    pattern_card.add_argument("--pattern-id", required=True)
+    pattern_card.add_argument("--tier", choices=["S", "M", "L"], default="M")
+
     audit = sub.add_parser("audit", help="Audit donor starvation for a request.")
     audit.add_argument("--request-file")
     audit.add_argument("--request-json")
@@ -77,7 +88,7 @@ def build_parser() -> argparse.ArgumentParser:
     list_cmd = sub.add_parser("list", help="List packs from the manifest index.")
     list_cmd.add_argument("--examples", action="store_true")
 
-    validate = sub.add_parser("validate", help="Validate local runtime and repo data.")
+    sub.add_parser("validate", help="Validate local runtime and repo data.")
 
     hygiene = sub.add_parser("hygiene", help="Audit support-bank donor source for identity/proof/raster leakage.")
     hygiene.add_argument("--pack-id")
@@ -87,18 +98,65 @@ def build_parser() -> argparse.ArgumentParser:
     index = sub.add_parser("index", help="Build or refresh the SQLite manifest index.")
     index.add_argument("--no-refresh", action="store_true")
 
+    visual_index = sub.add_parser("visual-index", help="Build the structural visual retrieval index.")
+    visual_index.add_argument("--output")
+
+    embedding_index = sub.add_parser("embedding-index", help="Build the optional local dense embedding index.")
+    embedding_index.add_argument("--model", default="nomic-embed-text")
+    embedding_index.add_argument("--endpoint")
+    embedding_index.add_argument("--batch-size", type=int, default=16)
+    embedding_index.add_argument("--output")
+
+    routing_eval = sub.add_parser("routing-eval", help="Evaluate routing against the versioned judgment ledger.")
+    routing_eval.add_argument("--profile", default="hybrid_v4")
+    routing_eval.add_argument("--ledger")
+    routing_eval.add_argument("--output-dir", default="evals/reports/router-latest")
+    routing_eval.add_argument("--compare", action="store_true")
+    routing_eval.add_argument("--compare-profile", action="append")
+
+    arena = sub.add_parser("arena", help="Prepare or evaluate a routed-vs-unrouted Golden Build Arena run.")
+    arena.add_argument("--config", required=True)
+    arena.add_argument("--output-dir", default="evals/arena/latest")
+    arena.add_argument("--phase", choices=["prepare", "evaluate"], default="evaluate")
+    arena.add_argument("--route-profile", default="hybrid_v5")
+    arena.add_argument("--token-mode", default="unbounded")
+    arena.add_argument("--no-browser", action="store_true")
+    arena.add_argument("--no-shots", action="store_true")
+
     export = sub.add_parser("export", help="Export an OpenCode bundle.")
     export.add_argument("--surface", required=True)
     export.add_argument("--task", required=True)
+    export.add_argument("--surface-kind")
+    export.add_argument("--task-archetype")
     export.add_argument("--output-dir")
-    export.add_argument("--token-mode", default="compact")
+    export.add_argument("--token-mode", default="unbounded")
     export.add_argument("--stack", default="unknown")
     export.add_argument("--tone", action="append")
-    export.add_argument("--full-code-mode", action="store_true")
+    export.add_argument("--layout-mode", default="homepage")
+    export.add_argument("--constraint", action="append")
+    export.add_argument("--anti-pattern", action="append")
+    export.add_argument("--desired-density", default="balanced")
+    export.add_argument("--route-profile", default="hybrid_v4")
+    export.add_argument("--rerank-mode", choices=["off", "shadow", "active"], default="shadow")
+    export.add_argument("--rerank-model")
+    export.add_argument("--reference-image-path", action="append")
+    export.add_argument(
+        "--full-code-mode",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Compatibility flag. Selected routed source is complete either way.",
+    )
     export.add_argument("--no-source-excerpts", action="store_true")
     export.add_argument("--code-profile", choices=["balanced", "code_first"], default="code_first")
     export.add_argument("--packet-intent", choices=["balanced", "code_first", "design_director", "visual_system", "implementation_blueprint"], default="balanced")
-    export.add_argument("--max-source-chars", type=int, default=8000)
+    export.add_argument("--no-optional-patterns", action="store_true")
+    export.add_argument("--optional-pattern-count", type=int, default=8)
+    export.add_argument(
+        "--max-source-chars",
+        type=int,
+        default=None,
+        help="Legacy compatibility argument; source exports are not clipped.",
+    )
 
     # Backward-compatible root-level resolve options.
     parser.add_argument("--request-file")
@@ -127,9 +185,81 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "index":
         print(json.dumps(build_index(repo_root, refresh=not args.no_refresh), indent=2))
         return 0
+    if args.command == "visual-index":
+        print(json.dumps(build_visual_routing_index(repo_root, output_path=args.output), indent=2))
+        return 0
+    if args.command == "embedding-index":
+        print(
+            json.dumps(
+                build_design_embedding_index(
+                    repo_root,
+                    model=args.model,
+                    endpoint=args.endpoint,
+                    batch_size=args.batch_size,
+                    output_path=args.output,
+                ),
+                indent=2,
+            )
+        )
+        return 0
+    if args.command == "routing-eval":
+        if args.compare:
+            profiles = args.compare_profile or ["data_driven_v2", "hybrid_shadow_v1", "hybrid_v4", "hybrid_v5"]
+            print(
+                json.dumps(
+                    compare_routing_profiles(
+                        repo_root,
+                        profiles=profiles,
+                        ledger_path=args.ledger,
+                    ),
+                    indent=2,
+                )
+            )
+            return 0
+        report = write_routing_report(
+            repo_root,
+            args.output_dir,
+            profile=args.profile,
+            ledger_path=args.ledger,
+        )
+        print(json.dumps(report, indent=2))
+        return 0
+    if args.command == "arena":
+        if args.phase == "prepare":
+            result = prepare_golden_build_arena(
+                repo_root,
+                config_path=args.config,
+                output_dir=args.output_dir,
+                route_profile=args.route_profile,
+                token_mode=args.token_mode,
+            )
+        else:
+            result = run_golden_build_arena(
+                repo_root,
+                config_path=args.config,
+                output_dir=args.output_dir,
+                browser=not args.no_browser,
+                shots=not args.no_shots,
+            )
+        print(json.dumps(result, indent=2))
+        return 0
     if args.command == "alternatives":
         request = _load_request(args.request_file, args.request_json)
         print(json.dumps(route_alternatives(repo_root, request), indent=2))
+        return 0
+    if args.command == "pattern-card":
+        request = _load_request(args.request_file, args.request_json)
+        print(
+            json.dumps(
+                get_pattern_card(
+                    repo_root,
+                    request,
+                    pattern_id=args.pattern_id,
+                    tier=args.tier,
+                ),
+                indent=2,
+            )
+        )
         return 0
     if args.command == "audit":
         request = _load_request(args.request_file, args.request_json)
@@ -146,14 +276,26 @@ def main(argv: list[str] | None = None) -> int:
                     repo_root,
                     surface=args.surface,
                     task=args.task,
+                    surface_kind=args.surface_kind,
+                    task_archetype=args.task_archetype,
                     output_dir=args.output_dir,
                     token_mode=args.token_mode,
                     stack=args.stack,
                     tone=args.tone,
+                    layout_mode=args.layout_mode,
+                    constraints=args.constraint,
+                    anti_patterns=args.anti_pattern,
+                    desired_density=args.desired_density,
+                    route_profile=args.route_profile,
+                    rerank_mode=args.rerank_mode,
+                    rerank_model=args.rerank_model,
+                    reference_image_paths=args.reference_image_path,
                     full_code_mode=args.full_code_mode,
                     include_source_excerpts=not args.no_source_excerpts,
                     code_profile=args.code_profile,
                     packet_intent=args.packet_intent,
+                    include_optional_patterns=not args.no_optional_patterns,
+                    optional_pattern_count=args.optional_pattern_count,
                     max_source_chars=args.max_source_chars,
                 ),
                 indent=2,

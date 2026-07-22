@@ -14,9 +14,9 @@ CODE_SUFFIXES = {".html", ".htm", ".css", ".tsx", ".ts", ".jsx", ".js", ".md"}
 
 # First-party reference atoms are clean authored code: they must NOT be passed through
 # `sanitize_source_text` (that sanitizer is for reference-pack source excerpts only).
-# Generous per-file cap so complete components are available in memory; the renderer
-# trims per token mode at emit time.
-SHARED_ATOM_FILE_CHARS = 8000
+# Selected first-party atoms are loaded whole. Packet size is telemetry, not a
+# reason to clip source.
+SHARED_ATOM_FILE_CHARS: int | None = None
 
 # Order code files html -> css -> js -> other so weak models read markup first.
 _ATOM_FILE_ORDER = {".html": 0, ".htm": 0, ".css": 1, ".js": 2, ".jsx": 2, ".ts": 3, ".tsx": 3}
@@ -101,8 +101,63 @@ _PANEL_CLASS_RE = re.compile(
     re.IGNORECASE,
 )
 
+_VOID_HTML_TAGS = {
+    "area",
+    "base",
+    "br",
+    "col",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "link",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr",
+}
+_HTML_TAG_RE = re.compile(r"<!--.*?-->|<![^>]*>|<[^>]+>", re.S)
 
-def _extract_section_job_excerpts_from_text(markup: str, *, example_id: str, max_sections: int = 4, max_chars: int = 2200) -> list[CodeFile]:
+
+def _trim_balanced_markup(markup: str, max_chars: int | None = None) -> str:
+    text = markup.strip()
+    if max_chars is None or len(text) <= max_chars:
+        return text
+    cutoff = text.rfind(">", 0, max_chars + 1)
+    if cutoff < 0:
+        return ""
+    prefix = text[: cutoff + 1].rstrip()
+    stack: list[str] = []
+    for match in _HTML_TAG_RE.finditer(prefix):
+        tag = match.group(0)
+        if tag.startswith(("<!--", "<!")):
+            continue
+        parsed = re.match(r"<\s*(/?)\s*([a-zA-Z0-9:-]+)", tag)
+        if parsed is None:
+            continue
+        closing, name = parsed.groups()
+        name = name.lower()
+        if closing:
+            for index in range(len(stack) - 1, -1, -1):
+                if stack[index] == name:
+                    del stack[index:]
+                    break
+            continue
+        if name in _VOID_HTML_TAGS or tag.rstrip().endswith("/>"):
+            continue
+        stack.append(name)
+    closers = "".join(f"</{name}>" for name in reversed(stack))
+    return f"{prefix}{closers}\n<!-- shortened at a tag boundary -->"
+
+
+def _extract_section_job_excerpts_from_text(
+    markup: str,
+    *,
+    example_id: str,
+    max_sections: int = 4,
+    max_chars: int | None = None,
+) -> list[CodeFile]:
     if not markup:
         return []
     excerpts: list[CodeFile] = []
@@ -116,7 +171,9 @@ def _extract_section_job_excerpts_from_text(markup: str, *, example_id: str, max
         if not any(marker in lowered for marker in ("<h1", "<h2", "<h3", "class=", "classname=")):
             return
         slug = _slug_from_block(block, f"{tag_name}-{len(excerpts) + 1:02d}")
-        content = _trim(block, max_chars)
+        content = _trim_balanced_markup(block, max_chars)
+        if not content:
+            return
         fingerprint = re.sub(r"\s+", " ", content[:420]).strip()
         if fingerprint in seen:
             return
@@ -141,7 +198,7 @@ def _extract_section_job_excerpts_from_text(markup: str, *, example_id: str, max
     return excerpts
 
 
-def extract_markup_excerpt(markup: str, *, max_chars: int = 5000) -> str:
+def extract_markup_excerpt(markup: str, *, max_chars: int | None = None) -> str:
     if not markup:
         return ""
     class_attr = r"(?:class|className)"
@@ -155,29 +212,29 @@ def extract_markup_excerpt(markup: str, *, max_chars: int = 5000) -> str:
         match = pattern.search(markup)
         if match:
             tag_name = "main" if match.group(0).lower().startswith("<main") else "section"
-            return _trim(_find_balanced_block(markup, match.start(), tag_name), max_chars)
+            return _trim_balanced_markup(_find_balanced_block(markup, match.start(), tag_name), max_chars)
     for tag_name in ("section", "main"):
         pattern = re.compile(rf"<{tag_name}\b[^>]*>", re.IGNORECASE)
         for match in pattern.finditer(markup):
             block = _find_balanced_block(markup, match.start(), tag_name)
             if "<h1" in block.lower() or "<h2" in block.lower():
-                return _trim(block, max_chars)
-    return _trim(markup, max_chars)
+                return _trim_balanced_markup(block, max_chars)
+    return _trim_balanced_markup(markup, max_chars)
 
 
-def _trim(text: str, max_chars: int) -> str:
+def _trim(text: str, max_chars: int | None = None) -> str:
     text = text.strip()
-    if len(text) <= max_chars:
+    if max_chars is None or len(text) <= max_chars:
         return text
     return text[:max_chars].rstrip() + "\n<!-- truncated -->"
 
 
-def _extract_inline_style_blocks(markup: str, *, max_chars: int = 5000) -> str:
+def _extract_inline_style_blocks(markup: str, *, max_chars: int | None = None) -> str:
     blocks = [m.group(1).strip() for m in re.finditer(r"<style\b[^>]*>(.*?)</style>", markup, re.I | re.S)]
     return _trim("\n\n".join(blocks), max_chars) if blocks else ""
 
 
-def _read_source_markup(path: Path, *, max_chars: int = 12000) -> str:
+def _read_source_markup(path: Path, *, max_chars: int | None = None) -> str:
     if path.is_file():
         return _read_text(path, max_chars=max_chars)
     for name in ("index.html", "app_page.tsx", "page.tsx", "App.tsx", "app.jsx"):
@@ -187,24 +244,29 @@ def _read_source_markup(path: Path, *, max_chars: int = 12000) -> str:
     return ""
 
 
-def _read_source_css(path: Path, *, max_chars: int = 8000) -> str:
+def _read_source_css(path: Path, *, max_chars: int | None = None) -> str:
     if path.is_file():
-        return _extract_inline_style_blocks(_read_text(path, max_chars=max_chars * 2), max_chars=max_chars)
+        return _extract_inline_style_blocks(_read_text(path, max_chars=max_chars), max_chars=max_chars)
     for name in ("styles.css", "app_globals.css", "globals.css", "style.css"):
         text = _read_text(path / name, max_chars=max_chars)
         if text:
             return text
-    return _extract_inline_style_blocks(_read_source_markup(path, max_chars=max_chars * 2), max_chars=max_chars)
+    return _extract_inline_style_blocks(_read_source_markup(path, max_chars=max_chars), max_chars=max_chars)
 
 
-def _load_atoms(pack_dir: Path, *, max_snippets: int = 3, max_chars: int = 1200) -> list[AtomSnippet]:
+def _load_atoms(
+    pack_dir: Path,
+    *,
+    max_snippets: int | None = None,
+    max_chars: int | None = None,
+) -> list[AtomSnippet]:
     atoms_dir = pack_dir / "atoms"
     if not atoms_dir.exists():
         return []
     atoms: list[AtomSnippet] = []
     for atom_dir in sorted(p for p in atoms_dir.iterdir() if p.is_dir()):
         # Pack-local atoms are extracted from reference-pack source, so sanitize like other excerpts.
-        notes = sanitize_source_text(_read_text(atom_dir / "notes.md", max_chars=900))
+        notes = sanitize_source_text(_read_text(atom_dir / "notes.md"))
         snippet_files = sorted(p for p in atom_dir.iterdir() if p.name.startswith("snippet."))
         if not snippet_files:
             atoms.append(AtomSnippet(atom_id=atom_dir.name, notes=notes, snippet=None, language="text"))
@@ -217,12 +279,18 @@ def _load_atoms(pack_dir: Path, *, max_snippets: int = 3, max_chars: int = 1200)
                     language=_language_for_path(snippet_path),
                 )
             )
-        if len(atoms) >= max_snippets:
+        if max_snippets is not None and len(atoms) >= max_snippets:
             break
     return atoms
 
 
-def _load_anchor_reference(pack_dir: Path, manifest: PackManifest, *, include_full: bool, max_code_chars: int) -> tuple[str, str, str, str, list[CodeFile]]:
+def _load_anchor_reference(
+    pack_dir: Path,
+    manifest: PackManifest,
+    *,
+    include_full: bool,
+    max_code_chars: int | None,
+) -> tuple[str, str, str, str, list[CodeFile]]:
     markup = ""
     markup_lang = "text"
     css = ""
@@ -263,15 +331,49 @@ def _sanitize_code_file(code_file: CodeFile | None) -> CodeFile | None:
     return code_file.model_copy(update={"content": sanitize_source_text(code_file.content)})
 
 
-def _load_full_source_files(source_path: Path, example_id: str, *, max_code_chars: int, sanitize: bool = False) -> list[CodeFile]:
+def _load_full_source_files(
+    source_path: Path,
+    example_id: str,
+    *,
+    max_code_chars: int | None,
+    sanitize: bool = False,
+) -> list[CodeFile]:
     if source_path.is_file():
         code_file = _load_code_file(source_path, f"{example_id}/{source_path.name}", max_chars=max_code_chars)
         if sanitize:
             code_file = _sanitize_code_file(code_file)
         return [code_file] if code_file else []
+    preferred_names = (
+        "index.html",
+        "styles.css",
+        "script.js",
+        "app.js",
+        "app_page.tsx",
+        "page.tsx",
+        "App.tsx",
+        "app.jsx",
+        "app_globals.css",
+        "globals.css",
+        "style.css",
+    )
+    candidates: list[Path] = []
+    for name in preferred_names:
+        candidate = source_path / name
+        if candidate.is_file() and candidate.suffix.lower() in CODE_SUFFIXES:
+            candidates.append(candidate)
+    seen = {candidate.resolve() for candidate in candidates}
+    for candidate in sorted(source_path.rglob("*")):
+        if not candidate.is_file() or candidate.suffix.lower() not in CODE_SUFFIXES:
+            continue
+        resolved = candidate.resolve()
+        if resolved in seen:
+            continue
+        candidates.append(candidate)
+        seen.add(resolved)
     files: list[CodeFile] = []
-    for name in ("index.html", "styles.css", "app_page.tsx", "app_globals.css"):
-        code_file = _load_code_file(source_path / name, f"{example_id}/{name}", max_chars=max_code_chars)
+    for candidate in candidates:
+        label = f"{example_id}/{candidate.relative_to(source_path).as_posix()}"
+        code_file = _load_code_file(candidate, label, max_chars=max_code_chars)
         if sanitize:
             code_file = _sanitize_code_file(code_file)
         if code_file:
@@ -279,7 +381,14 @@ def _load_full_source_files(source_path: Path, example_id: str, *, max_code_char
     return files
 
 
-def _load_example(pack_dir: Path, manifest: PackManifest, example_id: str, *, include_full: bool, max_code_chars: int) -> ExampleSummary:
+def _load_example(
+    pack_dir: Path,
+    manifest: PackManifest,
+    example_id: str,
+    *,
+    include_full: bool,
+    max_code_chars: int | None,
+) -> ExampleSummary:
     examples_dir = pack_dir / "examples"
     summary_path = examples_dir / f"{example_id}.md"
     source_dir = manifest.source_dirs.get(example_id, "")
@@ -291,15 +400,14 @@ def _load_example(pack_dir: Path, manifest: PackManifest, example_id: str, *, in
         source_path = Path(source_dir)
         if not source_path.is_absolute():
             source_path = pack_dir / source_path
-        source_markup = sanitize_source_text(_read_source_markup(source_path, max_chars=max_code_chars * 2))
-        # Section snippets scan a wider window than the hero excerpt: large app-style
-        # builds (45-80KB) keep their substantive interior panels well past the hero
-        # excerpt's cutoff. Each emitted snippet is still capped by max_chars below.
-        section_markup = sanitize_source_text(_read_source_markup(source_path, max_chars=max(max_code_chars * 2, 60000)))
+        source_markup = sanitize_source_text(
+            _read_source_markup(source_path, max_chars=max_code_chars)
+        )
+        section_markup = source_markup
         section_job_excerpts = _extract_section_job_excerpts_from_text(
             section_markup,
             example_id=example_id,
-            max_chars=min(max_code_chars, 2400),
+            max_chars=None,
         )
         if include_full:
             full_files = _load_full_source_files(source_path, example_id, max_code_chars=max_code_chars, sanitize=True)
@@ -309,7 +417,7 @@ def _load_example(pack_dir: Path, manifest: PackManifest, example_id: str, *, in
             css_excerpt = sanitize_source_text(_read_source_css(source_path, max_chars=max_code_chars))
     return ExampleSummary(
         example_id=example_id,
-        summary_markdown=sanitize_source_text(_read_text(summary_path, max_chars=1600)),
+        summary_markdown=sanitize_source_text(_read_text(summary_path)),
         strength_tags=manifest.example_strengths.get(example_id, []),
         motif_tags=manifest.motif_overlaps.get(example_id, []),
         source_dir=source_dir,
@@ -336,13 +444,13 @@ def _load_atom_meta(atom_dir: Path) -> dict | None:
     return data if isinstance(data, dict) else None
 
 
-def _load_shared_atom(atom_dir: Path, *, max_chars: int) -> AtomSnippet:
+def _load_shared_atom(atom_dir: Path, *, max_chars: int | None) -> AtomSnippet:
     """Load one first-party reference atom with ALL of its code files + meta.
 
     First-party atoms are clean authored code and are intentionally NOT run through
     the donor sanitizer.
     """
-    notes = _read_text(atom_dir / "notes.md", max_chars=1600)
+    notes = _read_text(atom_dir / "notes.md")
     meta = _load_atom_meta(atom_dir)
 
     snippet_files = sorted(
@@ -385,7 +493,11 @@ def _load_shared_atom(atom_dir: Path, *, max_chars: int) -> AtomSnippet:
     return AtomSnippet(**fields)
 
 
-def load_shared_atoms(repo_root: Path, *, max_chars: int = SHARED_ATOM_FILE_CHARS) -> list[AtomSnippet]:
+def load_shared_atoms(
+    repo_root: Path,
+    *,
+    max_chars: int | None = SHARED_ATOM_FILE_CHARS,
+) -> list[AtomSnippet]:
     """Load ALL first-party reference atoms with their full code + selection metadata.
 
     No atom cap and no per-atom file cap: every atom dir is loaded with every
@@ -409,7 +521,14 @@ class PackStore:
         self.index = index or build_repository_index(self.repo_root)
 
     @lru_cache(maxsize=64)
-    def _load_cached(self, pack_id: str, example_key: str, include_full: bool, max_code_chars: int, max_atoms: int) -> LoadedPack:
+    def _load_cached(
+        self,
+        pack_id: str,
+        example_key: str,
+        include_full: bool,
+        max_code_chars: int | None,
+        max_atoms: int | None,
+    ) -> LoadedPack:
         record = self.index.get(pack_id)
         selected_examples = [eid for eid in example_key.split("\0") if eid]
         return self._load_from_record(record, selected_examples=selected_examples, include_full=include_full, max_code_chars=max_code_chars, max_atoms=max_atoms)
@@ -419,9 +538,9 @@ class PackStore:
         pack_id: str,
         *,
         selected_examples: Iterable[str] | None = None,
-        include_full: bool = False,
-        max_code_chars: int = 5000,
-        max_atoms: int = 3,
+        include_full: bool = True,
+        max_code_chars: int | None = None,
+        max_atoms: int | None = None,
     ) -> LoadedPack:
         example_key = "\0".join(sorted(selected_examples or []))
         return self._load_cached(pack_id, example_key, include_full, max_code_chars, max_atoms)
@@ -432,13 +551,13 @@ class PackStore:
         *,
         selected_examples: list[str],
         include_full: bool,
-        max_code_chars: int,
-        max_atoms: int,
+        max_code_chars: int | None,
+        max_atoms: int | None,
     ) -> LoadedPack:
         manifest = record.manifest
-        prompt = sanitize_source_text(_read_text(record.pack_dir / "prompt.md", max_chars=2400))
-        principles = sanitize_source_text(_read_text(record.pack_dir / "principles.md", max_chars=2400))
-        anti_copy = sanitize_source_text(_read_text(record.pack_dir / "anti_copy.md", max_chars=1800))
+        prompt = sanitize_source_text(_read_text(record.pack_dir / "prompt.md"))
+        principles = sanitize_source_text(_read_text(record.pack_dir / "principles.md"))
+        anti_copy = sanitize_source_text(_read_text(record.pack_dir / "anti_copy.md"))
         atoms = _load_atoms(record.pack_dir, max_snippets=max_atoms)
         markup, markup_lang, css, css_lang, source_files = _load_anchor_reference(
             record.pack_dir,

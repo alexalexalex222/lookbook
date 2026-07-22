@@ -1,41 +1,41 @@
-Build a premium, fully self-contained combat-sports / martial-arts academy
-homepage with grounded fight-floor authority — not a UFC broadcast clone and not
-a cheerful family-karate studio.
+# Iron Circuit Fight Academy - Route Prompt
 
-Business (fictional): an adult & teen academy teaching striking (boxing, Muay
-Thai), grappling (BJJ, wrestling), and MMA fundamentals. The audience is mostly
-nervous beginners, so the page must lower fear and drive one action: book a trial
-session.
+Build a professional adult and teen combat-sports academy website for a serious
+training floor. It must welcome nervous beginners without making the gym feel
+soft, childish, cartoonish, or like a family-karate franchise. It must also give
+experienced athletes a credible intermediate path without turning into a fight
+promotion broadcast.
 
-Visual identity: matte black / carbon / deep-brown base with COPPER as the
-primary accent, bone for text, and a controlled red used sparingly (taped
-corners, a single schedule band). Condensed athletic display type for headings,
-a readable system grotesk for body, mono for labels and schedule times. Shape
-language: mat grids, taped corners, fight-card numbering, a bracket-like class
-schedule, and restrained diagonal tension. Motion is purposeful and physical —
-hover pressure, schedule-row focus, an SVG mat-line draw on the hero — with a
-full reduced-motion fallback.
+Use a cold-steel, chalk, black, controlled-red, and training-blue visual system.
+The hero should be a detailed environmental study of the actual kind of room
+being sold: cage mesh, ring ropes, bags, floor seams, pads, ventilation, timer,
+gear, and marked training zones. Inline SVG is appropriate only when it carries
+this level of spatial and material detail.
 
-Required sections, all fully built (no stubs): (1) sticky nav with Programs,
-Schedule, First Visit, Coaches, Start; (2) hero with a bespoke inline-SVG
-mat-zone diagram and a trial-session CTA; (3) a program selector with
-striking / grappling / youth / fundamentals tabs; (4) a weekly class schedule
-matrix as a real table; (5) a first-week onboarding timeline; (6) a coach roster
-with proof-safe credential placeholders; (7) a facility / gear "bring this vs we
-provide" checklist; (8) a trial booking form with all states, inline validation,
-and keyboard submit; (9) an FAQ tuned for nervous beginners; (10) a footer with
-proof-safe contact placeholders.
+Build the complete flow:
 
-Hard constraints: no <img>, no CSS url() to rasters, no external fonts / CDN /
-JS — system fonts only and any JS is minimal vanilla. No emoji as icons (use
-bespoke inline SVG, one SVG per job). Mobile-first and responsive with zero
-horizontal overflow from 360 to 1512. Semantic landmarks, one logical heading
-flow, visible :focus-visible styles, full keyboard paths, labelled controls, AA
-contrast, >=44px touch targets, and a skip-to-content link. Every interactive
-element ships default/hover/focus/active/disabled; every async surface ships
-empty/error/success.
+1. Sticky desktop and mobile navigation with one trial action.
+2. Full-bleed training-floor hero with one clear promise and a compact protocol
+   board.
+3. Side-by-side beginner and intermediate entry paths.
+4. Accessible program tabs for foundations, striking, grappling, MMA, and youth.
+5. A scannable weekly schedule that preserves day context on mobile.
+6. A first-visit timeline that lowers uncertainty.
+7. A proof-safe coach-role ledger with no invented people or credentials.
+8. A detailed floor plan and a realistic first-session gear study.
+9. A validated trial request form with loading, error, success, and reset states.
+10. Beginner-focused FAQ and a complete footer.
 
-Proof rule: invent no credentials, records, belts, championships, testimonials,
-ratings, awards, or years-in-business. Use labeled placeholders and proof-safe
-copy ("ask about current availability", "verified credentials can be placed
-here") unless the operator supplies verified evidence.
+Interaction must clarify choice: roving-focus program tabs, day selection,
+focus-managed form validation, mobile menu escape handling, and reduced-motion
+fallbacks. Keep all controls at least 44px, all text readable, and every mobile
+layout free of page-level horizontal overflow.
+
+Use system fonts, semantic HTML, inline SVG, CSS, and minimal vanilla JavaScript.
+Do not use external assets, stock fighter imagery, emoji icons, generic fighter
+silhouettes, or low-detail mascot art.
+
+Proof policy: invent no coach names, ranks, belts, records, championships,
+testimonials, ratings, awards, affiliations, availability, or business history.
+When verified evidence is absent, state that honestly and preserve the usable
+structure.

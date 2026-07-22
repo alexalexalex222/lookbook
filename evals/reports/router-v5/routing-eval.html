@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Golden Book Routing Evaluation</title>
+<style>
+:root { color-scheme: dark; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #0b0d10; color: #f3f5f7; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #0b0d10; color: #f3f5f7; }
+button, input { font: inherit; }
+button:focus-visible, input:focus-visible { outline: 2px solid #f3c969; outline-offset: 2px; }
+main { width: min(1560px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 64px; }
+header { display: flex; align-items: end; justify-content: space-between; gap: 24px; border-bottom: 1px solid #323842; padding-bottom: 20px; }
+.eyebrow { color: #9ba6b2; font: 600 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; text-transform: uppercase; }
+h1 { font-size: clamp(24px, 3vw, 38px); line-height: 1.08; margin: 6px 0 0; letter-spacing: 0; }
+.meta { color: #aeb7c1; margin: 6px 0 0; overflow-wrap: anywhere; }
+.gate { min-width: 142px; border-left: 3px solid #63d9a1; padding: 8px 0 8px 14px; }
+.gate.fail { border-color: #ff7770; }
+.gate b { display: block; font: 700 22px/1 ui-monospace, SFMono-Regular, Menlo, monospace; margin-top: 7px; }
+.summary { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 1px; background: #303640; border: 1px solid #303640; margin: 24px 0; }
+.metric { background: #14181d; padding: 16px; min-height: 90px; }
+.metric span { color: #9ba6b2; font-size: 13px; }
+.metric b { display: block; font: 700 24px/1 ui-monospace, SFMono-Regular, Menlo, monospace; margin-top: 14px; }
+.section-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 30px 0 12px; }
+h2 { font-size: 18px; margin: 0; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; }
+.controls button { min-height: 44px; border: 1px solid #3a424d; border-radius: 6px; background: #14181d; color: #dce2e8; padding: 0 14px; cursor: pointer; }
+.controls button:hover { background: #1c2229; }
+.controls button[aria-pressed="true"] { background: #f3f5f7; color: #0b0d10; border-color: #f3f5f7; }
+.search { width: min(420px, 100%); min-height: 44px; border: 1px solid #3a424d; border-radius: 6px; background: #111419; color: #f3f5f7; padding: 0 14px; }
+.table-wrap { overflow: auto; max-height: 680px; border: 1px solid #303640; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { padding: 11px 12px; text-align: left; border-bottom: 1px solid #262b33; white-space: nowrap; }
+th { position: sticky; top: 0; z-index: 1; background: #1b2027; color: #aeb8c4; }
+tbody tr:hover { background: #14191f; }
+.badge { display: inline-flex; align-items: center; min-height: 24px; border: 1px solid #46505c; border-radius: 999px; padding: 2px 8px; font: 700 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.badge.pass { color: #6ee7aa; border-color: #296c4c; }
+.badge.fail { color: #ff8982; border-color: #863e3a; }
+.badge.warning { color: #f3c969; border-color: #7b672c; }
+.badge.split { color: #c7d0da; }
+.split-table { max-width: 780px; }
+.empty { display: none; color: #aeb7c1; border: 1px solid #303640; padding: 24px; }
+@media (max-width: 1000px) { .summary { grid-template-columns: repeat(3, minmax(0, 1fr)); } header { align-items: start; } }
+@media (max-width: 620px) { main { width: min(100% - 20px, 1560px); padding-top: 18px; } header { display: block; } .gate { margin-top: 18px; } .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); } .section-head { align-items: stretch; flex-direction: column; } .controls { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); } .controls button { padding: 0 8px; } .search { width: 100%; } }
+</style>
+</head>
+<body><main>
+<header>
+<div><div class="eyebrow">Golden Book / Routing Intelligence</div><h1>Quality audit</h1>
+<p class="meta">Profile: <strong>hybrid_v5</strong> · Ledger: evals/router/judgments.jsonl</p></div>
+<div class="gate pass"><span class="eyebrow">Hidden gate</span><b>PASS</b></div>
+</header>
+<section class="summary">
+<div class="metric">Judgments<b>39</b></div>
+<div class="metric">Pass rate<b>100.0%</b></div>
+<div class="metric">Top-1<b>100.0%</b></div>
+<div class="metric">Decision<b>100.0%</b></div>
+<div class="metric">Forbidden<b>0</b></div>
+<div class="metric">Threshold<b>0.57</b></div>
+</section>
+<div class="section-head"><h2>Performance by split</h2></div>
+<div class="table-wrap split-table"><table>
+<thead><tr><th>Split</th><th>Cases</th><th>Pass rate</th><th>Top-1</th><th>Decision</th><th>RRF disagreements</th></tr></thead>
+<tbody><tr><td>train</td><td>10</td><td>100.0%</td><td>100.0%</td><td>100.0%</td><td>0</td></tr><tr><td>calibration</td><td>16</td><td>100.0%</td><td>100.0%</td><td>100.0%</td><td>2</td></tr><tr><td>hidden</td><td>13</td><td>100.0%</td><td>100.0%</td><td>100.0%</td><td>2</td></tr></tbody>
+</table></div>
+<div class="section-head"><h2>Judgment ledger</h2><div class="controls" role="group" aria-label="Filter judgments">
+<button type="button" data-filter="all" aria-pressed="true">All</button>
+<button type="button" data-filter="warning" aria-pressed="false">RRF</button>
+<button type="button" data-filter="fail" aria-pressed="false">Failures</button>
+</div></div>
+<input class="search" id="route-search" type="search" placeholder="Filter by case, tag, or anchor" aria-label="Filter routing judgments">
+<div class="table-wrap"><table>
+<thead><tr><th>ID</th><th>Split</th><th>Decision</th><th>Expected anchor</th><th>Winner</th><th>Confidence</th><th>Tags</th><th>Status</th></tr></thead>
+<tbody><tr data-state="pass" data-search="settings-syn paraphrase settings aperture_settings_appshell_v1"><td>settings-syn</td><td><span class="badge split">train</span></td><td>route / route</td><td>aperture_settings_appshell_v1</td><td>aperture_settings_appshell_v1</td><td>0.880</td><td>paraphrase settings</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="kanban-syn paraphrase kanban kanban_board_v1"><td>kanban-syn</td><td><span class="badge split">train</span></td><td>route / route</td><td>kanban_board_v1</td><td>kanban_board_v1</td><td>0.962</td><td>paraphrase kanban</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="notifications-syn paraphrase notifications aurora_notification_center_v1"><td>notifications-syn</td><td><span class="badge split">train</span></td><td>route / route</td><td>aurora_notification_center_v1</td><td>aurora_notification_center_v1</td><td>0.926</td><td>paraphrase notifications</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="files-syn paraphrase file-manager aperture_file_manager_blue_v1"><td>files-syn</td><td><span class="badge split">train</span></td><td>route / route</td><td>aperture_file_manager_blue_v1</td><td>aperture_file_manager_blue_v1</td><td>0.904</td><td>paraphrase file-manager</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="calendar-syn paraphrase calendar daylight_calendar_app_v1"><td>calendar-syn</td><td><span class="badge split">train</span></td><td>route / route</td><td>daylight_calendar_app_v1</td><td>daylight_calendar_app_v1</td><td>0.856</td><td>paraphrase calendar</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="email-syn paraphrase email paper_email_client_warm_v1"><td>email-syn</td><td><span class="badge split">train</span></td><td>route / route</td><td>paper_email_client_warm_v1</td><td>paper_email_client_warm_v1</td><td>0.844</td><td>paraphrase email</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="markdown-syn paraphrase editor markdown_editor_v1"><td>markdown-syn</td><td><span class="badge split">train</span></td><td>route / route</td><td>markdown_editor_v1</td><td>markdown_editor_v1</td><td>0.976</td><td>paraphrase editor</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="playground-syn paraphrase code-playground spark_code_playground_v1"><td>playground-syn</td><td><span class="badge split">train</span></td><td>route / route</td><td>spark_code_playground_v1</td><td>spark_code_playground_v1</td><td>0.998</td><td>paraphrase code-playground</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="sql-builder-syn paraphrase database querycraft_sql_builder_v1"><td>sql-builder-syn</td><td><span class="badge split">train</span></td><td>route / route</td><td>querycraft_sql_builder_v1</td><td>querycraft_sql_builder_v1</td><td>0.904</td><td>paraphrase database</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="sql-browser-syn paraphrase database strata_sql_browser_v1"><td>sql-browser-syn</td><td><span class="badge split">train</span></td><td>route / route</td><td>strata_sql_browser_v1</td><td>strata_sql_browser_v1</td><td>0.998</td><td>paraphrase database</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="sheet-syn paraphrase spreadsheet lattice_formula_spreadsheet_v1"><td>sheet-syn</td><td><span class="badge split">calibration</span></td><td>route / route</td><td>lattice_formula_spreadsheet_v1</td><td>lattice_formula_spreadsheet_v1</td><td>0.844</td><td>paraphrase spreadsheet</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="gantt-syn paraphrase timeline meridian_gantt_timeline_v1"><td>gantt-syn</td><td><span class="badge split">calibration</span></td><td>route / route</td><td>meridian_gantt_timeline_v1</td><td>meridian_gantt_timeline_v1</td><td>0.880</td><td>paraphrase timeline</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="contacts-syn paraphrase contacts rolodex_contacts_dashboard_v1"><td>contacts-syn</td><td><span class="badge split">calibration</span></td><td>route / route</td><td>rolodex_contacts_dashboard_v1</td><td>rolodex_contacts_dashboard_v1</td><td>0.890</td><td>paraphrase contacts</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="flashcards-syn paraphrase learning lantern_flashcards_warm_v1"><td>flashcards-syn</td><td><span class="badge split">calibration</span></td><td>route / route</td><td>lantern_flashcards_warm_v1</td><td>lantern_flashcards_warm_v1</td><td>0.998</td><td>paraphrase learning</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="telemetry-syn paraphrase analytics aperture_telemetry_dashboard_v1"><td>telemetry-syn</td><td><span class="badge split">calibration</span></td><td>route / route</td><td>aperture_telemetry_dashboard_v1</td><td>aperture_telemetry_dashboard_v1</td><td>0.976</td><td>paraphrase analytics</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="glitch-syn paraphrase creative-tool glitchlab_rgb_shift_neon_v1"><td>glitch-syn</td><td><span class="badge split">calibration</span></td><td>route / route</td><td>glitchlab_rgb_shift_neon_v1</td><td>glitchlab_rgb_shift_neon_v1</td><td>0.976</td><td>paraphrase creative-tool</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="gradient-syn paraphrase creative-tool meld_gradient_studio_dark_v1"><td>gradient-syn</td><td><span class="badge split">calibration</span></td><td>route / route</td><td>meld_gradient_studio_dark_v1</td><td>meld_gradient_studio_dark_v1</td><td>0.998</td><td>paraphrase creative-tool</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="duotone-syn paraphrase creative-tool bichrome_duotone_studio_v1"><td>duotone-syn</td><td><span class="badge split">calibration</span></td><td>route / route</td><td>bichrome_duotone_studio_v1</td><td>bichrome_duotone_studio_v1</td><td>0.952</td><td>paraphrase creative-tool</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="instrument-syn paraphrase instrument instrument_studio_minimal_interactive_v1"><td>instrument-syn</td><td><span class="badge split">hidden</span></td><td>route / route</td><td>instrument_studio_minimal_interactive_v1</td><td>instrument_studio_minimal_interactive_v1</td><td>0.998</td><td>paraphrase instrument</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="drum-machine signature instrument po16_drum_machine_v1"><td>drum-machine</td><td><span class="badge split">hidden</span></td><td>route / route</td><td>po16_drum_machine_v1</td><td>po16_drum_machine_v1</td><td>0.998</td><td>signature instrument</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="docs-syn paraphrase docs developer_docs_quickstart_dark_v1"><td>docs-syn</td><td><span class="badge split">hidden</span></td><td>route / route</td><td>developer_docs_quickstart_dark_v1</td><td>developer_docs_quickstart_dark_v1</td><td>0.962</td><td>paraphrase docs</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="settings-typo typo settings aperture_settings_appshell_v1"><td>settings-typo</td><td><span class="badge split">hidden</span></td><td>route / route</td><td>aperture_settings_appshell_v1</td><td>aperture_settings_appshell_v1</td><td>0.772</td><td>typo settings</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="calendar-typo typo calendar daylight_calendar_app_v1"><td>calendar-typo</td><td><span class="badge split">hidden</span></td><td>route / route</td><td>daylight_calendar_app_v1</td><td>daylight_calendar_app_v1</td><td>0.772</td><td>typo calendar</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="notification-typo typo notifications aurora_notification_center_v1"><td>notification-typo</td><td><span class="badge split">hidden</span></td><td>route / route</td><td>aurora_notification_center_v1</td><td>aurora_notification_center_v1</td><td>0.784</td><td>typo notifications</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="not-dashboard negation settings aperture_settings_appshell_v1"><td>not-dashboard</td><td><span class="badge split">hidden</span></td><td>route / route</td><td>aperture_settings_appshell_v1</td><td>aperture_settings_appshell_v1</td><td>0.816</td><td>negation settings</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="not-email negation notifications aurora_notification_center_v1"><td>not-email</td><td><span class="badge split">hidden</span></td><td>route / route</td><td>aurora_notification_center_v1</td><td>aurora_notification_center_v1</td><td>0.907</td><td>negation notifications</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="not-landing negation surface-intent spark_code_playground_v1"><td>not-landing</td><td><span class="badge split">hidden</span></td><td>route / route</td><td>spark_code_playground_v1</td><td>spark_code_playground_v1</td><td>0.998</td><td>negation surface-intent</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="warning" data-search="clarify-dashboard sparse ambiguity signalstack_saas_analytics_ink_v1"><td>clarify-dashboard</td><td><span class="badge split">calibration</span></td><td>clarify / clarify</td><td></td><td>signalstack_saas_analytics_ink_v1</td><td>0.440</td><td>sparse ambiguity</td><td><span class="badge warning">PASS + RRF</span></td></tr><tr data-state="pass" data-search="clarify-editor broad-archetype ambiguity markdown_editor_v1"><td>clarify-editor</td><td><span class="badge split">calibration</span></td><td>clarify / clarify</td><td></td><td>markdown_editor_v1</td><td>0.440</td><td>broad-archetype ambiguity</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="warning" data-search="clarify-image-effects broad-archetype ambiguity meld_gradient_studio_dark_v1"><td>clarify-image-effects</td><td><span class="badge split">calibration</span></td><td>clarify / clarify</td><td></td><td>meld_gradient_studio_dark_v1</td><td>0.417</td><td>broad-archetype ambiguity</td><td><span class="badge warning">PASS + RRF</span></td></tr><tr data-state="pass" data-search="clarify-database broad-archetype ambiguity querycraft_sql_builder_v1"><td>clarify-database</td><td><span class="badge split">calibration</span></td><td>clarify / clarify</td><td></td><td>querycraft_sql_builder_v1</td><td>0.378</td><td>broad-archetype ambiguity</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="clarify-calendar-kanban conflicting-intent ambiguity kanban_board_v1"><td>clarify-calendar-kanban</td><td><span class="badge split">hidden</span></td><td>clarify / clarify</td><td></td><td>kanban_board_v1</td><td>0.431</td><td>conflicting-intent ambiguity</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="clarify-local-service missing-vertical ambiguity solace_medical_spa_macon_v1"><td>clarify-local-service</td><td><span class="badge split">hidden</span></td><td>clarify / clarify</td><td></td><td>solace_medical_spa_macon_v1</td><td>0.350</td><td>missing-vertical ambiguity</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="warning" data-search="clarify-vague sparse out-of-distribution copperbeam_flooring_light_residential_v1"><td>clarify-vague</td><td><span class="badge split">hidden</span></td><td>clarify / clarify</td><td></td><td>copperbeam_flooring_light_residential_v1</td><td>0.094</td><td>sparse out-of-distribution</td><td><span class="badge warning">PASS + RRF</span></td></tr><tr data-state="warning" data-search="clarify-analytics broad-archetype ambiguity signalstack_saas_analytics_ink_v1"><td>clarify-analytics</td><td><span class="badge split">hidden</span></td><td>clarify / clarify</td><td></td><td>signalstack_saas_analytics_ink_v1</td><td>0.440</td><td>broad-archetype ambiguity</td><td><span class="badge warning">PASS + RRF</span></td></tr><tr data-state="pass" data-search="historical-martial-arts historical landing combat-sports iron_circuit_fight_academy_black_copper_v1"><td>historical-martial-arts</td><td><span class="badge split">calibration</span></td><td>route / route</td><td>iron_circuit_fight_academy_black_copper_v1</td><td>iron_circuit_fight_academy_black_copper_v1</td><td>0.787</td><td>historical landing combat-sports</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="historical-plumber historical landing plumbing pipewise_plumbing_telemetry_v1"><td>historical-plumber</td><td><span class="badge split">calibration</span></td><td>route / route_with_caution</td><td>pipewise_plumbing_telemetry_v1</td><td>pipewise_plumbing_telemetry_v1</td><td>0.575</td><td>historical landing plumbing</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="historical-arcade-racer historical game arcade-racer neon_apex_arcade_racer_v1"><td>historical-arcade-racer</td><td><span class="badge split">calibration</span></td><td>route / route</td><td>neon_apex_arcade_racer_v1</td><td>neon_apex_arcade_racer_v1</td><td>0.998</td><td>historical game arcade-racer</td><td><span class="badge pass">PASS</span></td></tr><tr data-state="pass" data-search="historical-dungeon-tactics historical game turn-based-tactics ashvault_dungeon_tactics_v1"><td>historical-dungeon-tactics</td><td><span class="badge split">calibration</span></td><td>route / route</td><td>ashvault_dungeon_tactics_v1</td><td>ashvault_dungeon_tactics_v1</td><td>0.998</td><td>historical game turn-based-tactics</td><td><span class="badge pass">PASS</span></td></tr></tbody>
+</table></div>
+<p class="empty" id="empty-state">No judgments match this filter.</p>
+</main>
+<script>
+const rows = [...document.querySelectorAll("tbody tr[data-state]")];
+const buttons = [...document.querySelectorAll("[data-filter]")];
+const search = document.querySelector("#route-search");
+const empty = document.querySelector("#empty-state");
+let active = "all";
+function applyFilters() {
+  const query = search.value.trim().toLowerCase();
+  let shown = 0;
+  for (const row of rows) {
+    const stateMatch = active === "all" || row.dataset.state === active;
+    const queryMatch = !query || row.dataset.search.includes(query);
+    row.hidden = !(stateMatch && queryMatch);
+    if (!row.hidden) shown += 1;
+  }
+  empty.style.display = shown ? "none" : "block";
+}
+for (const button of buttons) {
+  button.addEventListener("click", () => {
+    active = button.dataset.filter;
+    for (const item of buttons) item.setAttribute("aria-pressed", String(item === button));
+    applyFilters();
+  });
+}
+search.addEventListener("input", applyFilters);
+</script>
+</body></html>

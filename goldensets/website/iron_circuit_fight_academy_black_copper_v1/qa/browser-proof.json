@@ -1,200 +1,378 @@
 {
+  "generated_at": "2026-07-20T21:07:46.015Z",
+  "root_url": "http://127.0.0.1:8931",
   "pack_id": "iron_circuit_fight_academy_black_copper_v1",
-  "status": "pass",
-  "render_engine": "playwright/chromium 147.0.7727.15 (headless)",
-  "render_url": "source_snapshot/index.html",
-  "static_checks": {
-    "pack_id": "iron_circuit_fight_academy_black_copper_v1",
-    "status": "pass",
-    "counts": {
-      "img_tags": 0,
-      "external_urls": 0,
-      "css_raster_url": 0,
-      "css_external_url": 0,
-      "emoji_glyphs": 0,
-      "lorem_ipsum": 0,
-      "h1": 1
-    },
-    "structure": {
-      "skip_to_content": true,
-      "main_landmark": true,
-      "focus_visible": true,
-      "reduced_motion": true,
-      "viewport_meta": true,
-      "inline_svg": true
-    },
-    "fake_claim_hits": {},
-    "leak_phones": 0,
-    "leak_emails": 0,
-    "failures": []
+  "pass": true,
+  "source_hashes": {
+    "index.html": "3ff2126e989b9118a11ea291a02f4cb98953da529f1b31262ed6b34a710452c3",
+    "styles.css": "85c45ae9117375c1d1f0c82db6221a7f5b96ae860d6e473d83daaffb7ce9e8e9",
+    "script.js": "4db5a9fd43f042cb4cfab07b78485b9e593cb8580acac9ebe940a32de1dd782c"
   },
-  "viewports": [
+  "viewport_count": 7,
+  "states": [
     {
-      "name": "desktop-1512",
-      "width": 1512,
-      "height": 900,
+      "viewport": {
+        "id": "desktop-1512x812",
+        "width": 1512,
+        "height": 812
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/desktop-1512.png",
-      "scroll_width": 1512,
-      "inner_width": 1512,
-      "doc_height": 8341,
-      "title": "Iron Circuit Fight Academy \u2014 Striking, Grappling & MMA Fundamentals",
-      "body_text_length": 5984,
-      "h1": "\n          Step onto the mat.Learn to fightthe right way.\n        ",
-      "screenshot_bytes": 948597,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": "screenshots/router-desktop-1512x812.png",
+      "metrics": {
+        "title": "Iron Circuit Fight Academy | Beginner Foundations and Fight Lab",
+        "bodyTextLength": 8392,
+        "h1Count": 1,
+        "innerWidth": 1512,
+        "scrollWidth": 1512,
+        "innerHeight": 812,
+        "scrollHeight": 10785,
+        "bodyFontSize": 17,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 9,
+        "hero": {
+          "width": 1512,
+          "height": 692,
+          "bottom": 770
+        },
+        "nextSectionTop": 770,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "programTab": true,
+        "scheduleGrid": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "desktop-1440",
-      "width": 1440,
-      "height": 900,
+      "viewport": {
+        "id": "desktop-1440x900",
+        "width": 1440,
+        "height": 900
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/desktop-1440.png",
-      "scroll_width": 1440,
-      "inner_width": 1440,
-      "doc_height": 8364,
-      "title": "Iron Circuit Fight Academy \u2014 Striking, Grappling & MMA Fundamentals",
-      "body_text_length": 5984,
-      "h1": "\n          Step onto the mat.Learn to fightthe right way.\n        ",
-      "screenshot_bytes": 944956,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Iron Circuit Fight Academy | Beginner Foundations and Fight Lab",
+        "bodyTextLength": 8392,
+        "h1Count": 1,
+        "innerWidth": 1440,
+        "scrollWidth": 1440,
+        "innerHeight": 900,
+        "scrollHeight": 10768,
+        "bodyFontSize": 17,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 9,
+        "hero": {
+          "width": 1440,
+          "height": 720,
+          "bottom": 798
+        },
+        "nextSectionTop": 798,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "programTab": true,
+        "scheduleGrid": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "desktop-1280",
-      "width": 1280,
-      "height": 800,
+      "viewport": {
+        "id": "desktop-1280x800",
+        "width": 1280,
+        "height": 800
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/desktop-1280.png",
-      "scroll_width": 1280,
-      "inner_width": 1280,
-      "doc_height": 8255,
-      "title": "Iron Circuit Fight Academy \u2014 Striking, Grappling & MMA Fundamentals",
-      "body_text_length": 5984,
-      "h1": "\n          Step onto the mat.Learn to fightthe right way.\n        ",
-      "screenshot_bytes": 927291,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Iron Circuit Fight Academy | Beginner Foundations and Fight Lab",
+        "bodyTextLength": 8392,
+        "h1Count": 1,
+        "innerWidth": 1280,
+        "scrollWidth": 1280,
+        "innerHeight": 800,
+        "scrollHeight": 10807,
+        "bodyFontSize": 17,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 9,
+        "hero": {
+          "width": 1280,
+          "height": 680,
+          "bottom": 758
+        },
+        "nextSectionTop": 758,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "programTab": true,
+        "scheduleGrid": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "tablet-1024",
-      "width": 1024,
-      "height": 768,
+      "viewport": {
+        "id": "tablet-1024x768",
+        "width": 1024,
+        "height": 768
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/tablet-1024.png",
-      "scroll_width": 1024,
-      "inner_width": 1024,
-      "doc_height": 8303,
-      "title": "Iron Circuit Fight Academy \u2014 Striking, Grappling & MMA Fundamentals",
-      "body_text_length": 5984,
-      "h1": "\n          Step onto the mat.Learn to fightthe right way.\n        ",
-      "screenshot_bytes": 881556,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Iron Circuit Fight Academy | Beginner Foundations and Fight Lab",
+        "bodyTextLength": 8376,
+        "h1Count": 1,
+        "innerWidth": 1024,
+        "scrollWidth": 1024,
+        "innerHeight": 768,
+        "scrollHeight": 11241,
+        "bodyFontSize": 17,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 9,
+        "hero": {
+          "width": 1024,
+          "height": 648,
+          "bottom": 726
+        },
+        "nextSectionTop": 726,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "programTab": true,
+        "scheduleGrid": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "tablet-768",
-      "width": 768,
-      "height": 1024,
+      "viewport": {
+        "id": "tablet-768x1024",
+        "width": 768,
+        "height": 1024
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/tablet-768.png",
-      "scroll_width": 768,
-      "inner_width": 768,
-      "doc_height": 10732,
-      "title": "Iron Circuit Fight Academy \u2014 Striking, Grappling & MMA Fundamentals",
-      "body_text_length": 5917,
-      "h1": "\n          Step onto the mat.Learn to fightthe right way.\n        ",
-      "screenshot_bytes": 850542,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Iron Circuit Fight Academy | Beginner Foundations and Fight Lab",
+        "bodyTextLength": 8180,
+        "h1Count": 1,
+        "innerWidth": 768,
+        "scrollWidth": 768,
+        "innerHeight": 1024,
+        "scrollHeight": 14305,
+        "bodyFontSize": 17,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 9,
+        "hero": {
+          "width": 768,
+          "height": 918,
+          "bottom": 988
+        },
+        "nextSectionTop": 988,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": false,
+        "opened": null,
+        "closed": null
+      },
+      "interactions": {
+        "programTab": true,
+        "scheduleGrid": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "mobile-390",
-      "width": 390,
-      "height": 844,
+      "viewport": {
+        "id": "mobile-390x844",
+        "width": 390,
+        "height": 844
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/mobile-390.png",
-      "scroll_width": 390,
-      "inner_width": 390,
-      "doc_height": 11949,
-      "title": "Iron Circuit Fight Academy \u2014 Striking, Grappling & MMA Fundamentals",
-      "body_text_length": 5917,
-      "h1": "\n          Step onto the mat.Learn to fightthe right way.\n        ",
-      "screenshot_bytes": 757454,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": "screenshots/router-mobile-390x844.png",
+      "metrics": {
+        "title": "Iron Circuit Fight Academy | Beginner Foundations and Fight Lab",
+        "bodyTextLength": 7274,
+        "h1Count": 1,
+        "innerWidth": 390,
+        "scrollWidth": 390,
+        "innerHeight": 844,
+        "scrollHeight": 14902,
+        "bodyFontSize": 16,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 9,
+        "hero": {
+          "width": 390,
+          "height": 738,
+          "bottom": 808
+        },
+        "nextSectionTop": 808,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": true,
+        "opened": true,
+        "closed": true
+      },
+      "interactions": {
+        "programTab": true,
+        "scheduleTab": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     },
     {
-      "name": "mobile-360",
-      "width": 360,
-      "height": 780,
+      "viewport": {
+        "id": "mobile-360x780",
+        "width": 360,
+        "height": 780
+      },
+      "status": 200,
+      "pass": true,
       "screenshot": "screenshots/mobile-360.png",
-      "scroll_width": 360,
-      "inner_width": 360,
-      "doc_height": 12354,
-      "title": "Iron Circuit Fight Academy \u2014 Striking, Grappling & MMA Fundamentals",
-      "body_text_length": 5917,
-      "h1": "\n          Step onto the mat.Learn to fightthe right way.\n        ",
-      "screenshot_bytes": 740136,
-      "horizontal_overflow_px": 0,
-      "has_horizontal_overflow": false,
+      "first_viewport_screenshot": null,
+      "metrics": {
+        "title": "Iron Circuit Fight Academy | Beginner Foundations and Fight Lab",
+        "bodyTextLength": 7274,
+        "h1Count": 1,
+        "innerWidth": 360,
+        "scrollWidth": 360,
+        "innerHeight": 780,
+        "scrollHeight": 15242,
+        "bodyFontSize": 16,
+        "minimumTextSize": 16,
+        "undersizedText": [],
+        "smallTargets": [],
+        "missingAnchors": [],
+        "controlsWithoutLabels": [],
+        "bracketPlaceholders": [],
+        "fakePhoneText": [],
+        "svgCount": 9,
+        "hero": {
+          "width": 360,
+          "height": 674,
+          "bottom": 744
+        },
+        "nextSectionTop": 744,
+        "nextSectionHintVisible": true
+      },
+      "mobile_menu": {
+        "found": true,
+        "opened": true,
+        "closed": true
+      },
+      "interactions": {
+        "programTab": true,
+        "scheduleTab": true,
+        "formErrors": true,
+        "formSuccess": true
+      },
+      "interaction_error": null,
       "console_errors": [],
-      "external_requests": [],
-      "request_failures": [],
-      "http_errors": [],
-      "status": "pass"
+      "page_errors": [],
+      "failed_requests": [],
+      "external_requests": []
     }
-  ],
-  "global_checks": {
-    "no_img_tags": true,
-    "no_external_images": true,
-    "no_css_raster_url": true,
-    "no_emoji_icons": true,
-    "no_lorem": true,
-    "single_h1": true,
-    "no_fake_claims": true,
-    "a11y_structure_present": true,
-    "no_horizontal_overflow": true,
-    "no_console_errors": true,
-    "no_page_errors": true,
-    "no_external_network_requests": true,
-    "no_request_failures": true,
-    "nonblank_render": true,
-    "screenshots_nontrivial": true
-  },
-  "overflow_viewports": [],
-  "console_errors": [],
-  "page_errors": [],
-  "external_requests": [],
-  "request_failures": [],
-  "http_errors": [],
-  "blank_viewports": [],
-  "tiny_screenshots": [],
-  "open_issues": [],
-  "verified_at": "browser render (this run)"
+  ]
 }

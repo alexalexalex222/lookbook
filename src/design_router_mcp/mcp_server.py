@@ -8,14 +8,19 @@ from typing import TYPE_CHECKING, Any
 
 from .service import (
     audit_source_hygiene,
+    build_design_embedding_index,
+    build_visual_routing_index,
     code_density_metrics,
     donor_starvation_audit,
     export_opencode_bundle,
+    get_pattern_card,
     get_source_excerpt,
     inspect_design_library,
+    prepare_golden_build_arena,
     route_alternatives,
     resolve_design_context,
-    resolve_design_packet,
+    run_golden_build_arena,
+    routing_quality_audit,
     validate_design_router,
 )
 
@@ -92,53 +97,52 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
         name="lookbook-mcp",
         instructions=(
             "Lookbook MCP — packet compiler for production-grade frontend work. "
-            "TOOL BUDGET (hard): for a normal build, call resolve_design_context ONCE, then write files. "
-            "Do not call get_source_excerpt, inspect_design_library, route_alternatives, donor_starvation_audit, "
-            "audit_source_hygiene, validate_design_router, or resolve_design_context a second time after a non-empty packet. "
-            "Optional second call only: export_opencode_bundle if you need the packet on disk. Max 1–2 design-router tools per user task. "
-            "Defaults already ship full depth: token_mode=full_selected, full_code_mode=true, code_profile=code_first "
-            "(complete primary pattern + all contracts in one packet). "
-            "Treat every contract in the returned packet as a hard floor for shipped code. "
-            "Read V3 director sections when present (Composition Brief, Visual Artifact Specs, Local Model Failure Patterns). "
-            "For engineering/backend briefs use resolve_knowledge_context once (not design). "
-            "Never invent identity, copy, claims, names, statistics, testimonials, awards, or images. "
-            "Borrow composition from the anchor; build the rest from the brief."
+            "Default to `resolve_design_context` for any frontend brief; the returned packet sets the engineering, accessibility, motion, typography, and craft bar for the page you build. "
+            "Treat every contract in the returned packet (Hard UI Rules, Visual Asset Discipline, Design Tokens Contract, Motion Grammar, Typography Discipline, Accessibility Contract, State Completeness, Performance Discipline, Microcopy Contract, Layout QA Gates, Anti-Copy Contract, Claim Realism, Implementation Contract, Vertical Guardrails) as a hard floor for shipped code — not a target, not a suggestion. "
+            "Read the V3 director sections when present: Composition Brief, Visual Artifact Specs, Optional Pattern Shelf, Local Model Failure Patterns, Donor Starvation Warning, and Mechanical Donors (UX Role Only). The primary anchor owns the page; Optional Pattern Shelf fragments are zero-or-more section mechanics the model may use or ignore. "
+            "Packet capacity is unbounded: relevance gates decide what enters, every selected source arrives complete, and estimated token counts are telemetry only. Legacy token-mode labels remain accepted but never trim output. "
+            "Use `code_profile='code_first'` when the builder is a local coding model that needs source excerpts and route diagnostics before prose. "
+            "Use `inspect_design_library` for inventory without loading source. Use `get_pattern_card` to expand one qualified catalog item without loading unrelated donors. Use `get_source_excerpt` only for targeted provenance or source inspection after routing. Use `export_opencode_bundle` for filesystem hand-off. Use `audit_source_hygiene` to inspect donor leakage risk. Use `validate_design_router` for setup checks. "
+            "Never invent identity, copy, claims, names, statistics, testimonials, awards, or images. Borrow composition from the anchor; build the rest from the brief. When the brief is thin, write generalized phrasing that does not require invented specifics."
         ),
     )
 
-    @server.tool(
-        name="resolve_design_context",
-        description=(
-            "ONE-CALL full build packet: routes the brief and returns mandatory depth + complete primary pattern source. "
-            "Defaults (full_selected + full_code_mode + code_first) are enough — do not re-call or chain get_source_excerpt. "
-            "After a non-empty packet, stop design-router tools and implement."
-        ),
-    )
+    @server.tool(name="resolve_design_context", description="Resolve a frontend design task into an anchor-first packet. Use code_profile='code_first' for implementation-heavy local model builds.")
     def tool_resolve_design_context(
         surface: str,
         task: str,
+        surface_kind: str | None = None,
+        task_archetype: str | None = None,
         stack: str = "unknown",
         tone: list[str] | None = None,
         layout_mode: str = "homepage",
         constraints: list[str] | None = None,
         anti_patterns: list[str] | None = None,
-        token_mode: str = "full_selected",
+        token_mode: str = "unbounded",
         max_examples: int = 3,
         donor_selection_mode: str = "support_examples_v1",
         donor_count: int = 3,
+        include_optional_patterns: bool = True,
+        optional_pattern_count: int = 8,
+        route_profile: str = "hybrid_v4",
+        rerank_mode: str = "shadow",
+        rerank_model: str | None = None,
+        reference_image_paths: list[str] | None = None,
         pattern_lock: bool = False,
         full_code_mode: bool = True,
         include_full_library: bool = False,
         host_browser_review: bool = False,
         local_model_profile: str | None = None,
         visual_quality_profile: str = "strict_design_router_gpt55_mcp_v1",
-        code_profile: str = "code_first",
+        code_profile: str = "balanced",
         packet_intent: str = "balanced",
     ) -> str:
         packet = resolve_design_context(
             resolved,
             surface=surface,
             task=task,
+            surface_kind=surface_kind,
+            task_archetype=task_archetype,
             stack=stack,
             tone=tone,
             layout_mode=layout_mode,
@@ -148,6 +152,12 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
             max_examples=max_examples,
             donor_selection_mode=donor_selection_mode,
             donor_count=donor_count,
+            include_optional_patterns=include_optional_patterns,
+            optional_pattern_count=optional_pattern_count,
+            route_profile=route_profile,
+            rerank_mode=rerank_mode,
+            rerank_model=rerank_model,
+            reference_image_paths=reference_image_paths,
             pattern_lock=pattern_lock,
             full_code_mode=full_code_mode,
             include_full_library=include_full_library,
@@ -163,20 +173,13 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
     def tool_inspect_design_library(include_examples: bool = False) -> str:
         return json.dumps(inspect_design_library(resolved, include_examples=include_examples), indent=2)
 
-    @server.tool(
-        name="get_source_excerpt",
-        description=(
-            "OPTIONAL recovery only: load a pack/example source when resolve_design_context was called "
-            "with a peek token_mode that omitted full code. Do NOT use after a normal full_selected resolve — "
-            "that packet already includes the primary pattern."
-        ),
-    )
+    @server.tool(name="get_source_excerpt", description="Load targeted anchor/example code after routing. Selected source files are returned complete; legacy character-limit arguments are ignored.")
     def tool_get_source_excerpt(
         pack_id: str,
         example_id: str | None = None,
-        token_mode: str = "compact",
-        max_chars: int = 3000,
-        include_full: bool = False,
+        token_mode: str = "unbounded",
+        max_chars: int | None = None,
+        include_full: bool = True,
         include_section_snippets: bool = True,
     ) -> str:
         return get_source_excerpt(
@@ -189,32 +192,75 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
             include_section_snippets=include_section_snippets,
         )
 
-    @server.tool(name="export_opencode_bundle", description="Write PACKET.md, source/budget metadata, and selected SOURCE_EXCERPTS/*.md files for OpenCode/local coding agents.")
+    @server.tool(
+        name="get_pattern_card",
+        description="Expand one route-qualified optional Pattern Card by exact pattern_id. Returns only that card at tier S, M, or L; foreign or unqualified patterns are rejected.",
+    )
+    def tool_get_pattern_card(
+        request_json: str,
+        pattern_id: str,
+        tier: str = "M",
+    ) -> str:
+        return json.dumps(
+            get_pattern_card(
+                resolved,
+                request_json,
+                pattern_id=pattern_id,
+                tier=tier,
+            ),
+            indent=2,
+        )
+
+    @server.tool(name="export_opencode_bundle", description="Write an unbounded PACKET.md, capacity telemetry, and complete relevance-selected SOURCE_EXCERPTS/*.md files for OpenCode/local coding agents.")
     def tool_export_opencode_bundle(
         surface: str,
         task: str,
+        surface_kind: str | None = None,
+        task_archetype: str | None = None,
         output_dir: str = "",
-        token_mode: str = "full_selected",
+        token_mode: str = "unbounded",
         stack: str = "unknown",
         tone: list[str] | None = None,
+        layout_mode: str = "homepage",
+        constraints: list[str] | None = None,
+        anti_patterns: list[str] | None = None,
+        desired_density: str = "balanced",
+        route_profile: str = "hybrid_v4",
+        rerank_mode: str = "shadow",
+        rerank_model: str | None = None,
+        reference_image_paths: list[str] | None = None,
         full_code_mode: bool = True,
         include_source_excerpts: bool = True,
         code_profile: str = "code_first",
         packet_intent: str = "balanced",
-        max_source_chars: int = 8000,
+        include_optional_patterns: bool = True,
+        optional_pattern_count: int = 8,
+        max_source_chars: int | None = None,
     ) -> str:
         result = export_opencode_bundle(
             resolved,
             surface=surface,
             task=task,
+            surface_kind=surface_kind,
+            task_archetype=task_archetype,
             output_dir=output_dir or None,
             token_mode=token_mode,
             stack=stack,
             tone=tone,
+            layout_mode=layout_mode,
+            constraints=constraints,
+            anti_patterns=anti_patterns,
+            desired_density=desired_density,
+            route_profile=route_profile,
+            rerank_mode=rerank_mode,
+            rerank_model=rerank_model,
+            reference_image_paths=reference_image_paths,
             full_code_mode=full_code_mode,
             include_source_excerpts=include_source_excerpts,
             code_profile=code_profile,
             packet_intent=packet_intent,
+            include_optional_patterns=include_optional_patterns,
+            optional_pattern_count=optional_pattern_count,
             max_source_chars=max_source_chars,
         )
         return json.dumps(result, indent=2)
@@ -239,16 +285,76 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
     def tool_validate_design_router() -> str:
         return json.dumps(validate_design_router(resolved), indent=2)
 
-    @server.tool(
-        name="resolve_knowledge_context",
-        description=(
-            "ONE-CALL knowledge packet for engineering briefs (backend/APIs/reliability/agents/LLM/security/browser-automation). "
-            "Write the brief in concrete action words; pass the user's original message VERBATIM as user_message. "
-            "After a non-empty non-abstain packet: APPLY it and do NOT re-call. "
-            "Only if abstain=true may you re-call once using retry_guide (2-call max). "
-            "mode: micro | compact (default) | standard."
-        ),
-    )
+    @server.tool(name="routing_quality_audit", description="Evaluate the active design router against the versioned train/calibration/hidden judgment ledger and return failures, calibration, and hybrid disagreements.")
+    def tool_routing_quality_audit(profile: str = "hybrid_v4", ledger_path: str = "") -> str:
+        return json.dumps(
+            routing_quality_audit(
+                resolved,
+                profile=profile,
+                ledger_path=ledger_path or None,
+            ),
+            indent=2,
+        )
+
+    @server.tool(name="build_visual_routing_index", description="Build or refresh the local structural visual index used as an optional hybrid retrieval channel.")
+    def tool_build_visual_routing_index(output_path: str = "") -> str:
+        return json.dumps(
+            build_visual_routing_index(
+                resolved,
+                output_path=output_path or None,
+            ),
+            indent=2,
+        )
+
+    @server.tool(name="build_design_embedding_index", description="Build or refresh the optional local dense embedding index through an Ollama-compatible embedding endpoint.")
+    def tool_build_design_embedding_index(
+        model: str = "nomic-embed-text",
+        endpoint: str = "",
+        batch_size: int = 16,
+        output_path: str = "",
+    ) -> str:
+        return json.dumps(
+            build_design_embedding_index(
+                resolved,
+                model=model,
+                endpoint=endpoint or None,
+                batch_size=batch_size,
+                output_path=output_path or None,
+            ),
+            indent=2,
+        )
+
+    @server.tool(name="run_golden_build_arena", description="Prepare or evaluate a routed-vs-unrouted Golden Build Arena run. Promotion always requires deterministic gates plus explicit human approval in the arena config.")
+    def tool_run_golden_build_arena(
+        config_path: str,
+        output_dir: str,
+        phase: str = "evaluate",
+        route_profile: str = "hybrid_v5",
+        token_mode: str = "unbounded",
+        browser: bool = True,
+        shots: bool = True,
+    ) -> str:
+        if phase == "prepare":
+            result = prepare_golden_build_arena(
+                resolved,
+                config_path=config_path,
+                output_dir=output_dir,
+                route_profile=route_profile,
+                token_mode=token_mode,
+            )
+        elif phase == "evaluate":
+            result = run_golden_build_arena(
+                resolved,
+                config_path=config_path,
+                output_dir=output_dir,
+                browser=browser,
+                shots=shots,
+            )
+        else:
+            return json.dumps({"error": "phase must be 'prepare' or 'evaluate'"}, indent=2)
+        return json.dumps(result, indent=2)
+
+    @server.tool(name="resolve_knowledge_context", description="Route an engineering brief (backend/APIs/databases/reliability/agents/LLM/security/browser-automation/computer-use) to a Golden Book knowledge packet: distilled playbooks + micro cards + method skills. HOW TO CALL: write the brief in concrete action words describing what the system DOES (click, drive, charge, queue, retry, upload) — abstract audit-style summaries route poorly — and ALWAYS pass the user's original message VERBATIM as user_message (summaries strip the words that route). Returns picks, confidence, skill_picks, abstain flag, and the packet — APPLY the packet per its USE CONTRACT header line. If abstain=true, do NOT silently proceed without the book: follow the returned retry_guide (nearest chapters as symptom lines + exactly how to re-call). mode: micro (16k contexts) | compact (default) | standard.")
     def tool_resolve_knowledge_context(brief: str, mode: str = "compact", k: int = 2, user_message: str = "") -> str:
         from .knowledge_router import KnowledgeRouter
         result = KnowledgeRouter().resolve(brief, mode=mode, k=k, user_message=user_message)
@@ -269,9 +375,11 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
         name="golden_book",
         description=(
             "Golden Book dispatcher — one tool to rule them all. "
-            "Pass action='resolve_design_context'|'resolve_knowledge_context'|'get_source_excerpt'|"
+            "Pass action='resolve_design_context'|'resolve_knowledge_context'|'get_pattern_card'|'get_source_excerpt'|"
             "'inspect_design_library'|'route_alternatives'|'donor_starvation_audit'|"
             "'code_density_metrics'|'audit_source_hygiene'|'export_opencode_bundle'|"
+            "'routing_quality_audit'|'build_visual_routing_index'|'build_design_embedding_index'|"
+            "'run_golden_build_arena'|"
             "'validate_design_router'|'validate_knowledge_router' "
             "plus args (JSON object with the parameters for that action)."
         ),
@@ -286,22 +394,30 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
             return tool_resolve_design_context(
                 surface=params.get("surface", ""),
                 task=params.get("task", ""),
+                surface_kind=params.get("surface_kind"),
+                task_archetype=params.get("task_archetype"),
                 stack=params.get("stack", "unknown"),
                 tone=params.get("tone"),
                 layout_mode=params.get("layout_mode", "homepage"),
                 constraints=params.get("constraints"),
                 anti_patterns=params.get("anti_patterns"),
-                token_mode=params.get("token_mode", "full_selected"),
+                token_mode=params.get("token_mode", "unbounded"),
                 max_examples=params.get("max_examples", 3),
                 donor_selection_mode=params.get("donor_selection_mode", "support_examples_v1"),
                 donor_count=params.get("donor_count", 3),
+                include_optional_patterns=params.get("include_optional_patterns", True),
+                optional_pattern_count=params.get("optional_pattern_count", 8),
+                route_profile=params.get("route_profile", "hybrid_v4"),
+                rerank_mode=params.get("rerank_mode", "shadow"),
+                rerank_model=params.get("rerank_model"),
+                reference_image_paths=params.get("reference_image_paths"),
                 pattern_lock=params.get("pattern_lock", False),
                 full_code_mode=params.get("full_code_mode", True),
                 include_full_library=params.get("include_full_library", False),
                 host_browser_review=params.get("host_browser_review", False),
                 local_model_profile=params.get("local_model_profile"),
                 visual_quality_profile=params.get("visual_quality_profile", "strict_design_router_gpt55_mcp_v1"),
-                code_profile=params.get("code_profile", "code_first"),
+                code_profile=params.get("code_profile", "balanced"),
                 packet_intent=params.get("packet_intent", "balanced"),
             )
         if action == "resolve_knowledge_context":
@@ -315,10 +431,16 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
             return tool_get_source_excerpt(
                 pack_id=params.get("pack_id", ""),
                 example_id=params.get("example_id"),
-                token_mode=params.get("token_mode", "compact"),
-                max_chars=params.get("max_chars", 3000),
-                include_full=params.get("include_full", False),
+                token_mode=params.get("token_mode", "unbounded"),
+                max_chars=params.get("max_chars"),
+                include_full=params.get("include_full", True),
                 include_section_snippets=params.get("include_section_snippets", True),
+            )
+        if action == "get_pattern_card":
+            return tool_get_pattern_card(
+                request_json=params.get("request_json", "{}"),
+                pattern_id=params.get("pattern_id", ""),
+                tier=params.get("tier", "M"),
             )
         if action == "inspect_design_library":
             return tool_inspect_design_library(
@@ -346,18 +468,56 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
             return tool_export_opencode_bundle(
                 surface=params.get("surface", ""),
                 task=params.get("task", ""),
+                surface_kind=params.get("surface_kind"),
+                task_archetype=params.get("task_archetype"),
                 output_dir=params.get("output_dir", ""),
-                token_mode=params.get("token_mode", "compact"),
+                token_mode=params.get("token_mode", "unbounded"),
                 stack=params.get("stack", "unknown"),
                 tone=params.get("tone"),
-                full_code_mode=params.get("full_code_mode", False),
+                layout_mode=params.get("layout_mode", "homepage"),
+                constraints=params.get("constraints"),
+                anti_patterns=params.get("anti_patterns"),
+                desired_density=params.get("desired_density", "balanced"),
+                route_profile=params.get("route_profile", "hybrid_v4"),
+                rerank_mode=params.get("rerank_mode", "shadow"),
+                rerank_model=params.get("rerank_model"),
+                reference_image_paths=params.get("reference_image_paths"),
+                full_code_mode=params.get("full_code_mode", True),
                 include_source_excerpts=params.get("include_source_excerpts", True),
                 code_profile=params.get("code_profile", "code_first"),
                 packet_intent=params.get("packet_intent", "balanced"),
-                max_source_chars=params.get("max_source_chars", 8000),
+                include_optional_patterns=params.get("include_optional_patterns", True),
+                optional_pattern_count=params.get("optional_pattern_count", 8),
+                max_source_chars=params.get("max_source_chars"),
             )
         if action == "validate_design_router":
             return tool_validate_design_router()
+        if action == "routing_quality_audit":
+            return tool_routing_quality_audit(
+                profile=params.get("profile", "hybrid_v4"),
+                ledger_path=params.get("ledger_path", ""),
+            )
+        if action == "build_visual_routing_index":
+            return tool_build_visual_routing_index(
+                output_path=params.get("output_path", ""),
+            )
+        if action == "build_design_embedding_index":
+            return tool_build_design_embedding_index(
+                model=params.get("model", "nomic-embed-text"),
+                endpoint=params.get("endpoint", ""),
+                batch_size=params.get("batch_size", 16),
+                output_path=params.get("output_path", ""),
+            )
+        if action == "run_golden_build_arena":
+            return tool_run_golden_build_arena(
+                config_path=params.get("config_path", ""),
+                output_dir=params.get("output_dir", ""),
+                phase=params.get("phase", "evaluate"),
+                route_profile=params.get("route_profile", "hybrid_v5"),
+                token_mode=params.get("token_mode", "unbounded"),
+                browser=params.get("browser", True),
+                shots=params.get("shots", True),
+            )
         if action == "validate_knowledge_router":
             return tool_validate_knowledge_router()
 
@@ -365,10 +525,13 @@ def create_mcp_server(repo_root: str | Path | None = None) -> FastMCP:
             "error": f"Unknown action: {action!r}",
             "valid_actions": [
                 "resolve_design_context", "resolve_knowledge_context",
-                "get_source_excerpt", "inspect_design_library",
+                "get_pattern_card", "get_source_excerpt", "inspect_design_library",
                 "route_alternatives", "donor_starvation_audit",
                 "code_density_metrics", "audit_source_hygiene",
-                "export_opencode_bundle", "validate_design_router",
+                "export_opencode_bundle", "routing_quality_audit",
+                "build_visual_routing_index", "build_design_embedding_index",
+                "run_golden_build_arena",
+                "validate_design_router",
                 "validate_knowledge_router",
             ],
         }, indent=2)
